@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "GtPhlowTransmissionStrategy",
+	"category" : "GToolkit-Phlow",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "GtPhlowTransmissionReplaceAndShowStrategy",
+	"type" : "normal"
+}
