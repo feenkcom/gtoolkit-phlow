@@ -1,3 +1,3 @@
 tests
 transmit
-	^ GtPhlowTransmission new "root: self"
+	^ GtPhlowTransmission new root: self

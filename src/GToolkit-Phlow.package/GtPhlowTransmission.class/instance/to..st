@@ -1,3 +1,3 @@
 scripting
 to: aChildName
-	self to: aChildName
+	to := aChildName
