@@ -1,5 +1,5 @@
 accessing
 asElementDo: aBlock
 	| element |
-	element := stencilBuilder build.
+	element := stencilBuilder build asElement.
 	^ aBlock value: element
