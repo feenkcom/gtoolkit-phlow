@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "TudorGirba 5/20/2018 07:51",
+	"super" : "GtPhlowView",
+	"category" : "GToolkit-Phlow",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"title",
+		"stencilBuilder"
+	],
+	"name" : "GtPhlowExplicitView",
+	"type" : "normal"
+}

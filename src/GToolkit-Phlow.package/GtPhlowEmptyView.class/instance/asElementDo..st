@@ -1,3 +1,3 @@
 accessing
 asElementDo: aBlock
-	self subclassResponsibility
+	"do nothing"
