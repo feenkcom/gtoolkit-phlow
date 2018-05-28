@@ -3,5 +3,8 @@ baseline: spec
 	<baseline>
 	spec for: #common do: [ 
 		spec
-			package: 'GToolkit-Phlow'
+			baseline: 'Brick' with: [ spec
+				repository: 'github://pharo-graphics/Brick/src';
+				loads: #core ];
+			package: 'GToolkit-Phlow' with: [ spec requires: #(Brick) ]
 	]
