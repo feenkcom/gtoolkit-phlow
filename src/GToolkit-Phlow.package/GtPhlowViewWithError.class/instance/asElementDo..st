@@ -14,9 +14,9 @@ asElementDo: aBlock
 	debugButton look: BrMaterialToggleIconifiedLook 
 		+ BrMaterialToggleLabelledLook.
 	debugButton label: 'Debug'.
-	debugButton action: [ error defaultAction ].
+	debugButton action: [ [error defaultAction] fork ].
 	container addChild: debugButton.
 	container constraintsDo: [ :c | 
 		c vertical matchParent.
 		c horizontal matchParent ].
-	aBlock value: container 
+	^ aBlock value: container
