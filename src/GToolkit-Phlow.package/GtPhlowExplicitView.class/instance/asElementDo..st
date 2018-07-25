@@ -1,7 +1,7 @@
 accessing
 asElementDo: aBlock
 	| element |
-	element := [ stencilBuilder build asElement] 
+	element := [ stencilBuilder asElement ] 
 		on: Error 
 		do: [:error | 
 			error freeze.
