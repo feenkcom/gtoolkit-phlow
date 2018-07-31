@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "GtPhlowViewDecorator",
+	"category" : "GToolkit-Phlow",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"views"
+	],
+	"name" : "GtPhlowCompositeView",
+	"type" : "normal"
+}

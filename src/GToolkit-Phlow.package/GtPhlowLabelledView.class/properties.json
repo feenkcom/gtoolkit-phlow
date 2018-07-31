@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "TudorGirba 7/31/2018 22:44",
+	"super" : "GtPhlowViewDecorator",
+	"category" : "GToolkit-Phlow",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"label"
+	],
+	"name" : "GtPhlowLabelledView",
+	"type" : "normal"
+}
