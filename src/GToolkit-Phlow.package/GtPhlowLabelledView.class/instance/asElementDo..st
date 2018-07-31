@@ -1,16 +1,15 @@
 accessing
 asElementDo: aBlock
-	| container labelElement |
-	container := BlElement new.
-	container layout: BlLinearLayout vertical.
-	container constraintsDo: [ :c | 
-		c horizontal matchParent.
-		c vertical matchParent ].
-	labelElement := BlTextElement new text: self label asRopedText.
-	labelElement constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical fitContent ].
-	container addChild: labelElement.
+	| tab group |
 	self originalView asElementDo: [ :originalElement | 
-		container addChild: originalElement ].
-	^ aBlock value: container
+		tab := BrTab new
+			look: BrMaterialTabLabelledLook - BrMaterialTabBackgroundLook;
+			label: self label;
+			stencil: [ originalElement asScrollableElement ] ].
+	group := BrTabGroup new
+		look: BrMaterialTabGroupLook;
+		addTabs: {tab};
+		constraintsDo: [ :c | 
+			c vertical matchParent. 
+			c horizontal matchParent ].
+	^ aBlock value: group
