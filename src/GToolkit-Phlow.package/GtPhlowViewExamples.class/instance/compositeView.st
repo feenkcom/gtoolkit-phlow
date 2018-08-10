@@ -1,4 +1,4 @@
-as yet unclassified
+examples
 compositeView
 	<gtExample>
 	| view element |
