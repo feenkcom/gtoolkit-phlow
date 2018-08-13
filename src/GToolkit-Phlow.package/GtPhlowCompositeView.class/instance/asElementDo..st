@@ -9,7 +9,8 @@ asElementDo: aBlock
 			tabs add: (BrTab new
 				look: BrMaterialTabLabelledLook;
 				label: view title;
-				stencil: [ element asScrollableElement ]) ] ].
+				stencil: [ element asScrollableElement ];
+				actionsStencil: view actions) ] ].
 	group := BrTabGroup new
 		look: BrMaterialTabGroupLook;
 		addTabs: tabs;

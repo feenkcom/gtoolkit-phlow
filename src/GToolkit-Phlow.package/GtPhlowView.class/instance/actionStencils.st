@@ -1,0 +1,3 @@
+transforming
+actionStencils
+	^ OrderedCollection empty.
