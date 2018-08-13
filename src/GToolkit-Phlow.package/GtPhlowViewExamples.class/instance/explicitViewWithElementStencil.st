@@ -1,4 +1,4 @@
-as yet unclassified
+examples
 explicitViewWithElementStencil
 	<gtExample>
 	| view element |
