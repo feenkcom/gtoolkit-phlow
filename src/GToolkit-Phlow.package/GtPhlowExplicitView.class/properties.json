@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "TudorGirba 5/20/2018 07:51",
-	"super" : "GtPhlowView",
+	"super" : "GtPhlowViewDecorator",
 	"category" : "GToolkit-Phlow",
 	"classinstvars" : [ ],
 	"pools" : [ ],
