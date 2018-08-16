@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BlEvent",
+	"category" : "GToolkit-Phlow",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"object",
+		"sourceElement"
+	],
+	"name" : "GtPhlowObjectToDeselect",
+	"type" : "normal"
+}
