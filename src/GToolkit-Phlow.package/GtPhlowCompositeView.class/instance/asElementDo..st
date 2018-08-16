@@ -8,8 +8,9 @@ asElementDo: aBlock
 		view asElementDo: [ :element |
 			tabs add: (BrTab new
 				look: BrMaterialTabLabelledLook;
+				padding: (BlInsets all: 10);
 				label: view title;
-				stencil: [ element asScrollableElement ];
+				stencil: [ element asScrollableElement margin: (BlInsets all: 10) ];
 				actionsStencil: view actions) ] ].
 	group := BrTabGroup new
 		look: BrMaterialTabGroupLook;
