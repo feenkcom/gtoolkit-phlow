@@ -1,14 +1,11 @@
 {
 	"commentStamp" : "",
-	"super" : "BlEvent",
+	"super" : "GtPhlowObjectEvent",
 	"category" : "GToolkit-Phlow",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"object",
-		"sourceElement"
-	],
+	"instvars" : [ ],
 	"name" : "GtPhlowObjectToSpawn",
 	"type" : "normal"
 }
