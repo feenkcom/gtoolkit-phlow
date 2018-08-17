@@ -1,3 +1,3 @@
-transforming
+accessing
 actionStencils
-	^ OrderedCollection empty.
+	^ actionStencils
