@@ -7,7 +7,7 @@ asElementDo: aBlock
 			label: self label;
 			stencil: [ originalElement asScrollableElement ] ].
 	group := BrTabGroup new
-		look: (BrMaterialTabGroupLook new headerBackground: (Color fromHexString: #F5F5F5));
+		look: (BrMaterialTabGroupLook new headerBackground: (Color fromHexString: #'e0e0e0'));
 		addTab: tab;
 		constraintsDo: [ :c | 
 			c vertical matchParent. 
