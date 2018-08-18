@@ -5,7 +5,8 @@ asElementDo: aBlock
 		tab := BrTab new
 			look: BrMaterialTabLabelledLook - BrMaterialTabBackgroundLook;
 			label: self label;
-			stencil: [ originalElement asScrollableElement ] ].
+			stencil: [ originalElement asScrollableElement ];
+			actionsStencil: self actions ].
 	group := BrTabGroup new
 		look: (BrMaterialTabGroupLook new headerBackground: (Color fromHexString: #'e0e0e0'));
 		addTab: tab;
