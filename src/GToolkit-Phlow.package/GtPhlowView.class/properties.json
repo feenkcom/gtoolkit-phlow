@@ -7,7 +7,8 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"title",
-		"actionStencils"
+		"actionStencils",
+		"priority"
 	],
 	"name" : "GtPhlowView",
 	"type" : "normal"
