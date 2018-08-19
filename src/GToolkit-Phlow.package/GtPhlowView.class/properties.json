@@ -8,7 +8,8 @@
 	"instvars" : [
 		"title",
 		"actionStencils",
-		"priority"
+		"priority",
+		"definingMethod"
 	],
 	"name" : "GtPhlowView",
 	"type" : "normal"

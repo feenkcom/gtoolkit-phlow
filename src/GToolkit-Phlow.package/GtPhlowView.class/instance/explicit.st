@@ -1,3 +1,5 @@
 transforming
 explicit
-	^ GtPhlowExplicitView new originalView: self
+	^ GtPhlowExplicitView new 
+		originalView: self;
+		definingMethod: thisContext stack second method asRingDefinition
