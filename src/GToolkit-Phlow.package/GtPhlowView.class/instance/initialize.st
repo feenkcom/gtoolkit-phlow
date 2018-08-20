@@ -3,7 +3,7 @@ initialize
 	super initialize.
 	actionStencils := OrderedCollection new.
 	priority := 50. "the lower the value, the closer to the left the tab appears"
-	self actionStencil: [ 
+	"self actionStencil: [ 
 		| button |
 		button := BrButton new.
 		button 
@@ -11,4 +11,4 @@ initialize
 				icon: GLMUIThemeExtraIcons glamorousBrowse asElement ;
 				action: [ button fireEvent: (GtPhlowObjectToSpawn new 
 					object: self definingMethod;
-					sourceElement: button) ] ]
+					sourceElement: button) ] ]"
