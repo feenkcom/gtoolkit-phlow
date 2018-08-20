@@ -6,7 +6,7 @@ actions
 	self actionStencils collect: [ :eachAction | 
 		aToolbarItem := BrToolbarItem new.
 		aToolbarItem stencil: eachAction .
-		aToolbarItem look: BrToolbarItemLook + BrMouseHoverLook + BrMouseClickLook.
+		aToolbarItem look: BrToolbarItemLook.
 		aToolbar addItem: aToolbarItem.
 	 ].
 	 ^ aToolbar

@@ -7,7 +7,7 @@ initialize
 		| button |
 		button := BrButton new.
 		button 
-				look: BrMaterialToggleIconifiedLook;
+				look: BrGlamorousButtonExteriorCircularLook + BrGlamorousButtonIconLook;
 				icon: GLMUIThemeExtraIcons glamorousBrowse asElement ;
 				action: [ button fireEvent: (GtPhlowObjectToSpawn new 
 					object: self definingMethod;
