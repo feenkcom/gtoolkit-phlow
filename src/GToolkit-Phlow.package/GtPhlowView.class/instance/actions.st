@@ -1,4 +1,4 @@
-transforming
+accessing
 actions
 	| aToolbar aToolbarItem |
 	aToolbar := BrToolbar new.
