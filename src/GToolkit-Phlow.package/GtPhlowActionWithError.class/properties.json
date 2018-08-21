@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "GtPhlowView",
+	"category" : "GToolkit-Phlow",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"error"
+	],
+	"name" : "GtPhlowActionWithError",
+	"type" : "normal"
+}
