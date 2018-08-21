@@ -9,7 +9,8 @@
 		"title",
 		"actionStencils",
 		"priority",
-		"definingMethod"
+		"definingMethod",
+		"phlowActions"
 	],
 	"name" : "GtPhlowView",
 	"type" : "normal"
