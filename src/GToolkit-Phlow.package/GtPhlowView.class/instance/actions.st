@@ -1,21 +1,15 @@
 accessing
 actions
-	| aToolbar aToolbarItem |
+	| aToolbar |
+
 	aToolbar := BrToolbar new.
 	aToolbar look: BrToolbarLook horizontal.
-	
-	self actionStencils collect: [ :eachAction |
-		aToolbarItem := BrToolbarItem new.
-		aToolbarItem stencil: eachAction .
-		aToolbarItem look: BrToolbarItemLook.
-		aToolbar addItem: aToolbarItem.
-	 ].
+
+	self actionStencils do: [ :eachAction |
+		aToolbar addItem: eachAction asStencil asElement ].
+
 	phlowActions do: [ :phlowAction |
 		phlowAction asElementDo: [ :actionElement |
-			aToolbarItem := BrToolbarItem new.
-			aToolbarItem stencil: actionElement .
-			aToolbarItem look: BrToolbarItemLook.
-			aToolbar addItem: aToolbarItem.
-		]
-	].
+			aToolbar addItem: actionElement ] ].
+
 	 ^ aToolbar

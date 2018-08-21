@@ -8,8 +8,7 @@ asElementDo: aBlock
 		[
 			view ifItHasContent: [ 
 				tabs add: (BrTab new
-					look: BrMaterialTabLabelledLook;
-					padding: (BlInsets all: 10);
+					look: BrGlamorousTabLook;
 					label: view title;
 					stencil: [ view asElementDo: [ :element | element asScrollableElement margin: (BlInsets all: 10) ] ];
 					actionsStencil: view actions) ] ]
@@ -18,8 +17,7 @@ asElementDo: aBlock
 			e freeze.
 			e messageText: 'You likely did not return the proper view (', e messageText, ')'. 
 			tabs add: (BrTab new
-				look: BrMaterialTabLabelledLook;
-				padding: (BlInsets all: 10);
+				look: BrGlamorousTabLook;
 				label: 'Error';
 				stencil: [ e asDebuggableElement ]) ] ].
 	group := BrTabGroup new
