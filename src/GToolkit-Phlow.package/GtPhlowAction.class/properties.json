@@ -6,7 +6,8 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"stencilBuilder"
+		"stencilBuilder",
+		"phlowView"
 	],
 	"name" : "GtPhlowAction",
 	"type" : "normal"

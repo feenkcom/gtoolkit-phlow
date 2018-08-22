@@ -1,3 +1,3 @@
 accessing
 explicit
-	^ GtPhlowAction new
+	^ GtPhlowAction new phlowView: phlowView 
