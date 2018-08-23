@@ -6,8 +6,7 @@ actionsToolbarForElement: anElement
 	aToolbar look: BrToolbarLook horizontal.
 
 	phlowActions do: [ :phlowAction |
-		phlowAction targetElement: anElement.
 		phlowAction asElementDo: [ :actionElement |
-			aToolbar addItem: actionElement ] ].
+			aToolbar addItem: actionElement ] withElement: anElement ].
 
 	 ^ aToolbar

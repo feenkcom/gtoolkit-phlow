@@ -1,3 +1,3 @@
 accessing
 stencil: aStencilBuilder
-	stencilBuilder := aStencilBuilder asStencilBuilder
+	stencilBuilder := aStencilBuilder asStencilBuilder: GtPhlowActionStencilBuilder  

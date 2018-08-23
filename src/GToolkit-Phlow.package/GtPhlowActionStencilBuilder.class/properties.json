@@ -1,13 +1,14 @@
 {
 	"commentStamp" : "",
-	"super" : "Object",
+	"super" : "BrStencilBuilder",
 	"category" : "GToolkit-Phlow",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"stencilBuilder"
+		"stencilBuilder",
+		"targetElement"
 	],
-	"name" : "GtPhlowAction",
+	"name" : "GtPhlowActionStencilBuilder",
 	"type" : "normal"
 }

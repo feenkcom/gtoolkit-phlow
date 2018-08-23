@@ -1,3 +1,3 @@
 accessing
 targetElement: anElement
-	targetElement := anElement
+	targetElement := anElement 

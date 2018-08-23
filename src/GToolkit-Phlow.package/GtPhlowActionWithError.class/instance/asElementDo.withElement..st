@@ -1,5 +1,5 @@
 accessing
-asElementDo: aBlock
+asElementDo: aBlock withElement: aTargetElement
 	| debugButton |
 	debugButton := BrButton new.
 	debugButton look: BrMaterialToggleIconifiedLook + BrMaterialToggleLabelledLook.
