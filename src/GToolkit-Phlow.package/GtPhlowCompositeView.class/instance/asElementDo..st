@@ -3,15 +3,18 @@ asElementDo: aBlock
 	| tabs group |
 	tabs := OrderedCollection new.
 	self views do: [ :view |
+		| tab |
 		"we explicitly traverse the collection because it is possible for
 		asElementDo: to not return anything when we deal with an EmptylView"
 		[
-			view ifItHasContent: [ 
-				tabs add: (BrTab new
-					look: BrGlamorousTabLook;
-					label: view title;
-					stencil: [ view asElementDo: [ :element | element asScrollableElement margin: (BlInsets all: 10) ] ];
-					actionsStencil: view actions) ] ]
+			view ifItHasContent: [
+				tab := BrTab new.
+				tab look:BrGlamorousTabLook;
+					 label: view title;
+					 stencil: [ view asElementDo: [ :element | element asScrollableElement margin: (BlInsets all: 10) ] ];
+					 actionsStencil: (view actionsToolbarForElement: tab).
+				tabs add: tab.
+					 ] ]
 		on: Error 
 		do: [ :e | 
 			e freeze.

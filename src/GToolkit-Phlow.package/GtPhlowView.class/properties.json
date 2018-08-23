@@ -7,7 +7,6 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"title",
-		"actionStencils",
 		"priority",
 		"definingMethod",
 		"phlowActions"

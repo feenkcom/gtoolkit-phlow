@@ -2,11 +2,12 @@ accessing
 asElementDo: aBlock
 	| tab group |
 	self originalView asElementDo: [ :originalElement | 
-		tab := BrTab new
+		tab := BrTab new.
+		tab
 			look: BrMaterialTabLabelledLook - BrMaterialTabBackgroundLook;
 			label: self label;
 			stencil: [ originalElement asScrollableElement ];
-			actionsStencil: self actions ].
+			actionsStencil: (self actionsToolbarForElement: tab) ].
 	group := BrTabGroup new
 		look: (BrMaterialTabGroupLook new headerBackground: (Color fromHexString: #'e0e0e0'));
 		addTab: tab;
