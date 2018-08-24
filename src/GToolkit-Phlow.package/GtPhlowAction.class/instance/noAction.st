@@ -1,3 +1,0 @@
-accessing
-noAction
-	^ GtPhlowNoAction new

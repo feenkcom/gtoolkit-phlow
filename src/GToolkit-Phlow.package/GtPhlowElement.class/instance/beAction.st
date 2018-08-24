@@ -1,3 +1,0 @@
-accessing
-beAction
-	isAction := true
