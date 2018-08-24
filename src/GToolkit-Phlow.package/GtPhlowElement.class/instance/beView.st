@@ -1,0 +1,3 @@
+accessing
+beView
+	isView := true

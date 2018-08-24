@@ -9,6 +9,7 @@ asElementDo: aBlock
 		[
 			view ifItHasContent: [
 				tab := BrTab new.
+				tab phlow beView; entity: view.
 				tab look:BrGlamorousTabLook;
 					 label: view title;
 					 stencil: [ view asElementDo: [ :element | element asScrollableElement margin: (BlInsets all: 10) ] ];
