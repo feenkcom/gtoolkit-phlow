@@ -1,10 +1,7 @@
 Class {
 	#name : #GtPhlowNoAction,
 	#superclass : #GtPhlowAction,
-	#instVars : [
-		'stencilBuilder'
-	],
-	#category : 'GToolkit-Phlow'
+	#category : #'GToolkit-Phlow'
 }
 
 { #category : #converting }
