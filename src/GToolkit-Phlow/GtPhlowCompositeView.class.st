@@ -19,12 +19,12 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 			view ifItHasContent: [
 				tab := BrTab new.
 				tab phlow beView; entity: view.
-				tab look:BrGlamorousTabLook;
-					 label: view title;
-					 stencil: [ view asElementDo: [ :element | element asScrollableElement margin: (BlInsets all: 10) ] ];
-					 actionsStencil: (view actionsToolbarForElement: tab).
-				tabs add: tab.
-					 ] ]
+				tab
+					look: BrGlamorousTabLook;
+					label: view title;
+					stencil: [ view asElementDo: [ :element | element asScrollableElement margin: (BlInsets all: 10) ] ];
+					actionsStencil: (view actionsToolbarForElement: tab).
+				tabs add: tab ] ]
 		on: Error 
 		do: [ :e | 
 			e freeze.
