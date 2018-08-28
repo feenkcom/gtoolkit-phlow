@@ -35,10 +35,7 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 				stencil: [ e asDebuggableElement ]) ] ].
 	group := BrTabGroup new
 		look: BrGlamorousTabGroupLook;
-		addTabs: tabs;
-		constraintsDo: [ :c | 
-			c vertical matchParent. 
-			c horizontal matchParent ].
+		addTabs: tabs.
 	^ aBlock value: group
 ]
 
