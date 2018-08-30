@@ -68,6 +68,13 @@ GtPhlowTaskItView >> initialize [
 ]
 
 { #category : #private }
+GtPhlowTaskItView >> notificationText: aStringOrRope [
+	^ aStringOrRope asRopedText 
+			foreground: Color gray lighter;
+			fontSize: 12
+]
+
+{ #category : #private }
 GtPhlowTaskItView >> originalElementDo: anAsElementBlock [
 	^ self originalView asElementDo: anAsElementBlock
 ]
@@ -108,9 +115,9 @@ GtPhlowTaskItView >> taskElement: anAsElementBlock [
 	aProgressElement 
 		layout: BlFrameLayout new;
 		addChild: (BlTextElement new 
-				text: ('Rendering...' asRopedText 
-					foreground: Color gray lighter;
-					fontSize: 21);
+				text: (self notificationText: 'Rendering...');
+				geometry: (BlRectangle cornerRadius: 7);
+				padding: (BlInsets top: 10 left: 20 bottom: 10 right: 20);
 				constraintsDo: [ :c | 
 					c frame horizontal alignCenter.
 					c frame vertical alignCenter ])
@@ -122,7 +129,7 @@ GtPhlowTaskItView >> taskElement: anAsElementBlock [
 			c vertical matchParent ].
 	aTask := BlCancellableTaskItAction new.
 	aTask action: [ self originalElementDo: anAsElementBlock ].
-	aTask onRunEnqueueRepeatedAction: (BlRollingLinearGradientBackgroundCommand new element: aProgressElement).
+	aTask onRunEnqueueRepeatedAction: (BlRollingLinearGradientBackgroundCommand new element: aProgressElement children first).
 	aTask
 		onNotification: BlExactProgress
 		enqueueAction: [ :aProgress | 
@@ -130,10 +137,9 @@ GtPhlowTaskItView >> taskElement: anAsElementBlock [
 				childNamed: #progressText 
 				ifFound: [ :theTextElement | 
 					theTextElement
-						text: ((aProgress messageText asString, 
-								aProgress percentage rounded asString, '%') asRopedText
-							foreground: Color gray lighter;
-							fontSize: 21) ]
+						text: (self notificationText: (
+							aProgress messageText asString, ' ',
+							aProgress percentage rounded asString, '%')) ]
 				ifNone: [ "do nothing" ] ].
 	aTask
 		onNotification: BlSomeProgress
@@ -142,10 +148,9 @@ GtPhlowTaskItView >> taskElement: anAsElementBlock [
 				childNamed: #progressText 
 				ifFound: [ :theTextElement | 
 					theTextElement
-						text: ((aProgress messageText asString, 
-								aProgress amount rounded asString) asRopedText
-							foreground: Color gray lighter;
-							fontSize: 21) ]
+						text: (self notificationText: (
+							aProgress messageText asString, ' ', 
+							aProgress amount rounded asString)) ]
 				ifNone: [ "do nothing" ] ].
 	aTask
 		onNotification: BlAnyProgress
@@ -155,9 +160,7 @@ GtPhlowTaskItView >> taskElement: anAsElementBlock [
 				childNamed: #progressText 
 				ifFound: [ :theTextElement | 
 					theTextElement
-						text: ((aProgress messageText asString) asRopedText
-							foreground: Color gray lighter;
-							fontSize: 21) ]
+						text: (self notificationText: (aProgress messageText asString)) ]
 				ifNone: [ "do nothing" ] ].
 	aTask onSuccessEnqueueAction: [ :aComputedElement | 
 		self attach: aComputedElement toParentOf: aProgressElement ].
