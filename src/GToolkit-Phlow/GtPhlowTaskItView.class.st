@@ -76,7 +76,10 @@ GtPhlowTaskItView >> notificationText: aStringOrRope [
 
 { #category : #private }
 GtPhlowTaskItView >> originalElementDo: anAsElementBlock [
-	^ self originalView asElementDo: anAsElementBlock
+	| anElementToDisplay |
+	anElementToDisplay := self originalView asElementDo: anAsElementBlock.
+	anElementToDisplay forceLayout.
+	^ anElementToDisplay
 ]
 
 { #category : #accessing }
