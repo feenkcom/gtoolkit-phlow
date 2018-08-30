@@ -52,7 +52,7 @@ GtPhlowView >> asElementDo: aBlock [
 	self subclassResponsibility
 ]
 
-{ #category : #transforming }
+{ #category : #decorating }
 GtPhlowView >> composite [
 	^ GtPhlowCompositeView new
 		originalView: self;
@@ -69,14 +69,14 @@ GtPhlowView >> definingMethod: anObject [
 	definingMethod := anObject
 ]
 
-{ #category : #transforming }
+{ #category : #decorating }
 GtPhlowView >> empty [
 	^ GtPhlowEmptyView new
 		originalView: self;
 		definingMethod: thisContext stack second method asRingDefinition
 ]
 
-{ #category : #transforming }
+{ #category : #decorating }
 GtPhlowView >> explicit [
 	^ GtPhlowExplicitView new 
 		originalView: self;
@@ -104,14 +104,14 @@ GtPhlowView >> initialize [
 					sourceElement: button) ] ]"
 ]
 
-{ #category : #transforming }
+{ #category : #decorating }
 GtPhlowView >> labelled [
 	^ GtPhlowLabelledView new 
 		originalView: self;
 		definingMethod: thisContext stack second method asRingDefinition
 ]
 
-{ #category : #transforming }
+{ #category : #decorating }
 GtPhlowView >> labelled: aStringOrText [
 	^ self labelled label: aStringOrText
 ]
@@ -136,6 +136,13 @@ GtPhlowView >> priority [
 { #category : #accessing }
 GtPhlowView >> priority: anObject [
 	priority := anObject
+]
+
+{ #category : #decorating }
+GtPhlowView >> taskItExplicit [
+	^ GtPhlowTaskItExplicitView new 
+		originalView: self;
+		definingMethod: thisContext stack second method asRingDefinition
 ]
 
 { #category : #accessing }
