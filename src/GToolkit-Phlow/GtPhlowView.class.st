@@ -19,6 +19,12 @@ GtPhlowView class >> on: anObject perform: aMessageSymbol [
 	^ self new on: anObject perform: aMessageSymbol
 ]
 
+{ #category : #decorating }
+GtPhlowView class >> sequentialExplicit [
+	^ GtPhlowSequentialExplicitView new 
+		definingMethod: thisContext stack second method asRingDefinition
+]
+
 { #category : #accessing }
 GtPhlowView >> actionStencil: anActionStencil [
 	| newPhlowAction |
