@@ -124,7 +124,7 @@ GtPhlowTaskItView >> taskElement: anAsElementBlock [
 	aTask action: [ self originalElementDo: anAsElementBlock ].
 	aTask onRunEnqueueRepeatedAction: (BlRollingLinearGradientBackgroundCommand new element: aProgressElement).
 	aTask
-		onNotification: BlProgress
+		onNotification: BlExactProgress
 		enqueueAction: [ :aProgress | 
 			aTask element 
 				childNamed: #progressText 
@@ -132,6 +132,30 @@ GtPhlowTaskItView >> taskElement: anAsElementBlock [
 					theTextElement
 						text: ((aProgress messageText asString, 
 								aProgress percentage rounded asString, '%') asRopedText
+							foreground: Color gray lighter;
+							fontSize: 21) ]
+				ifNone: [ "do nothing" ] ].
+	aTask
+		onNotification: BlSomeProgress
+		enqueueAction: [ :aProgress | 
+			aTask element 
+				childNamed: #progressText 
+				ifFound: [ :theTextElement | 
+					theTextElement
+						text: ((aProgress messageText asString, 
+								aProgress amount rounded asString) asRopedText
+							foreground: Color gray lighter;
+							fontSize: 21) ]
+				ifNone: [ "do nothing" ] ].
+	aTask
+		onNotification: BlAnyProgress
+		enqueueAction: [ :aProgress | 
+			aProgress traceCr.
+			aTask element 
+				childNamed: #progressText 
+				ifFound: [ :theTextElement | 
+					theTextElement
+						text: ((aProgress messageText asString) asRopedText
 							foreground: Color gray lighter;
 							fontSize: 21) ]
 				ifNone: [ "do nothing" ] ].
