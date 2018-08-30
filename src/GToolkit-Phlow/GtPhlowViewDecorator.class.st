@@ -12,6 +12,11 @@ Class {
 	#category : 'GToolkit-Phlow'
 }
 
+{ #category : #testing }
+GtPhlowViewDecorator class >> isAbstract [
+	^ self name = #GtPhlowViewDecorator 
+]
+
 { #category : #accessing }
 GtPhlowViewDecorator >> originalView [
 	^ originalView

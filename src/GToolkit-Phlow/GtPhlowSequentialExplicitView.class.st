@@ -6,16 +6,16 @@ I decorate a ==stencilBuilder== with extra information, such as ==title==. The =
 For example, a view of an object can be a visualization with the title being Visualization. A typical application is to add this view to a tab group. As we want to be able to create the content lazily, for example because it might be expensive, we need to know the title before the content is created. To this end, we have the title separate from the stencil builder.
 "
 Class {
-	#name : #GtPhlowExplicitView,
+	#name : #GtPhlowSequentialExplicitView,
 	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
 		'stencilBuilder'
 	],
-	#category : 'GToolkit-Phlow'
+	#category : #'GToolkit-Phlow'
 }
 
 { #category : #accessing }
-GtPhlowExplicitView >> asElementDo: aBlock [
+GtPhlowSequentialExplicitView >> asElementDo: aBlock [
 	| element |
 	element := [ stencilBuilder asElement ] 
 		on: Error 
@@ -26,21 +26,21 @@ GtPhlowExplicitView >> asElementDo: aBlock [
 ]
 
 { #category : #accessing }
-GtPhlowExplicitView >> stencil: aStencilBuilder [
+GtPhlowSequentialExplicitView >> stencil: aStencilBuilder [
 	stencilBuilder := aStencilBuilder asStencilBuilder
 ]
 
 { #category : #accessing }
-GtPhlowExplicitView >> stencilBuilder [
+GtPhlowSequentialExplicitView >> stencilBuilder [
 	^ stencilBuilder
 ]
 
 { #category : #accessing }
-GtPhlowExplicitView >> title [
+GtPhlowSequentialExplicitView >> title [
 	^ title
 ]
 
 { #category : #accessing }
-GtPhlowExplicitView >> title: anObject [
+GtPhlowSequentialExplicitView >> title: anObject [
 	title := anObject
 ]

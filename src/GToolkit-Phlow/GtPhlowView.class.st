@@ -78,9 +78,7 @@ GtPhlowView >> empty [
 
 { #category : #decorating }
 GtPhlowView >> explicit [
-	^ GtPhlowExplicitView new 
-		originalView: self;
-		definingMethod: thisContext stack second method asRingDefinition
+	^ self taskItExplicit
 ]
 
 { #category : #converting }
@@ -136,6 +134,13 @@ GtPhlowView >> priority [
 { #category : #accessing }
 GtPhlowView >> priority: anObject [
 	priority := anObject
+]
+
+{ #category : #decorating }
+GtPhlowView >> sequentialExplicit [
+	^ GtPhlowSequentialExplicitView new 
+		originalView: self;
+		definingMethod: thisContext stack second method asRingDefinition
 ]
 
 { #category : #decorating }

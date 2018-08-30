@@ -8,7 +8,7 @@ Class {
 GtPhlowViewExamples >> compositeView [
 	<gtExample>
 	| view element |
-	view := GtPhlowExplicitView new composite views: {self explicitViewWithElementStencil}.
+	view := GtPhlowSequentialExplicitView new composite views: {self explicitViewWithElementStencil}.
 	view asElementDo: [ :el | element := el ].
 	self assert: (element isKindOf: BrTabGroup).
 	^ view
@@ -28,7 +28,7 @@ GtPhlowViewExamples >> emptyExplicitView [
 GtPhlowViewExamples >> explicitViewWithElementStencil [
 	<gtExample>
 	| view element |
-	view := GtPhlowExplicitView new 
+	view := GtPhlowSequentialExplicitView new 
 		title: 'Sample';
 		stencil: [ BlElement new ].
 	view asElementDo: [ :el | element := el ].
@@ -51,7 +51,7 @@ GtPhlowViewExamples >> labelledCompositeView [
 GtPhlowViewExamples >> onPerformWithError [
 	<gtExample>
 	| aView |
-	aView := GtPhlowExplicitView on: nil perform: #nonExistingMethod:.
+	aView := GtPhlowSequentialExplicitView on: nil perform: #nonExistingMethod:.
 	self assert: aView class equals: GtPhlowViewWithError.
 	^ aView
 ]
@@ -70,9 +70,9 @@ GtPhlowViewExamples >> onPerformWithErrorBlocElement [
 GtPhlowViewExamples >> onPerformWithoutError [
 	<gtExample>
 	| aView |
-	aView := GtPhlowExplicitView on: self perform: #gtViewsFor:.
+	aView := GtPhlowSequentialExplicitView on: self perform: #gtViewsFor:.
 	self assert: aView class equals: GtPhlowLabelledView.
-	self assert: aView originalView originalView class equals: GtPhlowExplicitView.
+	self assert: aView originalView originalView class equals: GtPhlowSequentialExplicitView.
 	^ aView
 ]
 
