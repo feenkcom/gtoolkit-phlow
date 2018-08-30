@@ -108,12 +108,13 @@ GtPhlowTaskItView >> taskElement: anAsElementBlock [
 	aProgressElement 
 		layout: BlFrameLayout new;
 		addChild: (BlTextElement new 
-			text: ('Rendering...' asRopedText 
-				foreground: Color gray lighter;
-				fontSize: 21);
-			constraintsDo: [ :c | 
-				c frame horizontal alignCenter.
-				c frame vertical alignCenter ]).
+				text: ('Rendering...' asRopedText 
+					foreground: Color gray lighter;
+					fontSize: 21);
+				constraintsDo: [ :c | 
+					c frame horizontal alignCenter.
+					c frame vertical alignCenter ])
+			as: #progressText.
 	aProgressElement
 		background: BlTransparentBackground new;
 		constraintsDo: [ :c | 
@@ -122,6 +123,18 @@ GtPhlowTaskItView >> taskElement: anAsElementBlock [
 	aTask := BlCancellableTaskItAction new.
 	aTask action: [ self originalElementDo: anAsElementBlock ].
 	aTask onRunEnqueueRepeatedAction: (BlRollingLinearGradientBackgroundCommand new element: aProgressElement).
+	aTask
+		onNotification: BlProgress
+		enqueueAction: [ :aProgress | 
+			aTask element 
+				childNamed: #progressText 
+				ifFound: [ :theTextElement | 
+					theTextElement
+						text: ((aProgress messageText asString, 
+								aProgress percentage rounded asString, '%') asRopedText
+							foreground: Color gray lighter;
+							fontSize: 21) ]
+				ifNone: [ "do nothing" ] ].
 	aTask onSuccessEnqueueAction: [ :aComputedElement | 
 		self attach: aComputedElement toParentOf: aProgressElement ].
 	aTask onFailureEnqueueAction: [ :anException | 
