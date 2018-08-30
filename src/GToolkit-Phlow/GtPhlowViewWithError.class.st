@@ -20,8 +20,7 @@ GtPhlowViewWithError >> asElementDo: aBlock [
 	container layout: BlLinearLayout vertical.
 	container addChild: textElement.
 	debugButton := BrButton new.
-	debugButton look: BrMaterialToggleIconifiedLook 
-		+ BrMaterialToggleLabelledLook.
+	debugButton look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonLabelLook.
 	debugButton label: 'Debug'.
 	debugButton action: [ [error defaultAction] fork ].
 	container addChild: debugButton.
