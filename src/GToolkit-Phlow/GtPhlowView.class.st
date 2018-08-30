@@ -3,14 +3,14 @@ I am an abstract view.
 "
 Class {
 	#name : #GtPhlowView,
-	#superclass : #Object,
+	#superclass : #GtPhlowProtoView,
 	#instVars : [
 		'title',
 		'priority',
 		'definingMethod',
 		'phlowActions'
 	],
-	#category : 'GToolkit-Phlow'
+	#category : #'GToolkit-Phlow'
 }
 
 { #category : #'message performing' }
@@ -52,24 +52,6 @@ GtPhlowView >> addPhlowAction: aPhlowAction [
 	phlowActions add: aPhlowAction.
 ]
 
-{ #category : #converting }
-GtPhlowView >> asElementDo: aBlock [
-	"it evaluates aBlock if the view should have content"
-	self subclassResponsibility
-]
-
-{ #category : #converting }
-GtPhlowView >> asTaskItView [
-	^ GtPhlowTaskItView new originalView: self
-]
-
-{ #category : #decorating }
-GtPhlowView >> composite [
-	^ GtPhlowCompositeView new
-		originalView: self;
-		definingMethod: thisContext stack second method asRingDefinition
-]
-
 { #category : #accessing }
 GtPhlowView >> definingMethod [
 	^ definingMethod
@@ -78,18 +60,6 @@ GtPhlowView >> definingMethod [
 { #category : #accessing }
 GtPhlowView >> definingMethod: anObject [
 	definingMethod := anObject
-]
-
-{ #category : #decorating }
-GtPhlowView >> empty [
-	^ GtPhlowEmptyView new
-		originalView: self;
-		definingMethod: thisContext stack second method asRingDefinition
-]
-
-{ #category : #decorating }
-GtPhlowView >> explicit [
-	^ self sequentialExplicit
 ]
 
 { #category : #converting }
@@ -113,18 +83,6 @@ GtPhlowView >> initialize [
 					sourceElement: button) ] ]"
 ]
 
-{ #category : #decorating }
-GtPhlowView >> labelled [
-	^ GtPhlowLabelledView new 
-		originalView: self;
-		definingMethod: thisContext stack second method asRingDefinition
-]
-
-{ #category : #decorating }
-GtPhlowView >> labelled: aStringOrText [
-	^ self labelled label: aStringOrText
-]
-
 { #category : #'message performing' }
 GtPhlowView >> on: anObject perform: aMessageSymbol [
 	<return: #BlElement>
@@ -145,20 +103,6 @@ GtPhlowView >> priority [
 { #category : #accessing }
 GtPhlowView >> priority: anObject [
 	priority := anObject
-]
-
-{ #category : #decorating }
-GtPhlowView >> sequentialExplicit [
-	^ GtPhlowSequentialExplicitView new 
-		originalView: self;
-		definingMethod: thisContext stack second method asRingDefinition
-]
-
-{ #category : #decorating }
-GtPhlowView >> taskItExplicit [
-	^ GtPhlowTaskItExplicitView new 
-		originalView: self;
-		definingMethod: thisContext stack second method asRingDefinition
 ]
 
 { #category : #accessing }
