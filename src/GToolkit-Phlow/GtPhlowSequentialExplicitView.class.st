@@ -34,13 +34,3 @@ GtPhlowSequentialExplicitView >> stencil: aStencilBuilder [
 GtPhlowSequentialExplicitView >> stencilBuilder [
 	^ stencilBuilder
 ]
-
-{ #category : #accessing }
-GtPhlowSequentialExplicitView >> title [
-	^ title
-]
-
-{ #category : #accessing }
-GtPhlowSequentialExplicitView >> title: anObject [
-	title := anObject
-]

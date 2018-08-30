@@ -15,6 +15,12 @@ GtPhlowEmptyView >> asElementDo: aBlock [
 ]
 
 { #category : #converting }
+GtPhlowEmptyView >> asTaskItView [
+	"We do not TaskIt empty view"
+	^ self
+]
+
+{ #category : #converting }
 GtPhlowEmptyView >> ifItHasContent: aBlock [
 	"do nothing"
 ]

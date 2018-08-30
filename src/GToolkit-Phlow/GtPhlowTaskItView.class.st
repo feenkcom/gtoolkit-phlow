@@ -1,26 +1,26 @@
 Class {
-	#name : #GtPhlowTaskItExplicitView,
+	#name : #GtPhlowTaskItView,
 	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
-		'stencilBuilder'
+		'asElementBlock'
 	],
 	#category : #'GToolkit-Phlow'
 }
 
 { #category : #accessing }
-GtPhlowTaskItExplicitView >> asElementDo: aBlock [
-	| element |
-	element := self taskElement.
-	^ aBlock value: element
+GtPhlowTaskItView >> asElementDo: aBlock [
+	| aProgressElement |
+	aProgressElement := self taskElement: aBlock.
+	^ aBlock value: aProgressElement
 ]
 
 { #category : #converting }
-GtPhlowTaskItExplicitView >> asTaskItView [
+GtPhlowTaskItView >> asTaskItView [
 	^ self
 ]
 
 { #category : #private }
-GtPhlowTaskItExplicitView >> attach: aComputedElement toParentOf: aProgressElement [
+GtPhlowTaskItView >> attach: aComputedElement toParentOf: aProgressElement [
 	| aParent |
 	self 
 		assert: [ aProgressElement hasParent ]
@@ -34,32 +34,31 @@ GtPhlowTaskItExplicitView >> attach: aComputedElement toParentOf: aProgressEleme
 ]
 
 { #category : #private }
-GtPhlowTaskItExplicitView >> computeElement [
-	^ [ stencilBuilder asElement ]
-		on: Error
-		do: [ :error | self errorElementFrom: error ]
-]
-
-{ #category : #private }
-GtPhlowTaskItExplicitView >> errorElementFrom: anException [
+GtPhlowTaskItView >> errorElementFrom: anException [
 	anException freeze.
 	^ GtPhlowViewWithError new
 		error: anException;
 		asElementDo: [ :errorElement | errorElement ]
 ]
 
-{ #category : #accessing }
-GtPhlowTaskItExplicitView >> stencil: aStencilBuilder [
-	stencilBuilder := aStencilBuilder asStencilBuilder
+{ #category : #converting }
+GtPhlowTaskItView >> ifItHasContent: aBlock [
+	self originalView ifItHasContent: aBlock
 ]
 
-{ #category : #accessing }
-GtPhlowTaskItExplicitView >> stencilBuilder [
-	^ stencilBuilder
+{ #category : #initialization }
+GtPhlowTaskItView >> initialize [
+	super initialize.
+	self originalView: self empty.
 ]
 
 { #category : #private }
-GtPhlowTaskItExplicitView >> taskElement [
+GtPhlowTaskItView >> originalElementDo: anAsElementBlock [
+	^ self originalView asElementDo: anAsElementBlock
+]
+
+{ #category : #private }
+GtPhlowTaskItView >> taskElement: anAsElementBlock [
 	| aProgressElement aTask |
 	aProgressElement := BlElement new.
 	aProgressElement 
@@ -77,8 +76,7 @@ GtPhlowTaskItExplicitView >> taskElement [
 			c horizontal matchParent.
 			c vertical matchParent ].
 	aTask := BlCancellableTaskItAction new.
-	aTask element: aProgressElement.
-	aTask action: [ self computeElement ].
+	aTask action: [ self originalElementDo: anAsElementBlock ].
 	aTask onRunEnqueueRepeatedAction: (BlRollingLinearGradientBackgroundCommand new element: aProgressElement).
 	aTask onSuccessEnqueueAction: [ :aComputedElement | 
 		self attach: aComputedElement toParentOf: aProgressElement ].

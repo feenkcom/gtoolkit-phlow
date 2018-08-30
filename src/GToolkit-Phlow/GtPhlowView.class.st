@@ -58,6 +58,11 @@ GtPhlowView >> asElementDo: aBlock [
 	self subclassResponsibility
 ]
 
+{ #category : #converting }
+GtPhlowView >> asTaskItView [
+	^ GtPhlowTaskItView new originalView: self
+]
+
 { #category : #decorating }
 GtPhlowView >> composite [
 	^ GtPhlowCompositeView new
@@ -84,7 +89,7 @@ GtPhlowView >> empty [
 
 { #category : #decorating }
 GtPhlowView >> explicit [
-	^ self taskItExplicit
+	^ self sequentialExplicit
 ]
 
 { #category : #converting }
