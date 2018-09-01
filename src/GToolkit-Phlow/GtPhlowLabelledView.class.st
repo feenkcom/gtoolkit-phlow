@@ -18,7 +18,7 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 		tab := BrTab new.
 		group phlow beView; entity: self.
 		tab
-			look: BrMaterialTabLabelledLook - BrMaterialTabBackgroundLook;
+			look: BrGlamorousTabLook new invisibleBar;
 			label: self label;
 			stencil: [ originalElement asScrollableElement ];
 			actionsStencil: (self actionsToolbarForElement: group);
