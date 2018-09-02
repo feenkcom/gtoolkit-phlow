@@ -5,6 +5,7 @@ Class {
 		'element',
 		'isView',
 		'isAction',
+		'isViewContent',
 		'entity'
 	],
 	#category : #'GToolkit-Phlow-UI'
@@ -23,6 +24,11 @@ GtPhlowElement >> beAction [
 { #category : #accessing }
 GtPhlowElement >> beView [
 	isView := true
+]
+
+{ #category : #accessing }
+GtPhlowElement >> beViewContent [
+	isViewContent := true
 ]
 
 { #category : #accessing }
@@ -47,7 +53,7 @@ GtPhlowElement >> entity: anObject [
 
 { #category : #accessing }
 GtPhlowElement >> isAction [
-	^ isAction
+	^ isAction ifNil: [ false ]
 ]
 
 { #category : #accessing }
@@ -57,10 +63,20 @@ GtPhlowElement >> isAction: anObject [
 
 { #category : #accessing }
 GtPhlowElement >> isView [
-	^ isView == true
+	^ isView ifNil: [ false ]
 ]
 
 { #category : #accessing }
 GtPhlowElement >> isView: anObject [
 	isView := anObject
+]
+
+{ #category : #accessing }
+GtPhlowElement >> isViewContent [
+	^ isViewContent ifNil: [ false ]
+]
+
+{ #category : #accessing }
+GtPhlowElement >> isViewContent: anObject [
+	isViewContent := anObject
 ]

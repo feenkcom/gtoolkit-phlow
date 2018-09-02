@@ -22,7 +22,10 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 				tab
 					look: BrGlamorousTabLook;
 					label: view title;
-					stencil: [ view asTaskItView asElementDo: [ :element | element asScrollableElement margin: (BlInsets all: 10) ] ];
+					stencil: [ 
+						view asTaskItView asElementDo: [ :element | 
+							element phlow beViewContent.
+							element asScrollableElement margin: (BlInsets all: 10) ] ];
 					actionsStencil: (view actionsToolbarForElement: tab).
 				tabs add: tab ] ]
 		on: Error 
