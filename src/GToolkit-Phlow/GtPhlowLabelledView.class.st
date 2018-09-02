@@ -16,7 +16,7 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 	group := BrTabGroup new.
 	self originalView asElementDo: [ :originalElement | 
 		tab := BrTab new.
-		group phlow beView; entity: self.
+		tab phlow beView; entity: self.
 		tab
 			look: BrGlamorousTabLook new invisibleBar;
 			label: self label;
