@@ -11,8 +11,8 @@ Class {
 GtPhlowActionWithError >> asElementDo: aBlock withElement: aTargetElement [
 	| debugButton |
 	debugButton := BrButton new.
-	debugButton look: BrMaterialToggleIconifiedLook + BrMaterialToggleLabelledLook.
-	debugButton label: 'Debug'.
+	debugButton look: (BrGlamorousButtonExteriorRectangularLook new backgroundPaint: BrGlamorousColors errorBackgroundColor) + BrGlamorousButtonLabelLook.
+	debugButton label: 'Error'.
 	debugButton action: [ [error defaultAction] fork ].
 	^ aBlock value: debugButton
 ]
