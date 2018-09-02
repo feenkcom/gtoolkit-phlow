@@ -1,5 +1,5 @@
 Class {
 	#name : #GtPhlowObjectToSpawn,
 	#superclass : #GtPhlowObjectEvent,
-	#category : 'GToolkit-Phlow'
+	#category : #'GToolkit-Phlow-Events'
 }

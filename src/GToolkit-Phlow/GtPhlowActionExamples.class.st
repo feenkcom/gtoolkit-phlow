@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowActionExamples,
 	#superclass : #Object,
-	#category : 'GToolkit-Phlow'
+	#category : #'GToolkit-Phlow-Examples'
 }
 
 { #category : #private }
@@ -14,7 +14,7 @@ GtPhlowActionExamples >> errorActionFor: aView [
 GtPhlowActionExamples >> errorExample [
 	<gtExample>
 	| debugButton |
-	debugButton := self gtActions last asElementDo: [ :x | x ].
+	debugButton := self gtActions last asElementDo: [ :x | x ] withElement: nil.
 	self assert: (debugButton isKindOf: BrButton).
 	^ debugButton 
 ]

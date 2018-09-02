@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowExamples,
 	#superclass : #Object,
-	#category : 'GToolkit-Phlow'
+	#category : #'GToolkit-Phlow-Examples'
 }
 
 { #category : #public }

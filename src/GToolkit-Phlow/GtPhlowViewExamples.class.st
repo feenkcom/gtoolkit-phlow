@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowViewExamples,
 	#superclass : #Object,
-	#category : 'GToolkit-Phlow'
+	#category : #'GToolkit-Phlow-Examples'
 }
 
 { #category : #examples }
@@ -39,11 +39,12 @@ GtPhlowViewExamples >> explicitViewWithElementStencil [
 { #category : #examples }
 GtPhlowViewExamples >> labelledCompositeView [
 	<gtExample>
-	| view element |
+	| view element childElementsWithView |
 	view := self compositeView labelled label: 'Composite'.
 	view asElementDo: [ :el | element := el ].
-	self assert: (element isKindOf: BlElement).
-	self assert: (element children first isKindOf: BlTextElement).
+	self assert: element notNil.
+	childElementsWithView := element allChildrenBreadthFirstSelect: [:each | each phlow isView ].
+	self assert: childElementsWithView size = 2.
 	^ view
 ]
 

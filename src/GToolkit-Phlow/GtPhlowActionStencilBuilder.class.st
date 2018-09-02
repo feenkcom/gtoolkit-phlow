@@ -5,7 +5,7 @@ Class {
 		'stencilBuilder',
 		'targetElement'
 	],
-	#category : 'GToolkit-Phlow'
+	#category : #'GToolkit-Phlow-UI'
 }
 
 { #category : #accessing }

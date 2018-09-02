@@ -6,7 +6,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
-	#category : #'GToolkit-Phlow'
+	#category : #'GToolkit-Phlow-Views and Actions'
 }
 
 { #category : #converting }

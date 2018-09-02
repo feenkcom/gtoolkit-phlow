@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'originalView'
 	],
-	#category : 'GToolkit-Phlow'
+	#category : #'GToolkit-Phlow-Views and Actions'
 }
 
 { #category : #testing }

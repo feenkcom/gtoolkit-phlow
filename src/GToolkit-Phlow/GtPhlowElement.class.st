@@ -7,7 +7,7 @@ Class {
 		'isAction',
 		'entity'
 	],
-	#category : 'GToolkit-Phlow'
+	#category : #'GToolkit-Phlow-UI'
 }
 
 { #category : #'instance creation' }
@@ -57,7 +57,7 @@ GtPhlowElement >> isAction: anObject [
 
 { #category : #accessing }
 GtPhlowElement >> isView [
-	^ isView
+	^ isView == true
 ]
 
 { #category : #accessing }

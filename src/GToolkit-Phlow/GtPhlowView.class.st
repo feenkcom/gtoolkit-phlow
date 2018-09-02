@@ -10,7 +10,7 @@ Class {
 		'definingMethod',
 		'phlowActions'
 	],
-	#category : #'GToolkit-Phlow'
+	#category : #'GToolkit-Phlow-Views and Actions'
 }
 
 { #category : #'message performing' }

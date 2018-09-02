@@ -5,7 +5,7 @@ Class {
 		'object',
 		'sourceElement'
 	],
-	#category : 'GToolkit-Phlow'
+	#category : #'GToolkit-Phlow-Events'
 }
 
 { #category : #accessing }
