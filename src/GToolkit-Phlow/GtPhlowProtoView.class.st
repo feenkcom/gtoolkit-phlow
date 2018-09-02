@@ -52,6 +52,7 @@ GtPhlowProtoView >> empty [
 { #category : #decorating }
 GtPhlowProtoView >> explicit [
 	^ self sequentialExplicit
+		definingMethod: thisContext stack second method asRingDefinition
 ]
 
 { #category : #converting }
@@ -68,7 +69,9 @@ GtPhlowProtoView >> labelled [
 
 { #category : #decorating }
 GtPhlowProtoView >> labelled: aStringOrText [
-	^ self labelled label: aStringOrText
+	^ self labelled 
+		label: aStringOrText;
+		definingMethod: thisContext stack second method asRingDefinition
 ]
 
 { #category : #accessing }

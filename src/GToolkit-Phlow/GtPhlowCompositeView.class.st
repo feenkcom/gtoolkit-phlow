@@ -18,6 +18,7 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 		[
 			view ifItHasContent: [
 				tab := BrTab new.
+				tab when: BlDoubleClickEvent do: [ :event | tab fireEvent: (GtPhlowObjectToSpawn new object: view definingMethod; sourceElement: tab) ].
 				tab phlow beView; entity: view.
 				tab
 					look: BrGlamorousTabLook;
