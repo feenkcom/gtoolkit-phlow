@@ -37,7 +37,9 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 				look: BrGlamorousTabLook;
 				label: 'Error';
 				stencil: [ e asDebuggableElement ]) ] ].
-	group := BrTabGroup new
+	group := BrTabGroup new.
+	group phlow beView; entity: self.
+	group
 		look: BrGlamorousTabGroupLook;
 		addTabs: tabs.
 	^ aBlock value: group

@@ -11,6 +11,8 @@ GtPhlowViewExamples >> compositeView [
 	view := GtPhlowView sequentialExplicit composite views: {self explicitViewWithElementStencil}.
 	view asElementDo: [ :el | element := el ].
 	self assert: (element isKindOf: BrTabGroup).
+	self assert: element phlow isView.
+	self assert: element phlow entity = view.
 	^ view
 ]
 
@@ -33,6 +35,7 @@ GtPhlowViewExamples >> explicitViewWithElementStencil [
 		stencil: [ BlElement new ].
 	view asElementDo: [ :el | element := el ].
 	self assert: (element isKindOf: BlElement).
+	self assert: element phlow isView.
 	^ view
 ]
 
@@ -43,8 +46,11 @@ GtPhlowViewExamples >> labelledCompositeView [
 	view := self compositeView labelled label: 'Composite'.
 	view asElementDo: [ :el | element := el ].
 	self assert: element notNil.
+	self assert: (element isKindOf: BrTabGroup).
+	self assert: (element phlow firstChildWithView isKindOf: BrTab).
+	self assert: (element phlow firstChildWithView phlow entity = view).
 	childElementsWithView := element allChildrenBreadthFirstSelect: [:each | each phlow isView ].
-	self assert: childElementsWithView size = 2.
+	self assert: childElementsWithView size = 3.
 	^ view
 ]
 

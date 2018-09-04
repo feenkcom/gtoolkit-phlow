@@ -22,6 +22,7 @@ GtPhlowSequentialExplicitView >> asElementDo: aBlock [
 		do: [:error | 
 			error freeze.
 			GtPhlowViewWithError new error: error; asElementDo: [ :errorElement | errorElement ] ].
+	element phlow beView; entity: self.
 	^ aBlock value: element.
 ]
 

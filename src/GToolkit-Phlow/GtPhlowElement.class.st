@@ -1,3 +1,6 @@
+"
+I offer the Phlow navigation API over the Bloc element tree starting with the specific element I am tied with.
+"
 Class {
 	#name : #GtPhlowElement,
 	#superclass : #Object,
@@ -49,6 +52,26 @@ GtPhlowElement >> entity [
 { #category : #accessing }
 GtPhlowElement >> entity: anObject [
 	entity := anObject
+]
+
+{ #category : #accessing }
+GtPhlowElement >> firstChildWithCompositeView [
+	^ self firstChildWithCompositeViewDo: [ :child | child ]
+]
+
+{ #category : #accessing }
+GtPhlowElement >> firstChildWithCompositeViewDo: aBlock [
+	^ self element 
+		allChildrenBreadthFirstDetect: [ :child | 
+			child phlow isView and: [ child phlow entity isKindOf: GtPhlowCompositeView ] ] 
+		ifFound: aBlock
+]
+
+{ #category : #accessing }
+GtPhlowElement >> firstChildWithView [
+	^ self element 
+		allChildrenBreadthFirstDetect: [ :child | child phlow isView ] 
+		ifFound: [ :child | child ]
 ]
 
 { #category : #accessing }
