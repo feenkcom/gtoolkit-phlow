@@ -8,7 +8,7 @@ Class {
 		'announcementRegistration',
 		'strategy'
 	],
-	#category : 'GToolkit-Phlow'
+	#category : #'GToolkit-Phlow-Transmission'
 }
 
 { #category : #'instance creation' }

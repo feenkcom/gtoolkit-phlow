@@ -2,6 +2,7 @@ Class {
 	#name : #GtPhlowAction,
 	#superclass : #Object,
 	#instVars : [
+		'category',
 		'stencilBuilder'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
@@ -21,8 +22,25 @@ GtPhlowAction >> asElementDo: aBlock withElement: aTargetElement [
 ]
 
 { #category : #accessing }
+GtPhlowAction >> category [
+	^ category
+]
+
+{ #category : #accessing }
+GtPhlowAction >> category: anObject [
+	category := anObject
+]
+
+{ #category : #accessing }
 GtPhlowAction >> explicit [
 	^ GtPhlowAction new
+]
+
+{ #category : #initialization }
+GtPhlowAction >> initialize [
+	super initialize.
+	category := #general.
+	stencilBuilder := nil.
 ]
 
 { #category : #accessing }

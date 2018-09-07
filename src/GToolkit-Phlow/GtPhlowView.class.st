@@ -13,6 +13,11 @@ Class {
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
 
+{ #category : #testing }
+GtPhlowView class >> isAbstract [
+	^ self name = #GtPhlowView 
+]
+
 { #category : #'message performing' }
 GtPhlowView class >> on: anObject perform: aMessageSymbol [
 	<return: #BlElement>
@@ -50,6 +55,12 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 { #category : #accessing }
 GtPhlowView >> addPhlowAction: aPhlowAction [
 	phlowActions add: aPhlowAction.
+]
+
+{ #category : #accessing }
+GtPhlowView >> addPhlowActions: aCollectionOfPhlowActions [
+	aCollectionOfPhlowActions do: [ :eachPhlowAction | 
+		self addPhlowAction: eachPhlowAction ]
 ]
 
 { #category : #accessing }
