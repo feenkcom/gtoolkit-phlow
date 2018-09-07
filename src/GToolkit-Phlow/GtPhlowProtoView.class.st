@@ -116,3 +116,8 @@ GtPhlowProtoView >> title: aString [
 	It is supposed to be a short name"
 	^ self subclassResponsibility
 ]
+
+{ #category : #'as yet unclassified' }
+GtPhlowProtoView >> widgets [
+	^ GtPhlowWidgetBuilder new
+]
