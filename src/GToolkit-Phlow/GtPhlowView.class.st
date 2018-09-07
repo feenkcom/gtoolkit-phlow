@@ -35,6 +35,7 @@ GtPhlowView >> actionStencil: anActionStencil [
 	| newPhlowAction |
 	newPhlowAction := GtPhlowAction new.
 	newPhlowAction stencil: anActionStencil.
+	newPhlowAction definingMethod: self definingMethod.
 	phlowActions add: newPhlowAction.
 ]
 

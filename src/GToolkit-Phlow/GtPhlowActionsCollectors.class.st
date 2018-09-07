@@ -20,8 +20,8 @@ GtPhlowActionsCollectors >> collect [
 	^ self sortedPragmas 
 		collect: [ :eachPragma | 
 			| anAction |
-			anAction := GtPhlowNoAction new.
-			 [thisContext
+			anAction := GtPhlowAction noAction.
+			[ thisContext
 						object: self object
 						perform: eachPragma methodSelector
 						withArguments: {anAction}
@@ -30,6 +30,7 @@ GtPhlowActionsCollectors >> collect [
 				do: [ :error |
 					error freeze.
 					GtPhlowActionWithError new 
+						definingMethod: anAction definingMethod;
 						error: error ] ]
 		thenSelect: self selectUsing
 ]
