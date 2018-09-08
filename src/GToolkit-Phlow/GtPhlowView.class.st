@@ -13,6 +13,18 @@ Class {
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
 
+{ #category : #decorating }
+GtPhlowView class >> composite [
+	^ GtPhlowCompositeView new
+		definingMethod: thisContext stack second method asRingDefinition
+]
+
+{ #category : #decorating }
+GtPhlowView class >> empty [
+	^ GtPhlowEmptyView new
+		definingMethod: thisContext stack second method asRingDefinition
+]
+
 { #category : #testing }
 GtPhlowView class >> isAbstract [
 	^ self name = #GtPhlowView 
@@ -97,14 +109,31 @@ GtPhlowView >> initialize [
 
 { #category : #'message performing' }
 GtPhlowView >> on: anObject perform: aMessageSymbol [
-	<return: #BlElement>
-	^ [ anObject perform: aMessageSymbol with: self ] 
+	<return: #GtPhlowView>
+	^ self on: anObject perform: aMessageSymbol withArguments: { self }
+]
+
+{ #category : #'message performing' }
+GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOfArguments [
+	<return: #GtPhlowView>
+	^ [ thisContext
+			object: anObject
+			perform: aMessageSymbol
+			withArguments: aCollectionOfArguments
+			inClass: anObject class ] 
 		on: Error 
 		do: [ :anException | 
 			anException freeze.
-			GtPhlowViewWithError new 
+			GtPhlowViewWithError new
+				definingMethod: self definingMethod;
 				title: 'Error';
 				error: anException ]
+]
+
+{ #category : #'message performing' }
+GtPhlowView >> on: anObject perform: aMessageSymbol withContext: aContext [
+	<return: #GtPhlowView>
+	^ self on: anObject perform: aMessageSymbol withArguments: { self. aContext }
 ]
 
 { #category : #accessing }
