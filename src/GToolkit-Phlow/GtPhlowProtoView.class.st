@@ -17,7 +17,9 @@ GtPhlowProtoView >> asElementDo: aBlock [
 
 { #category : #converting }
 GtPhlowProtoView >> asTaskItView [
-	^ GtPhlowTaskItView new originalView: self
+	^ GtPhlowUseTaskItView enabled 
+		ifTrue: [ GtPhlowTaskItView new originalView: self ]
+		ifFalse: [ self ]
 ]
 
 { #category : #decorating }
@@ -117,7 +119,7 @@ GtPhlowProtoView >> title: aString [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GtPhlowProtoView >> widgets [
 	^ GtPhlowWidgetBuilder new
 ]
