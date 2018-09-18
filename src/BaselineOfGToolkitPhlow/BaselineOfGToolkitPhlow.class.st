@@ -1,7 +1,10 @@
+"
+Phlow is a generic browsing engine for specifying views and transmissions. It is primarily used for defining Inspector extensions.
+"
 Class {
 	#name : #BaselineOfGToolkitPhlow,
 	#superclass : #BaselineOf,
-	#category : 'BaselineOfGToolkitPhlow'
+	#category : #BaselineOfGToolkitPhlow
 }
 
 { #category : #baseline }
