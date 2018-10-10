@@ -57,6 +57,19 @@ GtPhlowProtoView >> explicit [
 		definingMethod: thisContext stack second method asRingDefinition
 ]
 
+{ #category : #ui }
+GtPhlowProtoView >> gtLiveFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Live';
+		stencil: [ 
+			self asElementDo: [ :e | 
+				e 
+					margin: (BlInsets all: 20);
+					background: Color white;
+					look: BrShadowLook ] ]
+]
+
 { #category : #converting }
 GtPhlowProtoView >> ifItHasContent: aBlock [
 	^ self subclassResponsibility
@@ -101,6 +114,13 @@ GtPhlowProtoView >> sequentialExplicit [
 { #category : #decorating }
 GtPhlowProtoView >> taskItExplicit [
 	^ GtPhlowTaskItExplicitView new 
+		originalView: self;
+		definingMethod: thisContext stack second method asRingDefinition
+]
+
+{ #category : #decorating }
+GtPhlowProtoView >> textEditor [
+	^ GtPhlowTextEditorView new 
 		originalView: self;
 		definingMethod: thisContext stack second method asRingDefinition
 ]

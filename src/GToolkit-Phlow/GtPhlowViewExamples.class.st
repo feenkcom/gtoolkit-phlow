@@ -92,3 +92,15 @@ GtPhlowViewExamples >> onPerformWithoutErrorBlocElement [
 	self assert: (anElement isKindOf: BlElement).
 	^ anElement
 ]
+
+{ #category : #examples }
+GtPhlowViewExamples >> textView [
+	<gtExample>
+	| view element |
+	view := GtPhlowView empty textEditor text: 'abc' asRopedText.
+	view asElementDo: [ :el | element := el ].
+	self assert: (element isKindOf: BrEditorElement).
+	self assert: element phlow isView.
+	self assert: element phlow entity = view.
+	^ view
+]
