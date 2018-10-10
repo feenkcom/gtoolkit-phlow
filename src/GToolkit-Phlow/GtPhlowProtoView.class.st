@@ -89,6 +89,13 @@ GtPhlowProtoView >> labelled: aStringOrText [
 		definingMethod: thisContext stack second method asRingDefinition
 ]
 
+{ #category : #converting }
+GtPhlowProtoView >> list [
+	^ GtPhlowListView new
+		originalView: self;
+		definingMethod: thisContext stack second method asRingDefinition
+]
+
 { #category : #accessing }
 GtPhlowProtoView >> priority [
 	"Get view priority defining a view order.
