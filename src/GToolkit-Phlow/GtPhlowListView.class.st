@@ -38,10 +38,20 @@ GtPhlowListView >> buildTextElementFor: aString [
 	^ (BrListLabelStencil matchParent: aString asRopedText) asElement
 ]
 
-{ #category : #'scripting - utils' }
+{ #category : #'scripting - deprecated' }
+GtPhlowListView >> display: aBlock [
+	self 
+		deprecated: 'Please use #items: instead.'
+		transformWith: '`@receiver display: `@statements' -> '`@receiver items: `@statements'.
+	self items: aBlock
+]
+
+{ #category : #'scripting - deprecated' }
 GtPhlowListView >> format: aBlockOrSymbol [
-	self itemElement: [ :anObject |
-		self buildTextElementFor: (aBlockOrSymbol phlowValue: anObject) ]
+	self 
+		deprecated: 'Please use #itemFormat: instead.'
+		transformWith: '`@receiver format: `@statements' -> '`@receiver itemFormat: `@statements'.
+	self itemFormat: aBlockOrSymbol
 ]
 
 { #category : #initialization }
@@ -60,6 +70,12 @@ GtPhlowListView >> itemElement: anObject [
 { #category : #accessing }
 GtPhlowListView >> itemElementStencilBuilder [
 	^ itemElementStencilBuilder
+]
+
+{ #category : #'scripting - utils' }
+GtPhlowListView >> itemFormat: aBlockOrSymbol [
+	self itemElement: [ :anObject |
+		self buildTextElementFor: (aBlockOrSymbol phlowValue: anObject) ]
 ]
 
 { #category : #accessing }
