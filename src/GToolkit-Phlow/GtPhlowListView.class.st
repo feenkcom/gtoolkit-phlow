@@ -33,11 +33,22 @@ GtPhlowListView >> asElementDo: aBlock [
 	^ aBlock value: list
 ]
 
+{ #category : #'private - building' }
+GtPhlowListView >> buildTextElementFor: aString [
+	^ (BrListLabelStencil matchParent: aString asRopedText) asElement
+]
+
+{ #category : #'scripting - utils' }
+GtPhlowListView >> format: aBlockOrSymbol [
+	self itemElement: [ :anObject |
+		self buildTextElementFor: (aBlockOrSymbol phlowValue: anObject) ]
+]
+
 { #category : #initialization }
 GtPhlowListView >> initialize [
 	super initialize.
 	itemElementStencilBuilder := [ :anObject | 
-		(BrListLabelStencil matchParent: anObject gtDisplayString asRopedText) asElement ].
+		self buildTextElementFor: anObject gtDisplayString ].
 	itemsBuilder := [ { } ]
 ]
 

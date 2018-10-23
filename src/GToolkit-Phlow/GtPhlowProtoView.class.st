@@ -89,7 +89,7 @@ GtPhlowProtoView >> labelled: aStringOrText [
 		definingMethod: thisContext stack second method asRingDefinition
 ]
 
-{ #category : #converting }
+{ #category : #decorating }
 GtPhlowProtoView >> list [
 	^ GtPhlowListView new
 		originalView: self;
