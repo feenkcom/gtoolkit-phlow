@@ -3,7 +3,8 @@ Class {
 	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
 		'itemsBuilder',
-		'itemElementStencilBuilder'
+		'itemElementStencilBuilder',
+		'transformation'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
@@ -13,7 +14,7 @@ GtPhlowListView >> asElementDo: aBlock [
 	| list |
 	list := BrColumnedList new.
 	list := BrColumnedList new display: self itemsBuilder value.
-	list addEventHandler: (GtInspectorListToSelectHandler new).
+	list addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
 	list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
 "	list column
 		title: 'Icon';
@@ -59,7 +60,8 @@ GtPhlowListView >> initialize [
 	super initialize.
 	itemElementStencilBuilder := [ :anObject | 
 		self buildTextElementFor: anObject gtDisplayString ].
-	itemsBuilder := [ { } ]
+	itemsBuilder := [ { } ].
+	transformation := [ :aValue | "by default there is no transformation" aValue ].
 ]
 
 { #category : #accessing }
@@ -86,4 +88,20 @@ GtPhlowListView >> items: anObject [
 { #category : #accessing }
 GtPhlowListView >> itemsBuilder [
 	^ itemsBuilder
+]
+
+{ #category : #accessing }
+GtPhlowListView >> send [
+	^ transformation
+]
+
+{ #category : #accessing }
+GtPhlowListView >> send: anOneArgBlock [
+	self
+		assert: [ anOneArgBlock notNil ]
+		description: [ 'Send transformation block must be non-nil'  ].
+	self
+		assert: [ anOneArgBlock numArgs = 1 ]
+		description: [ 'Send transformation block must receive one argument'  ].
+	^ transformation
 ]
