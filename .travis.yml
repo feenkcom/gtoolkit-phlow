@@ -1,0 +1,23 @@
+language: smalltalk
+sudo: false
+
+os:
+  - linux
+
+smalltalk:
+  - Pharo-7.0
+  - Pharo64-7.0
+
+branches:
+  only:
+    - master
+
+smalltalk_edge:
+  source: feenkcom/smalltalkCI
+  branch: master
+  
+before_script:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      export DISPLAY=:99.0;
+      sh -e /etc/init.d/xvfb start;
+    fi

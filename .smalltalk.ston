@@ -1,0 +1,19 @@
+SmalltalkCISpec {
+  #preLoading : ['scripts/preLoading.st'],
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'GToolkitPhlow',
+      #directory : 'src',
+      #platforms : [ #pharo ]
+    }
+  ],
+  #postLoading : ['scripts/postLoading.st'],
+  #testing : {
+    #packages : [ 'GToolkit-Phlow.*' ],
+    #coverage : {
+      #packages : [ 'GToolkit-Phlow.*' ]
+    },
+    #failOnZeroTests : false,
+    #hidePassingTests : true
+  }
+}
