@@ -60,6 +60,14 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 	^ aBlock value: group
 ]
 
+{ #category : #ui }
+GtPhlowCompositeView >> gtContainedViewsFor: aView [
+	<gtView>
+	^ aView list 
+		title: 'Views' translated;
+		items: [ self views ]
+]
+
 { #category : #private }
 GtPhlowCompositeView >> registerShowDefinitionEventOn: tab forView: view [
 	tab
