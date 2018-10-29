@@ -46,10 +46,11 @@ GtPhlowCompositeView >> addNewTabTo: aCollectionOfTabs forView: aPhlowView [
 GtPhlowCompositeView >> asElementDo: aBlock [
 	| tabs group |
 	tabs := OrderedCollection new.
-	self views do: [ :view | 
-		[ self addNewTabTo: tabs forView: view ]
-			on: Error
-			do: [ :e | self addErrorTabTo: tabs withError: e ] ].
+	self views ifNotNil: [ :currentViews |
+		currentViews do: [ :view | 
+			[ self addNewTabTo: tabs forView: view ]
+				on: Error
+				do: [ :e | self addErrorTabTo: tabs withError: e ] ] ].
 	group := BrTabGroup new.
 	group phlow
 		beView;
