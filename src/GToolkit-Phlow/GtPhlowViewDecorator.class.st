@@ -17,6 +17,30 @@ GtPhlowViewDecorator class >> isAbstract [
 	^ self name = #GtPhlowViewDecorator 
 ]
 
+{ #category : #traversing }
+GtPhlowViewDecorator >> allParentDecoratorsDo: aBlock [
+	self originalView ifNotNil: [ 
+		aBlock value: self originalView.
+		self originalView allParentDecoratorsDo: aBlock ]
+]
+
+{ #category : #'accessing - dynamic' }
+GtPhlowViewDecorator >> decoratorsChain [
+	| decorators |
+	decorators := OrderedCollection with: self.
+	self allParentDecoratorsDo: [ :aDecorator |
+			decorators add: aDecorator ].
+	^ decorators
+]
+
+{ #category : #ui }
+GtPhlowViewDecorator >> gtDecoratorChainFor: aView [
+	<gtView>
+	^ aView list 
+		title: 'Decorators' translated;
+		items: [ self decoratorsChain ]
+]
+
 { #category : #accessing }
 GtPhlowViewDecorator >> originalView [
 	^ originalView
