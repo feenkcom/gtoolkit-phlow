@@ -17,6 +17,7 @@ Class {
 { #category : #accessing }
 GtPhlowSequentialExplicitView >> asElementDo: aBlock [
 	| element |
+	self assert: stencilBuilder notNil description: 'The stencil should be initialized'.
 	element := [ stencilBuilder asElement ] 
 		on: Error 
 		do: [:error | 
