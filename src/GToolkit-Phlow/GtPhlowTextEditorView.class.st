@@ -10,11 +10,11 @@ Class {
 { #category : #accessing }
 GtPhlowTextEditorView >> asElementDo: aBlock [
 	| editor element text |
-	text := self textBuilder value asRopedText.
 	editor := BrTextEditor new.
-	editor text: text.
 	element := BrEditorElement new.
 	element editor: editor.
+	text := (self textBuilder glamourValueWithArgs: { editor. element }) asRopedText.
+	editor text: text.
 	element constraintsDo: [ :c | c vertical matchParent. c horizontal matchParent ].
 	element phlow beView; entity: self.
 	^ aBlock value: element
