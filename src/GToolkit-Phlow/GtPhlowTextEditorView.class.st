@@ -15,7 +15,10 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 	element editor: editor.
 	text := (self textBuilder glamourValueWithArgs: { editor. element }) asRopedText.
 	editor text: text.
-	element constraintsDo: [ :c | c vertical matchParent. c horizontal matchParent ].
+	element constraintsDo: [ :c | 
+		c vertical matchParent. 
+		c horizontal matchParent.
+		c padding: (BlInsets all: 10) ].
 	element phlow beView; entity: self.
 	^ aBlock value: element
 ]
