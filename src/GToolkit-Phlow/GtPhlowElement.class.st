@@ -9,7 +9,8 @@ Class {
 		'isView',
 		'isAction',
 		'isViewContent',
-		'entity'
+		'entity',
+		'isPopupContainer'
 	],
 	#category : #'GToolkit-Phlow-UI'
 }
@@ -19,47 +20,52 @@ GtPhlowElement class >> on: anElement [
 	^ self new element: anElement
 ]
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
 GtPhlowElement >> beAction [
 	isAction := true
 ]
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
+GtPhlowElement >> bePopupContainer [
+	isPopupContainer := true
+]
+
+{ #category : #'api - accessing' }
 GtPhlowElement >> beView [
 	isView := true
 ]
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
 GtPhlowElement >> beViewContent [
 	isViewContent := true
 ]
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
 GtPhlowElement >> element [
 	^ element
 ]
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
 GtPhlowElement >> element: anObject [
 	element := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
 GtPhlowElement >> entity [
 	^ entity
 ]
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
 GtPhlowElement >> entity: anObject [
 	entity := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #'api - search' }
 GtPhlowElement >> firstChildWithCompositeView [
 	^ self firstChildWithCompositeViewDo: [ :child | child ]
 ]
 
-{ #category : #accessing }
+{ #category : #'api - search' }
 GtPhlowElement >> firstChildWithCompositeViewDo: aBlock [
 	^ self element 
 		allChildrenBreadthFirstDetect: [ :child | 
@@ -67,39 +73,62 @@ GtPhlowElement >> firstChildWithCompositeViewDo: aBlock [
 		ifFound: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : #'api - search' }
 GtPhlowElement >> firstChildWithView [
 	^ self element 
 		allChildrenBreadthFirstDetect: [ :child | child phlow isView ] 
 		ifFound: [ :child | child ]
 ]
 
-{ #category : #accessing }
+{ #category : #'api - search' }
+GtPhlowElement >> firstPopupContainerParentDo: aBlock ifNone: aNoneBlock [
+	self element withAllParentsDo: [ :aParentElement |
+			aParentElement phlow isPopupContainer ifTrue: [ ^ aBlock value: aParentElement ] ].
+		
+	^ aNoneBlock value
+]
+
+{ #category : #initialization }
+GtPhlowElement >> initialize [
+	super initialize.
+	
+	isAction := false.
+	isView := false.
+	isViewContent := false.
+	isPopupContainer := false.
+]
+
+{ #category : #'api - testing' }
 GtPhlowElement >> isAction [
-	^ isAction ifNil: [ false ]
+	^ isAction
 ]
 
-{ #category : #accessing }
-GtPhlowElement >> isAction: anObject [
-	isAction := anObject
+{ #category : #'api - accessing' }
+GtPhlowElement >> isAction: aBoolean [
+	isAction := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : #'api - testing' }
+GtPhlowElement >> isPopupContainer [
+	^ isPopupContainer
+]
+
+{ #category : #'api - testing' }
 GtPhlowElement >> isView [
-	^ isView ifNil: [ false ]
+	^ isView
 ]
 
-{ #category : #accessing }
-GtPhlowElement >> isView: anObject [
-	isView := anObject
+{ #category : #'api - accessing' }
+GtPhlowElement >> isView: aBoolean [
+	isView := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : #'api - testing' }
 GtPhlowElement >> isViewContent [
-	^ isViewContent ifNil: [ false ]
+	^ isViewContent
 ]
 
-{ #category : #accessing }
-GtPhlowElement >> isViewContent: anObject [
-	isViewContent := anObject
+{ #category : #'api - accessing' }
+GtPhlowElement >> isViewContent: aBoolean [
+	isViewContent := aBoolean
 ]
