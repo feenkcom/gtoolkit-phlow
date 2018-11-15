@@ -72,7 +72,7 @@ GtPhlowTaskItExplicitView >> taskElement [
 				c frame horizontal alignCenter.
 				c frame vertical alignCenter ]).
 	aProgressElement
-		background: BlTransparentBackground new;
+		background: BlBackground transparent;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
