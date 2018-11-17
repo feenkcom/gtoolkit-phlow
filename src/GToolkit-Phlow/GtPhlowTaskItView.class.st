@@ -126,7 +126,7 @@ GtPhlowTaskItView >> taskElement: anAsElementBlock [
 					c frame vertical alignCenter ])
 			as: #progressText.
 	aProgressElement
-		background: BlTransparentBackground new;
+		background: BlBackground transparent;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
