@@ -43,7 +43,7 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 			text: eachColumn title.
 
 		aScaledLabel := aLabel asScalableElement.
-		aScaledLabel maxScale: 1.2.
+		aScaledLabel maxScale: 1.
 		aScaledLabel constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent.
