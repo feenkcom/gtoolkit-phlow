@@ -23,6 +23,13 @@ GtPhlowProtoView >> asTaskItView [
 ]
 
 { #category : #decorating }
+GtPhlowProtoView >> columnedList [
+	^ GtPhlowColumnedListView new
+		originalView: self;
+		definingMethod: thisContext stack second method asRingDefinition
+]
+
+{ #category : #decorating }
 GtPhlowProtoView >> composite [
 	^ GtPhlowCompositeView new
 		originalView: self;
