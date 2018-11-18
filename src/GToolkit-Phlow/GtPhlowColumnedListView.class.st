@@ -110,6 +110,14 @@ GtPhlowColumnedListView >> column [
 	^ aColumn
 ]
 
+{ #category : #accessing }
+GtPhlowColumnedListView >> column: aTitleString do: aBlock [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aBlock value: aColumn
+]
+
 { #category : #initialization }
 GtPhlowColumnedListView >> initialize [
 	super initialize.
