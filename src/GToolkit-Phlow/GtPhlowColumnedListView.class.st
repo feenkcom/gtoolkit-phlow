@@ -40,7 +40,7 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 
 		aLabel := BrLabel new
 			look: BrGlamorousLabelLook;
-			text: eachColumn title.
+			text: (eachColumn title asRopedText foreground: BrGlamorousColors defaultButtonTextColor).
 
 		aScaledLabel := aLabel asScalableElement.
 		aScaledLabel maxScale: 1.
