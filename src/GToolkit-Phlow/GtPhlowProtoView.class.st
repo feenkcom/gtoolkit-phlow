@@ -126,13 +126,6 @@ GtPhlowProtoView >> sequentialExplicit [
 ]
 
 { #category : #decorating }
-GtPhlowProtoView >> taskItExplicit [
-	^ GtPhlowTaskItExplicitView new 
-		originalView: self;
-		definingMethod: thisContext stack second method asRingDefinition
-]
-
-{ #category : #decorating }
 GtPhlowProtoView >> textEditor [
 	^ GtPhlowTextEditorView new 
 		originalView: self;
