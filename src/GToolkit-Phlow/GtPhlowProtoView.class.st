@@ -60,7 +60,8 @@ GtPhlowProtoView >> empty [
 
 { #category : #decorating }
 GtPhlowProtoView >> explicit [
-	^ self sequentialExplicit
+	^ GtPhlowExplicitView new 
+		originalView: self;
 		definingMethod: thisContext stack second method asRingDefinition
 ]
 
@@ -116,13 +117,6 @@ GtPhlowProtoView >> priority: aNumber [
 	"Set view priority defining a view order.
 	Lower priority is supposed to be displayed to the left."
 	^ self subclassResponsibility
-]
-
-{ #category : #decorating }
-GtPhlowProtoView >> sequentialExplicit [
-	^ GtPhlowSequentialExplicitView new 
-		originalView: self;
-		definingMethod: thisContext stack second method asRingDefinition
 ]
 
 { #category : #decorating }

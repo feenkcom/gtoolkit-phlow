@@ -25,6 +25,12 @@ GtPhlowView class >> empty [
 		definingMethod: thisContext stack second method asRingDefinition
 ]
 
+{ #category : #decorating }
+GtPhlowView class >> explicit [
+	^ GtPhlowExplicitView new 
+		definingMethod: thisContext stack second method asRingDefinition
+]
+
 { #category : #testing }
 GtPhlowView class >> isAbstract [
 	^ self name = #GtPhlowView 
@@ -34,12 +40,6 @@ GtPhlowView class >> isAbstract [
 GtPhlowView class >> on: anObject perform: aMessageSymbol [
 	<return: #BlElement>
 	^ self new on: anObject perform: aMessageSymbol
-]
-
-{ #category : #decorating }
-GtPhlowView class >> sequentialExplicit [
-	^ GtPhlowSequentialExplicitView new 
-		definingMethod: thisContext stack second method asRingDefinition
 ]
 
 { #category : #accessing }

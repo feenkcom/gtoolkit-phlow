@@ -6,7 +6,7 @@ I decorate a ==stencilBuilder== with extra information, such as ==title==. The =
 For example, a view of an object can be a visualization with the title being Visualization. A typical application is to add this view to a tab group. As we want to be able to create the content lazily, for example because it might be expensive, we need to know the title before the content is created. To this end, we have the title separate from the stencil builder.
 "
 Class {
-	#name : #GtPhlowSequentialExplicitView,
+	#name : #GtPhlowExplicitView,
 	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
 		'stencilBuilder'
@@ -15,7 +15,7 @@ Class {
 }
 
 { #category : #accessing }
-GtPhlowSequentialExplicitView >> asElementDo: aBlock [
+GtPhlowExplicitView >> asElementDo: aBlock [
 	| element |
 	self assert: stencilBuilder notNil description: 'The stencil should be initialized'.
 	element := [ stencilBuilder asElement ] 
@@ -28,11 +28,11 @@ GtPhlowSequentialExplicitView >> asElementDo: aBlock [
 ]
 
 { #category : #accessing }
-GtPhlowSequentialExplicitView >> stencil: aStencilBuilder [
+GtPhlowExplicitView >> stencil: aStencilBuilder [
 	stencilBuilder := aStencilBuilder asStencilBuilder
 ]
 
 { #category : #accessing }
-GtPhlowSequentialExplicitView >> stencilBuilder [
+GtPhlowExplicitView >> stencilBuilder [
 	^ stencilBuilder
 ]
