@@ -103,11 +103,6 @@ GtPhlowElementContext >> isAction [
 	^ isAction
 ]
 
-{ #category : #'api - accessing' }
-GtPhlowElementContext >> isAction: aBoolean [
-	isAction := aBoolean
-]
-
 { #category : #'api - testing' }
 GtPhlowElementContext >> isPopupContainer [
 	^ isPopupContainer
@@ -118,17 +113,7 @@ GtPhlowElementContext >> isView [
 	^ isView
 ]
 
-{ #category : #'api - accessing' }
-GtPhlowElementContext >> isView: aBoolean [
-	isView := aBoolean
-]
-
 { #category : #'api - testing' }
 GtPhlowElementContext >> isViewContent [
 	^ isViewContent
-]
-
-{ #category : #'api - accessing' }
-GtPhlowElementContext >> isViewContent: aBoolean [
-	isViewContent := aBoolean
 ]
