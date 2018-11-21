@@ -4,7 +4,9 @@ Extension { #name : #BrTab }
 BrTab >> viewContentElement [
 	"A tab that is marked as a isView can find
 	the related content element by going through the parentTabGroup"
-	self assert: self phlow isView.
+	self 
+		assert: [ self phlow isView ]
+		description: [ 'Phlow context must be a view' ].
 	^ self parentTabGroup
 		allChildrenBreadthFirstDetect: [ :each | each phlow isViewContent ] 
 		ifFound: [ :viewContentElement | viewContentElement ]

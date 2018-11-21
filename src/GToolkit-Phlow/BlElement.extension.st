@@ -4,7 +4,7 @@ Extension { #name : #BlElement }
 BlElement >> phlow [
 	^ self userData
 		at: #phlow 
-		ifAbsentPut: [ GtPhlowElement on: self ]
+		ifAbsentPut: [ GtPhlowElementContext on: self ]
 ]
 
 { #category : #'*GToolkit-Phlow' }

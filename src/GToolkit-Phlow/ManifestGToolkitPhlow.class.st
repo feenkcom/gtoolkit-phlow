@@ -11,3 +11,8 @@ Class {
 ManifestGToolkitPhlow class >> ruleRBBadMessageRuleV1FalsePositive [
 	^ #(#(#(#RGMethodDefinition #(#GtPhlowView #performSecurely:on: #false)) #'2018-08-10T16:44:21.086354-04:00') #(#(#RGClassDefinition #(#GtPhlowViewExamples)) #'2018-08-10T17:05:22.387313-04:00') )
 ]
+
+{ #category : #'code-critics' }
+ManifestGToolkitPhlow class >> ruleRBMissingTranslationsInMenusRuleV1FalsePositive [
+	^ #(#(#(#RGPackage #(#'GToolkit-Phlow')) #'2018-11-20T15:59:19.040176-03:00') )
+]

@@ -2,7 +2,7 @@
 I offer the Phlow navigation API over the Bloc element tree starting with the specific element I am tied with.
 "
 Class {
-	#name : #GtPhlowElement,
+	#name : #GtPhlowElementContext,
 	#superclass : #Object,
 	#instVars : [
 		'element',
@@ -16,57 +16,57 @@ Class {
 }
 
 { #category : #'instance creation' }
-GtPhlowElement class >> on: anElement [
+GtPhlowElementContext class >> on: anElement [
 	^ self new element: anElement
 ]
 
 { #category : #'api - accessing' }
-GtPhlowElement >> beAction [
+GtPhlowElementContext >> beAction [
 	isAction := true
 ]
 
 { #category : #'api - accessing' }
-GtPhlowElement >> bePopupContainer [
+GtPhlowElementContext >> bePopupContainer [
 	isPopupContainer := true
 ]
 
 { #category : #'api - accessing' }
-GtPhlowElement >> beView [
+GtPhlowElementContext >> beView [
 	isView := true
 ]
 
 { #category : #'api - accessing' }
-GtPhlowElement >> beViewContent [
+GtPhlowElementContext >> beViewContent [
 	isViewContent := true
 ]
 
 { #category : #'api - accessing' }
-GtPhlowElement >> element [
+GtPhlowElementContext >> element [
 	^ element
 ]
 
 { #category : #'api - accessing' }
-GtPhlowElement >> element: anObject [
+GtPhlowElementContext >> element: anObject [
 	element := anObject
 ]
 
 { #category : #'api - accessing' }
-GtPhlowElement >> entity [
+GtPhlowElementContext >> entity [
 	^ entity
 ]
 
 { #category : #'api - accessing' }
-GtPhlowElement >> entity: anObject [
+GtPhlowElementContext >> entity: anObject [
 	entity := anObject
 ]
 
 { #category : #'api - search' }
-GtPhlowElement >> firstChildWithCompositeView [
+GtPhlowElementContext >> firstChildWithCompositeView [
 	^ self firstChildWithCompositeViewDo: [ :child | child ]
 ]
 
 { #category : #'api - search' }
-GtPhlowElement >> firstChildWithCompositeViewDo: aBlock [
+GtPhlowElementContext >> firstChildWithCompositeViewDo: aBlock [
 	^ self element 
 		allChildrenBreadthFirstDetect: [ :child | 
 			child phlow isView and: [ child phlow entity isKindOf: GtPhlowCompositeView ] ] 
@@ -74,14 +74,14 @@ GtPhlowElement >> firstChildWithCompositeViewDo: aBlock [
 ]
 
 { #category : #'api - search' }
-GtPhlowElement >> firstChildWithView [
+GtPhlowElementContext >> firstChildWithView [
 	^ self element 
 		allChildrenBreadthFirstDetect: [ :child | child phlow isView ] 
 		ifFound: [ :child | child ]
 ]
 
 { #category : #'api - search' }
-GtPhlowElement >> firstPopupContainerParentDo: aBlock ifNone: aNoneBlock [
+GtPhlowElementContext >> firstPopupContainerParentDo: aBlock ifNone: aNoneBlock [
 	self element withAllParentsDo: [ :aParentElement |
 			aParentElement phlow isPopupContainer ifTrue: [ ^ aBlock value: aParentElement ] ].
 		
@@ -89,7 +89,7 @@ GtPhlowElement >> firstPopupContainerParentDo: aBlock ifNone: aNoneBlock [
 ]
 
 { #category : #initialization }
-GtPhlowElement >> initialize [
+GtPhlowElementContext >> initialize [
 	super initialize.
 	
 	isAction := false.
@@ -99,36 +99,36 @@ GtPhlowElement >> initialize [
 ]
 
 { #category : #'api - testing' }
-GtPhlowElement >> isAction [
+GtPhlowElementContext >> isAction [
 	^ isAction
 ]
 
 { #category : #'api - accessing' }
-GtPhlowElement >> isAction: aBoolean [
+GtPhlowElementContext >> isAction: aBoolean [
 	isAction := aBoolean
 ]
 
 { #category : #'api - testing' }
-GtPhlowElement >> isPopupContainer [
+GtPhlowElementContext >> isPopupContainer [
 	^ isPopupContainer
 ]
 
 { #category : #'api - testing' }
-GtPhlowElement >> isView [
+GtPhlowElementContext >> isView [
 	^ isView
 ]
 
 { #category : #'api - accessing' }
-GtPhlowElement >> isView: aBoolean [
+GtPhlowElementContext >> isView: aBoolean [
 	isView := aBoolean
 ]
 
 { #category : #'api - testing' }
-GtPhlowElement >> isViewContent [
+GtPhlowElementContext >> isViewContent [
 	^ isViewContent
 ]
 
 { #category : #'api - accessing' }
-GtPhlowElement >> isViewContent: aBoolean [
+GtPhlowElementContext >> isViewContent: aBoolean [
 	isViewContent := aBoolean
 ]
