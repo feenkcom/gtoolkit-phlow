@@ -36,3 +36,15 @@ GtPhlowExplicitView >> stencil: aStencilBuilder [
 GtPhlowExplicitView >> stencilBuilder [
 	^ stencilBuilder
 ]
+
+{ #category : #updating }
+GtPhlowExplicitView >> updateContent: anElement [
+	"anElement is previsously computed content from asElementDo:"
+	
+	self asElementDo: [ :aNewElement | 
+		| aParent |
+		aParent := anElement parent.
+		aNewElement phlow beViewContent; entity: self.
+		aParent replaceChild: anElement with: aNewElement ].
+	
+]

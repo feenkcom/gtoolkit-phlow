@@ -36,8 +36,8 @@ GtPhlowCompositeView >> addNewTabTo: aCollectionOfTabs forView: aPhlowView [
 				label: aPhlowView title;
 				stencil: [ aPhlowView asTaskItView
 						asElementDo: [ :element | 
-							element phlow beViewContent.
-							element asScrollableElement "margin: (BlInsets all: 10)" ] ];
+							element phlow beViewContent; entity: aPhlowView.
+							element asScrollableElement ] ];
 				actionsStencil: (aPhlowView actionsToolbarForElement: aTab).
 			aCollectionOfTabs add: aTab ]
 ]

@@ -26,6 +26,27 @@ GtPhlowViewExamples >> emptyExplicitView [
 	^ view
 ]
 
+{ #category : #updating }
+GtPhlowViewExamples >> explicitViewUpdate [
+	<gtExample>
+	| aView anElement aColor aParent |
+	aColor := Color red.
+	aView := GtPhlowView explicit 
+		title: 'Sample';
+		stencil: [ BlElement new background: aColor ].
+	aView asElementDo: [ :el | anElement := el ].
+	self assert: (anElement isKindOf: BlElement).
+	self assert: anElement phlow isView.
+	self assert: anElement background paint color equals: Color red.
+	aParent := BlElement new addChild: anElement.
+	aColor := Color green.
+	GtPhlowUseTaskItView 
+		value: false during: [ anElement phlow update ].
+	self assert: aParent children first background paint color equals: Color green.
+	self assert: aParent children first phlow isViewContent.
+	^ aParent
+]
+
 { #category : #examples }
 GtPhlowViewExamples >> explicitViewWithElementStencil [
 	<gtExample>
@@ -37,6 +58,25 @@ GtPhlowViewExamples >> explicitViewWithElementStencil [
 	self assert: (element isKindOf: BlElement).
 	self assert: element phlow isView.
 	^ view
+]
+
+{ #category : #'gt-extension' }
+GtPhlowViewExamples >> gtUpdatingFor: aView [ 
+	<gtView>
+	^ aView explicit 
+		title: 'Update on click';
+		stencil: [ BlElement new 
+				look: BrShadowLook;
+				background: Color random;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent.
+					c margin: (BlInsets all: 40) ]  ];
+		actionStencil: [ :aTab | 
+			BrButton new 
+				look: BrGlamorousButtonWithIconLook;
+				icon: BrGlamorousIcons refresh asElement;
+				action: [ aTab viewContentElement phlow update ] ]
 ]
 
 { #category : #examples }
@@ -103,4 +143,10 @@ GtPhlowViewExamples >> textView [
 	self assert: element phlow isView.
 	self assert: element phlow entity equals: view.
 	^ view
+]
+
+{ #category : #updating }
+GtPhlowViewExamples >> updatingExtension [
+	<gtExample>
+	^ self
 ]

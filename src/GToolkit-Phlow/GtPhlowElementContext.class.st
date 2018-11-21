@@ -117,3 +117,8 @@ GtPhlowElementContext >> isView [
 GtPhlowElementContext >> isViewContent [
 	^ isViewContent
 ]
+
+{ #category : #updating }
+GtPhlowElementContext >> update [
+	self entity updateContent: self element.
+]
