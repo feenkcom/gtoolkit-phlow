@@ -114,7 +114,7 @@ GtPhlowActionExamples >> dropdownWithIconAndLabelActionFor: anAction [
 	<gtDropdownWithIconAndLabelAction>
 	^ anAction dropdown
 		icon: BrGlamorousIcons menu;
-		label: 'Edit';
+		label: 'Check me :-)';
 		popup: [ BlElement new background: Color lightBrown; size: 200@300 ]
 ]
 
