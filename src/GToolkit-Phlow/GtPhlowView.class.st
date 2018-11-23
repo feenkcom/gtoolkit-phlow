@@ -76,6 +76,34 @@ GtPhlowView >> actionStencil: anActionStencil [
 ]
 
 { #category : #'adding - actions' }
+GtPhlowView >> actionToggleIcon: anIcon activated: anActivatedValuable deactivated: aDeactivatedValuable [
+	self 
+		actionToggleIcon: anIcon 
+		label: nil
+		activated: anActivatedValuable 
+		deactivated: aDeactivatedValuable
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionToggleIcon: anIcon label: aStringOrRope activated: anActivatedValuable deactivated: aDeactivatedValuable [
+	self action: [ :aPhlowAction | 
+		aPhlowAction toggle 
+			icon: anIcon;
+			label: aStringOrRope;
+			activatedAction: anActivatedValuable;
+			deactivatedAction: aDeactivatedValuable ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionToggleLabel: aStringOrRope activated: anActivatedValuable deactivated: aDeactivatedValuable [
+	self 
+		actionToggleIcon: nil
+		label: aStringOrRope
+		activated: anActivatedValuable 
+		deactivated: aDeactivatedValuable
+]
+
+{ #category : #'adding - actions' }
 GtPhlowView >> actionsToolbarForElement: anElement [
 	| aToolbar |
 

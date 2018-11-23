@@ -16,7 +16,7 @@ GtPhlowButtonAction >> action: aValuable [
 
 { #category : #converting }
 GtPhlowButtonAction >> asElementDo: aBlock withElement: aTargetElement [
-	<return: #BlElement>
+	<return: #BrButton>
 	| aButton |
 	aButton := BrButton new.
 	aButton look: self newButtonLook.

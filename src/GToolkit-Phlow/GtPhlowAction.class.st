@@ -85,3 +85,9 @@ GtPhlowAction >> noAction [
 	^ GtPhlowNoAction new
 		definingMethod: thisContext stack second method asRingDefinition
 ]
+
+{ #category : #decorating }
+GtPhlowAction >> toggle [
+	^ GtPhlowToggleAction new
+		definingMethod: thisContext stack second method asRingDefinition
+]
