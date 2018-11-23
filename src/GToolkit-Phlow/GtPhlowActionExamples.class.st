@@ -95,6 +95,29 @@ GtPhlowActionExamples >> collectActions: aSymbol [
 		collect
 ]
 
+{ #category : #dropdown }
+GtPhlowActionExamples >> dropdownWithIconAndLabel [
+	<gtExample>
+	| anActions aButton |
+	anActions := self collectActions: #gtDropdownWithIconAndLabelAction.
+	self assert: anActions size equals: 1.
+	self assert: anActions anyOne definingMethod selector equals: #dropdownWithIconAndLabelActionFor:.
+	aButton := anActions anyOne asElementDo: [ :x | x ] withElement: nil.
+	self assert: (aButton isKindOf: BrDropdown).
+	"self assert: aButton label asString equals: 'Edit'.
+	self assert: aButton icon background image equals: BrGlamorousIcons edit."
+	^ aButton
+]
+
+{ #category : #dropdown }
+GtPhlowActionExamples >> dropdownWithIconAndLabelActionFor: anAction [
+	<gtDropdownWithIconAndLabelAction>
+	^ anAction dropdown
+		icon: BrGlamorousIcons menu;
+		label: 'Edit';
+		popup: [ BlElement new background: Color lightBrown; size: 200@300 ]
+]
+
 { #category : #error }
 GtPhlowActionExamples >> errorActionFor: anAction [
 	<gtAction>

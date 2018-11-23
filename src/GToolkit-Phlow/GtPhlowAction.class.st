@@ -69,6 +69,12 @@ GtPhlowAction >> definingMethod: anObject [
 ]
 
 { #category : #decorating }
+GtPhlowAction >> dropdown [
+	^ GtPhlowDropdownAction new
+		definingMethod: thisContext stack second method asRingDefinition
+]
+
+{ #category : #decorating }
 GtPhlowAction >> explicit [
 	^ GtPhlowExplicitAction new
 		definingMethod: thisContext stack second method asRingDefinition
