@@ -45,7 +45,7 @@ GtPhlowView class >> on: anObject perform: aMessageSymbol [
 { #category : #accessing }
 GtPhlowView >> actionStencil: anActionStencil [
 	| newPhlowAction |
-	newPhlowAction := GtPhlowAction new.
+	newPhlowAction := GtPhlowAction explicit.
 	newPhlowAction stencil: anActionStencil.
 	newPhlowAction definingMethod: self definingMethod.
 	phlowActions add: newPhlowAction.
