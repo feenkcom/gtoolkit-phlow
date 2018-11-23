@@ -5,19 +5,17 @@ Class {
 		'resizer',
 		'stencil',
 		'title',
-		'computation'
+		'itemComputation'
 	],
 	#category : #'GToolkit-Phlow-Support'
 }
 
-{ #category : #private }
-GtPhlowColumn >> computation [
-	^ computation
-]
-
 { #category : #accessing }
 GtPhlowColumn >> evaluated: aBlock [
-	computation := aBlock
+	self 
+		deprecated: 'Please use #item: instead.'
+		transformWith: '`@receiver display: `@statements' -> '`@receiver item: `@statements'.
+	self item: aBlock
 ]
 
 { #category : #accessing }
@@ -32,7 +30,7 @@ GtPhlowColumn >> initialize [
 	resizer := BlLayoutResizer fitContent.
 	title := 'Column'.
 
-	computation := [ :eachItem :eachIndex | eachItem ].
+	itemComputation := [ :eachItem :eachIndex | eachItem ].
 
 	stencil := [ :eachColumnItem :eachItem :currentColumn |
 		| columnElement |
@@ -55,6 +53,16 @@ GtPhlowColumn >> initialize [
 						c vertical matchParent.
 						c horizontal exact: 30 ]) ].
 		columnElement ]
+]
+
+{ #category : #accessing }
+GtPhlowColumn >> item: aBlockOrSymbol [
+	itemComputation := aBlockOrSymbol
+]
+
+{ #category : #private }
+GtPhlowColumn >> itemComputation [
+	^ itemComputation
 ]
 
 { #category : #accessing }

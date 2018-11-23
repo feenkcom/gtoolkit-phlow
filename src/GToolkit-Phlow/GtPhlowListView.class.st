@@ -22,9 +22,13 @@ GtPhlowListView >> asElementDo: aBlock [
 		stencil: [ :aNode :index | 
 			| itemElement |
 			itemElement := self itemElementStencilBuilder value: aNode.
-			itemElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
+			itemElement constraintsDo: [ :c | 
+				c horizontal matchParent. 
+				c padding: (BlInsets left: 10) ] ].
 
-	list phlow beView; entity: self.
+	list phlow 
+		beView; 
+		entity: self.
 
 	^ aBlock value: list
 ]

@@ -51,8 +51,8 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 		
 		theItems ifNotEmpty: [
 			| aComputedValue aColumnElement  |
-			
-			aComputedValue := eachColumn computation valueWithEnoughArguments: { theItems first . 1 }.
+			"phlowValue: anObject withEnoughArguments: aCollection"
+			aComputedValue := eachColumn itemComputation phlowValue: theItems first  withEnoughArguments: { theItems first . 1 }.
 			aColumnElement := eachColumn stencil valueWithEnoughArguments: { aComputedValue . theItems first . eachColumn }.
 			aColumnElement visibility: BlVisibility hidden.
 
@@ -82,7 +82,7 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 			stencil: [ :eachItem :eachIndex |
 				| aComputedValue aColumnElement |
 				
-				aComputedValue := eachPhlowColumn computation valueWithEnoughArguments: { eachItem . eachIndex }.
+				aComputedValue := eachPhlowColumn itemComputation phlowValue: eachItem withEnoughArguments: { eachItem . eachIndex }.
 				aColumnElement := eachPhlowColumn stencil valueWithEnoughArguments: { aComputedValue . eachItem . eachPhlowColumn }.
 
 				eachPhlowColumn resizer ifNotNil: [ :aLayoutResizer |
@@ -116,6 +116,22 @@ GtPhlowColumnedListView >> column: aTitleString do: aBlock [
 	aColumn := self column.
 	aColumn title: aTitleString.
 	aBlock value: aColumn
+]
+
+{ #category : #accessing }
+GtPhlowColumnedListView >> column: aTitleString item: aBlock [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn item: aBlock
+]
+
+{ #category : #deprecated }
+GtPhlowColumnedListView >> display: aBlock [
+	self 
+		deprecated: 'Please use #items: instead.'
+		transformWith: '`@receiver display: `@statements' -> '`@receiver items: `@statements'.
+	self items: aBlock
 ]
 
 { #category : #initialization }
