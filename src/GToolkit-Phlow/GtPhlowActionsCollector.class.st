@@ -24,7 +24,7 @@ GtPhlowActionsCollector >> collect [
 				do: [ :error |
 					error freeze.
 					GtPhlowActionWithError new 
-						definingMethod: anAction definingMethod;
+						definingMethod: eachPragma method asRingDefinition;
 						error: error ] ]
 		thenSelect: self selectUsing
 ]

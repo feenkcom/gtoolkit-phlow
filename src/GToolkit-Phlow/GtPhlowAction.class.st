@@ -3,11 +3,16 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'category',
-		'stencilBuilder',
 		'definingMethod'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
+
+{ #category : #accessing }
+GtPhlowAction class >> explicit [
+	^ GtPhlowExplicitAction new
+		definingMethod: thisContext stack second method asRingDefinition
+]
 
 { #category : #accessing }
 GtPhlowAction class >> noAction [
@@ -15,27 +20,32 @@ GtPhlowAction class >> noAction [
 		definingMethod: thisContext stack second method asRingDefinition
 ]
 
-{ #category : #accessing }
+{ #category : #converting }
 GtPhlowAction >> asElementDo: aBlock withElement: aTargetElement [
-	| element |
-	element := [ stencilBuilder targetElement: aTargetElement. stencilBuilder asElement ] 
-		on: Error 
-		do: [ :error | 
-			error freeze.
-			GtPhlowActionWithError new 
-				error: error; 
-				definingMethod: self definingMethod;
-				asElementDo: [ :errorElement | errorElement ] withElement: aTargetElement ].
-	self definingMethod ifNotNil: [ 
-		element 
-			when: BlMouseDownEvent 
-			do: [ :event | 
-				event modifiers isAlt ifTrue: [
-					event consumed: true. 
-					element fireEvent: (GtPhlowObjectToSpawn new 
-						object: self definingMethod; 
-						sourceElement: element) ] ] ].
-	^ aBlock value: element.
+	"Return an element that represents the action in Bloc space, e.g., a button"
+	<return: #BlElement>
+	^ self subclassResponsibility
+]
+
+{ #category : #converting }
+GtPhlowAction >> attachShowDefinitionEventHandler: element [
+	self definingMethod
+		ifNotNil: [ element
+				when: BlMouseDownEvent
+				do: [ :event | 
+					event modifiers isAlt
+						ifTrue: [ event consumed: true.
+							element
+								fireEvent:
+									(GtPhlowObjectToSpawn new
+										object: self definingMethod;
+										sourceElement: element) ] ] ]
+]
+
+{ #category : #decorating }
+GtPhlowAction >> button [
+	^ GtPhlowButtonAction new
+		definingMethod: thisContext stack second method asRingDefinition
 ]
 
 { #category : #accessing }
@@ -58,9 +68,9 @@ GtPhlowAction >> definingMethod: anObject [
 	definingMethod := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #decorating }
 GtPhlowAction >> explicit [
-	^ GtPhlowAction new
+	^ GtPhlowExplicitAction new
 		definingMethod: thisContext stack second method asRingDefinition
 ]
 
@@ -68,21 +78,10 @@ GtPhlowAction >> explicit [
 GtPhlowAction >> initialize [
 	super initialize.
 	category := #general.
-	stencilBuilder := nil.
 ]
 
-{ #category : #accessing }
+{ #category : #decorating }
 GtPhlowAction >> noAction [
 	^ GtPhlowNoAction new
 		definingMethod: thisContext stack second method asRingDefinition
-]
-
-{ #category : #accessing }
-GtPhlowAction >> stencil: aStencilBuilder [
-	stencilBuilder := aStencilBuilder asStencilBuilder: GtPhlowActionStencilBuilder  
-]
-
-{ #category : #accessing }
-GtPhlowAction >> stencilBuilder [
-	^ stencilBuilder
 ]

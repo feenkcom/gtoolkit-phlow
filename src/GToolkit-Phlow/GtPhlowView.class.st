@@ -42,16 +42,40 @@ GtPhlowView class >> on: anObject perform: aMessageSymbol [
 	^ self new on: anObject perform: aMessageSymbol
 ]
 
-{ #category : #accessing }
-GtPhlowView >> actionStencil: anActionStencil [
+{ #category : #'adding - actions' }
+GtPhlowView >> action: anOneArgBlock [
 	| newPhlowAction |
-	newPhlowAction := GtPhlowAction new.
-	newPhlowAction stencil: anActionStencil.
+	newPhlowAction := anOneArgBlock value: GtPhlowAction noAction.
 	newPhlowAction definingMethod: self definingMethod.
 	phlowActions add: newPhlowAction.
 ]
 
-{ #category : #accessing }
+{ #category : #'adding - actions' }
+GtPhlowView >> actionButtonIcon: anIcon action: aValuable [
+	self actionButtonIcon: anIcon label: nil action: aValuable
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionButtonIcon: anIcon label: aStringOrRope action: aValuable [
+	self action: [ :aPhlowAction | 
+		aPhlowAction button 
+			icon: anIcon;
+			label: aStringOrRope;
+			action: aValuable ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionButtonLabel: aString action: aValuable [
+	self actionButtonIcon: nil label: aString action: aValuable
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionStencil: anActionStencil [
+	self action: [ :aPhlowAction | 
+		aPhlowAction explicit stencil: anActionStencil ]
+]
+
+{ #category : #'adding - actions' }
 GtPhlowView >> actionsToolbarForElement: anElement [
 	| aToolbar |
 
@@ -65,12 +89,12 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 	 ^ aToolbar
 ]
 
-{ #category : #accessing }
+{ #category : #'adding - actions' }
 GtPhlowView >> addPhlowAction: aPhlowAction [
 	phlowActions add: aPhlowAction.
 ]
 
-{ #category : #accessing }
+{ #category : #'adding - actions' }
 GtPhlowView >> addPhlowActions: aCollectionOfPhlowActions [
 	aCollectionOfPhlowActions do: [ :eachPhlowAction | 
 		self addPhlowAction: eachPhlowAction ]

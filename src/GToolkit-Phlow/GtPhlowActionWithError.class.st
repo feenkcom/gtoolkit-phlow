@@ -7,14 +7,18 @@ Class {
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
 
-{ #category : #accessing }
+{ #category : #converting }
 GtPhlowActionWithError >> asElementDo: aBlock withElement: aTargetElement [
-	| debugButton |
-	debugButton := BrButton new.
-	debugButton look: (BrGlamorousButtonExteriorRectangularLook new backgroundPaint: BrGlamorousColors errorBackgroundColor) + BrGlamorousButtonLabelLook.
-	debugButton label: 'Error'.
-	debugButton action: [ [error defaultAction] fork ].
-	^ aBlock value: debugButton
+	| aDebugButton |
+	aDebugButton := BrButton new.
+	aDebugButton 
+		look: (BrGlamorousButtonExteriorRectangularLook new 
+					backgroundPaint: BrGlamorousColors errorBackgroundColor) 
+			+ BrGlamorousButtonLabelLook;
+		label: 'Error';
+		action: [ [ self error defaultAction ] fork ].
+	self attachShowDefinitionEventHandler: aDebugButton.
+	^ aBlock value: aDebugButton
 ]
 
 { #category : #accessing }
