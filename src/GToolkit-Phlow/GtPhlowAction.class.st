@@ -80,6 +80,11 @@ GtPhlowAction >> explicit [
 		definingMethod: thisContext stack second method asRingDefinition
 ]
 
+{ #category : #accessing }
+GtPhlowAction >> help: aString [
+	"Ignored for now. Suppose to be a tooltip explaining a button action"
+]
+
 { #category : #initialization }
 GtPhlowAction >> initialize [
 	super initialize.

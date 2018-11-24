@@ -70,6 +70,15 @@ GtPhlowView >> actionButtonLabel: aString action: aValuable [
 ]
 
 { #category : #'adding - actions' }
+GtPhlowView >> actionDropdownButtonIcon: anIcon label: aStringOrRope popup: aValuable [
+	self action: [ :aPhlowAction | 
+		aPhlowAction dropdown 
+			icon: anIcon;
+			label: aStringOrRope;
+			popup: aValuable ]
+]
+
+{ #category : #'adding - actions' }
 GtPhlowView >> actionStencil: anActionStencil [
 	self action: [ :aPhlowAction | 
 		aPhlowAction explicit stencil: anActionStencil ]
