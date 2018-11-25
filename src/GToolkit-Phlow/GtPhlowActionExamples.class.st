@@ -1,3 +1,6 @@
+"
+!Phlow actions
+"
 Class {
 	#name : #GtPhlowActionExamples,
 	#superclass : #Object,
