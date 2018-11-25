@@ -28,11 +28,6 @@ GtPhlowButtonAction >> asElementDo: aBlock withElement: aTargetElement [
 ]
 
 { #category : #accessing }
-GtPhlowButtonAction >> help: aString [
-	"Ignored for now. Suppose to be a tooltip explaining a button action"
-]
-
-{ #category : #accessing }
 GtPhlowButtonAction >> icon: anIcon [
 	icon := anIcon
 ]

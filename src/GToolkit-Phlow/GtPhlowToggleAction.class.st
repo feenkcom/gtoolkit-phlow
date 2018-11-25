@@ -45,11 +45,6 @@ GtPhlowToggleAction >> deactivatedAction: aValuable [
 ]
 
 { #category : #accessing }
-GtPhlowToggleAction >> help: aString [
-	"Ignored for now. Suppose to be a tooltip explaining a button action"
-]
-
-{ #category : #accessing }
 GtPhlowToggleAction >> icon: anIcon [
 	icon := anIcon
 ]
