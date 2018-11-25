@@ -1,5 +1,10 @@
 "
-I am an abstract view.
+!Phlow View
+
+A view is a stencil, a specification of how the concrete view widget will be created. Beside the logic of creating the widget, the view also specifies the ==title==, and the ==phlowActions== (see ${class:GtPhlowAction}$).
+
+See ${class:GtPhlowViewExamples}$.
+
 "
 Class {
 	#name : #GtPhlowView,

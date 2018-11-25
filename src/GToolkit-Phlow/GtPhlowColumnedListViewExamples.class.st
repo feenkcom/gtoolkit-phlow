@@ -17,3 +17,18 @@ GtPhlowColumnedListViewExamples >> emptyList [
 	self assert: element phlow entity = view.
 	^ view
 ]
+
+{ #category : #'api-shortcuts' }
+GtPhlowColumnedListViewExamples >> viewWithItems [
+	<gtExample>
+	| view element |
+	view := self emptyList 
+		items: [ (1 to: 100) ];
+		column: 'x' do: [:column | 
+			column item: [ :number | number ]; matchParent ];
+		column: 'x * 2' translated do: [:column | 
+			column item: [:number | number * 2 ]; matchParent ].
+	view asElementDo: [ :el | element := el ].
+	self assert: element children second items size = 100.
+	^ view
+]
