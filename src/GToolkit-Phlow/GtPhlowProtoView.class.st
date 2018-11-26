@@ -71,11 +71,17 @@ GtPhlowProtoView >> gtLiveFor: aView [
 	^ aView explicit
 		title: 'Live';
 		stencil: [ 
-			self asElementDo: [ :e | 
-				e 
-					margin: (BlInsets all: 20);
-					background: Color white;
-					look: BrShadowLook ] ]
+			| aContainer |
+			aContainer := BlElement new
+				margin: (BlInsets all: 20);
+				background: Color white;
+				look: BrShadowLook;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent ].
+			self asElementDo: [ :aNewElement | 
+				aContainer addChild: aNewElement ].
+			aContainer ]
 ]
 
 { #category : #converting }
