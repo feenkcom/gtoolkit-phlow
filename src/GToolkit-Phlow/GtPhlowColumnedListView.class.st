@@ -166,5 +166,5 @@ GtPhlowColumnedListView >> send: anOneArgBlock [
 	self
 		assert: [ anOneArgBlock numArgs = 1 ]
 		description: [ 'Send transformation block must receive one argument'  ].
-	^ transformation
+	transformation := anOneArgBlock
 ]
