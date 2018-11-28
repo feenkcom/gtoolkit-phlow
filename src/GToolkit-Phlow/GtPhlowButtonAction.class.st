@@ -16,7 +16,7 @@ GtPhlowButtonAction >> action: aValuable [
 
 { #category : #converting }
 GtPhlowButtonAction >> asElementDo: aBlock withElement: aTargetElement [
-	<return: #BlElement>
+	<return: #BrButton>
 	| aButton |
 	aButton := BrButton new.
 	aButton look: self newButtonLook.
@@ -25,11 +25,6 @@ GtPhlowButtonAction >> asElementDo: aBlock withElement: aTargetElement [
 	action ifNotNil: [ aButton action: action ].
 	self attachShowDefinitionEventHandler: aButton.
 	^ aBlock value: aButton
-]
-
-{ #category : #accessing }
-GtPhlowButtonAction >> help: aString [
-	"Ignored for now. Suppose to be a tooltip explaining a button action"
 ]
 
 { #category : #accessing }

@@ -1,5 +1,10 @@
 "
-I am an abstract view.
+!Phlow View
+
+A view is a stencil, a specification of how the concrete view widget will be created. Beside the logic of creating the widget, the view also specifies the ==title==, and the ==phlowActions== (see ${class:GtPhlowAction}$).
+
+See ${class:GtPhlowViewExamples}$.
+
 "
 Class {
 	#name : #GtPhlowView,
@@ -70,9 +75,46 @@ GtPhlowView >> actionButtonLabel: aString action: aValuable [
 ]
 
 { #category : #'adding - actions' }
+GtPhlowView >> actionDropdownButtonIcon: anIcon label: aStringOrRope popup: aValuable [
+	self action: [ :aPhlowAction | 
+		aPhlowAction dropdown 
+			icon: anIcon;
+			label: aStringOrRope;
+			popup: aValuable ]
+]
+
+{ #category : #'adding - actions' }
 GtPhlowView >> actionStencil: anActionStencil [
 	self action: [ :aPhlowAction | 
 		aPhlowAction explicit stencil: anActionStencil ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionToggleIcon: anIcon activated: anActivatedValuable deactivated: aDeactivatedValuable [
+	self 
+		actionToggleIcon: anIcon 
+		label: nil
+		activated: anActivatedValuable 
+		deactivated: aDeactivatedValuable
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionToggleIcon: anIcon label: aStringOrRope activated: anActivatedValuable deactivated: aDeactivatedValuable [
+	self action: [ :aPhlowAction | 
+		aPhlowAction toggle 
+			icon: anIcon;
+			label: aStringOrRope;
+			activatedAction: anActivatedValuable;
+			deactivatedAction: aDeactivatedValuable ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionToggleLabel: aStringOrRope activated: anActivatedValuable deactivated: aDeactivatedValuable [
+	self 
+		actionToggleIcon: nil
+		label: aStringOrRope
+		activated: anActivatedValuable 
+		deactivated: aDeactivatedValuable
 ]
 
 { #category : #'adding - actions' }

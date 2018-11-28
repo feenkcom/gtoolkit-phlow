@@ -1,3 +1,27 @@
+"
+!Phlow views by example 
+
+!!Explicit view
+
+The most fine grained view is the explicit one through which you can specify the detailed stencil to be used to create the final element.
+
+${example:GtPhlowViewExamples>>#explicitViewWithElementStencil|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
+
+
+!!Text view
+
+${example:GtPhlowViewExamples>>#textView|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
+
+!!List view
+
+${example:GtPhlowViewExamples>>#listView|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
+
+
+!!Columned view
+
+${example:GtPhlowColumnedListViewExamples>>#viewWithItems|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
+
+"
 Class {
 	#name : #GtPhlowViewExamples,
 	#superclass : #Object,
@@ -91,6 +115,18 @@ GtPhlowViewExamples >> labelledCompositeView [
 	self assert: (element phlow firstChildWithView phlow entity = view).
 	childElementsWithView := element allChildrenBreadthFirstSelect: [:each | each phlow isView ].
 	self assert: childElementsWithView size = 3.
+	^ view
+]
+
+{ #category : #examples }
+GtPhlowViewExamples >> listView [
+	<gtExample>
+	| view element |
+	view := GtPhlowView empty list items: (1 to: 100).
+	view asElementDo: [ :el | element := el ].
+	self assert: (element isKindOf: BrColumnedList).
+	self assert: element phlow isView.
+	self assert: element phlow entity equals: view.
 	^ view
 ]
 

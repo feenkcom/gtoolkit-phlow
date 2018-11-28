@@ -69,9 +69,28 @@ GtPhlowAction >> definingMethod: anObject [
 ]
 
 { #category : #decorating }
+GtPhlowAction >> dropdown [
+	^ GtPhlowDropdownAction new
+		definingMethod: thisContext stack second method asRingDefinition
+]
+
+{ #category : #decorating }
 GtPhlowAction >> explicit [
 	^ GtPhlowExplicitAction new
 		definingMethod: thisContext stack second method asRingDefinition
+]
+
+{ #category : #'as yet unclassified' }
+GtPhlowAction >> gtLiveFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Live';
+		stencil: [ self asElementDo: [ :x | x ] withElement: nil ]
+]
+
+{ #category : #accessing }
+GtPhlowAction >> help: aString [
+	"Ignored for now. Suppose to be a tooltip explaining a button action"
 ]
 
 { #category : #initialization }
@@ -83,5 +102,11 @@ GtPhlowAction >> initialize [
 { #category : #decorating }
 GtPhlowAction >> noAction [
 	^ GtPhlowNoAction new
+		definingMethod: thisContext stack second method asRingDefinition
+]
+
+{ #category : #decorating }
+GtPhlowAction >> toggle [
+	^ GtPhlowToggleAction new
 		definingMethod: thisContext stack second method asRingDefinition
 ]
