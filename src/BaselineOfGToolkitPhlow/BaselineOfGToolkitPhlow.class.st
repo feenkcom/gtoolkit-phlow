@@ -5,7 +5,9 @@ Phlow is a generic browsing engine for specifying views and transmissions. It is
 
 !!Views
 
+Views define the logic through which the concrete widgets get built. They are essentially stencils.
 
+See ${class:GtPhlowViewExamples}$.
 
 !!Actions
 
