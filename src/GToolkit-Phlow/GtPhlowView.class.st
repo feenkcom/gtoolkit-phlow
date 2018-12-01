@@ -19,32 +19,14 @@ Class {
 }
 
 { #category : #decorating }
-GtPhlowView class >> composite [
-	^ GtPhlowCompositeView new
-		definingMethod: thisContext stack second method asRingDefinition
-]
-
-{ #category : #decorating }
 GtPhlowView class >> empty [
 	^ GtPhlowEmptyView new
-		definingMethod: thisContext stack second method asRingDefinition
-]
-
-{ #category : #decorating }
-GtPhlowView class >> explicit [
-	^ GtPhlowExplicitView new 
 		definingMethod: thisContext stack second method asRingDefinition
 ]
 
 { #category : #testing }
 GtPhlowView class >> isAbstract [
 	^ self name = #GtPhlowView 
-]
-
-{ #category : #'message performing' }
-GtPhlowView class >> on: anObject perform: aMessageSymbol [
-	<return: #BlElement>
-	^ self new on: anObject perform: aMessageSymbol
 ]
 
 { #category : #'adding - actions' }
