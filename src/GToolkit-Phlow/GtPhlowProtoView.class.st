@@ -26,14 +26,18 @@ GtPhlowProtoView >> asTaskItView [
 GtPhlowProtoView >> columnedList [
 	^ GtPhlowColumnedListView new
 		originalView: self;
-		definingMethod: thisContext stack second method asRingDefinition
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]
 
 { #category : #decorating }
 GtPhlowProtoView >> composite [
 	^ GtPhlowCompositeView new
 		originalView: self;
-		definingMethod: thisContext stack second method asRingDefinition
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]
 
 { #category : #accessing }
@@ -62,7 +66,9 @@ GtPhlowProtoView >> empty [
 GtPhlowProtoView >> explicit [
 	^ GtPhlowExplicitView new 
 		originalView: self;
-		definingMethod: thisContext stack second method asRingDefinition
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]
 
 { #category : #ui }
@@ -93,21 +99,27 @@ GtPhlowProtoView >> ifItHasContent: aBlock [
 GtPhlowProtoView >> labelled [
 	^ GtPhlowLabelledView new 
 		originalView: self;
-		definingMethod: thisContext stack second method asRingDefinition
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]
 
 { #category : #decorating }
 GtPhlowProtoView >> labelled: aStringOrText [
 	^ self labelled 
 		label: aStringOrText;
-		definingMethod: thisContext stack second method asRingDefinition
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]
 
 { #category : #decorating }
 GtPhlowProtoView >> list [
 	^ GtPhlowListView new
 		originalView: self;
-		definingMethod: thisContext stack second method asRingDefinition
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]
 
 { #category : #accessing }
