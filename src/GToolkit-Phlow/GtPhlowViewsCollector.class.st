@@ -10,6 +10,7 @@ Class {
 { #category : #actions }
 GtPhlowViewsCollector >> collect [
 	<return: #Array of: #GtPhlowView>
+	<gtCollector>
 	| theViews |
 	theViews := self collectPragmas
 		collect: [ :eachPragma | 

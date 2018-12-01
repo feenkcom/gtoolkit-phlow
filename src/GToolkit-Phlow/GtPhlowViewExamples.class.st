@@ -118,6 +118,54 @@ GtPhlowViewExamples >> labelledCompositeView [
 	^ view
 ]
 
+{ #category : #'reused views' }
+GtPhlowViewExamples >> levelOneView [
+	<gtExample>
+	| aViews |
+	aViews := GtPhlowViewsCollector new
+		pragmaName: #gtLevelOneView;
+		fromObject: self;
+		collect.
+	self assert: aViews size equals: 1.
+	self assert: aViews first definingMethod selector equals: #levelOneViewFor:.
+	self assert: aViews first class equals: GtPhlowTextEditorView.
+	^ aViews first
+]
+
+{ #category : #'reused views' }
+GtPhlowViewExamples >> levelOneViewFor: aView [
+	<gtView>
+	<gtLevelOneView>
+	^ aView textEditor
+		title: 'Level One';
+		text: [ 'Level One' ]
+]
+
+{ #category : #'reused views' }
+GtPhlowViewExamples >> levelTwoView [
+	<gtExample>
+	| aViews |
+	aViews := GtPhlowViewsCollector new
+		pragmaName: #gtLevelTwoView;
+		fromObject: self;
+		collect.
+	self assert: aViews size equals: 1.
+	self assert: aViews first definingMethod class equals: GtPhlowDefiningMethods.
+	self assert: aViews first definingMethod methods size equals: 2.
+	self assert: aViews first definingMethod methods first selector equals: #levelTwoViewFor:.
+	self assert: aViews first definingMethod methods second selector equals: #levelOneViewFor:.
+	^ aViews first
+]
+
+{ #category : #'reused views' }
+GtPhlowViewExamples >> levelTwoViewFor: aView [
+	<gtView>
+	<gtLevelTwoView>
+	^ (self levelOneViewFor: aView)
+		title: 'Level Two';
+		text: [ 'Level Two' ]
+]
+
 { #category : #examples }
 GtPhlowViewExamples >> listView [
 	<gtExample>
@@ -128,6 +176,12 @@ GtPhlowViewExamples >> listView [
 	self assert: element phlow isView.
 	self assert: element phlow entity equals: view.
 	^ view
+]
+
+{ #category : #'reused views' }
+GtPhlowViewExamples >> myself [
+	<gtExample>
+	^ self
 ]
 
 { #category : #'secure execution' }

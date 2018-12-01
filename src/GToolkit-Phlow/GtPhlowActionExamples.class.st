@@ -147,7 +147,7 @@ GtPhlowActionExamples >> levelOneAction [
 		collect.
 	self assert: anActions size equals: 1.
 	self assert: anActions first definingMethod selector equals: #levelOneActionFor:.
-	"self assert: anActions first class equals: GtPhlowButtonAction."
+	self assert: anActions first class equals: GtPhlowButtonAction.
 	^ anActions first
 ]
 

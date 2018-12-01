@@ -176,12 +176,14 @@ GtPhlowView >> initialize [
 { #category : #'message performing' }
 GtPhlowView >> on: anObject perform: aMessageSymbol [
 	<return: #GtPhlowView>
+	<gtCollector>
 	^ self on: anObject perform: aMessageSymbol withArguments: { self }
 ]
 
 { #category : #'message performing' }
 GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOfArguments [
 	<return: #GtPhlowView>
+	<gtCollector>
 	^ [ thisContext
 			object: anObject
 			perform: aMessageSymbol
@@ -199,6 +201,7 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOf
 { #category : #'message performing' }
 GtPhlowView >> on: anObject perform: aMessageSymbol withContext: aContext [
 	<return: #GtPhlowView>
+	<gtCollector>
 	^ self on: anObject perform: aMessageSymbol withArguments: { self. aContext }
 ]
 
