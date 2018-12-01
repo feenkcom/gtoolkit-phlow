@@ -11,6 +11,7 @@ Class {
 { #category : #'api - actions' }
 GtPhlowActionsCollector >> collect [
 	<return: #Array of: #GtPhlowAction>
+	<gtCollector>
 	^ self sortedPragmas 
 		collect: [ :eachPragma | 
 			| anAction |

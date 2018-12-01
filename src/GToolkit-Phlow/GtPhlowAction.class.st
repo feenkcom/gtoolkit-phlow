@@ -9,12 +9,6 @@ Class {
 }
 
 { #category : #accessing }
-GtPhlowAction class >> explicit [
-	^ GtPhlowExplicitAction new
-		definingMethod: thisContext stack second method asRingDefinition
-]
-
-{ #category : #accessing }
 GtPhlowAction class >> noAction [
 	^ GtPhlowNoAction new
 		definingMethod: thisContext stack second method asRingDefinition
@@ -45,7 +39,9 @@ GtPhlowAction >> attachShowDefinitionEventHandler: element [
 { #category : #decorating }
 GtPhlowAction >> button [
 	^ GtPhlowButtonAction new
-		definingMethod: thisContext stack second method asRingDefinition
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]
 
 { #category : #accessing }
@@ -71,16 +67,20 @@ GtPhlowAction >> definingMethod: anObject [
 { #category : #decorating }
 GtPhlowAction >> dropdown [
 	^ GtPhlowDropdownAction new
-		definingMethod: thisContext stack second method asRingDefinition
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]
 
 { #category : #decorating }
 GtPhlowAction >> explicit [
 	^ GtPhlowExplicitAction new
-		definingMethod: thisContext stack second method asRingDefinition
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'gt-extension' }
 GtPhlowAction >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit
@@ -108,5 +108,7 @@ GtPhlowAction >> noAction [
 { #category : #decorating }
 GtPhlowAction >> toggle [
 	^ GtPhlowToggleAction new
-		definingMethod: thisContext stack second method asRingDefinition
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]

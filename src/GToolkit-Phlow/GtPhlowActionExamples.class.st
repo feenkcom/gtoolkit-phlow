@@ -137,6 +137,58 @@ GtPhlowActionExamples >> explicitAction [
 	^ anAction
 ]
 
+{ #category : #'reused actions' }
+GtPhlowActionExamples >> levelOneAction [
+	<gtExample>
+	| anActions |
+	anActions := GtPhlowActionsCollector new
+		pragmaName: #gtLevelOneAction;
+		fromObject: self;
+		collect.
+	self assert: anActions size equals: 1.
+	self assert: anActions first definingMethod selector equals: #levelOneActionFor:.
+	"self assert: anActions first class equals: GtPhlowButtonAction."
+	^ anActions first
+]
+
+{ #category : #'reused actions' }
+GtPhlowActionExamples >> levelOneActionFor: anAction [
+	<gtAction>
+	<gtLevelOneAction>
+	^ anAction button
+		label: 'Level One'
+]
+
+{ #category : #'reused actions' }
+GtPhlowActionExamples >> levelTwoAction [
+	<gtExample>
+	| anActions |
+	anActions := GtPhlowActionsCollector new
+		pragmaName: #gtLevelTwoAction;
+		fromObject: self;
+		collect.
+	self assert: anActions size equals: 1.
+	self assert: anActions first definingMethod class equals: GtPhlowDefiningMethods.
+	self assert: anActions first definingMethod methods size equals: 2.
+	self assert: anActions first definingMethod methods first selector equals: #levelTwoActionFor:.
+	self assert: anActions first definingMethod methods second selector equals: #levelOneActionFor:.
+	^ anActions first
+]
+
+{ #category : #'reused actions' }
+GtPhlowActionExamples >> levelTwoActionFor: anAction [
+	<gtAction>
+	<gtLevelTwoAction>
+	^ (self levelOneActionFor: anAction)
+		label: 'Level Two'
+]
+
+{ #category : #'reused actions' }
+GtPhlowActionExamples >> myself [
+	<gtExample>
+	^ self
+]
+
 { #category : #toggle }
 GtPhlowActionExamples >> toggleWithIcon [
 	<gtExample>
