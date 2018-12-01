@@ -145,8 +145,3 @@ GtPhlowProtoView >> title: aString [
 	It is supposed to be a short name"
 	^ self subclassResponsibility
 ]
-
-{ #category : #accessing }
-GtPhlowProtoView >> widgets [
-	^ GtPhlowWidgetBuilder new
-]
