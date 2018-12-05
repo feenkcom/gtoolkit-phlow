@@ -72,10 +72,19 @@ GtPhlowProtoView >> explicit [
 ]
 
 { #category : #ui }
+GtPhlowProtoView >> gtDefiningMethodFor: aView [
+	<gtView>
+	self definingMethod ifNil: [ ^ aView empty ].
+	^ (self definingMethod gtSourceFor: aView)
+			priority: 2
+]
+
+{ #category : #ui }
 GtPhlowProtoView >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Live';
+		priority: 1;
 		stencil: [ 
 			| aContainer |
 			aContainer := BlElement new
