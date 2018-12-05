@@ -28,6 +28,43 @@ Class {
 	#category : #'GToolkit-Phlow-Examples'
 }
 
+{ #category : #updating }
+GtPhlowViewExamples >> announceDefiningMethodChange [
+	<gtExample>
+	| aMethods anAnnouncements |
+	aMethods := self definingMethods.
+	anAnnouncements := OrderedCollection new.
+	aMethods 
+		subscribe: GtPhlowDefinitionUpdated
+		do: [ :anAnnouncement | anAnnouncements add: anAnnouncement ].
+	self fooMethodDefinition.
+	self assert: anAnnouncements size equals: 1.
+	^ aMethods
+]
+
+{ #category : #updating }
+GtPhlowViewExamples >> bazMethodDefinition [
+	<gtExample>
+	| aCompiledMethod |
+	aCompiledMethod := self demoClass compile: 'bazFor: aView
+	<gtView>
+	^ aView explicit 
+		title: ''Baz'';
+		stencil: [ BlElement new
+			background: Color random;
+			size: 150@300 ]' classified: 'gt-extension'.
+	self assert: aCompiledMethod equals: #bazFor:.
+	^ (self demoClass >> #bazFor:) asRingDefinition
+]
+
+{ #category : #updating }
+GtPhlowViewExamples >> collectionOfDefiningMethods [
+	<gtExample>
+	^ Array 
+		with: self fooMethodDefinition
+		with: self bazMethodDefinition
+]
+
 { #category : #examples }
 GtPhlowViewExamples >> compositeView [
 	<gtExample>
@@ -38,6 +75,39 @@ GtPhlowViewExamples >> compositeView [
 	self assert: element phlow isView.
 	self assert: element phlow entity = view.
 	^ view
+]
+
+{ #category : #updating }
+GtPhlowViewExamples >> definingMethods [
+	<gtExample>
+	| aMethods |
+	aMethods := GtPhlowAnnouncingDefiningMethods new
+		methods: self collectionOfDefiningMethods.
+	self assert: aMethods methods equals: self collectionOfDefiningMethods.
+	^ aMethods
+]
+
+{ #category : #updating }
+GtPhlowViewExamples >> demoClass [
+	<gtExample>
+	| aClass |
+	aClass := self class environment
+		at: self demoClassName
+		ifAbsent: [ Object
+				subclass: self demoClassName
+				instanceVariableNames: ''
+				classVariableNames: ''
+				package: 'GToolkit-PhlowTempPackage' ].
+	self
+		assert: (self class environment at: self demoClassName)
+		equals: aClass.
+	^ aClass
+]
+
+{ #category : #updating }
+GtPhlowViewExamples >> demoClassName [
+	<gtExample>
+	^ #GtPhlowDemoClass
 ]
 
 { #category : #examples }
@@ -82,6 +152,21 @@ GtPhlowViewExamples >> explicitViewWithElementStencil [
 	self assert: (element isKindOf: BlElement).
 	self assert: element phlow isView.
 	^ view
+]
+
+{ #category : #updating }
+GtPhlowViewExamples >> fooMethodDefinition [
+	<gtExample>
+	| aCompiledMethod |
+	aCompiledMethod := self demoClass compile: 'fooFor: aView
+	<gtView>
+	^ aView explicit 
+		title: ''Foo'';
+		stencil: [ BlElement new
+			background: Color random;
+			size: 300@150 ]' classified: 'gt-extension'.
+	self assert: aCompiledMethod equals: #fooFor:.
+	^ (self demoClass >> #fooFor:) asRingDefinition
 ]
 
 { #category : #'gt-extension' }
