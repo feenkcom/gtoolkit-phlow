@@ -126,6 +126,15 @@ GtPhlowColumnedListView >> column: aTitleString item: aBlock [
 	aColumn item: aBlock
 ]
 
+{ #category : #accessing }
+GtPhlowColumnedListView >> column: aTitleString item: aBlock width: aNumber [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn item: aBlock.
+	aColumn width: aNumber.
+]
+
 { #category : #deprecated }
 GtPhlowColumnedListView >> display: aBlock [
 	self 
