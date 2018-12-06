@@ -130,6 +130,23 @@ GtPhlowDemoDefinitionsExamples >> demoSubClassName [
 	^ #GtPhlowDemoSubClass
 ]
 
+{ #category : #'method - printOn' }
+GtPhlowDemoDefinitionsExamples >> ensurePrintOnRemoved [
+	<gtExample>
+	| aRing |
+	self demoClass 
+		compiledMethodAt: self printOnMethodName 
+		ifPresent: [ :aCompiledMethod | self demoClass removeSelector: self printOnMethodName ]
+		ifAbsent: [ "do nothing" ].
+	aRing := RGMethodDefinition new 
+			name: self printOnMethodName;
+			parentName: self demoClass name;
+			isMetaSide: self demoClass isMeta;
+			asActive.
+	self assert: aRing isDefined not.
+	^ aRing
+]
+
 { #category : #'method - foo' }
 GtPhlowDemoDefinitionsExamples >> fooMethodDefinition [
 	<gtExample>
