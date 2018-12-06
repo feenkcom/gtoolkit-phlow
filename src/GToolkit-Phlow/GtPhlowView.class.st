@@ -134,6 +134,15 @@ GtPhlowView >> definingMethod: anObject [
 	definingMethod := anObject
 ]
 
+{ #category : #private }
+GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
+	| aNilOrClassName |
+	aNilOrClassName := anObject class whichClassIncludesSelector: aMessageSymbol.
+	^ aNilOrClassName 
+		ifNil: [ self definingMethod ] 
+		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
+]
+
 { #category : #converting }
 GtPhlowView >> ifItHasContent: aBlock [
 	^ aBlock value
@@ -172,10 +181,12 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOf
 			withArguments: aCollectionOfArguments
 			inClass: anObject class ] 
 		on: Error 
-		do: [ :anException | 
+		do: [ :anException |
+			| aDefiningMethod | 
+			aDefiningMethod := self definingMethodForObject: anObject andSelector: aMessageSymbol.   
 			anException freeze.
 			GtPhlowViewWithError new
-				definingMethod: self definingMethod;
+				definingMethod: aDefiningMethod;
 				title: 'Error';
 				error: anException ]
 ]

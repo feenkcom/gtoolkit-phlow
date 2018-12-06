@@ -28,6 +28,21 @@ Class {
 	#category : #'GToolkit-Phlow-Examples'
 }
 
+{ #category : #updating }
+GtPhlowViewExamples >> announceDefiningMethodChange [
+	<gtExample>
+	| aMethods anAnnouncements aDemo |
+	aDemo := GtPhlowDemoDefinitionsExamples new.
+	aMethods := self definingMethods.
+	anAnnouncements := OrderedCollection new.
+	aMethods 
+		subscribe: GtPhlowDefinitionUpdated
+		do: [ :anAnnouncement | anAnnouncements add: anAnnouncement ].
+	aDemo fooMethodDefinition.
+	self assert: anAnnouncements size equals: 1.
+	^ aMethods
+]
+
 { #category : #examples }
 GtPhlowViewExamples >> compositeView [
 	<gtExample>
@@ -38,6 +53,17 @@ GtPhlowViewExamples >> compositeView [
 	self assert: element phlow isView.
 	self assert: element phlow entity = view.
 	^ view
+]
+
+{ #category : #updating }
+GtPhlowViewExamples >> definingMethods [
+	<gtExample>
+	| aMethods aDemo |
+	aDemo := GtPhlowDemoDefinitionsExamples new.
+	aMethods := GtPhlowAnnouncingDefiningMethods new
+		methods: aDemo collectionOfDefiningMethods.
+	self assert: aMethods methods equals: aDemo collectionOfDefiningMethods.
+	^ aMethods
 ]
 
 { #category : #examples }
@@ -101,6 +127,13 @@ GtPhlowViewExamples >> gtUpdatingFor: aView [
 				look: BrGlamorousButtonWithIconLook;
 				icon: BrGlamorousIcons refresh asElement;
 				action: [ aTab viewContentElement phlow update ] ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowViewExamples >> gtViewWithExceptionAtCreationFor: aView [
+	<gtView>
+	1/0.
+	^ aView title: 'With error during view creation'
 ]
 
 { #category : #examples }
@@ -185,19 +218,31 @@ GtPhlowViewExamples >> myself [
 ]
 
 { #category : #'secure execution' }
-GtPhlowViewExamples >> onPerformWithError [
+GtPhlowViewExamples >> onPerformWithErrorAtCreation [
 	<gtExample>
 	| aView |
-	aView := GtPhlowView empty on: nil perform: #nonExistingMethod:.
+	aView := GtPhlowView empty on: self perform: #gtViewWithExceptionAtCreationFor:.
+	self assert: aView class equals: GtPhlowViewWithError.
+	self 
+		assert: aView definingMethod 
+		equals: (self class >> #gtViewWithExceptionAtCreationFor:) asRingDefinition.
+	^ aView
+]
+
+{ #category : #'secure execution' }
+GtPhlowViewExamples >> onPerformWithNonExistingMethodError [
+	<gtExample>
+	| aView |
+	aView := GtPhlowView empty on: self perform: #nonExistingMethod:.
 	self assert: aView class equals: GtPhlowViewWithError.
 	^ aView
 ]
 
 { #category : #'secure execution' }
-GtPhlowViewExamples >> onPerformWithErrorBlocElement [
+GtPhlowViewExamples >> onPerformWithNonExistingMethodErrorBlocElement [
 	<gtExample>
 	| aView anElement |
-	aView := self onPerformWithError.
+	aView := self onPerformWithNonExistingMethodError.
 	anElement := aView asElementDo: [ :theElement | theElement ].
 	self assert: (anElement isKindOf: BlElement).
 	^ anElement

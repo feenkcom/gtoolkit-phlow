@@ -11,11 +11,21 @@ Class {
 GtPhlowDefiningMethods >> gtSourceFor: aView [
 	<gtView>
 	self methods ifNil: [ ^ aView empty ].
-	^ aView list
+	^ aView explicit
 		title: 'Source';
-		items: [ self methods ];
-		itemElement: [ :aMethodDefinition |
-			(GtMethodCoder forMethod: aMethodDefinition) expanded: true; asElement ]
+		stencil: [ 
+			| aContainer |
+			aContainer := BlElement new.
+			aContainer 
+				layout: BlLinearLayout vertical;
+				constraintsDo: [ :c | 
+					c vertical fitContent.
+					c horizontal matchParent ].
+			self methods do: [ :eachMethod | 
+				aContainer addChild: (
+					(GtMethodCoder forMethod: eachMethod) 
+						expanded: true; asElement) ].
+			aContainer ]
 ]
 
 { #category : #accessing }
