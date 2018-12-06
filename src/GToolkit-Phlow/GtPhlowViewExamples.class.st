@@ -38,7 +38,7 @@ GtPhlowViewExamples >> announceDefiningMethodChange [
 	aMethods 
 		subscribe: GtPhlowDefinitionUpdated
 		do: [ :anAnnouncement | anAnnouncements add: anAnnouncement ].
-	aDemo fooMethodDefinition.
+	aDemo compileFooMethod.
 	self assert: anAnnouncements size equals: 1.
 	^ aMethods
 ]
