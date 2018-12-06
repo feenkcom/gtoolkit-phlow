@@ -1,0 +1,182 @@
+Class {
+	#name : #GtPhlowDemoDefinitionsExamples,
+	#superclass : #Object,
+	#category : #'GToolkit-Phlow-Examples'
+}
+
+{ #category : #'method - baz' }
+GtPhlowDemoDefinitionsExamples >> bazMethodDefinition [
+	<gtExample>
+	| aRing |
+	(self demoClass canUnderstand: self bazMethodName) 
+		ifFalse: [ self compileBazMethod ].
+	aRing := (self demoClass >> self bazMethodName) asRingDefinition.
+	self assert: aRing isDefined.
+	^ aRing
+]
+
+{ #category : #'method - baz' }
+GtPhlowDemoDefinitionsExamples >> bazMethodName [
+	<gtExample>
+	^ #bazFor:
+]
+
+{ #category : #methods }
+GtPhlowDemoDefinitionsExamples >> collectionOfDefiningMethods [
+	<gtExample>
+	^ Array 
+		with: self fooMethodDefinition
+		with: self bazMethodDefinition
+]
+
+{ #category : #'method - baz' }
+GtPhlowDemoDefinitionsExamples >> compileBazMethod [
+	<gtExample>
+	| aSymbol |
+	aSymbol := self demoClass compile: self bazMethodName asString, ' aView
+	<gtView>
+	^ aView explicit 
+		title: ''Baz'';
+		stencil: [ BlElement new
+			background: Color random;
+			size: 150@300 ]' classified: 'gt-extension'.
+	self assert: aSymbol equals: self bazMethodName.
+	^ aSymbol
+]
+
+{ #category : #'method - foo' }
+GtPhlowDemoDefinitionsExamples >> compileFooMethod [
+	<gtExample>
+	| aSymbol |
+	aSymbol := self demoClass compile: self fooMethodName asString, ' aView
+	<gtView>
+	^ aView explicit 
+		title: ''Foo'';
+		stencil: [ BlElement new
+			background: Color random;
+			size: 300@150 ]' classified: 'gt-extension'.
+	self assert: aSymbol equals: self fooMethodName.
+	^ aSymbol
+]
+
+{ #category : #'method - printOn' }
+GtPhlowDemoDefinitionsExamples >> compilePrintOnMethod [
+	<gtExample>
+	| aCompiledMethod |
+	aCompiledMethod := self demoClass
+		compile:
+			'printOn: aStream
+	aStream nextPutAll: ''Print A'''
+		classified: 'printing'.
+	self assert: aCompiledMethod equals: #printOn:.
+	^ (self demoClass >> self printOnMethodName) asRingDefinition
+]
+
+{ #category : #classes }
+GtPhlowDemoDefinitionsExamples >> demoClass [
+	<gtExample>
+	| aClass |
+	aClass := self class environment
+		at: self demoClassName
+		ifAbsent: [ Object
+				subclass: self demoClassName
+				instanceVariableNames: ''
+				classVariableNames: ''
+				package: 'GToolkit-PhlowTempPackage' ].
+	self
+		assert: (self class environment at: self demoClassName)
+		equals: aClass.
+	^ aClass
+]
+
+{ #category : #classes }
+GtPhlowDemoDefinitionsExamples >> demoClassName [
+	<gtExample>
+	^ #GtPhlowDemoClass
+]
+
+{ #category : #packages }
+GtPhlowDemoDefinitionsExamples >> demoPackage [
+	<gtExample>
+	^ self demoPackageName asPackage
+]
+
+{ #category : #packages }
+GtPhlowDemoDefinitionsExamples >> demoPackageName [
+	<gtExample>
+	^ 'GToolkit-PhlowTempPackage'
+]
+
+{ #category : #classes }
+GtPhlowDemoDefinitionsExamples >> demoSubClass [
+	<gtExample>
+	| aClass |
+	aClass := self class environment
+		at: self demoSubClassName
+		ifAbsent: [ self demoClass
+				subclass: self demoSubClassName
+				instanceVariableNames: ''
+				classVariableNames: ''
+				package: 'GToolkit-PhlowTempPackage' ].
+	self
+		assert: (self class environment at: self demoSubClassName)
+		equals: aClass.
+	^ aClass
+]
+
+{ #category : #classes }
+GtPhlowDemoDefinitionsExamples >> demoSubClassName [
+	<gtExample>
+	^ #GtPhlowDemoSubClass
+]
+
+{ #category : #'method - printOn' }
+GtPhlowDemoDefinitionsExamples >> ensurePrintOnRemoved [
+	<gtExample>
+	| aRing |
+	self demoClass 
+		compiledMethodAt: self printOnMethodName 
+		ifPresent: [ :aCompiledMethod | self demoClass removeSelector: self printOnMethodName ]
+		ifAbsent: [ "do nothing" ].
+	aRing := RGMethodDefinition new 
+			name: self printOnMethodName;
+			parentName: self demoClass name;
+			isMetaSide: self demoClass isMeta;
+			asActive.
+	self assert: aRing isDefined not.
+	^ aRing
+]
+
+{ #category : #'method - foo' }
+GtPhlowDemoDefinitionsExamples >> fooMethodDefinition [
+	<gtExample>
+	| aRing |
+	(self demoClass canUnderstand: self fooMethodName) 
+		ifFalse: [ self compileFooMethod ].
+	aRing := (self demoClass >> self fooMethodName) asRingDefinition.
+	self assert: aRing isDefined.
+	^ aRing
+]
+
+{ #category : #'method - foo' }
+GtPhlowDemoDefinitionsExamples >> fooMethodName [
+	<gtExample>
+	^ #fooFor:
+]
+
+{ #category : #'method - printOn' }
+GtPhlowDemoDefinitionsExamples >> printOnMethodDefinition [
+	<gtExample>
+	| aRing |
+	self demoClass 
+		compiledMethodAt: self printOnMethodName 
+		ifAbsent: [ self compilePrintOnMethod ].
+	aRing := (self demoClass >> self printOnMethodName) asRingDefinition.
+	self assert: aRing isDefined.
+	^ aRing
+]
+
+{ #category : #'method - printOn' }
+GtPhlowDemoDefinitionsExamples >> printOnMethodName [
+	^ #printOn:
+]

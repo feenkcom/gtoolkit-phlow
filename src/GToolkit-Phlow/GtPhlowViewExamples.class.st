@@ -31,38 +31,16 @@ Class {
 { #category : #updating }
 GtPhlowViewExamples >> announceDefiningMethodChange [
 	<gtExample>
-	| aMethods anAnnouncements |
+	| aMethods anAnnouncements aDemo |
+	aDemo := GtPhlowDemoDefinitionsExamples new.
 	aMethods := self definingMethods.
 	anAnnouncements := OrderedCollection new.
 	aMethods 
 		subscribe: GtPhlowDefinitionUpdated
 		do: [ :anAnnouncement | anAnnouncements add: anAnnouncement ].
-	self fooMethodDefinition.
+	aDemo compileFooMethod.
 	self assert: anAnnouncements size equals: 1.
 	^ aMethods
-]
-
-{ #category : #updating }
-GtPhlowViewExamples >> bazMethodDefinition [
-	<gtExample>
-	| aCompiledMethod |
-	aCompiledMethod := self demoClass compile: 'bazFor: aView
-	<gtView>
-	^ aView explicit 
-		title: ''Baz'';
-		stencil: [ BlElement new
-			background: Color random;
-			size: 150@300 ]' classified: 'gt-extension'.
-	self assert: aCompiledMethod equals: #bazFor:.
-	^ (self demoClass >> #bazFor:) asRingDefinition
-]
-
-{ #category : #updating }
-GtPhlowViewExamples >> collectionOfDefiningMethods [
-	<gtExample>
-	^ Array 
-		with: self fooMethodDefinition
-		with: self bazMethodDefinition
 ]
 
 { #category : #examples }
@@ -80,34 +58,12 @@ GtPhlowViewExamples >> compositeView [
 { #category : #updating }
 GtPhlowViewExamples >> definingMethods [
 	<gtExample>
-	| aMethods |
+	| aMethods aDemo |
+	aDemo := GtPhlowDemoDefinitionsExamples new.
 	aMethods := GtPhlowAnnouncingDefiningMethods new
-		methods: self collectionOfDefiningMethods.
-	self assert: aMethods methods equals: self collectionOfDefiningMethods.
+		methods: aDemo collectionOfDefiningMethods.
+	self assert: aMethods methods equals: aDemo collectionOfDefiningMethods.
 	^ aMethods
-]
-
-{ #category : #updating }
-GtPhlowViewExamples >> demoClass [
-	<gtExample>
-	| aClass |
-	aClass := self class environment
-		at: self demoClassName
-		ifAbsent: [ Object
-				subclass: self demoClassName
-				instanceVariableNames: ''
-				classVariableNames: ''
-				package: 'GToolkit-PhlowTempPackage' ].
-	self
-		assert: (self class environment at: self demoClassName)
-		equals: aClass.
-	^ aClass
-]
-
-{ #category : #updating }
-GtPhlowViewExamples >> demoClassName [
-	<gtExample>
-	^ #GtPhlowDemoClass
 ]
 
 { #category : #examples }
@@ -154,21 +110,6 @@ GtPhlowViewExamples >> explicitViewWithElementStencil [
 	^ view
 ]
 
-{ #category : #updating }
-GtPhlowViewExamples >> fooMethodDefinition [
-	<gtExample>
-	| aCompiledMethod |
-	aCompiledMethod := self demoClass compile: 'fooFor: aView
-	<gtView>
-	^ aView explicit 
-		title: ''Foo'';
-		stencil: [ BlElement new
-			background: Color random;
-			size: 300@150 ]' classified: 'gt-extension'.
-	self assert: aCompiledMethod equals: #fooFor:.
-	^ (self demoClass >> #fooFor:) asRingDefinition
-]
-
 { #category : #'gt-extension' }
 GtPhlowViewExamples >> gtUpdatingFor: aView [ 
 	<gtView>
@@ -186,6 +127,13 @@ GtPhlowViewExamples >> gtUpdatingFor: aView [
 				look: BrGlamorousButtonWithIconLook;
 				icon: BrGlamorousIcons refresh asElement;
 				action: [ aTab viewContentElement phlow update ] ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowViewExamples >> gtViewWithExceptionAtCreationFor: aView [
+	<gtView>
+	1/0.
+	^ aView title: 'With error during view creation'
 ]
 
 { #category : #examples }
@@ -270,19 +218,31 @@ GtPhlowViewExamples >> myself [
 ]
 
 { #category : #'secure execution' }
-GtPhlowViewExamples >> onPerformWithError [
+GtPhlowViewExamples >> onPerformWithErrorAtCreation [
 	<gtExample>
 	| aView |
-	aView := GtPhlowView empty on: nil perform: #nonExistingMethod:.
+	aView := GtPhlowView empty on: self perform: #gtViewWithExceptionAtCreationFor:.
+	self assert: aView class equals: GtPhlowViewWithError.
+	self 
+		assert: aView definingMethod 
+		equals: (self class >> #gtViewWithExceptionAtCreationFor:) asRingDefinition.
+	^ aView
+]
+
+{ #category : #'secure execution' }
+GtPhlowViewExamples >> onPerformWithNonExistingMethodError [
+	<gtExample>
+	| aView |
+	aView := GtPhlowView empty on: self perform: #nonExistingMethod:.
 	self assert: aView class equals: GtPhlowViewWithError.
 	^ aView
 ]
 
 { #category : #'secure execution' }
-GtPhlowViewExamples >> onPerformWithErrorBlocElement [
+GtPhlowViewExamples >> onPerformWithNonExistingMethodErrorBlocElement [
 	<gtExample>
 	| aView anElement |
-	aView := self onPerformWithError.
+	aView := self onPerformWithNonExistingMethodError.
 	anElement := aView asElementDo: [ :theElement | theElement ].
 	self assert: (anElement isKindOf: BlElement).
 	^ anElement

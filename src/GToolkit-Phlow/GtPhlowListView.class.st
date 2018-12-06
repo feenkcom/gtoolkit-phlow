@@ -15,7 +15,7 @@ GtPhlowListView >> asElementDo: aBlock [
 	
 	list := BrColumnedList new display: self itemsBuilder value.
 	list addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
-	list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
+	list constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 
 	list column
 		title: 'Item';
@@ -24,7 +24,7 @@ GtPhlowListView >> asElementDo: aBlock [
 			itemElement := self itemElementStencilBuilder value: aNode.
 			itemElement constraintsDo: [ :c | 
 				c horizontal matchParent. 
-				c padding: (BlInsets left: 10) ] ].
+				c padding: (BlInsets top: 3 left: 10 bottom: 3 right: 0) ] ].
 
 	list phlow 
 		beView; 
