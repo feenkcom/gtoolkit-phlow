@@ -130,8 +130,42 @@ GtPhlowDemoDefinitionsExamples >> demoSubClassName [
 	^ #GtPhlowDemoSubClass
 ]
 
+{ #category : #'method - baz' }
+GtPhlowDemoDefinitionsExamples >> ensureBazMethodRemoved [
+	<gtExample>
+	| aRing |
+	self demoClass 
+		compiledMethodAt: self bazMethodName 
+		ifPresent: [ :aCompiledMethod | self demoClass removeSelector: self bazMethodName ]
+		ifAbsent: [ "do nothing" ].
+	aRing := RGMethodDefinition new 
+			name: self bazMethodName;
+			parentName: self demoClass name;
+			isMetaSide: self demoClass isMeta;
+			asActive.
+	self assert: aRing isDefined not.
+	^ aRing
+]
+
+{ #category : #'method - foo' }
+GtPhlowDemoDefinitionsExamples >> ensureFooMethodRemoved [
+	<gtExample>
+	| aRing |
+	self demoClass 
+		compiledMethodAt: self fooMethodName 
+		ifPresent: [ :aCompiledMethod | self demoClass removeSelector: self fooMethodName ]
+		ifAbsent: [ "do nothing" ].
+	aRing := RGMethodDefinition new 
+			name: self fooMethodName;
+			parentName: self demoClass name;
+			isMetaSide: self demoClass isMeta;
+			asActive.
+	self assert: aRing isDefined not.
+	^ aRing
+]
+
 { #category : #'method - printOn' }
-GtPhlowDemoDefinitionsExamples >> ensurePrintOnRemoved [
+GtPhlowDemoDefinitionsExamples >> ensurePrintOnMethodRemoved [
 	<gtExample>
 	| aRing |
 	self demoClass 
