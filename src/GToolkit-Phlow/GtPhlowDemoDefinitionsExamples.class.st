@@ -37,6 +37,7 @@ GtPhlowDemoDefinitionsExamples >> compileBazMethod [
 	<gtView>
 	^ aView explicit 
 		title: ''Baz'';
+		priority: 2;
 		stencil: [ BlElement new
 			background: Color random;
 			size: 150@300 ]' classified: 'gt-extension'.
@@ -52,6 +53,7 @@ GtPhlowDemoDefinitionsExamples >> compileFooMethod [
 	<gtView>
 	^ aView explicit 
 		title: ''Foo'';
+		priority: 1;
 		stencil: [ BlElement new
 			background: Color random;
 			size: 300@150 ]' classified: 'gt-extension'.
