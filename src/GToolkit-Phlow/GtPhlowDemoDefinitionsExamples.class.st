@@ -61,6 +61,23 @@ GtPhlowDemoDefinitionsExamples >> compileFooMethod [
 	^ aSymbol
 ]
 
+{ #category : #'method - foo' }
+GtPhlowDemoDefinitionsExamples >> compileFooMethodVersionTwo [
+	<gtExample>
+	| aSymbol |
+	aSymbol := self demoClass compile: self fooMethodName asString, ' aView
+	<gtView>
+	^ aView explicit 
+		title: ''Foo'';
+		priority: 3;
+		stencil: [ BlElement new
+			background: Color random;
+			geometry: BlCircle new;
+			size: 300@150 ]' classified: 'gt-extension'.
+	self assert: aSymbol equals: self fooMethodName.
+	^ aSymbol
+]
+
 { #category : #'method - printOn' }
 GtPhlowDemoDefinitionsExamples >> compilePrintOnMethod [
 	<gtExample>
