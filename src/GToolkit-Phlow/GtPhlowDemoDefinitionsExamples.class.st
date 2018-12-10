@@ -45,6 +45,19 @@ GtPhlowDemoDefinitionsExamples >> compileBazMethod [
 	^ aSymbol
 ]
 
+{ #category : #'method - empty view' }
+GtPhlowDemoDefinitionsExamples >> compileEmptyViewMethod [
+	<gtExample>
+	| aSymbol |
+	aSymbol := self demoClass compile: self emptyViewMethodName asString, ' aView
+	<gtView>
+	^ aView empty 
+		priority: -100; 
+		title: ''Empty''' classified: 'gt-extension'.
+	self assert: aSymbol equals: self emptyViewMethodName.
+	^ aSymbol
+]
+
 { #category : #'method - foo' }
 GtPhlowDemoDefinitionsExamples >> compileFooMethod [
 	<gtExample>
@@ -147,6 +160,23 @@ GtPhlowDemoDefinitionsExamples >> demoSubClass [
 GtPhlowDemoDefinitionsExamples >> demoSubClassName [
 	<gtExample>
 	^ #GtPhlowDemoSubClass
+]
+
+{ #category : #'method - empty view' }
+GtPhlowDemoDefinitionsExamples >> emptyViewMethodDefinition [
+	<gtExample>
+	| aRing |
+	(self demoClass canUnderstand: self emptyViewMethodName) 
+		ifFalse: [ self compileEmptyViewMethod ].
+	aRing := (self demoClass >> self emptyViewMethodName) asRingDefinition.
+	self assert: aRing isDefined.
+	^ aRing
+]
+
+{ #category : #'method - empty view' }
+GtPhlowDemoDefinitionsExamples >> emptyViewMethodName [
+	<gtExample>
+	^ #emptyViewFor:
 ]
 
 { #category : #'method - baz' }
