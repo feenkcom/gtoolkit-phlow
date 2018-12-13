@@ -20,6 +20,15 @@ GtPhlowElementContext class >> on: anElement [
 	^ self new element: anElement
 ]
 
+{ #category : #'api - search' }
+GtPhlowElementContext >> allChildrenWithView [
+	<return: #Array of: #BrTab>
+	| aTab |
+	aTab := self firstChildWithView.
+	aTab ifNil: [ ^ #() ].
+	^ aTab parent children select: [ :child | child phlow isView ]
+]
+
 { #category : #'api - accessing' }
 GtPhlowElementContext >> beAction [
 	isAction := true

@@ -27,7 +27,7 @@ GtPhlowColumn >> fitContent [
 GtPhlowColumn >> initialize [
 	super initialize.
 	
-	resizer := BlLayoutResizer fitContent.
+	resizer := BlLayoutResizer matchParent.
 	title := 'Column'.
 
 	itemComputation := [ :eachItem :eachIndex | eachItem ].

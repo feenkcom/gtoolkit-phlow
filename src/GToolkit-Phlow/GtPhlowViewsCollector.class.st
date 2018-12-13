@@ -7,6 +7,11 @@ Class {
 	#category : #'GToolkit-Phlow-Builders'
 }
 
+{ #category : #accessing }
+GtPhlowViewsCollector class >> defaultViewPragmaNames [
+	^ #( #gtView )
+]
+
 { #category : #actions }
 GtPhlowViewsCollector >> collect [
 	<return: #Array of: #GtPhlowView>
@@ -49,5 +54,5 @@ GtPhlowViewsCollector >> initialize [
 
 { #category : #initialization }
 GtPhlowViewsCollector >> initializePragmaNames [
-	pragmaNames := #(#gtView #gtView:)
+	pragmaNames := self class defaultViewPragmaNames
 ]

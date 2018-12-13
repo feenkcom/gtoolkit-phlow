@@ -37,10 +37,24 @@ GtPhlowDemoDefinitionsExamples >> compileBazMethod [
 	<gtView>
 	^ aView explicit 
 		title: ''Baz'';
+		priority: 2;
 		stencil: [ BlElement new
 			background: Color random;
 			size: 150@300 ]' classified: 'gt-extension'.
 	self assert: aSymbol equals: self bazMethodName.
+	^ aSymbol
+]
+
+{ #category : #'method - empty view' }
+GtPhlowDemoDefinitionsExamples >> compileEmptyViewMethod [
+	<gtExample>
+	| aSymbol |
+	aSymbol := self demoClass compile: self emptyViewMethodName asString, ' aView
+	<gtView>
+	^ aView empty 
+		priority: -100; 
+		title: ''Empty''' classified: 'gt-extension'.
+	self assert: aSymbol equals: self emptyViewMethodName.
 	^ aSymbol
 ]
 
@@ -52,8 +66,26 @@ GtPhlowDemoDefinitionsExamples >> compileFooMethod [
 	<gtView>
 	^ aView explicit 
 		title: ''Foo'';
+		priority: 1;
 		stencil: [ BlElement new
 			background: Color random;
+			size: 300@150 ]' classified: 'gt-extension'.
+	self assert: aSymbol equals: self fooMethodName.
+	^ aSymbol
+]
+
+{ #category : #'method - foo' }
+GtPhlowDemoDefinitionsExamples >> compileFooMethodVersionTwo [
+	<gtExample>
+	| aSymbol |
+	aSymbol := self demoClass compile: self fooMethodName asString, ' aView
+	<gtView>
+	^ aView explicit 
+		title: ''Foo'';
+		priority: 3;
+		stencil: [ BlElement new
+			background: Color random;
+			geometry: BlCircle new;
 			size: 300@150 ]' classified: 'gt-extension'.
 	self assert: aSymbol equals: self fooMethodName.
 	^ aSymbol
@@ -130,8 +162,59 @@ GtPhlowDemoDefinitionsExamples >> demoSubClassName [
 	^ #GtPhlowDemoSubClass
 ]
 
+{ #category : #'method - empty view' }
+GtPhlowDemoDefinitionsExamples >> emptyViewMethodDefinition [
+	<gtExample>
+	| aRing |
+	(self demoClass canUnderstand: self emptyViewMethodName) 
+		ifFalse: [ self compileEmptyViewMethod ].
+	aRing := (self demoClass >> self emptyViewMethodName) asRingDefinition.
+	self assert: aRing isDefined.
+	^ aRing
+]
+
+{ #category : #'method - empty view' }
+GtPhlowDemoDefinitionsExamples >> emptyViewMethodName [
+	<gtExample>
+	^ #emptyViewFor:
+]
+
+{ #category : #'method - baz' }
+GtPhlowDemoDefinitionsExamples >> ensureBazMethodRemoved [
+	<gtExample>
+	| aRing |
+	self demoClass 
+		compiledMethodAt: self bazMethodName 
+		ifPresent: [ :aCompiledMethod | self demoClass removeSelector: self bazMethodName ]
+		ifAbsent: [ "do nothing" ].
+	aRing := RGMethodDefinition new 
+			name: self bazMethodName;
+			parentName: self demoClass name;
+			isMetaSide: self demoClass isMeta;
+			asActive.
+	self assert: aRing isDefined not.
+	^ aRing
+]
+
+{ #category : #'method - foo' }
+GtPhlowDemoDefinitionsExamples >> ensureFooMethodRemoved [
+	<gtExample>
+	| aRing |
+	self demoClass 
+		compiledMethodAt: self fooMethodName 
+		ifPresent: [ :aCompiledMethod | self demoClass removeSelector: self fooMethodName ]
+		ifAbsent: [ "do nothing" ].
+	aRing := RGMethodDefinition new 
+			name: self fooMethodName;
+			parentName: self demoClass name;
+			isMetaSide: self demoClass isMeta;
+			asActive.
+	self assert: aRing isDefined not.
+	^ aRing
+]
+
 { #category : #'method - printOn' }
-GtPhlowDemoDefinitionsExamples >> ensurePrintOnRemoved [
+GtPhlowDemoDefinitionsExamples >> ensurePrintOnMethodRemoved [
 	<gtExample>
 	| aRing |
 	self demoClass 

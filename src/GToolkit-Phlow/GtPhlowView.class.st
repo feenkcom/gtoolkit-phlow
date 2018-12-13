@@ -139,7 +139,11 @@ GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 	| aNilOrClassName |
 	aNilOrClassName := anObject class whichClassIncludesSelector: aMessageSymbol.
 	^ aNilOrClassName 
-		ifNil: [ self definingMethod ] 
+		ifNil: [	RGMethodDefinition new 
+			name: aMessageSymbol;
+			parentName: anObject className;
+			isMetaSide: anObject class isMeta;
+			asActive ] 
 		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
 ]
 
