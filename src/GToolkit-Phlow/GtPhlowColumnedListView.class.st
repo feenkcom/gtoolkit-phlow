@@ -50,21 +50,19 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 			c ignoreByLayout ].
 		
 		theItems ifNotEmpty: [
-			| aComputedValue aColumnElement  |
-			"phlowValue: anObject withEnoughArguments: aCollection"
-			aComputedValue := eachColumn itemComputation phlowValue: theItems first  withEnoughArguments: { theItems first . 1 }.
-			aColumnElement := eachColumn stencil valueWithEnoughArguments: { aComputedValue . theItems first . eachColumn }.
-			aColumnElement visibility: BlVisibility hidden.
+			| aRowElement  |
+			aRowElement := eachColumn createRowElementFor: theItems first atIndex: 1.
+			aRowElement visibility: BlVisibility hidden.
 
 			eachColumn resizer ifNotNil: [ :aLayoutResizer |
-				aColumnElement constraintsDo: [ :c |
+				aRowElement constraintsDo: [ :c |
 					c horizontal resizer: aLayoutResizer.
 					c vertical matchParent ].
 				aWrapper constraintsDo: [ :c | c horizontal resizer: aLayoutResizer ].
-				aColumnElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
-				aColumnElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
+				aRowElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
+				aRowElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
 			
-			aWrapper addChild: aColumnElement	].
+			aWrapper addChild: aRowElement	].
 		
 		aWrapper addChild: aScaledLabel.
 		aWrapper
@@ -80,18 +78,16 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 		list column
 			title: eachPhlowColumn title;
 			stencil: [ :eachItem :eachIndex |
-				| aComputedValue aColumnElement |
+				| aRowElement |
 				
-				aComputedValue := eachPhlowColumn itemComputation phlowValue: eachItem withEnoughArguments: { eachItem . eachIndex }.
-				aColumnElement := eachPhlowColumn stencil valueWithEnoughArguments: { aComputedValue . eachItem . eachPhlowColumn }.
-
+				aRowElement := eachPhlowColumn createRowElementFor: eachItem atIndex: eachIndex.
 				eachPhlowColumn resizer ifNotNil: [ :aLayoutResizer |
-					aColumnElement constraintsDo: [ :c |
+					aRowElement constraintsDo: [ :c |
 						c horizontal resizer: aLayoutResizer.
 						c vertical matchParent ].
-					aColumnElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
-					aColumnElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
-				aColumnElement ] ].
+					aRowElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
+					aRowElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
+				aRowElement ] ].
 		
 	aContainer addChildren: { header . list }.
 
@@ -119,11 +115,47 @@ GtPhlowColumnedListView >> column: aTitleString do: aBlock [
 ]
 
 { #category : #accessing }
+GtPhlowColumnedListView >> column: aTitleString format: aBlock [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn itemFormat: aBlock
+]
+
+{ #category : #accessing }
+GtPhlowColumnedListView >> column: aTitleString format: aBlock width: aNumber [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn itemFormat: aBlock.
+	aColumn width: aNumber.
+]
+
+{ #category : #accessing }
 GtPhlowColumnedListView >> column: aTitleString item: aBlock [
 	| aColumn |
 	aColumn := self column.
 	aColumn title: aTitleString.
 	aColumn item: aBlock
+]
+
+{ #category : #accessing }
+GtPhlowColumnedListView >> column: aTitleString item: anItemComputation format: aFormatBlocOrSymbol [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn item: anItemComputation.
+	aColumn itemFormat: aFormatBlocOrSymbol
+]
+
+{ #category : #accessing }
+GtPhlowColumnedListView >> column: aTitleString item: anItemComputation format: aFormatBlocOrSymbol width: aNumber [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn item: anItemComputation.
+	aColumn itemFormat: aFormatBlocOrSymbol.
+	aColumn width: aNumber.
 ]
 
 { #category : #accessing }

@@ -3,12 +3,39 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'resizer',
-		'stencil',
+		'rowStencil',
 		'title',
 		'itemComputation'
 	],
 	#category : #'GToolkit-Phlow-Support'
 }
+
+{ #category : #'private - building' }
+GtPhlowColumn >> buildRowElementFor: aStringOrText forColumn: aPhlowColumn [
+	| rowElement |
+		
+	rowElement := BrLabel new
+		look: BrGlamorousLabelLook;
+		text: aStringOrText.
+			
+	(aPhlowColumn resizer notNil and: [ aPhlowColumn resizer isMatchParent ])
+		ifTrue: [
+			rowElement addChild: (BlElement new
+				background: (BlLinearGradientPaint horizontal from: (Color white alpha: 0) to: Color white);
+				constraintsDo: [ :c |
+					c ignoreByLayout.
+					c ignored horizontal alignRight.
+					c vertical matchParent.
+					c horizontal exact: 30 ]) ].
+	^ rowElement 
+]
+
+{ #category : #building }
+GtPhlowColumn >> createRowElementFor: anItem atIndex: anIndex [
+	| computedValue |
+	computedValue := self itemComputation phlowValue: anItem  withEnoughArguments: { anItem . anIndex }.
+	^ self rowStencil valueWithEnoughArguments: { computedValue . self }
+]
 
 { #category : #accessing }
 GtPhlowColumn >> evaluated: aBlock [
@@ -18,7 +45,7 @@ GtPhlowColumn >> evaluated: aBlock [
 	self item: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : #scripting }
 GtPhlowColumn >> fitContent [
 	self resizer: BlLayoutResizer fitContent
 ]
@@ -29,33 +56,20 @@ GtPhlowColumn >> initialize [
 	
 	resizer := BlLayoutResizer matchParent.
 	title := 'Column'.
-
 	itemComputation := [ :eachItem :eachIndex | eachItem ].
-
-	stencil := [ :eachColumnItem :eachItem :currentColumn |
-		| columnElement |
-		
-		columnElement := BrLabel new
-			look: BrGlamorousLabelLook;
-			text: (eachColumnItem isString
+	rowStencil := [ :eachColumnItem :phlowColumn | 
+		| valueToDisplay |
+		valueToDisplay := eachColumnItem isString
+			ifTrue: [ eachColumnItem ]
+			ifFalse: [ (eachColumnItem isKindOf: BlText)
 				ifTrue: [ eachColumnItem ]
-				ifFalse: [ (eachColumnItem isKindOf: BlText)
-					ifTrue: [ eachColumnItem ]
-					ifFalse: [ eachColumnItem gtDisplayString ] ]).
-			
-		(currentColumn resizer notNil and: [ currentColumn resizer isMatchParent ])
-			ifTrue: [
-				columnElement addChild: (BlElement new
-					background: (BlLinearGradientPaint horizontal from: (Color white alpha: 0) to: Color white);
-					constraintsDo: [ :c |
-						c ignoreByLayout.
-						c ignored horizontal alignRight.
-						c vertical matchParent.
-						c horizontal exact: 30 ]) ].
-		columnElement ]
+				ifFalse: [ eachColumnItem gtDisplayString ] ].
+		self 
+			buildRowElementFor: valueToDisplay
+			forColumn: phlowColumn ].
 ]
 
-{ #category : #accessing }
+{ #category : #scripting }
 GtPhlowColumn >> item: aBlockOrSymbol [
 	itemComputation := aBlockOrSymbol
 ]
@@ -65,12 +79,23 @@ GtPhlowColumn >> itemComputation [
 	^ itemComputation
 ]
 
-{ #category : #accessing }
+{ #category : #scripting }
+GtPhlowColumn >> itemFormat: aBlockOrSymbol [
+	self rowStencil: [ :eachColumnItem :phlowColumn | 
+		self buildRowElementFor: (aBlockOrSymbol phlowValue: eachColumnItem) forColumn: phlowColumn ]
+]
+
+{ #category : #scripting }
+GtPhlowColumn >> itemStencil: aRowStencil [
+	self rowStencil: aRowStencil
+]
+
+{ #category : #scripting }
 GtPhlowColumn >> matchParent [
 	self resizer: BlLayoutResizer matchParent
 ]
 
-{ #category : #accessing }
+{ #category : #scripting }
 GtPhlowColumn >> noResize [
 	resizer := nil
 ]
@@ -86,13 +111,21 @@ GtPhlowColumn >> resizer: aBlLayoutResizer [
 ]
 
 { #category : #private }
-GtPhlowColumn >> stencil [
-	^ stencil
+GtPhlowColumn >> rowStencil [
+	^ rowStencil
 ]
 
-{ #category : #accessing }
-GtPhlowColumn >> stencil: aColumnStencilBuilder [
-	stencil := aColumnStencilBuilder
+{ #category : #scripting }
+GtPhlowColumn >> rowStencil: aRowStencil [
+	rowStencil := aRowStencil
+]
+
+{ #category : #scripting }
+GtPhlowColumn >> stencil: aRowStencil [
+	self 
+		deprecated: 'Please use #rowStencil: instead.'
+		transformWith: '`@receiver stencil: `@statements' -> '`@receiver rowStencil: `@statements'.
+	self rowStencil: aRowStencil
 ]
 
 { #category : #private }
@@ -100,12 +133,12 @@ GtPhlowColumn >> title [
 	^ title
 ]
 
-{ #category : #accessing }
+{ #category : #scripting }
 GtPhlowColumn >> title: anObject [
 	title := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #scripting }
 GtPhlowColumn >> width: aNumber [
 	self resizer: (BlLayoutResizer exact: aNumber)
 ]
