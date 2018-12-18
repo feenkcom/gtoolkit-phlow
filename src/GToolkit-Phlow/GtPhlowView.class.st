@@ -34,7 +34,7 @@ GtPhlowView >> action: anOneArgBlock [
 	| newPhlowAction |
 	newPhlowAction := anOneArgBlock value: GtPhlowAction noAction.
 	newPhlowAction definingMethod: self definingMethod.
-	phlowActions add: newPhlowAction.
+	self addPhlowAction: newPhlowAction.
 ]
 
 { #category : #'adding - actions' }
@@ -117,6 +117,10 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 { #category : #'adding - actions' }
 GtPhlowView >> addPhlowAction: aPhlowAction [
 	phlowActions add: aPhlowAction.
+	phlowActions sort: [ :a :b | 
+		[ a priority < b priority ]
+			on: Error
+			do: [ :error | true ] ].
 ]
 
 { #category : #'adding - actions' }
