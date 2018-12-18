@@ -1,9 +1,12 @@
 Class {
 	#name : #GtPhlowAction,
 	#superclass : #Object,
+	#traits : 'TBlDebug',
+	#classTraits : 'TBlDebug classTrait',
 	#instVars : [
 		'category',
-		'definingMethod'
+		'definingMethod',
+		'priority'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
@@ -54,6 +57,11 @@ GtPhlowAction >> category: anObject [
 	category := anObject
 ]
 
+{ #category : #initialization }
+GtPhlowAction >> defaultCategory [
+	^ #general
+]
+
 { #category : #accessing }
 GtPhlowAction >> definingMethod [
 	^ definingMethod
@@ -81,10 +89,19 @@ GtPhlowAction >> explicit [
 ]
 
 { #category : #'gt-extension' }
+GtPhlowAction >> gtDefiningMethodFor: aView [
+	<gtView>
+	self definingMethod ifNil: [ ^ aView empty ].
+	^ (self definingMethod gtSourceFor: aView)
+			priority: 2
+]
+
+{ #category : #'gt-extension' }
 GtPhlowAction >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Live';
+		priority: 1;
 		stencil: [ self asElementDo: [ :x | x ] withElement: nil ]
 ]
 
@@ -96,13 +113,29 @@ GtPhlowAction >> help: aString [
 { #category : #initialization }
 GtPhlowAction >> initialize [
 	super initialize.
-	category := #general.
+	category := self defaultCategory.
+	priority := 50
+]
+
+{ #category : #testing }
+GtPhlowAction >> isDefaultCategory [
+	^ self category = self defaultCategory
 ]
 
 { #category : #decorating }
 GtPhlowAction >> noAction [
 	^ GtPhlowNoAction new
 		definingMethod: thisContext stack second method asRingDefinition
+]
+
+{ #category : #accessing }
+GtPhlowAction >> priority [
+	^ priority
+]
+
+{ #category : #accessing }
+GtPhlowAction >> priority: aNumber [
+	priority := aNumber
 ]
 
 { #category : #decorating }

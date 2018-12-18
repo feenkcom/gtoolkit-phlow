@@ -111,6 +111,14 @@ GtPhlowViewExamples >> explicitViewWithElementStencil [
 ]
 
 { #category : #'gt-extension' }
+GtPhlowViewExamples >> gtExtraActionFor: anAction [
+	<gtAction>
+	^ anAction button
+		icon: BrGlamorousIcons greencircle;
+		category: #gtViewWithExtraActionsFor:
+]
+
+{ #category : #'gt-extension' }
 GtPhlowViewExamples >> gtUpdatingFor: aView [ 
 	<gtView>
 	^ aView explicit 
@@ -134,6 +142,18 @@ GtPhlowViewExamples >> gtViewWithExceptionAtCreationFor: aView [
 	<gtView>
 	1/0.
 	^ aView title: 'With error during view creation'
+]
+
+{ #category : #'gt-extension' }
+GtPhlowViewExamples >> gtViewWithExtraActionsFor: aView [
+	<gtView>
+	^ aView explicit 
+		title: 'Extra actions';
+		stencil: [ BlElement new
+			size: 40@40;
+			relocate: 100@100;
+			geometry: BlCircle new;
+			background: Color blue ]
 ]
 
 { #category : #examples }
@@ -211,7 +231,7 @@ GtPhlowViewExamples >> listView [
 	^ view
 ]
 
-{ #category : #'reused views' }
+{ #category : #'gt-extension' }
 GtPhlowViewExamples >> myself [
 	<gtExample>
 	^ self

@@ -107,8 +107,9 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 	aToolbar look: BrGlamorousToolbarLook.
 
 	phlowActions do: [ :phlowAction |
-		phlowAction asElementDo: [ :actionElement |
-			aToolbar addItem: actionElement ] withElement: anElement ].
+		phlowAction 
+			asElementDo: [ :actionElement | aToolbar addItem: actionElement ] 
+			withElement: anElement ].
 
 	 ^ aToolbar
 ]

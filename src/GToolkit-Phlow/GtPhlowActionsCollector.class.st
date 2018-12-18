@@ -12,7 +12,8 @@ Class {
 GtPhlowActionsCollector >> collect [
 	<return: #Array of: #GtPhlowAction>
 	<gtCollector>
-	^ self sortedPragmas 
+	| anActions |
+	anActions := self sortedPragmas 
 		collect: [ :eachPragma | 
 			| anAction |
 			anAction := GtPhlowAction noAction.
@@ -27,7 +28,12 @@ GtPhlowActionsCollector >> collect [
 					GtPhlowActionWithError new 
 						definingMethod: eachPragma method asRingDefinition;
 						error: error ] ]
-		thenSelect: self selectUsing
+		thenSelect: self selectUsing.
+	anActions sort: [ :a :b | 
+		[ a priority < b priority ]
+			on: Error
+			do: [ :error | true ] ].
+	^ anActions
 ]
 
 { #category : #initialization }

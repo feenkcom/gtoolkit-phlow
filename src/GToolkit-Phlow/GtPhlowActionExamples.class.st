@@ -95,6 +95,24 @@ GtPhlowActionExamples >> buttonWithNoConfiguration [
 	^ anAction 
 ]
 
+{ #category : #priority }
+GtPhlowActionExamples >> comparePriority [
+	<gtExample>
+	| anAction |
+	anAction := self setPriority.
+	self assert: anAction priority < self defaultPriority priority.
+	^ anAction
+]
+
+{ #category : #priority }
+GtPhlowActionExamples >> defaultPriority [
+	<gtExample>
+	| anAction |
+	anAction := self buttonWithIcon.
+	self assert: anAction priority isNumber.
+	^ anAction
+]
+
 { #category : #dropdown }
 GtPhlowActionExamples >> dropdownWithIcon [
 	<gtExample>
@@ -187,6 +205,16 @@ GtPhlowActionExamples >> levelTwoActionFor: anAction [
 GtPhlowActionExamples >> myself [
 	<gtExample>
 	^ self
+]
+
+{ #category : #priority }
+GtPhlowActionExamples >> setPriority [
+	<gtExample>
+	| anAction |
+	anAction := self defaultPriority.
+	anAction priority: 5.
+	self assert: anAction priority equals: 5.
+	^ anAction
 ]
 
 { #category : #toggle }
