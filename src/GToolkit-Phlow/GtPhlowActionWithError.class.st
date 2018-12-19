@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #converting }
-GtPhlowActionWithError >> asElementDo: aBlock withParentElement: aTargetElement [
+GtPhlowActionWithError >> asElement: aBlock withHostElement: aTargetElement [
 	| aDebugButton |
 	aDebugButton := BrButton new.
 	aDebugButton 

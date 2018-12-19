@@ -22,7 +22,7 @@ GtPhlowToggleAction >> activatedAction: aValuable [
 ]
 
 { #category : #converting }
-GtPhlowToggleAction >> asElementDo: aBlock withParentElement: aTargetElement [
+GtPhlowToggleAction >> asElement: aBlock withHostElement: aTargetElement [
 	<return: #BrButton>
 	| aToggle |
 	aToggle := BrToggle new.

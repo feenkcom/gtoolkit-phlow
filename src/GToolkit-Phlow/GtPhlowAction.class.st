@@ -18,7 +18,7 @@ GtPhlowAction class >> noAction [
 ]
 
 { #category : #converting }
-GtPhlowAction >> asElementDo: aBlock withParentElement: aTargetElement [
+GtPhlowAction >> asElement: aBlock withHostElement: aTargetElement [
 	"Return an element that represents the action in Bloc space, e.g., a button"
 	<return: #BlElement>
 	^ self subclassResponsibility
@@ -102,7 +102,7 @@ GtPhlowAction >> gtLiveFor: aView [
 	^ aView explicit
 		title: 'Live';
 		priority: 1;
-		stencil: [ self asElementDo: [ :x | x ] withParentElement: nil ]
+		stencil: [ self asElement: [ :x | x ] withHostElement: nil ]
 ]
 
 { #category : #accessing }

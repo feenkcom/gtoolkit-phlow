@@ -10,7 +10,7 @@ GtPhlowActionsCollectorExamples >> buttonWithIcon [
 	| anAction aButton |
 	anAction := self collectOneActionForPragma: #gtButtonWithIconAction.
 	self assert: anAction definingMethod selector equals: #buttonWithIconActionFor:.
-	aButton := anAction asElementDo: [ :x | x ] withParentElement: nil.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton icon background image equals: BrGlamorousIcons refresh.
 	^ anAction 
@@ -53,7 +53,7 @@ GtPhlowActionsCollectorExamples >> errorExample [
 	| anAction aDebugButton |
 	anAction := self collectOneActionForPragma: #gtErrorAction.
 	self assert: anAction definingMethod selector equals: #errorActionFor:.
-	aDebugButton := anAction asElementDo: [ :x | x ] withParentElement: nil.
+	aDebugButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aDebugButton isKindOf: BrButton).
 	self assert: aDebugButton label asString equals: 'Error'.
 	^ anAction
