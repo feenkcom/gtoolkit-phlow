@@ -119,12 +119,12 @@ GtPhlowViewExamples >> extraViewActions [
 	self assert: anExtendedViewCollection size equals: 1.
 	anExtendedView := anExtendedViewCollection first.
 	self assert: anExtendedView actions isNotEmpty.
-	anActions := anExtendedView actions select: [ :eachAction | eachAction definingMethod selector = #gtExtraActionFor: ].
+	anActions := anExtendedView actions select: [ :eachAction | eachAction definingMethod selector = #gtExtraViewActionFor: ].
 	self assert: anActions size equals: 1.
 	anAction := anActions first.
 	self assert: anAction category equals: #gtViewWithExtraActionsFor:.
 	"Labeled view should not have the view action"
-	aLabeledViewActions := aView actions select: [ :eachAction | eachAction definingMethod selector = #gtExtraActionFor: ].
+	aLabeledViewActions := aView actions select: [ :eachAction | eachAction definingMethod selector = #gtExtraViewActionFor: ].
 	self assert: aLabeledViewActions isEmpty.
 	"Let's remove other views for this example"
 	aView originalView views removeAllSuchThat: [ :eachView | eachView ~= anExtendedView ].
@@ -132,10 +132,19 @@ GtPhlowViewExamples >> extraViewActions [
 ]
 
 { #category : #'gt-extension' }
-GtPhlowViewExamples >> gtExtraActionFor: anAction [
+GtPhlowViewExamples >> gtExtraObjectActionFor: anAction [
 	<gtAction>
 	^ anAction button
-		icon: BrGlamorousIcons greencircle;
+		label: 'I am a labeled view action';
+		priority: 60
+]
+
+{ #category : #'gt-extension' }
+GtPhlowViewExamples >> gtExtraViewActionFor: anAction [
+	<gtAction>
+	^ anAction button
+		label: 'I am a view action';
+		priority: 60;
 		category: #gtViewWithExtraActionsFor:
 ]
 
@@ -168,13 +177,9 @@ GtPhlowViewExamples >> gtViewWithExceptionAtCreationFor: aView [
 { #category : #'gt-extension' }
 GtPhlowViewExamples >> gtViewWithExtraActionsFor: aView [
 	<gtView>
-	^ aView explicit 
+	^ aView textEditor 
 		title: 'Extra actions';
-		stencil: [ BlElement new
-			size: 40@40;
-			relocate: 100@100;
-			geometry: BlCircle new;
-			background: Color blue ]
+		text: 'Use <Alt + mouse click> on buttons to see their definitions' asRopedText monospace.
 ]
 
 { #category : #examples }
