@@ -21,7 +21,7 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 			look: BrGlamorousTabLook new invisibleBar;
 			label: self label;
 			stencil: [ originalElement asScrollableElement ];
-			actionsStencil: (self actionsToolbarForElement: group);
+			actionsStencil: (self actionsToolbarForElement: tab);
 			padding: (BlInsets top: 15 right: 0 bottom: 15 left: 10) ].
 	group 
 		look: (BrMaterialTabGroupLook new headerBackground: (Color fromHexString: #'e0e0e0'));
