@@ -5,6 +5,6 @@ Class {
 }
 
 { #category : #converting }
-GtPhlowNoAction >> asElementDo: aBlock withElement: aTargetElement [
+GtPhlowNoAction >> asElementDo: aBlock withParentElement: aTargetElement [
 	"do nothing"
 ]

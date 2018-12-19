@@ -15,7 +15,7 @@ GtPhlowButtonAction >> action: aValuable [
 ]
 
 { #category : #converting }
-GtPhlowButtonAction >> asElementDo: aBlock withElement: aTargetElement [
+GtPhlowButtonAction >> asElementDo: aBlock withParentElement: aTargetElement [
 	<return: #BrButton>
 	| aButton |
 	aButton := BrButton new.

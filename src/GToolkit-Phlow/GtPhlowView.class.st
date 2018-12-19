@@ -115,7 +115,7 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 	phlowActions do: [ :phlowAction |
 		phlowAction 
 			asElementDo: [ :actionElement | aToolbar addItem: actionElement ] 
-			withElement: anElement ].
+			withParentElement: anElement ].
 
 	 ^ aToolbar
 ]

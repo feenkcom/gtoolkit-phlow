@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #converting }
-GtPhlowExplicitAction >> asElementDo: aBlock withElement: aTargetElement [
+GtPhlowExplicitAction >> asElementDo: aBlock withParentElement: aTargetElement [
 	| anElement |
 	anElement := [ 
 			stencilBuilder targetElement: aTargetElement.
@@ -20,7 +20,7 @@ GtPhlowExplicitAction >> asElementDo: aBlock withElement: aTargetElement [
 				error: error;
 				definingMethod: self definingMethod;
 				asElementDo: [ :errorElement | errorElement ]
-					withElement: aTargetElement ].
+					withParentElement: aTargetElement ].
 	self attachShowDefinitionEventHandler: anElement.
 	^ aBlock value: anElement
 ]
