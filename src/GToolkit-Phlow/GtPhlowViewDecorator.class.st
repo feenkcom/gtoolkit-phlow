@@ -38,6 +38,7 @@ GtPhlowViewDecorator >> gtDecoratorChainFor: aView [
 	<gtView>
 	^ aView list 
 		title: 'Decorators' translated;
+		priority: 4;
 		items: [ self decoratorsChain ]
 ]
 

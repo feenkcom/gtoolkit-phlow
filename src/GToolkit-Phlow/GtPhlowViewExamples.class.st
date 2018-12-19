@@ -110,6 +110,27 @@ GtPhlowViewExamples >> explicitViewWithElementStencil [
 	^ view
 ]
 
+{ #category : #'extra actions' }
+GtPhlowViewExamples >> extraViewActions [
+	<gtExample>
+	| aView anExtendedViewCollection anExtendedView anActions anAction aLabeledViewActions |
+	aView := self gtViewsFor: GtPhlowView empty.
+	anExtendedViewCollection := aView originalView views select: [ :eachView | eachView definingMethod selector = #gtViewWithExtraActionsFor: ].
+	self assert: anExtendedViewCollection size equals: 1.
+	anExtendedView := anExtendedViewCollection first.
+	self assert: anExtendedView actions isNotEmpty.
+	anActions := anExtendedView actions select: [ :eachAction | eachAction definingMethod selector = #gtExtraActionFor: ].
+	self assert: anActions size equals: 1.
+	anAction := anActions first.
+	self assert: anAction category equals: #gtViewWithExtraActionsFor:.
+	"Labeled view should not have the view action"
+	aLabeledViewActions := aView actions select: [ :eachAction | eachAction definingMethod selector = #gtExtraActionFor: ].
+	self assert: aLabeledViewActions isEmpty.
+	"Let's remove other views for this example"
+	aView originalView views removeAllSuchThat: [ :eachView | eachView ~= anExtendedView ].
+	^ aView
+]
+
 { #category : #'gt-extension' }
 GtPhlowViewExamples >> gtExtraActionFor: anAction [
 	<gtAction>

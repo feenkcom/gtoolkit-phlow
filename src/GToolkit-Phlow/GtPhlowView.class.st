@@ -99,6 +99,12 @@ GtPhlowView >> actionToggleLabel: aStringOrRope activated: anActivatedValuable d
 		deactivated: aDeactivatedValuable
 ]
 
+{ #category : #accessing }
+GtPhlowView >> actions [
+	<return: #OrderedCollection of: #GtPhlowAction>
+	^ phlowActions
+]
+
 { #category : #'adding - actions' }
 GtPhlowView >> actionsToolbarForElement: anElement [
 	| aToolbar |
@@ -150,6 +156,21 @@ GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 			isMetaSide: anObject class isMeta;
 			asActive ] 
 		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowView >> gtActionsFor: aView [
+	<gtView>
+	phlowActions ifEmpty: [ ^ self ].
+	^ aView columnedList
+			title: 'Actions';
+			priority: 5;
+			items: [ phlowActions ];
+			column: 'Action' 
+				format: [ :aPhlowAction | aPhlowAction className ];
+			column: 'Defining Method'
+				item: [ :aPhlowAction | aPhlowAction definingMethod ]
+				format: [ :aMethodDefinition | aMethodDefinition selector ]
 ]
 
 { #category : #converting }
