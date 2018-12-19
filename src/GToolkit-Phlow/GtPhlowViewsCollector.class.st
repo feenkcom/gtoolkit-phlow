@@ -29,7 +29,7 @@ GtPhlowViewsCollector >> collect [
 					perform: eachPragma methodSelector
 					withContext: self context ].
 			self object gtActions do: [ :eachAction | 
-				eachAction category = eachPragma methodSelector ifTrue: [ 
+				(eachAction target isForViewDefinedIn: eachPragma methodSelector) ifTrue: [ 
 					aView addPhlowAction: eachAction ] ].
 			aView ].
 	theViews sort: [ :a :b | 

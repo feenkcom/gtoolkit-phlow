@@ -122,7 +122,7 @@ GtPhlowViewExamples >> extraViewActions [
 	anActions := anExtendedView actions select: [ :eachAction | eachAction definingMethod selector = #gtExtraViewActionFor: ].
 	self assert: anActions size equals: 1.
 	anAction := anActions first.
-	self assert: anAction category equals: #gtViewWithExtraActionsFor:.
+	self assert: anAction target definingMethodSelector equals: #gtViewWithExtraActionsFor:.
 	"Labeled view should not have the view action"
 	aLabeledViewActions := aView actions select: [ :eachAction | eachAction definingMethod selector = #gtExtraViewActionFor: ].
 	self assert: aLabeledViewActions isEmpty.
@@ -145,7 +145,7 @@ GtPhlowViewExamples >> gtExtraViewActionFor: anAction [
 	^ anAction button
 		label: 'I am a view action';
 		priority: 60;
-		category: #gtViewWithExtraActionsFor:
+		forViewDefinedIn: #gtViewWithExtraActionsFor:
 ]
 
 { #category : #'gt-extension' }

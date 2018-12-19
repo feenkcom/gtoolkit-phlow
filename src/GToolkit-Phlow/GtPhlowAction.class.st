@@ -4,9 +4,9 @@ Class {
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
 	#instVars : [
-		'category',
 		'definingMethod',
-		'priority'
+		'priority',
+		'target'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
@@ -47,19 +47,9 @@ GtPhlowAction >> button [
 			collect)
 ]
 
-{ #category : #accessing }
-GtPhlowAction >> category [
-	^ category
-]
-
-{ #category : #accessing }
-GtPhlowAction >> category: anObject [
-	category := anObject
-]
-
 { #category : #initialization }
-GtPhlowAction >> defaultCategory [
-	^ #general
+GtPhlowAction >> defaultTarget [
+	^ GtPhlowObjectActionCategory uniqueInstance
 ]
 
 { #category : #accessing }
@@ -88,6 +78,16 @@ GtPhlowAction >> explicit [
 			collect)
 ]
 
+{ #category : #accessing }
+GtPhlowAction >> forViewDefinedIn: aSymbol [
+	"Symbol is a method name where a view is defined.
+	Such Phlow action will be displayed in a given view."
+	self 
+		assert: [ aSymbol notNil ]
+		description: [ 'Phlow view action target must be non-nil' ].
+	self target: (GtPhlowViewActionTarget new definingMethodSelector: aSymbol)
+]
+
 { #category : #'gt-extension' }
 GtPhlowAction >> gtDefiningMethodFor: aView [
 	<gtView>
@@ -113,13 +113,13 @@ GtPhlowAction >> help: aString [
 { #category : #initialization }
 GtPhlowAction >> initialize [
 	super initialize.
-	category := self defaultCategory.
+	target := self defaultTarget.
 	priority := 50
 ]
 
 { #category : #testing }
-GtPhlowAction >> isDefaultCategory [
-	^ self category = self defaultCategory
+GtPhlowAction >> isDefaultTarget [
+	^ self target = self defaultTarget
 ]
 
 { #category : #decorating }
@@ -136,6 +136,20 @@ GtPhlowAction >> priority [
 { #category : #accessing }
 GtPhlowAction >> priority: aNumber [
 	priority := aNumber
+]
+
+{ #category : #accessing }
+GtPhlowAction >> target [
+	<return: #GtPhlowActionTarget>
+	^ target
+]
+
+{ #category : #accessing }
+GtPhlowAction >> target: aGtPhlowActionTarget [
+	self 
+		assert: [ aGtPhlowActionTarget notNil ]
+		description: [ 'Phlow action target must be non-nil' ].
+	target := aGtPhlowActionTarget
 ]
 
 { #category : #decorating }
