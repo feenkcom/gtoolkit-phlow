@@ -20,6 +20,9 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	| aButton |
 	aButton := BrButton new.
 	aButton look: self newButtonLook.
+	aButton phlow 
+		beAction;
+		entity: self.
 	label ifNotNil: [ aButton label: label asRopedText ].
 	icon ifNotNil: [ aButton icon: icon asElement ].
 	action ifNotNil: [ aButton action: action ].

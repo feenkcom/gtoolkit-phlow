@@ -90,6 +90,14 @@ GtPhlowElementContext >> firstChildWithView [
 ]
 
 { #category : #'api - search' }
+GtPhlowElementContext >> firstParentWithView [
+	^ self element 
+		allParentsDetect: [ :parent | parent phlow isView ] 
+		ifFound: [ :parent | parent ]
+		ifNone: [ "nothing" ]
+]
+
+{ #category : #'api - search' }
 GtPhlowElementContext >> firstPopupContainerParentDo: aBlock ifNone: aNoneBlock [
 	self element withAllParentsDo: [ :aParentElement |
 			aParentElement phlow isPopupContainer ifTrue: [ ^ aBlock value: aParentElement ] ].
