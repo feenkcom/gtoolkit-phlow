@@ -135,7 +135,35 @@ GtPhlowElementContext >> isViewContent [
 	^ isViewContent
 ]
 
+{ #category : #events }
+GtPhlowElementContext >> selectObject: anObject [
+	self element fireEvent: (GtPhlowObjectToSelect new
+		object: anObject;
+		sourceElement: self element) 
+]
+
+{ #category : #events }
+GtPhlowElementContext >> spawnObject: anObject [
+	self element fireEvent: (GtPhlowObjectToSpawn new
+		object: anObject;
+		sourceElement: self element) 
+]
+
+{ #category : #'api - search' }
+GtPhlowElementContext >> textViewContent [
+	self assert: [ self isAction ].
+	^ self viewContent
+		allChildrenBreadthFirstDetect: [ :each | each isKindOf: BrEditorElement ] 
+		ifFound: [:editorElement | editorElement editor text ]
+]
+
 { #category : #updating }
 GtPhlowElementContext >> update [
 	self entity updateContent: self element.
+]
+
+{ #category : #'api - search' }
+GtPhlowElementContext >> viewContent [
+	self assert: [ self isAction ].
+	^ self firstParentWithView phlow firstChildWithView parentTabGroup content
 ]
