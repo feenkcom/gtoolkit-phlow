@@ -36,7 +36,7 @@ GtPhlowListView >> asElementDo: aBlock [
 { #category : #'private - building' }
 GtPhlowListView >> buildTextElementFor: aString [
 	^ BrLabel new
-		look: BrGlamorousLabelLook;
+		look: BrGlamorousListLabelLook;
 		text: aString.
 ]
 

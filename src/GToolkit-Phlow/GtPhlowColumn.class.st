@@ -15,7 +15,7 @@ GtPhlowColumn >> buildRowElementFor: aStringOrText forColumn: aPhlowColumn [
 	| rowElement |
 		
 	rowElement := BrLabel new
-		look: BrGlamorousLabelLook;
+		look: BrGlamorousListLabelLook;
 		text: aStringOrText.
 			
 	(aPhlowColumn resizer notNil and: [ aPhlowColumn resizer isMatchParent ])
