@@ -35,7 +35,9 @@ GtPhlowListView >> asElementDo: aBlock [
 
 { #category : #'private - building' }
 GtPhlowListView >> buildTextElementFor: aString [
-	^ (BrListLabelStencil matchParent: aString asRopedText) asElement
+	^ BrLabel new
+		look: BrGlamorousLabelLook;
+		text: aString.
 ]
 
 { #category : #'scripting - deprecated' }
