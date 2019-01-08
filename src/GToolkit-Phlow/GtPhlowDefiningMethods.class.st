@@ -37,3 +37,9 @@ GtPhlowDefiningMethods >> methods [
 GtPhlowDefiningMethods >> methods: anObject [
 	methods := anObject
 ]
+
+{ #category : #accessing }
+GtPhlowDefiningMethods >> selector [
+	<return: #Symbol>
+	^ self methods first selector
+]

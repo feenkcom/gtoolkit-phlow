@@ -51,7 +51,7 @@ GtPhlowActionExamples >> buttonWithIcon [
 	anAction := GtPhlowAction noAction button
 		icon: BrGlamorousIcons edit;
 		action: [ :aBrButton | self inform: 'Click!' ].
-	aButton := anAction asElementDo: [ :x | x ] withElement: nil.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton icon background image equals: BrGlamorousIcons edit.
 	^ anAction
@@ -65,7 +65,7 @@ GtPhlowActionExamples >> buttonWithIconAndLabel [
 		icon: BrGlamorousIcons edit;
 		label: 'Edit';
 		action: [ :aBrButton | self inform: 'Click!' ].
-	aButton := anAction asElementDo: [ :x | x ] withElement: nil.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton label asString equals: 'Edit'.
 	self assert: aButton icon background image equals: BrGlamorousIcons edit.
@@ -79,7 +79,7 @@ GtPhlowActionExamples >> buttonWithLabel [
 	anAction := GtPhlowAction noAction button
 		label: 'Refresh';
 		action: [ :aBrButton | self inform: 'Click!' ].
-	aButton := anAction asElementDo: [ :x | x ] withElement: nil.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton label asString equals: 'Refresh'.
 	^ anAction
@@ -90,9 +90,27 @@ GtPhlowActionExamples >> buttonWithNoConfiguration [
 	<gtExample>
 	| aButton anAction |
 	anAction := GtPhlowAction noAction button.
-	aButton := anAction asElementDo: [ :x | x ] withElement: nil.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	^ anAction 
+]
+
+{ #category : #priority }
+GtPhlowActionExamples >> comparePriority [
+	<gtExample>
+	| anAction |
+	anAction := self setPriority.
+	self assert: anAction priority < self defaultPriority priority.
+	^ anAction
+]
+
+{ #category : #priority }
+GtPhlowActionExamples >> defaultPriority [
+	<gtExample>
+	| anAction |
+	anAction := self buttonWithIcon.
+	self assert: anAction priority isNumber.
+	^ anAction
 ]
 
 { #category : #dropdown }
@@ -102,7 +120,7 @@ GtPhlowActionExamples >> dropdownWithIcon [
 	anAction := GtPhlowAction noAction dropdown
 		icon: BrGlamorousIcons menu;
 		popup: [ BlElement new background: Color lightBrown; size: 200@300 ].
-	aButton := anAction asElementDo: [ :x | x ] withElement: nil.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrDropdown).
 	"self assert: aButton label asString equals: 'Edit'.
 	self assert: aButton icon background image equals: BrGlamorousIcons edit."
@@ -117,7 +135,7 @@ GtPhlowActionExamples >> dropdownWithIconAndLabel [
 		icon: BrGlamorousIcons menu;
 		label: 'Check me :-)';
 		popup: [ BlElement new background: Color lightBrown; size: 200@300 ].
-	aButton := anAction asElementDo: [ :x | x ] withElement: nil.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrDropdown).
 	"self assert: aButton label asString equals: 'Edit'.
 	self assert: aButton icon background image equals: BrGlamorousIcons edit."
@@ -189,6 +207,16 @@ GtPhlowActionExamples >> myself [
 	^ self
 ]
 
+{ #category : #priority }
+GtPhlowActionExamples >> setPriority [
+	<gtExample>
+	| anAction |
+	anAction := self defaultPriority.
+	anAction priority: 5.
+	self assert: anAction priority equals: 5.
+	^ anAction
+]
+
 { #category : #toggle }
 GtPhlowActionExamples >> toggleWithIcon [
 	<gtExample>
@@ -197,7 +225,7 @@ GtPhlowActionExamples >> toggleWithIcon [
 		icon: BrGlamorousIcons refresh;
 		activatedAction: [ :aBrButton | self inform: 'Switched on!' ];
 		deactivatedAction: [ :aBrButton | self inform: 'Switched off!' ].
-	aButton := anAction asElementDo: [ :x | x ] withElement: nil.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrToggle).
 	self assert: aButton isActivated not.
 	self assert: aButton icon background image equals: BrGlamorousIcons refresh.
@@ -214,7 +242,7 @@ GtPhlowActionExamples >> toggleWithIconAndLabelActivated [
 		label: 'Circle';
 		activatedAction: [ :aBrButton | self inform: 'Switched on!' ];
 		deactivatedAction: [ :aBrButton | self inform: 'Switched off!' ].
-	aButton := anAction asElementDo: [ :x | x ] withElement: nil.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrToggle).
 	self assert: aButton isActivated.
 	self assert: aButton label asString equals: 'Circle'.
@@ -232,7 +260,7 @@ GtPhlowActionExamples >> toggleWithIconAndLabelDeactivated [
 		label: 'Circle';
 		activatedAction: [ :aBrButton | self inform: 'Switched on!' ];
 		deactivatedAction: [ :aBrButton | self inform: 'Switched off!' ].
-	aButton := anAction asElementDo: [ :x | x ] withElement: nil.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrToggle).
 	self assert: aButton isActivated not.
 	self assert: aButton label asString equals: 'Circle'.
@@ -248,7 +276,7 @@ GtPhlowActionExamples >> toggleWithLabel [
 		label: 'Click here';
 		activatedAction: [ :aBrButton | self inform: 'Switched on!' ];
 		deactivatedAction: [ :aBrButton | self inform: 'Switched off!' ].
-	aButton := anAction asElementDo: [ :x | x ] withElement: nil.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrToggle).
 	self assert: aButton isActivated not.
 	self assert: aButton label asString equals: 'Click here'.
@@ -262,7 +290,7 @@ GtPhlowActionExamples >> toggleWithNoConfiguration [
 	anAction := GtPhlowAction noAction toggle
 		activatedAction: [ :aBrButton | self inform: 'Switched on!' ];
 		deactivatedAction: [ :aBrButton | self inform: 'Switched off!' ].
-	aButton := anAction asElementDo: [ :x | x ] withElement: nil.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrToggle).
 	self assert: aButton isActivated not.
 	^ anAction

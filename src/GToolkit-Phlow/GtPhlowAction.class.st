@@ -1,9 +1,12 @@
 Class {
 	#name : #GtPhlowAction,
 	#superclass : #Object,
+	#traits : 'TBlDebug',
+	#classTraits : 'TBlDebug classTrait',
 	#instVars : [
-		'category',
-		'definingMethod'
+		'definingMethod',
+		'priority',
+		'target'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
@@ -15,7 +18,7 @@ GtPhlowAction class >> noAction [
 ]
 
 { #category : #converting }
-GtPhlowAction >> asElementDo: aBlock withElement: aTargetElement [
+GtPhlowAction >> asElement: aBlock withHostElement: aTargetElement [
 	"Return an element that represents the action in Bloc space, e.g., a button"
 	<return: #BlElement>
 	^ self subclassResponsibility
@@ -44,14 +47,9 @@ GtPhlowAction >> button [
 			collect)
 ]
 
-{ #category : #accessing }
-GtPhlowAction >> category [
-	^ category
-]
-
-{ #category : #accessing }
-GtPhlowAction >> category: anObject [
-	category := anObject
+{ #category : #initialization }
+GtPhlowAction >> defaultTarget [
+	^ GtPhlowObjectActionCategory uniqueInstance
 ]
 
 { #category : #accessing }
@@ -80,12 +78,31 @@ GtPhlowAction >> explicit [
 			collect)
 ]
 
+{ #category : #accessing }
+GtPhlowAction >> forViewDefinedIn: aSymbol [
+	"Symbol is a method name where a view is defined.
+	Such Phlow action will be displayed in a given view."
+	self 
+		assert: [ aSymbol notNil ]
+		description: [ 'Phlow view action target must be non-nil' ].
+	self target: (GtPhlowViewActionTarget new definingMethodSelector: aSymbol)
+]
+
+{ #category : #'gt-extension' }
+GtPhlowAction >> gtDefiningMethodFor: aView [
+	<gtView>
+	self definingMethod ifNil: [ ^ aView empty ].
+	^ (self definingMethod gtSourceFor: aView)
+			priority: 2
+]
+
 { #category : #'gt-extension' }
 GtPhlowAction >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Live';
-		stencil: [ self asElementDo: [ :x | x ] withElement: nil ]
+		priority: 1;
+		stencil: [ self asElement: [ :x | x ] withHostElement: nil ]
 ]
 
 { #category : #accessing }
@@ -96,13 +113,43 @@ GtPhlowAction >> help: aString [
 { #category : #initialization }
 GtPhlowAction >> initialize [
 	super initialize.
-	category := #general.
+	target := self defaultTarget.
+	priority := 50
+]
+
+{ #category : #testing }
+GtPhlowAction >> isDefaultTarget [
+	^ self target = self defaultTarget
 ]
 
 { #category : #decorating }
 GtPhlowAction >> noAction [
 	^ GtPhlowNoAction new
 		definingMethod: thisContext stack second method asRingDefinition
+]
+
+{ #category : #accessing }
+GtPhlowAction >> priority [
+	^ priority
+]
+
+{ #category : #accessing }
+GtPhlowAction >> priority: aNumber [
+	priority := aNumber
+]
+
+{ #category : #accessing }
+GtPhlowAction >> target [
+	<return: #GtPhlowActionTarget>
+	^ target
+]
+
+{ #category : #accessing }
+GtPhlowAction >> target: aGtPhlowActionTarget [
+	self 
+		assert: [ aGtPhlowActionTarget notNil ]
+		description: [ 'Phlow action target must be non-nil' ].
+	target := aGtPhlowActionTarget
 ]
 
 { #category : #decorating }

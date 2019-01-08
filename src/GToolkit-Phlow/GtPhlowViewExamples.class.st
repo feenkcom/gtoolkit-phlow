@@ -110,6 +110,44 @@ GtPhlowViewExamples >> explicitViewWithElementStencil [
 	^ view
 ]
 
+{ #category : #'extra actions' }
+GtPhlowViewExamples >> extraViewActions [
+	<gtExample>
+	| aView anExtendedViewCollection anExtendedView anActions anAction aLabeledViewActions |
+	aView := self gtViewsFor: GtPhlowView empty.
+	anExtendedViewCollection := aView originalView views select: [ :eachView | eachView definingMethod selector = #gtViewWithExtraActionsFor: ].
+	self assert: anExtendedViewCollection size equals: 1.
+	anExtendedView := anExtendedViewCollection first.
+	self assert: anExtendedView actions isNotEmpty.
+	anActions := anExtendedView actions select: [ :eachAction | eachAction definingMethod selector = #gtExtraViewActionFor: ].
+	self assert: anActions size equals: 1.
+	anAction := anActions first.
+	self assert: anAction target definingMethodSelector equals: #gtViewWithExtraActionsFor:.
+	"Labeled view should not have the view action"
+	aLabeledViewActions := aView actions select: [ :eachAction | eachAction definingMethod selector = #gtExtraViewActionFor: ].
+	self assert: aLabeledViewActions isEmpty.
+	"Let's remove other views for this example"
+	aView originalView views removeAllSuchThat: [ :eachView | eachView ~= anExtendedView ].
+	^ aView
+]
+
+{ #category : #'gt-extension' }
+GtPhlowViewExamples >> gtExtraObjectActionFor: anAction [
+	<gtAction>
+	^ anAction button
+		label: 'I am a labeled view action';
+		priority: 60
+]
+
+{ #category : #'gt-extension' }
+GtPhlowViewExamples >> gtExtraViewActionFor: anAction [
+	<gtAction>
+	^ anAction button
+		label: 'I am a view action';
+		priority: 60;
+		forViewDefinedIn: #gtViewWithExtraActionsFor:
+]
+
 { #category : #'gt-extension' }
 GtPhlowViewExamples >> gtUpdatingFor: aView [ 
 	<gtView>
@@ -134,6 +172,14 @@ GtPhlowViewExamples >> gtViewWithExceptionAtCreationFor: aView [
 	<gtView>
 	1/0.
 	^ aView title: 'With error during view creation'
+]
+
+{ #category : #'gt-extension' }
+GtPhlowViewExamples >> gtViewWithExtraActionsFor: aView [
+	<gtView>
+	^ aView textEditor 
+		title: 'Extra actions';
+		text: 'Use <Alt + mouse click> on buttons to see their definitions' asRopedText monospace.
 ]
 
 { #category : #examples }
@@ -211,7 +257,7 @@ GtPhlowViewExamples >> listView [
 	^ view
 ]
 
-{ #category : #'reused views' }
+{ #category : #'gt-extension' }
 GtPhlowViewExamples >> myself [
 	<gtExample>
 	^ self

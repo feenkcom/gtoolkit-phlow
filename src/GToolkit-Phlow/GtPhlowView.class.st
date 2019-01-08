@@ -34,7 +34,7 @@ GtPhlowView >> action: anOneArgBlock [
 	| newPhlowAction |
 	newPhlowAction := anOneArgBlock value: GtPhlowAction noAction.
 	newPhlowAction definingMethod: self definingMethod.
-	phlowActions add: newPhlowAction.
+	self addPhlowAction: newPhlowAction.
 ]
 
 { #category : #'adding - actions' }
@@ -99,6 +99,12 @@ GtPhlowView >> actionToggleLabel: aStringOrRope activated: anActivatedValuable d
 		deactivated: aDeactivatedValuable
 ]
 
+{ #category : #accessing }
+GtPhlowView >> actions [
+	<return: #OrderedCollection of: #GtPhlowAction>
+	^ phlowActions
+]
+
 { #category : #'adding - actions' }
 GtPhlowView >> actionsToolbarForElement: anElement [
 	| aToolbar |
@@ -107,8 +113,9 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 	aToolbar look: BrGlamorousToolbarLook.
 
 	phlowActions do: [ :phlowAction |
-		phlowAction asElementDo: [ :actionElement |
-			aToolbar addItem: actionElement ] withElement: anElement ].
+		phlowAction 
+			asElement: [ :actionElement | aToolbar addItem: actionElement ] 
+			withHostElement: anElement ].
 
 	 ^ aToolbar
 ]
@@ -116,6 +123,10 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 { #category : #'adding - actions' }
 GtPhlowView >> addPhlowAction: aPhlowAction [
 	phlowActions add: aPhlowAction.
+	phlowActions sort: [ :a :b | 
+		[ a priority < b priority ]
+			on: Error
+			do: [ :error | true ] ].
 ]
 
 { #category : #'adding - actions' }
@@ -145,6 +156,21 @@ GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 			isMetaSide: anObject class isMeta;
 			asActive ] 
 		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowView >> gtActionsFor: aView [
+	<gtView>
+	phlowActions ifEmpty: [ ^ self ].
+	^ aView columnedList
+			title: 'Actions';
+			priority: 5;
+			items: [ phlowActions ];
+			column: 'Action' 
+				format: [ :aPhlowAction | aPhlowAction className ];
+			column: 'Defining Method'
+				item: [ :aPhlowAction | aPhlowAction definingMethod ]
+				format: [ :aMethodDefinition | aMethodDefinition selector ]
 ]
 
 { #category : #converting }

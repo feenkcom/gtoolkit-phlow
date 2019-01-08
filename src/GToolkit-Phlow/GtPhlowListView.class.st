@@ -3,7 +3,7 @@ Class {
 	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
 		'itemsBuilder',
-		'itemElementStencilBuilder',
+		'itemStencil',
 		'transformation'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
@@ -21,7 +21,7 @@ GtPhlowListView >> asElementDo: aBlock [
 		title: 'Item';
 		stencil: [ :aNode :index | 
 			| itemElement |
-			itemElement := self itemElementStencilBuilder value: aNode.
+			itemElement := self itemStencil value: aNode.
 			itemElement constraintsDo: [ :c | 
 				c horizontal matchParent. 
 				c padding: (BlInsets top: 3 left: 10 bottom: 3 right: 0) ] ].
@@ -35,7 +35,9 @@ GtPhlowListView >> asElementDo: aBlock [
 
 { #category : #'private - building' }
 GtPhlowListView >> buildTextElementFor: aString [
-	^ (BrListLabelStencil matchParent: aString asRopedText) asElement
+	^ BrLabel new
+		look: BrGlamorousListLabelLook;
+		text: aString.
 ]
 
 { #category : #'scripting - deprecated' }
@@ -57,26 +59,34 @@ GtPhlowListView >> format: aBlockOrSymbol [
 { #category : #initialization }
 GtPhlowListView >> initialize [
 	super initialize.
-	itemElementStencilBuilder := [ :anObject | 
+	itemStencil := [ :anObject | 
 		self buildTextElementFor: anObject gtDisplayString ].
 	itemsBuilder := [ { } ].
 	transformation := [ :aValue | "by default there is no transformation" aValue ].
 ]
 
-{ #category : #accessing }
+{ #category : #'scripting - deprecated' }
 GtPhlowListView >> itemElement: anObject [
-	itemElementStencilBuilder := anObject
-]
-
-{ #category : #accessing }
-GtPhlowListView >> itemElementStencilBuilder [
-	^ itemElementStencilBuilder
+	self 
+		deprecated: 'Please use #itemStencil: instead.'
+		transformWith: '`@receiver itemElement: `@statements' -> '`@receiver itemStencil: `@statements'.
+	itemStencil := anObject
 ]
 
 { #category : #'scripting - utils' }
 GtPhlowListView >> itemFormat: aBlockOrSymbol [
-	self itemElement: [ :anObject |
+	self itemStencil: [ :anObject |
 		self buildTextElementFor: (aBlockOrSymbol phlowValue: anObject) ]
+]
+
+{ #category : #accessing }
+GtPhlowListView >> itemStencil [
+	^ itemStencil
+]
+
+{ #category : #accessing }
+GtPhlowListView >> itemStencil: anElementStencil [
+	itemStencil := anElementStencil
 ]
 
 { #category : #accessing }

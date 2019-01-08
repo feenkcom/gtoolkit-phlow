@@ -16,7 +16,7 @@ GtPhlowDropdownAction >> action: aValuable [
 ]
 
 { #category : #converting }
-GtPhlowDropdownAction >> asElementDo: aBlock withElement: aTargetElement [
+GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 	<return: #BrButton>
 	| aDropdown |
 	aDropdown := BrDropdown new.

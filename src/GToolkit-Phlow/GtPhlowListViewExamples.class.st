@@ -31,7 +31,7 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement [
 	<gtExample>
 	| view element |
 	view := self viewWithItems 
-		itemElement: [:x | 
+		itemStencil: [:x | 
 			BlElement new background: Color orange; size: 10 @ x; margin: (BlInsets all: 10) ].
 	view asElementDo: [ :el | element := el ].
 	"I do not know how to assert the nature of the item elements because they are not yet rendered"
