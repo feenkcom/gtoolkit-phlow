@@ -32,9 +32,12 @@ GtPhlowColumn >> buildRowElementFor: aStringOrText forColumn: aPhlowColumn [
 
 { #category : #building }
 GtPhlowColumn >> createRowElementFor: anItem atIndex: anIndex [
+	"Return an element that represents a cell in the columned list for a given item.
+	The amount of cells in a row is equal to amount of columns"
 	| computedValue |
+
 	computedValue := self itemComputation phlowValue: anItem  withEnoughArguments: { anItem . anIndex }.
-	^ self rowStencil valueWithEnoughArguments: { computedValue . self }
+	^ (self rowStencil valueWithEnoughArguments: { computedValue . self }) asElement
 ]
 
 { #category : #accessing }
