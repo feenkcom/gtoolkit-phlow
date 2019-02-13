@@ -115,6 +115,11 @@ GtPhlowColumnedListView >> column: aTitleString do: aBlock [
 ]
 
 { #category : #accessing }
+GtPhlowColumnedListView >> column: aTitleString evaluated: aBlock [
+	^ self column: aTitleString item: aBlock
+]
+
+{ #category : #accessing }
 GtPhlowColumnedListView >> column: aTitleString format: aBlock [
 	| aColumn |
 	aColumn := self column.
