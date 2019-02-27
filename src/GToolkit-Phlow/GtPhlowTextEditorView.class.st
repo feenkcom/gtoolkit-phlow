@@ -5,7 +5,8 @@ Class {
 	#classTraits : 'TBlTextStyleable classTrait',
 	#instVars : [
 		'textBuilder',
-		'look'
+		'look',
+		'styler'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
@@ -17,6 +18,7 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 	text := (self textBuilder glamourValueWithArgs: { brickEditor }) asRopedText.
 	brickEditor 
 		look: look;
+		styler: styler;
 		text: text.
 	brickEditor constraintsDo: [ :c | 
 		c vertical matchParent. 
@@ -36,7 +38,8 @@ GtPhlowTextEditorView >> attributesBuilder [
 { #category : #initialization }
 GtPhlowTextEditorView >> initialize [
 	super initialize.
-	look := BrGlamorousRegularEditorLook new
+	look := BrGlamorousRegularEditorLook new.
+	styler := BlTextNullStyler new.
 ]
 
 { #category : #accessing }
@@ -47,6 +50,11 @@ GtPhlowTextEditorView >> look [
 { #category : #accessing }
 GtPhlowTextEditorView >> look: aLook [
 	look := aLook
+]
+
+{ #category : #accessing }
+GtPhlowTextEditorView >> styler: aStyler [
+	styler := aStyler
 ]
 
 { #category : #accessing }
