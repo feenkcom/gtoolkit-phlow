@@ -17,7 +17,7 @@ GtPhlowTreeView >> asElementDo: aBlock [
 	tree := BrColumnedTree new.
 	
 	tree items: self itemsBuilder value children: self childrenBuilder.
-	tree addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
+	tree addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :aNode | self send value: aNode value ]).
 	tree constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 
 	tree column
