@@ -1,47 +1,58 @@
 Class {
-	#name : #GtPhlowListView,
+	#name : #GtPhlowTreeView,
 	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
 		'itemsBuilder',
 		'itemStencil',
-		'transformation'
+		'transformation',
+		'childrenBuilder'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
 
 { #category : #converting }
-GtPhlowListView >> asElementDo: aBlock [
-	| list |
+GtPhlowTreeView >> asElementDo: aBlock [
+	| tree |
 	
-	list := BrColumnedList new display: self itemsBuilder value.
-	list addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
-	list constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
+	tree := BrColumnedTree new.
+	
+	tree items: self itemsBuilder value children: self childrenBuilder.
+	tree addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
+	tree constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 
-	list column
+	tree column
 		title: 'Item';
-		stencil: [ :eachNode :index | 
+		stencil: [ :aNode :index | 
 			| itemElement |
-			itemElement := self itemStencil value: eachNode.
-			itemElement constraintsDo: [ :c | 
-				c horizontal matchParent. 
-				c padding: (BlInsets top: 3 left: 10 bottom: 3 right: 0) ] ].
+			itemElement := self itemStencil value: aNode value.
+			itemElement padding: (BlInsets top: 3 left: 10 bottom: 3 right: 0) ].
 
-	list phlow 
+	tree phlow 
 		beView; 
 		entity: self.
 
-	^ aBlock value: list
+	^ aBlock value: tree
 ]
 
 { #category : #'private - building' }
-GtPhlowListView >> buildTextElementFor: aString [
+GtPhlowTreeView >> buildTextElementFor: aString [
 	^ BrLabel new
 		look: BrGlamorousListLabelLook;
 		text: aString.
 ]
 
+{ #category : #accessing }
+GtPhlowTreeView >> children: anObject [
+	childrenBuilder := anObject
+]
+
+{ #category : #accessing }
+GtPhlowTreeView >> childrenBuilder [
+	^ childrenBuilder
+]
+
 { #category : #'scripting - deprecated' }
-GtPhlowListView >> display: aBlock [
+GtPhlowTreeView >> display: aBlock [
 	self 
 		deprecated: 'Please use #items: instead.'
 		transformWith: '`@receiver display: `@statements' -> '`@receiver items: `@statements'.
@@ -49,7 +60,7 @@ GtPhlowListView >> display: aBlock [
 ]
 
 { #category : #'scripting - deprecated' }
-GtPhlowListView >> format: aBlockOrSymbol [
+GtPhlowTreeView >> format: aBlockOrSymbol [
 	self 
 		deprecated: 'Please use #itemFormat: instead.'
 		transformWith: '`@receiver format: `@statements' -> '`@receiver itemFormat: `@statements'.
@@ -57,16 +68,17 @@ GtPhlowListView >> format: aBlockOrSymbol [
 ]
 
 { #category : #initialization }
-GtPhlowListView >> initialize [
+GtPhlowTreeView >> initialize [
 	super initialize.
 	itemStencil := [ :anObject | 
 		self buildTextElementFor: anObject gtDisplayString ].
 	itemsBuilder := [ { } ].
+	childrenBuilder := [ :each | { } ].
 	transformation := [ :aValue | "by default there is no transformation" aValue ].
 ]
 
 { #category : #'scripting - deprecated' }
-GtPhlowListView >> itemElement: anObject [
+GtPhlowTreeView >> itemElement: anObject [
 	self 
 		deprecated: 'Please use #itemStencil: instead.'
 		transformWith: '`@receiver itemElement: `@statements' -> '`@receiver itemStencil: `@statements'.
@@ -74,38 +86,38 @@ GtPhlowListView >> itemElement: anObject [
 ]
 
 { #category : #'scripting - utils' }
-GtPhlowListView >> itemFormat: aBlockOrSymbol [
+GtPhlowTreeView >> itemFormat: aBlockOrSymbol [
 	self itemStencil: [ :anObject |
 		self buildTextElementFor: (aBlockOrSymbol phlowValue: anObject) ]
 ]
 
 { #category : #accessing }
-GtPhlowListView >> itemStencil [
+GtPhlowTreeView >> itemStencil [
 	^ itemStencil
 ]
 
 { #category : #accessing }
-GtPhlowListView >> itemStencil: anElementStencil [
+GtPhlowTreeView >> itemStencil: anElementStencil [
 	itemStencil := anElementStencil
 ]
 
 { #category : #accessing }
-GtPhlowListView >> items: anObject [
+GtPhlowTreeView >> items: anObject [
 	itemsBuilder := anObject
 ]
 
 { #category : #accessing }
-GtPhlowListView >> itemsBuilder [
+GtPhlowTreeView >> itemsBuilder [
 	^ itemsBuilder
 ]
 
 { #category : #accessing }
-GtPhlowListView >> send [
+GtPhlowTreeView >> send [
 	^ transformation
 ]
 
 { #category : #accessing }
-GtPhlowListView >> send: anOneArgBlock [
+GtPhlowTreeView >> send: anOneArgBlock [
 	self
 		assert: [ anOneArgBlock notNil ]
 		description: [ 'Send transformation block must be non-nil'  ].
