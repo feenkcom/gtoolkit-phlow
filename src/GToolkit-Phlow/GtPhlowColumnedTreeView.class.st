@@ -72,7 +72,9 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 	tree := BrColumnedTree new.
 	tree items: theItems children: self childrenBuilder.
 	tree addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :aNode | self send value: aNode value ]).
-	tree rowStencil: (BrColumnedTreeRowStencilBuilder new).
+	tree rowStencil: (BrColumnedTreeRowStencilBuilder new
+		cellSpacing: 2;
+		padding: (BlInsets top: 2 bottom: 2)).
 
 	columns do: [ :eachPhlowColumn |
 		tree column
