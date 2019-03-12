@@ -32,6 +32,15 @@ GtPhlowProtoView >> columnedList [
 ]
 
 { #category : #decorating }
+GtPhlowProtoView >> columnedTree [
+	^ GtPhlowColumnedTreeView new
+		originalView: self;
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
+]
+
+{ #category : #decorating }
 GtPhlowProtoView >> composite [
 	^ GtPhlowCompositeView new
 		originalView: self;
@@ -167,4 +176,13 @@ GtPhlowProtoView >> title: aString [
 	"Set view title, a user friendly view name.
 	It is supposed to be a short name"
 	^ self subclassResponsibility
+]
+
+{ #category : #decorating }
+GtPhlowProtoView >> tree [
+	^ GtPhlowTreeView new
+		originalView: self;
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]
