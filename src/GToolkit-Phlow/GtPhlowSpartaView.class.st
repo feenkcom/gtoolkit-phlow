@@ -18,6 +18,7 @@ Class {
 	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
 		'renderingStencilBuilder',
+		'embellisher',
 		'horizontalResizer',
 		'verticalResizer'
 	],
@@ -34,12 +35,18 @@ GtPhlowSpartaView >> asElementDo: aBlock [
 		c horizontal resizer: horizontalResizer.
 		c vertical resizer: verticalResizer ].
 	aSpartaElement rendering: renderingStencilBuilder.
+	embellisher value: aSpartaElement.
 
 	aSpartaElement phlow 
 		beView; 
 		entity: self.
 
 	^ aBlock value: aSpartaElement
+]
+
+{ #category : #accessing }
+GtPhlowSpartaView >> embellisher: aValuable [
+	embellisher := aValuable
 ]
 
 { #category : #accessing }
@@ -62,6 +69,7 @@ GtPhlowSpartaView >> height: aNumber [
 GtPhlowSpartaView >> initialize [
 	super initialize.
 	
+	embellisher := [ :aSpartaElement | ].
 	renderingStencilBuilder := [ :aSpartaCanvas :anElement | ].
 	self matchParent
 ]
