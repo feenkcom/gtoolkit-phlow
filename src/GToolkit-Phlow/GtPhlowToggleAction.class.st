@@ -1,8 +1,6 @@
 Class {
 	#name : #GtPhlowToggleAction,
 	#superclass : #GtPhlowAction,
-	#traits : 'TGtPhlowWithIcon',
-	#classTraits : 'TGtPhlowWithIcon classTrait',
 	#instVars : [
 		'icon',
 		'label',
@@ -30,7 +28,7 @@ GtPhlowToggleAction >> asElement: aBlock withHostElement: aTargetElement [
 	aToggle := BrToggle new.
 	aToggle look: self newToggleLook.
 	label ifNotNil: [ aToggle label: label asRopedText ].
-	icon ifNotNil: [ aToggle icon: self newIconElement ].
+	icon ifNotNil: [ aToggle icon: icon asElement ].
 	aToggle activated: isActivated value.
 	aToggle 
 		when: BrToggleActivatedEvent do: [ :anEvent | 
@@ -44,12 +42,6 @@ GtPhlowToggleAction >> asElement: aBlock withHostElement: aTargetElement [
 { #category : #accessing }
 GtPhlowToggleAction >> deactivatedAction: aValuable [
 	deactivatedAction := aValuable
-]
-
-{ #category : #accessing }
-GtPhlowToggleAction >> icon [
-	"Icon can be a String, Symbol, Form or another object understanding #asElement message"
-	^ icon
 ]
 
 { #category : #accessing }

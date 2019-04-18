@@ -1,8 +1,6 @@
 Class {
 	#name : #GtPhlowDropdownAction,
 	#superclass : #GtPhlowAction,
-	#traits : 'TGtPhlowWithIcon',
-	#classTraits : 'TGtPhlowWithIcon classTrait',
 	#instVars : [
 		'icon',
 		'label',
@@ -41,12 +39,6 @@ GtPhlowDropdownAction >> help: aString [
 ]
 
 { #category : #accessing }
-GtPhlowDropdownAction >> icon [
-	"Icon can be a String, Symbol, Form or another object understanding #asElement message"
-	^ icon
-]
-
-{ #category : #accessing }
 GtPhlowDropdownAction >> icon: anIcon [
 	icon := anIcon
 ]
@@ -71,7 +63,7 @@ GtPhlowDropdownAction >> newButton [
 	aButton := BrButton new.
 	aButton look: self newButtonLook.
 	label ifNotNil: [ aButton label: label asRopedText ].
-	icon ifNotNil: [ aButton icon: self newIconElement ].
+	icon ifNotNil: [ aButton icon: icon asElement ].
 	action ifNotNil: [ aButton action: action ].
 	^ aButton
 ]
