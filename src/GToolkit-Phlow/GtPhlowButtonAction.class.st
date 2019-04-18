@@ -1,6 +1,8 @@
 Class {
 	#name : #GtPhlowButtonAction,
 	#superclass : #GtPhlowAction,
+	#traits : 'TGtPhlowWithIcon',
+	#classTraits : 'TGtPhlowWithIcon classTrait',
 	#instVars : [
 		'icon',
 		'label',
@@ -24,10 +26,16 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 		beAction;
 		entity: self.
 	label ifNotNil: [ aButton label: label asRopedText ].
-	icon ifNotNil: [ aButton icon: icon asElement ].
+	icon ifNotNil: [ aButton icon: self newIconElement ].
 	action ifNotNil: [ aButton action: action ].
 	self attachShowDefinitionEventHandler: aButton.
 	^ aBlock value: aButton
+]
+
+{ #category : #accessing }
+GtPhlowButtonAction >> icon [
+	"Icon can be a String, Symbol, Form or another object understanding #asElement message"
+	^ icon
 ]
 
 { #category : #accessing }
