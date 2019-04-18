@@ -73,19 +73,6 @@ GtPhlowActionExamples >> buttonWithIconAndLabel [
 ]
 
 { #category : #button }
-GtPhlowActionExamples >> buttonWithIconName [
-	<gtExample>
-	| anAction aButton |
-	anAction := GtPhlowAction noAction button
-		icon: #edit;
-		action: [ :aBrButton | self inform: 'Click!' ].
-	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
-	self assert: (aButton isKindOf: BrButton).
-	self assert: aButton icon background image equals: BrGlamorousIcons edit.
-	^ anAction
-]
-
-{ #category : #button }
 GtPhlowActionExamples >> buttonWithLabel [
 	<gtExample>
 	| aButton anAction |
@@ -143,35 +130,16 @@ GtPhlowActionExamples >> dropdownWithIcon [
 { #category : #dropdown }
 GtPhlowActionExamples >> dropdownWithIconAndLabel [
 	<gtExample>
-	| anAction aDropdown aButton |
+	| anAction aButton |
 	anAction := GtPhlowAction noAction dropdown
 		icon: BrGlamorousIcons menu;
 		label: 'Check me :-)';
 		popup: [ BlElement new background: Color lightBrown; size: 200@300 ].
-	aDropdown := anAction asElement: [ :x | x ] withHostElement: nil.
-	self assert: (aDropdown isKindOf: BrDropdown).
-	aButton := aDropdown children first.
-	self assert: (aButton isKindOf: BrButton).
-	self assert: aButton label asString equals: 'Check me :-)'.
-	self assert: aButton icon background image equals: BrGlamorousIcons menu.
-	^ aDropdown
-]
-
-{ #category : #dropdown }
-GtPhlowActionExamples >> dropdownWithIconNameAndLabel [
-	<gtExample>
-	| anAction aDropdown aButton |
-	anAction := GtPhlowAction noAction dropdown
-		icon: #menu;
-		label: 'Check me :-)';
-		popup: [ BlElement new background: Color lightBrown; size: 200@300 ].
-	aDropdown := anAction asElement: [ :x | x ] withHostElement: nil.
-	self assert: (aDropdown isKindOf: BrDropdown).
-	aButton := aDropdown children first.
-	self assert: (aButton isKindOf: BrButton).
-	self assert: aButton label asString equals: 'Check me :-)'.
-	self assert: aButton icon background image equals: BrGlamorousIcons menu.
-	^ aDropdown
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
+	self assert: (aButton isKindOf: BrDropdown).
+	"self assert: aButton label asString equals: 'Edit'.
+	self assert: aButton icon background image equals: BrGlamorousIcons edit."
+	^ aButton
 ]
 
 { #category : #explicit }
@@ -297,21 +265,6 @@ GtPhlowActionExamples >> toggleWithIconAndLabelDeactivated [
 	self assert: aButton isActivated not.
 	self assert: aButton label asString equals: 'Circle'.
 	self assert: aButton icon background image equals: BrGlamorousIcons graycircle.
-	^ anAction
-]
-
-{ #category : #toggle }
-GtPhlowActionExamples >> toggleWithIconName [
-	<gtExample>
-	| aButton anAction |
-	anAction := GtPhlowAction noAction toggle
-		icon: #refresh;
-		activatedAction: [ :aBrButton | self inform: 'Switched on!' ];
-		deactivatedAction: [ :aBrButton | self inform: 'Switched off!' ].
-	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
-	self assert: (aButton isKindOf: BrToggle).
-	self assert: aButton isActivated not.
-	self assert: aButton icon background image equals: BrGlamorousIcons refresh.
 	^ anAction
 ]
 
