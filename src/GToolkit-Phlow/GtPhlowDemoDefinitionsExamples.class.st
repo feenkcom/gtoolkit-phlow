@@ -114,7 +114,7 @@ GtPhlowDemoDefinitionsExamples >> demoClass [
 				subclass: self demoClassName
 				instanceVariableNames: ''
 				classVariableNames: ''
-				package: 'GToolkit-PhlowTempPackage' ].
+				package: self demoPackageName ].
 	self
 		assert: (self class environment at: self demoClassName)
 		equals: aClass.
@@ -125,12 +125,6 @@ GtPhlowDemoDefinitionsExamples >> demoClass [
 GtPhlowDemoDefinitionsExamples >> demoClassName [
 	<gtExample>
 	^ #GtPhlowDemoClass
-]
-
-{ #category : #packages }
-GtPhlowDemoDefinitionsExamples >> demoPackage [
-	<gtExample>
-	^ self demoPackageName asPackage
 ]
 
 { #category : #packages }
@@ -149,7 +143,7 @@ GtPhlowDemoDefinitionsExamples >> demoSubClass [
 				subclass: self demoSubClassName
 				instanceVariableNames: ''
 				classVariableNames: ''
-				package: 'GToolkit-PhlowTempPackage' ].
+				package: self demoPackageName ].
 	self
 		assert: (self class environment at: self demoSubClassName)
 		equals: aClass.
