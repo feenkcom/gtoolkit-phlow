@@ -25,7 +25,8 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 		entity: self.
 	label ifNotNil: [ aButton label: label asRopedText ].
 	icon ifNotNil: [ aButton icon: icon asElement ].
-	action ifNotNil: [ aButton action: action ].
+	action ifNotNil: [ aButton action: [ :theButton :aButtonModel :anEvent | 
+			action glamourValueWithArgs: { theButton. aTargetElement. aButtonModel. anEvent } ] ].
 	self attachShowDefinitionEventHandler: aButton.
 	^ aBlock value: aButton
 ]
