@@ -25,13 +25,7 @@ GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
 			c vertical fitContent ];
-		look:
-			(BrDropdownLook new
-				outskirtsEmbellisher: [ :e | 
-					e look
-						ifNil: [ e look: GtDropdownOutskirtsLook new ]
-						ifNotNil: [ e look add: GtDropdownOutskirtsLook new ].
-					e ]);
+		look: BrGlamorousDropdownLook new;
 		toggle: [ self newButton action: [ aDropdown toggle ] ];
 		popup: [ self newPopupWithTargetElement: aTargetElement ].
 	self attachShowDefinitionEventHandler: aDropdown.
