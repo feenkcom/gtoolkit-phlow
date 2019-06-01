@@ -11,7 +11,7 @@ Class {
 
 { #category : #accessing }
 GtPhlowEmptyView >> asElementDo: aBlock [
-	"do nothing"
+	^ aBlock value: BlElement new
 ]
 
 { #category : #converting }
