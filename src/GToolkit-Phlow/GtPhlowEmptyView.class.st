@@ -11,7 +11,8 @@ Class {
 
 { #category : #accessing }
 GtPhlowEmptyView >> asElementDo: aBlock [
-	"do nothing"
+	"do nothing. return an empty element just in case someone mistankenly relies on the return"
+	^ BlElement new
 ]
 
 { #category : #converting }
