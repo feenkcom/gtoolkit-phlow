@@ -66,3 +66,8 @@ GtPhlowTextEditorView >> text: anObject [
 GtPhlowTextEditorView >> textBuilder [
 	^ textBuilder
 ]
+
+{ #category : #accessing }
+GtPhlowTextEditorView >> withoutLook [
+	look := BrGlamorousEditorLook new
+]

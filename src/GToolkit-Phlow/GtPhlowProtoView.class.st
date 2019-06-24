@@ -140,6 +140,15 @@ GtPhlowProtoView >> list [
 			collect)
 ]
 
+{ #category : #decorating }
+GtPhlowProtoView >> pannable [
+	^ GtPhlowPannableView new 
+		originalView: self;
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
+]
+
 { #category : #accessing }
 GtPhlowProtoView >> priority [
 	"Get view priority defining a view order.
