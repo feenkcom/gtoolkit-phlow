@@ -39,7 +39,7 @@ GtPhlowButtonAction >> icon: anIcon [
 { #category : #initialization }
 GtPhlowButtonAction >> initialize [
 	super initialize.
-	action := [ :aBrButton | self inform: 'Click!' ].
+	action := [ :aBrButton |  ].
 	icon := nil.
 	label := nil.
 ]

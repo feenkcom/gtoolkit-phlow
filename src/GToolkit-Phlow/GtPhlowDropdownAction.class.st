@@ -26,7 +26,7 @@ GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 			c horizontal fitContent.
 			c vertical fitContent ];
 		look: BrGlamorousDropdownLook new;
-		toggle: [ self newButton action: [ aDropdown toggle ] ];
+		toggle: [ self newButton ];
 		popup: [ self newPopupWithTargetElement: aTargetElement ].
 	self attachShowDefinitionEventHandler: aDropdown.
 	^ aBlock value: aDropdown
@@ -45,7 +45,7 @@ GtPhlowDropdownAction >> icon: anIcon [
 { #category : #initialization }
 GtPhlowDropdownAction >> initialize [
 	super initialize.
-	action := [ :aBrButton | self inform: 'Click!' ].
+	action := [ :aBrButton |  ].
 	icon := nil.
 	label := nil.
 ]
