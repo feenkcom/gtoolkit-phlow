@@ -164,11 +164,6 @@ GtPhlowProtoView >> priority: aNumber [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
-GtPhlowProtoView >> seamlessDefaultTransferStrategy [ 
-	^SeamlessTransferStrategy defaultByValue
-]
-
 { #category : #decorating }
 GtPhlowProtoView >> sparta [
 	^ GtPhlowSpartaView new

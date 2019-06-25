@@ -139,11 +139,6 @@ GtPhlowAction >> priority: aNumber [
 ]
 
 { #category : #accessing }
-GtPhlowAction >> seamlessDefaultTransferStrategy [ 
-	^SeamlessTransferStrategy defaultByValue
-]
-
-{ #category : #accessing }
 GtPhlowAction >> target [
 	<return: #GtPhlowActionTarget>
 	^ target
