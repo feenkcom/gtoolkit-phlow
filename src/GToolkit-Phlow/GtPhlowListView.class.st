@@ -105,12 +105,18 @@ GtPhlowListView >> send [
 ]
 
 { #category : #accessing }
-GtPhlowListView >> send: anOneArgBlock [
+GtPhlowListView >> send: aBlock [
 	self
-		assert: [ anOneArgBlock notNil ]
+		assert: [ aBlock notNil ]
 		description: [ 'Send transformation block must be non-nil'  ].
+	aBlock isSymbol ifTrue: [ 
+		self 
+			assert: [ aBlock isUnary ]
+			description: [ 'Send transformation symbol must be unary' ].
+		transformation := [ :obj :event | aBlock value: obj ].
+		^self ].
 	self
-		assert: [ anOneArgBlock numArgs = 1 ]
-		description: [ 'Send transformation block must receive one argument'  ].
-	transformation := anOneArgBlock
+		assert: [ aBlock numArgs <= 2 ]
+		description: [ 'Send transformation block must have two or less arguments'  ].
+	transformation := aBlock
 ]
