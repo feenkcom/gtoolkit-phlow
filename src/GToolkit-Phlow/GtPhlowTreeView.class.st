@@ -74,7 +74,7 @@ GtPhlowTreeView >> format: aBlockOrSymbol [
 GtPhlowTreeView >> initialize [
 	super initialize.
 	itemStencil := [ :anObject | 
-		self buildTextElementFor: anObject gtDisplayString ].
+		self buildTextElementFor: anObject gtDisplayText ].
 	itemsBuilder := [ { } ].
 	childrenBuilder := [ :each | { } ].
 	transformation := [ :aValue | "by default there is no transformation" aValue ].
