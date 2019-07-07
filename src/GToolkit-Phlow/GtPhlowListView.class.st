@@ -113,7 +113,7 @@ GtPhlowListView >> send: aBlock [
 		self 
 			assert: [ aBlock isUnary ]
 			description: [ 'Send transformation symbol must be unary' ].
-		transformation := [ :obj :event | aBlock value: obj ].
+		transformation := [ :obj | aBlock value: obj ].
 		^self ].
 	self
 		assert: [ aBlock numArgs <= 2 ]
