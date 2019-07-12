@@ -131,6 +131,8 @@ GtPhlowTaskItView >> taskElement: anAsElementBlock [
 			c horizontal matchParent.
 			c vertical matchParent ].
 	aTask := BlCancellableTaskItAction new.
+	self definingMethod ifNotNil: [ :aMethod | 
+		aTask name: 'Phlow view: ', aMethod fullName asString ].
 	aTask action: [ self originalElementDo: anAsElementBlock ].
 	aTask onRunEnqueueRepeatedAction: (BlRollingLinearGradientBackgroundCommand new element: aProgressElement children first).
 	aTask

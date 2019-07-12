@@ -7,6 +7,13 @@ Class {
 	#category : #'GToolkit-Phlow-Builders'
 }
 
+{ #category : #accessing }
+GtPhlowDefiningMethods >> fullName [
+	"Return Class>>#selector name"
+	<return: #Symbol>
+	^ self methods first fullName
+]
+
 { #category : #ui }
 GtPhlowDefiningMethods >> gtSourceFor: aView [
 	<gtView>
