@@ -68,6 +68,73 @@ GtPhlowTaskItView >> initialize [
 ]
 
 { #category : #private }
+GtPhlowTaskItView >> installNotificationsOnTask: aTask [
+	aTask
+		onNotification: BlExactProgress
+		enqueueAction: [ :aProgress | 
+			aTask element
+				childNamed: #progressText
+				ifFound: [ :theTextElement | 
+					theTextElement
+						text:
+							(self
+								notificationText:
+									aProgress messageText asString , ' '
+										, aProgress percentage rounded asString , '%') ]
+				ifNone: [ "do nothing" ] ].
+	aTask
+		onNotification: BlSomeProgress
+		enqueueAction: [ :aProgress | 
+			aTask element
+				childNamed: #progressText
+				ifFound: [ :theTextElement | 
+					theTextElement
+						text:
+							(self
+								notificationText:
+									aProgress messageText asString , ' '
+										, aProgress amount rounded asString) ]
+				ifNone: [ "do nothing" ] ].
+	aTask
+		onNotification: BlAnyProgress
+		enqueueAction: [ :aProgress | 
+			aTask element
+				childNamed: #progressText
+				ifFound: [ :theTextElement | 
+					theTextElement
+						text: (self notificationText: aProgress messageText asString) ]
+				ifNone: [ "do nothing" ] ]
+]
+
+{ #category : #private }
+GtPhlowTaskItView >> newProgressElement [
+	| aProgressElement |
+	aProgressElement := BlElement new.
+	aProgressElement
+		layout: BlFrameLayout new;
+		addChild:
+			(BlTextElement new
+				text: (self notificationText: 'Rendering...');
+				geometry: (BlRectangle cornerRadius: 7);
+				padding:
+					(BlInsets
+						top: 10
+						left: 20
+						bottom: 10
+						right: 20);
+				constraintsDo: [ :c | 
+					c frame horizontal alignCenter.
+					c frame vertical alignCenter ])
+			as: #progressText.
+	aProgressElement
+		background: BlBackground transparent;
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical matchParent ].
+	^ aProgressElement
+]
+
+{ #category : #private }
 GtPhlowTaskItView >> notificationText: aStringOrRope [
 	^ aStringOrRope asRopedText 
 			foreground: Color gray lighter;
@@ -113,66 +180,27 @@ GtPhlowTaskItView >> priority: aNumber [
 
 { #category : #private }
 GtPhlowTaskItView >> taskElement: anAsElementBlock [
-	| aProgressElement aTask |
-	aProgressElement := BlElement new.
-	aProgressElement 
-		layout: BlFrameLayout new;
-		addChild: (BlTextElement new 
-				text: (self notificationText: 'Rendering...');
-				geometry: (BlRectangle cornerRadius: 7);
-				padding: (BlInsets top: 10 left: 20 bottom: 10 right: 20);
-				constraintsDo: [ :c | 
-					c frame horizontal alignCenter.
-					c frame vertical alignCenter ])
-			as: #progressText.
-	aProgressElement
-		background: BlBackground transparent;
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical matchParent ].
+	| aProgressElement aCommand aTask |
+	aProgressElement := self newProgressElement.
+	aCommand := [ self originalElementDo: anAsElementBlock ] asBlTktCommand.
+	self definingMethod
+		ifNotNil: [ :aMethod | 
+			aCommand name: 'Phlow view: ' , aMethod fullName asString ].
 	aTask := BlCancellableTaskItAction new.
-	self definingMethod ifNotNil: [ :aMethod | 
-		aTask name: 'Phlow view: ', aMethod fullName asString ].
-	aTask action: [ self originalElementDo: anAsElementBlock ].
-	aTask onRunEnqueueRepeatedAction: (BlRollingLinearGradientBackgroundCommand new element: aProgressElement children first).
+	aTask action: aCommand.
+	self installNotificationsOnTask: aTask.
 	aTask
-		onNotification: BlExactProgress
-		enqueueAction: [ :aProgress | 
-			aTask element 
-				childNamed: #progressText 
-				ifFound: [ :theTextElement | 
-					theTextElement
-						text: (self notificationText: (
-							aProgress messageText asString, ' ',
-							aProgress percentage rounded asString, '%')) ]
-				ifNone: [ "do nothing" ] ].
+		onRunEnqueueRepeatedAction:
+			(BlRollingLinearGradientBackgroundCommand new
+				element: aProgressElement children first).
 	aTask
-		onNotification: BlSomeProgress
-		enqueueAction: [ :aProgress | 
-			aTask element 
-				childNamed: #progressText 
-				ifFound: [ :theTextElement | 
-					theTextElement
-						text: (self notificationText: (
-							aProgress messageText asString, ' ', 
-							aProgress amount rounded asString)) ]
-				ifNone: [ "do nothing" ] ].
+		onSuccessEnqueueAction: [ :aComputedElement | 
+			self attach: aComputedElement toParentOf: aProgressElement ].
 	aTask
-		onNotification: BlAnyProgress
-		enqueueAction: [ :aProgress | 
-			aProgress traceCr.
-			aTask element 
-				childNamed: #progressText 
-				ifFound: [ :theTextElement | 
-					theTextElement
-						text: (self notificationText: (aProgress messageText asString)) ]
-				ifNone: [ "do nothing" ] ].
-	aTask onSuccessEnqueueAction: [ :aComputedElement | 
-		self attach: aComputedElement toParentOf: aProgressElement ].
-	aTask onFailureEnqueueAction: [ :anException | 
-		| anErrorElement |
-		anErrorElement := self errorElementFrom: anException.
-		self attach: anErrorElement toParentOf: aProgressElement ].
+		onFailureEnqueueAction: [ :anException | 
+			| anErrorElement |
+			anErrorElement := self errorElementFrom: anException.
+			self attach: anErrorElement toParentOf: aProgressElement ].
 	aProgressElement enqueueTask: aTask.
 	^ aProgressElement
 ]
