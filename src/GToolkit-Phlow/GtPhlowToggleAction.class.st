@@ -71,11 +71,13 @@ GtPhlowToggleAction >> label: aString [
 
 { #category : #'instance creation' }
 GtPhlowToggleAction >> newToggleLook [
-	(label isNil and: [ icon isNil ]) ifTrue: [ 
-		^ BrMaterialToggleBackgroundLook + BrGlamorousButtonWithLabelAndIconLook ].
-	(label notNil and: [ icon isNil ]) ifTrue: [ 
-		^ BrMaterialToggleBackgroundLook + BrGlamorousButtonWithLabelLook ].
-	(label isNil and: [ icon notNil ]) ifTrue: [ 
-		^ BrMaterialToggleBackgroundLook + BrGlamorousButtonWithIconLook ].
-	^ BrMaterialToggleBackgroundLook + BrGlamorousButtonWithIconAndLabelLook
+	(label isNil and: [ icon isNil ])
+		ifTrue: [ ^ BrGlamorousButtonWithLabelAndIconLook + BrGlamorousToggleBackgroundLook ].
+	(label notNil and: [ icon isNil ])
+		ifTrue:
+			[ ^ BrGlamorousButtonWithLabelLook + BrGlamorousToggleBackgroundLook ].
+	(label isNil and: [ icon notNil ])
+		ifTrue:
+			[ ^ BrGlamorousButtonWithIconLook + BrGlamorousToggleBackgroundLook ].
+	^ BrGlamorousButtonWithIconAndLabelLook + BrGlamorousToggleBackgroundLook
 ]
