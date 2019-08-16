@@ -6,8 +6,28 @@ Class {
 	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
+	#classVars : [
+		'IsTaskItViewGloballyEnabled'
+	],
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
+
+{ #category : #setup }
+GtPhlowProtoView class >> disableTaskItViews [
+	<script>
+	IsTaskItViewGloballyEnabled := false.
+]
+
+{ #category : #setup }
+GtPhlowProtoView class >> enableTaskItViews [
+	<script>
+	IsTaskItViewGloballyEnabled := true.
+]
+
+{ #category : #'class initialization' }
+GtPhlowProtoView class >> initialize [
+	IsTaskItViewGloballyEnabled := true.
+]
 
 { #category : #converting }
 GtPhlowProtoView >> asElementDo: aBlock [
@@ -17,8 +37,11 @@ GtPhlowProtoView >> asElementDo: aBlock [
 
 { #category : #converting }
 GtPhlowProtoView >> asTaskItView [
-	^ GtPhlowUseTaskItView enabled 
-		ifTrue: [ GtPhlowTaskItView new originalView: self ]
+	^ self isTaskItViewGloballyEnabled
+		ifTrue: [
+			GtPhlowUseTaskItView enabled 
+				ifTrue: [ GtPhlowTaskItView new originalView: self ]
+				ifFalse: [ self ] ]
 		ifFalse: [ self ]
 ]
 
@@ -111,6 +134,11 @@ GtPhlowProtoView >> gtLiveFor: aView [
 { #category : #converting }
 GtPhlowProtoView >> ifItHasContent: aBlock [
 	^ self subclassResponsibility
+]
+
+{ #category : #testing }
+GtPhlowProtoView >> isTaskItViewGloballyEnabled [
+	^ IsTaskItViewGloballyEnabled ifNil: [ true ]
 ]
 
 { #category : #decorating }
