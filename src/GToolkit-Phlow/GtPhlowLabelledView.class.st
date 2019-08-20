@@ -24,7 +24,7 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 			toolbarStencil: (self actionsToolbarForElement: tab);
 			padding: (BlInsets top: 15 right: 0 bottom: 15 left: 10) ].
 	group 
-		look: (BrMaterialTabGroupLook new headerBackground: (Color fromHexString: #'e0e0e0'));
+		look: (BrGlamorousTabGroupLook new headerBackground: (Color fromHexString: #'e0e0e0'));
 		addTab: tab;
 		constraintsDo: [ :c | 
 			c vertical matchParent. 
