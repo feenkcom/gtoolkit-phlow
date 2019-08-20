@@ -210,6 +210,7 @@ GtPhlowTaskItView >> taskElement: containerElement [
 	| aCommand methodName aTask |
 
 	aCommand := [ self originalElementDo: [ :anElement |
+			anElement forceLayout.
 			self make: anElement onlyChildOf: containerElement ] ] asBlTktCommand.
 	methodName := self definingMethod
 		ifNil: [ '<unknown>' ]
