@@ -21,10 +21,10 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 			look: BrGlamorousTabWithoutBarLook;
 			label: self label;
 			stencil: [ originalElement asScrollableElement ];
-			actionsStencil: (self actionsToolbarForElement: tab);
+			toolbarStencil: (self actionsToolbarForElement: tab);
 			padding: (BlInsets top: 15 right: 0 bottom: 15 left: 10) ].
 	group 
-		look: (BrMaterialTabGroupLook new headerBackground: (Color fromHexString: #'e0e0e0'));
+		look: (BrGlamorousTabGroupLook new headerBackground: (BrGlamorousColors defaultHeaderBackgroundColor));
 		addTab: tab;
 		constraintsDo: [ :c | 
 			c vertical matchParent. 

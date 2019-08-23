@@ -21,10 +21,6 @@ GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 	| aDropdown |
 	aDropdown := BrDropdown new.
 	aDropdown
-		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent ];
 		look: BrGlamorousDropdownLook new;
 		toggle: [ self newButton ];
 		popup: [ self newPopupWithTargetElement: aTargetElement ].
@@ -60,7 +56,7 @@ GtPhlowDropdownAction >> newButton [
 	<return: #BrButton>
 	| aButton |
 	aButton := BrButton new.
-	aButton look: self newButtonLook.
+	aButton look: self newButtonLook + BrGlamorousDropdownToggleLook.
 	label ifNotNil: [ aButton label: label asRopedText ].
 	icon ifNotNil: [ aButton icon: icon asElement ].
 	action ifNotNil: [ aButton action: action ].
