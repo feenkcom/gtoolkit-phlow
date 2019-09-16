@@ -39,9 +39,8 @@ GtPhlowActionsCollector >> collect [
 { #category : #initialization }
 GtPhlowActionsCollector >> initialize [
 	super initialize.
-	sortedUsing := [ :aPragma :bPragma | aPragma keyword < bPragma keyword ].
-	selectUsing := [ :anAction | true ].
-
+	sortedUsing := [ :aPragma :bPragma | aPragma selector < bPragma selector ].
+	selectUsing := [ :anAction | true ]
 ]
 
 { #category : #initialization }
