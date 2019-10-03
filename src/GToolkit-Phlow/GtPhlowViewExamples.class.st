@@ -192,6 +192,7 @@ GtPhlowViewExamples >> labelledCompositeView [
 	self assert: (element isKindOf: BrTabGroup).
 	self assert: (element phlow firstChildWithView isKindOf: BrTab).
 	self assert: (element phlow firstChildWithView phlow entity = view).
+	self assert: (element phlow firstChildWithView viewContentElement phlow isView).
 	childElementsWithView := element allChildrenBreadthFirstSelect: [:each | each phlow isView ].
 	self assert: childElementsWithView size = 3.
 	^ view
