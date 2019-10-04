@@ -20,6 +20,9 @@ GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 	<return: #BrButton>
 	| aDropdown |
 	aDropdown := BrDropdown new.
+	aDropdown phlow 
+		beAction;
+		entity: self.
 	aDropdown
 		look: BrGlamorousDropdownLook new;
 		toggle: [ self newButton ];

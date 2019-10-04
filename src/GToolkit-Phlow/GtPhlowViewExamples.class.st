@@ -183,7 +183,7 @@ GtPhlowViewExamples >> gtViewWithExtraActionsFor: aView [
 ]
 
 { #category : #examples }
-GtPhlowViewExamples >> labelledCompositeView [
+GtPhlowViewExamples >> labelledCompositeViewElement [
 	<gtExample>
 	| view element childElementsWithView |
 	view := self compositeView labelled label: 'Composite'.
@@ -196,6 +196,18 @@ GtPhlowViewExamples >> labelledCompositeView [
 	childElementsWithView := element allChildrenBreadthFirstSelect: [:each | each phlow isView ].
 	self assert: childElementsWithView size = 3.
 	^ view
+]
+
+{ #category : #'extra actions' }
+GtPhlowViewExamples >> labelledCompositeViewShouldHaveActionsMarkedAsActions [
+	<gtExample>
+	| aView anElement |
+	aView := self gtViewsFor: GtPhlowView empty.
+	aView asElementDo: [:e | anElement := e].
+	self assert: anElement notNil.
+	self assert: anElement phlow allChildrenWithAction notEmpty.
+	self assert: anElement phlow allChildrenWithAction size = 3.
+	^ anElement
 ]
 
 { #category : #'reused views' }

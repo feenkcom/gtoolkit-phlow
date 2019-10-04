@@ -11,8 +11,13 @@ Class {
 GtPhlowExplicitAction >> asElement: aBlock withHostElement: aTargetElement [
 	| anElement |
 	anElement := [ 
+			| button |
 			stencilBuilder targetElement: aTargetElement.
-			stencilBuilder asElement ]
+			button := stencilBuilder asElement.
+			button phlow 
+				beAction;
+				entity: self.
+			button ]
 		on: Error
 		do: [ :error | 
 			error freeze.
