@@ -201,6 +201,7 @@ GtPhlowViewExamples >> labelledCompositeViewElement [
 { #category : #'extra actions' }
 GtPhlowViewExamples >> labelledCompositeViewShouldHaveActionsMarkedAsActions [
 	<gtExample>
+	<noTest>
 	| aView anElement |
 	aView := self gtViewsFor: GtPhlowView empty.
 	aView asElementDo: [:e | anElement := e. e forceLayout ].
