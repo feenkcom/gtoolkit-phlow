@@ -26,6 +26,9 @@ GtPhlowToggleAction >> asElement: aBlock withHostElement: aTargetElement [
 	<return: #BrButton>
 	| aToggle |
 	aToggle := BrToggle new.
+	aToggle phlow 
+		beAction;
+		entity: self.
 	aToggle look: self newToggleLook.
 	label ifNotNil: [ aToggle label: label asRopedText ].
 	icon ifNotNil: [ aToggle icon: icon asElement ].

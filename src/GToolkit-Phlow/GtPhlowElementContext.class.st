@@ -21,6 +21,12 @@ GtPhlowElementContext class >> on: anElement [
 ]
 
 { #category : #'api - search' }
+GtPhlowElementContext >> allChildrenWithAction [
+	^ self element 
+		allChildrenBreadthFirstSelect: [ :child | child phlow isAction ]
+]
+
+{ #category : #'api - search' }
 GtPhlowElementContext >> allChildrenWithView [
 	<return: #Array of: #BrTab>
 	| aTab |
@@ -67,6 +73,13 @@ GtPhlowElementContext >> entity [
 { #category : #'api - accessing' }
 GtPhlowElementContext >> entity: anObject [
 	entity := anObject
+]
+
+{ #category : #'api - search' }
+GtPhlowElementContext >> firstChildWithAction [
+	^ self element 
+		allChildrenBreadthFirstDetect: [ :child | child phlow isAction ] 
+		ifFound: [ :child | child ]
 ]
 
 { #category : #'api - search' }
