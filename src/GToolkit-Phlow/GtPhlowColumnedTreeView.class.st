@@ -5,7 +5,8 @@ Class {
 		'columns',
 		'transformation',
 		'itemsBuilder',
-		'childrenBuilder'
+		'childrenBuilder',
+		'expandUpTo'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
@@ -13,88 +14,51 @@ Class {
 { #category : #converting }
 GtPhlowColumnedTreeView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
+
 	| aContainer header tree theItems |
-	
-	aContainer := BlElement new.
-	aContainer layout: BlLinearLayout vertical.
-	aContainer constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
-	
+	aContainer := self newContainer.
 	theItems := self itemsBuilder value.
-	
-	header := BlElement new.
-	header layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: 10).
-	header padding: (BlInsets top: 5 bottom: 5).
-	header constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical fitContent ].
-	
-	header addChildren: (columns collect: [ :eachColumn |
-		| aWrapper aLabel aScaledLabel |
-		
-		aWrapper := BlElement new.
-		aWrapper layout: BlLinearLayout vertical.
-		aWrapper constraintsDo: [ :c |
-			c horizontal fitContent.
-			c vertical matchParent ].
-
-		aLabel := BrLabel new
-			look: BrGlamorousLabelLook;
-			text: (eachColumn title asRopedText foreground: BrGlamorousColors defaultButtonTextColor).
-
-		aScaledLabel := aLabel asScalableElement.
-		aScaledLabel maxScale: 1.
-		aScaledLabel constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical matchParent.
-			c ignoreByLayout ].
-		
-		theItems ifNotEmpty: [
-			| aRowElement  |
-			aRowElement := eachColumn createRowElementFor: theItems first atIndex: 1.
-			aRowElement visibility: BlVisibility hidden.
-
-			eachColumn resizer ifNotNil: [ :aLayoutResizer |
-				aRowElement constraintsDo: [ :c |
-					c horizontal resizer: aLayoutResizer.
-					c vertical matchParent ].
-				aWrapper constraintsDo: [ :c | c horizontal resizer: aLayoutResizer ].
-				aRowElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
-				aRowElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
-			
-			aWrapper addChild: aRowElement	].
-		
-		aWrapper addChild: aScaledLabel.
-		aWrapper
-	]).
-	
+	header := self newHeader.
+	header addChildren: (self newColumnElementsForItems: theItems).
 	tree := BrColumnedTree new.
 	tree items: theItems children: self childrenBuilder.
-	tree addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :aNode | self send value: aNode value ]).
-	tree rowStencil: (BrColumnedTreeRowStencilBuilder new
-		cellSpacing: 2;
-		padding: (BlInsets top: 2 bottom: 2)).
-
-	columns do: [ :eachPhlowColumn |
-		tree column
-			title: eachPhlowColumn title;
-			stencil: [ :eachNode :eachIndex |
-				| aRowElement |
-				
-				aRowElement := eachPhlowColumn createRowElementFor: eachNode value atIndex: eachIndex.
-				eachPhlowColumn resizer ifNotNil: [ :aLayoutResizer |
-					aRowElement constraintsDo: [ :c |
-						c horizontal resizer: aLayoutResizer.
-						c vertical matchParent ].
-					aRowElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
-					aRowElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
-				aRowElement ] ].
-		
-	aContainer addChildren: { header . tree }.
-
-	aContainer phlow beView; entity: self.
-
+	tree
+		addEventHandler:
+			(GtInspectorListToSelectHandler new
+				transformation: [ :aNode | self send value: aNode value ]).
+	tree
+		rowStencil:
+			(BrColumnedTreeRowStencilBuilder new
+				cellSpacing: 2;
+				padding: (BlInsets top: 2 bottom: 2)).
+	columns
+		do: [ :eachPhlowColumn | 
+			tree column
+				title: eachPhlowColumn title;
+				stencil: [ :eachNode :eachIndex | 
+					| aRowElement |
+					aRowElement := eachPhlowColumn
+						createRowElementFor: eachNode value
+						atIndex: eachIndex.
+					eachPhlowColumn resizer
+						ifNotNil: [ :aLayoutResizer | 
+							aRowElement
+								constraintsDo: [ :c | 
+									c horizontal resizer: aLayoutResizer.
+									c vertical matchParent ].
+							aRowElement
+								dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
+							aRowElement
+								dispatchEvent: BrLayoutVerticalResizerWish matchParent ].
+					aRowElement ] ].
+	self expandTree: tree.
+	aContainer
+		addChildren:
+			{header.
+			tree}.
+	aContainer phlow
+		beView;
+		entity: self.
 	^ aBlock value: aContainer
 ]
 
@@ -106,6 +70,11 @@ GtPhlowColumnedTreeView >> children: aValuable [
 { #category : #accessing }
 GtPhlowColumnedTreeView >> childrenBuilder [
 	^ childrenBuilder
+]
+
+{ #category : #accessing }
+GtPhlowColumnedTreeView >> collapseAll [
+	expandUpTo := nil.
 ]
 
 { #category : #accessing }
@@ -192,6 +161,30 @@ GtPhlowColumnedTreeView >> display: aBlock [
 	self items: aBlock
 ]
 
+{ #category : #accessing }
+GtPhlowColumnedTreeView >> expandAll [
+	self expandUpTo: 20
+]
+
+{ #category : #accessing }
+GtPhlowColumnedTreeView >> expandOneLevel [
+	self expandUpTo: 1
+]
+
+{ #category : #'private - actions' }
+GtPhlowColumnedTreeView >> expandTree: aBrColumnedTree [ 
+	expandUpTo ifNil: [ ^ self ].
+	aBrColumnedTree expandUpTo: expandUpTo
+]
+
+{ #category : #accessing }
+GtPhlowColumnedTreeView >> expandUpTo: aLevelIndex [
+	self 
+		assert: [ aLevelIndex isInteger and: [ aLevelIndex > 0 ] ] 
+		description: [ 'Level index must be a natural number' ].
+	expandUpTo := aLevelIndex.
+]
+
 { #category : #initialization }
 GtPhlowColumnedTreeView >> initialize [
 	super initialize.
@@ -210,6 +203,78 @@ GtPhlowColumnedTreeView >> items: aValuable [
 { #category : #'private - accessing' }
 GtPhlowColumnedTreeView >> itemsBuilder [
 	^ itemsBuilder
+]
+
+{ #category : #'instance creation' }
+GtPhlowColumnedTreeView >> newColumnElementsForItems: theItems [
+	^ columns
+		collect: [ :eachColumn | 
+			| aWrapper aLabel aScaledLabel |
+			aWrapper := self newWrapper.
+			aLabel := BrLabel new
+				look: BrGlamorousLabelLook;
+				text:
+					(eachColumn title asRopedText
+						foreground: BrGlamorousColors defaultButtonTextColor).
+			aScaledLabel := aLabel asScalableElement.
+			aScaledLabel maxScale: 1.
+			aScaledLabel
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent.
+					c ignoreByLayout ].
+			theItems
+				ifNotEmpty: [ | aRowElement |
+					aRowElement := eachColumn
+						createRowElementFor: theItems first
+						atIndex: 1.
+					aRowElement visibility: BlVisibility hidden.
+					eachColumn resizer
+						ifNotNil: [ :aLayoutResizer | 
+							aRowElement
+								constraintsDo: [ :c | 
+									c horizontal resizer: aLayoutResizer.
+									c vertical matchParent ].
+							aWrapper
+								constraintsDo: [ :c | c horizontal resizer: aLayoutResizer ].
+							aRowElement
+								dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
+							aRowElement
+								dispatchEvent: BrLayoutVerticalResizerWish matchParent ].
+					aWrapper addChild: aRowElement ].
+			aWrapper addChild: aScaledLabel.
+			aWrapper ]
+]
+
+{ #category : #'instance creation' }
+GtPhlowColumnedTreeView >> newContainer [
+	^ BlElement new
+		layout: BlLinearLayout vertical;
+		constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical matchParent ].
+]
+
+{ #category : #'instance creation' }
+GtPhlowColumnedTreeView >> newHeader [
+	^ BlElement new
+		layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: 10);
+		padding: (BlInsets top: 5 bottom: 5);
+		constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical fitContent ].
+]
+
+{ #category : #'instance creation' }
+GtPhlowColumnedTreeView >> newWrapper [
+	| aWrapper |
+	aWrapper := BlElement new.
+	aWrapper layout: BlLinearLayout vertical.
+	aWrapper
+		constraintsDo: [ :c | 
+			c horizontal fitContent.
+			c vertical matchParent ].
+	^ aWrapper
 ]
 
 { #category : #accessing }
