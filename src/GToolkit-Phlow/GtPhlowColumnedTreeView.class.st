@@ -72,7 +72,7 @@ GtPhlowColumnedTreeView >> childrenBuilder [
 	^ childrenBuilder
 ]
 
-{ #category : #accessing }
+{ #category : #'expanding-collapsing' }
 GtPhlowColumnedTreeView >> collapseAll [
 	expandUpTo := nil.
 ]
@@ -161,12 +161,12 @@ GtPhlowColumnedTreeView >> display: aBlock [
 	self items: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : #'expanding-collapsing' }
 GtPhlowColumnedTreeView >> expandAll [
 	self expandUpTo: 20
 ]
 
-{ #category : #accessing }
+{ #category : #'expanding-collapsing' }
 GtPhlowColumnedTreeView >> expandOneLevel [
 	self expandUpTo: 1
 ]
@@ -177,7 +177,7 @@ GtPhlowColumnedTreeView >> expandTree: aBrColumnedTree [
 	aBrColumnedTree expandUpTo: expandUpTo
 ]
 
-{ #category : #accessing }
+{ #category : #'expanding-collapsing' }
 GtPhlowColumnedTreeView >> expandUpTo: aLevelIndex [
 	self 
 		assert: [ aLevelIndex isInteger and: [ aLevelIndex > 0 ] ] 
