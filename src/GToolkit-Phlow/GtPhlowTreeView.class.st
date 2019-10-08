@@ -5,7 +5,8 @@ Class {
 		'itemsBuilder',
 		'itemStencil',
 		'transformation',
-		'childrenBuilder'
+		'childrenBuilder',
+		'expandUpTo'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
@@ -29,6 +30,8 @@ GtPhlowTreeView >> asElementDo: aBlock [
 			| itemElement |
 			itemElement := self itemStencil value: aNode value.
 			itemElement padding: (BlInsets top: 3 left: 0 bottom: 3 right: 0) ].
+
+	self expandTree: tree.
 
 	tree phlow 
 		beView; 
@@ -54,12 +57,41 @@ GtPhlowTreeView >> childrenBuilder [
 	^ childrenBuilder
 ]
 
+{ #category : #accessing }
+GtPhlowTreeView >> collapseAll [
+	expandUpTo := nil.
+]
+
 { #category : #'scripting - deprecated' }
 GtPhlowTreeView >> display: aBlock [
 	self 
 		deprecated: 'Please use #items: instead.'
 		transformWith: '`@receiver display: `@statements' -> '`@receiver items: `@statements'.
 	self items: aBlock
+]
+
+{ #category : #'expanding-collapsing' }
+GtPhlowTreeView >> expandAll [
+	self expandUpTo: 20
+]
+
+{ #category : #accessing }
+GtPhlowTreeView >> expandOneLevel [
+	self expandUpTo: 1
+]
+
+{ #category : #'private - actions' }
+GtPhlowTreeView >> expandTree: aBrColumnedTree [ 
+	expandUpTo ifNil: [ ^ self ].
+	aBrColumnedTree expandUpTo: expandUpTo
+]
+
+{ #category : #accessing }
+GtPhlowTreeView >> expandUpTo: aLevelIndex [
+	self 
+		assert: [ aLevelIndex isInteger and: [ aLevelIndex > 0 ] ] 
+		description: [ 'Level index must be a natural number' ].
+	expandUpTo := aLevelIndex.
 ]
 
 { #category : #'scripting - deprecated' }
