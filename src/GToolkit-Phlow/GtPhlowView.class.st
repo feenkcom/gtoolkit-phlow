@@ -57,12 +57,12 @@ GtPhlowView >> actionButtonLabel: aString action: aValuable [
 ]
 
 { #category : #'adding - actions' }
-GtPhlowView >> actionDropdownButtonIcon: anIcon label: aStringOrRope popup: aValuable [
+GtPhlowView >> actionDropdownButtonIcon: anIcon label: aStringOrRope content: aValuable [
 	self action: [ :aPhlowAction | 
 		aPhlowAction dropdown 
 			icon: anIcon;
 			label: aStringOrRope;
-			popup: aValuable ]
+			content: aValuable ]
 ]
 
 { #category : #'adding - actions' }

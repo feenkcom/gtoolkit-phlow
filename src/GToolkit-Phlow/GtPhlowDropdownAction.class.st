@@ -5,7 +5,7 @@ Class {
 		'icon',
 		'label',
 		'action',
-		'popupStencilBuilder'
+		'contentStencilBuilder'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
@@ -19,16 +19,28 @@ GtPhlowDropdownAction >> action: aValuable [
 GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 	<return: #BrButton>
 	| aDropdown |
-	aDropdown := BrDropdown new.
-	aDropdown phlow 
+	aDropdown := self newButton.
+	aDropdown phlow
 		beAction;
 		entity: self.
 	aDropdown
-		look: BrGlamorousDropdownLook new;
-		toggle: [ self newButton ];
-		popup: [ self newPopupWithTargetElement: aTargetElement ].
+		look:
+			self newButtonLook
+				+
+					(BrGlamorousWithDropdownLook
+						handle: [ self newButton
+								look:
+									self newButtonLook - BrGlamorousWithLabelTooltipLook
+										- BrGlamorousButtonExteriorLook;
+								yourself ]
+						content: [ self newContentWithTargetElement: aTargetElement ]).
 	self attachShowDefinitionEventHandler: aDropdown.
 	^ aBlock value: aDropdown
+]
+
+{ #category : #accessing }
+GtPhlowDropdownAction >> content: aStencilBuilder [
+	contentStencilBuilder := aStencilBuilder asStencilBuilder: GtPhlowActionStencilBuilder
 ]
 
 { #category : #accessing }
@@ -59,7 +71,6 @@ GtPhlowDropdownAction >> newButton [
 	<return: #BrButton>
 	| aButton |
 	aButton := BrButton new.
-	aButton look: self newButtonLook + BrGlamorousDropdownToggleLook.
 	label ifNotNil: [ aButton label: label asRopedText ].
 	icon ifNotNil: [ aButton icon: icon asElement ].
 	action ifNotNil: [ aButton action: action ].
@@ -75,12 +86,7 @@ GtPhlowDropdownAction >> newButtonLook [
 ]
 
 { #category : #'instance creation' }
-GtPhlowDropdownAction >> newPopupWithTargetElement: aTargetElement [
-	popupStencilBuilder targetElement: aTargetElement.
-	^ popupStencilBuilder asElement
-]
-
-{ #category : #accessing }
-GtPhlowDropdownAction >> popup: aStencilBuilder [
-	popupStencilBuilder := aStencilBuilder asStencilBuilder: GtPhlowActionStencilBuilder
+GtPhlowDropdownAction >> newContentWithTargetElement: aTargetElement [
+	contentStencilBuilder targetElement: aTargetElement.
+	^ contentStencilBuilder asElement
 ]
