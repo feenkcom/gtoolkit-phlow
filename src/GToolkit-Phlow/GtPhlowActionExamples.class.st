@@ -119,11 +119,13 @@ GtPhlowActionExamples >> dropdownWithIcon [
 	| anAction aButton |
 	anAction := GtPhlowAction noAction dropdown
 		icon: BrGlamorousIcons menu;
-		popup: [ BlElement new background: Color lightBrown; size: 200@300 ].
+		content: [ BlElement new
+				background: Color lightBrown;
+				size: 200 @ 300 ].
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
-	self assert: (aButton isKindOf: BrDropdown).
-	"self assert: aButton label asString equals: 'Edit'.
-	self assert: aButton icon background image equals: BrGlamorousIcons edit."
+	self assert: (aButton isKindOf: BrButton).
+	self assert: aButton icon background image equals: BrGlamorousIcons menu.
+	self assert: (aButton look hasActor: BrGlamorousButtonWithIconLook).
 	^ anAction
 ]
 
@@ -134,11 +136,15 @@ GtPhlowActionExamples >> dropdownWithIconAndLabel [
 	anAction := GtPhlowAction noAction dropdown
 		icon: BrGlamorousIcons menu;
 		label: 'Check me :-)';
-		popup: [ BlElement new background: Color lightBrown; size: 200@300 ].
+		content: [ BlElement new
+				background: Color lightBrown;
+				size: 200 @ 300 ].
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
-	self assert: (aButton isKindOf: BrDropdown).
-	"self assert: aButton label asString equals: 'Edit'.
-	self assert: aButton icon background image equals: BrGlamorousIcons edit."
+	self assert: (aButton isKindOf: BrButton).
+	self assert: aButton label asString equals: 'Check me :-)'.
+	self assert: aButton icon background image equals: BrGlamorousIcons menu.
+	self
+		assert: (aButton look hasActor: BrGlamorousButtonWithIconAndLabelLook).
 	^ aButton
 ]
 
