@@ -90,7 +90,7 @@ GtPhlowViewExamples >> explicitViewUpdate [
 	self assert: anElement background paint color equals: Color red.
 	aParent := BlElement new addChild: anElement.
 	aColor := Color green.
-	GtPhlowUseTaskItView 
+	BlUseAsyncFeatures 
 		value: false during: [ anElement phlow update ].
 	self assert: aParent children first background paint color equals: Color green.
 	self assert: aParent children first phlow isViewContent.
