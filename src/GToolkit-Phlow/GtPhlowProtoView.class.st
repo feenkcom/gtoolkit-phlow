@@ -39,9 +39,9 @@ GtPhlowProtoView >> asElementDo: aBlock [
 GtPhlowProtoView >> asTaskItView [
 	^ self isTaskItViewGloballyEnabled
 		ifTrue: [
-			GtPhlowUseTaskItView enabled 
-				ifTrue: [ GtPhlowTaskItView new originalView: self ]
-				ifFalse: [ self ] ]
+			BlUseAsyncFeatures 
+				ifEnabledDo: [ GtPhlowTaskItView new originalView: self ]
+				otherwise: [ self ] ]
 		ifFalse: [ self ]
 ]
 
