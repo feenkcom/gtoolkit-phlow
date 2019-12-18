@@ -37,10 +37,8 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 		aWrapper constraintsDo: [ :c |
 			c horizontal fitContent.
 			c vertical matchParent ].
-
-		aLabel := BrLabel new
-			look: BrGlamorousLabelLook;
-			text: (eachColumn title asRopedText foreground: BrGlamorousColors defaultButtonTextColor).
+		
+		aLabel := eachColumn createHeaderRowElement.
 
 		aScaledLabel := aLabel asScalableElement.
 		aScaledLabel maxScale: 1.
