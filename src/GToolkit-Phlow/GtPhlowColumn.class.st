@@ -5,10 +5,18 @@ Class {
 		'resizer',
 		'rowStencil',
 		'title',
+		'titleStencil',
 		'itemComputation'
 	],
 	#category : #'GToolkit-Phlow-Support'
 }
+
+{ #category : #'private - building' }
+GtPhlowColumn >> buildHeaderElementFor: aText forColumn: aPhlowColumn [
+	^ BrLabel new
+		look: BrGlamorousLabelLook;
+		text: (aText asRopedText foreground: BrGlamorousColors defaultButtonTextColor)
+]
 
 { #category : #'private - building' }
 GtPhlowColumn >> buildRowElementFor: aStringOrText forColumn: aPhlowColumn [
@@ -28,6 +36,11 @@ GtPhlowColumn >> buildRowElementFor: aStringOrText forColumn: aPhlowColumn [
 					c vertical matchParent.
 					c horizontal exact: 30 ]) ].
 	^ rowElement 
+]
+
+{ #category : #building }
+GtPhlowColumn >> createHeaderRowElement [
+	^ (titleStencil valueWithEnoughArguments: {self title . self}) asElement
 ]
 
 { #category : #building }
@@ -60,6 +73,9 @@ GtPhlowColumn >> initialize [
 	resizer := BlLayoutResizer matchParent.
 	title := 'Column'.
 	itemComputation := [ :eachItem :eachIndex | eachItem ].
+	
+	titleStencil := [ :aTitle :aPhlowColumn | 
+		self buildHeaderElementFor: aTitle forColumn: aPhlowColumn ].
 	rowStencil := [ :eachColumnItem :phlowColumn | 
 		| valueToDisplay |
 		valueToDisplay := eachColumnItem isString
@@ -139,6 +155,11 @@ GtPhlowColumn >> title [
 { #category : #scripting }
 GtPhlowColumn >> title: anObject [
 	title := anObject
+]
+
+{ #category : #scripting }
+GtPhlowColumn >> titleStencil: aStencil [
+	titleStencil := aStencil
 ]
 
 { #category : #scripting }
