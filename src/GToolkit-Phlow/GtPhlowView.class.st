@@ -112,7 +112,7 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 	aToolbar := BrToolbar new.
 	aToolbar look: BrGlamorousToolbarLook.
 
-	phlowActions do: [ :phlowAction |
+	self actions do: [ :phlowAction |
 		phlowAction 
 			asElement: [ :actionElement | 
 				aToolbar addItem: actionElement ] 
@@ -162,11 +162,11 @@ GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 { #category : #'gt-extension' }
 GtPhlowView >> gtActionsFor: aView [
 	<gtView>
-	phlowActions ifEmpty: [ ^ self ].
+	self actions ifEmpty: [ ^ self ].
 	^ aView columnedList
 			title: 'Actions';
 			priority: 5;
-			items: [ phlowActions ];
+			items: [ self actions ];
 			column: 'Action' 
 				format: [ :aPhlowAction | aPhlowAction className ];
 			column: 'Defining Method'
