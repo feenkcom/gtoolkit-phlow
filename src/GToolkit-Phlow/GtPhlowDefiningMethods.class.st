@@ -14,6 +14,11 @@ GtPhlowDefiningMethods >> fullName [
 	^ self methods first fullName
 ]
 
+{ #category : #stream }
+GtPhlowDefiningMethods >> gtOriginMethodsInto: aWriteStream [ 
+	aWriteStream nextPutAll: self methods
+]
+
 { #category : #ui }
 GtPhlowDefiningMethods >> gtSourceFor: aView [
 	<gtView>

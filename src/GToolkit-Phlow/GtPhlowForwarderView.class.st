@@ -22,6 +22,13 @@ Class {
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
 
+{ #category : #'accessing - computed' }
+GtPhlowForwarderView >> allDefiningMethods [
+	^ GtPhlowDefiningMethods new 
+		 methods: (Array streamContents: [ :aStream | 
+			self originMethodsInto: aStream ])
+]
+
 { #category : #converting }
 GtPhlowForwarderView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
@@ -65,6 +72,12 @@ GtPhlowForwarderView >> object [
 { #category : #accessing }
 GtPhlowForwarderView >> object: anObject [
 	object := anObject
+]
+
+{ #category : #'accessing - computed' }
+GtPhlowForwarderView >> originMethodsInto: aStream [
+	super originMethodsInto: aStream.
+	self phlowView originMethodsInto: aStream
 ]
 
 { #category : #'accessing - computed' }

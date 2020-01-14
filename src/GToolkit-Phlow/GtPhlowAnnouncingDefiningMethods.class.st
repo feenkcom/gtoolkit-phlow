@@ -43,5 +43,7 @@ GtPhlowAnnouncingDefiningMethods >> notifyDefinitionUpdated [
 { #category : #initialization }
 GtPhlowAnnouncingDefiningMethods >> subscribeToSystem [
 	SystemAnnouncer uniqueInstance weak
-		subscribe: MethodModified send: #handleMethodModified: to: self
+		when: MethodModified
+		send: #handleMethodModified:
+		to: self
 ]

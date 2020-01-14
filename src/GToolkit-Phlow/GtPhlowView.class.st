@@ -136,6 +136,11 @@ GtPhlowView >> addPhlowActions: aCollectionOfPhlowActions [
 		self addPhlowAction: eachPhlowAction ]
 ]
 
+{ #category : #'accesssing - computed' }
+GtPhlowView >> allDefiningMethods [
+	^ self definingMethod
+]
+
 { #category : #accessing }
 GtPhlowView >> definingMethod [
 	^ definingMethod
@@ -227,6 +232,11 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withContext: aContext [
 	<return: #GtPhlowView>
 	<gtCollector>
 	^ self on: anObject perform: aMessageSymbol withArguments: { self. aContext }
+]
+
+{ #category : #'accesssing - computed' }
+GtPhlowView >> originMethodsInto: aStream [
+	self definingMethod gtOriginMethodsInto: aStream
 ]
 
 { #category : #accessing }

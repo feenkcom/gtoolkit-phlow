@@ -79,7 +79,7 @@ GtPhlowCompositeView >> registerShowDefinitionEventOn: tab forView: view [
 					tab
 						fireEvent:
 							(GtPhlowObjectToSpawn new
-								object: view definingMethod;
+								object: view allDefiningMethods;
 								sourceElement: tab) ] ]
 ]
 
