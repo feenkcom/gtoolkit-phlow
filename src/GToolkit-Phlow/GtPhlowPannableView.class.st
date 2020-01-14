@@ -57,7 +57,7 @@ GtPhlowPannableView >> stencilBuilder [
 
 { #category : #updating }
 GtPhlowPannableView >> updateContent: anElement [
-	"anElement is previsously computed content from asElementDo:"
+	"anElement is previously computed content from asElementDo:"
 	
 	self asElementDo: [ :aNewElement | 
 		| aParent |

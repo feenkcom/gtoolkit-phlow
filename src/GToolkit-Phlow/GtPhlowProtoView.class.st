@@ -103,6 +103,15 @@ GtPhlowProtoView >> explicit [
 			collect)
 ]
 
+{ #category : #decorating }
+GtPhlowProtoView >> forward [
+	^ GtPhlowForwarderView new 
+		originalView: self;
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
+]
+
 { #category : #ui }
 GtPhlowProtoView >> gtDefiningMethodFor: aView [
 	<gtView>

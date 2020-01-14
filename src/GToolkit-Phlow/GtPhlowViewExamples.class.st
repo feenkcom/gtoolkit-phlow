@@ -130,6 +130,26 @@ GtPhlowViewExamples >> extraViewActions [
 	^ aView
 ]
 
+{ #category : #'forwarded view' }
+GtPhlowViewExamples >> forwardedView [
+	<gtExample>
+	| aView |
+	aView := GtPhlowForwarderView new
+		object: [ self ];
+		view: #gtUpdatingFor:.
+	self assert: aView object isNotNil.
+	self assert: aView viewSymbol equals: #gtUpdatingFor:.
+	self assert: aView viewObject equals: self.
+	self assert: aView phlowView isNotNil.
+	self assert: aView phlowView equals: aView phlowView.
+	self assert: aView title equals: 'Update on click'.
+	aView title: 'Forwarded view'.
+	self assert: aView title equals: 'Forwarded view'.
+	self assert: aView actions size equals: 1.
+	self assert: ((aView asElementDo: [ :anElement | anElement ]) isKindOf: BlElement).
+	^ aView
+]
+
 { #category : #'gt-extension' }
 GtPhlowViewExamples >> gtExtraObjectActionFor: anAction [
 	<gtAction>
@@ -145,6 +165,15 @@ GtPhlowViewExamples >> gtExtraViewActionFor: anAction [
 		label: 'I am a view action';
 		priority: 60;
 		forViewDefinedIn: #gtViewWithExtraActionsFor:
+]
+
+{ #category : #'gt-extension' }
+GtPhlowViewExamples >> gtForwardedViewFor: aView [ 
+	<gtView>
+	^ aView forward 
+		title: 'Forwarded Update on click';
+		object: [ self ];
+		view: #gtUpdatingFor:
 ]
 
 { #category : #'gt-extension' }
