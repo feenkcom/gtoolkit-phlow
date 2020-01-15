@@ -245,7 +245,7 @@ GtPhlowViewExamples >> labelledCompositeViewShouldHaveActionsMarkedAsActions [
 	aView asElementDo: [:e | anElement := e. e forceLayout ].
 	self assert: anElement notNil.
 	self assert: anElement phlow allChildrenWithAction notEmpty.
-	self assert: anElement phlow allChildrenWithAction size equals: 4.
+	self assert: anElement phlow allChildrenWithAction size equals: 3.
 	^ anElement
 ]
 
