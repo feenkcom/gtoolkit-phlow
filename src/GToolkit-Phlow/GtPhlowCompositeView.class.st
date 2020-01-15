@@ -38,7 +38,7 @@ GtPhlowCompositeView >> addNewTabTo: aCollectionOfTabs forView: aPhlowView [
 						asElementDo: [ :element | 
 							element phlow beViewContent; entity: aPhlowView.
 							element asScrollableElement ] ];
-				toolbarStencil: (aPhlowView actionsToolbarForElement: aTab).
+				toolbarStencil: [ aPhlowView actionsToolbarForElement: aTab ].
 			aCollectionOfTabs add: aTab ]
 ]
 
@@ -79,7 +79,7 @@ GtPhlowCompositeView >> registerShowDefinitionEventOn: tab forView: view [
 					tab
 						fireEvent:
 							(GtPhlowObjectToSpawn new
-								object: view definingMethod;
+								object: view allDefiningMethods;
 								sourceElement: tab) ] ]
 ]
 
