@@ -112,7 +112,7 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 	aToolbar := BrToolbar new.
 	aToolbar look: BrGlamorousToolbarLook.
 
-	self actions do: [ :phlowAction |
+	self allActions do: [ :phlowAction |
 		phlowAction 
 			asElement: [ :actionElement | 
 				aToolbar addItem: actionElement ] 
@@ -136,9 +136,25 @@ GtPhlowView >> addPhlowActions: aCollectionOfPhlowActions [
 		self addPhlowAction: eachPhlowAction ]
 ]
 
-{ #category : #'accesssing - computed' }
+{ #category : #'accessing - computed' }
+GtPhlowView >> allActions [
+	"I return all actions that belong to a view.
+	It may include actions of a other views in some cases"
+	<return: #OrderedCollection>
+	^ self actions
+]
+
+{ #category : #'accessing - computed' }
 GtPhlowView >> allDefiningMethods [
+	"I return an object that understands #gtSourceFor:.
+	I return all methods that are involved in a view definition."
+	<return: #RGMethodDefinition or: #GtPhlowDefiningMethods>
 	^ self definingMethod
+]
+
+{ #category : #initialization }
+GtPhlowView >> defaultTitle [
+	^ 'View'
 ]
 
 { #category : #accessing }
@@ -189,15 +205,7 @@ GtPhlowView >> initialize [
 	super initialize.
 	phlowActions := OrderedCollection new.
 	priority := 50. "the lower the value, the closer to the left the tab appears"
-	"self actionStencil: [ 
-		| button |
-		button := BrButton new.
-		button 
-				look: BrGlamorousButtonExteriorCircularLook + BrGlamorousButtonIconLook;
-				icon: GLMUIThemeExtraIcons glamorousBrowse asElement ;
-				action: [ button fireEvent: (GtPhlowObjectToSpawn new 
-					object: self definingMethod;
-					sourceElement: button) ] ]"
+	title := self defaultTitle.
 ]
 
 { #category : #'message performing' }
@@ -234,7 +242,7 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withContext: aContext [
 	^ self on: anObject perform: aMessageSymbol withArguments: { self. aContext }
 ]
 
-{ #category : #'accesssing - computed' }
+{ #category : #'accessing - computed' }
 GtPhlowView >> originMethodsInto: aStream [
 	self definingMethod gtOriginMethodsInto: aStream
 ]

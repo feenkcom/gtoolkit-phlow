@@ -23,7 +23,7 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 			stencil: [ 
 				originalElement phlow beViewContent.
 				originalElement asScrollableElement ];
-			toolbarStencil: (self actionsToolbarForElement: tab);
+			toolbarStencil: [ self actionsToolbarForElement: tab ];
 			padding: (BlInsets top: 15 right: 0 bottom: 15 left: 10) ].
 	group 
 		look: (BrGlamorousTabGroupLook new headerBackground: (BrGlamorousColors defaultHeaderBackgroundColor));
