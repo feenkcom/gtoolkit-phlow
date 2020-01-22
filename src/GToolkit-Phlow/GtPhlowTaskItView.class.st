@@ -53,9 +53,8 @@ GtPhlowTaskItView >> displayProgressIn: aContainerElement [
 	aContainerElement hasChildren ifTrue: [ ^self ].
 
 	aProgressElement := BrProgress new 
-		fixedLabel: ('Rendering...' asRopedText 
-			foreground: Color gray lighter);
-		look: BrGlamorousProgressWithLabelAndBarLook;
+		fixedLabel: 'Rendering...' asRopedText;
+		look: (BrGlamorousProgressWithLabelAndBarLook new foreground: Color gray lighter);
 		constraintsDo: [ :c | 
 			c frame horizontal weight: 0.5.
 			c frame vertical alignCenter.
