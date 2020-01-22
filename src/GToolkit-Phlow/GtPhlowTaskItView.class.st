@@ -12,14 +12,14 @@ GtPhlowTaskItView >> asElementDo: aBlock [
 
 	| aContainerElement |
 
-	aContainerElement := BlElement new.
-	aContainerElement
+	aContainerElement := BlLazyPreviewedElement new
 		layout: BlFrameLayout new;
 		background: BlBackground transparent;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
-			c vertical matchParent ].
-	self taskElement: aContainerElement.
+			c vertical matchParent ];
+		elementBuilder: [ self originalElementDo: [ :anElement | anElement ] ];
+		previewStencil: BrLazyElementProgressPreviewStencil new.
 	^ aBlock value: aContainerElement
 ]
 
@@ -43,35 +43,6 @@ GtPhlowTaskItView >> definingMethod: aRGMethodDefinition [
 	^ self originalView definingMethod: aRGMethodDefinition
 ]
 
-{ #category : #private }
-GtPhlowTaskItView >> displayProgressIn: aContainerElement [
-	"Conditionally display the progress element in the supplied container.
-	This must be executed by the UI process"
-
-	| aProgressElement |
-
-	aContainerElement hasChildren ifTrue: [ ^self ].
-
-	aProgressElement := BrProgress new 
-		fixedLabel: 'Rendering...' asRopedText;
-		look: (BrGlamorousProgressWithLabelAndBarLook new foreground: Color gray lighter);
-		constraintsDo: [ :c | 
-			c frame horizontal weight: 0.5.
-			c frame vertical alignCenter.
-			c frame horizontal alignCenter ].
-		
-	aContainerElement 
-		addChild: aProgressElement.
-]
-
-{ #category : #private }
-GtPhlowTaskItView >> errorElementFrom: anException [
-	anException freeze.
-	^ GtPhlowViewWithError new
-		error: anException;
-		asElementDo: [ :errorElement | errorElement ]
-]
-
 { #category : #converting }
 GtPhlowTaskItView >> ifItHasContent: aBlock [
 	self originalView ifItHasContent: aBlock
@@ -84,31 +55,9 @@ GtPhlowTaskItView >> initialize [
 ]
 
 { #category : #private }
-GtPhlowTaskItView >> make: anElement onlyChildOf: containerElement [
-	"Replace any children of containerElement with anElement"
-
-	containerElement enqueueTask: (BlTaskAction new action: [
-		containerElement 
-			removeChildren;
-			addChild: anElement. ]).
-]
-
-{ #category : #'instance creation' }
-GtPhlowTaskItView >> newUpdateCommandWithContainer: aContainerElement [
-	| aCommand aMethodName |
-	aCommand := [ self originalElementDo: [ :anElement |
-			self make: anElement onlyChildOf: aContainerElement ] ] asBlTktCommand.
-	aMethodName := self definingMethod
-		ifNil: [ '<unknown>' ]
-		ifNotNil: [ :aMethod | aMethod fullName asString ].
-	aCommand name: 'Phlow view: ', aMethodName.
-	^ aCommand
-]
-
-{ #category : #private }
 GtPhlowTaskItView >> originalElementDo: anAsElementBlock [
 
-	self originalView asElementDo: anAsElementBlock.
+	^ self originalView asElementDo: anAsElementBlock.
 
 ]
 
@@ -139,29 +88,6 @@ GtPhlowTaskItView >> priority: aNumber [
 	"Set view priority defining a view order.
 	Lower priority is supposed to be displayed to the left."
 	^ self originalView priority: aNumber
-]
-
-{ #category : #private }
-GtPhlowTaskItView >> scheduleCommand: aCommand [
-	^ BlTktWorkerProvider highUICPUBoundPool future: aCommand asBlTktTerminableCommand asBlTktLoggingCommand
-]
-
-{ #category : #private }
-GtPhlowTaskItView >> taskElement: aContainerElement [
-
-	aContainerElement enqueueTask: (BlTaskAction new action: [
-		| aCommand aFuture |
-		aCommand := self newUpdateCommandWithContainer: aContainerElement.
-		aFuture := self scheduleCommand: aCommand.
-		aFuture onFailureDo: [ :anException | 
-				| anErrorElement |
-				anErrorElement := self errorElementFrom: anException.
-				self make: anErrorElement onlyChildOf: aContainerElement ] ]).
-	
-	aContainerElement enqueueTask: (BlTaskAction new action: [ 
-		BlTaskAtQueue default
-			schedule: [ self displayProgressIn: aContainerElement ]
-			at: BlTime real now + 300 milliSeconds ]).
 ]
 
 { #category : #accessing }
