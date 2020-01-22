@@ -10,17 +10,17 @@ Class {
 { #category : #converting }
 GtPhlowTaskItView >> asElementDo: aBlock [
 
-	| containerElement |
+	| aContainerElement |
 
-	containerElement := BlElement new.
-	containerElement
+	aContainerElement := BlElement new.
+	aContainerElement
 		layout: BlFrameLayout new;
 		background: BlBackground transparent;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
-	self taskElement: containerElement.
-	^ aBlock value: containerElement
+	self taskElement: aContainerElement.
+	^ aBlock value: aContainerElement
 ]
 
 { #category : #converting }
@@ -44,25 +44,25 @@ GtPhlowTaskItView >> definingMethod: aRGMethodDefinition [
 ]
 
 { #category : #private }
-GtPhlowTaskItView >> displayProgressIn: containerElement [
+GtPhlowTaskItView >> displayProgressIn: aContainerElement [
 	"Conditionally display the progress element in the supplied container.
 	This must be executed by the UI process"
 
-	| progressElement repeatedTask rollingGradient |
+	| aProgressElement |
 
-	containerElement hasChildren ifTrue: [ ^self ].
+	aContainerElement hasChildren ifTrue: [ ^self ].
 
-	progressElement := self newProgressElement.
-	rollingGradient := BlRollingLinearGradientBackgroundCommand new
-				element: progressElement children first.
-	containerElement addChild: progressElement.
-	rollingGradient execute.
-	repeatedTask := BlRepeatedTaskAction new.
-	repeatedTask 
-		delay: 200 milliSeconds;
-		action: rollingGradient.
-	progressElement enqueueTask: repeatedTask.
-
+	aProgressElement := BrProgress new 
+		fixedLabel: ('Rendering...' asRopedText 
+			foreground: Color gray lighter);
+		look: BrGlamorousProgressWithLabelAndBarLook;
+		constraintsDo: [ :c | 
+			c frame horizontal weight: 0.5.
+			c frame vertical alignCenter.
+			c frame horizontal alignCenter ].
+		
+	aContainerElement 
+		addChild: aProgressElement.
 ]
 
 { #category : #private }
@@ -85,45 +85,6 @@ GtPhlowTaskItView >> initialize [
 ]
 
 { #category : #private }
-GtPhlowTaskItView >> installNotificationsOnTask: aTask [
-	aTask
-		onNotification: BlExactProgress
-		enqueueAction: [ :aProgress | 
-			aTask element
-				childNamed: #progressText
-				ifFound: [ :theTextElement | 
-					theTextElement
-						text:
-							(self
-								notificationText:
-									aProgress messageText asString , ' '
-										, aProgress percentage rounded asString , '%') ]
-				ifNone: [ "do nothing" ] ].
-	aTask
-		onNotification: BlSomeProgress
-		enqueueAction: [ :aProgress | 
-			aTask element
-				childNamed: #progressText
-				ifFound: [ :theTextElement | 
-					theTextElement
-						text:
-							(self
-								notificationText:
-									aProgress messageText asString , ' '
-										, aProgress amount rounded asString) ]
-				ifNone: [ "do nothing" ] ].
-	aTask
-		onNotification: BlAnyProgress
-		enqueueAction: [ :aProgress | 
-			aTask element
-				childNamed: #progressText
-				ifFound: [ :theTextElement | 
-					theTextElement
-						text: (self notificationText: aProgress messageText asString) ]
-				ifNone: [ "do nothing" ] ]
-]
-
-{ #category : #private }
 GtPhlowTaskItView >> make: anElement onlyChildOf: containerElement [
 	"Replace any children of containerElement with anElement"
 
@@ -133,39 +94,16 @@ GtPhlowTaskItView >> make: anElement onlyChildOf: containerElement [
 			addChild: anElement. ]).
 ]
 
-{ #category : #private }
-GtPhlowTaskItView >> newProgressElement [
-	| aProgressElement |
-	aProgressElement := BlElement new.
-	aProgressElement
-		layout: BlFrameLayout new;
-		addChild:
-			(BlTextElement new
-				text: (self notificationText: 'Rendering...');
-				geometry: (BlRectangle cornerRadius: 7);
-				padding:
-					(BlInsets
-						top: 10
-						left: 20
-						bottom: 10
-						right: 20);
-				constraintsDo: [ :c | 
-					c frame horizontal alignCenter.
-					c frame vertical alignCenter ])
-			as: #progressText.
-	aProgressElement
-		background: BlBackground transparent;
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical matchParent ].
-	^ aProgressElement
-]
-
-{ #category : #private }
-GtPhlowTaskItView >> notificationText: aStringOrRope [
-	^ aStringOrRope asRopedText 
-			foreground: Color gray lighter;
-			fontSize: 12
+{ #category : #'instance creation' }
+GtPhlowTaskItView >> newUpdateCommandWithContainer: aContainerElement [
+	| aCommand aMethodName |
+	aCommand := [ self originalElementDo: [ :anElement |
+			self make: anElement onlyChildOf: aContainerElement ] ] asBlTktCommand.
+	aMethodName := self definingMethod
+		ifNil: [ '<unknown>' ]
+		ifNotNil: [ :aMethod | aMethod fullName asString ].
+	aCommand name: 'Phlow view: ', aMethodName.
+	^ aCommand
 ]
 
 { #category : #private }
@@ -205,30 +143,26 @@ GtPhlowTaskItView >> priority: aNumber [
 ]
 
 { #category : #private }
-GtPhlowTaskItView >> taskElement: containerElement [
+GtPhlowTaskItView >> scheduleCommand: aCommand [
+	^ BlTktWorkerProvider highUICPUBoundPool future: aCommand asBlTktTerminableCommand asBlTktLoggingCommand
+]
 
-	| aCommand methodName aTask |
+{ #category : #private }
+GtPhlowTaskItView >> taskElement: aContainerElement [
 
-	aCommand := [ self originalElementDo: [ :anElement |
-			self make: anElement onlyChildOf: containerElement ] ] asBlTktCommand.
-	methodName := self definingMethod
-		ifNil: [ '<unknown>' ]
-		ifNotNil: [ :aMethod | aMethod fullName asString ].
-	aCommand name: 'Phlow view: ', methodName.
-	aTask := BlNotificableTaskItAction new 
-		action: aCommand;
-		element: containerElement;
-		yourself.
-	self installNotificationsOnTask: aTask.
-	aTask onFailureDo: [ :anException | 
-			| anErrorElement |
-			anErrorElement := self errorElementFrom: anException.
-			self make: anErrorElement onlyChildOf: containerElement ].
-	aTask onRunEnqueueTask: (BlTaskAction new action: [ 
+	aContainerElement enqueueTask: (BlTaskAction new action: [
+		| aCommand aFuture |
+		aCommand := self newUpdateCommandWithContainer: aContainerElement.
+		aFuture := self scheduleCommand: aCommand.
+		aFuture onFailureDo: [ :anException | 
+				| anErrorElement |
+				anErrorElement := self errorElementFrom: anException.
+				self make: anErrorElement onlyChildOf: aContainerElement ] ]).
+	
+	aContainerElement enqueueTask: (BlTaskAction new action: [ 
 		BlTaskAtQueue default
-			schedule: [ self displayProgressIn: containerElement ]
+			schedule: [ self displayProgressIn: aContainerElement ]
 			at: BlTime real now + 300 milliSeconds ]).
-	containerElement enqueueTask: aTask
 ]
 
 { #category : #accessing }

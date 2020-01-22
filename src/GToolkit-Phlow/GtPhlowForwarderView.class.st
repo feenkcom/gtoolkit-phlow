@@ -101,9 +101,14 @@ GtPhlowForwarderView >> phlowView [
 ]
 
 { #category : #updating }
-GtPhlowForwarderView >> updateContent: aBlElement [ 
+GtPhlowForwarderView >> updateContent: anElement [
 	"anElement is previously computed content from asElementDo:"
-	self phlowView updateContent: aBlElement
+	self asElementDo: [ :aNewElement | 
+		| aParent |
+		aParent := anElement parent.
+		aNewElement phlow beViewContent; entity: self.
+		aParent replaceChild: anElement with: aNewElement ].
+	
 ]
 
 { #category : #accessing }
