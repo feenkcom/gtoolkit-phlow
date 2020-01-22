@@ -53,7 +53,8 @@ GtPhlowTaskItView >> displayProgressIn: aContainerElement [
 	aContainerElement hasChildren ifTrue: [ ^self ].
 
 	aProgressElement := BrProgress new 
-		fixedLabel: 'Rendering...';
+		fixedLabel: ('Rendering...' asRopedText 
+			foreground: Color gray lighter);
 		look: BrGlamorousProgressWithLabelAndBarLook;
 		constraintsDo: [ :c | 
 			c frame horizontal weight: 0.5.
@@ -84,45 +85,6 @@ GtPhlowTaskItView >> initialize [
 ]
 
 { #category : #private }
-GtPhlowTaskItView >> installNotificationsOnTask: aTask [
-	aTask
-		onNotification: BlExactProgress
-		enqueueAction: [ :aProgress | 
-			aTask element
-				childNamed: #progressText
-				ifFound: [ :theTextElement | 
-					theTextElement
-						text:
-							(self
-								notificationText:
-									aProgress messageText asString , ' '
-										, aProgress percentage rounded asString , '%') ]
-				ifNone: [ "do nothing" ] ].
-	aTask
-		onNotification: BlSomeProgress
-		enqueueAction: [ :aProgress | 
-			aTask element
-				childNamed: #progressText
-				ifFound: [ :theTextElement | 
-					theTextElement
-						text:
-							(self
-								notificationText:
-									aProgress messageText asString , ' '
-										, aProgress amount rounded asString) ]
-				ifNone: [ "do nothing" ] ].
-	aTask
-		onNotification: BlAnyProgress
-		enqueueAction: [ :aProgress | 
-			aTask element
-				childNamed: #progressText
-				ifFound: [ :theTextElement | 
-					theTextElement
-						text: (self notificationText: aProgress messageText asString) ]
-				ifNone: [ "do nothing" ] ]
-]
-
-{ #category : #private }
 GtPhlowTaskItView >> make: anElement onlyChildOf: containerElement [
 	"Replace any children of containerElement with anElement"
 
@@ -130,34 +92,6 @@ GtPhlowTaskItView >> make: anElement onlyChildOf: containerElement [
 		containerElement 
 			removeChildren;
 			addChild: anElement. ]).
-]
-
-{ #category : #private }
-GtPhlowTaskItView >> newProgressElement [
-	| aProgressElement |
-	aProgressElement := BlElement new.
-	aProgressElement
-		layout: BlFrameLayout new;
-		addChild:
-			(BlTextElement new
-				text: (self notificationText: 'Rendering...');
-				geometry: (BlRectangle cornerRadius: 7);
-				padding:
-					(BlInsets
-						top: 10
-						left: 20
-						bottom: 10
-						right: 20);
-				constraintsDo: [ :c | 
-					c frame horizontal alignCenter.
-					c frame vertical alignCenter ])
-			as: #progressText.
-	aProgressElement
-		background: BlBackground transparent;
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical matchParent ].
-	^ aProgressElement
 ]
 
 { #category : #'instance creation' }
@@ -170,13 +104,6 @@ GtPhlowTaskItView >> newUpdateCommandWithContainer: aContainerElement [
 		ifNotNil: [ :aMethod | aMethod fullName asString ].
 	aCommand name: 'Phlow view: ', aMethodName.
 	^ aCommand
-]
-
-{ #category : #private }
-GtPhlowTaskItView >> notificationText: aStringOrRope [
-	^ aStringOrRope asRopedText 
-			foreground: Color gray lighter;
-			fontSize: 12
 ]
 
 { #category : #private }
