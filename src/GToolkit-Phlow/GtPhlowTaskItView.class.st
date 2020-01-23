@@ -12,14 +12,14 @@ GtPhlowTaskItView >> asElementDo: aBlock [
 
 	| aContainerElement |
 
-	aContainerElement := BlLazyPreviewedElement new
+	aContainerElement := BlLazyElement new
 		layout: BlFrameLayout new;
 		background: BlBackground transparent;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ];
 		elementBuilder: [ self originalElementDo: [ :anElement | anElement ] ];
-		previewStencil: BrLazyElementProgressPreviewStencil new.
+		withGlamorousPreview.
 	^ aBlock value: aContainerElement
 ]
 
