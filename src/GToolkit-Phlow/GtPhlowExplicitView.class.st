@@ -20,9 +20,9 @@ GtPhlowExplicitView >> asElementDo: aBlock [
 	self assert: stencilBuilder notNil description: 'The stencil should be initialized'.
 	element := [ stencilBuilder asElement ] 
 		on: Error 
-		do: [:error | 
-			error freeze.
-			GtPhlowViewWithError new error: error; asElementDo: [ :errorElement | errorElement ] ].
+		do: [ :anError | 
+			(self phlowErrorViewWithException: anError)
+				asElementDo: [ :errorElement | errorElement ] ].
 	element phlow beView; entity: self.
 	^ aBlock value: element.
 ]

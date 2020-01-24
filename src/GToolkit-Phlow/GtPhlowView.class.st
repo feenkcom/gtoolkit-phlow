@@ -167,7 +167,7 @@ GtPhlowView >> definingMethod: anObject [
 	definingMethod := anObject
 ]
 
-{ #category : #private }
+{ #category : #'error handling' }
 GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 	| aNilOrClassName |
 	aNilOrClassName := anObject class whichClassIncludesSelector: aMessageSymbol.
@@ -193,6 +193,12 @@ GtPhlowView >> gtActionsFor: aView [
 			column: 'Defining Method'
 				item: [ :aPhlowAction | aPhlowAction definingMethod ]
 				format: [ :aMethodDefinition | aMethodDefinition selector ]
+]
+
+{ #category : #initialization }
+GtPhlowView >> hasExplicitTitle [
+	<return: #Boolean>
+	^ self title isNotNil and: [ self title ~= self defaultTitle ]
 ]
 
 { #category : #converting }
@@ -226,13 +232,10 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOf
 			inClass: anObject class ] 
 		on: Error 
 		do: [ :anException |
-			| aDefiningMethod | 
-			aDefiningMethod := self definingMethodForObject: anObject andSelector: aMessageSymbol.   
-			anException freeze.
-			GtPhlowViewWithError new
-				definingMethod: aDefiningMethod;
-				title: 'Error';
-				error: anException ]
+			self 
+				phlowErrorViewWithException: anException 
+				forObject: anObject 
+				andSelector: aMessageSymbol ]
 ]
 
 { #category : #'message performing' }
@@ -245,6 +248,28 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withContext: aContext [
 { #category : #'accessing - computed' }
 GtPhlowView >> originMethodsInto: aStream [
 	self definingMethod gtOriginMethodsInto: aStream
+]
+
+{ #category : #'error handling' }
+GtPhlowView >> phlowErrorViewWithException: anException [
+	| aTitle |
+	anException freeze.
+	aTitle := self hasExplicitTitle
+		ifTrue: [ self title asString, ' (Error)' ] 
+		ifFalse: [ 'Error' ].
+	^ GtPhlowViewWithError new
+		definingMethod: self definingMethod;
+		title: aTitle;
+		error: anException
+]
+
+{ #category : #'error handling' }
+GtPhlowView >> phlowErrorViewWithException: anException forObject: anObject andSelector: aMessageSymbol [
+	| aDefiningMethod aPhlow | 
+	aDefiningMethod := self definingMethodForObject: anObject andSelector: aMessageSymbol. 
+	aPhlow := self phlowErrorViewWithException: anException.
+	aPhlow definingMethod: aDefiningMethod.
+	^ aPhlow
 ]
 
 { #category : #accessing }
