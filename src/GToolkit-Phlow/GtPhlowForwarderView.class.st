@@ -22,6 +22,7 @@ Class {
 		'view',
 		'phlowView',
 		'viewObject',
+		'elementTransformation',
 		'alreadyIncludesForwardedActions'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
@@ -53,7 +54,14 @@ GtPhlowForwarderView >> allDefiningMethods [
 { #category : #converting }
 GtPhlowForwarderView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
-	^ self phlowView asElementDo: aBlock
+	^ self phlowView asElementDo: [ :anElement |
+		[ 
+			| aResult |
+			aResult := self elementTransformation value: anElement.
+			aBlock value: aResult.
+		] on: Error do: [ :anException | 
+			(self phlowErrorViewWithException: anException)
+				asElementDo: [ :anErrorElement | anErrorElement ] ] ]
 ]
 
 { #category : #private }
@@ -67,6 +75,11 @@ GtPhlowForwarderView >> defaultTitle [
 	^ 'Forwarded'
 ]
 
+{ #category : #accessing }
+GtPhlowForwarderView >> elementTransformation [
+	^ elementTransformation
+]
+
 { #category : #'accessing - computed' }
 GtPhlowForwarderView >> forwardedActions [
 	<return: #OrderedCollection of: #GtPhlowAction>
@@ -77,6 +90,7 @@ GtPhlowForwarderView >> forwardedActions [
 GtPhlowForwarderView >> initialize [
 	super initialize.
 	alreadyIncludesForwardedActions := false.
+	elementTransformation := #yourself.
 ]
 
 { #category : #accessing }
@@ -100,6 +114,22 @@ GtPhlowForwarderView >> phlowView [
 	^ phlowView ifNil: [ phlowView := self createPhlowView ]
 ]
 
+{ #category : #private }
+GtPhlowForwarderView >> secureObjectExecution [
+	^ [ self object value ]
+		on: Error do: [ :anException | 
+			phlowView := self phlowErrorViewWithException: anException.
+			anException ]
+]
+
+{ #category : #accessing }
+GtPhlowForwarderView >> transformed: aSymbolOrBlock [
+	self 
+		assert: [ aSymbolOrBlock isNotNil ] 
+		description: [ 'Forwarded element transformatin must be non-nil' ].
+	elementTransformation := aSymbolOrBlock
+]
+
 { #category : #updating }
 GtPhlowForwarderView >> updateContent: anElement [
 	"anElement is previously computed content from asElementDo:"
@@ -118,7 +148,7 @@ GtPhlowForwarderView >> view: anObject [
 
 { #category : #'accessing - computed' }
 GtPhlowForwarderView >> viewObject [
-	^ viewObject ifNil: [ viewObject := self object value ]
+	^ viewObject ifNil: [ viewObject := self secureObjectExecution ]
 ]
 
 { #category : #'accessing - computed' }

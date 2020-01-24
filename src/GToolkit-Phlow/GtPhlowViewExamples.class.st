@@ -131,6 +131,33 @@ GtPhlowViewExamples >> extraViewActions [
 ]
 
 { #category : #'forwarded view' }
+GtPhlowViewExamples >> forwardedIntegerView [
+	<gtExample>
+	| aView |
+	aView := GtPhlowForwarderView new
+		object: [ 2 ];
+		view: #gtPreviewFor:.
+
+	self assert: aView viewObject equals: 2.
+	self assert: ((aView asElementDo: [ :anElement | anElement ]) isKindOf: BlElement).
+	^ aView
+]
+
+{ #category : #'forwarded view' }
+GtPhlowViewExamples >> forwardedTransformedIntegerView [
+	<gtExample>
+	| aView |
+	aView := GtPhlowForwarderView new
+		object: [ 2 ];
+		view: #gtPreviewFor:;
+		transformed: #asScrollableElement.
+
+	self assert: aView viewObject equals: 2.
+	self assert: ((aView asElementDo: [ :anElement | anElement ]) isKindOf: BlScrollableElement).
+	^ aView
+]
+
+{ #category : #'forwarded view' }
 GtPhlowViewExamples >> forwardedView [
 	<gtExample>
 	| aView |
@@ -158,6 +185,60 @@ GtPhlowViewExamples >> forwardedView [
 	self assert: aView allActions size equals: 1.
 	self assert: aView actions size equals: 1.
 	self assert: ((aView asElementDo: [ :anElement | anElement ]) isKindOf: BlElement).
+	^ aView
+]
+
+{ #category : #'forwarded view' }
+GtPhlowViewExamples >> forwardedViewWithObjectCreationError [
+	<gtExample>
+	| aView |
+	aView := GtPhlowForwarderView new
+		object: [ Error signal. self ];
+		view: #gtUpdatingFor:.
+
+	"Assertions before initializing forwarded phlow"
+	self assert: aView title equals: 'Forwarded'.
+	self assert: aView priority isNumber.
+	self assert: aView object isNotNil.
+	self assert: aView object class equals: [ nil ] class.
+	self assert: aView viewSymbol equals: #gtUpdatingFor:.
+	self assert: aView viewObject class equals: Error.
+	self assert: aView actions size equals: 0.
+
+	"Assertions after the forwarded view initialization"
+	self assert: aView phlowView isNotNil.
+	self assert: aView phlowView class equals: GtPhlowViewWithError.
+	self assert: aView phlowView error signalerContext method selector equals: #forwardedViewWithObjectCreationError.
+	
+	self assert: ((aView asElementDo: [ :anElement | anElement ]) isKindOf: BlElement).
+	^ aView
+]
+
+{ #category : #'forwarded view' }
+GtPhlowViewExamples >> forwardedWithTransformationError [
+	<gtExample>
+	| aView |
+	aView := GtPhlowForwarderView new
+		object: [ 2 ];
+		view: #gtPreviewFor:;
+		transformed: [ :anElement | Error signal. anElement asScrollableElement ].
+
+	self assert: aView viewObject equals: 2.
+	self assert: (aView asElementDo: [ :anElement | anElement ]) class equals: BlElement.
+	^ aView
+]
+
+{ #category : #'forwarded view' }
+GtPhlowViewExamples >> forwardedWithUndefinedViewMessage [
+	<gtExample>
+	| aView |
+	aView := GtPhlowForwarderView new
+		object: [ self ];
+		view: #gtUndefinedViewMessageFor:.
+
+	self assert: aView viewObject equals: self.
+	self assert: aView phlowView class equals: GtPhlowViewWithError.
+	self assert: (aView asElementDo: [ :anElement | anElement ]) class equals: BlElement.
 	^ aView
 ]
 
