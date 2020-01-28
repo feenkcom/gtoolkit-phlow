@@ -9,17 +9,7 @@ Class {
 
 { #category : #accessing }
 GtPhlowViewWithError >> asElementDo: aBlock [
-	| aContainer aTextElement aDebugButton |
-	aContainer := BlElement new.
-	aContainer layout: BlLinearLayout vertical.
-	aTextElement := self labelWithError: error.
-	aContainer addChild: aTextElement.
-	aDebugButton := self debugButtonWithError: error.
-	aContainer addChild: aDebugButton.
-	aContainer constraintsDo: [ :c | 
-		c vertical matchParent.
-		c horizontal matchParent ].
-	^ aBlock value: aContainer
+	^ aBlock value: error asDebuggableElement
 ]
 
 { #category : #accessing }
