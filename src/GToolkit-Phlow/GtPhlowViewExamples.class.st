@@ -224,7 +224,7 @@ GtPhlowViewExamples >> forwardedWithTransformationError [
 		transformed: [ :anElement | Error signal. anElement asScrollableElement ].
 
 	self assert: aView viewObject equals: 2.
-	self assert: (aView asElementDo: [ :anElement | anElement ]) class equals: BlElement.
+	self assert: (aView asElementDo: [ :anElement | anElement ]) class equals: BrFrame.
 	^ aView
 ]
 
@@ -238,7 +238,7 @@ GtPhlowViewExamples >> forwardedWithUndefinedViewMessage [
 
 	self assert: aView viewObject equals: self.
 	self assert: aView phlowView class equals: GtPhlowViewWithError.
-	self assert: (aView asElementDo: [ :anElement | anElement ]) class equals: BlElement.
+	self assert: (aView asElementDo: [ :anElement | anElement ]) class equals: BrFrame.
 	^ aView
 ]
 

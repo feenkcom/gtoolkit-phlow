@@ -20,16 +20,66 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 		c horizontal matchParent.
 		c vertical matchParent ].
 	
-	theItems := self itemsBuilder value.
+	aContainer phlow beView; entity: self.
 	
-	header := BlElement new.
-	header layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: 10).
-	header padding: (BlInsets top: 5 bottom: 5).
-	header constraintsDo: [ :c |
+	theItems := self 
+		performBlock: [ self itemsBuilder value ]
+		onException: [ :anException | 
+			aContainer addChild: anException asDebuggableElement.
+			^ aBlock value: aContainer ].
+	
+	header := self buildHeaderForItems: theItems.
+	
+	list := BrColumnedList new display: theItems.
+	list addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
+	list rowStencil: (BrListClickableRowStencilBuilder new
+		cellSpacing: 10;
+		padding: (BlInsets top: 4 bottom: 4)).
+
+	self buildColumnsInList: list.
+		
+	aContainer addChildren: { header . list }.
+
+	^ aBlock value: aContainer
+]
+
+{ #category : #private }
+GtPhlowColumnedListView >> buildColumnsInList: aList [
+	columns do: [ :eachPhlowColumn |
+		aList column
+			title: eachPhlowColumn title;
+			stencil: [ :eachItem :eachIndex |
+				| aRowElement |
+
+				aRowElement := self performBlock: [ 
+					eachPhlowColumn createRowElementFor: eachItem atIndex: eachIndex ].
+				
+				eachPhlowColumn resizer ifNotNil: [ :aLayoutResizer |
+					aRowElement constraintsDo: [ :c |
+						c horizontal resizer: aLayoutResizer.
+						c vertical matchParent ].
+					aRowElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
+					aRowElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
+				aRowElement ] ].
+]
+
+{ #category : #private }
+GtPhlowColumnedListView >> buildHeaderForItems: theItems [
+	| aHeader |
+	aHeader := BlElement new.
+	aHeader layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: 10).
+	aHeader padding: (BlInsets top: 5 bottom: 5).
+	aHeader constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical fitContent ].
-	
-	header addChildren: (columns collect: [ :eachColumn |
+	self buildHeaderItems: theItems inHeader: aHeader.
+	^ aHeader
+]
+
+{ #category : #private }
+GtPhlowColumnedListView >> buildHeaderItems: theItems inHeader: aHeader [
+
+	aHeader addChildren: (columns collect: [ :eachColumn |
 		| aWrapper aLabel aScaledLabel |
 		
 		aWrapper := BlElement new.
@@ -49,7 +99,8 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 		
 		theItems ifNotEmpty: [
 			| aRowElement  |
-			aRowElement := eachColumn createRowElementFor: theItems first atIndex: 1.
+			aRowElement := self performBlock: [ 
+				eachColumn createRowElementFor: theItems first atIndex: 1 ].
 			aRowElement visibility: BlVisibility hidden.
 
 			eachColumn resizer ifNotNil: [ :aLayoutResizer |
@@ -65,33 +116,6 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 		aWrapper addChild: aScaledLabel.
 		aWrapper
 	]).
-	
-	list := BrColumnedList new display: theItems.
-	list addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
-	list rowStencil: (BrListClickableRowStencilBuilder new
-		cellSpacing: 10;
-		padding: (BlInsets top: 4 bottom: 4)).
-
-	columns do: [ :eachPhlowColumn |
-		list column
-			title: eachPhlowColumn title;
-			stencil: [ :eachItem :eachIndex |
-				| aRowElement |
-				
-				aRowElement := eachPhlowColumn createRowElementFor: eachItem atIndex: eachIndex.
-				eachPhlowColumn resizer ifNotNil: [ :aLayoutResizer |
-					aRowElement constraintsDo: [ :c |
-						c horizontal resizer: aLayoutResizer.
-						c vertical matchParent ].
-					aRowElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
-					aRowElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
-				aRowElement ] ].
-		
-	aContainer addChildren: { header . list }.
-
-	aContainer phlow beView; entity: self.
-
-	^ aBlock value: aContainer
 ]
 
 { #category : #accessing }
@@ -192,7 +216,7 @@ GtPhlowColumnedListView >> items: aValuable [
 	itemsBuilder := aValuable
 ]
 
-{ #category : #'private - accessing' }
+{ #category : #accessing }
 GtPhlowColumnedListView >> itemsBuilder [
 	^ itemsBuilder
 ]

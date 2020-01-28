@@ -32,3 +32,26 @@ GtPhlowColumnedListViewExamples >> viewWithItems [
 	self assert: element children second items size = 100.
 	^ view
 ]
+
+{ #category : #'api-shortcuts' }
+GtPhlowColumnedListViewExamples >> viewWithItemsWithColumnCreationError [
+	<gtExample>
+	| view element |
+	view := self viewWithItems 
+		column: 'Error' translated do: [:column | 
+			column item: [ :number | number * 4 / 0 ]; matchParent ].
+	view asElementDo: [ :el | element := el ].
+	self assert: element children second items size = 100.
+	^ view
+]
+
+{ #category : #'api-shortcuts' }
+GtPhlowColumnedListViewExamples >> viewWithItemsWithItemsError [
+	<gtExample>
+	| view element |
+	view := self viewWithItems 
+		items: [ 3/0. (1 to: 100) ].
+	view asElementDo: [ :el | element := el ].
+	self assert: element childrenCount equals: 1.
+	^ view
+]

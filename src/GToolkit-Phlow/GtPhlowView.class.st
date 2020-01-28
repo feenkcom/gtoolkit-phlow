@@ -251,6 +251,19 @@ GtPhlowView >> originMethodsInto: aStream [
 ]
 
 { #category : #'error handling' }
+GtPhlowView >> performBlock: aBlock [
+	<return: #BlElement>
+	^ self 
+		performBlock: aBlock 
+		onException: [ :anException | anException asDebuggableElement ].
+]
+
+{ #category : #'error handling' }
+GtPhlowView >> performBlock: aBlock onException: anExceptionBlock [
+	^ aBlock on: Error do: anExceptionBlock.
+]
+
+{ #category : #'error handling' }
 GtPhlowView >> phlowErrorViewWithException: anException [
 	| aTitle |
 	anException freeze.

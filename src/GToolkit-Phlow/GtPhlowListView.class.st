@@ -11,26 +11,34 @@ Class {
 
 { #category : #converting }
 GtPhlowListView >> asElementDo: aBlock [
-	| list |
+	| theItems aList |
 	
-	list := BrColumnedList new display: self itemsBuilder value.
-	list addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
-	list constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
+	theItems := self 
+		performBlock: [ self itemsBuilder value ]
+		onException: [ :anException | 
+			| anElement |
+			anElement := anException asDebuggableElement.
+			anElement phlow beView; entity: self.
+			^ aBlock value: anElement ].
+	
+	aList := BrColumnedList new display: theItems.
+	aList addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
+	aList constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 
-	list column
+	aList column
 		title: 'Item';
 		stencil: [ :eachNode :index | 
 			| itemElement |
-			itemElement := self itemStencil value: eachNode.
+			itemElement := self performBlock: [ self itemStencil value: eachNode ].
 			itemElement constraintsDo: [ :c | 
 				c horizontal matchParent. 
 				c padding: (BlInsets top: 3 left: 10 bottom: 3 right: 0) ] ].
 
-	list phlow 
+	aList phlow 
 		beView; 
 		entity: self.
 
-	^ aBlock value: list
+	^ aBlock value: aList
 ]
 
 { #category : #'private - building' }
