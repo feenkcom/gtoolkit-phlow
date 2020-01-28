@@ -20,6 +20,8 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 		c horizontal matchParent.
 		c vertical matchParent ].
 	
+	aContainer phlow beView; entity: self.
+	
 	theItems := self 
 		performBlock: [ self itemsBuilder value ]
 		onException: [ :anException | 
@@ -37,8 +39,6 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	self buildColumnsInList: list.
 		
 	aContainer addChildren: { header . list }.
-
-	aContainer phlow beView; entity: self.
 
 	^ aBlock value: aContainer
 ]

@@ -69,3 +69,13 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError_InSpace [
 	self assert: anException isNil.
 	^ aView
 ]
+
+{ #category : #examples }
+GtPhlowListViewExamples >> viewWithItems_WithGetItemsError [
+	<gtExample>
+	| view element |
+	view := self emptyList items: [ 21/0. (1 to: 10) ].
+	view asElementDo: [ :el | element := el ].
+	self assert: element class equals: BrFrame.
+	^ view
+]
