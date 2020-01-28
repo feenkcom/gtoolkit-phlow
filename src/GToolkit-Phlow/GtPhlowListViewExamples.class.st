@@ -22,7 +22,7 @@ GtPhlowListViewExamples >> viewWithItems [
 	| view element |
 	view := self emptyList items: [ (1 to: 10) ].
 	view asElementDo: [ :el | element := el ].
-	self assert: element items size = 10.
+	self assert: element items size equals: 10.
 	^ view
 ]
 

@@ -264,6 +264,17 @@ GtPhlowView >> performBlock: aBlock onException: anExceptionBlock [
 ]
 
 { #category : #'error handling' }
+GtPhlowView >> performBlock: aPerformBlock onExceptionErrorElement: anExceptionBlock [
+	^ self 
+		performBlock: aPerformBlock 
+		onException: [ :anException |
+			| anElement | 
+			anElement := anException asDebuggableElement. 
+			anElement phlow beView; entity: self.
+			anExceptionBlock value: anElement ]
+]
+
+{ #category : #'error handling' }
 GtPhlowView >> phlowErrorViewWithException: anException [
 	| aTitle |
 	anException freeze.

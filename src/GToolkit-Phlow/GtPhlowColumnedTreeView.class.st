@@ -15,25 +15,32 @@ Class {
 GtPhlowColumnedTreeView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 
-	| aContainer header tree theItems |
+	| aContainer aHeader aTree theItems |
+	theItems := self 
+		performBlock: [ self itemsBuilder value ]
+		onExceptionErrorElement: [ :anElement |
+			^ aBlock value: anElement ].
 	aContainer := self newContainer.
-	theItems := self itemsBuilder value.
-	header := self newHeader.
-	header addChildren: (self newColumnElementsForItems: theItems).
-	tree := BrColumnedTree new.
-	tree items: theItems children: self childrenBuilder.
-	tree
+	aHeader := self newHeader.
+	aHeader addChildren: (self newColumnElementsForItems: theItems).
+	aTree := BrColumnedTree new.
+	
+	self 
+		performBlock: [ aTree items: theItems children: self childrenBuilder ] 
+		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
+	
+	aTree
 		addEventHandler:
 			(GtInspectorListToSelectHandler new
 				transformation: [ :aNode | self send value: aNode value ]).
-	tree
+	aTree
 		rowStencil:
 			(BrColumnedTreeRowStencilBuilder new
 				cellSpacing: 2;
 				padding: (BlInsets top: 2 bottom: 2)).
 	columns
 		do: [ :eachPhlowColumn | 
-			tree column
+			aTree column
 				title: eachPhlowColumn title;
 				stencil: [ :eachNode :eachIndex | 
 					| aRowElement |
@@ -51,11 +58,11 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 							aRowElement
 								dispatchEvent: BrLayoutVerticalResizerWish matchParent ].
 					aRowElement ] ].
-	self expandTree: tree.
+	self expandTree: aTree.
 	aContainer
 		addChildren:
-			{header.
-			tree}.
+			{aHeader.
+			aTree}.
 	aContainer phlow
 		beView;
 		entity: self.

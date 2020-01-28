@@ -15,10 +15,7 @@ GtPhlowListView >> asElementDo: aBlock [
 	
 	theItems := self 
 		performBlock: [ self itemsBuilder value ]
-		onException: [ :anException | 
-			| anElement |
-			anElement := anException asDebuggableElement.
-			anElement phlow beView; entity: self.
+		onExceptionErrorElement: [ :anElement | 
 			^ aBlock value: anElement ].
 	
 	aList := BrColumnedList new display: theItems.
