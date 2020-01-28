@@ -72,13 +72,37 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 		cellSpacing: 10;
 		padding: (BlInsets top: 4 bottom: 4)).
 
+	self buildColumnsInList: list.
+		
+	aContainer addChildren: { header . list }.
+
+	aContainer phlow beView; entity: self.
+
+	^ aBlock value: aContainer
+]
+
+{ #category : #private }
+GtPhlowColumnedListView >> buildColumnsInList: aList [
 	columns do: [ :eachPhlowColumn |
-		list column
+		aList column
 			title: eachPhlowColumn title;
 			stencil: [ :eachItem :eachIndex |
 				| aRowElement |
+
+				aRowElement := self 
+					performBlock: [ eachPhlowColumn createRowElementFor: eachItem atIndex: eachIndex ]
+					onError: [ :aButton :aLabel |
+						BrHorizontalPane new
+							hMatchParent;
+							vFitContent;
+							addChild: (aButton 
+								beSmall; 
+								constraintsDo: [ :c | 
+									c linear vertical alignCenter ]);
+							addChild: (aLabel constraintsDo: [ :c | 
+									c linear vertical alignCenter.
+									c margin: (BlInsets left: 6) ]) ].
 				
-				aRowElement := eachPhlowColumn createRowElementFor: eachItem atIndex: eachIndex.
 				eachPhlowColumn resizer ifNotNil: [ :aLayoutResizer |
 					aRowElement constraintsDo: [ :c |
 						c horizontal resizer: aLayoutResizer.
@@ -86,12 +110,6 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 					aRowElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
 					aRowElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
 				aRowElement ] ].
-		
-	aContainer addChildren: { header . list }.
-
-	aContainer phlow beView; entity: self.
-
-	^ aBlock value: aContainer
 ]
 
 { #category : #accessing }
@@ -192,7 +210,7 @@ GtPhlowColumnedListView >> items: aValuable [
 	itemsBuilder := aValuable
 ]
 
-{ #category : #'private - accessing' }
+{ #category : #accessing }
 GtPhlowColumnedListView >> itemsBuilder [
 	^ itemsBuilder
 ]

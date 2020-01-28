@@ -38,3 +38,34 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement [
 	"	self assert: element children first children size = 10."
 	^ view
 ]
+
+{ #category : #examples }
+GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError [
+	<gtExample>
+	| aView anElement |
+	aView := self viewWithItems 
+		itemStencil: [:x |
+			Error signal. 
+			BlElement new background: Color orange; size: 10 @ x; margin: (BlInsets all: 10) ].
+	aView asElementDo: [ :theElement | anElement := theElement ].
+	self assert: anElement isNotNil.
+	"It does not produce an error here yet" 
+	^ aView
+]
+
+{ #category : #examples }
+GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError_InSpace [
+	<gtExample>
+	| aView anElement aSpace anException |
+	aView := self viewWithItemsAndItemElement_ProducingError.
+	aSpace := BlSpace new.
+	anException := nil.
+	BlUseAsyncFeatures disableDuring: [
+		[ 
+			aView asElementDo: [ :theElement | anElement := theElement ].
+			aSpace addChild: anElement.
+			aSpace pulse ] on: Error do: [ :theException | anException := theException ] ].
+	"It does not produce an error here yet" 
+	self assert: anException isNil.
+	^ aView
+]

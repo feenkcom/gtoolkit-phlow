@@ -21,7 +21,17 @@ GtPhlowListView >> asElementDo: aBlock [
 		title: 'Item';
 		stencil: [ :eachNode :index | 
 			| itemElement |
-			itemElement := self itemStencil value: eachNode.
+			itemElement := self 
+				performBlock: [ self itemStencil value: eachNode ]
+				onError: [ :aButton :aLabel |
+					BrHorizontalPane new
+						hMatchParent;
+						vFitContent;
+						addChild: (aButton constraintsDo: [ :c | 
+								c linear vertical alignCenter ]);
+						addChild: (aLabel constraintsDo: [ :c | 
+								c linear vertical alignCenter.
+								c margin: (BlInsets left: 6) ]) ].
 			itemElement constraintsDo: [ :c | 
 				c horizontal matchParent. 
 				c padding: (BlInsets top: 3 left: 10 bottom: 3 right: 0) ] ].
