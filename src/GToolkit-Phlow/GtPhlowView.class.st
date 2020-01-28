@@ -152,15 +152,6 @@ GtPhlowView >> allDefiningMethods [
 	^ self definingMethod
 ]
 
-{ #category : #'error handling' }
-GtPhlowView >> debugButtonWithError: anError [
-	"anError should be freezed"
-	^ BrButton new
-		look: BrGlamorousButtonWithLabelLook;
-		label: 'Debug';
-		action: [ [ anError defaultAction ] fork ].
-]
-
 { #category : #initialization }
 GtPhlowView >> defaultTitle [
 	^ 'View'
@@ -223,19 +214,6 @@ GtPhlowView >> initialize [
 	title := self defaultTitle.
 ]
 
-{ #category : #'error handling' }
-GtPhlowView >> labelWithError: anError [
-	"anError should be freezed"
-	| aText |
-	aText := anError printString asRopedText foreground: Color red.
-	^ BrLabel new 
-		text: aText;
-		look: BrGlamorousLabelLook;
-		constraintsDo: [ :c |
-			c horizontal fitContent.
-			c vertical fitContent ].
-]
-
 { #category : #'message performing' }
 GtPhlowView >> on: anObject perform: aMessageSymbol [
 	<return: #GtPhlowView>
@@ -273,13 +251,16 @@ GtPhlowView >> originMethodsInto: aStream [
 ]
 
 { #category : #'error handling' }
-GtPhlowView >> performBlock: aBlock onError: anErrorBlock [
-	"onError: [ :aButton :aLabel | ... ]"
-	^ aBlock on: Error do: [ :anException | 
-		anException freeze.
-		anErrorBlock 
-			value: (self debugButtonWithError: anException)
-			value: (self labelWithError: anException) ].
+GtPhlowView >> performBlock: aBlock [
+	<return: #BlElement>
+	^ self 
+		performBlock: aBlock 
+		onException: [ :anException | anException asDebuggableElement ].
+]
+
+{ #category : #'error handling' }
+GtPhlowView >> performBlock: aBlock onException: anExceptionBlock [
+	^ aBlock on: Error do: anExceptionBlock.
 ]
 
 { #category : #'error handling' }

@@ -20,51 +20,13 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 		c horizontal matchParent.
 		c vertical matchParent ].
 	
-	theItems := self itemsBuilder value.
+	theItems := self 
+		performBlock: [ self itemsBuilder value ]
+		onException: [ :anException | 
+			aContainer addChild: anException asDebuggableElement.
+			^ aBlock value: aContainer ].
 	
-	header := BlElement new.
-	header layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: 10).
-	header padding: (BlInsets top: 5 bottom: 5).
-	header constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical fitContent ].
-	
-	header addChildren: (columns collect: [ :eachColumn |
-		| aWrapper aLabel aScaledLabel |
-		
-		aWrapper := BlElement new.
-		aWrapper layout: BlLinearLayout vertical.
-		aWrapper constraintsDo: [ :c |
-			c horizontal fitContent.
-			c vertical matchParent ].
-		
-		aLabel := eachColumn createHeaderRowElement.
-
-		aScaledLabel := aLabel asScalableElement.
-		aScaledLabel maxScale: 1.
-		aScaledLabel constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical matchParent.
-			c ignoreByLayout ].
-		
-		theItems ifNotEmpty: [
-			| aRowElement  |
-			aRowElement := eachColumn createRowElementFor: theItems first atIndex: 1.
-			aRowElement visibility: BlVisibility hidden.
-
-			eachColumn resizer ifNotNil: [ :aLayoutResizer |
-				aRowElement constraintsDo: [ :c |
-					c horizontal resizer: aLayoutResizer.
-					c vertical matchParent ].
-				aWrapper constraintsDo: [ :c | c horizontal resizer: aLayoutResizer ].
-				aRowElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
-				aRowElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
-			
-			aWrapper addChild: aRowElement	].
-		
-		aWrapper addChild: aScaledLabel.
-		aWrapper
-	]).
+	header := self buildHeaderForItems: theItems.
 	
 	list := BrColumnedList new display: theItems.
 	list addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
@@ -89,19 +51,8 @@ GtPhlowColumnedListView >> buildColumnsInList: aList [
 			stencil: [ :eachItem :eachIndex |
 				| aRowElement |
 
-				aRowElement := self 
-					performBlock: [ eachPhlowColumn createRowElementFor: eachItem atIndex: eachIndex ]
-					onError: [ :aButton :aLabel |
-						BrHorizontalPane new
-							hMatchParent;
-							vFitContent;
-							addChild: (aButton 
-								beSmall; 
-								constraintsDo: [ :c | 
-									c linear vertical alignCenter ]);
-							addChild: (aLabel constraintsDo: [ :c | 
-									c linear vertical alignCenter.
-									c margin: (BlInsets left: 6) ]) ].
+				aRowElement := self performBlock: [ 
+					eachPhlowColumn createRowElementFor: eachItem atIndex: eachIndex ].
 				
 				eachPhlowColumn resizer ifNotNil: [ :aLayoutResizer |
 					aRowElement constraintsDo: [ :c |
@@ -110,6 +61,61 @@ GtPhlowColumnedListView >> buildColumnsInList: aList [
 					aRowElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
 					aRowElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
 				aRowElement ] ].
+]
+
+{ #category : #private }
+GtPhlowColumnedListView >> buildHeaderForItems: theItems [
+	| aHeader |
+	aHeader := BlElement new.
+	aHeader layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: 10).
+	aHeader padding: (BlInsets top: 5 bottom: 5).
+	aHeader constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical fitContent ].
+	self buildHeaderItems: theItems inHeader: aHeader.
+	^ aHeader
+]
+
+{ #category : #private }
+GtPhlowColumnedListView >> buildHeaderItems: theItems inHeader: aHeader [
+
+	aHeader addChildren: (columns collect: [ :eachColumn |
+		| aWrapper aLabel aScaledLabel |
+		
+		aWrapper := BlElement new.
+		aWrapper layout: BlLinearLayout vertical.
+		aWrapper constraintsDo: [ :c |
+			c horizontal fitContent.
+			c vertical matchParent ].
+		
+		aLabel := eachColumn createHeaderRowElement.
+
+		aScaledLabel := aLabel asScalableElement.
+		aScaledLabel maxScale: 1.
+		aScaledLabel constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical matchParent.
+			c ignoreByLayout ].
+		
+		theItems ifNotEmpty: [
+			| aRowElement  |
+			aRowElement := self performBlock: [ 
+				eachColumn createRowElementFor: theItems first atIndex: 1 ].
+			aRowElement visibility: BlVisibility hidden.
+
+			eachColumn resizer ifNotNil: [ :aLayoutResizer |
+				aRowElement constraintsDo: [ :c |
+					c horizontal resizer: aLayoutResizer.
+					c vertical matchParent ].
+				aWrapper constraintsDo: [ :c | c horizontal resizer: aLayoutResizer ].
+				aRowElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
+				aRowElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
+			
+			aWrapper addChild: aRowElement	].
+		
+		aWrapper addChild: aScaledLabel.
+		aWrapper
+	]).
 ]
 
 { #category : #accessing }
