@@ -15,4 +15,5 @@ GtPhlowPannableViewExamples >> pannable [
 	self assert: element notNil.
 	self assert: (element isKindOf: BlPannableElement).
 	self assert: pannableView actions size = 4.
+	^ pannableView
 ]
