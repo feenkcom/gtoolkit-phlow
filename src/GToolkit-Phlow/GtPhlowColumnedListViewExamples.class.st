@@ -4,6 +4,62 @@ Class {
 	#category : #'GToolkit-Phlow-Examples'
 }
 
+{ #category : #'examples - auto updates' }
+GtPhlowColumnedListViewExamples >> autoUpdatedView [
+	<gtExample>
+	| aView anElement aCollection anAnnouncer |
+	aCollection := OrderedCollection new.
+	aCollection addAll: (1 to: 10).
+	anAnnouncer := Announcer new.
+	aView := self viewWithItems items: [ aCollection ].
+	aView updateWhen: Announcement in: [ anAnnouncer ].
+
+	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	
+	aView asElementDo: [ :theElement | anElement := theElement ].
+	self assert: anElement children second items size equals: 10.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
+	
+	aCollection addFirst: 100.
+	anAnnouncer announce: Announcement new.
+	
+	self assert: anElement children second items size equals: 11.
+	self assert: anElement children second items first equals: 100.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
+	^ aView
+]
+
+{ #category : #'examples - auto updates' }
+GtPhlowColumnedListViewExamples >> autoUpdatedView_WithParent [
+	<gtExample>
+	| aView aParent anElement aCollection anAnnouncer |
+	aCollection := OrderedCollection new.
+	aCollection addAll: (1 to: 10).
+	anAnnouncer := Announcer new.
+	aParent := BrHorizontalPane new matchParent.
+	aView := self viewWithItems items: [ aCollection ].
+	aView updateWhen: Announcement in: [ anAnnouncer ].
+
+	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	
+	aView asElementDo: [ :theElement | anElement := theElement ].
+	self assert: anElement children second items size equals: 10.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
+
+	aParent addChild: anElement.
+	aCollection addFirst: 100.
+	
+	BlUseAsyncFeatures disableDuring: [
+		anAnnouncer announce: Announcement new ].
+	
+	self assert: anElement children second items size equals: 11.
+	self assert: anElement children second items first equals: 100.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
+	self assert: aParent childrenCount equals: 1.
+	self assert: (aParent children first = anElement) not.
+	^ aView
+]
+
 { #category : #'api-shortcuts' }
 GtPhlowColumnedListViewExamples >> emptyList [
 	<gtExample>
@@ -16,6 +72,29 @@ GtPhlowColumnedListViewExamples >> emptyList [
 	self assert: element phlow isView.
 	self assert: element phlow entity = view.
 	^ view
+]
+
+{ #category : #'gt-extension' }
+GtPhlowColumnedListViewExamples >> gtAutoUpdatingListFor: aView [
+	<gtView>
+	| aCollection anAnnouncer |
+	aCollection := OrderedCollection new.
+	aCollection addAll: (1 to: 10).
+	anAnnouncer := Announcer new.
+	^ aView columnedList
+		title: 'Auto Updating List';
+		items: [ aCollection ];
+		column: 'x' item: [ :x | x ];
+		column: 'x * x' item: [ :x | x * x ];
+		actionButtonIcon: BrGlamorousIcons add 
+			action: [ aCollection add: 100 atRandom. anAnnouncer announce: Announcement new ];
+		updateWhen: Announcement in: [ anAnnouncer ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowColumnedListViewExamples >> myself [
+	<gtExample>
+	^ self
 ]
 
 { #category : #'api-shortcuts' }

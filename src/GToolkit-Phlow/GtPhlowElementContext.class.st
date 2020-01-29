@@ -35,6 +35,13 @@ GtPhlowElementContext >> allChildrenWithView [
 	^ aTab parent children select: [ :child | child phlow isView ]
 ]
 
+{ #category : #updating }
+GtPhlowElementContext >> asyncUpdate [
+	BlUseAsyncFeatures
+		ifEnabledDo: [ self postponeUpdate ]
+		otherwise: [ self update ]
+]
+
 { #category : #'api - accessing' }
 GtPhlowElementContext >> beAction [
 	isAction := true
@@ -148,6 +155,17 @@ GtPhlowElementContext >> isViewContent [
 	^ isViewContent
 ]
 
+{ #category : #updating }
+GtPhlowElementContext >> postponeUpdate [
+	"self entity updateContent: self element."
+	| aCommand |
+	aCommand := BlTaskAtPostponedTerminableTask new
+		command: (self updateCommand);
+		pool: BlTktWorkerProvider highUICPUBoundPool;
+		scheduledTime: BlTime real now + 300 milliSeconds.
+	BlTaskAtQueue default schedule: aCommand
+]
+
 { #category : #events }
 GtPhlowElementContext >> selectObject: anObject [
 	self element fireEvent: (GtPhlowObjectToSelect new
@@ -173,6 +191,12 @@ GtPhlowElementContext >> textViewContent [
 { #category : #updating }
 GtPhlowElementContext >> update [
 	self entity updateContent: self element.
+]
+
+{ #category : #updating }
+GtPhlowElementContext >> updateCommand [
+	^ [ self update ] asBlTktTerminableCommand 
+		asBlTktSingleCommand identifier: self
 ]
 
 { #category : #'api - search' }

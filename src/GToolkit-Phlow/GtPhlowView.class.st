@@ -348,11 +348,12 @@ GtPhlowView >> updateContent: anOldElement [
 	aParent ifNotNil: [ 
 		self unsubscribeAutoUpdatesOn: anOldElement phlow.
 		self asElementDo: [ :aNewElement |
-			aNewElement phlow beViewContent.			
+			anOldElement phlow isViewContent ifTrue: [ 
+				aNewElement phlow beViewContent ].
 			aParent replaceChild: anOldElement with: aNewElement ] ].
 ]
 
 { #category : #initialization }
 GtPhlowView >> updateWhen: anAnnouncement in: anAnnouncer [
-	self autoUpdates subscribe: anAnnouncement in: anAnnouncer
+	self autoUpdates asyncWhen: anAnnouncement in: anAnnouncer
 ]
