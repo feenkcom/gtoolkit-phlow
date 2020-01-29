@@ -347,7 +347,8 @@ GtPhlowView >> updateContent: anOldElement [
 	aParent := anOldElement parent.
 	aParent ifNotNil: [ 
 		self unsubscribeAutoUpdatesOn: anOldElement phlow.
-		self asElementDo: [ :aNewElement | 			
+		self asElementDo: [ :aNewElement |
+			aNewElement phlow beViewContent.			
 			aParent replaceChild: anOldElement with: aNewElement ] ].
 ]
 
