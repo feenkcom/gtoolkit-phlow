@@ -19,11 +19,7 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 		onExceptionErrorElement: [ :anElement | 
 			^ aBlock value: anElement ].
 	
-	aContainer := BlElement new.
-	aContainer layout: BlLinearLayout vertical.
-	aContainer constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
+	aContainer := self newSceneInformingElement.
 	
 	header := self buildHeaderForItems: theItems.
 	
@@ -36,8 +32,6 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	self buildColumnsInList: list.
 		
 	aContainer addChildren: { header . list }.
-	aContainer phlow beView; entity: self.
-	self subscribeAutoUpdatesOn: aContainer phlow.
 
 	^ aBlock value: aContainer
 ]

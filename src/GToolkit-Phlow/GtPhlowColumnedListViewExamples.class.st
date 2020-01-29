@@ -11,6 +11,33 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView [
 	aCollection := OrderedCollection new.
 	aCollection addAll: (1 to: 10).
 	anAnnouncer := Announcer new.
+	aView := self viewWithItems items: aCollection.
+	aView updateWhen: Announcement in: [ anAnnouncer ].
+
+	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	
+	aView asElementDo: [ :theElement | anElement := theElement ].
+	self assert: anElement children second items size equals: 10.
+	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	
+	aCollection := aCollection copy addFirst: 100; yourself.
+	anAnnouncer announce: Announcement new.
+	
+	self assert: anElement children second items size equals: 10.
+	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	^ aView
+]
+
+{ #category : #'examples - auto updates' }
+GtPhlowColumnedListViewExamples >> autoUpdatedView_InSpace [
+	<gtExample>
+	| aView aParent anElement aCollection anAnnouncer aSpace |
+	aCollection := OrderedCollection new.
+	aCollection addAll: (1 to: 10).
+	anAnnouncer := Announcer new.
+	aSpace := BlSpace new.
+	aParent := BrHorizontalPane new matchParent.
+	aSpace addChild: aParent.
 	aView := self viewWithItems items: [ aCollection ].
 	aView updateWhen: Announcement in: [ anAnnouncer ].
 
@@ -18,13 +45,19 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView [
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement children second items size equals: 10.
+	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	
+	aParent addChild: anElement.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	
-	aCollection addFirst: 100.
-	anAnnouncer announce: Announcement new.
+	aCollection := aCollection copy addFirst: 100; yourself.
+
+	BlUseAsyncFeatures disableDuring: [
+		anAnnouncer announce: Announcement new ].
 	
-	self assert: anElement children second items size equals: 11.
-	self assert: anElement children second items first equals: 100.
+	self assert: aParent childrenCount equals: 1.
+	self assert: (aParent children first == anElement) not.
+	self assert: aParent children first children second items size equals: 11.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	^ aView
 ]
@@ -37,26 +70,25 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView_WithParent [
 	aCollection addAll: (1 to: 10).
 	anAnnouncer := Announcer new.
 	aParent := BrHorizontalPane new matchParent.
-	aView := self viewWithItems items: [ aCollection ].
+	aView := self viewWithItems items: aCollection.
 	aView updateWhen: Announcement in: [ anAnnouncer ].
 
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 1.
+	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 
 	aParent addChild: anElement.
-	aCollection addFirst: 100.
+	aCollection := aCollection copy addFirst: 100; yourself.
 	
 	BlUseAsyncFeatures disableDuring: [
 		anAnnouncer announce: Announcement new ].
 	
-	self assert: anElement children second items size equals: 11.
-	self assert: anElement children second items first equals: 100.
-	self assert: anAnnouncer numberOfSubscriptions equals: 1.
+	self assert: anElement children second items size equals: 10.
+	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	self assert: aParent childrenCount equals: 1.
-	self assert: (aParent children first = anElement) not.
+	self assert: (aParent children first == anElement).
 	^ aView
 ]
 
