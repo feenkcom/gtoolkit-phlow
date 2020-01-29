@@ -130,17 +130,6 @@ GtPhlowForwarderView >> transformed: aSymbolOrBlock [
 	elementTransformation := aSymbolOrBlock
 ]
 
-{ #category : #updating }
-GtPhlowForwarderView >> updateContent: anElement [
-	"anElement is previously computed content from asElementDo:"
-	self asElementDo: [ :aNewElement | 
-		| aParent |
-		aParent := anElement parent.
-		aNewElement phlow beViewContent; entity: self.
-		aParent replaceChild: anElement with: aNewElement ].
-	
-]
-
 { #category : #accessing }
 GtPhlowForwarderView >> view: anObject [
 	view := anObject

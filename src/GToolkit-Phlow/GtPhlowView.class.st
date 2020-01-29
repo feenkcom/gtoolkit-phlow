@@ -363,7 +363,11 @@ GtPhlowView >> updateContent: anOldElement [
 		self asElementDo: [ :aNewElement |
 			anOldElement phlow isViewContent ifTrue: [ 
 				aNewElement phlow beViewContent ].
-			aParent replaceChild: anOldElement with: aNewElement ] ].
+			BlUseAsyncFeatures 
+				ifEnabledDo: [ 
+					aParent enqueueTask: (BlTaskAction new action: [
+						aParent replaceChild: anOldElement with: aNewElement ]) ]
+				otherwise: [ aParent replaceChild: anOldElement with: aNewElement ] ] ].
 ]
 
 { #category : #initialization }
