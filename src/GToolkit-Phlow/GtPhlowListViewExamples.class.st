@@ -5,6 +5,27 @@ Class {
 }
 
 { #category : #examples }
+GtPhlowListViewExamples >> autoUpdatedView [
+	<gtExample>
+	| aView anElement aCollection anAnnouncer |
+	aCollection := OrderedCollection new.
+	aCollection addAll: (1 to: 10).
+	anAnnouncer := Announcer new.
+	aView := self emptyList items: [ aCollection ].
+	aView updateWhen: Announcement in: [ anAnnouncer ].
+
+	aView asElementDo: [ :theElement | anElement := theElement ].
+	self assert: anElement items size equals: 10.
+	
+	aCollection addFirst: 100.
+	anAnnouncer announce: Announcement new.
+	
+	self assert: anElement items size equals: 11.
+	self assert: anElement items first equals: 100.
+	^ aView
+]
+
+{ #category : #examples }
 GtPhlowListViewExamples >> emptyList [
 	<gtExample>
 	| view element |

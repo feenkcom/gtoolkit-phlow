@@ -34,7 +34,9 @@ GtPhlowListView >> asElementDo: aBlock [
 	aList phlow 
 		beView; 
 		entity: self.
-
+		
+	self subscribeAutoUpdatesOn: aList phlow.
+	
 	^ aBlock value: aList
 ]
 
