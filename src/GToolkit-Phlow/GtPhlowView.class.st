@@ -334,16 +334,21 @@ GtPhlowView >> title: aString [
 	title := aString
 ]
 
+{ #category : #'adding - auto-updates' }
+GtPhlowView >> unsubscribeAutoUpdatesOn: aGtPhlowElementContext [
+	self autoUpdates unsubscribeAutoUpdatesOn: aGtPhlowElementContext.
+]
+
 { #category : #updating }
-GtPhlowView >> updateContent: anElement [
+GtPhlowView >> updateContent: anOldElement [
 	"anElement is previously computed content from asElementDo:"
 	
-	self asElementDo: [ :aNewElement | 
-		| aParent |
-		aParent := anElement parent.
-		aParent ifNotNil: [ 
-			aParent replaceChild: anElement with: aNewElement ] ].
-	
+	| aParent |
+	aParent := anOldElement parent.
+	aParent ifNotNil: [ 
+		self unsubscribeAutoUpdatesOn: anOldElement phlow.
+		self asElementDo: [ :aNewElement | 			
+			aParent replaceChild: anOldElement with: aNewElement ] ].
 ]
 
 { #category : #initialization }
