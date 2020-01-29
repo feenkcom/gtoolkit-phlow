@@ -48,7 +48,8 @@ GtPhlowListViewExamples >> autoUpdatedView_WithParent [
 
 	aParent addChild: anElement.
 	aCollection addFirst: 100.
-	anAnnouncer announce: Announcement new.
+	BlUseAsyncFeatures disableDuring: [
+		anAnnouncer announce: Announcement new ].
 	
 	self assert: anElement items size equals: 11.
 	self assert: anElement items first equals: 100.
@@ -68,6 +69,27 @@ GtPhlowListViewExamples >> emptyList [
 	self assert: element phlow isView.
 	self assert: element phlow entity = view.
 	^ view
+]
+
+{ #category : #'gt-extension' }
+GtPhlowListViewExamples >> gtAutoUpdatingListFor: aView [
+	<gtView>
+	| aCollection anAnnouncer |
+	aCollection := OrderedCollection new.
+	aCollection addAll: (1 to: 10).
+	anAnnouncer := Announcer new.
+	^ aView list
+		title: 'Auto Updating List';
+		items: [ aCollection ];
+		actionButtonIcon: BrGlamorousIcons add 
+			action: [ aCollection add: 100 atRandom. anAnnouncer announce: Announcement new ];
+		updateWhen: Announcement in: [ anAnnouncer ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowListViewExamples >> myself [
+	<gtExample>
+	^ self
 ]
 
 { #category : #examples }

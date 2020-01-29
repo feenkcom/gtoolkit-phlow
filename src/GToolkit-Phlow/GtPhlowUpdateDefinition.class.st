@@ -18,6 +18,11 @@ GtPhlowUpdateDefinition >> announcement: aValuable [
 	announcementValuable := aValuable
 ]
 
+{ #category : #subscriptions }
+GtPhlowUpdateDefinition >> announcementHandlerFor: aGtPhlowElementContext [
+	^ [ aGtPhlowElementContext update ]
+]
+
 { #category : #accessing }
 GtPhlowUpdateDefinition >> announcer [
 	^ announcerValuable value
@@ -31,7 +36,9 @@ GtPhlowUpdateDefinition >> announcer: aValuable [
 { #category : #subscriptions }
 GtPhlowUpdateDefinition >> subscribeOn: aGtPhlowElementContext [
 	| aSubscription |
-	aSubscription := self announcer when: self announcement do: [ aGtPhlowElementContext update ].
+	aSubscription := self announcer 
+		when: self announcement 
+		do: (self announcementHandlerFor: aGtPhlowElementContext).
 	aSubscription subscriber: aGtPhlowElementContext.
 ]
 

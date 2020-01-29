@@ -189,7 +189,7 @@ GtPhlowViewExamples >> explicitViewUpdate [
 	aColor := Color green.
 	BlUseAsyncFeatures disableDuring: [ anElement phlow update ].
 	self assert: aParent children first background paint color equals: Color green.
-	self assert: aParent children first phlow isViewContent.
+	self assert: aParent children first phlow isView.
 	^ aParent
 ]
 
@@ -337,21 +337,6 @@ GtPhlowViewExamples >> forwardedWithUndefinedViewMessage [
 	self assert: aView phlowView class equals: GtPhlowViewWithError.
 	self assert: (aView asElementDo: [ :anElement | anElement ]) class equals: BrFrame.
 	^ aView
-]
-
-{ #category : #'gt-extension' }
-GtPhlowViewExamples >> gtAutoUpdatingListFor: aView [
-	<gtView>
-	| aCollection anAnnouncer |
-	aCollection := OrderedCollection new.
-	aCollection addAll: (1 to: 10).
-	anAnnouncer := Announcer new.
-	^ aView list
-		title: 'Auto Updating List';
-		items: [ aCollection ];
-		actionButtonIcon: BrGlamorousIcons add 
-			action: [ aCollection add: 100 atRandom. anAnnouncer announce: Announcement new ];
-		updateWhen: Announcement in: [ anAnnouncer ]
 ]
 
 { #category : #'gt-extension' }
