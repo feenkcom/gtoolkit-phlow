@@ -227,6 +227,20 @@ GtPhlowView >> initialize [
 	autoUpdates := self defaultAutoUpdates.
 ]
 
+{ #category : #'adding - auto-updates' }
+GtPhlowView >> newSceneInformingElement [
+	| anElement |
+	anElement := BlSceneInformingElement new
+		layout: BlLinearLayout vertical;
+		onAddedToSceneDo: [ :anEvent | self subscribeAutoUpdatesOn: anEvent element phlow ];
+		onRemovedFromSceneDo: [ :anEvent | self unsubscribeAutoUpdatesOn: anEvent element phlow ];
+		constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical matchParent ].
+	anElement phlow beView; entity: self.
+	^ anElement
+]
+
 { #category : #'message performing' }
 GtPhlowView >> on: anObject perform: aMessageSymbol [
 	<return: #GtPhlowView>
@@ -346,11 +360,14 @@ GtPhlowView >> updateContent: anOldElement [
 	| aParent |
 	aParent := anOldElement parent.
 	aParent ifNotNil: [ 
-		self unsubscribeAutoUpdatesOn: anOldElement phlow.
 		self asElementDo: [ :aNewElement |
 			anOldElement phlow isViewContent ifTrue: [ 
 				aNewElement phlow beViewContent ].
-			aParent replaceChild: anOldElement with: aNewElement ] ].
+			BlUseAsyncFeatures 
+				ifEnabledDo: [ 
+					aParent enqueueTask: (BlTaskAction new action: [
+						aParent replaceChild: anOldElement with: aNewElement ]) ]
+				otherwise: [ aParent replaceChild: anOldElement with: aNewElement ] ] ].
 ]
 
 { #category : #initialization }

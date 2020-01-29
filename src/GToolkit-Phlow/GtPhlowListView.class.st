@@ -11,12 +11,14 @@ Class {
 
 { #category : #converting }
 GtPhlowListView >> asElementDo: aBlock [
-	| theItems aList |
+	| theItems aContainer aList |
 	
 	theItems := self 
 		performBlock: [ self itemsBuilder value ]
 		onExceptionErrorElement: [ :anElement | 
 			^ aBlock value: anElement ].
+	
+	aContainer := self newSceneInformingElement.
 	
 	aList := BrColumnedList new display: theItems.
 	aList addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
@@ -31,13 +33,9 @@ GtPhlowListView >> asElementDo: aBlock [
 				c horizontal matchParent. 
 				c padding: (BlInsets top: 3 left: 10 bottom: 3 right: 0) ] ].
 
-	aList phlow 
-		beView; 
-		entity: self.
-		
-	self subscribeAutoUpdatesOn: aList phlow.
+	aContainer addChild: aList.
 	
-	^ aBlock value: aList
+	^ aBlock value: aContainer
 ]
 
 { #category : #'private - building' }
