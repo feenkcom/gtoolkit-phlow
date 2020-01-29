@@ -43,6 +43,29 @@ GtPhlowViewExamples >> announceDefiningMethodChange [
 	^ aMethods
 ]
 
+{ #category : #'examples - auto-updated views' }
+GtPhlowViewExamples >> autoUpdatedForwardedView [
+	<gtExample>
+	<noTest>
+	| anAnnouncer aView aParent anElementOne aSpace |
+	anAnnouncer := Announcer new.
+	aView := self forwardedView
+		updateWhen: Announcement in: [ anAnnouncer ].
+	aParent := BlElement new.
+	anElementOne := aView asElementDo: [ :anElement | anElement ].
+	aParent addChild: anElementOne.
+	BlUseAsyncFeatures disableDuring: [ 
+		anAnnouncer announce: Announcement new ].
+	self assert: aParent taskQueue asArray size equals: 1.
+	aSpace := BlSpace new.
+	aSpace addChild: aParent.
+	aSpace pulse.
+	self assert: aParent childrenCount equals: 1.
+	self assert: (aParent children first == anElementOne) not.
+	self assert: anElementOne hasParent not.
+	^ aView
+]
+
 { #category : #'examples - columned tree view' }
 GtPhlowViewExamples >> columnedTreeViewWithItems [
 	<gtExample>
@@ -153,6 +176,7 @@ GtPhlowViewExamples >> emptyTree [
 { #category : #updating }
 GtPhlowViewExamples >> explicitViewUpdate [
 	<gtExample>
+	<noTest>
 	| aView anElement aColor aParent |
 	aColor := Color red.
 	aView := GtPhlowView empty explicit 
@@ -314,6 +338,21 @@ GtPhlowViewExamples >> forwardedWithUndefinedViewMessage [
 	self assert: aView phlowView class equals: GtPhlowViewWithError.
 	self assert: (aView asElementDo: [ :anElement | anElement ]) class equals: BrFrame.
 	^ aView
+]
+
+{ #category : #'gt-extension' }
+GtPhlowViewExamples >> gtAutoUpdatingListFor: aView [
+	<gtView>
+	| aCollection anAnnouncer |
+	aCollection := OrderedCollection new.
+	aCollection addAll: (1 to: 10).
+	anAnnouncer := Announcer new.
+	^ aView list
+		title: 'Auto Updating List';
+		items: [ aCollection ];
+		actionButtonIcon: BrGlamorousIcons add 
+			action: [ aCollection add: 100 atRandom. anAnnouncer announce: Announcement new ];
+		updateWhen: Announcement in: [ anAnnouncer ]
 ]
 
 { #category : #'gt-extension' }

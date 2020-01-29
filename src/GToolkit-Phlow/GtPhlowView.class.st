@@ -13,7 +13,8 @@ Class {
 		'title',
 		'priority',
 		'definingMethod',
-		'phlowActions'
+		'phlowActions',
+		'autoUpdates'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
@@ -152,6 +153,17 @@ GtPhlowView >> allDefiningMethods [
 	^ self definingMethod
 ]
 
+{ #category : #'adding - auto-updates' }
+GtPhlowView >> autoUpdates [
+	<return: #GtPhlowUpdateDefinitions>
+	^ autoUpdates
+]
+
+{ #category : #initialization }
+GtPhlowView >> defaultAutoUpdates [
+	^ GtPhlowUpdateDefinitions new
+]
+
 { #category : #initialization }
 GtPhlowView >> defaultTitle [
 	^ 'View'
@@ -212,6 +224,7 @@ GtPhlowView >> initialize [
 	phlowActions := OrderedCollection new.
 	priority := 50. "the lower the value, the closer to the left the tab appears"
 	title := self defaultTitle.
+	autoUpdates := self defaultAutoUpdates.
 ]
 
 { #category : #'message performing' }
@@ -306,6 +319,11 @@ GtPhlowView >> priority: anObject [
 	priority := anObject
 ]
 
+{ #category : #'adding - auto-updates' }
+GtPhlowView >> subscribeAutoUpdatesOn: aGtPhlowElementContext [
+	self autoUpdates subscribeAutoUpdatesOn: aGtPhlowElementContext.
+]
+
 { #category : #accessing }
 GtPhlowView >> title [
 	^ title
@@ -314,4 +332,26 @@ GtPhlowView >> title [
 { #category : #accessing }
 GtPhlowView >> title: aString [ 
 	title := aString
+]
+
+{ #category : #'adding - auto-updates' }
+GtPhlowView >> unsubscribeAutoUpdatesOn: aGtPhlowElementContext [
+	self autoUpdates unsubscribeAutoUpdatesOn: aGtPhlowElementContext.
+]
+
+{ #category : #updating }
+GtPhlowView >> updateContent: anOldElement [
+	"anElement is previously computed content from asElementDo:"
+	
+	| aParent |
+	aParent := anOldElement parent.
+	aParent ifNotNil: [ 
+		self unsubscribeAutoUpdatesOn: anOldElement phlow.
+		self asElementDo: [ :aNewElement | 			
+			aParent replaceChild: anOldElement with: aNewElement ] ].
+]
+
+{ #category : #initialization }
+GtPhlowView >> updateWhen: anAnnouncement in: anAnnouncer [
+	self autoUpdates subscribe: anAnnouncement in: anAnnouncer
 ]

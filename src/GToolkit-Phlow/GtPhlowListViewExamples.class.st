@@ -4,6 +4,60 @@ Class {
 	#category : #'GToolkit-Phlow-Examples'
 }
 
+{ #category : #'examples - auto updates' }
+GtPhlowListViewExamples >> autoUpdatedView [
+	<gtExample>
+	| aView anElement aCollection anAnnouncer |
+	aCollection := OrderedCollection new.
+	aCollection addAll: (1 to: 10).
+	anAnnouncer := Announcer new.
+	aView := self emptyList items: [ aCollection ].
+	aView updateWhen: Announcement in: [ anAnnouncer ].
+
+	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	
+	aView asElementDo: [ :theElement | anElement := theElement ].
+	self assert: anElement items size equals: 10.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
+	
+	aCollection addFirst: 100.
+	anAnnouncer announce: Announcement new.
+	
+	self assert: anElement items size equals: 11.
+	self assert: anElement items first equals: 100.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
+	^ aView
+]
+
+{ #category : #'examples - auto updates' }
+GtPhlowListViewExamples >> autoUpdatedView_WithParent [
+	<gtExample>
+	| aView aParent anElement aCollection anAnnouncer |
+	aCollection := OrderedCollection new.
+	aCollection addAll: (1 to: 10).
+	anAnnouncer := Announcer new.
+	aParent := BrHorizontalPane new matchParent.
+	aView := self emptyList items: [ aCollection ].
+	aView updateWhen: Announcement in: [ anAnnouncer ].
+
+	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	
+	aView asElementDo: [ :theElement | anElement := theElement ].
+	self assert: anElement items size equals: 10.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
+
+	aParent addChild: anElement.
+	aCollection addFirst: 100.
+	anAnnouncer announce: Announcement new.
+	
+	self assert: anElement items size equals: 11.
+	self assert: anElement items first equals: 100.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
+	self assert: aParent childrenCount equals: 1.
+	self assert: (aParent children first = anElement) not.
+	^ aView
+]
+
 { #category : #examples }
 GtPhlowListViewExamples >> emptyList [
 	<gtExample>
