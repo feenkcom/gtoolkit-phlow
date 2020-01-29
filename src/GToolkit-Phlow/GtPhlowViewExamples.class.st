@@ -176,6 +176,7 @@ GtPhlowViewExamples >> emptyTree [
 { #category : #updating }
 GtPhlowViewExamples >> explicitViewUpdate [
 	<gtExample>
+	<noTest>
 	| aView anElement aColor aParent |
 	aColor := Color red.
 	aView := GtPhlowView empty explicit 
