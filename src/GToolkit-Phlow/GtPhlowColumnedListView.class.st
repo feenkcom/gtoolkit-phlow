@@ -14,19 +14,16 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 	| aContainer header list theItems |
 	
+	theItems := self 
+		performBlock: [ self itemsBuilder value ]
+		onExceptionErrorElement: [ :anElement | 
+			^ aBlock value: anElement ].
+	
 	aContainer := BlElement new.
 	aContainer layout: BlLinearLayout vertical.
 	aContainer constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical matchParent ].
-	
-	aContainer phlow beView; entity: self.
-	
-	theItems := self 
-		performBlock: [ self itemsBuilder value ]
-		onException: [ :anException | 
-			aContainer addChild: anException asDebuggableElement.
-			^ aBlock value: aContainer ].
 	
 	header := self buildHeaderForItems: theItems.
 	
@@ -39,6 +36,8 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	self buildColumnsInList: list.
 		
 	aContainer addChildren: { header . list }.
+	aContainer phlow beView; entity: self.
+	self subscribeAutoUpdatesOn: aContainer phlow.
 
 	^ aBlock value: aContainer
 ]
