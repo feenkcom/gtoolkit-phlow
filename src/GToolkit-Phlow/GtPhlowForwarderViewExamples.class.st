@@ -131,6 +131,15 @@ GtPhlowForwarderViewExamples >> gtAutoUpdatingExplicitFor: aView [
 ]
 
 { #category : #'gt-extension' }
+GtPhlowForwarderViewExamples >> gtBasicFor: aView [
+	<gtView>
+	^ aView forward 
+		title: 'Forwarded Explicit View';
+		object: [ GtPhlowExplicitViewExamples new ];
+		view: #gtBasicFor:
+]
+
+{ #category : #'gt-extension' }
 GtPhlowForwarderViewExamples >> myself [
 	<gtExample>
 	^ self

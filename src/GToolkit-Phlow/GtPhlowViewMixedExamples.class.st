@@ -10,7 +10,7 @@ ${example:GtPhlowViewMixedExamples>>#explicitViewWithElementStencil|previewHeigh
 
 !!Text view
 
-${example:GtPhlowViewMixedExamples>>#textView|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
+${example:GtPhlowTextEditorViewExamples>>#textView|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
 
 !!List view
 
@@ -148,25 +148,6 @@ GtPhlowViewMixedExamples >> gtExtraViewActionFor: anAction [
 		label: 'I am a view action';
 		priority: 60;
 		forViewDefinedIn: #gtViewWithExtraActionsFor:
-]
-
-{ #category : #'gt-extension' }
-GtPhlowViewMixedExamples >> gtUpdatingFor: aView [ 
-	<gtView>
-	^ aView explicit 
-		title: 'Update on click';
-		stencil: [ BlElement new 
-				look: BrShadowLook;
-				background: Color random;
-				constraintsDo: [ :c | 
-					c horizontal matchParent.
-					c vertical matchParent.
-					c margin: (BlInsets all: 40) ]  ];
-		actionStencil: [ :aTab | 
-			BrButton new 
-				look: BrGlamorousButtonWithIconLook;
-				icon: BrGlamorousIcons refresh asElement;
-				action: [ aTab viewContentElement phlow update ] ]
 ]
 
 { #category : #'gt-extension' }

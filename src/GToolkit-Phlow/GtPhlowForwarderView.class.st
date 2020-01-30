@@ -11,7 +11,7 @@ ${method:GtPhlowView>>#title}$ and ${method:GtPhlowView>>#priority}$ are not tak
 
 !! Example
 
-You can define me as follow: ${method:GtPhlowViewMixedExamples>>#gtForwardedViewFor:|expanded=true}$
+You can define me as follow: ${method:GtPhlowForwarderViewExamples>>#gtBasicFor:|expanded=true}$
 
 "
 Class {
