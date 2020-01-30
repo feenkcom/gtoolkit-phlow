@@ -66,56 +66,6 @@ GtPhlowViewMixedExamples >> autoUpdatedForwardedView [
 	^ aView
 ]
 
-{ #category : #'examples - columned tree view' }
-GtPhlowViewMixedExamples >> columnedTreeViewWithItems [
-	<gtExample>
-	| aView anElement |
-	aView := self emptyColumnedTreeView.
-	aView items: [ 1 to: 10 ].
-	aView column: 'x' item: [ :aNumber | aNumber ].
-	aView column: 'x * x' item: [ :aNumber | aNumber * aNumber ].
-	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: (anElement isKindOf: BlElement).
-	self assert: anElement children second viewModel root children size equals: 10.
-	^ aView
-]
-
-{ #category : #'examples - columned tree view' }
-GtPhlowViewMixedExamples >> columnedTreeViewWithItemsAndChildren [
-	<gtExample>
-	| aView anElement |
-	aView := self columnedTreeViewWithItems.
-	aView items: [ 1 to: 10 ].
-	aView children: [ :aNumber | aNumber < 3 ifTrue: [ #() ] ifFalse: [ 1 to: (aNumber - 1) ] ].
-	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: (anElement isKindOf: BlElement).
-	self assert: anElement children second viewModel root children size equals: 10.
-	^ aView
-]
-
-{ #category : #'examples - columned tree view' }
-GtPhlowViewMixedExamples >> columnedTreeViewWithItemsAndChildren_WithChildrenError [
-	<gtExample>
-	| aView anElement |
-	aView := self columnedTreeViewWithItems.
-	aView items: [ 1 to: 10 ].
-	aView children: [ :aNumber | 21/0. aNumber < 3 ifTrue: [ #() ] ifFalse: [ 1 to: (aNumber - 1) ] ].
-	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: anElement class equals: BrFrame.
-	^ aView
-]
-
-{ #category : #'examples - columned tree view' }
-GtPhlowViewMixedExamples >> columnedTreeViewWithItems_WithItemsError [
-	<gtExample>
-	| aView anElement |
-	aView := self columnedTreeViewWithItems.
-	aView items: [ 4/0. 1 to: 10 ].
-	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: anElement class equals: BrFrame.
-	^ aView
-]
-
 { #category : #examples }
 GtPhlowViewMixedExamples >> compositeView [
 	<gtExample>
@@ -139,18 +89,6 @@ GtPhlowViewMixedExamples >> definingMethods [
 	^ aMethods
 ]
 
-{ #category : #'examples - columned tree view' }
-GtPhlowViewMixedExamples >> emptyColumnedTreeView [
-	<gtExample>
-	| aView anElement |
-	aView := GtPhlowView empty columnedTree.
-	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: (anElement isKindOf: BlElement).
-	self assert: anElement phlow isView.
-	self assert: anElement phlow entity equals: aView.
-	^ aView
-]
-
 { #category : #examples }
 GtPhlowViewMixedExamples >> emptyExplicitView [
 	<gtExample>
@@ -159,26 +97,6 @@ GtPhlowViewMixedExamples >> emptyExplicitView [
 	view asElementDo: [ :el | element := el ].
 	self assert: element isNil.
 	^ view
-]
-
-{ #category : #updating }
-GtPhlowViewMixedExamples >> explicitViewUpdate [
-	<gtExample>
-	| aView anElement aColor aParent |
-	aColor := Color red.
-	aView := GtPhlowView empty explicit 
-		title: 'Sample';
-		stencil: [ BlElement new background: aColor ].
-	aView asElementDo: [ :el | anElement := el ].
-	self assert: (anElement isKindOf: BlElement).
-	self assert: anElement phlow isView.
-	self assert: anElement background paint color equals: Color red.
-	aParent := BlElement new addChild: anElement.
-	aColor := Color green.
-	BlUseAsyncFeatures disableDuring: [ anElement phlow update ].
-	self assert: aParent children first background paint color equals: Color green.
-	self assert: aParent children first phlow isView.
-	^ aParent
 ]
 
 { #category : #examples }
@@ -533,18 +451,6 @@ GtPhlowViewMixedExamples >> onPerformWithoutErrorBlocElement [
 	anElement := aView asElementDo: [ :theElement | theElement ].
 	self assert: (anElement isKindOf: BlElement).
 	^ anElement
-]
-
-{ #category : #examples }
-GtPhlowViewMixedExamples >> textView [
-	<gtExample>
-	| view element |
-	view := GtPhlowView empty textEditor text: 'abc' asRopedText.
-	view asElementDo: [ :el | element := el ].
-	self assert: (element isKindOf: BrEditorElement).
-	self assert: element phlow isView.
-	self assert: element phlow entity equals: view.
-	^ view
 ]
 
 { #category : #updating }

@@ -16,11 +16,9 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 
 	| aContainer aHeader aTree theItems |
-	theItems := self 
-		performBlock: [ self itemsBuilder value ]
-		onExceptionErrorElement: [ :anElement |
+	theItems := self itemsOnExceptionErrorElement: [ :anElement |
 			^ aBlock value: anElement ].
-	aContainer := self newContainer.
+	aContainer := self newSceneInformingElement.
 	aHeader := self newHeader.
 	aHeader addChildren: (self newColumnElementsForItems: theItems).
 	aTree := BrColumnedTree new.
@@ -59,13 +57,7 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 								dispatchEvent: BrLayoutVerticalResizerWish matchParent ].
 					aRowElement ] ].
 	self expandTree: aTree.
-	aContainer
-		addChildren:
-			{aHeader.
-			aTree}.
-	aContainer phlow
-		beView;
-		entity: self.
+	aContainer addChildren: {aHeader. aTree}.
 	^ aBlock value: aContainer
 ]
 
@@ -212,6 +204,14 @@ GtPhlowColumnedTreeView >> itemsBuilder [
 	^ itemsBuilder
 ]
 
+{ #category : #'private - accessing' }
+GtPhlowColumnedTreeView >> itemsOnExceptionErrorElement: aBlock [
+	^ self 
+		performBlock: [ self itemsBuilder value ]
+		onExceptionErrorElement: [ :anElement |
+			aBlock value: anElement ].
+]
+
 { #category : #'instance creation' }
 GtPhlowColumnedTreeView >> newColumnElementsForItems: theItems [
 	^ columns
@@ -251,15 +251,6 @@ GtPhlowColumnedTreeView >> newColumnElementsForItems: theItems [
 					aWrapper addChild: aRowElement ].
 			aWrapper addChild: aScaledLabel.
 			aWrapper ]
-]
-
-{ #category : #'instance creation' }
-GtPhlowColumnedTreeView >> newContainer [
-	^ BlElement new
-		layout: BlLinearLayout vertical;
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical matchParent ].
 ]
 
 { #category : #'instance creation' }
@@ -304,4 +295,18 @@ GtPhlowColumnedTreeView >> send: aBlock [
 		assert: [ aBlock numArgs <= 2 ]
 		description: [ 'Send transformation block must have two or less arguments'  ].
 	transformation := aBlock
+]
+
+{ #category : #updating }
+GtPhlowColumnedTreeView >> updateContent: aCurrentElement [
+	"anElement is previously computed content from asElementDo:"
+	
+	| aParent |
+	aParent := aCurrentElement parent.
+	aParent ifNotNil: [ 
+		| theItems aTree |
+		theItems := self itemsOnExceptionErrorElement: [ :anErrorElement | 
+			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
+		aTree := aCurrentElement children second.
+		self enqueueAction: [ aTree items: theItems children: self childrenBuilder ] in: aTree ].
 ]
