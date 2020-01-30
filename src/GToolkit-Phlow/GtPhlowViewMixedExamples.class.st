@@ -5,16 +5,16 @@
 
 The most fine grained view is the explicit one through which you can specify the detailed stencil to be used to create the final element.
 
-${example:GtPhlowViewExamples>>#explicitViewWithElementStencil|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
+${example:GtPhlowViewMixedExamples>>#explicitViewWithElementStencil|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
 
 
 !!Text view
 
-${example:GtPhlowViewExamples>>#textView|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
+${example:GtPhlowViewMixedExamples>>#textView|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
 
 !!List view
 
-${example:GtPhlowViewExamples>>#listView|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
+${example:GtPhlowViewMixedExamples>>#listView|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
 
 
 !!Columned view
