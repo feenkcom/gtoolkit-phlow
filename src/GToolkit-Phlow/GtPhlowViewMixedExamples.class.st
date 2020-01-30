@@ -161,18 +161,6 @@ GtPhlowViewMixedExamples >> emptyExplicitView [
 	^ view
 ]
 
-{ #category : #'examples - tree view' }
-GtPhlowViewMixedExamples >> emptyTree [
-	<gtExample>
-	| aView anElement |
-	aView := GtPhlowView empty tree.
-	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: (anElement isKindOf: BrColumnedTree).
-	self assert: anElement phlow isView.
-	self assert: anElement phlow entity equals: aView.
-	^ aView
-]
-
 { #category : #updating }
 GtPhlowViewMixedExamples >> explicitViewUpdate [
 	<gtExample>
@@ -557,52 +545,6 @@ GtPhlowViewMixedExamples >> textView [
 	self assert: element phlow isView.
 	self assert: element phlow entity equals: view.
 	^ view
-]
-
-{ #category : #'examples - tree view' }
-GtPhlowViewMixedExamples >> treeViewWithItems [
-	<gtExample>
-	| aView anElement |
-	aView := self emptyTree.
-	aView items: [ 1 to: 10 ].
-	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: (anElement isKindOf: BrColumnedTree).
-	self assert: anElement viewModel root children size equals: 10.
-	^ aView
-]
-
-{ #category : #'examples - tree view' }
-GtPhlowViewMixedExamples >> treeViewWithItemsAndChildren [
-	<gtExample>
-	| aView anElement |
-	aView := self treeViewWithItems.
-	aView children: [ :aNumber | aNumber // 2 to: aNumber ].
-	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: (anElement isKindOf: BrColumnedTree).
-	self assert: anElement viewModel root children size equals: 10.
-	^ aView
-]
-
-{ #category : #'examples - tree view' }
-GtPhlowViewMixedExamples >> treeViewWithItemsAndChildrenWithChildrenError [
-	<gtExample>
-	| aView anElement |
-	aView := self treeViewWithItems.
-	aView children: [ :aNumber | 3/0. aNumber // 2 to: aNumber ].
-	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: anElement class equals: BrFrame.
-	^ aView
-]
-
-{ #category : #'examples - tree view' }
-GtPhlowViewMixedExamples >> treeViewWithItemsWithItemsError [
-	<gtExample>
-	| aView anElement |
-	aView := self emptyTree.
-	aView items: [ 3/0. 1 to: 10 ].
-	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: anElement class equals: BrFrame.
-	^ aView
 ]
 
 { #category : #updating }

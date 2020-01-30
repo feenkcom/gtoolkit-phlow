@@ -249,8 +249,9 @@ GtPhlowColumnedListView >> updateContent: aCurrentElement [
 	| aParent |
 	aParent := aCurrentElement parent.
 	aParent ifNotNil: [ 
-		| theItems |
+		| theItems aList |
 		theItems := self itemsOnExceptionErrorElement: [ :anErrorElement | 
 			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
-		aCurrentElement children second items: theItems. ].
+		aList := aCurrentElement children second.
+		self enqueueAction: [ aList items: theItems ] in: aList ].
 ]

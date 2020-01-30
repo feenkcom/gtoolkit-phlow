@@ -83,7 +83,7 @@ GtPhlowListViewExamples >> autoUpdatedView_WithParent [
 
 	aParent addChild: anElement.
 	
-	aCollection := aCollection copy addFirst: 100.
+	aCollection := aCollection copy addFirst: 100; yourself.
 	BlUseAsyncFeatures disableDuring: [
 		anAnnouncer announce: Announcement new ].
 	
@@ -95,15 +95,11 @@ GtPhlowListViewExamples >> autoUpdatedView_WithParent [
 { #category : #examples }
 GtPhlowListViewExamples >> emptyList [
 	<gtExample>
-	| view element |
-	view := GtPhlowView empty list.
-	view asElementDo: [ :el | element := el ].
-	self assert: element class equals: BlSceneInformingElement.
-	self assert: element childrenCount equals: 1.
-	self assert: element children first class equals: BrColumnedList.
-	self assert: element phlow isView.
-	self assert: element phlow entity = view.
-	^ view
+	| aView anElement |
+	aView := GtPhlowView empty list.
+	aView asElementDo: [ :el | anElement := el ].
+	self assertSceneInformingElement: anElement withChildOfClass: BrColumnedList inView: aView.
+	^ aView
 ]
 
 { #category : #'gt-extension' }
@@ -184,9 +180,9 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError_InSpace [
 { #category : #examples }
 GtPhlowListViewExamples >> viewWithItems_WithGetItemsError [
 	<gtExample>
-	| view element |
-	view := self emptyList items: [ 21/0. (1 to: 10) ].
-	view asElementDo: [ :el | element := el ].
-	self assert: element class equals: BrFrame.
-	^ view
+	| aView anElement |
+	aView := self emptyList items: [ 21/0. (1 to: 10) ].
+	aView asElementDo: [ :el | anElement := el ].
+	self assertErrorElement: anElement inView: aView.
+	^ aView
 ]

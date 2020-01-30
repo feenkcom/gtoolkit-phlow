@@ -192,6 +192,13 @@ GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
 ]
 
+{ #category : #updating }
+GtPhlowView >> enqueueAction: aBlock in: anElement [
+	BlUseAsyncFeatures 
+		ifEnabledDo: [ anElement enqueueTask: (BlTaskAction new action: aBlock) ] 
+		otherwise: aBlock
+]
+
 { #category : #'gt-extension' }
 GtPhlowView >> gtActionsFor: aView [
 	<gtView>
@@ -337,11 +344,9 @@ GtPhlowView >> priority: anObject [
 GtPhlowView >> replaceOldElement: anOldElement by: aNewElement in: aParent [
 	anOldElement phlow isViewContent ifTrue: [ 
 		aNewElement phlow beViewContent ].
-	BlUseAsyncFeatures 
-		ifEnabledDo: [ 
-			aParent enqueueTask: (BlTaskAction new action: [
-				aParent replaceChild: anOldElement with: aNewElement ]) ]
-		otherwise: [ aParent replaceChild: anOldElement with: aNewElement ]
+	self 
+		enqueueAction: [ aParent replaceChild: anOldElement with: aNewElement ] 
+		in: aParent.
 ]
 
 { #category : #'adding - auto-updates' }

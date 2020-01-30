@@ -13,13 +13,12 @@ Class {
 
 { #category : #converting }
 GtPhlowTreeView >> asElementDo: aBlock [
-	| theItems aTree |
+	| theItems aContainer aTree |
 	
-	theItems := self 
-		performBlock: [ self itemsBuilder value ]
-		onExceptionErrorElement: [ :anElement | 
+	theItems := self itemsOnExceptionErrorElement: [ :anElement | 
 			^ aBlock value: anElement ].
 	
+	aContainer := self newSceneInformingElement.
 	aTree := BrColumnedTree new.
 	self 
 		performBlock: [ aTree items: theItems children: self childrenBuilder ]
@@ -39,11 +38,8 @@ GtPhlowTreeView >> asElementDo: aBlock [
 
 	self expandTree: aTree.
 
-	aTree phlow 
-		beView; 
-		entity: self.
-
-	^ aBlock value: aTree
+	aContainer addChild: aTree.
+	^ aBlock value: aContainer.
 ]
 
 { #category : #'private - building' }
@@ -152,6 +148,14 @@ GtPhlowTreeView >> itemsBuilder [
 	^ itemsBuilder
 ]
 
+{ #category : #'private - accessing' }
+GtPhlowTreeView >> itemsOnExceptionErrorElement: aBlock [
+	^ self 
+		performBlock: [ self itemsBuilder value ]
+		onExceptionErrorElement: [ :anElement |
+			aBlock value: anElement ].
+]
+
 { #category : #accessing }
 GtPhlowTreeView >> send [
 	^ transformation
@@ -172,4 +176,18 @@ GtPhlowTreeView >> send: aBlock [
 		assert: [ aBlock numArgs <= 2 ]
 		description: [ 'Send transformation block must have two or less arguments'  ].
 	transformation := aBlock
+]
+
+{ #category : #updating }
+GtPhlowTreeView >> updateContent: aCurrentElement [
+	"anElement is previously computed content from asElementDo:"
+	
+	| aParent |
+	aParent := aCurrentElement parent.
+	aParent ifNotNil: [ 
+		| theItems aTree |
+		theItems := self itemsOnExceptionErrorElement: [ :anErrorElement | 
+			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
+		aTree := aCurrentElement children first.
+		self enqueueAction: [ aTree items: theItems children: self childrenBuilder ] in: aTree ].
 ]
