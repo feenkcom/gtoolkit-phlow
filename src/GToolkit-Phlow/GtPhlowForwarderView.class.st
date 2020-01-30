@@ -67,7 +67,10 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 { #category : #private }
 GtPhlowForwarderView >> createPhlowView [
 	<return: #GtPhlowView>
-	^ self on: self viewObject perform: self viewSymbol
+	| aView |
+	aView := self on: self viewObject perform: self viewSymbol.
+	aView copyAutoUpdatesFrom: self autoUpdates.
+	^ aView
 ]
 
 { #category : #initialization }

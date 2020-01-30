@@ -21,6 +21,14 @@ GtPhlowTextEditorViewExamples >> gtAutoUpdatingFor: aView [
 ]
 
 { #category : #'gt-extension' }
+GtPhlowTextEditorViewExamples >> gtBasicFor: aView [
+	<gtView>
+	^ aView textEditor
+		title: 'Text';
+		text: [ 'How do you feenk today?' ]
+]
+
+{ #category : #'gt-extension' }
 GtPhlowTextEditorViewExamples >> myself [
 	<gtExample>
 	^ self

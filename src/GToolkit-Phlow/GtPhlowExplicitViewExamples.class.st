@@ -25,6 +25,19 @@ GtPhlowExplicitViewExamples >> explicitViewUpdate [
 ]
 
 { #category : #'gt-extension' }
+GtPhlowExplicitViewExamples >> gtBasicFor: aView [ 
+	^ aView explicit 
+		title: 'Update on click';
+		stencil: [ BlElement new 
+				look: BrShadowLook;
+				background: Color random;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent.
+					c margin: (BlInsets all: 40) ] ]
+]
+
+{ #category : #'gt-extension' }
 GtPhlowExplicitViewExamples >> gtUpdatingFor: aView [ 
 	<gtView>
 	^ aView explicit 

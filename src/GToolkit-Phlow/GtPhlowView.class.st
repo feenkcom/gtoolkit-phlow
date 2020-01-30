@@ -159,6 +159,11 @@ GtPhlowView >> autoUpdates [
 	^ autoUpdates
 ]
 
+{ #category : #'adding - auto-updates' }
+GtPhlowView >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
+	self autoUpdates copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions
+]
+
 { #category : #initialization }
 GtPhlowView >> defaultAutoUpdates [
 	^ GtPhlowUpdateDefinitions new
