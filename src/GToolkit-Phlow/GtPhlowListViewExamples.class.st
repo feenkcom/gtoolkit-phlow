@@ -1,6 +1,6 @@
 Class {
 	#name : #GtPhlowListViewExamples,
-	#superclass : #Object,
+	#superclass : #GtPhlowViewExamples,
 	#category : #'GToolkit-Phlow-Examples'
 }
 
@@ -58,7 +58,7 @@ GtPhlowListViewExamples >> autoUpdatedView_InSpace [
 		anAnnouncer announce: Announcement new ].
 	
 	self assert: aParent childrenCount equals: 1.
-	self assert: (aParent children first == anElement) not.
+	self assert: aParent children first == anElement.
 	self assert: aParent children first children first items size equals: 11.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	^ aView

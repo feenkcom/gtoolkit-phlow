@@ -1,6 +1,6 @@
 Class {
 	#name : #GtPhlowPannableViewExamples,
-	#superclass : #Object,
+	#superclass : #GtPhlowViewExamples,
 	#category : #'GToolkit-Phlow-Examples'
 }
 

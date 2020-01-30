@@ -14,10 +14,8 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 	| aContainer header list theItems |
 	
-	theItems := self 
-		performBlock: [ self itemsBuilder value ]
-		onExceptionErrorElement: [ :anElement | 
-			^ aBlock value: anElement ].
+	theItems := self itemsOnExceptionErrorElement: [ :anElement | 
+		^ aBlock value: anElement ].
 	
 	aContainer := self newSceneInformingElement.
 	
@@ -214,6 +212,14 @@ GtPhlowColumnedListView >> itemsBuilder [
 	^ itemsBuilder
 ]
 
+{ #category : #'private - accessing' }
+GtPhlowColumnedListView >> itemsOnExceptionErrorElement: aBlock [
+	^ self 
+		performBlock: [ self itemsBuilder value ]
+		onExceptionErrorElement: [ :anElement |
+			aBlock value: anElement ].
+]
+
 { #category : #accessing }
 GtPhlowColumnedListView >> send [
 	^ transformation
@@ -234,4 +240,17 @@ GtPhlowColumnedListView >> send: aBlock [
 		assert: [ aBlock numArgs <= 2 ]
 		description: [ 'Send transformation block must have two or less arguments'  ].
 	transformation := aBlock
+]
+
+{ #category : #updating }
+GtPhlowColumnedListView >> updateContent: aCurrentElement [
+	"anElement is previously computed content from asElementDo:"
+	
+	| aParent |
+	aParent := aCurrentElement parent.
+	aParent ifNotNil: [ 
+		| theItems |
+		theItems := self itemsOnExceptionErrorElement: [ :anErrorElement | 
+			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
+		aCurrentElement children second items: theItems. ].
 ]
