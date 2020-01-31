@@ -11,7 +11,7 @@ ${method:GtPhlowView>>#title}$ and ${method:GtPhlowView>>#priority}$ are not tak
 
 !! Example
 
-You can define me as follow: ${method:GtPhlowViewExamples>>#gtForwardedViewFor:|expanded=true}$
+You can define me as follow: ${method:GtPhlowForwarderViewExamples>>#gtBasicFor:|expanded=true}$
 
 "
 Class {
@@ -67,7 +67,10 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 { #category : #private }
 GtPhlowForwarderView >> createPhlowView [
 	<return: #GtPhlowView>
-	^ self on: self viewObject perform: self viewSymbol
+	| aView |
+	aView := self on: self viewObject perform: self viewSymbol.
+	aView copyAutoUpdatesFrom: self autoUpdates.
+	^ aView
 ]
 
 { #category : #initialization }

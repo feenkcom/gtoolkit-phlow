@@ -11,21 +11,25 @@ Class {
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
 
-{ #category : #accessing }
+{ #category : #converting }
 GtPhlowTextEditorView >> asElementDo: aBlock [
-	| brickEditor text |
-	brickEditor := BrEditor new.
-	text := (self textBuilder glamourValueWithArgs: { brickEditor }) asRopedText.
-	brickEditor 
+	| aBrickEditor aText aContainer |
+	aBrickEditor := BrEditor new.
+	aText := self 
+		textFor: aBrickEditor 
+		onExceptionErrorElement: [ :anErrorElement | 
+			^ aBlock value: anErrorElement ].
+	aBrickEditor 
 		look: look;
 		styler: styler;
-		text: text.
-	brickEditor constraintsDo: [ :c | 
+		text: aText.
+	aBrickEditor constraintsDo: [ :c | 
 		c vertical matchParent. 
 		c horizontal matchParent.
 		c padding: (BlInsets all: 10) ].
-	brickEditor phlow beView; entity: self.
-	^ aBlock value: brickEditor
+	aContainer := self newSceneInformingElement.
+	aContainer addChild: aBrickEditor.
+	^ aBlock value: aContainer
 ]
 
 { #category : #accessing }
@@ -65,6 +69,30 @@ GtPhlowTextEditorView >> text: anObject [
 { #category : #accessing }
 GtPhlowTextEditorView >> textBuilder [
 	^ textBuilder
+]
+
+{ #category : #updating }
+GtPhlowTextEditorView >> textFor: aBrickEditor onExceptionErrorElement: aBlock [
+	^ self 
+		performBlock: [ (self textBuilder glamourValueWithArgs: { aBrickEditor }) asRopedText ]
+		onExceptionErrorElement: [ :anElement |
+			aBlock value: anElement ].
+]
+
+{ #category : #updating }
+GtPhlowTextEditorView >> updateContent: aCurrentElement [
+	"anElement is previously computed content from asElementDo:"
+	
+	| aParent |
+	aParent := aCurrentElement parent.
+	aParent ifNotNil: [ 
+		| aText anEditor |
+		anEditor := aCurrentElement children first.
+		aText := self
+			textFor: anEditor
+			onExceptionErrorElement: [ :anErrorElement | 
+				^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
+		self enqueueAction: [ anEditor text: aText ] in: anEditor ].
 ]
 
 { #category : #accessing }

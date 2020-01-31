@@ -72,6 +72,11 @@ GtPhlowProtoView >> composite [
 			collect)
 ]
 
+{ #category : #copying }
+GtPhlowProtoView >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
+
+]
+
 { #category : #accessing }
 GtPhlowProtoView >> definingMethod [
 	"Get view defining method.

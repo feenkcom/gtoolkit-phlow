@@ -16,15 +16,15 @@ Class {
 
 { #category : #accessing }
 GtPhlowExplicitView >> asElementDo: aBlock [
-	| element |
+	| aContainer anElement |
 	self assert: stencilBuilder notNil description: 'The stencil should be initialized'.
-	element := [ stencilBuilder asElement ] 
-		on: Error 
-		do: [ :anError | 
-			(self phlowErrorViewWithException: anError)
-				asElementDo: [ :errorElement | errorElement ] ].
-	element phlow beView; entity: self.
-	^ aBlock value: element.
+	anElement := self 
+		performBlock: [ stencilBuilder asElement ] 
+		onExceptionErrorElement: [ :anErrorElement | 
+		^ aBlock value: anErrorElement ].
+	aContainer := self newSceneInformingElement.
+	aContainer addChild: anElement.
+	^ aBlock value: aContainer.
 ]
 
 { #category : #accessing }

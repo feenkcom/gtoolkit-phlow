@@ -159,6 +159,11 @@ GtPhlowView >> autoUpdates [
 	^ autoUpdates
 ]
 
+{ #category : #'adding - auto-updates' }
+GtPhlowView >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
+	self autoUpdates copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions
+]
+
 { #category : #initialization }
 GtPhlowView >> defaultAutoUpdates [
 	^ GtPhlowUpdateDefinitions new
@@ -190,6 +195,13 @@ GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 			isMetaSide: anObject class isMeta;
 			asActive ] 
 		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
+]
+
+{ #category : #updating }
+GtPhlowView >> enqueueAction: aBlock in: anElement [
+	BlUseAsyncFeatures 
+		ifEnabledDo: [ anElement enqueueTask: (BlTaskAction new action: aBlock) ] 
+		otherwise: aBlock
 ]
 
 { #category : #'gt-extension' }
@@ -333,6 +345,15 @@ GtPhlowView >> priority: anObject [
 	priority := anObject
 ]
 
+{ #category : #updating }
+GtPhlowView >> replaceOldElement: anOldElement by: aNewElement in: aParent [
+	anOldElement phlow isViewContent ifTrue: [ 
+		aNewElement phlow beViewContent ].
+	self 
+		enqueueAction: [ aParent replaceChild: anOldElement with: aNewElement ] 
+		in: aParent.
+]
+
 { #category : #'adding - auto-updates' }
 GtPhlowView >> subscribeAutoUpdatesOn: aGtPhlowElementContext [
 	self autoUpdates subscribeAutoUpdatesOn: aGtPhlowElementContext.
@@ -361,13 +382,7 @@ GtPhlowView >> updateContent: anOldElement [
 	aParent := anOldElement parent.
 	aParent ifNotNil: [ 
 		self asElementDo: [ :aNewElement |
-			anOldElement phlow isViewContent ifTrue: [ 
-				aNewElement phlow beViewContent ].
-			BlUseAsyncFeatures 
-				ifEnabledDo: [ 
-					aParent enqueueTask: (BlTaskAction new action: [
-						aParent replaceChild: anOldElement with: aNewElement ]) ]
-				otherwise: [ aParent replaceChild: anOldElement with: aNewElement ] ] ].
+			self replaceOldElement: anOldElement by: aNewElement in: aParent. ] ].
 ]
 
 { #category : #initialization }

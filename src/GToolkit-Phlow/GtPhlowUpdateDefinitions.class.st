@@ -19,6 +19,12 @@ GtPhlowUpdateDefinitions >> asyncWhen: anAnnouncement in: anAnnouncer [
 		announcer: anAnnouncer)
 ]
 
+{ #category : #adding }
+GtPhlowUpdateDefinitions >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
+	aGtPhlowUpdateDefinitions definitions do: [ :eachDefinition | 
+		self add: eachDefinition ]
+]
+
 { #category : #accessing }
 GtPhlowUpdateDefinitions >> definitions [
 	^ definitions
