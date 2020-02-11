@@ -64,9 +64,11 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 { #category : #ui }
 GtPhlowCompositeView >> gtContainedViewsFor: aView [
 	<gtView>
-	^ aView list 
+	^ aView columnedList
 		title: 'Views' translated;
-		items: [ self views ]
+		items: [ self views ];
+		column: 'View' format: [:each | each gtDisplayString];
+		column: 'Title' format: [:each | each title ]
 ]
 
 { #category : #private }
