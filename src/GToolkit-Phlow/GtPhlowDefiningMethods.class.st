@@ -37,7 +37,7 @@ GtPhlowDefiningMethods >> gtSourceFor: aView [
 				aContainer addChild: (
 					(GtMethodCoder forMethod: eachMethod) 
 						expanded: true; asElement) ].
-			aContainer ]
+			aContainer asScrollableElement]
 ]
 
 { #category : #accessing }
