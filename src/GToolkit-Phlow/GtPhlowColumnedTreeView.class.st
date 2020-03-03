@@ -14,23 +14,26 @@ Class {
 { #category : #converting }
 GtPhlowColumnedTreeView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
-
 	| aContainer aHeader aTree theItems |
-	theItems := self itemsOnExceptionErrorElement: [ :anElement |
-			^ aBlock value: anElement ].
-	aContainer := self newSceneInformingElement.
+
+	theItems := self itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
+
+	aContainer := BlElement new.
+	aContainer constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent ].
+	aContainer layout: BlLinearLayout vertical.
+	
 	aHeader := self newHeader.
 	aHeader addChildren: (self newColumnElementsForItems: theItems).
+
 	aTree := BrColumnedTree new.
 	
 	self 
 		performBlock: [ aTree items: theItems children: self childrenBuilder ] 
 		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	
-	aTree
-		addEventHandler:
-			(GtInspectorListToSelectHandler new
-				transformation: [ :aNode | self send value: aNode value ]).
+	aTree addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :aNode | self send value: aNode value ]).
 	aTree
 		rowStencil:
 			(BrColumnedTreeRowStencilBuilder new
@@ -56,8 +59,13 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 							aRowElement
 								dispatchEvent: BrLayoutVerticalResizerWish matchParent ].
 					aRowElement ] ].
+
 	self expandTree: aTree.
-	aContainer addChildren: {aHeader. aTree}.
+
+	aContainer addChildren: { aHeader. aTree }.
+	
+	self beViewElement: aContainer.
+
 	^ aBlock value: aContainer
 ]
 

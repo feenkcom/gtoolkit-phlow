@@ -248,9 +248,7 @@ GtPhlowViewMixedExamples >> listView [
 	| view element |
 	view := GtPhlowView empty list items: (1 to: 100).
 	view asElementDo: [ :el | element := el ].
-	self assert: element class equals: BlSceneInformingElement.
-	self assert: element childrenCount equals: 1.
-	self assert: element children first class equals: BrColumnedList.
+	self assert: element class equals: BrColumnedList.
 	self assert: element phlow isView.
 	self assert: element phlow entity equals: view.
 	^ view

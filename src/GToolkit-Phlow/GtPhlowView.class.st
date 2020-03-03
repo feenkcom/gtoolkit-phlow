@@ -159,6 +159,20 @@ GtPhlowView >> autoUpdates [
 	^ autoUpdates
 ]
 
+{ #category : #'private - elements' }
+GtPhlowView >> beViewElement: anElement [
+	"Set up a given element to play a role of the root element for a phlow view.
+	The given element is marked as a view and its phlow entity is set to me.
+	In addition we also setup auto updates"
+
+	anElement
+		when: BlElementAddedToSceneGraphEvent do: [ :anEvent | self subscribeAutoUpdatesOn: anEvent currentTarget phlow ];
+		when: BlElementRemovedFromSceneGraphEvent do: [ :anEvent | self unsubscribeAutoUpdatesOn: anEvent currentTarget phlow ].
+	anElement phlow
+		beView;
+		entity: self
+]
+
 { #category : #'adding - auto-updates' }
 GtPhlowView >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
 	self autoUpdates copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions
@@ -237,20 +251,6 @@ GtPhlowView >> initialize [
 	priority := 50. "the lower the value, the closer to the left the tab appears"
 	title := self defaultTitle.
 	autoUpdates := self defaultAutoUpdates.
-]
-
-{ #category : #'adding - auto-updates' }
-GtPhlowView >> newSceneInformingElement [
-	| anElement |
-	anElement := BlSceneInformingElement new
-		layout: BlLinearLayout vertical;
-		onAddedToSceneDo: [ :anEvent | self subscribeAutoUpdatesOn: anEvent element phlow ];
-		onRemovedFromSceneDo: [ :anEvent | self unsubscribeAutoUpdatesOn: anEvent element phlow ];
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical matchParent ].
-	anElement phlow beView; entity: self.
-	^ anElement
 ]
 
 { #category : #'message performing' }

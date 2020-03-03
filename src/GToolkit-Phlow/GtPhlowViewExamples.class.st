@@ -13,10 +13,8 @@ GtPhlowViewExamples >> assertErrorElement: anElement inView: aView [
 ]
 
 { #category : #asserting }
-GtPhlowViewExamples >> assertSceneInformingElement: anElement withChildOfClass: aClass inView: aView [
-	self assert: anElement class equals: BlSceneInformingElement.
-	self assert: anElement childrenCount equals: 1.
-	self assert: anElement child class equals: aClass.
+GtPhlowViewExamples >> assertViewElement: anElement ofClass: aClass inView: aView [
+	self assert: anElement class equals: aClass.
 	self assert: anElement phlow isView.
-	self assert: anElement phlow entity equals: aView.
+	self assert: anElement phlow entity equals: aView
 ]

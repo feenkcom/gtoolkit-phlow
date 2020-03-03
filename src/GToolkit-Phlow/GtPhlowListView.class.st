@@ -11,12 +11,9 @@ Class {
 
 { #category : #converting }
 GtPhlowListView >> asElementDo: aBlock [
-	| theItems aContainer aList |
+	| theItems aList |
 	
-	theItems := self itemsOnExceptionErrorElement: [ :anElement | 
-		^ aBlock value: anElement ].
-	
-	aContainer := self newSceneInformingElement.
+	theItems := self itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	
 	aList := BrColumnedList new display: theItems.
 	aList addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
@@ -31,9 +28,9 @@ GtPhlowListView >> asElementDo: aBlock [
 				c horizontal matchParent. 
 				c padding: (BlInsets top: 3 left: 10 bottom: 3 right: 0) ] ].
 
-	aContainer addChild: aList.
+	self beViewElement: aList.
 	
-	^ aBlock value: aContainer
+	^ aBlock value: aList
 ]
 
 { #category : #'private - building' }
@@ -133,15 +130,14 @@ GtPhlowListView >> send: aBlock [
 ]
 
 { #category : #updating }
-GtPhlowListView >> updateContent: aCurrentElement [
+GtPhlowListView >> updateContent: aList [
 	"anElement is previously computed content from asElementDo:"
 	
 	| aParent |
-	aParent := aCurrentElement parent.
+	aParent := aList parent.
 	aParent ifNotNil: [ 
-		| theItems aList |
+		| theItems |
 		theItems := self itemsOnExceptionErrorElement: [ :anErrorElement | 
-			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
-		aList := aCurrentElement children first.
-		self enqueueAction: [ aList items: theItems ] in: aList ].
+			^ self replaceOldElement: aList by: anErrorElement in: aParent ].
+		self enqueueAction: [ aList items: theItems ] in: aList ]
 ]

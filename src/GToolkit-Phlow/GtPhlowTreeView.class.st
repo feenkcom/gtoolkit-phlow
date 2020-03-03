@@ -13,16 +13,16 @@ Class {
 
 { #category : #converting }
 GtPhlowTreeView >> asElementDo: aBlock [
-	| theItems aContainer aTree |
+	| theItems aTree |
 	
-	theItems := self itemsOnExceptionErrorElement: [ :anElement | 
-			^ aBlock value: anElement ].
+	theItems := self itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	
-	aContainer := self newSceneInformingElement.
 	aTree := BrColumnedTree new.
+
 	self 
 		performBlock: [ aTree items: theItems children: self childrenBuilder ]
 		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
+
 	aTree addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :aNode | self send value: aNode value ]).
 	aTree constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 	aTree rowStencil: (BrColumnedTreeRowStencilBuilder new
@@ -37,9 +37,9 @@ GtPhlowTreeView >> asElementDo: aBlock [
 			itemElement padding: (BlInsets top: 3 left: 0 bottom: 3 right: 0) ].
 
 	self expandTree: aTree.
+	self beViewElement: aTree.
 
-	aContainer addChild: aTree.
-	^ aBlock value: aContainer.
+	^ aBlock value: aTree
 ]
 
 { #category : #'private - building' }
@@ -179,15 +179,14 @@ GtPhlowTreeView >> send: aBlock [
 ]
 
 { #category : #updating }
-GtPhlowTreeView >> updateContent: aCurrentElement [
+GtPhlowTreeView >> updateContent: aTree [
 	"anElement is previously computed content from asElementDo:"
-	
 	| aParent |
-	aParent := aCurrentElement parent.
+
+	aParent := aTree parent.
 	aParent ifNotNil: [ 
-		| theItems aTree |
+		| theItems |
 		theItems := self itemsOnExceptionErrorElement: [ :anErrorElement | 
-			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
-		aTree := aCurrentElement children first.
-		self enqueueAction: [ aTree items: theItems children: self childrenBuilder ] in: aTree ].
+			^ self replaceOldElement: aTree by: anErrorElement in: aParent ].
+		self enqueueAction: [ aTree items: theItems children: self childrenBuilder ] in: aTree ]
 ]

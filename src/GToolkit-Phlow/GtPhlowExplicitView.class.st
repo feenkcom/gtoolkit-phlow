@@ -16,15 +16,19 @@ Class {
 
 { #category : #accessing }
 GtPhlowExplicitView >> asElementDo: aBlock [
-	| aContainer anElement |
-	self assert: stencilBuilder notNil description: 'The stencil should be initialized'.
+	| anElement |
+	
+	self
+		assert: [ stencilBuilder notNil ]
+		description: [ 'The stencil should be initialized' ].
+
 	anElement := self 
 		performBlock: [ stencilBuilder asElement ] 
-		onExceptionErrorElement: [ :anErrorElement | 
-		^ aBlock value: anErrorElement ].
-	aContainer := self newSceneInformingElement.
-	aContainer addChild: anElement.
-	^ aBlock value: aContainer.
+		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
+
+	self beViewElement: anElement.
+	
+	^ aBlock value: anElement
 ]
 
 { #category : #accessing }

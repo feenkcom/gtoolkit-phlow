@@ -13,23 +13,27 @@ Class {
 
 { #category : #converting }
 GtPhlowTextEditorView >> asElementDo: aBlock [
-	| aBrickEditor aText aContainer |
+	| aBrickEditor aText |
+
 	aBrickEditor := BrEditor new.
+
 	aText := self 
 		textFor: aBrickEditor 
-		onExceptionErrorElement: [ :anErrorElement | 
-			^ aBlock value: anErrorElement ].
+		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
+
 	aBrickEditor 
 		look: look;
 		styler: styler;
 		text: aText.
+
 	aBrickEditor constraintsDo: [ :c | 
 		c vertical matchParent. 
 		c horizontal matchParent.
 		c padding: (BlInsets all: 10) ].
-	aContainer := self newSceneInformingElement.
-	aContainer addChild: aBrickEditor.
-	^ aBlock value: aContainer
+
+	self beViewElement: aBrickEditor.
+	
+	^ aBlock value: aBrickEditor
 ]
 
 { #category : #accessing }
@@ -80,19 +84,18 @@ GtPhlowTextEditorView >> textFor: aBrickEditor onExceptionErrorElement: aBlock [
 ]
 
 { #category : #updating }
-GtPhlowTextEditorView >> updateContent: aCurrentElement [
+GtPhlowTextEditorView >> updateContent: anEditorElement [
 	"anElement is previously computed content from asElementDo:"
 	
 	| aParent |
-	aParent := aCurrentElement parent.
+	aParent := anEditorElement parent.
 	aParent ifNotNil: [ 
-		| aText anEditor |
-		anEditor := aCurrentElement children first.
+		| aText |
 		aText := self
-			textFor: anEditor
+			textFor: anEditorElement
 			onExceptionErrorElement: [ :anErrorElement | 
-				^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
-		self enqueueAction: [ anEditor text: aText ] in: anEditor ].
+				^ self replaceOldElement: anEditorElement by: anErrorElement in: aParent ].
+		self enqueueAction: [ anEditorElement text: aText ] in: anEditorElement ]
 ]
 
 { #category : #accessing }

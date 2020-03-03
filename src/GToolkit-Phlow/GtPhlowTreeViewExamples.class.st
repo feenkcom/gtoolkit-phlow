@@ -14,13 +14,15 @@ GtPhlowTreeViewExamples >> autoUpdatedView_InSpace [
 	aSpace := BlSpace new.
 	aParent := BrHorizontalPane new matchParent.
 	aSpace addChild: aParent.
+	
 	aView := self treeViewWithItemsAndChildren items: [ aCollection ].
 	aView updateWhen: Announcement in: [ anAnnouncer ].
 
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: anElement children first viewModel root children size equals: 10.
+	
+	self assert: anElement viewModel root children size equals: 10.
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
 	aParent addChild: anElement.
@@ -28,12 +30,11 @@ GtPhlowTreeViewExamples >> autoUpdatedView_InSpace [
 	
 	aCollection := aCollection copy addFirst: 100; yourself.
 
-	BlUseAsyncFeatures disableDuring: [
-		anAnnouncer announce: Announcement new ].
+	BlUseAsyncFeatures disableDuring: [ anAnnouncer announce: Announcement new ].
 	
 	self assert: aParent childrenCount equals: 1.
 	self assert: aParent children first == anElement.
-	self assert: aParent children first children first viewModel root children size equals: 11.
+	self assert: aParent children first viewModel root children size equals: 11.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	^ aView
 ]
@@ -56,7 +57,7 @@ GtPhlowTreeViewExamples >> autoUpdatedView_InSpace_WithChildrenError [
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: anElement children first viewModel root children size equals: 10.
+	self assert: anElement viewModel root children size equals: 10.
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
 	aParent addChild: anElement.
@@ -69,7 +70,7 @@ GtPhlowTreeViewExamples >> autoUpdatedView_InSpace_WithChildrenError [
 	
 	self assert: aParent childrenCount equals: 1.
 	self assert: aParent children first == anElement.
-	self assert: aParent children first children first viewModel root children size equals: 11.
+	self assert: aParent children first viewModel root children size equals: 11.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	^ aView
 ]
@@ -88,7 +89,7 @@ GtPhlowTreeViewExamples >> autoUpdatedView_WithParent [
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: anElement children first viewModel root children size equals: 10.
+	self assert: anElement viewModel root children size equals: 10.
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 
 	aParent addChild: anElement.
@@ -97,7 +98,7 @@ GtPhlowTreeViewExamples >> autoUpdatedView_WithParent [
 	BlUseAsyncFeatures disableDuring: [
 		anAnnouncer announce: Announcement new ].
 	
-	self assert: anElement children first viewModel root children size equals: 10.
+	self assert: anElement viewModel root children size equals: 10.
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	^ aView
 ]
@@ -108,7 +109,7 @@ GtPhlowTreeViewExamples >> emptyTree [
 	| aView anElement |
 	aView := GtPhlowView empty tree.
 	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assertSceneInformingElement: anElement withChildOfClass: BrColumnedTree inView: aView.
+	self assertViewElement: anElement ofClass: BrColumnedTree inView: aView.
 	^ aView
 ]
 
@@ -141,8 +142,8 @@ GtPhlowTreeViewExamples >> treeViewWithItems [
 	aView := self emptyTree.
 	aView items: [ 1 to: 10 ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assertSceneInformingElement: anElement withChildOfClass: BrColumnedTree inView: aView.
-	self assert: anElement child viewModel root children size equals: 10.
+	self assertViewElement: anElement ofClass: BrColumnedTree inView: aView.
+	self assert: anElement viewModel root children size equals: 10.
 	^ aView
 ]
 
@@ -153,8 +154,8 @@ GtPhlowTreeViewExamples >> treeViewWithItemsAndChildren [
 	aView := self treeViewWithItems.
 	aView children: [ :aNumber | aNumber // 2 to: aNumber ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assertSceneInformingElement: anElement withChildOfClass: BrColumnedTree inView: aView.
-	self assert: anElement child viewModel root children size equals: 10.
+	self assertViewElement: anElement ofClass: BrColumnedTree inView: aView.
+	self assert: anElement viewModel root children size equals: 10.
 	^ aView
 ]
 
