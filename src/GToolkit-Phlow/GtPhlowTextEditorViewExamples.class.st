@@ -31,6 +31,7 @@ GtPhlowTextEditorViewExamples >> gtBasicFor: aView [
 { #category : #'gt-extension' }
 GtPhlowTextEditorViewExamples >> myself [
 	<gtExample>
+
 	^ self
 ]
 
@@ -38,9 +39,12 @@ GtPhlowTextEditorViewExamples >> myself [
 GtPhlowTextEditorViewExamples >> textView [
 	<gtExample>
 	| view element |
+
 	view := GtPhlowView empty textEditor text: 'abc' asRopedText.
 	view asElementDo: [ :el | element := el ].
-	self assertSceneInformingElement: element withChildOfClass: BrEditor inView: view.
+
+	self assertViewElement: element ofClass: BrEditor inView: view.
+
 	"Do not be confused by by error '...can not install the same look instance on multiple widgets'"
 	^ view
 ]

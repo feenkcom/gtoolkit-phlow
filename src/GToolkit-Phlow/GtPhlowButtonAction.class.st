@@ -54,5 +54,5 @@ GtPhlowButtonAction >> newButtonLook [
 	(label isNil and: [ icon isNil ]) ifTrue: [ ^ BrGlamorousButtonWithLabelAndIconLook ].
 	(label notNil and: [ icon isNil ]) ifTrue: [ ^ BrGlamorousButtonWithLabelLook ].
 	(label isNil and: [ icon notNil ]) ifTrue: [ ^ BrGlamorousButtonWithIconLook ].
-	^ BrGlamorousButtonWithIconAndLabelLook
+	^ BrGlamorousButtonWithIconLook new
 ]

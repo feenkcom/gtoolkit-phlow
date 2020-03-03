@@ -8,19 +8,25 @@ Class {
 GtPhlowExplicitViewExamples >> explicitViewUpdate [
 	<gtExample>
 	| aView anElement aColor aParent |
+
 	aColor := Color red.
 	aView := GtPhlowView empty explicit 
 		title: 'Sample';
 		stencil: [ BlElement new background: aColor ].
 	aView asElementDo: [ :el | anElement := el ].
-	self assert: (anElement isKindOf: BlElement).
-	self assert: anElement phlow isView.
-	self assert: anElement child background paint color equals: Color red.
+
+	self assertViewElement: anElement ofClass: BlElement inView: aView.
+
+	self assert: anElement background paint color equals: Color red.
+
 	aParent := BlElement new addChild: anElement.
 	aColor := Color green.
+
 	BlUseAsyncFeatures disableDuring: [ anElement phlow update ].
-	self assert: aParent children first child background paint color equals: Color green.
+
+	self assert: aParent children first background paint color equals: Color green.
 	self assert: aParent children first phlow isView.
+
 	^ aParent
 ]
 
@@ -59,5 +65,6 @@ GtPhlowExplicitViewExamples >> gtUpdatingFor: aView [
 { #category : #'gt-extension' }
 GtPhlowExplicitViewExamples >> myself [
 	<gtExample>
+
 	^ self
 ]
