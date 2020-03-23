@@ -216,6 +216,15 @@ GtPhlowProtoView >> sparta [
 ]
 
 { #category : #decorating }
+GtPhlowProtoView >> table [
+	^ GtPhlowTableView new
+		originalView: self;
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
+]
+
+{ #category : #decorating }
 GtPhlowProtoView >> textEditor [
 	^ GtPhlowTextEditorView new 
 		originalView: self;
