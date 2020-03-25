@@ -386,6 +386,13 @@ GtPhlowView >> updateContent: anOldElement [
 ]
 
 { #category : #initialization }
+GtPhlowView >> updateWhen: anAnnouncement if: anIfCondition in: anAnnouncer [
+	"anIfCondition is an object (block) that understands the #cull:cull: message.
+	It is called as anIfCondition cull: aReceivedAnnouncement cull: aGtPhlowElementContext"
+	self autoUpdates asyncWhen: anAnnouncement if: anIfCondition in: anAnnouncer
+]
+
+{ #category : #initialization }
 GtPhlowView >> updateWhen: anAnnouncement in: anAnnouncer [
 	self autoUpdates asyncWhen: anAnnouncement in: anAnnouncer
 ]

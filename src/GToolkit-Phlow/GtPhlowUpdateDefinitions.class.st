@@ -13,6 +13,14 @@ GtPhlowUpdateDefinitions >> add: aDefinition [
 ]
 
 { #category : #adding }
+GtPhlowUpdateDefinitions >> asyncWhen: anAnnouncement if: anIfCondition in: anAnnouncer [
+	self add: (GtPhlowAsyncUpdateWithConditionDefinition new
+		announcement: anAnnouncement;
+		condition: anIfCondition;
+		announcer: anAnnouncer)
+]
+
+{ #category : #adding }
 GtPhlowUpdateDefinitions >> asyncWhen: anAnnouncement in: anAnnouncer [
 	self add: (GtPhlowAsyncUpdateDefinition new
 		announcement: anAnnouncement;
