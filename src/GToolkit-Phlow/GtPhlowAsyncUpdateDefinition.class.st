@@ -6,5 +6,5 @@ Class {
 
 { #category : #subscriptions }
 GtPhlowAsyncUpdateDefinition >> announcementHandlerFor: aGtPhlowElementContext [
-	^ [ aGtPhlowElementContext asyncUpdate ]
+	^ [ :anAnnouncement | aGtPhlowElementContext asyncUpdate ]
 ]
