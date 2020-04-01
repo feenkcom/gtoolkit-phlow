@@ -29,10 +29,7 @@ GtPhlowActionsCollector >> collect [
 						definingMethod: eachPragma method asRingDefinition;
 						error: error ] ]
 		thenSelect: self selectUsing.
-	anActions sort: [ :a :b | 
-		[ a priority < b priority ]
-			on: Error
-			do: [ :error | true ] ].
+	self sortByPriority: anActions.
 	^ anActions
 ]
 

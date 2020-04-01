@@ -12,6 +12,14 @@ Class {
 	#category : #'GToolkit-Phlow-Builders'
 }
 
+{ #category : #sorting }
+GtPhlowCollector class >> sortByPriority: aCollection [
+	aCollection sort: [ :a :b | 
+		[ a priority < b priority]
+			on: Error
+			do: [ :error | true ] ].
+]
+
 { #category : #actions }
 GtPhlowCollector >> collect [
 	"Collect objects according to given configuration"
@@ -103,6 +111,11 @@ GtPhlowCollector >> pragmaNames: aCollectionOfSymbols [
 		assert: [ aCollectionOfSymbols notNil ]
 		description: [ 'Collection of pragma names must be non-nil' ].
 	pragmaNames := aCollectionOfSymbols
+]
+
+{ #category : #sorting }
+GtPhlowCollector >> sortByPriority: aCollection [
+	self class sortByPriority: aCollection
 ]
 
 { #category : #accessing }

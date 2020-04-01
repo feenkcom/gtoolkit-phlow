@@ -32,10 +32,7 @@ GtPhlowViewsCollector >> collect [
 				(eachAction target isForViewDefinedIn: eachPragma methodSelector) ifTrue: [ 
 					aView addPhlowAction: eachAction ] ].
 			aView ].
-	theViews sort: [ :a :b | 
-		[a priority < b priority]
-			on: Error
-			do: [ :error | true ] ].
+	self sortByPriority: theViews.
 	^ theViews
 ]
 
