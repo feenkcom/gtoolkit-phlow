@@ -53,7 +53,7 @@ GtPhlowCollector >> from: aClass [
 	from := aClass
 ]
 
-{ #category : #'api - accessing' }
+{ #category : #convenient }
 GtPhlowCollector >> fromObject: anObject [
 	self object: anObject.
 	self from: anObject class.
@@ -80,6 +80,15 @@ GtPhlowCollector >> initializeSearchRange [
 	to := ProtoObject
 ]
 
+{ #category : #convenient }
+GtPhlowCollector >> justBelowTheObject [
+	| theSuperClasses anIndex |
+	theSuperClasses := self from allSuperclasses.
+	anIndex := theSuperClasses indexOf: Object ifAbsent: [ ^ self ].
+	anIndex = 1 ifTrue: [ self to: Object. ^ self ].
+	self to: (theSuperClasses at: anIndex - 1)
+]
+
 { #category : #accessing }
 GtPhlowCollector >> object [
 	<return: #Object>
@@ -91,7 +100,7 @@ GtPhlowCollector >> object: anObject [
 	object := anObject.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : #convenient }
 GtPhlowCollector >> pragmaName: aSymbol [
 	self 
 		assert: [ aSymbol notNil ]
