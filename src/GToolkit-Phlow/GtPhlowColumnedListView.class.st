@@ -191,6 +191,12 @@ GtPhlowColumnedListView >> column: aTitleString item: aBlock width: aNumber [
 	aColumn width: aNumber.
 ]
 
+{ #category : #copying }
+GtPhlowColumnedListView >> copySendFrom: aSendBlock [
+	aSendBlock ifNil: [ ^ self ].
+	self send: aSendBlock
+]
+
 { #category : #deprecated }
 GtPhlowColumnedListView >> display: aBlock [
 	self 
