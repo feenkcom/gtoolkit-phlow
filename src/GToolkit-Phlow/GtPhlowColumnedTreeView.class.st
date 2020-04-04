@@ -160,6 +160,12 @@ GtPhlowColumnedTreeView >> column: aTitleString item: aBlock width: aNumber [
 	aColumn width: aNumber.
 ]
 
+{ #category : #copying }
+GtPhlowColumnedTreeView >> copySendFrom: aSendBlock [
+	aSendBlock ifNil: [ ^ self ].
+	self send: aSendBlock
+]
+
 { #category : #deprecated }
 GtPhlowColumnedTreeView >> display: aBlock [
 	self 

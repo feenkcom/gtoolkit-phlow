@@ -23,7 +23,8 @@ Class {
 		'phlowView',
 		'viewObject',
 		'elementTransformation',
-		'alreadyIncludesForwardedActions'
+		'alreadyIncludesForwardedActions',
+		'transformation'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
@@ -69,6 +70,7 @@ GtPhlowForwarderView >> createPhlowView [
 	<return: #GtPhlowView>
 	| aView |
 	aView := self on: self viewObject perform: self viewSymbol.
+	aView copySendFrom: self send.
 	aView copyAutoUpdatesFrom: self autoUpdates.
 	^ aView
 ]
@@ -123,6 +125,28 @@ GtPhlowForwarderView >> secureObjectExecution [
 		on: Error do: [ :anException | 
 			phlowView := self phlowErrorViewWithException: anException.
 			anException ]
+]
+
+{ #category : #accessing }
+GtPhlowForwarderView >> send [
+	^ transformation
+]
+
+{ #category : #accessing }
+GtPhlowForwarderView >> send: aBlock [
+	self
+		assert: [ aBlock notNil ]
+		description: [ 'Send transformation block must be non-nil'  ].
+	aBlock isSymbol ifTrue: [ 
+		self 
+			assert: [ aBlock isUnary ]
+			description: [ 'Send transformation symbol must be unary' ].
+		transformation := [ :obj | aBlock value: obj ].
+		^self ].
+	self
+		assert: [ aBlock numArgs <= 2 ]
+		description: [ 'Send transformation block must have two or less arguments'  ].
+	transformation := aBlock
 ]
 
 { #category : #accessing }

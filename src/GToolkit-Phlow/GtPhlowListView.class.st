@@ -40,6 +40,12 @@ GtPhlowListView >> buildTextElementFor: aString [
 		text: aString.
 ]
 
+{ #category : #copying }
+GtPhlowListView >> copySendFrom: aSendBlock [
+	aSendBlock ifNil: [ ^ self ].
+	self send: aSendBlock
+]
+
 { #category : #'scripting - deprecated' }
 GtPhlowListView >> display: aBlock [
 	self 

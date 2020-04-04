@@ -64,6 +64,12 @@ GtPhlowTreeView >> collapseAll [
 	expandUpTo := nil.
 ]
 
+{ #category : #copying }
+GtPhlowTreeView >> copySendFrom: aSendBlock [
+	aSendBlock ifNil: [ ^ self ].
+	self send: aSendBlock
+]
+
 { #category : #'scripting - deprecated' }
 GtPhlowTreeView >> display: aBlock [
 	self 

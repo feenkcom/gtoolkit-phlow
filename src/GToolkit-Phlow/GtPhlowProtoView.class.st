@@ -77,6 +77,11 @@ GtPhlowProtoView >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
 
 ]
 
+{ #category : #copying }
+GtPhlowProtoView >> copySendFrom: aSendBlock [
+
+]
+
 { #category : #accessing }
 GtPhlowProtoView >> definingMethod [
 	"Get view defining method.
