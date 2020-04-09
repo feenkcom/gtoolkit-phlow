@@ -111,7 +111,7 @@ GtPhlowListViewExamples >> gtAutoUpdatingListFor: aView [
 	^ aView list
 		title: 'Auto Updating List';
 		items: [ aCollection ];
-		actionButtonIcon: BrGlamorousIcons add 
+		actionButtonIcon: BrGlamorousVectorIcons add 
 			action: [ aCollection add: 100 atRandom. anAnnouncer announce: Announcement new ];
 		updateWhen: Announcement in: [ anAnnouncer ]
 ]

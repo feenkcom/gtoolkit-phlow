@@ -79,7 +79,7 @@ GtPhlowColumnedTreeViewExamples >> gtAutoUpdatingTreeFor: aView [
 		children: [ :aNumber | aNumber // 2 to: aNumber ];
 		column: 'x' item: [ :aNumber | aNumber ];
 		column: 'x * x' item: [ :aNumber | aNumber * aNumber ];
-		actionButtonIcon: BrGlamorousIcons add 
+		actionButtonIcon: BrGlamorousVectorIcons add 
 			action: [ aCollection add: 100 atRandom. anAnnouncer announce: Announcement new ];
 		updateWhen: Announcement in: [ anAnnouncer ]
 ]
