@@ -30,12 +30,6 @@ GtPhlowExplicitAction >> asElement: aBlock withHostElement: aTargetElement [
 	^ aBlock value: anElement
 ]
 
-{ #category : #initialization }
-GtPhlowExplicitAction >> initialize [
-	super initialize.
-	stencilBuilder := nil.
-]
-
 { #category : #accessing }
 GtPhlowExplicitAction >> stencil: aStencilBuilder [
 	stencilBuilder := aStencilBuilder asStencilBuilder: GtPhlowActionStencilBuilder  
