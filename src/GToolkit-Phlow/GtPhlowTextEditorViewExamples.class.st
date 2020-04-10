@@ -13,7 +13,7 @@ GtPhlowTextEditorViewExamples >> gtAutoUpdatingFor: aView [
 	^ aView textEditor
 		title: 'Auto Updating Text';
 		text: [ aString ];
-		actionButtonIcon: BrGlamorousIcons add 
+		actionButtonIcon: BrGlamorousVectorIcons add 
 			action: [ aString := aString, String cr,  
 				{ 'I feenk well :-)'. 'I feenk glamorous :-D'. 'I feenk about moldable development ;-)' } atRandom. 
 				anAnnouncer announce: Announcement new ];

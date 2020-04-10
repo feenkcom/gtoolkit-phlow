@@ -300,7 +300,7 @@ GtPhlowColumnedListViewExamples >> gtAutoUpdatingListFor: aView [
 		items: [ aCollection ];
 		column: 'x' item: [ :x | x ];
 		column: 'x * x' item: [ :x | x * x ];
-		actionButtonIcon: BrGlamorousIcons add 
+		actionButtonIcon: BrGlamorousVectorIcons add 
 			action: [ aCollection add: 100 atRandom. anAnnouncer announce: Announcement new ];
 		updateWhen: Announcement in: [ anAnnouncer ]
 ]

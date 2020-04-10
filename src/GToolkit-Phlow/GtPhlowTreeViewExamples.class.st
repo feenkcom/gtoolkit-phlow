@@ -124,7 +124,7 @@ GtPhlowTreeViewExamples >> gtAutoUpdatingTreeFor: aView [
 		title: 'Auto Updating List';
 		items: [ aCollection ];
 		children: [ :aNumber | aNumber // 2 to: aNumber ];
-		actionButtonIcon: BrGlamorousIcons add 
+		actionButtonIcon: BrGlamorousVectorIcons add 
 			action: [ aCollection add: 100 atRandom. anAnnouncer announce: Announcement new ];
 		updateWhen: Announcement in: [ anAnnouncer ]
 ]
