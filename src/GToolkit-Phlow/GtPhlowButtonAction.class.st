@@ -26,7 +26,8 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	label ifNotNil: [ aButton label: label asRopedText ].
 	icon ifNotNil: [ aButton icon: icon asElement ].
 	action ifNotNil: [ aButton action: [ :theButton :aButtonModel :anEvent | 
-			action glamourValueWithArgs: { theButton. aTargetElement. aButtonModel. anEvent } ] ].
+			(self isDefinitionRequested: anEvent) ifFalse: [ 
+				action glamourValueWithArgs: { theButton. aTargetElement. aButtonModel. anEvent } ] ] ].
 	self attachShowDefinitionEventHandler: aButton.
 	^ aBlock value: aButton
 ]
@@ -39,9 +40,8 @@ GtPhlowButtonAction >> icon: anIcon [
 { #category : #initialization }
 GtPhlowButtonAction >> initialize [
 	super initialize.
-	action := [ :aBrButton |  ].
-	icon := nil.
-	label := nil.
+	action := [ :aButton :aTargetElement :aButtonModel :anEvent | 
+		"do nothing" ].
 ]
 
 { #category : #accessing }
