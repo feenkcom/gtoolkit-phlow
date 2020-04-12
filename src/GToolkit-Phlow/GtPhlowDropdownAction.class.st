@@ -33,7 +33,9 @@ GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 									self newButtonLook - BrGlamorousWithLabelTooltipLook
 										- BrGlamorousButtonExteriorLook;
 								yourself ]
-						content: [ self newContentWithTargetElement: aTargetElement ]).
+						content: [ self 
+								newContentForDropdown: aDropdown 
+								targetElement: aTargetElement ]).
 	self attachShowDefinitionEventHandler: aDropdown.
 	^ aBlock value: aDropdown
 ]
@@ -86,7 +88,9 @@ GtPhlowDropdownAction >> newButtonLook [
 ]
 
 { #category : #'instance creation' }
-GtPhlowDropdownAction >> newContentWithTargetElement: aTargetElement [
-	contentStencilBuilder targetElement: aTargetElement.
+GtPhlowDropdownAction >> newContentForDropdown: aDropdown targetElement: aTargetElement [
+	contentStencilBuilder 
+		actionElement: aDropdown;
+		targetElement: aTargetElement.
 	^ contentStencilBuilder asElement
 ]

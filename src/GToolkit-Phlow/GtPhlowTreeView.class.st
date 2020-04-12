@@ -194,5 +194,9 @@ GtPhlowTreeView >> updateContent: aTree [
 		| theItems |
 		theItems := self itemsOnExceptionErrorElement: [ :anErrorElement | 
 			^ self replaceOldElement: aTree by: anErrorElement in: aParent ].
-		self enqueueAction: [ aTree items: theItems children: self childrenBuilder ] in: aTree ]
+		self 
+			enqueueAction: [ 
+				aTree items: theItems children: self childrenBuilder.
+				self expandTree: aTree. ] 
+			in: aTree ]
 ]

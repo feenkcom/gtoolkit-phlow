@@ -30,13 +30,9 @@ GtPhlowAction >> attachShowDefinitionEventHandler: element [
 		ifNotNil: [ element
 				when: BlMouseDownEvent
 				do: [ :event | 
-					event modifiers isAlt
+					(self isDefinitionRequested: event)
 						ifTrue: [ event consumed: true.
-							element
-								fireEvent:
-									(GtPhlowObjectToSpawn new
-										object: self definingMethod;
-										sourceElement: element) ] ] ]
+							element phlow spawnObject: self definingMethod ] ] ]
 ]
 
 { #category : #decorating }
@@ -120,6 +116,16 @@ GtPhlowAction >> initialize [
 { #category : #testing }
 GtPhlowAction >> isDefaultTarget [
 	^ self target = self defaultTarget
+]
+
+{ #category : #testing }
+GtPhlowAction >> isDefinitionRequested: anEvent [
+	"Return true, if a user wants to see an action definition"
+	<return: #Boolean>
+	^ anEvent modifiers isAlt and: [ 
+		anEvent modifiers isCmd not and: [ 
+			anEvent modifiers isCtrl not and: [ 
+				anEvent modifiers isShift not ] ] ]
 ]
 
 { #category : #decorating }
