@@ -168,16 +168,28 @@ GtPhlowElementContext >> postponeUpdate [
 
 { #category : #events }
 GtPhlowElementContext >> selectObject: anObject [
+	self selectObject: anObject withTool: GtPhlowTool default
+]
+
+{ #category : #events }
+GtPhlowElementContext >> selectObject: anObject withTool: aTool [
 	self element fireEvent: (GtPhlowObjectToSelect new
 		object: anObject;
+		tool: aTool;
 		sourceElement: self element) 
 ]
 
 { #category : #events }
 GtPhlowElementContext >> spawnObject: anObject [
+	self spawnObject: anObject withTool: GtPhlowTool default
+]
+
+{ #category : #events }
+GtPhlowElementContext >> spawnObject: anObject withTool: aTool [
 	self element fireEvent: (GtPhlowObjectToSpawn new
 		object: anObject;
-		sourceElement: self element) 
+		tool: aTool;
+		sourceElement: self element)
 ]
 
 { #category : #'api - search' }
