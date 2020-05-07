@@ -260,3 +260,9 @@ GtPhlowProtoView >> tree [
 			stack: thisContext stack;
 			collect)
 ]
+
+{ #category : #updating }
+GtPhlowProtoView >> updateContent: anOldElement [
+	"anElement is previously computed content from asElementDo:"
+	self subclassResponsibility
+]
