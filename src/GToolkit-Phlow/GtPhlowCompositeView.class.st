@@ -34,10 +34,12 @@ GtPhlowCompositeView >> addNewTabTo: aCollectionOfTabs forView: aPhlowView [
 			aTab
 				look: BrGlamorousTabLook;
 				label: aPhlowView title;
-				stencil: [ aPhlowView asTaskItView
-						asElementDo: [ :element | 
-							element phlow beViewContent; entity: aPhlowView.
-							element asScrollableElement ] ];
+				stencil: [  
+					| aTaskItView |
+					aTaskItView := aPhlowView asTaskItView.
+					aTaskItView asElementDo: [ :element | 
+						element phlow beViewContent; entity: aTaskItView.
+						element asScrollableElement ] ];
 				toolbarStencil: [ aPhlowView actionsToolbarForElement: aTab ].
 			aCollectionOfTabs add: aTab ]
 ]

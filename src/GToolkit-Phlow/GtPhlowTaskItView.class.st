@@ -103,3 +103,10 @@ GtPhlowTaskItView >> title: aString [
 	It is supposed to be a short name"
 	^ self originalView title: aString
 ]
+
+{ #category : #updating }
+GtPhlowTaskItView >> updateContent: anOldElement [
+	"anElement is previously computed content from asElementDo:"
+	anOldElement element ifNotNil: [ :aChildElement |
+		self originalView updateContent: aChildElement ] 
+]
