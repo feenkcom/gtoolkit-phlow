@@ -57,7 +57,7 @@ GtPhlowUpdateDefinitions >> subscribeAutoUpdatesOn: aGtPhlowElementContext [
 
 { #category : #adding }
 GtPhlowUpdateDefinitions >> syncWhen: anAnnouncement in: anAnnouncer [
-	self add: (GtPhlowUpdateDefinition new
+	self add: (GtPhlowSyncUpdateDefinition new
 		announcement: anAnnouncement;
 		announcer: anAnnouncer)
 ]

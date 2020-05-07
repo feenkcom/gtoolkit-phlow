@@ -1,6 +1,6 @@
 Class {
 	#name : #GtPhlowAsyncUpdateDefinition,
-	#superclass : #GtPhlowUpdateDefinition,
+	#superclass : #GtPhlowSyncUpdateDefinition,
 	#category : #'GToolkit-Phlow-Support'
 }
 
