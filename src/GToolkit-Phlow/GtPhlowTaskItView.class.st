@@ -107,6 +107,11 @@ GtPhlowTaskItView >> title: aString [
 { #category : #updating }
 GtPhlowTaskItView >> updateContent: anOldElement [
 	"anElement is previously computed content from asElementDo:"
-	anOldElement element ifNotNil: [ :aChildElement |
-		self originalView updateContent: aChildElement ] 
+	| aChildElement |
+	self
+		assert: [ anOldElement childrenCount <= 1 ]
+		description: [ 'TaskIt lazy element must have at most one child ' ].
+	anOldElement element ifNotNil: [ 
+		aChildElement := anOldElement children at: 1 ifAbsent: [ ^ self ].
+		self originalView updateContent: aChildElement ].
 ]
