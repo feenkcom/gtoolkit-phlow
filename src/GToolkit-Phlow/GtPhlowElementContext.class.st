@@ -39,7 +39,7 @@ GtPhlowElementContext >> allChildrenWithView [
 GtPhlowElementContext >> asyncUpdate [
 	BlUseAsyncFeatures
 		ifEnabledDo: [ self postponeUpdate ]
-		otherwise: [ self update ]
+		otherwise: [ self syncUpdate ]
 ]
 
 { #category : #'api - accessing' }
@@ -192,6 +192,11 @@ GtPhlowElementContext >> spawnObject: anObject withTool: aTool [
 		sourceElement: self element)
 ]
 
+{ #category : #updating }
+GtPhlowElementContext >> syncUpdate [
+	self entity updateContent: self element.
+]
+
 { #category : #'api - search' }
 GtPhlowElementContext >> textViewContent [
 	self assert: [ self isAction ].
@@ -202,12 +207,12 @@ GtPhlowElementContext >> textViewContent [
 
 { #category : #updating }
 GtPhlowElementContext >> update [
-	self entity updateContent: self element.
+	self asyncUpdate
 ]
 
 { #category : #updating }
 GtPhlowElementContext >> updateCommand [
-	^ [ self update ] asBlTktTerminableCommand 
+	^ [ self syncUpdate ] asBlTktTerminableCommand 
 		asBlTktSingleCommand identifier: self
 ]
 
