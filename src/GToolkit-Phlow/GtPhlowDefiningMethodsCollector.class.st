@@ -5,7 +5,7 @@ Class {
 		'stack',
 		'methods'
 	],
-	#category : #'GToolkit-Phlow-Builders'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #actions }

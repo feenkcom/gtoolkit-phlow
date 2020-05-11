@@ -1,10 +1,9 @@
 Class {
 	#name : #GtPhlowViewsCollector,
 	#superclass : #GtPhlowCollector,
-	#instVars : [
-		'context'
-	],
-	#category : #'GToolkit-Phlow-Builders'
+	#traits : 'TGtPhlowContextAccessor',
+	#classTraits : 'TGtPhlowContextAccessor classTrait',
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #accessing }
@@ -36,23 +35,13 @@ GtPhlowViewsCollector >> collect [
 	^ theViews
 ]
 
-{ #category : #accessing }
-GtPhlowViewsCollector >> context [
-	^ context
-]
-
-{ #category : #accessing }
-GtPhlowViewsCollector >> context: anObject [
-	context := anObject
+{ #category : #initialization }
+GtPhlowViewsCollector >> defaultPragmaNames [
+	^ self class defaultViewPragmaNames
 ]
 
 { #category : #initialization }
 GtPhlowViewsCollector >> initialize [
 	super initialize.
-	context := nil.
-]
-
-{ #category : #initialization }
-GtPhlowViewsCollector >> initializePragmaNames [
-	pragmaNames := self class defaultViewPragmaNames
+	self initializePhlowContext.
 ]

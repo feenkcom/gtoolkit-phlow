@@ -9,7 +9,7 @@ Class {
 		'object',
 		'pragmaNames'
 	],
-	#category : #'GToolkit-Phlow-Builders'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #sorting }
@@ -37,6 +37,12 @@ GtPhlowCollector >> collectPragmas [
 				from: self from
 				to: self to ] 
 		as: OrderedCollection.
+]
+
+{ #category : #defaults }
+GtPhlowCollector >> defaultPragmaNames [
+	"Subclasses may define their own default pragma names"
+	^ #()
 ]
 
 { #category : #accessing }
@@ -69,7 +75,7 @@ GtPhlowCollector >> initialize [
 { #category : #initialization }
 GtPhlowCollector >> initializePragmaNames [
 	"Subclasses may define their own default pragma names"
-	pragmaNames := #()
+	pragmaNames := self defaultPragmaNames
 ]
 
 { #category : #initialization }
