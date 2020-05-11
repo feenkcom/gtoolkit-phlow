@@ -11,15 +11,6 @@ GtPhlowLabelledViewBuilder >> articleFor: aString [
 ]
 
 { #category : #building }
-GtPhlowLabelledViewBuilder >> build [
-	<return: #GtPhlowLabelledView>
-	| aView |
-	aView := self buildView.
-	self addActionsInto: aView.
-	^ aView
-]
-
-{ #category : #building }
 GtPhlowLabelledViewBuilder >> buildView [
 	<return: #GtPhlowLabelledView>
 	^ super buildView labelled: self title
