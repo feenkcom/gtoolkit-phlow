@@ -9,6 +9,11 @@ Class {
 	#category : #'GToolkit-Phlow-Collectors'
 }
 
+{ #category : #testing }
+GtPhlowViewBuilder class >> isAbstract [
+	^ self name = #GtPhlowViewBuilder 
+]
+
 { #category : #initialization }
 GtPhlowViewBuilder >> initialize [
 	super initialize.
