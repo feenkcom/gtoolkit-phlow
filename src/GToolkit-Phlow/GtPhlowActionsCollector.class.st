@@ -5,7 +5,7 @@ Class {
 		'sortedUsing',
 		'selectUsing'
 	],
-	#category : #'GToolkit-Phlow-Builders'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #'api - actions' }
@@ -34,16 +34,15 @@ GtPhlowActionsCollector >> collect [
 ]
 
 { #category : #initialization }
+GtPhlowActionsCollector >> defaultPragmaNames [
+	^ #( #gtAction )
+]
+
+{ #category : #initialization }
 GtPhlowActionsCollector >> initialize [
 	super initialize.
 	sortedUsing := [ :aPragma :bPragma | aPragma selector < bPragma selector ].
 	selectUsing := [ :anAction | true ]
-]
-
-{ #category : #initialization }
-GtPhlowActionsCollector >> initializePragmaNames [
-	"Subclasses may define their own default pragma names"
-	pragmaNames := #( #gtAction ).
 ]
 
 { #category : #accessing }
