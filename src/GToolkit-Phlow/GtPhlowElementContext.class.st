@@ -180,6 +180,11 @@ GtPhlowElementContext >> selectObject: anObject withTool: aTool [
 ]
 
 { #category : #events }
+GtPhlowElementContext >> selectTool: aTool [
+	self selectObject: nil withTool: aTool
+]
+
+{ #category : #events }
 GtPhlowElementContext >> spawnObject: anObject [
 	self spawnObject: anObject withTool: GtPhlowTool default
 ]
@@ -190,6 +195,11 @@ GtPhlowElementContext >> spawnObject: anObject withTool: aTool [
 		object: anObject;
 		tool: aTool;
 		sourceElement: self element)
+]
+
+{ #category : #events }
+GtPhlowElementContext >> spawnTool: aTool [
+	self spawnObject: nil withTool: aTool
 ]
 
 { #category : #updating }
