@@ -15,7 +15,7 @@ GtPhlowListView >> asElementDo: aBlock [
 	
 	theItems := self itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	
-	aList := BrColumnedList new display: theItems.
+	aList := BrColumnedList new items: theItems.
 	aList addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
 	aList constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 
