@@ -14,10 +14,7 @@ Class {
 
 { #category : #sorting }
 GtPhlowCollector class >> sortByPriority: aCollection [
-	aCollection sort: [ :a :b | 
-		[ a priority < b priority]
-			on: Error
-			do: [ :error | true ] ].
+	GtPhlowUtility sortByPriority: aCollection
 ]
 
 { #category : #actions }

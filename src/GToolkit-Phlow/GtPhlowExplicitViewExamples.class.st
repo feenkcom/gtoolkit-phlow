@@ -55,11 +55,7 @@ GtPhlowExplicitViewExamples >> gtUpdatingFor: aView [
 					c horizontal matchParent.
 					c vertical matchParent.
 					c margin: (BlInsets all: 40) ]  ];
-		actionStencil: [ :aTab | 
-			BrButton new 
-				look: BrGlamorousButtonWithIconLook;
-				icon: BrGlamorousIcons refresh asElement;
-				action: [ aTab viewContentElement phlow update ] ]
+		addUpdateButton
 ]
 
 { #category : #'gt-extension' }
