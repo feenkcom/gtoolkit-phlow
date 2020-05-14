@@ -12,31 +12,31 @@ Class {
 { #category : #converting }
 GtPhlowColumnedListView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
+
 	| aContainer header list theItems |
-	
-	theItems := self itemsOnExceptionErrorElement: [ :anElement | 
-		^ aBlock value: anElement ].
-	
+	theItems := self
+		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	aContainer := BlElement new.
-	aContainer constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
+	aContainer
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical matchParent ].
 	aContainer layout: BlLinearLayout vertical.
-
 	header := self buildHeaderForItems: theItems.
-	
-	list := BrColumnedList new display: theItems.
-	list addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
-	list rowStencil: (BrListClickableRowStencilBuilder new
-		cellSpacing: 10;
-		padding: (BlInsets top: 4 bottom: 4)).
-
+	list := BrColumnedList new items: theItems.
+	list
+		addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
+	list
+		rowStencil:
+			(BrListClickableRowStencilBuilder new
+				cellSpacing: 10;
+				padding: (BlInsets top: 4 bottom: 4)).
 	self buildColumnsInList: list.
-		
-	aContainer addChildren: { header . list }.
-	
+	aContainer
+		addChildren:
+			{header.
+			list}.
 	self beViewElement: aContainer.
-
 	^ aBlock value: aContainer
 ]
 

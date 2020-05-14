@@ -58,20 +58,6 @@ GtPhlowCompositeView >> gtContainedViewsFor: aView [
 		column: 'Title' format: [:each | each title ]
 ]
 
-{ #category : #private }
-GtPhlowCompositeView >> registerShowDefinitionEventOn: tab forView: view [
-	tab
-		when: BlMouseDownEvent
-		do: [ :event | 
-			event modifiers isAlt
-				ifTrue: [ event consumed: true.
-					tab
-						fireEvent:
-							(GtPhlowObjectToSpawn new
-								object: view allDefiningMethods;
-								sourceElement: tab) ] ]
-]
-
 { #category : #accessing }
 GtPhlowCompositeView >> views [
 	^ views
