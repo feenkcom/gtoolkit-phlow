@@ -16,6 +16,11 @@ GtPhlowObjectEvent >> initialize [
 ]
 
 { #category : #convenience }
+GtPhlowObjectEvent >> object [
+	^ self tool object
+]
+
+{ #category : #convenience }
 GtPhlowObjectEvent >> object: anObject [
 	self tool: (GtPhlowTool default object: anObject)
 ]

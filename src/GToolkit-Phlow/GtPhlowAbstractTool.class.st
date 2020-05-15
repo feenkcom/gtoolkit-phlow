@@ -18,6 +18,12 @@ GtPhlowAbstractTool >> asElementDo: aOneArgBlock [
 ]
 
 { #category : #accessing }
+GtPhlowAbstractTool >> object [
+	"compatibility method for ${GLMBlocObjectToSelect}$"
+	^ self
+]
+
+{ #category : #accessing }
 GtPhlowAbstractTool >> object: anObject [
 	"defaults tools must implement this message"
 ]
