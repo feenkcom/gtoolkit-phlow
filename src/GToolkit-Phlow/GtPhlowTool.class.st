@@ -1,11 +1,12 @@
 Class {
 	#name : #GtPhlowTool,
-	#superclass : #GtPhlowProtoTool,
+	#superclass : #GtPhlowAbstractTool,
 	#category : #'GToolkit-Phlow-Events'
 }
 
 { #category : #accessing }
 GtPhlowTool class >> default [
+	"Default tools must handle #object: messages"
 	| aClassOrNil |
 	aClassOrNil := self allSubclasses detectMin: #priority.
 	^ aClassOrNil ifNotNil: [ aClassOrNil new ] ifNil: [ self null ].

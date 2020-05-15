@@ -1,5 +1,5 @@
 Class {
-	#name : #GtPhlowProtoTool,
+	#name : #GtPhlowAbstractTool,
 	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
@@ -7,13 +7,18 @@ Class {
 }
 
 { #category : #testing }
-GtPhlowProtoTool class >> isAbstract [
-	^ self name = #GtPhlowProtoTool 
+GtPhlowAbstractTool class >> isAbstract [
+	^ self name = #GtPhlowAbstractTool 
 ]
 
 { #category : #converting }
-GtPhlowProtoTool >> asElementDo: aOneArgBlock context: aContext [
+GtPhlowAbstractTool >> asElementDo: aOneArgBlock context: aContext [
 	"Create a tool element and execute the block.
 	A context can be passed to build the tool element."
 	self subclassResponsibility
+]
+
+{ #category : #accessing }
+GtPhlowAbstractTool >> object: anObject [
+	"defaults tools must implement this message"
 ]

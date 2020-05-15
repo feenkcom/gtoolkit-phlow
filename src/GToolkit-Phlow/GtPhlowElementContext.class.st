@@ -168,38 +168,26 @@ GtPhlowElementContext >> postponeUpdate [
 
 { #category : #events }
 GtPhlowElementContext >> selectObject: anObject [
-	self selectObject: anObject withTool: GtPhlowTool default
+	self selectTool: (GtPhlowTool default object: anObject)
 ]
 
 { #category : #events }
-GtPhlowElementContext >> selectObject: anObject withTool: aTool [
+GtPhlowElementContext >> selectTool: aTool [
 	self element fireEvent: (GtPhlowObjectToSelect new
-		object: anObject;
 		tool: aTool;
 		sourceElement: self element) 
 ]
 
 { #category : #events }
-GtPhlowElementContext >> selectTool: aTool [
-	self selectObject: nil withTool: aTool
-]
-
-{ #category : #events }
 GtPhlowElementContext >> spawnObject: anObject [
-	self spawnObject: anObject withTool: GtPhlowTool default
-]
-
-{ #category : #events }
-GtPhlowElementContext >> spawnObject: anObject withTool: aTool [
-	self element fireEvent: (GtPhlowObjectToSpawn new
-		object: anObject;
-		tool: aTool;
-		sourceElement: self element)
+	self spawnTool: (GtPhlowTool default object: anObject)
 ]
 
 { #category : #events }
 GtPhlowElementContext >> spawnTool: aTool [
-	self spawnObject: nil withTool: aTool
+	self element fireEvent: (GtPhlowObjectToSpawn new
+		tool: aTool;
+		sourceElement: self element)
 ]
 
 { #category : #updating }
