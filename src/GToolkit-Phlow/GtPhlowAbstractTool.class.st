@@ -12,9 +12,8 @@ GtPhlowAbstractTool class >> isAbstract [
 ]
 
 { #category : #converting }
-GtPhlowAbstractTool >> asElementDo: aOneArgBlock context: aContext [
-	"Create a tool element and execute the block.
-	A context can be passed to build the tool element."
+GtPhlowAbstractTool >> asElementDo: aOneArgBlock [
+	"Create a tool element and execute the block."
 	self subclassResponsibility
 ]
 

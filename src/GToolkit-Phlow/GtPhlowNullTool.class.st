@@ -7,7 +7,7 @@ Class {
 }
 
 { #category : #converting }
-GtPhlowNullTool >> asElementDo: aOneArgBlock context: aContext [
+GtPhlowNullTool >> asElementDo: aOneArgBlock [
 	"Do nothing"
 ]
 
