@@ -137,6 +137,13 @@ GtPhlowView >> addPhlowActions: aCollectionOfPhlowActions [
 		self addPhlowAction: eachPhlowAction ]
 ]
 
+{ #category : #'adding - actions' }
+GtPhlowView >> addUpdateButton [
+	self 
+		actionButtonIcon: BrGlamorousVectorIcons refresh 
+		action: [ :aButton :aTab | aTab viewContentElement phlow update ]
+]
+
 { #category : #'accessing - computed' }
 GtPhlowView >> allActions [
 	"I return all actions that belong to a view.

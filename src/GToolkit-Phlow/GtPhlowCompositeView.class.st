@@ -22,26 +22,11 @@ GtPhlowCompositeView >> addErrorTabTo: aCollectionOfTabs withError: anException 
 
 { #category : #private }
 GtPhlowCompositeView >> addNewTabTo: aCollectionOfTabs forView: aPhlowView [
-	| aTab |
 	"we explicitly traverse the collection because it is possible for
 	asElementDo: to not return anything when we deal with an EmptyView"
-	aPhlowView
-		ifItHasContent: [ aTab := BrTab new.
-			self registerShowDefinitionEventOn: aTab forView: aPhlowView.
-			aTab phlow
-				beView;
-				entity: aPhlowView.
-			aTab
-				look: BrGlamorousTabLook;
-				label: aPhlowView title;
-				stencil: [  
-					| aTaskItView |
-					aTaskItView := aPhlowView asTaskItView.
-					aTaskItView asElementDo: [ :element | 
-						element phlow beViewContent; entity: aTaskItView.
-						element asScrollableElement ] ];
-				toolbarStencil: [ aPhlowView actionsToolbarForElement: aTab ].
-			aCollectionOfTabs add: aTab ]
+	GtPhlowUtility 
+		createTabElementFor: aPhlowView 
+		andDo: [ :aTab | aCollectionOfTabs add: aTab ]
 ]
 
 { #category : #converting }
@@ -71,20 +56,6 @@ GtPhlowCompositeView >> gtContainedViewsFor: aView [
 		items: [ self views ];
 		column: 'View' format: [:each | each gtDisplayString];
 		column: 'Title' format: [:each | each title ]
-]
-
-{ #category : #private }
-GtPhlowCompositeView >> registerShowDefinitionEventOn: tab forView: view [
-	tab
-		when: BlMouseDownEvent
-		do: [ :event | 
-			event modifiers isAlt
-				ifTrue: [ event consumed: true.
-					tab
-						fireEvent:
-							(GtPhlowObjectToSpawn new
-								object: view allDefiningMethods;
-								sourceElement: tab) ] ]
 ]
 
 { #category : #accessing }
