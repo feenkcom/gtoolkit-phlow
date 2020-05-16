@@ -1,21 +1,28 @@
 Class {
 	#name : #GtPhlowObjectEvent,
 	#superclass : #BlEvent,
+	#traits : 'TGtPhlowToolAccessors',
+	#classTraits : 'TGtPhlowToolAccessors classTrait',
 	#instVars : [
-		'object',
 		'sourceElement'
 	],
 	#category : #'GToolkit-Phlow-Events'
 }
 
-{ #category : #accessing }
-GtPhlowObjectEvent >> object [
-	^ object
+{ #category : #initialization }
+GtPhlowObjectEvent >> initialize [
+	super initialize.
+	self initializeTool.
 ]
 
-{ #category : #accessing }
+{ #category : #convenience }
+GtPhlowObjectEvent >> object [
+	^ self tool object
+]
+
+{ #category : #convenience }
 GtPhlowObjectEvent >> object: anObject [
-	object := anObject
+	self tool: (GtPhlowTool default object: anObject)
 ]
 
 { #category : #accessing }

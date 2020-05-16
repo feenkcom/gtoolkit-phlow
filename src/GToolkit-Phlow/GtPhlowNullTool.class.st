@@ -1,12 +1,17 @@
 Class {
 	#name : #GtPhlowNullTool,
-	#superclass : #GtPhlowProtoTool,
+	#superclass : #GtPhlowAbstractTool,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#category : #'GToolkit-Phlow-Events'
 }
 
 { #category : #converting }
-GtPhlowNullTool >> asElementDo: aOneArgBlock context: aContext [
+GtPhlowNullTool >> asElementDo: aOneArgBlock [
 	"Do nothing"
+]
+
+{ #category : #accessing }
+GtPhlowNullTool >> object: anObject [
+	"ignore it"
 ]
