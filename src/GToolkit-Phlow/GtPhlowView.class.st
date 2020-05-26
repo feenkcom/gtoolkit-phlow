@@ -14,7 +14,8 @@ Class {
 		'priority',
 		'definingMethod',
 		'phlowActions',
-		'autoUpdates'
+		'autoUpdates',
+		'asyncEnabled'
 	],
 	#category : #'GToolkit-Phlow-Views and Actions'
 }
@@ -160,6 +161,13 @@ GtPhlowView >> allDefiningMethods [
 	^ self definingMethod
 ]
 
+{ #category : #converting }
+GtPhlowView >> asTaskItView [
+	^ asyncEnabled
+		ifTrue: [ super asTaskItView ]
+		ifFalse: [ self ]
+]
+
 { #category : #'adding - auto-updates' }
 GtPhlowView >> autoUpdates [
 	<return: #GtPhlowUpdateDefinitions>
@@ -218,6 +226,16 @@ GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
 ]
 
+{ #category : #accessing }
+GtPhlowView >> disableAsync [
+	asyncEnabled := false.
+]
+
+{ #category : #accessing }
+GtPhlowView >> enableAsync [
+	asyncEnabled := true.
+]
+
 { #category : #updating }
 GtPhlowView >> enqueueAction: aBlock in: anElement [
 	BlUseAsyncFeatures 
@@ -258,6 +276,7 @@ GtPhlowView >> initialize [
 	priority := 50. "the lower the value, the closer to the left the tab appears"
 	title := self defaultTitle.
 	autoUpdates := self defaultAutoUpdates.
+	asyncEnabled := true.
 ]
 
 { #category : #'message performing' }
