@@ -5,7 +5,7 @@ Class {
 		'announcementValuable',
 		'announcerValuable'
 	],
-	#category : #'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #accessing }

@@ -54,6 +54,7 @@ GtPhlowActionExamples >> buttonWithIcon [
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton icon background image equals: BrGlamorousIcons edit.
+	self assert: aButton look class equals: BrGlamorousButtonWithIconLook.
 	^ anAction
 ]
 
@@ -69,6 +70,31 @@ GtPhlowActionExamples >> buttonWithIconAndLabel [
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton label asString equals: 'Edit'.
 	self assert: aButton icon background image equals: BrGlamorousIcons edit.
+	self assert: aButton look class equals: BrGlamorousButtonWithIconAndLabelLook.
+	^ anAction
+]
+
+{ #category : #button }
+GtPhlowActionExamples >> buttonWithIconAndLabelAndTooltip [
+	<gtExample>
+	| anAction aButton |
+	anAction := self buttonWithIconAndLabel.
+	anAction tooltip: 'I am a tooltip'.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
+	self assert: (aButton isKindOf: BrButton).
+	self assert: (aButton look children anySatisfy: [ :e | e class = GtPhlowLabelTooltipLook ]).
+	^ anAction
+]
+
+{ #category : #button }
+GtPhlowActionExamples >> buttonWithIconAndTooltip [
+	<gtExample>
+	| anAction aButton |
+	anAction := self buttonWithIcon.
+	anAction tooltip: 'I am tooltip'.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
+	self assert: (aButton isKindOf: BrButton).
+	self assert: (aButton look children anySatisfy: [ :e | e class = GtPhlowLabelTooltipLook ]).
 	^ anAction
 ]
 
@@ -82,6 +108,19 @@ GtPhlowActionExamples >> buttonWithLabel [
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton label asString equals: 'Refresh'.
+	self assert: aButton look class equals: BrGlamorousButtonWithLabelLook.
+	^ anAction
+]
+
+{ #category : #button }
+GtPhlowActionExamples >> buttonWithLabelWithTooltip [
+	<gtExample>
+	| aButton anAction |
+	anAction := self buttonWithLabel.
+	anAction tooltip: 'I am tooltip'.
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
+	self assert: (aButton isKindOf: BrButton).
+	self assert: (aButton look children anySatisfy: [ :e | e class = GtPhlowLabelTooltipLook ]).
 	^ anAction
 ]
 
@@ -92,6 +131,9 @@ GtPhlowActionExamples >> buttonWithNoConfiguration [
 	anAction := GtPhlowAction noAction button.
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
+	self assert: (aButton isKindOf: BrButton).
+	self assert: aButton look class equals: BrGlamorousButtonWithIconLook.
+	self assert: (aButton look children allSatisfy: [ :e | e class ~= GtPhlowLabelTooltipLook ]).
 	^ anAction 
 ]
 

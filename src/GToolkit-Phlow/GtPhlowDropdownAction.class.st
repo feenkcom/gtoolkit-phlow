@@ -30,7 +30,7 @@ GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 					(BrGlamorousWithDropdownLook
 						handle: [ self newButton
 								look:
-									self newButtonLook - BrGlamorousWithLabelTooltipLook
+									self newButtonLook - BrGlamorousButtonWithLabelTooltipLook
 										- BrGlamorousButtonExteriorLook;
 								yourself ]
 						content: [ self 
