@@ -1,8 +1,6 @@
 Class {
 	#name : #GtPhlowButtonAction,
 	#superclass : #GtPhlowAction,
-	#traits : 'TGtPhlowTooltipBuilder',
-	#classTraits : 'TGtPhlowTooltipBuilder classTrait',
 	#instVars : [
 		'icon',
 		'label',
@@ -30,7 +28,7 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	action ifNotNil: [ aButton action: [ :theButton :aButtonModel :anEvent | 
 			(self isDefinitionRequested: anEvent) ifFalse: [ 
 				action glamourValueWithArgs: { theButton. aTargetElement. aButtonModel. anEvent } ] ] ].
-	self tooltipBuilder applyOn: aButton hostElement: aTargetElement.
+	self attachTooltipFor: aButton hostElement: aTargetElement.
 	self attachShowDefinitionEventHandler: aButton.
 	^ aBlock value: aButton
 ]
@@ -44,7 +42,6 @@ GtPhlowButtonAction >> icon: anIcon [
 GtPhlowButtonAction >> initialize [
 	super initialize.
 	action := [ :aButton :aTargetElement :aButtonModel :anEvent | "do nothing" ].
-	self initializeTooltipBuilder.
 ]
 
 { #category : #accessing }

@@ -40,52 +40,162 @@ GtPhlowView >> action: anOneArgBlock [
 ]
 
 { #category : #'adding - actions' }
+GtPhlowView >> actionButtonDo: aBlock [
+	self action: [ :aPhlowAction | 
+		aBlock cull: aPhlowAction button ]
+]
+
+{ #category : #'adding - actions' }
 GtPhlowView >> actionButtonIcon: anIcon action: aValuable [
-	self actionButtonIcon: anIcon label: nil action: aValuable
+	self actionButtonDo: [ :aButtonAction | 
+		aButtonAction
+			icon: anIcon;
+			action: aValuable ]
 ]
 
 { #category : #'adding - actions' }
 GtPhlowView >> actionButtonIcon: anIcon label: aStringOrRope action: aValuable [
-	self action: [ :aPhlowAction | 
-		aPhlowAction button 
+	self actionButtonDo: [ :aButtonAction | 
+		aButtonAction
 			icon: anIcon;
 			label: aStringOrRope;
 			action: aValuable ]
 ]
 
 { #category : #'adding - actions' }
+GtPhlowView >> actionButtonIcon: anIcon label: aStringOrRope tooltip: aTooltipText action: aValuable [
+	self actionButtonDo: [ :aButtonAction | 
+		aButtonAction
+			icon: anIcon;
+			label: aStringOrRope;
+			tooltip: aTooltipText;
+			action: aValuable ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionButtonIcon: anIcon tooltip: aTooltipText action: aValuable [
+	self actionButtonDo: [ :aButtonAction | 
+		aButtonAction
+			icon: anIcon;
+			tooltip: aTooltipText;
+			action: aValuable ]
+]
+
+{ #category : #'adding - actions' }
 GtPhlowView >> actionButtonLabel: aString action: aValuable [
-	self actionButtonIcon: nil label: aString action: aValuable
+	self actionButtonDo: [ :aButtonAction | 
+		aButtonAction
+			label: aString;
+			action: aValuable ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionButtonLabel: aString tooltip: aTooltipText action: aValuable [
+	self actionButtonDo: [ :aButtonAction | 
+		aButtonAction
+			label: aString;
+			tooltip: aTooltipText;
+			action: aValuable ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionDropdownButtonDo: aBlock [
+	self action: [ :aPhlowAction | 
+		aBlock cull: aPhlowAction dropdown ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionDropdownButtonIcon: anIcon content: aValuable [
+	self actionDropdownButtonDo: [ :aDrodownAction | 
+		aDrodownAction dropdown 
+			icon: anIcon;
+			content: aValuable ]
 ]
 
 { #category : #'adding - actions' }
 GtPhlowView >> actionDropdownButtonIcon: anIcon label: aStringOrRope content: aValuable [
-	self action: [ :aPhlowAction | 
-		aPhlowAction dropdown 
+	self actionDropdownButtonDo: [ :aDrodownAction | 
+		aDrodownAction dropdown 
 			icon: anIcon;
 			label: aStringOrRope;
 			content: aValuable ]
 ]
 
 { #category : #'adding - actions' }
+GtPhlowView >> actionDropdownButtonIcon: anIcon label: aStringOrRope tooltip: aTooltipText content: aValuable [
+	self actionDropdownButtonDo: [ :aDrodownAction | 
+		aDrodownAction dropdown 
+			icon: anIcon;
+			label: aStringOrRope;
+			tooltip: aTooltipText;
+			content: aValuable ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionDropdownButtonIcon: anIcon tooltip: aTooltipText content: aValuable [
+	self actionDropdownButtonDo: [ :aDrodownAction | 
+		aDrodownAction dropdown 
+			icon: anIcon;
+			tooltip: aTooltipText;
+			content: aValuable ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionDropdownButtonLabel: aStringOrRope content: aValuable [
+	self actionDropdownButtonDo: [ :aDrodownAction | 
+		aDrodownAction dropdown 
+			label: aStringOrRope;
+			content: aValuable ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionDropdownButtonLabel: aStringOrRope tooltip: aTooltipText content: aValuable [
+	self actionDropdownButtonDo: [ :aDrodownAction | 
+		aDrodownAction dropdown 
+			label: aStringOrRope;
+			tooltip: aTooltipText;
+			content: aValuable ]
+]
+
+{ #category : #'adding - actions' }
 GtPhlowView >> actionStencil: anActionStencil [
+	self actionStencilDo: [ :anExplicit | 
+		anExplicit stencil: anActionStencil ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionStencil: anActionStencil tooltip: aTooltipText [
+	self actionStencilDo: [ :anExplicit | 
+		anExplicit 
+			stencil: anActionStencil;
+			tooltip: aTooltipText ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionStencilDo: aBlock [
 	self action: [ :aPhlowAction | 
-		aPhlowAction explicit stencil: anActionStencil ]
+		aBlock cull: aPhlowAction explicit ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionToggleDo: aBlock [
+	self action: [ :aPhlowAction | 
+		aBlock cull: aPhlowAction toggle ]
 ]
 
 { #category : #'adding - actions' }
 GtPhlowView >> actionToggleIcon: anIcon activated: anActivatedValuable deactivated: aDeactivatedValuable [
-	self 
-		actionToggleIcon: anIcon 
-		label: nil
-		activated: anActivatedValuable 
-		deactivated: aDeactivatedValuable
+	self actionToggleDo: [ :aToggleAction |
+		aToggleAction 
+			icon: anIcon;
+			activatedAction: anActivatedValuable;
+			deactivatedAction: aDeactivatedValuable ]
 ]
 
 { #category : #'adding - actions' }
 GtPhlowView >> actionToggleIcon: anIcon label: aStringOrRope activated: anActivatedValuable deactivated: aDeactivatedValuable [
-	self action: [ :aPhlowAction | 
-		aPhlowAction toggle 
+	self actionToggleDo: [ :aToggleAction |
+		aToggleAction 
 			icon: anIcon;
 			label: aStringOrRope;
 			activatedAction: anActivatedValuable;
@@ -93,12 +203,43 @@ GtPhlowView >> actionToggleIcon: anIcon label: aStringOrRope activated: anActiva
 ]
 
 { #category : #'adding - actions' }
+GtPhlowView >> actionToggleIcon: anIcon label: aStringOrRope tooltip: aTooltipText activated: anActivatedValuable deactivated: aDeactivatedValuable [
+	self actionToggleDo: [ :aToggleAction |
+		aToggleAction 
+			icon: anIcon;
+			label: aStringOrRope;
+			tooltip: aTooltipText;
+			activatedAction: anActivatedValuable;
+			deactivatedAction: aDeactivatedValuable ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionToggleIcon: anIcon tooltip: aTooltipText activated: anActivatedValuable deactivated: aDeactivatedValuable [
+	self actionToggleDo: [ :aToggleAction |
+		aToggleAction 
+			icon: anIcon;
+			tooltip: aTooltipText;
+			activatedAction: anActivatedValuable;
+			deactivatedAction: aDeactivatedValuable ]
+]
+
+{ #category : #'adding - actions' }
 GtPhlowView >> actionToggleLabel: aStringOrRope activated: anActivatedValuable deactivated: aDeactivatedValuable [
-	self 
-		actionToggleIcon: nil
-		label: aStringOrRope
-		activated: anActivatedValuable 
-		deactivated: aDeactivatedValuable
+	self actionToggleDo: [ :aToggleAction |
+		aToggleAction 
+			label: aStringOrRope;
+			activatedAction: anActivatedValuable;
+			deactivatedAction: aDeactivatedValuable ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionToggleLabel: aStringOrRope tooltip: aTooltipText activated: anActivatedValuable deactivated: aDeactivatedValuable [
+	self actionToggleDo: [ :aToggleAction |
+		aToggleAction 
+			label: aStringOrRope;
+			tooltip: aTooltipText;
+			activatedAction: anActivatedValuable;
+			deactivatedAction: aDeactivatedValuable ]
 ]
 
 { #category : #accessing }
