@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'condition'
 	],
-	#category : #'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #subscriptions }

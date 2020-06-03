@@ -1,6 +1,8 @@
 Class {
 	#name : #GtPhlowButtonAction,
 	#superclass : #GtPhlowAction,
+	#traits : 'TGtPhlowTooltipBuilder',
+	#classTraits : 'TGtPhlowTooltipBuilder classTrait',
 	#instVars : [
 		'icon',
 		'label',
@@ -28,6 +30,7 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	action ifNotNil: [ aButton action: [ :theButton :aButtonModel :anEvent | 
 			(self isDefinitionRequested: anEvent) ifFalse: [ 
 				action glamourValueWithArgs: { theButton. aTargetElement. aButtonModel. anEvent } ] ] ].
+	self tooltipBuilder applyOn: aButton hostElement: aTargetElement.
 	self attachShowDefinitionEventHandler: aButton.
 	^ aBlock value: aButton
 ]
@@ -40,8 +43,8 @@ GtPhlowButtonAction >> icon: anIcon [
 { #category : #initialization }
 GtPhlowButtonAction >> initialize [
 	super initialize.
-	action := [ :aButton :aTargetElement :aButtonModel :anEvent | 
-		"do nothing" ].
+	action := [ :aButton :aTargetElement :aButtonModel :anEvent | "do nothing" ].
+	self initializeTooltipBuilder.
 ]
 
 { #category : #accessing }
@@ -51,8 +54,7 @@ GtPhlowButtonAction >> label: aString [
 
 { #category : #'instance creation' }
 GtPhlowButtonAction >> newButtonLook [
-	(label isNil and: [ icon isNil ]) ifTrue: [ ^ BrGlamorousButtonWithLabelAndIconLook ].
+	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ ^ BrGlamorousButtonWithIconAndLabelLook ].
 	(label notNil and: [ icon isNil ]) ifTrue: [ ^ BrGlamorousButtonWithLabelLook ].
-	(label isNil and: [ icon notNil ]) ifTrue: [ ^ BrGlamorousButtonWithIconLook ].
-	^ BrGlamorousButtonWithIconLook new
+	^ BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
 ]

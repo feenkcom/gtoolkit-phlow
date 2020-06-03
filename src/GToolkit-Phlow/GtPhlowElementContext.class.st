@@ -12,7 +12,7 @@ Class {
 		'entity',
 		'isPopupContainer'
 	],
-	#category : #'GToolkit-Phlow-UI'
+	#category : #'GToolkit-Phlow-Context'
 }
 
 { #category : #'instance creation' }
@@ -176,6 +176,12 @@ GtPhlowElementContext >> selectTool: aTool [
 	self element fireEvent: (GtPhlowObjectToSelect new
 		tool: aTool;
 		sourceElement: self element) 
+]
+
+{ #category : #events }
+GtPhlowElementContext >> spawnDefiningMethod [
+	self entity definingMethod ifNotNil: [ :aMethod | 
+		self spawnObject: aMethod ]
 ]
 
 { #category : #events }

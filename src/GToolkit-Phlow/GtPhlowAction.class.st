@@ -98,7 +98,10 @@ GtPhlowAction >> gtLiveFor: aView [
 	^ aView explicit
 		title: 'Live';
 		priority: 1;
-		stencil: [ self asElement: [ :x | x ] withHostElement: nil ]
+		stencil: [ self asElement: [ :x | x ] withHostElement: nil ];
+		actionButtonIcon: BrGlamorousVectorIcons play
+			action: [ :aButton | aButton phlow 
+				spawnObject: (self asElement: [ :x | x ] withHostElement: nil) ]
 ]
 
 { #category : #accessing }
