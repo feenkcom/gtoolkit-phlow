@@ -1,8 +1,8 @@
 Class {
 	#name : #GtPhlowAction,
 	#superclass : #Object,
-	#traits : 'TBlDebug',
-	#classTraits : 'TBlDebug classTrait',
+	#traits : 'TBlDebug + TGtPhlowTooltipBuilder',
+	#classTraits : 'TBlDebug classTrait + TGtPhlowTooltipBuilder classTrait',
 	#instVars : [
 		'definingMethod',
 		'priority',
@@ -113,7 +113,8 @@ GtPhlowAction >> help: aString [
 GtPhlowAction >> initialize [
 	super initialize.
 	target := self defaultTarget.
-	priority := 50
+	priority := 50.
+	self initializeTooltipBuilder.
 ]
 
 { #category : #testing }

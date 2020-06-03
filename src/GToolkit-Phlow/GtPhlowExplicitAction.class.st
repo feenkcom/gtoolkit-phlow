@@ -11,23 +11,38 @@ Class {
 GtPhlowExplicitAction >> asElement: aBlock withHostElement: aTargetElement [
 	| anElement |
 	anElement := [ 
-			| button |
-			stencilBuilder targetElement: aTargetElement.
-			button := stencilBuilder asElement.
-			button phlow 
-				beAction;
-				entity: self.
-			button ]
-		on: Error
-		do: [ :error | 
-			error freeze.
-			GtPhlowActionWithError new
-				error: error;
-				definingMethod: self definingMethod;
-				asElement: [ :errorElement | errorElement ]
-					withHostElement: aTargetElement ].
+		self newExplicitElementWithTargetElement: aTargetElement.
+	]	on: Error
+		do: [ :anError | 
+			self 
+				newErrorElementFor: anError 
+				targetElement: aTargetElement ].
 	self attachShowDefinitionEventHandler: anElement.
 	^ aBlock value: anElement
+]
+
+{ #category : #'instance creation' }
+GtPhlowExplicitAction >> newErrorElementFor: anError targetElement: aTargetElement [
+	anError freeze.
+	^ GtPhlowActionWithError new
+		error: anError;
+		definingMethod: self definingMethod;
+		asElement: [ :errorElement | errorElement ]
+			withHostElement: aTargetElement
+]
+
+{ #category : #'instance creation' }
+GtPhlowExplicitAction >> newExplicitElementWithTargetElement: aTargetElement [
+	| anExplicitElement |
+	stencilBuilder targetElement: aTargetElement.
+	anExplicitElement := stencilBuilder asElement.
+	anExplicitElement phlow
+		beAction;
+		entity: self.
+	self 
+		attachTooltipFor: anExplicitElement 
+		hostElement: aTargetElement.
+	^ anExplicitElement
 ]
 
 { #category : #accessing }

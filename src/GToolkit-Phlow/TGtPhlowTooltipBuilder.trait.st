@@ -9,6 +9,11 @@ Trait {
 	#category : #'GToolkit-Phlow-Tooltip'
 }
 
+{ #category : #'building tooltip' }
+TGtPhlowTooltipBuilder >> attachTooltipFor: aButton hostElement: aTargetElement [
+	self tooltipBuilder applyOn: aButton hostElement: aTargetElement
+]
+
 { #category : #defaults }
 TGtPhlowTooltipBuilder >> defaultTooltipBuilder [
 	^ GtPhlowTooltipBuilder null

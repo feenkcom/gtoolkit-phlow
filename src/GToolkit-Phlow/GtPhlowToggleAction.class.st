@@ -41,6 +41,7 @@ GtPhlowToggleAction >> asElement: aBlock withHostElement: aTargetElement [
 			(self isDefinitionRequested: anEvent) ifFalse: [ 
 				deactivatedAction cull: aToggle ] ].
 	self attachShowDefinitionEventHandler: aToggle.
+	self attachTooltipFor: aToggle hostElement: aTargetElement.
 	^ aBlock value: aToggle
 ]
 
@@ -76,13 +77,10 @@ GtPhlowToggleAction >> label: aString [
 
 { #category : #'instance creation' }
 GtPhlowToggleAction >> newToggleLook [
-	(label isNil and: [ icon isNil ])
-		ifTrue: [ ^ BrGlamorousButtonWithLabelAndIconLook + BrGlamorousToggleBackgroundLook ].
-	(label notNil and: [ icon isNil ])
-		ifTrue:
-			[ ^ BrGlamorousButtonWithLabelLook + BrGlamorousToggleBackgroundLook ].
-	(label isNil and: [ icon notNil ])
-		ifTrue:
-			[ ^ BrGlamorousButtonWithIconLook + BrGlamorousToggleBackgroundLook ].
-	^ BrGlamorousButtonWithIconAndLabelLook + BrGlamorousToggleBackgroundLook
+	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ 
+		^ BrGlamorousButtonWithLabelAndIconLook + BrGlamorousToggleBackgroundLook ].
+	(label isNotNil and: [ icon isNil ]) ifTrue: [ 
+		^ BrGlamorousButtonWithLabelLook + BrGlamorousToggleBackgroundLook ].
+	^ BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook 
+		+ BrGlamorousToggleBackgroundLook
 ]
