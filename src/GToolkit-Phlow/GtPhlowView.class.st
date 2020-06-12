@@ -281,9 +281,22 @@ GtPhlowView >> addPhlowActions: aCollectionOfPhlowActions [
 
 { #category : #'adding - actions' }
 GtPhlowView >> addUpdateButton [
+	self addUpdateButtonTooltip: 'Update'
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> addUpdateButtonIcon: anIcon tooltip: aTooltip [
 	self 
-		actionButtonIcon: BrGlamorousVectorIcons refresh 
+		actionButtonIcon: anIcon
+		tooltip: aTooltip
 		action: [ :aButton :aTab | aTab viewContentElement phlow update ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> addUpdateButtonTooltip: aTooltip [
+	self 
+		addUpdateButtonIcon: BrGlamorousVectorIcons refresh 
+		tooltip: aTooltip
 ]
 
 { #category : #'accessing - computed' }
