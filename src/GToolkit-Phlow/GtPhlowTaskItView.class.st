@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'originalView'
 	],
-	#category : #'GToolkit-Phlow-Views and Actions'
+	#category : #'GToolkit-Phlow-! Views and Actions'
 }
 
 { #category : #converting }

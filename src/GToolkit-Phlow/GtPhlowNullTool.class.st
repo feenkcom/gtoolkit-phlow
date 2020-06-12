@@ -3,7 +3,7 @@ Class {
 	#superclass : #GtPhlowAbstractTool,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : #'GToolkit-Phlow-Events'
+	#category : #'GToolkit-Phlow-Tools'
 }
 
 { #category : #converting }

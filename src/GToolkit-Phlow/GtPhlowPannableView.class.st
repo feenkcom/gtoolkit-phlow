@@ -5,7 +5,7 @@ Class {
 		'stencilBuilder',
 		'element'
 	],
-	#category : #'GToolkit-Phlow-Views and Actions'
+	#category : #'GToolkit-Phlow-! Views and Actions'
 }
 
 { #category : #accessing }

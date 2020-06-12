@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
-	#category : #'GToolkit-Phlow-Events'
+	#category : #'GToolkit-Phlow-Tools'
 }
 
 { #category : #testing }

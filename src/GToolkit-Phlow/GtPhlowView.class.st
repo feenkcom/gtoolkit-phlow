@@ -17,7 +17,7 @@ Class {
 		'autoUpdates',
 		'asyncEnabled'
 	],
-	#category : #'GToolkit-Phlow-Views and Actions'
+	#category : #'GToolkit-Phlow-! Views and Actions'
 }
 
 { #category : #decorating }

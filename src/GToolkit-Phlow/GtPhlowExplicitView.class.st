@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'stencilBuilder'
 	],
-	#category : #'GToolkit-Phlow-Views and Actions'
+	#category : #'GToolkit-Phlow-! Views and Actions'
 }
 
 { #category : #accessing }
