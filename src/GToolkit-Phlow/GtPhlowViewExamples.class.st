@@ -18,3 +18,14 @@ GtPhlowViewExamples >> assertViewElement: anElement ofClass: aClass inView: aVie
 	self assert: anElement phlow isView.
 	self assert: anElement phlow entity equals: aView
 ]
+
+{ #category : #'examples - basic elements' }
+GtPhlowViewExamples >> container [
+	<gtExample>
+	^ BlElement new
+		layout: BlLinearLayout vertical;
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical matchParent.
+			c padding: (BlInsets all: 5) ]
+]

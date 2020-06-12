@@ -44,6 +44,34 @@ GtPhlowExplicitViewExamples >> gtBasicFor: aView [
 ]
 
 { #category : #'gt-extension' }
+GtPhlowExplicitViewExamples >> gtUpdatingDisabledOnSystemChangeFor: aView [ 
+	^ aView explicit 
+		title: 'Updating Disabled on System Change';
+		stencil: [ BlElement new 
+				look: BrShadowLook;
+				background: Color random;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent.
+					c margin: (BlInsets all: 40) ]  ];
+		dontUpdateOnSystemChange
+]
+
+{ #category : #'gt-extension' }
+GtPhlowExplicitViewExamples >> gtUpdatingEnabledOnSystemChangeFor: aView [ 
+	^ aView explicit 
+		title: 'Updating Enabled on System Change';
+		stencil: [ BlElement new 
+				look: BrShadowLook;
+				background: Color random;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent.
+					c margin: (BlInsets all: 40) ]  ];
+		updateOnDefinitionChange
+]
+
+{ #category : #'gt-extension' }
 GtPhlowExplicitViewExamples >> gtUpdatingFor: aView [ 
 	<gtView>
 	^ aView explicit 
@@ -63,4 +91,26 @@ GtPhlowExplicitViewExamples >> myself [
 	<gtExample>
 
 	^ self
+]
+
+{ #category : #updating }
+GtPhlowExplicitViewExamples >> updateOnDefinitionChange [
+	<gtExample>
+	| aView anElement aParent |
+
+	aView := GtPhlowView empty on: self perform: #gtUpdatingEnabledOnSystemChangeFor:.
+	
+	aParent := self container.
+	aView asElementDo: [ :el | 
+		anElement := el.
+		aParent addChild: el as: #phlowElement ].
+
+	self assertViewElement: anElement ofClass: BlElement inView: aView.
+
+	BlUseAsyncFeatures disableDuring: [ anElement phlow update ].
+
+	self assert: aParent children first background paint color equals: Color green.
+	self assert: aParent children first phlow isView.
+
+	^ aParent
 ]

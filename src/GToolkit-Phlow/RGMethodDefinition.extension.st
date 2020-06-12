@@ -4,3 +4,8 @@ Extension { #name : #RGMethodDefinition }
 RGMethodDefinition >> gtOriginMethodsInto: aWriteStream [ 
 	aWriteStream nextPut: self
 ]
+
+{ #category : #'*GToolkit-Phlow' }
+RGMethodDefinition >> gtPhlowIncludesCompiledMethod: aCompiledMethod [
+	^ self = aCompiledMethod asRingDefinition
+]

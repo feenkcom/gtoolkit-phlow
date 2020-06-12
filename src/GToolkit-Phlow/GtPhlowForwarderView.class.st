@@ -18,13 +18,13 @@ Class {
 	#name : #GtPhlowForwarderView,
 	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
-		'object',
 		'view',
 		'phlowView',
 		'viewObject',
 		'elementTransformation',
 		'alreadyIncludesForwardedActions',
-		'transformation'
+		'transformation',
+		'object'
 	],
 	#category : #'GToolkit-Phlow-! Views and Actions'
 }

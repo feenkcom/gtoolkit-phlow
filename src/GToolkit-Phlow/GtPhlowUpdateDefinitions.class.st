@@ -27,7 +27,7 @@ GtPhlowUpdateDefinitions >> asyncWhen: anAnnouncement in: anAnnouncer [
 		announcer: anAnnouncer)
 ]
 
-{ #category : #adding }
+{ #category : #copying }
 GtPhlowUpdateDefinitions >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
 	aGtPhlowUpdateDefinitions definitions do: [ :eachDefinition | 
 		self add: eachDefinition ]
@@ -41,6 +41,11 @@ GtPhlowUpdateDefinitions >> definitions [
 { #category : #accessing }
 GtPhlowUpdateDefinitions >> definitions: anObject [
 	definitions := anObject
+]
+
+{ #category : #adding }
+GtPhlowUpdateDefinitions >> dontUpdateOnSystemChange [
+	self add: GtPhlowUpdateViewDisabled new
 ]
 
 { #category : #initialization }
@@ -66,4 +71,14 @@ GtPhlowUpdateDefinitions >> syncWhen: anAnnouncement in: anAnnouncer [
 GtPhlowUpdateDefinitions >> unsubscribeAutoUpdatesOn: aGtPhlowElementContext [
 	self definitions do: [ :eachDefinition | 
 		eachDefinition unsubscribeOn: aGtPhlowElementContext ]
+]
+
+{ #category : #adding }
+GtPhlowUpdateDefinitions >> updateOnClassChange [
+	self add: GtPhlowUpdateViewOnClassChange new
+]
+
+{ #category : #adding }
+GtPhlowUpdateDefinitions >> updateOnDefinitionChange [
+	self add: GtPhlowUpdateOnlyOnViewMethodDefinitionChange new
 ]

@@ -19,14 +19,10 @@ GtPhlowViewsCollector >> collect [
 	theViews := self collectPragmas
 		collect: [ :eachPragma | 
 			| aView |
-			aView := GtPhlowView empty.
-			eachPragma methodSelector numArgs = 1 ifTrue: [ 
-				aView := aView on: self object perform: eachPragma methodSelector ].
-			eachPragma methodSelector numArgs = 2 ifTrue: [ 
-				aView := aView 
-					on: self object 
-					perform: eachPragma methodSelector
-					withContext: self context ].
+			aView := GtPhlowView empty 
+				on: self object 
+				perform: eachPragma methodSelector
+				withContext: self context.
 			self object gtActions do: [ :eachAction | 
 				(eachAction target isForViewDefinedIn: eachPragma methodSelector) ifTrue: [ 
 					aView addPhlowAction: eachAction ] ].

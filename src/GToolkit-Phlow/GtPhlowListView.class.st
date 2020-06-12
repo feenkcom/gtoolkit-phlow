@@ -15,7 +15,7 @@ GtPhlowListView >> asElementDo: aBlock [
 	
 	theItems := self itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	
-	aList := BrColumnedList new items: theItems.
+	aList := self elementClass new items: theItems.
 	aList addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
 	aList constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 
@@ -52,6 +52,11 @@ GtPhlowListView >> display: aBlock [
 		deprecated: 'Please use #items: instead.'
 		transformWith: '`@receiver display: `@statements' -> '`@receiver items: `@statements'.
 	self items: aBlock
+]
+
+{ #category : #defaults }
+GtPhlowListView >> elementClass [
+	^ BrColumnedList
 ]
 
 { #category : #'scripting - deprecated' }
@@ -140,6 +145,8 @@ GtPhlowListView >> updateContent: aList [
 	"anElement is previously computed content from asElementDo:"
 	
 	| aParent |
+	aList class = self elementClass ifFalse: [
+		^ super updateContent: aList ].
 	aParent := aList parent.
 	aParent ifNotNil: [ 
 		| theItems |

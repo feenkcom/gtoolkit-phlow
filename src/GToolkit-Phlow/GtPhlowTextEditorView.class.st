@@ -15,7 +15,7 @@ Class {
 GtPhlowTextEditorView >> asElementDo: aBlock [
 	| aBrickEditor aText |
 
-	aBrickEditor := BrEditor new.
+	aBrickEditor := self elementClass new.
 
 	aText := self 
 		textFor: aBrickEditor 
@@ -41,6 +41,11 @@ GtPhlowTextEditorView >> attributesBuilder [
 	<return: #BlTextAttributesBuilder>
 	
 	^ look attributesBuilder
+]
+
+{ #category : #converting }
+GtPhlowTextEditorView >> elementClass [
+	^ BrEditor
 ]
 
 { #category : #initialization }
@@ -88,6 +93,8 @@ GtPhlowTextEditorView >> updateContent: anEditorElement [
 	"anElement is previously computed content from asElementDo:"
 	
 	| aParent |
+	anEditorElement class = self elementClass ifFalse: [
+		^ super updateContent: anEditorElement ].
 	aParent := anEditorElement parent.
 	aParent ifNotNil: [ 
 		| aText |

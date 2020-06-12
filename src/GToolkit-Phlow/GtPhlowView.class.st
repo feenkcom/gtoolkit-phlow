@@ -15,7 +15,8 @@ Class {
 		'definingMethod',
 		'phlowActions',
 		'autoUpdates',
-		'asyncEnabled'
+		'asyncEnabled',
+		'buildContext'
 	],
 	#category : #'GToolkit-Phlow-! Views and Actions'
 }
@@ -322,7 +323,7 @@ GtPhlowView >> asTaskItView [
 		ifFalse: [ self ]
 ]
 
-{ #category : #'adding - auto-updates' }
+{ #category : #updating }
 GtPhlowView >> autoUpdates [
 	<return: #GtPhlowUpdateDefinitions>
 	^ autoUpdates
@@ -342,7 +343,18 @@ GtPhlowView >> beViewElement: anElement [
 		entity: self
 ]
 
-{ #category : #'adding - auto-updates' }
+{ #category : #accessing }
+GtPhlowView >> buildContext [
+	<return: #GtPhlowBuildContext>
+	^ buildContext
+]
+
+{ #category : #accessing }
+GtPhlowView >> buildContext: aGtPhlowBuildContext [
+	buildContext := aGtPhlowBuildContext
+]
+
+{ #category : #updating }
 GtPhlowView >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
 	self autoUpdates copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions
 ]
@@ -350,6 +362,11 @@ GtPhlowView >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
 { #category : #initialization }
 GtPhlowView >> defaultAutoUpdates [
 	^ GtPhlowUpdateDefinitions new
+]
+
+{ #category : #defaults }
+GtPhlowView >> defaultBuildContext [
+	^ GtPhlowBuildContext null
 ]
 
 { #category : #initialization }
@@ -385,12 +402,18 @@ GtPhlowView >> disableAsync [
 	asyncEnabled := false.
 ]
 
+{ #category : #'adding - update definitions' }
+GtPhlowView >> dontUpdateOnSystemChange [
+	"Do not update view on any system change"
+	self autoUpdates dontUpdateOnSystemChange.
+]
+
 { #category : #accessing }
 GtPhlowView >> enableAsync [
 	asyncEnabled := true.
 ]
 
-{ #category : #updating }
+{ #category : #'private - updating' }
 GtPhlowView >> enqueueAction: aBlock in: anElement [
 	BlUseAsyncFeatures 
 		ifEnabledDo: [ anElement enqueueTask: (BlTaskAction new action: aBlock) ] 
@@ -431,6 +454,12 @@ GtPhlowView >> initialize [
 	title := self defaultTitle.
 	autoUpdates := self defaultAutoUpdates.
 	asyncEnabled := true.
+	buildContext := self defaultBuildContext.
+]
+
+{ #category : #accessing }
+GtPhlowView >> methodSelector [
+	^ self definingMethod selector
 ]
 
 { #category : #'message performing' }
@@ -444,13 +473,15 @@ GtPhlowView >> on: anObject perform: aMessageSymbol [
 GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOfArguments [
 	<return: #GtPhlowView>
 	<gtCollector>
-	^ [ thisContext
-			object: anObject
-			perform: aMessageSymbol
-			withArguments: aCollectionOfArguments
-			inClass: anObject class ] 
-		on: Error 
-		do: [ :anException |
+	^ [ 
+			| aPhlowView |
+			aPhlowView := thisContext
+				object: anObject
+				perform: aMessageSymbol
+				withArguments: aCollectionOfArguments
+				inClass: anObject class.
+			aPhlowView object: anObject arguments: aCollectionOfArguments.
+		] on: Error do: [ :anException |
 			self 
 				phlowErrorViewWithException: anException 
 				forObject: anObject 
@@ -461,7 +492,18 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOf
 GtPhlowView >> on: anObject perform: aMessageSymbol withContext: aContext [
 	<return: #GtPhlowView>
 	<gtCollector>
-	^ self on: anObject perform: aMessageSymbol withArguments: { self. aContext }
+	^ self on: anObject perform: aMessageSymbol withSomeArguments: { self. aContext }
+]
+
+{ #category : #'message performing' }
+GtPhlowView >> on: anObject perform: aMessageSymbol withSomeArguments: aCollectionOfArguments [
+	<return: #GtPhlowView>
+	<gtCollector>
+	| aNewCollectionOfArguments |
+	aCollectionOfArguments size = aMessageSymbol numArgs ifTrue: [ 
+		^ self on: anObject perform: aMessageSymbol withArguments: aCollectionOfArguments ].
+	aNewCollectionOfArguments := aCollectionOfArguments copyFrom: 1 to: aMessageSymbol numArgs.
+	^ self on: anObject perform: aMessageSymbol withArguments: aNewCollectionOfArguments
 ]
 
 { #category : #'accessing - computed' }
@@ -512,6 +554,7 @@ GtPhlowView >> phlowErrorViewWithException: anException forObject: anObject andS
 	aDefiningMethod := self definingMethodForObject: anObject andSelector: aMessageSymbol. 
 	aPhlow := self phlowErrorViewWithException: anException.
 	aPhlow definingMethod: aDefiningMethod.
+	aPhlow object: anObject.
 	^ aPhlow
 ]
 
@@ -525,7 +568,7 @@ GtPhlowView >> priority: anObject [
 	priority := anObject
 ]
 
-{ #category : #updating }
+{ #category : #'private - updating' }
 GtPhlowView >> replaceOldElement: anOldElement by: aNewElement in: aParent [
 	anOldElement phlow isViewContent ifTrue: [ 
 		aNewElement phlow beViewContent ].
@@ -534,7 +577,7 @@ GtPhlowView >> replaceOldElement: anOldElement by: aNewElement in: aParent [
 		in: aParent.
 ]
 
-{ #category : #'adding - auto-updates' }
+{ #category : #'private - updating' }
 GtPhlowView >> subscribeAutoUpdatesOn: aGtPhlowElementContext [
 	self autoUpdates subscribeAutoUpdatesOn: aGtPhlowElementContext.
 ]
@@ -549,7 +592,7 @@ GtPhlowView >> title: aString [
 	title := aString
 ]
 
-{ #category : #'adding - auto-updates' }
+{ #category : #'private - updating' }
 GtPhlowView >> unsubscribeAutoUpdatesOn: aGtPhlowElementContext [
 	self autoUpdates unsubscribeAutoUpdatesOn: aGtPhlowElementContext.
 ]
@@ -565,14 +608,26 @@ GtPhlowView >> updateContent: anOldElement [
 			self replaceOldElement: anOldElement by: aNewElement in: aParent. ] ].
 ]
 
-{ #category : #initialization }
+{ #category : #'adding - update definitions' }
+GtPhlowView >> updateOnClassChange [
+	"Update view on class (any its method) change"
+	self autoUpdates updateOnClassChange.
+]
+
+{ #category : #'adding - update definitions' }
+GtPhlowView >> updateOnDefinitionChange [
+	"Update view only if method definition changed"
+	self autoUpdates updateOnDefinitionChange.
+]
+
+{ #category : #'adding - update definitions' }
 GtPhlowView >> updateWhen: anAnnouncement if: anIfCondition in: anAnnouncer [
 	"anIfCondition is an object (block) that understands the #cull:cull: message.
 	It is called as anIfCondition cull: aReceivedAnnouncement cull: aGtPhlowElementContext"
 	self autoUpdates asyncWhen: anAnnouncement if: anIfCondition in: anAnnouncer
 ]
 
-{ #category : #initialization }
+{ #category : #'adding - update definitions' }
 GtPhlowView >> updateWhen: anAnnouncement in: anAnnouncer [
 	self autoUpdates asyncWhen: anAnnouncement in: anAnnouncer
 ]

@@ -1,6 +1,6 @@
 Class {
 	#name : #GtPhlowSyncUpdateDefinition,
-	#superclass : #Object,
+	#superclass : #GtPhlowUpdateDefinition,
 	#instVars : [
 		'announcementValuable',
 		'announcerValuable'

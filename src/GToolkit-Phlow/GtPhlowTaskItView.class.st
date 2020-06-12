@@ -29,6 +29,17 @@ GtPhlowTaskItView >> asTaskItView [
 ]
 
 { #category : #accessing }
+GtPhlowTaskItView >> buildContext [
+	<return: #GtPhlowBuildContext>
+	^ self originalView buildContext
+]
+
+{ #category : #accessing }
+GtPhlowTaskItView >> buildContext: aGtPhlowBuildContext [
+	self originalView buildContext: aGtPhlowBuildContext
+]
+
+{ #category : #accessing }
 GtPhlowTaskItView >> definingMethod [
 	"Get view defining method.
 	It is a method where a view is defined."
