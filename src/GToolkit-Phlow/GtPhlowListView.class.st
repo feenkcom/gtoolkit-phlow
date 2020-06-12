@@ -6,7 +6,7 @@ Class {
 		'itemStencil',
 		'transformation'
 	],
-	#category : #'GToolkit-Phlow-Views and Actions'
+	#category : #'GToolkit-Phlow-! Views and Actions'
 }
 
 { #category : #converting }

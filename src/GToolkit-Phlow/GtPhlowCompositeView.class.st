@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'views'
 	],
-	#category : #'GToolkit-Phlow-Views and Actions'
+	#category : #'GToolkit-Phlow-! Views and Actions'
 }
 
 { #category : #private }

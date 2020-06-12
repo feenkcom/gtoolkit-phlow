@@ -9,7 +9,7 @@ Class {
 	#classVars : [
 		'IsTaskItViewGloballyEnabled'
 	],
-	#category : #'GToolkit-Phlow-Views and Actions'
+	#category : #'GToolkit-Phlow-! Views and Actions'
 }
 
 { #category : #setup }
