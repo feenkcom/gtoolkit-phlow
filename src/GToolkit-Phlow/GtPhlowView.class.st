@@ -335,9 +335,7 @@ GtPhlowView >> beViewElement: anElement [
 	The given element is marked as a view and its phlow entity is set to me.
 	In addition we also setup auto updates"
 
-	anElement
-		when: BlElementAddedToSceneGraphEvent do: [ :anEvent | self subscribeAutoUpdatesOn: anEvent currentTarget phlow ];
-		when: BlElementRemovedFromSceneGraphEvent do: [ :anEvent | self unsubscribeAutoUpdatesOn: anEvent currentTarget phlow ].
+	self subscribeToElement: anElement.
 	anElement phlow
 		beView;
 		entity: self
@@ -359,7 +357,7 @@ GtPhlowView >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
 	self autoUpdates copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions
 ]
 
-{ #category : #initialization }
+{ #category : #defaults }
 GtPhlowView >> defaultAutoUpdates [
 	^ GtPhlowUpdateDefinitions new
 ]
@@ -369,9 +367,14 @@ GtPhlowView >> defaultBuildContext [
 	^ GtPhlowBuildContext null
 ]
 
-{ #category : #initialization }
+{ #category : #defaults }
 GtPhlowView >> defaultTitle [
 	^ 'View'
+]
+
+{ #category : #defaults }
+GtPhlowView >> defaultUpdateDefinitions [
+	^ { GtPhlowUpdateOnViewMethodDefinitionChange new }
 ]
 
 { #category : #accessing }
@@ -435,7 +438,7 @@ GtPhlowView >> gtActionsFor: aView [
 				format: [ :aMethodDefinition | aMethodDefinition selector ]
 ]
 
-{ #category : #initialization }
+{ #category : #testing }
 GtPhlowView >> hasExplicitTitle [
 	<return: #Boolean>
 	^ self title isNotNil and: [ self title ~= self defaultTitle ]
@@ -455,6 +458,12 @@ GtPhlowView >> initialize [
 	autoUpdates := self defaultAutoUpdates.
 	asyncEnabled := true.
 	buildContext := self defaultBuildContext.
+	self initializeDefaultUpdateDefinitions.
+]
+
+{ #category : #initialization }
+GtPhlowView >> initializeDefaultUpdateDefinitions [
+	self autoUpdates addAll: self defaultUpdateDefinitions
 ]
 
 { #category : #accessing }
@@ -580,6 +589,15 @@ GtPhlowView >> replaceOldElement: anOldElement by: aNewElement in: aParent [
 { #category : #'private - updating' }
 GtPhlowView >> subscribeAutoUpdatesOn: aGtPhlowElementContext [
 	self autoUpdates subscribeAutoUpdatesOn: aGtPhlowElementContext.
+]
+
+{ #category : #'private - elements' }
+GtPhlowView >> subscribeToElement: anElement [
+	anElement
+		when: BlElementAddedToSceneGraphEvent 
+			do: [ :anEvent | self subscribeAutoUpdatesOn: anEvent currentTarget phlow ];
+		when: BlElementRemovedFromSceneGraphEvent 
+			do: [ :anEvent | self unsubscribeAutoUpdatesOn: anEvent currentTarget phlow ]
 ]
 
 { #category : #accessing }

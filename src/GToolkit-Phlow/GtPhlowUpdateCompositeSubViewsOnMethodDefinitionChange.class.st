@@ -9,18 +9,14 @@ GtPhlowUpdateCompositeSubViewsOnMethodDefinitionChange >> handleMethodModifiedAn
 	self contexts ifNil: [ ^ self ].
 	self contexts ifEmpty: [ ^ self ].
 	self views do: [ :eachView | 
-		(eachView definingMethod gtPhlowIncludesCompiledMethod: aMethodModified methodAffected) ifTrue: [ 
-			self updateSubView: eachView ] ].
-]
-
-{ #category : #testing }
-GtPhlowUpdateCompositeSubViewsOnMethodDefinitionChange >> isInterestingDefinition: aMethodAffected inClass: aClassAffected [
-	self views anySatisfy: [ :eachView | 
-		eachView definingMethod gtPhlowIncludesCompiledMethod: aMethodAffected ]
+		(eachView definingMethod isNotNil and: [ 
+			eachView definingMethod gtPhlowIncludesCompiledMethod: aMethodModified methodAffected ]) ifTrue: [ 
+				^ self updateSubView: eachView ] ].
 ]
 
 { #category : #subscriptions }
 GtPhlowUpdateCompositeSubViewsOnMethodDefinitionChange >> subscribeOn: aGtPhlowElementContext [
+	aGtPhlowElementContext definingMethod ifNil: [ ^ self ].
 	self addContext: aGtPhlowElementContext.
 	self
 		subscribeAnnouncement: MethodModified

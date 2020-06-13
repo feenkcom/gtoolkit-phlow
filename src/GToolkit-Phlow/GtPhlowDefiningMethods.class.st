@@ -19,6 +19,12 @@ GtPhlowDefiningMethods >> gtOriginMethodsInto: aWriteStream [
 	aWriteStream nextPutAll: self methods
 ]
 
+{ #category : #accessing }
+GtPhlowDefiningMethods >> gtPhlowIncludesCompiledMethod: aCompiledMethod [
+	^ self methods anySatisfy: [ :eachMethod | 
+		eachMethod gtPhlowIncludesCompiledMethod: aCompiledMethod ]
+]
+
 { #category : #ui }
 GtPhlowDefiningMethods >> gtSourceFor: aView [
 	<gtView>

@@ -14,6 +14,7 @@ GtPhlowSystemChangeUpdateDefinition class >> isAbstract [
 
 { #category : #adding }
 GtPhlowSystemChangeUpdateDefinition >> addContext: aGtPhlowElementContext [
+	self contexts ifNil: [ ^ self ].
 	self contexts: (self contexts copyWith: aGtPhlowElementContext)
 ]
 
@@ -69,18 +70,7 @@ GtPhlowSystemChangeUpdateDefinition >> subscribeAnnouncement: anAnnouncement sen
 
 { #category : #subscriptions }
 GtPhlowSystemChangeUpdateDefinition >> unsubscribeOn: aGtPhlowElementContext [
+	self contexts ifNil: [ ^ self ].
 	self contexts: (self contexts copyWithout: aGtPhlowElementContext).
 	SystemAnnouncer uniqueInstance unsubscribe: aGtPhlowElementContext.
-]
-
-{ #category : #updating }
-GtPhlowSystemChangeUpdateDefinition >> updatePhlowView: aGtPhlowElementContext [
-	self subclassResponsibility
-]
-
-{ #category : #updating }
-GtPhlowSystemChangeUpdateDefinition >> updatePhlowViews [
-	self contexts do: [ :eachContext | 
-		eachContext hasBuildContext ifTrue: [ 
-			self updatePhlowView: eachContext ] ].
 ]

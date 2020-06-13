@@ -39,13 +39,18 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 				on: Error
 				do: [ :e | self addErrorTabTo: tabs withError: e ] ] ].
 	group := BrTabGroup new.
-	group phlow
-		beView;
-		entity: self.
+	self beViewElement: group.
 	group
 		look: BrGlamorousTabGroupLook;
 		addTabs: tabs.
 	^ aBlock value: group
+]
+
+{ #category : #'adding - update definitions' }
+GtPhlowCompositeView >> defaultUpdateDefinitions [
+	self haltOnce.
+	^ super defaultUpdateDefinitions copyWith: 
+		GtPhlowUpdateCompositeSubViewsOnMethodDefinitionChange new
 ]
 
 { #category : #ui }
