@@ -17,3 +17,9 @@ GtPhlowPannableViewExamples >> pannable [
 	self assert: pannableView actions size = 4.
 	^ pannableView
 ]
+
+{ #category : #'examples - updating' }
+GtPhlowPannableViewExamples >> phlowView [
+	<gtExample>
+	^ self pannable
+]

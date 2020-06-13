@@ -135,6 +135,12 @@ GtPhlowTreeViewExamples >> myself [
 	^ self
 ]
 
+{ #category : #'examples - updating' }
+GtPhlowTreeViewExamples >> phlowView [
+	<gtExample>
+	^ self treeViewWithItemsAndChildren
+]
+
 { #category : #'examples - tree view' }
 GtPhlowTreeViewExamples >> treeViewWithItems [
 	<gtExample>

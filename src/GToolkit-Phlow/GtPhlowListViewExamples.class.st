@@ -122,6 +122,12 @@ GtPhlowListViewExamples >> myself [
 	^ self
 ]
 
+{ #category : #'examples - updating' }
+GtPhlowListViewExamples >> phlowView [
+	<gtExample>
+	^ self viewWithItemsAndItemElement
+]
+
 { #category : #examples }
 GtPhlowListViewExamples >> viewWithItems [
 	<gtExample>

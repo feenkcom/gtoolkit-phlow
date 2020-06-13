@@ -17,7 +17,7 @@ GtPhlowTreeView >> asElementDo: aBlock [
 	
 	theItems := self itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	
-	aTree := BrColumnedTree new.
+	aTree := self elementClass new.
 
 	self 
 		performBlock: [ aTree items: theItems children: self childrenBuilder ]
@@ -78,6 +78,11 @@ GtPhlowTreeView >> display: aBlock [
 	self items: aBlock
 ]
 
+{ #category : #accessing }
+GtPhlowTreeView >> elementClass [
+	^ BrColumnedTree
+]
+
 { #category : #'expanding-collapsing' }
 GtPhlowTreeView >> expandAll [
 	self expandUpTo: 20
@@ -118,6 +123,11 @@ GtPhlowTreeView >> initialize [
 	itemsBuilder := [ { } ].
 	childrenBuilder := [ :each | { } ].
 	transformation := [ :aValue | "by default there is no transformation" aValue ].
+]
+
+{ #category : #testing }
+GtPhlowTreeView >> isExpectedElement: aCurrentElement [
+	^ aCurrentElement class = self elementClass
 ]
 
 { #category : #'scripting - deprecated' }
@@ -185,18 +195,20 @@ GtPhlowTreeView >> send: aBlock [
 ]
 
 { #category : #updating }
-GtPhlowTreeView >> updateContent: aTree [
+GtPhlowTreeView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 	| aParent |
 
-	aParent := aTree parent.
+	(self isExpectedElement: aCurrentElement) ifFalse: [
+		^ super updateContent: aCurrentElement ].
+	aParent := aCurrentElement parent.
 	aParent ifNotNil: [ 
 		| theItems |
 		theItems := self itemsOnExceptionErrorElement: [ :anErrorElement | 
-			^ self replaceOldElement: aTree by: anErrorElement in: aParent ].
+			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
 		self 
 			enqueueAction: [ 
-				aTree items: theItems children: self childrenBuilder.
-				self expandTree: aTree. ] 
-			in: aTree ]
+				aCurrentElement items: theItems children: self childrenBuilder.
+				self expandTree: aCurrentElement. ] 
+			in: aCurrentElement ]
 ]

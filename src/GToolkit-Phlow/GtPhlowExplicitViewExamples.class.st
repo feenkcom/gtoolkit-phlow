@@ -93,9 +93,18 @@ GtPhlowExplicitViewExamples >> myself [
 	^ self
 ]
 
+{ #category : #'examples - updating' }
+GtPhlowExplicitViewExamples >> phlowView [
+	<gtExample>
+	^ GtPhlowView empty explicit 
+		title: 'Sample';
+		stencil: [ BlElement new background: Color random ]
+]
+
 { #category : #updating }
 GtPhlowExplicitViewExamples >> updateOnDefinitionChange [
 	<gtExample>
+	<noTest>
 	| aView anElement aParent |
 
 	aView := GtPhlowView empty on: self perform: #gtUpdatingEnabledOnSystemChangeFor:.

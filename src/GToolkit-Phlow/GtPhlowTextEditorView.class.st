@@ -22,7 +22,7 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
 
 	aBrickEditor 
-		look: look;
+		look: look value;
 		styler: styler;
 		text: aText.
 
@@ -51,8 +51,13 @@ GtPhlowTextEditorView >> elementClass [
 { #category : #initialization }
 GtPhlowTextEditorView >> initialize [
 	super initialize.
-	look := BrGlamorousRegularEditorLook new.
+	look := BrGlamorousRegularEditorLook.
 	styler := BlTextNullStyler new.
+]
+
+{ #category : #testing }
+GtPhlowTextEditorView >> isExpectedElement: aCurrentElement [
+	^ aCurrentElement class = self elementClass
 ]
 
 { #category : #accessing }
@@ -89,23 +94,23 @@ GtPhlowTextEditorView >> textFor: aBrickEditor onExceptionErrorElement: aBlock [
 ]
 
 { #category : #updating }
-GtPhlowTextEditorView >> updateContent: anEditorElement [
+GtPhlowTextEditorView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 	
 	| aParent |
-	anEditorElement class = self elementClass ifFalse: [
-		^ super updateContent: anEditorElement ].
-	aParent := anEditorElement parent.
+	(self isExpectedElement: aCurrentElement) ifFalse: [
+		^ super updateContent: aCurrentElement ].
+	aParent := aCurrentElement parent.
 	aParent ifNotNil: [ 
 		| aText |
 		aText := self
-			textFor: anEditorElement
+			textFor: aCurrentElement
 			onExceptionErrorElement: [ :anErrorElement | 
-				^ self replaceOldElement: anEditorElement by: anErrorElement in: aParent ].
-		self enqueueAction: [ anEditorElement text: aText ] in: anEditorElement ]
+				^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
+		self enqueueAction: [ aCurrentElement text: aText ] in: aCurrentElement ]
 ]
 
 { #category : #accessing }
 GtPhlowTextEditorView >> withoutLook [
-	look := BrGlamorousEditorLook new
+	look := BrGlamorousEditorLook
 ]

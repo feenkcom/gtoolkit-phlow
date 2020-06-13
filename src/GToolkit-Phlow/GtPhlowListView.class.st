@@ -76,6 +76,11 @@ GtPhlowListView >> initialize [
 	transformation := [ :aValue | "by default there is no transformation" aValue ].
 ]
 
+{ #category : #testing }
+GtPhlowListView >> isExpectedElement: aCurrentElement [
+	^ aCurrentElement class = self elementClass
+]
+
 { #category : #'scripting - deprecated' }
 GtPhlowListView >> itemElement: anObject [
 	self 
@@ -141,16 +146,15 @@ GtPhlowListView >> send: aBlock [
 ]
 
 { #category : #updating }
-GtPhlowListView >> updateContent: aList [
+GtPhlowListView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
-	
+
 	| aParent |
-	aList class = self elementClass ifFalse: [
-		^ super updateContent: aList ].
-	aParent := aList parent.
-	aParent ifNotNil: [ 
-		| theItems |
+	(self isExpectedElement: aCurrentElement)
+		ifFalse: [ ^ super updateContent: aCurrentElement ].
+	aParent := aCurrentElement parent.
+	aParent ifNotNil: [ | theItems |
 		theItems := self itemsOnExceptionErrorElement: [ :anErrorElement | 
-			^ self replaceOldElement: aList by: anErrorElement in: aParent ].
-		self enqueueAction: [ aList items: theItems ] in: aList ]
+			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
+		self enqueueAction: [ aCurrentElement items: theItems ] in: aCurrentElement ]
 ]

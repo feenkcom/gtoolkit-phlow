@@ -598,14 +598,14 @@ GtPhlowView >> unsubscribeAutoUpdatesOn: aGtPhlowElementContext [
 ]
 
 { #category : #updating }
-GtPhlowView >> updateContent: anOldElement [
+GtPhlowView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 	
 	| aParent |
-	aParent := anOldElement parent.
+	aParent := aCurrentElement parent.
 	aParent ifNotNil: [ 
 		self asElementDo: [ :aNewElement |
-			self replaceOldElement: anOldElement by: aNewElement in: aParent. ] ].
+			self replaceOldElement: aCurrentElement by: aNewElement in: aParent. ] ].
 ]
 
 { #category : #'adding - update definitions' }

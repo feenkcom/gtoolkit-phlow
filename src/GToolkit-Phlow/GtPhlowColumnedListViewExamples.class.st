@@ -311,6 +311,12 @@ GtPhlowColumnedListViewExamples >> myself [
 	^ self
 ]
 
+{ #category : #'examples - updating' }
+GtPhlowColumnedListViewExamples >> phlowView [
+	<gtExample>
+	^ self viewWithItems
+]
+
 { #category : #'api-shortcuts' }
 GtPhlowColumnedListViewExamples >> viewWithItems [
 	<gtExample>
