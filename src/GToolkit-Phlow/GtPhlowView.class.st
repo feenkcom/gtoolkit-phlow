@@ -484,7 +484,7 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOf
 		] on: Error do: [ :anException |
 			self 
 				phlowErrorViewWithException: anException 
-				forObject: anObject 
+				forBuildContext: (GtPhlowBuildContext new object: anObject; arguments: aCollectionOfArguments) 
 				andSelector: aMessageSymbol ]
 ]
 
@@ -549,12 +549,12 @@ GtPhlowView >> phlowErrorViewWithException: anException [
 ]
 
 { #category : #'error handling' }
-GtPhlowView >> phlowErrorViewWithException: anException forObject: anObject andSelector: aMessageSymbol [
+GtPhlowView >> phlowErrorViewWithException: anException forBuildContext: aContext andSelector: aMessageSymbol [
 	| aDefiningMethod aPhlow | 
-	aDefiningMethod := self definingMethodForObject: anObject andSelector: aMessageSymbol. 
+	aDefiningMethod := self definingMethodForObject: aContext object andSelector: aMessageSymbol. 
 	aPhlow := self phlowErrorViewWithException: anException.
 	aPhlow definingMethod: aDefiningMethod.
-	aPhlow object: anObject.
+	aPhlow buildContext: aContext.
 	^ aPhlow
 ]
 

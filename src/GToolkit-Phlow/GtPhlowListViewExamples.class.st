@@ -117,6 +117,24 @@ GtPhlowListViewExamples >> gtAutoUpdatingListFor: aView [
 ]
 
 { #category : #'gt-extension' }
+GtPhlowListViewExamples >> gtTenItemsFor: aView [
+	<gtView>
+	^ aView list 
+		title: '10 Items';
+		items: [ (1 to: 10) ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowListViewExamples >> gtTenLinesFor: aView [
+	<gtView>
+	^ aView list 
+		title: '10 Lines';
+		items: [ (1 to: 10) ];
+		itemStencil: [ :x | 
+			BlElement new background: Color orange; size: 10 @ x; margin: (BlInsets all: 10) ]
+]
+
+{ #category : #'gt-extension' }
 GtPhlowListViewExamples >> myself [
 	<gtExample>
 	^ self

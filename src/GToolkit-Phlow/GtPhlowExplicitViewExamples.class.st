@@ -100,26 +100,3 @@ GtPhlowExplicitViewExamples >> phlowView [
 		title: 'Sample';
 		stencil: [ BlElement new background: Color random ]
 ]
-
-{ #category : #updating }
-GtPhlowExplicitViewExamples >> updateOnDefinitionChange [
-	<gtExample>
-	<noTest>
-	| aView anElement aParent |
-
-	aView := GtPhlowView empty on: self perform: #gtUpdatingEnabledOnSystemChangeFor:.
-	
-	aParent := self container.
-	aView asElementDo: [ :el | 
-		anElement := el.
-		aParent addChild: el as: #phlowElement ].
-
-	self assertViewElement: anElement ofClass: BlElement inView: aView.
-
-	BlUseAsyncFeatures disableDuring: [ anElement phlow update ].
-
-	self assert: aParent children first background paint color equals: Color green.
-	self assert: aParent children first phlow isView.
-
-	^ aParent
-]

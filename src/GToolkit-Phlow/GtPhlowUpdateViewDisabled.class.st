@@ -1,5 +1,0 @@
-Class {
-	#name : #GtPhlowUpdateViewDisabled,
-	#superclass : #GtPhlowSystemChangeUpdateDefinition,
-	#category : #'GToolkit-Phlow-Updating'
-}

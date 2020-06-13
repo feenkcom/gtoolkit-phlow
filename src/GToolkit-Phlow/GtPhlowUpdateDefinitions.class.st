@@ -45,7 +45,7 @@ GtPhlowUpdateDefinitions >> definitions: anObject [
 
 { #category : #adding }
 GtPhlowUpdateDefinitions >> dontUpdateOnSystemChange [
-	self add: GtPhlowUpdateViewDisabled new
+	self flag: 'remove all system change definitions'
 ]
 
 { #category : #initialization }
@@ -80,5 +80,5 @@ GtPhlowUpdateDefinitions >> updateOnClassChange [
 
 { #category : #adding }
 GtPhlowUpdateDefinitions >> updateOnDefinitionChange [
-	self add: GtPhlowUpdateOnlyOnViewMethodDefinitionChange new
+	self add: GtPhlowUpdateOnViewMethodDefinitionChange new
 ]
