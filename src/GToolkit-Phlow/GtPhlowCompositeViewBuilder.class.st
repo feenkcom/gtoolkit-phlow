@@ -7,7 +7,10 @@ Class {
 { #category : #building }
 GtPhlowCompositeViewBuilder >> buildView [
 	<return: #GtPhlowCompositeView>
-	^ self view composite views: self views
+	| aView |
+	aView := self view composite views: self views.
+	self addBuildContext: aView.
+	^ aView
 ]
 
 { #category : #views }

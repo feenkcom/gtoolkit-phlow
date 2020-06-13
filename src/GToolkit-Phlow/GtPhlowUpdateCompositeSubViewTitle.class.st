@@ -40,7 +40,6 @@ GtPhlowUpdateCompositeSubViewTitle >> detectTab [
 GtPhlowUpdateCompositeSubViewTitle >> execute [
 	<return: #GtPhlowView>
 	| aTabModel aNewSubView |
-	self element hasParent ifFalse: [ ^ self ].
 	aTabModel := self detectTab.
 	aTabModel ifNil: [ ^ self ].
 	aNewSubView := self newPhlowSubView.
@@ -61,7 +60,7 @@ GtPhlowUpdateCompositeSubViewTitle >> newPhlowSubView [
 	^ GtPhlowView empty
 		on: self subViewObject
 		perform: self subViewMethodSelector
-		withArguments: self subViewArguments
+		withSomeArguments: self subViewArguments
 ]
 
 { #category : #'private - updating' }

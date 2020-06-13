@@ -48,7 +48,6 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 
 { #category : #'adding - update definitions' }
 GtPhlowCompositeView >> defaultUpdateDefinitions [
-	self haltOnce.
 	^ super defaultUpdateDefinitions copyWith: 
 		GtPhlowUpdateCompositeSubViewsOnMethodDefinitionChange new
 ]
