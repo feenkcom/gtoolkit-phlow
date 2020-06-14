@@ -13,12 +13,8 @@ GtPhlowUpdateElementContext >> execute [
 		on: self object 
 		perform: self methodSelector 
 		withSomeArguments: self arguments.
-	BlUseAsyncFeatures 
-		ifEnabledDo: [
-			self element enqueueTask: (BlTaskAction new action: [ 
-				self updateElementWithNewPhlowView: aNewPhlow ]) ]
-		otherwise: [ 
-				self updateElementWithNewPhlowView: aNewPhlow ].
+	self scheduleValuable: [ 
+		self updateElementWithNewPhlowView: aNewPhlow ].
 	^ aNewPhlow
 ]
 

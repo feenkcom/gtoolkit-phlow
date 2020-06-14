@@ -68,7 +68,7 @@ GtPhlowCompositeViewExamples >> updateViewOneDefinition [
 	aSubView := aView views first.
 	aNewSubView := self subViewThree.
 	aNewSubView definingMethod: aSubView definingMethod.
-	aCommand := GtPhlowUpdateCompositeSubViewTitle new
+	aCommand := GtPhlowUpdateCompositeSubViewTitleAndPosition new
 		elementContext: anElement phlow;
 		subView: aSubView.
 	BlUseAsyncFeatures disableDuring: [

@@ -105,7 +105,7 @@ GtPhlowUpdateCompositeSubViewListOnMethodChange >> updateSubView: aGtPhlowView [
 
 { #category : #updating }
 GtPhlowUpdateCompositeSubViewListOnMethodChange >> updateSubView: aGtPhlowView inContext: aGtPhlowElementContext [
-	self scheduleTask: (GtPhlowUpdateCompositeSubViewTitle new
+	self scheduleTask: (GtPhlowUpdateCompositeSubViewTitleAndPosition new
 		elementContext: aGtPhlowElementContext;
 		subView: aGtPhlowView)
 ]

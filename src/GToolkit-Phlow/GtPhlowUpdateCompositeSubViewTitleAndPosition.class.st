@@ -1,5 +1,5 @@
 Class {
-	#name : #GtPhlowUpdateCompositeSubViewTitle,
+	#name : #GtPhlowUpdateCompositeSubViewTitleAndPosition,
 	#superclass : #GtPhlowUpdateCommand,
 	#instVars : [
 		'subView'
@@ -8,27 +8,32 @@ Class {
 }
 
 { #category : #comparing }
-GtPhlowUpdateCompositeSubViewTitle >> = anObject [
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> = anObject [
 	^ super = anObject and: [ 
 		self subViewDefiningMethod = anObject subViewDefiningMethod ]
 ]
 
 { #category : #'private - updating' }
-GtPhlowUpdateCompositeSubViewTitle >> basicRemoveTabModel: aTabModel [
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> basicRemoveTabModel: aTabModel [
 	self element viewModel removeTab: aTabModel.
 	self view views remove: self subView ifAbsent: [ "ignore" ].
 ]
 
 { #category : #'private - updating' }
-GtPhlowUpdateCompositeSubViewTitle >> basicUpdateTabModel: aTabModel with: aNewSubView [
-	| anIndex |
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> basicUpdateTabModel: aTabModel with: aNewSubView [
+	| aNewIndex aCurrentIndex |
+	self view views remove: self subView.
+	aNewIndex := GtPhlowUtility
+		findIndexFor: aNewSubView
+		in: self view views.
 	aTabModel widget label: aNewSubView title value asRopedText.
-	anIndex := self view views indexOf: self subView.
-	self view views at: anIndex put: aNewSubView
+	self element viewModel moveTab: aTabModel at: aNewIndex.
+	aCurrentIndex := self view views indexOf: self subView.
+	self view views add: aNewSubView beforeIndex: aNewIndex.
 ]
 
 { #category : #'accessing - ui' }
-GtPhlowUpdateCompositeSubViewTitle >> detectTab [
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> detectTab [
 	^ self element viewModel tabs 
 		detect: [ :eachTabModel | (eachTabModel widget phlow entity = self subView)
 			or: [ eachTabModel widget phlow entity definingMethod = self subViewDefiningMethod ] ]
@@ -37,7 +42,7 @@ GtPhlowUpdateCompositeSubViewTitle >> detectTab [
 ]
 
 { #category : #evaluating }
-GtPhlowUpdateCompositeSubViewTitle >> execute [
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> execute [
 	<return: #GtPhlowView>
 	| aTabModel aNewSubView |
 	aTabModel := self detectTab.
@@ -51,12 +56,12 @@ GtPhlowUpdateCompositeSubViewTitle >> execute [
 ]
 
 { #category : #comparing }
-GtPhlowUpdateCompositeSubViewTitle >> hash [
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> hash [
 	^ super hash bitXor: self subView hash
 ]
 
 { #category : #'instance creation' }
-GtPhlowUpdateCompositeSubViewTitle >> newPhlowSubView [
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> newPhlowSubView [
 	^ GtPhlowView empty
 		on: self subViewObject
 		perform: self subViewMethodSelector
@@ -64,55 +69,47 @@ GtPhlowUpdateCompositeSubViewTitle >> newPhlowSubView [
 ]
 
 { #category : #'private - updating' }
-GtPhlowUpdateCompositeSubViewTitle >> removeTabModel: aTabModel [
-	BlUseAsyncFeatures 
-		ifEnabledDo: [ 
-			self element enqueueTask: (BlTaskAction new action: [
-				self basicRemoveTabModel: aTabModel ]) ]
-		otherwise: [
-				self basicRemoveTabModel: aTabModel ]
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> removeTabModel: aTabModel [
+	self scheduleValuable: [
+		self basicRemoveTabModel: aTabModel ]
 ]
 
 { #category : #accessing }
-GtPhlowUpdateCompositeSubViewTitle >> subView [
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> subView [
 	^ subView
 ]
 
 { #category : #accessing }
-GtPhlowUpdateCompositeSubViewTitle >> subView: anObject [
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> subView: anObject [
 	subView := anObject
 ]
 
 { #category : #'accessing - convenience' }
-GtPhlowUpdateCompositeSubViewTitle >> subViewArguments [
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> subViewArguments [
 	^ self subViewBuildContext arguments
 ]
 
 { #category : #'accessing - convenience' }
-GtPhlowUpdateCompositeSubViewTitle >> subViewBuildContext [
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> subViewBuildContext [
 	^ self subView buildContext
 ]
 
 { #category : #'accessing - convenience' }
-GtPhlowUpdateCompositeSubViewTitle >> subViewDefiningMethod [
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> subViewDefiningMethod [
 	^ self subView definingMethod
 ]
 
 { #category : #'accessing - convenience' }
-GtPhlowUpdateCompositeSubViewTitle >> subViewMethodSelector [
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> subViewMethodSelector [
 	^ self subView methodSelector
 ]
 
 { #category : #'accessing - convenience' }
-GtPhlowUpdateCompositeSubViewTitle >> subViewObject [
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> subViewObject [
 	^ self subViewBuildContext object
 ]
 
 { #category : #'private - updating' }
-GtPhlowUpdateCompositeSubViewTitle >> updateTabModel: aTabModel with: aNewSubView [
-	BlUseAsyncFeatures
-		ifEnabledDo: [ self element enqueueTask: (BlTaskAction new
-			action: [ self basicUpdateTabModel: aTabModel with: aNewSubView ]) ]
-		otherwise: [ 
-			self basicUpdateTabModel: aTabModel with: aNewSubView ]
+GtPhlowUpdateCompositeSubViewTitleAndPosition >> updateTabModel: aTabModel with: aNewSubView [
+	self scheduleValuable: [ self basicUpdateTabModel: aTabModel with: aNewSubView ]
 ]

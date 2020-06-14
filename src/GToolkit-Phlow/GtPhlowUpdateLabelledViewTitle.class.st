@@ -7,12 +7,8 @@ Class {
 { #category : #evaluating }
 GtPhlowUpdateLabelledViewTitle >> execute [
 	<return: #GtPhlowLabelledView>
-	BlUseAsyncFeatures 
-		ifEnabledDo: [
-			self element enqueueTask: (BlTaskAction new action: [ 
-				self updateLabel ]) ]
-		otherwise: [
-			self updateLabel ].
+	self scheduleValuable: [
+		self updateLabel ].
 	^ self elementContext entity
 ]
 

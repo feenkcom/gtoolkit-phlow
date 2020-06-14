@@ -20,8 +20,12 @@ GtPhlowAddCompositeSubView >> addTab: aTab ofView: aPhlowView [
 
 { #category : #'private - updating' }
 GtPhlowAddCompositeSubView >> basicAddTab: aTab ofView: aPhlowView [
-	self element addTab: aTab.
-	self view views add: aPhlowView.
+	| anIndex |
+	anIndex := GtPhlowUtility
+		findIndexFor: aPhlowView
+		in: self view views.
+	self element addTab: aTab at: anIndex.
+	self view views add: aPhlowView beforeIndex: anIndex.
 ]
 
 { #category : #accessing }
