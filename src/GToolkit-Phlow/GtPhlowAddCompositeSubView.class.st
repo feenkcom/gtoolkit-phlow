@@ -30,8 +30,8 @@ GtPhlowAddCompositeSubView >> compiledMethod [
 ]
 
 { #category : #accessing }
-GtPhlowAddCompositeSubView >> compiledMethod: anObject [
-	compiledMethod := anObject
+GtPhlowAddCompositeSubView >> compiledMethod: aCompiledMethod [
+	compiledMethod := aCompiledMethod
 ]
 
 { #category : #evaluating }

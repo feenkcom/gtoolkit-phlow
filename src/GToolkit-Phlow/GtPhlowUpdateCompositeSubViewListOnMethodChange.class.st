@@ -2,7 +2,8 @@ Class {
 	#name : #GtPhlowUpdateCompositeSubViewListOnMethodChange,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
 	#instVars : [
-		'pragmas'
+		'pragmas',
+		'observedClass'
 	],
 	#category : #'GToolkit-Phlow-Updating'
 }
@@ -24,14 +25,39 @@ GtPhlowUpdateCompositeSubViewListOnMethodChange >> handleMethodAddedAnnouncement
 	self hasContexts ifFalse: [ ^ self ].
 	(self pragmas anySatisfy: [ :eachSymbol |
 		aMethodAdded methodAdded hasPragmaNamed: eachSymbol ]) ifFalse: [ ^ self ].
+	(GtSystemUtility 
+		isClass: self observedClass
+		sameOrSubclassOf: aMethodAdded classAffected) ifFalse: [ ^ self ].
 	self contexts do: [ :eachContext | 
 		self addSubView: aMethodAdded methodAdded inContext: eachContext ].
+]
+
+{ #category : #'announcement handling' }
+GtPhlowUpdateCompositeSubViewListOnMethodChange >> handleMethodRemovedAnnouncement: aMethodRemoved [ 
+	self hasContexts ifFalse: [ ^ self ].
+	(self pragmas anySatisfy: [ :eachSymbol |
+		aMethodRemoved methodRemoved hasPragmaNamed: eachSymbol ]) ifFalse: [ ^ self ].
+	(GtSystemUtility 
+		isClass: self observedClass
+		sameOrSubclassOf: aMethodRemoved classAffected) ifFalse: [ ^ self ].
+	self contexts do: [ :eachContext | 
+		self removeSubView: aMethodRemoved methodRemoved inContext: eachContext ].
 ]
 
 { #category : #initialization }
 GtPhlowUpdateCompositeSubViewListOnMethodChange >> initialize [
 	super initialize.
 	pragmas := self defaultPragmas.
+]
+
+{ #category : #accessing }
+GtPhlowUpdateCompositeSubViewListOnMethodChange >> observedClass [
+	^ observedClass
+]
+
+{ #category : #accessing }
+GtPhlowUpdateCompositeSubViewListOnMethodChange >> observedClass: anObject [
+	observedClass := anObject
 ]
 
 { #category : #'accessing - convenience' }
@@ -49,13 +75,25 @@ GtPhlowUpdateCompositeSubViewListOnMethodChange >> pragmas: anObject [
 	pragmas := anObject
 ]
 
+{ #category : #'private - updating' }
+GtPhlowUpdateCompositeSubViewListOnMethodChange >> removeSubView: aMethodRemoved inContext: aGtPhlowElementContext [
+	self scheduleTask: (GtPhlowRemoveCompositeSubView new
+		elementContext: aGtPhlowElementContext;
+		compiledMethod: aMethodRemoved)
+]
+
 { #category : #subscriptions }
 GtPhlowUpdateCompositeSubViewListOnMethodChange >> subscribeOn: aGtPhlowElementContext [
 	aGtPhlowElementContext hasBuildContext ifFalse: [ ^ self ].
+	self observedClass: aGtPhlowElementContext buildContext object class.
 	self addContext: aGtPhlowElementContext.
 	self
 		subscribeAnnouncement: MethodAdded
 		send: #handleMethodAddedAnnouncement:
+		subscriber: aGtPhlowElementContext.
+	self
+		subscribeAnnouncement: MethodRemoved
+		send: #handleMethodRemovedAnnouncement:
 		subscriber: aGtPhlowElementContext
 ]
 
