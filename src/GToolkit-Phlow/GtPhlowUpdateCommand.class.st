@@ -49,6 +49,11 @@ GtPhlowUpdateCommand >> entryIdentifier [
 	^ self
 ]
 
+{ #category : #testing }
+GtPhlowUpdateCommand >> hasBuildContext [
+	^ self elementContext hasBuildContext
+]
+
 { #category : #comparing }
 GtPhlowUpdateCommand >> hash [
 	^ self class hash bitXor: self elementContext hash
@@ -62,6 +67,14 @@ GtPhlowUpdateCommand >> methodSelector [
 { #category : #'accessing - convenience' }
 GtPhlowUpdateCommand >> object [
 	^ self buildContext object
+]
+
+{ #category : #'private - scheduling' }
+GtPhlowUpdateCommand >> scheduleValuable: aBlock [
+	BlUseAsyncFeatures 
+		ifEnabledDo: [ 
+			self element enqueueTask: (BlTaskAction new action: aBlock) ]
+		otherwise: aBlock
 ]
 
 { #category : #'accessing - convenience' }

@@ -10,7 +10,7 @@ Class {
 { #category : #comparing }
 GtPhlowUpdateCompositeSubViewTitle >> = anObject [
 	^ super = anObject and: [ 
-		self subView = anObject subView ]
+		self subViewDefiningMethod = anObject subViewDefiningMethod ]
 ]
 
 { #category : #'private - updating' }

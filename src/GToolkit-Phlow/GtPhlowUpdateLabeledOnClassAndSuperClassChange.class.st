@@ -9,6 +9,7 @@ Class {
 
 { #category : #'announcement handling' }
 GtPhlowUpdateLabeledOnClassAndSuperClassChange >> handleAnnouncement: anAnnouncement [
+	self hasContexts ifFalse: [ ^ self ].
 	(GtSystemUtility 
 		isClass: self observedClass
 		sameOrSubclassOf: anAnnouncement classAffected) ifFalse: [ ^ self ].

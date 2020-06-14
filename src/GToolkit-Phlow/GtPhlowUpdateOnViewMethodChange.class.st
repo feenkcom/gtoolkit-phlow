@@ -1,13 +1,12 @@
 Class {
-	#name : #GtPhlowUpdateOnViewMethodDefinitionChange,
+	#name : #GtPhlowUpdateOnViewMethodChange,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
 	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #'announcement handling' }
-GtPhlowUpdateOnViewMethodDefinitionChange >> handleMethodModifiedAnnouncement: aMethodModified [ 
-	self contexts ifNil: [ ^ self ].
-	self contexts ifEmpty: [ ^ self ].
+GtPhlowUpdateOnViewMethodChange >> handleMethodModifiedAnnouncement: aMethodModified [ 
+	self hasContexts ifFalse: [ ^ self ].
 	self definingMethod ifNil: [ ^ self ].
 	(self definingMethod gtPhlowIncludesCompiledMethod: aMethodModified methodAffected)
 		ifFalse: [ ^ self ].
@@ -15,7 +14,7 @@ GtPhlowUpdateOnViewMethodDefinitionChange >> handleMethodModifiedAnnouncement: a
 ]
 
 { #category : #subscriptions }
-GtPhlowUpdateOnViewMethodDefinitionChange >> subscribeOn: aGtPhlowElementContext [
+GtPhlowUpdateOnViewMethodChange >> subscribeOn: aGtPhlowElementContext [
 	aGtPhlowElementContext definingMethod ifNil: [ ^ self ].
 	self addContext: aGtPhlowElementContext.
 	self
@@ -25,13 +24,13 @@ GtPhlowUpdateOnViewMethodDefinitionChange >> subscribeOn: aGtPhlowElementContext
 ]
 
 { #category : #updating }
-GtPhlowUpdateOnViewMethodDefinitionChange >> updatePhlowView: aGtPhlowElementContext [
+GtPhlowUpdateOnViewMethodChange >> updatePhlowView: aGtPhlowElementContext [
 	self scheduleTask: (GtPhlowUpdateElementContext new
 		elementContext: aGtPhlowElementContext)
 ]
 
 { #category : #updating }
-GtPhlowUpdateOnViewMethodDefinitionChange >> updatePhlowViews [
+GtPhlowUpdateOnViewMethodChange >> updatePhlowViews [
 	self contexts do: [ :eachContext | 
 		eachContext hasBuildContext ifTrue: [ 
 			self updatePhlowView: eachContext ] ].

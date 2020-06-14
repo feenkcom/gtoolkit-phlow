@@ -38,6 +38,12 @@ GtPhlowSystemChangeUpdateDefinition >> definingMethod [
 	^ self contexts anyOne definingMethod
 ]
 
+{ #category : #testing }
+GtPhlowSystemChangeUpdateDefinition >> hasContexts [
+	<return: #Boolean>
+	^ self contexts isEmptyOrNil not
+]
+
 { #category : #initialization }
 GtPhlowSystemChangeUpdateDefinition >> initialize [
 	super initialize.
