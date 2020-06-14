@@ -4,6 +4,11 @@ Class {
 	#category : #'GToolkit-Phlow-Examples'
 }
 
+{ #category : #testing }
+GtPhlowViewExamples class >> isAbstract [
+	^ self name = #GtPhlowViewExamples
+]
+
 { #category : #asserting }
 GtPhlowViewExamples >> assertErrorElement: anElement inView: aView [
 	self assert: anElement class equals: BrFrame.
@@ -52,6 +57,7 @@ GtPhlowViewExamples >> phlowViews [
 GtPhlowViewExamples >> updateAgainstAllViews [
 	<gtExample>
 	| aPhlowView thePhlowViews |
+	self class isAbstract ifTrue: [ ^ self ].
 	aPhlowView := self phlowView.
 	thePhlowViews := self phlowViews.
 	thePhlowViews do: [ :eachPhlowView | 

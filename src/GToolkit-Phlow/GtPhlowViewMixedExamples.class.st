@@ -95,7 +95,7 @@ GtPhlowViewMixedExamples >> emptyExplicitView [
 	| view element |
 	view := self explicitViewWithElementStencil empty.
 	view asElementDo: [ :el | element := el ].
-	self assert: element isNil.
+	self assert: element isNotNil.
 	^ view
 ]
 

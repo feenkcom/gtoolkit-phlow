@@ -56,6 +56,6 @@ GtPhlowCompositeView >> views [
 ]
 
 { #category : #accessing }
-GtPhlowCompositeView >> views: anObject [
-	views := anObject
+GtPhlowCompositeView >> views: aCollection [
+	views := aCollection asOrderedCollection
 ]

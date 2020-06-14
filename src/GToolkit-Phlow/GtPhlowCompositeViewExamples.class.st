@@ -20,7 +20,7 @@ GtPhlowCompositeViewExamples >> phlowView [
 	<gtExample>
 	| aView theSubViews |
 	aView := GtPhlowView empty composite.
-	theSubViews := { self subViewOne. self subViewTwo }.
+	theSubViews := { self subViewOne. self subViewTwo } asOrderedCollection.
 	aView views: theSubViews.
 	self assert: aView views equals: theSubViews.
 	^ aView
