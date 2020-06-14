@@ -34,10 +34,11 @@ GtPhlowUpdateLabeledOnClassAndSuperClassChange >> subscribeOn: aGtPhlowElementCo
 	aGtPhlowElementContext hasBuildContext ifFalse: [ ^ self ].
 	self observedClass: aGtPhlowElementContext buildContext object class.
 	self addContext: aGtPhlowElementContext.
+	self setSubscribedIfAlreadySubscribedDo: [ ^ self ].
 	self
 		subscribeAnnouncement: MethodAnnouncement, ClassAnnouncement
 		send: #handleAnnouncement:
-		subscriber: aGtPhlowElementContext
+		subscriber: self
 ]
 
 { #category : #updating }

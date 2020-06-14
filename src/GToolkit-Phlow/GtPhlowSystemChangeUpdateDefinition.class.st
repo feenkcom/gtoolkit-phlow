@@ -2,7 +2,10 @@ Class {
 	#name : #GtPhlowSystemChangeUpdateDefinition,
 	#superclass : #GtPhlowUpdateDefinition,
 	#instVars : [
-		'contexts'
+		'mutexContexts',
+		'contexts',
+		'mutexSubscription',
+		'isSubscribedToSystem'
 	],
 	#category : #'GToolkit-Phlow-Updating'
 }
@@ -12,20 +15,20 @@ GtPhlowSystemChangeUpdateDefinition class >> isAbstract [
 	^ self name = #GtPhlowSystemChangeUpdateDefinition 
 ]
 
-{ #category : #adding }
+{ #category : #'adding/removing' }
 GtPhlowSystemChangeUpdateDefinition >> addContext: aGtPhlowElementContext [
-	self contexts ifNil: [ ^ self ].
-	self contexts: (self contexts copyWith: aGtPhlowElementContext)
+	mutexContexts critical: [ 
+		self contexts: (self contexts copyWith: aGtPhlowElementContext) ]
 ]
 
 { #category : #accessing }
 GtPhlowSystemChangeUpdateDefinition >> contexts [
-	^ contexts
+	^ mutexContexts critical: [ contexts ]
 ]
 
 { #category : #accessing }
-GtPhlowSystemChangeUpdateDefinition >> contexts: anObject [
-	contexts := anObject
+GtPhlowSystemChangeUpdateDefinition >> contexts: anArray [
+	mutexContexts critical: [ contexts := anArray ]
 ]
 
 { #category : #defaults }
@@ -47,7 +50,16 @@ GtPhlowSystemChangeUpdateDefinition >> hasContexts [
 { #category : #initialization }
 GtPhlowSystemChangeUpdateDefinition >> initialize [
 	super initialize.
+	mutexSubscription := Mutex new.
+	isSubscribedToSystem := false.
+	mutexContexts := Mutex new.
 	contexts := self defaultContexts.
+]
+
+{ #category : #'adding/removing' }
+GtPhlowSystemChangeUpdateDefinition >> removeContext: aGtPhlowElementContext [
+	mutexContexts critical: [ 
+		self contexts: (self contexts copyWithout: aGtPhlowElementContext) ]
 ]
 
 { #category : #schedulling }
@@ -59,6 +71,17 @@ GtPhlowSystemChangeUpdateDefinition >> scheduleTask: aTask [
 		beShiftingNotScheduledHandler;
 		scheduledTime: BlTime real now + 200 milliSeconds.
 	BlTaskAtQueue default schedule: aCommand
+]
+
+{ #category : #subscriptions }
+GtPhlowSystemChangeUpdateDefinition >> setSubscribedIfAlreadySubscribedDo: aBlock [
+	| wantEvaluateBlock |
+	wantEvaluateBlock := false.
+	mutexSubscription critical: [ 
+		isSubscribedToSystem 
+			ifTrue: [ wantEvaluateBlock := true ]
+			ifFalse: [ isSubscribedToSystem := true ] ].
+	wantEvaluateBlock ifTrue: [ aBlock ]
 ]
 
 { #category : #private }
@@ -76,7 +99,12 @@ GtPhlowSystemChangeUpdateDefinition >> subscribeAnnouncement: anAnnouncement sen
 
 { #category : #subscriptions }
 GtPhlowSystemChangeUpdateDefinition >> unsubscribeOn: aGtPhlowElementContext [
-	self contexts ifNil: [ ^ self ].
-	self contexts: (self contexts copyWithout: aGtPhlowElementContext).
-	SystemAnnouncer uniqueInstance unsubscribe: aGtPhlowElementContext.
+	mutexContexts critical: [ 
+		self removeContext: aGtPhlowElementContext.
+		self hasContexts ifTrue: [ ^ self ].
+		mutexSubscription critical: [ 
+			isSubscribedToSystem := false.
+			SystemAnnouncer uniqueInstance unsubscribe: self.
+		]
+	]
 ]

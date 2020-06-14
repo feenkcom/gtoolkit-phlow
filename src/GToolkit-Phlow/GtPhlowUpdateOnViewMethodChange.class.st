@@ -17,10 +17,11 @@ GtPhlowUpdateOnViewMethodChange >> handleMethodModifiedAnnouncement: aMethodModi
 GtPhlowUpdateOnViewMethodChange >> subscribeOn: aGtPhlowElementContext [
 	aGtPhlowElementContext definingMethod ifNil: [ ^ self ].
 	self addContext: aGtPhlowElementContext.
+	self setSubscribedIfAlreadySubscribedDo: [ ^ self ].
 	self
 		subscribeAnnouncement: MethodModified
 		send: #handleMethodModifiedAnnouncement:
-		subscriber: aGtPhlowElementContext
+		subscriber: self
 ]
 
 { #category : #updating }

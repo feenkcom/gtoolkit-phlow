@@ -16,10 +16,11 @@ GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange >> handleMethodMod
 { #category : #subscriptions }
 GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange >> subscribeOn: aGtPhlowElementContext [
 	self addContext: aGtPhlowElementContext.
+	self setSubscribedIfAlreadySubscribedDo: [ ^ self ].
 	self
 		subscribeAnnouncement: MethodModified
 		send: #handleMethodModifiedAnnouncement:
-		subscriber: aGtPhlowElementContext
+		subscriber: self
 ]
 
 { #category : #updating }
