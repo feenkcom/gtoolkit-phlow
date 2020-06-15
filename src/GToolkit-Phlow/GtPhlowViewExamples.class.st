@@ -45,7 +45,7 @@ GtPhlowViewExamples >> phlowView [
 GtPhlowViewExamples >> phlowViews [
 	<gtExample>
 	| theExampleClasses thePhlowViews |
-	theExampleClasses := self class allSubclasses reject: #isAbstract.
+	theExampleClasses := GtPhlowViewExamples allSubclasses reject: #isAbstract.
 	thePhlowViews := theExampleClasses collect: [ :eachClass | eachClass new phlowView ].
 	self assert: thePhlowViews isNotEmpty.
 	thePhlowViews do: [ :eachPhlowView | 
@@ -68,8 +68,8 @@ GtPhlowViewExamples >> updateAgainstAllViews [
 { #category : #'examples - updating' }
 GtPhlowViewExamples >> updateAllAgainstAllViews [
 	<gtExample>
-	<noTest>
 	| theCurrentPhlowViews theNewPhlowViews |
+	self class = GtPhlowViewExamples ifFalse: [ ^ self ].
 	theCurrentPhlowViews := self phlowViews.
 	theNewPhlowViews := self phlowViews.
 	theCurrentPhlowViews do: [ :aCurrentView |
