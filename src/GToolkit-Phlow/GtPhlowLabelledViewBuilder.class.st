@@ -13,7 +13,7 @@ GtPhlowLabelledViewBuilder class >> articleFor: aString [
 { #category : #'api - label' }
 GtPhlowLabelledViewBuilder class >> textOf: anObject [
 	<return: #BlRopedText>
-	^ [ (String streamContents: [ :stream | anObject gtDisplayOn: stream ]) asRopedText ]
+	^ [ anObject gtDisplayString asRopedText ]
 			on: Error 
 			do: [ :e | 'Error printing' asRopedText foreground: Color red ]
 ]
