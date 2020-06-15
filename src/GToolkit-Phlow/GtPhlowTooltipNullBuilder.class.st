@@ -10,6 +10,11 @@ Class {
 }
 
 { #category : #building }
+GtPhlowTooltipNullBuilder >> applyOn: anElement [
+	"ignore"
+]
+
+{ #category : #building }
 GtPhlowTooltipNullBuilder >> applyOn: anElement hostElement: aTargetElement [
 	"ignore"
 ]
