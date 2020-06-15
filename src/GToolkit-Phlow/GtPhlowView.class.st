@@ -9,6 +9,8 @@ See ${class:GtPhlowViewExamples}$.
 Class {
 	#name : #GtPhlowView,
 	#superclass : #GtPhlowProtoView,
+	#traits : 'TGtPhlowTooltipBuilder',
+	#classTraits : 'TGtPhlowTooltipBuilder classTrait',
 	#instVars : [
 		'title',
 		'priority',
@@ -458,6 +460,7 @@ GtPhlowView >> initialize [
 	autoUpdates := self defaultAutoUpdates.
 	asyncEnabled := true.
 	buildContext := self defaultBuildContext.
+	self initializeTooltipBuilder.
 	self initializeDefaultUpdateDefinitions.
 ]
 

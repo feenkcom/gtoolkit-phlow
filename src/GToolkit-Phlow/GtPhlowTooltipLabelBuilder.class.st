@@ -20,8 +20,13 @@ Class {
 }
 
 { #category : #building }
-GtPhlowTooltipLabelBuilder >> applyOn: anElement hostElement: aTargetElement [
+GtPhlowTooltipLabelBuilder >> applyOn: anElement [
 	anElement addLook: (GtPhlowLabelTooltipLook new text: self text)
+]
+
+{ #category : #building }
+GtPhlowTooltipLabelBuilder >> applyOn: anElement hostElement: aTargetElement [
+	self applyOn: anElement
 ]
 
 { #category : #asserting }

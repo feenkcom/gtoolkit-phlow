@@ -42,6 +42,7 @@ GtPhlowUtility class >> createTabElementFor: aPhlowView andDo: aBlock [
 					element phlow beViewContent; entity: aTaskItView.
 					element asScrollableElement ] ];
 			toolbarStencil: [ aPhlowView actionsToolbarForElement: aTab ].
+		aPhlowView attachTooltipFor: aTab.
 		aBlock value: aTab ]
 ]
 
@@ -58,6 +59,9 @@ GtPhlowUtility class >> createTabErrorElementFor: aPhlowView withError: anExcept
 	aTab phlow
 			beView;
 			entity: aPhlowView.
+	GtPhlowTooltipLabelBuilder new
+		text: 'You likely did not return the proper view';
+		applyOn: aTab.
 	aBlock value: aTab.
 ]
 

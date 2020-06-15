@@ -20,6 +20,12 @@ GtPhlowTooltipBuilder class >> text: aText [
 ]
 
 { #category : #building }
+GtPhlowTooltipBuilder >> applyOn: anElement [
+	"Attach a tooltip into anElement"
+	self subclassResponsibility
+]
+
+{ #category : #building }
 GtPhlowTooltipBuilder >> applyOn: anElement hostElement: aTargetElement [
 	"Attach a tooltip into anElement"
 	self subclassResponsibility

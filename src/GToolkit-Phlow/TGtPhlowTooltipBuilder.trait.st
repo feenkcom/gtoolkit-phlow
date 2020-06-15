@@ -10,8 +10,13 @@ Trait {
 }
 
 { #category : #'building tooltip' }
-TGtPhlowTooltipBuilder >> attachTooltipFor: aButton hostElement: aTargetElement [
-	self tooltipBuilder applyOn: aButton hostElement: aTargetElement
+TGtPhlowTooltipBuilder >> attachTooltipFor: anElement [
+	self tooltipBuilder applyOn: anElement
+]
+
+{ #category : #'building tooltip' }
+TGtPhlowTooltipBuilder >> attachTooltipFor: anElement hostElement: aTargetElement [
+	self tooltipBuilder applyOn: anElement hostElement: aTargetElement
 ]
 
 { #category : #defaults }
