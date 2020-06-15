@@ -8,24 +8,11 @@ Class {
 }
 
 { #category : #private }
-GtPhlowCompositeView >> addErrorTabTo: aCollectionOfTabs withError: anException [
-	anException freeze.
-	anException messageText: 'You likely did not return the proper view (' 
-		, anException messageText , ')'.
-	aCollectionOfTabs
-		add:
-			(BrTab new
-				look: BrGlamorousTabLook;
-				label: 'Error';
-				stencil: [ anException asDebuggableElement ])
-]
-
-{ #category : #private }
 GtPhlowCompositeView >> addNewTabTo: aCollectionOfTabs forView: aPhlowView [
 	"we explicitly traverse the collection because it is possible for
 	asElementDo: to not return anything when we deal with an EmptyView"
 	GtPhlowUtility 
-		createTabElementFor: aPhlowView 
+		createSafelyTabElementFor: aPhlowView 
 		andDo: [ :aTab | aCollectionOfTabs add: aTab ]
 ]
 
@@ -35,17 +22,22 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 	tabs := OrderedCollection new.
 	self views ifNotNil: [ :currentViews |
 		currentViews do: [ :view | 
-			[ self addNewTabTo: tabs forView: view ]
-				on: Error
-				do: [ :e | self addErrorTabTo: tabs withError: e ] ] ].
+			self addNewTabTo: tabs forView: view ] ].
 	group := BrTabGroup new.
-	group phlow
-		beView;
-		entity: self.
+	self beViewElement: group.
 	group
 		look: BrGlamorousTabGroupLook;
 		addTabs: tabs.
 	^ aBlock value: group
+]
+
+{ #category : #'adding - update definitions' }
+GtPhlowCompositeView >> defaultUpdateDefinitions [
+	^ Array new: 3 streamContents: [ :aStream |
+		aStream 
+			nextPutAll: super defaultUpdateDefinitions;
+			nextPut: GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange new;
+			nextPut: GtPhlowUpdateCompositeSubViewListOnMethodChange new ]
 ]
 
 { #category : #ui }
@@ -64,6 +56,6 @@ GtPhlowCompositeView >> views [
 ]
 
 { #category : #accessing }
-GtPhlowCompositeView >> views: anObject [
-	views := anObject
+GtPhlowCompositeView >> views: aCollection [
+	views := aCollection asOrderedCollection
 ]

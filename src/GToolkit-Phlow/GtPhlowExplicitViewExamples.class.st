@@ -44,6 +44,34 @@ GtPhlowExplicitViewExamples >> gtBasicFor: aView [
 ]
 
 { #category : #'gt-extension' }
+GtPhlowExplicitViewExamples >> gtUpdatingDisabledOnSystemChangeFor: aView [ 
+	^ aView explicit 
+		title: 'Updating Disabled on System Change';
+		stencil: [ BlElement new 
+				look: BrShadowLook;
+				background: Color random;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent.
+					c margin: (BlInsets all: 40) ]  ];
+		dontUpdateOnSystemChange
+]
+
+{ #category : #'gt-extension' }
+GtPhlowExplicitViewExamples >> gtUpdatingEnabledOnSystemChangeFor: aView [ 
+	^ aView explicit 
+		title: 'Updating Enabled on System Change';
+		stencil: [ BlElement new 
+				look: BrShadowLook;
+				background: Color random;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent.
+					c margin: (BlInsets all: 40) ]  ];
+		updateOnDefinitionChange
+]
+
+{ #category : #'gt-extension' }
 GtPhlowExplicitViewExamples >> gtUpdatingFor: aView [ 
 	<gtView>
 	^ aView explicit 
@@ -63,4 +91,12 @@ GtPhlowExplicitViewExamples >> myself [
 	<gtExample>
 
 	^ self
+]
+
+{ #category : #'examples - updating' }
+GtPhlowExplicitViewExamples >> phlowView [
+	<gtExample>
+	^ GtPhlowView empty explicit 
+		title: 'Sample';
+		stencil: [ BlElement new background: Color random ]
 ]

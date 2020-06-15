@@ -18,13 +18,12 @@ Class {
 	#name : #GtPhlowForwarderView,
 	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
-		'object',
 		'view',
 		'phlowView',
 		'viewObject',
-		'elementTransformation',
 		'alreadyIncludesForwardedActions',
-		'transformation'
+		'transformation',
+		'object'
 	],
 	#category : #'GToolkit-Phlow-! Views and Actions'
 }
@@ -57,9 +56,8 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 	^ self phlowView asElementDo: [ :anElement |
 		[ 
-			| aResult |
-			aResult := self elementTransformation value: anElement.
-			aBlock value: aResult.
+			anElement phlow entity: self.
+			aBlock value: anElement.
 		] on: Error do: [ :anException | 
 			(self phlowErrorViewWithException: anException)
 				asElementDo: [ :anErrorElement | anErrorElement ] ] ]
@@ -80,11 +78,6 @@ GtPhlowForwarderView >> defaultTitle [
 	^ 'Forwarded'
 ]
 
-{ #category : #accessing }
-GtPhlowForwarderView >> elementTransformation [
-	^ elementTransformation
-]
-
 { #category : #'accessing - computed' }
 GtPhlowForwarderView >> forwardedActions [
 	<return: #OrderedCollection of: #GtPhlowAction>
@@ -95,7 +88,6 @@ GtPhlowForwarderView >> forwardedActions [
 GtPhlowForwarderView >> initialize [
 	super initialize.
 	alreadyIncludesForwardedActions := false.
-	elementTransformation := #yourself.
 ]
 
 { #category : #accessing }
@@ -149,12 +141,15 @@ GtPhlowForwarderView >> send: aBlock [
 	transformation := aBlock
 ]
 
-{ #category : #accessing }
-GtPhlowForwarderView >> transformed: aSymbolOrBlock [
-	self 
-		assert: [ aSymbolOrBlock isNotNil ] 
-		description: [ 'Forwarded element transformatin must be non-nil' ].
-	elementTransformation := aSymbolOrBlock
+{ #category : #updating }
+GtPhlowForwarderView >> updateContent: aCurrentElement [
+	| aParent anIndex aNewChild |
+	aParent := aCurrentElement parent.
+	aParent ifNil: [ ^ self ].
+	anIndex := aParent childIndexOf: aCurrentElement.
+	self phlowView updateContent: aCurrentElement.
+	aNewChild := aParent childAt: anIndex.
+	aNewChild phlow entity: self.
 ]
 
 { #category : #accessing }

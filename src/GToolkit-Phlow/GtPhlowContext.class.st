@@ -3,7 +3,7 @@ I am a basic Phlow context that can store key-value information.
 "
 Class {
 	#name : #GtPhlowContext,
-	#superclass : #GtPhlowAbstractContext,
+	#superclass : #GtPhlowExecutionContext,
 	#traits : 'TGtOptions',
 	#classTraits : 'TGtOptions classTrait',
 	#category : #'GToolkit-Phlow-Context'

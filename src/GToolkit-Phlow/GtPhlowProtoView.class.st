@@ -45,6 +45,17 @@ GtPhlowProtoView >> asTaskItView [
 		ifFalse: [ self ]
 ]
 
+{ #category : #accessing }
+GtPhlowProtoView >> buildContext [
+	<return: #GtPhlowBuildContext>
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+GtPhlowProtoView >> buildContext: aGtPhlowBuildContext [
+	self subclassResponsibility
+]
+
 { #category : #decorating }
 GtPhlowProtoView >> columnedList [
 	^ GtPhlowColumnedListView new
@@ -150,6 +161,11 @@ GtPhlowProtoView >> gtLiveFor: aView [
 			aContainer ]
 ]
 
+{ #category : #testing }
+GtPhlowProtoView >> hasBuildContext [
+	^ self buildContext isBuildContext
+]
+
 { #category : #converting }
 GtPhlowProtoView >> ifItHasContent: aBlock [
 	^ self subclassResponsibility
@@ -185,6 +201,13 @@ GtPhlowProtoView >> list [
 		definingMethod: (GtPhlowDefiningMethodsCollector new 
 			stack: thisContext stack;
 			collect)
+]
+
+{ #category : #convenience }
+GtPhlowProtoView >> object: anObject arguments: theExecutionArguments [
+	self buildContext: (GtPhlowBuildContext new
+		object: anObject;
+		arguments: theExecutionArguments)
 ]
 
 { #category : #decorating }

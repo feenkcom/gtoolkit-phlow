@@ -14,6 +14,14 @@ GtPhlowUtility class >> compositeViewElementIn: anElement [
 ]
 
 { #category : #'instance creation' }
+GtPhlowUtility class >> createSafelyTabElementFor: aPhlowView andDo: aBlock [
+	[ self createTabElementFor: aPhlowView andDo: aBlock ]
+		on: Error
+		do: [ :anException | 
+			self createTabErrorElementFor: aPhlowView withError: anException andDo: aBlock ] 
+]
+
+{ #category : #'instance creation' }
 GtPhlowUtility class >> createTabElementFor: aPhlowView andDo: aBlock [
 	"we explicitly traverse the collection because it is possible for
 	asElementDo: to not return anything when we deal with an EmptyView"
@@ -35,6 +43,22 @@ GtPhlowUtility class >> createTabElementFor: aPhlowView andDo: aBlock [
 					element asScrollableElement ] ];
 			toolbarStencil: [ aPhlowView actionsToolbarForElement: aTab ].
 		aBlock value: aTab ]
+]
+
+{ #category : #'instance creation' }
+GtPhlowUtility class >> createTabErrorElementFor: aPhlowView withError: anException andDo: aBlock [
+	| aTab |
+	anException freeze.
+	anException messageText: 'You likely did not return the proper view (' 
+		, anException messageText , ')'.
+	aTab := BrTab new
+		look: BrGlamorousTabLook;
+		label: 'Error';
+		stencil: [ anException asDebuggableElement ].
+	aTab phlow
+			beView;
+			entity: aPhlowView.
+	aBlock value: aTab.
 ]
 
 { #category : #enumerating }

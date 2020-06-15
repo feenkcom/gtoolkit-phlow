@@ -15,7 +15,7 @@ GtPhlowListView >> asElementDo: aBlock [
 	
 	theItems := self itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	
-	aList := BrColumnedList new items: theItems.
+	aList := self elementClass new items: theItems.
 	aList addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
 	aList constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 
@@ -54,6 +54,11 @@ GtPhlowListView >> display: aBlock [
 	self items: aBlock
 ]
 
+{ #category : #defaults }
+GtPhlowListView >> elementClass [
+	^ BrColumnedList
+]
+
 { #category : #'scripting - deprecated' }
 GtPhlowListView >> format: aBlockOrSymbol [
 	self 
@@ -69,6 +74,11 @@ GtPhlowListView >> initialize [
 		self buildTextElementFor: anObject gtDisplayString ].
 	itemsBuilder := [ { } ].
 	transformation := [ :aValue | "by default there is no transformation" aValue ].
+]
+
+{ #category : #testing }
+GtPhlowListView >> isExpectedElement: aCurrentElement [
+	^ aCurrentElement class = self elementClass
 ]
 
 { #category : #'scripting - deprecated' }
@@ -136,14 +146,15 @@ GtPhlowListView >> send: aBlock [
 ]
 
 { #category : #updating }
-GtPhlowListView >> updateContent: aList [
+GtPhlowListView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
-	
+
 	| aParent |
-	aParent := aList parent.
-	aParent ifNotNil: [ 
-		| theItems |
+	(self isExpectedElement: aCurrentElement)
+		ifFalse: [ ^ super updateContent: aCurrentElement ].
+	aParent := aCurrentElement parent.
+	aParent ifNotNil: [ | theItems |
 		theItems := self itemsOnExceptionErrorElement: [ :anErrorElement | 
-			^ self replaceOldElement: aList by: anErrorElement in: aParent ].
-		self enqueueAction: [ aList items: theItems ] in: aList ]
+			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
+		self enqueueAction: [ aCurrentElement items: theItems ] in: aCurrentElement ]
 ]

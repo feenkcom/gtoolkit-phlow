@@ -1,6 +1,6 @@
 Class {
 	#name : #GtPhlowNullContext,
-	#superclass : #GtPhlowAbstractContext,
+	#superclass : #GtPhlowExecutionContext,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#category : #'GToolkit-Phlow-Context'

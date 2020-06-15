@@ -29,6 +29,17 @@ GtPhlowTaskItView >> asTaskItView [
 ]
 
 { #category : #accessing }
+GtPhlowTaskItView >> buildContext [
+	<return: #GtPhlowBuildContext>
+	^ self originalView buildContext
+]
+
+{ #category : #accessing }
+GtPhlowTaskItView >> buildContext: aGtPhlowBuildContext [
+	self originalView buildContext: aGtPhlowBuildContext
+]
+
+{ #category : #accessing }
 GtPhlowTaskItView >> definingMethod [
 	"Get view defining method.
 	It is a method where a view is defined."
@@ -105,13 +116,13 @@ GtPhlowTaskItView >> title: aString [
 ]
 
 { #category : #updating }
-GtPhlowTaskItView >> updateContent: anOldElement [
+GtPhlowTaskItView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 	| aChildElement |
 	self
-		assert: [ anOldElement childrenCount <= 1 ]
+		assert: [ aCurrentElement childrenCount <= 1 ]
 		description: [ 'TaskIt lazy element must have at most one child ' ].
-	anOldElement element ifNotNil: [ 
-		aChildElement := anOldElement children at: 1 ifAbsent: [ ^ self ].
+	aCurrentElement element ifNotNil: [ 
+		aChildElement := aCurrentElement children at: 1 ifAbsent: [ ^ self ].
 		self originalView updateContent: aChildElement ].
 ]

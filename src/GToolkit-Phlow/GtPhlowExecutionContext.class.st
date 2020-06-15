@@ -1,5 +1,5 @@
 Class {
-	#name : #GtPhlowAbstractContext,
+	#name : #GtPhlowExecutionContext,
 	#superclass : #Object,
 	#category : #'GToolkit-Phlow-Context'
 }

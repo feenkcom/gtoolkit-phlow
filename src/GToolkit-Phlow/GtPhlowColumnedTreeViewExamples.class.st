@@ -89,3 +89,9 @@ GtPhlowColumnedTreeViewExamples >> myself [
 	<gtExample>
 	^ self
 ]
+
+{ #category : #'examples - updating' }
+GtPhlowColumnedTreeViewExamples >> phlowView [
+	<gtExample>
+	^ self columnedTreeViewWithItemsAndChildren
+]

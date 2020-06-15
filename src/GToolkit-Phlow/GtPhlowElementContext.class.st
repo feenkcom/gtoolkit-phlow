@@ -42,24 +42,36 @@ GtPhlowElementContext >> asyncUpdate [
 		otherwise: [ self syncUpdate ]
 ]
 
-{ #category : #'api - accessing' }
+{ #category : #'api - initialization' }
 GtPhlowElementContext >> beAction [
 	isAction := true
 ]
 
-{ #category : #'api - accessing' }
+{ #category : #'api - initialization' }
 GtPhlowElementContext >> bePopupContainer [
 	isPopupContainer := true
 ]
 
-{ #category : #'api - accessing' }
+{ #category : #'api - initialization' }
 GtPhlowElementContext >> beView [
 	isView := true
 ]
 
-{ #category : #'api - accessing' }
+{ #category : #'api - initialization' }
 GtPhlowElementContext >> beViewContent [
 	isViewContent := true
+]
+
+{ #category : #'api - convenience' }
+GtPhlowElementContext >> buildContext [
+	<return: #GtPhlowBuildContext>
+	^ self entity buildContext
+]
+
+{ #category : #'api - convenience' }
+GtPhlowElementContext >> definingMethod [
+	<return: #RGMethodDefinition>
+	^ self entity definingMethod
 ]
 
 { #category : #'api - accessing' }
@@ -125,6 +137,11 @@ GtPhlowElementContext >> firstPopupContainerParentDo: aBlock ifNone: aNoneBlock 
 	^ aNoneBlock value
 ]
 
+{ #category : #'api - testing' }
+GtPhlowElementContext >> hasBuildContext [
+	^ self entity hasBuildContext
+]
+
 { #category : #initialization }
 GtPhlowElementContext >> initialize [
 	super initialize.
@@ -153,6 +170,12 @@ GtPhlowElementContext >> isView [
 { #category : #'api - testing' }
 GtPhlowElementContext >> isViewContent [
 	^ isViewContent
+]
+
+{ #category : #'api - convenience' }
+GtPhlowElementContext >> methodSelector [
+	<return: #Symbol>
+	^ self entity methodSelector
 ]
 
 { #category : #updating }

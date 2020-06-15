@@ -7,27 +7,16 @@ Class {
 { #category : #'forwarded view' }
 GtPhlowForwarderViewExamples >> forwardedIntegerView [
 	<gtExample>
-	| aView |
+	| aView anElement |
 	aView := GtPhlowForwarderView new
 		object: [ 2 ];
 		view: #gtPreviewFor:.
 
 	self assert: aView viewObject equals: 2.
-	self assert: ((aView asElementDo: [ :anElement | anElement ]) isKindOf: BlElement).
-	^ aView
-]
-
-{ #category : #'forwarded view' }
-GtPhlowForwarderViewExamples >> forwardedTransformedIntegerView [
-	<gtExample>
-	| aView |
-	aView := GtPhlowForwarderView new
-		object: [ 2 ];
-		view: #gtPreviewFor:;
-		transformed: #asScrollableElement.
-
-	self assert: aView viewObject equals: 2.
-	self assert: ((aView asElementDo: [ :anElement | anElement ]) isKindOf: BlScrollableElement).
+	
+	anElement := aView asElementDo: [ :theElement | theElement ].
+	self assert: (anElement isKindOf: BlElement).
+	self assert: anElement phlow entity equals: aView.
 	^ aView
 ]
 
@@ -89,20 +78,6 @@ GtPhlowForwarderViewExamples >> forwardedViewWithObjectCreationError [
 ]
 
 { #category : #'forwarded view' }
-GtPhlowForwarderViewExamples >> forwardedWithTransformationError [
-	<gtExample>
-	| aView |
-	aView := GtPhlowForwarderView new
-		object: [ 2 ];
-		view: #gtPreviewFor:;
-		transformed: [ :anElement | Error signal. anElement asScrollableElement ].
-
-	self assert: aView viewObject equals: 2.
-	self assert: (aView asElementDo: [ :anElement | anElement ]) class equals: BrFrame.
-	^ aView
-]
-
-{ #category : #'forwarded view' }
 GtPhlowForwarderViewExamples >> forwardedWithUndefinedViewMessage [
 	<gtExample>
 	| aView |
@@ -143,4 +118,10 @@ GtPhlowForwarderViewExamples >> gtBasicFor: aView [
 GtPhlowForwarderViewExamples >> myself [
 	<gtExample>
 	^ self
+]
+
+{ #category : #'examples - updating' }
+GtPhlowForwarderViewExamples >> phlowView [
+	<gtExample>
+	^ self forwardedView
 ]

@@ -4,33 +4,27 @@ Class {
 	#category : #'GToolkit-Phlow-Collectors'
 }
 
-{ #category : #label }
-GtPhlowLabelledViewBuilder >> articleFor: aString [
+{ #category : #'api - label' }
+GtPhlowLabelledViewBuilder class >> articleFor: aString [
 	<return: #String>
 	^ aString first isVowel ifTrue: [ 'an ' ] ifFalse: [ 'a ' ]
 ]
 
-{ #category : #building }
-GtPhlowLabelledViewBuilder >> buildView [
-	<return: #GtPhlowLabelledView>
-	^ super buildView labelled: self title
-]
-
-{ #category : #label }
-GtPhlowLabelledViewBuilder >> displayObjectText [
+{ #category : #'api - label' }
+GtPhlowLabelledViewBuilder class >> textOf: anObject [
 	<return: #BlRopedText>
-	^ [ (String streamContents: [ :stream | self object gtDisplayOn: stream ]) asRopedText ]
+	^ [ (String streamContents: [ :stream | anObject gtDisplayOn: stream ]) asRopedText ]
 			on: Error 
 			do: [ :e | 'Error printing' asRopedText foreground: Color red ]
 ]
 
-{ #category : #label }
-GtPhlowLabelledViewBuilder >> title [
+{ #category : #'api - label' }
+GtPhlowLabelledViewBuilder class >> titleOfObject: anObject [
 	<return: #BlRopedText or: #String>
 	| aClassName aHeader aDisplayText |
-	aClassName := self object class name.
+	aClassName := anObject class name.
 	aHeader := (self articleFor: aClassName), aClassName.
-	aDisplayText := self displayObjectText.
+	aDisplayText := self textOf: anObject.
 	^ (aDisplayText asString beginsWith: aHeader)
 		ifTrue: [ aDisplayText ]
 		ifFalse: [ 
@@ -40,4 +34,20 @@ GtPhlowLabelledViewBuilder >> title [
 					nextPutAll: ' (';
 					nextPutAll: aDisplayText characters;
 					nextPutAll: ')' ] ].
+]
+
+{ #category : #building }
+GtPhlowLabelledViewBuilder >> buildView [
+	<return: #GtPhlowLabelledView>
+	| aView |
+	aView := super buildView labelled: self title.
+	aView originalView buildContext arguments: { aView. self context }.
+	self addBuildContext: aView.
+	^ aView
+]
+
+{ #category : #label }
+GtPhlowLabelledViewBuilder >> title [
+	<return: #BlRopedText or: #String>
+	^ self class titleOfObject: self object
 ]

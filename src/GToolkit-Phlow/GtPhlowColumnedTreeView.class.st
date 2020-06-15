@@ -18,7 +18,7 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 
 	theItems := self itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 
-	aContainer := BlElement new.
+	aContainer := self elementClass new.
 	aContainer constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical matchParent ].
@@ -27,7 +27,7 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 	aHeader := self newHeader.
 	aHeader addChildren: (self newColumnElementsForItems: theItems).
 
-	aTree := BrColumnedTree new.
+	aTree := self columnedTreeClass new.
 	
 	self 
 		performBlock: [ aTree items: theItems children: self childrenBuilder ] 
@@ -160,6 +160,11 @@ GtPhlowColumnedTreeView >> column: aTitleString item: aBlock width: aNumber [
 	aColumn width: aNumber.
 ]
 
+{ #category : #accessing }
+GtPhlowColumnedTreeView >> columnedTreeClass [
+	^ BrColumnedTree
+]
+
 { #category : #copying }
 GtPhlowColumnedTreeView >> copySendFrom: aSendBlock [
 	aSendBlock ifNil: [ ^ self ].
@@ -172,6 +177,11 @@ GtPhlowColumnedTreeView >> display: aBlock [
 		deprecated: 'Please use #items: instead.'
 		transformWith: '`@receiver display: `@statements' -> '`@receiver items: `@statements'.
 	self items: aBlock
+]
+
+{ #category : #accessing }
+GtPhlowColumnedTreeView >> elementClass [
+	^ BlElement
 ]
 
 { #category : #'expanding-collapsing' }
@@ -206,6 +216,14 @@ GtPhlowColumnedTreeView >> initialize [
 	itemsBuilder := [ { } ].
 	childrenBuilder := [ :each | { } ].
 	transformation := [ :aValue | "by default there is no transformation" aValue ].
+]
+
+{ #category : #testing }
+GtPhlowColumnedTreeView >> isExpectedElement: aCurrentElement [
+	aCurrentElement class = self elementClass ifFalse: [ ^ false ].
+	aCurrentElement childrenCount = 2 ifFalse: [ ^ false ].
+	(aCurrentElement childAt: 2) class = self columnedTreeClass ifFalse: [ ^ false ].
+	^ true
 ]
 
 { #category : #accessing }
@@ -316,6 +334,8 @@ GtPhlowColumnedTreeView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 	
 	| aParent |
+	(self isExpectedElement: aCurrentElement) ifFalse: [ 
+		^ super updateContent: aCurrentElement ].
 	aParent := aCurrentElement parent.
 	aParent ifNotNil: [ 
 		| theItems aTree |

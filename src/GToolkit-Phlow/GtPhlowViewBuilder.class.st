@@ -28,6 +28,13 @@ GtPhlowViewBuilder >> addActionsInto: aView [
 				ifTrue: [ aView addPhlowAction: action ] ]
 ]
 
+{ #category : #context }
+GtPhlowViewBuilder >> addBuildContext: aView [
+	aView buildContext: (GtPhlowBuildContext new
+		object: self object;
+		arguments: { self view. self context })
+]
+
 { #category : #building }
 GtPhlowViewBuilder >> build [
 	<return: #GtPhlowView>

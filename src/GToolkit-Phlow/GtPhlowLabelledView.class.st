@@ -31,7 +31,13 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 		constraintsDo: [ :c | 
 			c vertical matchParent. 
 			c horizontal matchParent ].
+	self beViewElement: group.
 	^ aBlock value: group
+]
+
+{ #category : #defaults }
+GtPhlowLabelledView >> defaultUpdateDefinitions [
+	^ super defaultUpdateDefinitions copyWith: GtPhlowUpdateLabeledOnClassAndSuperClassChange new
 ]
 
 { #category : #accessing }

@@ -35,6 +35,12 @@ GtPhlowTextEditorViewExamples >> myself [
 	^ self
 ]
 
+{ #category : #'examples - updating' }
+GtPhlowTextEditorViewExamples >> phlowView [
+	<gtExample>
+	^ GtPhlowView empty textEditor text: 'abc' asRopedText
+]
+
 { #category : #examples }
 GtPhlowTextEditorViewExamples >> textView [
 	<gtExample>

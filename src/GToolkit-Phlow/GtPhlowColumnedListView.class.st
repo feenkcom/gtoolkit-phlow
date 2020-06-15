@@ -16,14 +16,14 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	| aContainer header list theItems |
 	theItems := self
 		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
-	aContainer := BlElement new.
+	aContainer := self elementClass new.
 	aContainer
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
 	aContainer layout: BlLinearLayout vertical.
 	header := self buildHeaderForItems: theItems.
-	list := BrColumnedList new items: theItems.
+	list := self columnedListClass new items: theItems.
 	list
 		addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
 	list
@@ -191,6 +191,11 @@ GtPhlowColumnedListView >> column: aTitleString item: aBlock width: aNumber [
 	aColumn width: aNumber.
 ]
 
+{ #category : #testing }
+GtPhlowColumnedListView >> columnedListClass [
+	^ BrColumnedList
+]
+
 { #category : #copying }
 GtPhlowColumnedListView >> copySendFrom: aSendBlock [
 	aSendBlock ifNil: [ ^ self ].
@@ -205,6 +210,11 @@ GtPhlowColumnedListView >> display: aBlock [
 	self items: aBlock
 ]
 
+{ #category : #accessing }
+GtPhlowColumnedListView >> elementClass [
+	^ BlElement
+]
+
 { #category : #initialization }
 GtPhlowColumnedListView >> initialize [
 	super initialize.
@@ -212,6 +222,14 @@ GtPhlowColumnedListView >> initialize [
 	columns := OrderedCollection new.
 	itemsBuilder := [ { } ].
 	transformation := [ :aValue | "by default there is no transformation" aValue ].
+]
+
+{ #category : #testing }
+GtPhlowColumnedListView >> isExpectedElement: aCurrentElement [
+	aCurrentElement class = self elementClass ifFalse: [ ^ false ].
+	aCurrentElement childrenCount = 2 ifFalse: [ ^ false ].
+	(aCurrentElement childAt: 2) class = self columnedListClass ifFalse: [ ^ false ].
+	^ true
 ]
 
 { #category : #accessing }
@@ -259,6 +277,8 @@ GtPhlowColumnedListView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 	
 	| aParent |
+	(self isExpectedElement: aCurrentElement) ifFalse: [ 
+		^ super updateContent: aCurrentElement ].
 	aParent := aCurrentElement parent.
 	aParent ifNotNil: [ 
 		| theItems aList |
