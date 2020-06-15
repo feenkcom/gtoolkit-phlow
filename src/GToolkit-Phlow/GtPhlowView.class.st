@@ -9,8 +9,8 @@ See ${class:GtPhlowViewExamples}$.
 Class {
 	#name : #GtPhlowView,
 	#superclass : #GtPhlowProtoView,
-	#traits : 'TGtPhlowTooltipBuilder',
-	#classTraits : 'TGtPhlowTooltipBuilder classTrait',
+	#traits : 'TGtPhlowViewTooltipBuilder',
+	#classTraits : 'TGtPhlowViewTooltipBuilder classTrait',
 	#instVars : [
 		'title',
 		'priority',
@@ -265,6 +265,11 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 			withHostElement: anElement ].
 
 	 ^ aToolbar
+]
+
+{ #category : #'adding - update definitions' }
+GtPhlowView >> addAutoUpdate: aGtPhlowUpdateDefinition [
+	self autoUpdates add: aGtPhlowUpdateDefinition
 ]
 
 { #category : #'adding - actions' }

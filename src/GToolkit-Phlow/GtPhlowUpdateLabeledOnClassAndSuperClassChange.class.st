@@ -1,9 +1,8 @@
 Class {
 	#name : #GtPhlowUpdateLabeledOnClassAndSuperClassChange,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
-	#instVars : [
-		'observedClass'
-	],
+	#traits : 'TGtPhlowObservedClassAccessors',
+	#classTraits : 'TGtPhlowObservedClassAccessors classTrait',
 	#category : #'GToolkit-Phlow-Updating'
 }
 
@@ -16,25 +15,8 @@ GtPhlowUpdateLabeledOnClassAndSuperClassChange >> handleAnnouncement: anAnnounce
 	self updatePhlowViews
 ]
 
-{ #category : #accessing }
-GtPhlowUpdateLabeledOnClassAndSuperClassChange >> observedClass [
-	^ observedClass
-]
-
-{ #category : #accessing }
-GtPhlowUpdateLabeledOnClassAndSuperClassChange >> observedClass: aClass [
-	self 
-		assert: [ aClass isClass ] 
-		description: [ 'Observed class must be a Class' ].
-	observedClass := aClass
-]
-
 { #category : #subscriptions }
-GtPhlowUpdateLabeledOnClassAndSuperClassChange >> subscribeOn: aGtPhlowElementContext [
-	aGtPhlowElementContext hasBuildContext ifFalse: [ ^ self ].
-	self observedClass: aGtPhlowElementContext buildContext object class.
-	self addContext: aGtPhlowElementContext.
-	self setSubscribedIfAlreadySubscribedDo: [ ^ self ].
+GtPhlowUpdateLabeledOnClassAndSuperClassChange >> subscribeToSystemOn: aGtPhlowElementContext [
 	self
 		subscribeAnnouncement: MethodAnnouncement, ClassAnnouncement
 		send: #handleAnnouncement:

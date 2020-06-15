@@ -35,7 +35,7 @@ GtPhlowElementContext >> allChildrenWithView [
 	^ aTab parent children select: [ :child | child phlow isView ]
 ]
 
-{ #category : #updating }
+{ #category : #'api - updating' }
 GtPhlowElementContext >> asyncUpdate [
 	BlUseAsyncFeatures
 		ifEnabledDo: [ self postponeUpdate ]
@@ -219,7 +219,7 @@ GtPhlowElementContext >> spawnTool: aTool [
 		sourceElement: self element)
 ]
 
-{ #category : #updating }
+{ #category : #'api - updating' }
 GtPhlowElementContext >> syncUpdate [
 	self entity updateContent: self element.
 ]
@@ -232,7 +232,7 @@ GtPhlowElementContext >> textViewContent [
 		ifFound: [:editorElement | editorElement editor text ]
 ]
 
-{ #category : #updating }
+{ #category : #'api - updating' }
 GtPhlowElementContext >> update [
 	self asyncUpdate
 ]

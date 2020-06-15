@@ -1,9 +1,10 @@
 Class {
 	#name : #GtPhlowUpdateCompositeSubViewListOnMethodChange,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
+	#traits : 'TGtPhlowObservedClassAccessors',
+	#classTraits : 'TGtPhlowObservedClassAccessors classTrait',
 	#instVars : [
-		'pragmas',
-		'observedClass'
+		'pragmas'
 	],
 	#category : #'GToolkit-Phlow-Updating'
 }
@@ -50,16 +51,6 @@ GtPhlowUpdateCompositeSubViewListOnMethodChange >> initialize [
 	pragmas := self defaultPragmas.
 ]
 
-{ #category : #accessing }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> observedClass [
-	^ observedClass
-]
-
-{ #category : #accessing }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> observedClass: anObject [
-	observedClass := anObject
-]
-
 { #category : #'accessing - convenience' }
 GtPhlowUpdateCompositeSubViewListOnMethodChange >> pragma: aSymbol [
 	self pragmas: (Array with: aSymbol)
@@ -83,11 +74,7 @@ GtPhlowUpdateCompositeSubViewListOnMethodChange >> removeSubView: aMethodRemoved
 ]
 
 { #category : #subscriptions }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> subscribeOn: aGtPhlowElementContext [
-	aGtPhlowElementContext hasBuildContext ifFalse: [ ^ self ].
-	self observedClass: aGtPhlowElementContext buildContext object class.
-	self addContext: aGtPhlowElementContext.
-	self setSubscribedIfAlreadySubscribedDo: [ ^ self ].
+GtPhlowUpdateCompositeSubViewListOnMethodChange >> subscribeToSystemOn: aGtPhlowElementContext [
 	self
 		subscribeAnnouncement: MethodAdded
 		send: #handleMethodAddedAnnouncement:

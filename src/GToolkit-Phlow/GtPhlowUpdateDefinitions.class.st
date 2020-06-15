@@ -9,12 +9,13 @@ Class {
 
 { #category : #adding }
 GtPhlowUpdateDefinitions >> add: aDefinition [
-	self definitions add: aDefinition
+	self definitions add: aDefinition asPhlowUpdateDefinition.
 ]
 
 { #category : #adding }
 GtPhlowUpdateDefinitions >> addAll: aCollectionOfDefinitions [
-	self definitions addAll: aCollectionOfDefinitions
+	aCollectionOfDefinitions do: [ :eachDefinition | 
+		self add: eachDefinition ]
 ]
 
 { #category : #adding }

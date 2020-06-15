@@ -1,8 +1,8 @@
 Class {
 	#name : #GtPhlowAction,
 	#superclass : #Object,
-	#traits : 'TBlDebug + TGtPhlowTooltipBuilder',
-	#classTraits : 'TBlDebug classTrait + TGtPhlowTooltipBuilder classTrait',
+	#traits : 'TBlDebug + TGtPhlowActionTooltipBuilder',
+	#classTraits : 'TBlDebug classTrait + TGtPhlowActionTooltipBuilder classTrait',
 	#instVars : [
 		'definingMethod',
 		'priority',
