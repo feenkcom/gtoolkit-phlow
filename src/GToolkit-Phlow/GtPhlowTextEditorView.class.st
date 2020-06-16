@@ -6,23 +6,28 @@ Class {
 	#instVars : [
 		'textBuilder',
 		'look',
-		'styler'
+		'styler',
+		'attributesBuilder'
 	],
 	#category : #'GToolkit-Phlow-! Views and Actions'
 }
 
 { #category : #converting }
 GtPhlowTextEditorView >> asElementDo: aBlock [
-	| aBrickEditor aText |
+	| aBrickEditor aText aNewLook |
 
 	aBrickEditor := self elementClass new.
 
 	aText := self 
 		textFor: aBrickEditor 
 		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
+	
+	aNewLook := self 
+		performBlock: [ self newLook ] 
+		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
 
 	aBrickEditor 
-		look: look value;
+		look: aNewLook;
 		styler: styler;
 		text: aText.
 
@@ -40,7 +45,7 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 GtPhlowTextEditorView >> attributesBuilder [
 	<return: #BlTextAttributesBuilder>
 	
-	^ look attributesBuilder
+	^ attributesBuilder
 ]
 
 { #category : #converting }
@@ -51,6 +56,7 @@ GtPhlowTextEditorView >> elementClass [
 { #category : #initialization }
 GtPhlowTextEditorView >> initialize [
 	super initialize.
+	attributesBuilder := BlTextDelegatedAttributesBuilder new.
 	look := BrGlamorousRegularEditorLook.
 	styler := BlTextNullStyler new.
 ]
@@ -68,6 +74,14 @@ GtPhlowTextEditorView >> look [
 { #category : #accessing }
 GtPhlowTextEditorView >> look: aLook [
 	look := aLook
+]
+
+{ #category : #'instance creation' }
+GtPhlowTextEditorView >> newLook [
+	| aNewLook |
+	aNewLook := look value asLook.
+	aNewLook attributesBuilder: self attributesBuilder.
+	^ aNewLook
 ]
 
 { #category : #accessing }
