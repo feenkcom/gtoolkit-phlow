@@ -307,6 +307,36 @@ GtPhlowView >> addPhlowActions: aCollectionOfPhlowActions [
 		self addPhlowAction: eachPhlowAction ]
 ]
 
+{ #category : #'adding - actions' }
+GtPhlowView >> addUpdateButton [
+	self
+		deprecated: 'Please use actionUpdateButton method instead.'
+		transformWith:
+			'`@receiver addUpdateButton'
+				-> '`@receiver actionUpdateButton'.	
+	^ self actionUpdateButton
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> addUpdateButtonIcon: anIcon tooltip: aTooltip [
+	self
+		deprecated: 'Please use actionUpdateButtonIcon:tooltip: method instead.'
+		transformWith:
+			'`@receiver addUpdateButtonIcon: `@statements1 tooltip: `@statements2'
+				-> '`@receiver actionUpdateButtonIcon: `@statements1 tooltip: `@statements2'.	
+	^ self actionUpdateButtonIcon: anIcon tooltip: aTooltip
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> addUpdateButtonTooltip: aTooltip [
+	self
+		deprecated: 'Please use actionUpdateButtonTooltip: method instead.'
+		transformWith:
+			'`@receiver addUpdateButtonTooltip: `@statements1'
+				-> '`@receiver actionUpdateButtonTooltip: `@statements1'.	
+	^ self actionUpdateButtonTooltip: aTooltip
+]
+
 { #category : #'accessing - computed' }
 GtPhlowView >> allActions [
 	"I return all actions that belong to a view.
