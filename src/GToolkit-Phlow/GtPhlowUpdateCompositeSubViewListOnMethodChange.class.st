@@ -23,7 +23,8 @@ GtPhlowUpdateCompositeSubViewListOnMethodChange >> defaultPragmas [
 
 { #category : #'announcement handling' }
 GtPhlowUpdateCompositeSubViewListOnMethodChange >> handleMethodAddedAnnouncement: aMethodAdded [ 
-	self hasContexts ifFalse: [ ^ self ].
+	self ifItDoesNotHaveContextsDo: [ ^ self ].
+	self ifItDoesNotHaveObservedClassDo: [ ^ self ]. 
 	(self pragmas anySatisfy: [ :eachSymbol |
 		aMethodAdded methodAdded hasPragmaNamed: eachSymbol ]) ifFalse: [ ^ self ].
 	(GtSystemUtility 

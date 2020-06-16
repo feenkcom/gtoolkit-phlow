@@ -47,6 +47,11 @@ GtPhlowSystemChangeUpdateDefinition >> hasContexts [
 	^ self contexts isEmptyOrNil not
 ]
 
+{ #category : #testing }
+GtPhlowSystemChangeUpdateDefinition >> ifItDoesNotHaveContextsDo: aBlock [
+	self hasContexts ifFalse: aBlock
+]
+
 { #category : #initialization }
 GtPhlowSystemChangeUpdateDefinition >> initialize [
 	super initialize.

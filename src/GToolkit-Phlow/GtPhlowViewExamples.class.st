@@ -10,6 +10,17 @@ GtPhlowViewExamples class >> isAbstract [
 ]
 
 { #category : #asserting }
+GtPhlowViewExamples >> assertCommonDefaultView: aView [
+	self assert: aView title isNotNil.
+	self assert: aView priority isNumber.
+	self assert: aView definingMethod isNotNil.
+	self assert: aView autoUpdates isNotNil.
+	self assert: aView actions isCollection.
+	self assert: aView buildContext isNotNil.
+	self assert: aView isAsyncEnabled.
+]
+
+{ #category : #asserting }
 GtPhlowViewExamples >> assertErrorElement: anElement inView: aView [
 	self assert: anElement class equals: BrFrame.
 	self assert: anElement childrenCount equals: 1.
@@ -24,7 +35,7 @@ GtPhlowViewExamples >> assertViewElement: anElement ofClass: aClass inView: aVie
 	self assert: anElement phlow entity equals: aView
 ]
 
-{ #category : #'examples - basic elements' }
+{ #category : #'examples - elements' }
 GtPhlowViewExamples >> container [
 	<gtExample>
 	^ BlElement new

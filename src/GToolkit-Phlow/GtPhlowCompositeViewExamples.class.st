@@ -1,3 +1,6 @@
+"
+I exemplify ${class:GtPhlowCompositeView}$.
+"
 Class {
 	#name : #GtPhlowCompositeViewExamples,
 	#superclass : #GtPhlowViewExamples,
@@ -15,6 +18,20 @@ GtPhlowCompositeViewExamples >> element [
 	^ anElement
 ]
 
+{ #category : #'gt-extensions' }
+GtPhlowCompositeViewExamples >> gtPhlowViewFor: aView [
+	<gtView>
+	^ aView composite
+		title: 'Composite View';
+		views: { self subViewOne. self subViewTwo }
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowCompositeViewExamples >> itself [
+	<gtExample>
+	^ self
+]
+
 { #category : #'examples - updating' }
 GtPhlowCompositeViewExamples >> phlowView [
 	<gtExample>
@@ -23,6 +40,16 @@ GtPhlowCompositeViewExamples >> phlowView [
 	theSubViews := { self subViewOne. self subViewTwo } asOrderedCollection.
 	aView views: theSubViews.
 	self assert: aView views equals: theSubViews.
+	^ aView
+]
+
+{ #category : #'examples - sub-views' }
+GtPhlowCompositeViewExamples >> subViewEmpty [
+	<gtExample>
+	| aView |
+	aView := GtPhlowView empty on: GtPhlowEmptyViewExamples new perform: #gtPhlowViewFor:.
+	aView title: 'Empty View'.
+	aView priority: 4.
 	^ aView
 ]
 
@@ -72,7 +99,8 @@ GtPhlowCompositeViewExamples >> updateViewOneDefinition [
 	aView := aTabGroup phlow entity.
 	aSubView := aView views first.
 	aNewSubView := self subViewThree.
-	aNewSubView definingMethod: aSubView definingMethod.
+	aSubView buildContext object: aNewSubView buildContext object.
+	aSubView definingMethod: aNewSubView definingMethod.
 	
 	aCommand := GtPhlowUpdateCompositeSubViewTitleAndPosition new
 		elementContext: aTabGroup phlow;
@@ -86,7 +114,41 @@ GtPhlowCompositeViewExamples >> updateViewOneDefinition [
 	self assert: aFinalTabs first equals: anInitialTabs second.
 	self assert: aFinalTabs second equals: anInitialTabs first.
 	self assert: aFinalTabs first widget label asString equals: 'View Two'.
-	self assert: aFinalTabs second widget label asString equals: 'Update on click'.
+	self assert: aFinalTabs second widget label asString equals: 'Auto Updating Text'.
+
+	^ aContainer
+]
+
+{ #category : #'examples - updating' }
+GtPhlowCompositeViewExamples >> updateViewOneDefinition_ByEmptyView [
+	<gtExample>
+	| aTabGroup aView aSubView aCommand aNewSubView aContainer anInitialTabs aFinalTabs |
+	aContainer := self container.
+	aTabGroup := self element.
+	anInitialTabs := aTabGroup viewModel tabs copy.
+
+	self assert: anInitialTabs size equals: 2.
+	self assert: anInitialTabs first widget label asString equals: 'View One'.
+	self assert: anInitialTabs second widget label asString equals: 'View Two'.
+
+	aContainer addChild: aTabGroup.
+	aView := aTabGroup phlow entity.
+	aSubView := aView views first.
+	aNewSubView := self subViewEmpty.
+	aSubView buildContext object: aNewSubView buildContext object.
+	aSubView definingMethod: aNewSubView definingMethod.
+	
+	aCommand := GtPhlowUpdateCompositeSubViewTitleAndPosition new
+		elementContext: aTabGroup phlow;
+		subView: aSubView.
+	BlUseAsyncFeatures disableDuring: [
+		aCommand execute ].
+
+	aFinalTabs := aTabGroup viewModel tabs copy.
+
+	self assert: aFinalTabs size equals: 1.
+	self assert: aFinalTabs first equals: anInitialTabs second.
+	self assert: aFinalTabs first widget label asString equals: 'View Two'.
 
 	^ aContainer
 ]

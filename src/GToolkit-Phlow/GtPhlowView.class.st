@@ -245,6 +245,26 @@ GtPhlowView >> actionToggleLabel: aStringOrRope tooltip: aTooltipText activated:
 			deactivatedAction: aDeactivatedValuable ]
 ]
 
+{ #category : #'adding - actions' }
+GtPhlowView >> actionUpdateButton [
+	self actionUpdateButtonTooltip: 'Update'
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionUpdateButtonIcon: anIcon tooltip: aTooltip [
+	self 
+		actionButtonIcon: anIcon
+		tooltip: aTooltip
+		action: [ :aButton :aTab | aTab viewContentElement phlow update ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionUpdateButtonTooltip: aTooltip [
+	self 
+		actionUpdateButtonIcon: BrGlamorousVectorIcons refresh 
+		tooltip: aTooltip
+]
+
 { #category : #accessing }
 GtPhlowView >> actions [
 	<return: #OrderedCollection of: #GtPhlowAction>
@@ -285,26 +305,6 @@ GtPhlowView >> addPhlowAction: aPhlowAction [
 GtPhlowView >> addPhlowActions: aCollectionOfPhlowActions [
 	aCollectionOfPhlowActions do: [ :eachPhlowAction | 
 		self addPhlowAction: eachPhlowAction ]
-]
-
-{ #category : #'adding - actions' }
-GtPhlowView >> addUpdateButton [
-	self addUpdateButtonTooltip: 'Update'
-]
-
-{ #category : #'adding - actions' }
-GtPhlowView >> addUpdateButtonIcon: anIcon tooltip: aTooltip [
-	self 
-		actionButtonIcon: anIcon
-		tooltip: aTooltip
-		action: [ :aButton :aTab | aTab viewContentElement phlow update ]
-]
-
-{ #category : #'adding - actions' }
-GtPhlowView >> addUpdateButtonTooltip: aTooltip [
-	self 
-		addUpdateButtonIcon: BrGlamorousVectorIcons refresh 
-		tooltip: aTooltip
 ]
 
 { #category : #'accessing - computed' }
@@ -407,8 +407,9 @@ GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
 ]
 
-{ #category : #accessing }
+{ #category : #'api - async ui building' }
 GtPhlowView >> disableAsync [
+	"Disable element creation in background (while calling ${method:GtPhlowProtoView>>#asElementDo:}$)"
 	asyncEnabled := false.
 ]
 
@@ -418,8 +419,9 @@ GtPhlowView >> dontUpdateOnSystemChange [
 	self autoUpdates dontUpdateOnSystemChange.
 ]
 
-{ #category : #accessing }
+{ #category : #'api - async ui building' }
 GtPhlowView >> enableAsync [
+	"Enable element creation in background (while calling ${method:GtPhlowProtoView>>#asElementDo:}$)"
 	asyncEnabled := true.
 ]
 
@@ -472,6 +474,11 @@ GtPhlowView >> initialize [
 { #category : #initialization }
 GtPhlowView >> initializeDefaultUpdateDefinitions [
 	self autoUpdates addAll: self defaultUpdateDefinitions
+]
+
+{ #category : #testing }
+GtPhlowView >> isAsyncEnabled [
+	^ asyncEnabled
 ]
 
 { #category : #accessing }

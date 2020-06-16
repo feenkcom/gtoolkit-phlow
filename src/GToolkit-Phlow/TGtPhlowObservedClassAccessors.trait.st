@@ -6,6 +6,16 @@ Trait {
 	#category : #'GToolkit-Phlow-Updating'
 }
 
+{ #category : #testing }
+TGtPhlowObservedClassAccessors >> hasObservedClass [
+	^ self observedClass isNotNil.
+]
+
+{ #category : #testing }
+TGtPhlowObservedClassAccessors >> ifItDoesNotHaveObservedClassDo: aBlock [
+	self hasObservedClass ifFalse: aBlock
+]
+
 { #category : #initialization }
 TGtPhlowObservedClassAccessors >> initializeObservedClassOn: aGtPhlowElementContext [
 	aGtPhlowElementContext hasBuildContext ifFalse: [ ^ self ].
