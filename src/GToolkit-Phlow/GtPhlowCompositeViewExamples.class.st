@@ -59,20 +59,34 @@ GtPhlowCompositeViewExamples >> subViewTwo [
 { #category : #'examples - updating' }
 GtPhlowCompositeViewExamples >> updateViewOneDefinition [
 	<gtExample>
-	| anElement aView aSubView aCommand aNewSubView aContainer aContent |
+	| aTabGroup aView aSubView aCommand aNewSubView aContainer anInitialTabs aFinalTabs |
 	aContainer := self container.
-	anElement := self element.
-	aContent := anElement content.
-	aContainer addChild: anElement.
-	aView := anElement phlow entity.
+	aTabGroup := self element.
+	anInitialTabs := aTabGroup viewModel tabs copy.
+
+	self assert: anInitialTabs size equals: 2.
+	self assert: anInitialTabs first widget label asString equals: 'View One'.
+	self assert: anInitialTabs second widget label asString equals: 'View Two'.
+
+	aContainer addChild: aTabGroup.
+	aView := aTabGroup phlow entity.
 	aSubView := aView views first.
 	aNewSubView := self subViewThree.
 	aNewSubView definingMethod: aSubView definingMethod.
+	
 	aCommand := GtPhlowUpdateCompositeSubViewTitleAndPosition new
-		elementContext: anElement phlow;
+		elementContext: aTabGroup phlow;
 		subView: aSubView.
 	BlUseAsyncFeatures disableDuring: [
 		aCommand execute ].
-	self assert: anElement content equals: aContent.
+
+	aFinalTabs := aTabGroup viewModel tabs copy.
+
+	self assert: aFinalTabs size equals: 2.
+	self assert: aFinalTabs first equals: anInitialTabs second.
+	self assert: aFinalTabs second equals: anInitialTabs first.
+	self assert: aFinalTabs first widget label asString equals: 'View Two'.
+	self assert: aFinalTabs second widget label asString equals: 'Update on click'.
+
 	^ aContainer
 ]

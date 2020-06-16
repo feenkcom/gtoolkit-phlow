@@ -1,3 +1,17 @@
+"
+I update a ${class:GtPhlowCompositeView}$ subview and its corresponding ${class:BrTab}$ label and position in ${class:BrTabGroup}$.
+
+!! Example
+
+The first tab:
+
+${example:GtPhlowCompositeViewExamples>>#element|codeExpanded=false|previewExpanded=true}$
+
+is moved to the second position and renamed:
+
+${example:GtPhlowCompositeViewExamples>>#updateViewOneDefinition|codeExpanded=false|previewExpanded=true}$
+
+"
 Class {
 	#name : #GtPhlowUpdateCompositeSubViewTitleAndPosition,
 	#superclass : #GtPhlowUpdateCommand,
