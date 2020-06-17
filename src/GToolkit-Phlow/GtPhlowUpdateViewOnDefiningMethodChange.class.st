@@ -1,11 +1,17 @@
+"
+I listen to system changes.
+I udpate a ${class:GtPhlowView}$ and a corresponsind ${class:BlElement}$ on view definition change.
+See ${class:GtPhlowUpdateView}$ for more details.
+
+"
 Class {
-	#name : #GtPhlowUpdateOnViewMethodChange,
+	#name : #GtPhlowUpdateViewOnDefiningMethodChange,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
 	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #'announcement handling' }
-GtPhlowUpdateOnViewMethodChange >> handleMethodModifiedAnnouncement: aMethodModified [ 
+GtPhlowUpdateViewOnDefiningMethodChange >> handleMethodModifiedAnnouncement: aMethodModified [ 
 	self hasContexts ifFalse: [ ^ self ].
 	self definingMethod ifNil: [ ^ self ].
 	(self definingMethod gtPhlowIncludesCompiledMethod: aMethodModified methodAffected)
@@ -14,7 +20,7 @@ GtPhlowUpdateOnViewMethodChange >> handleMethodModifiedAnnouncement: aMethodModi
 ]
 
 { #category : #subscriptions }
-GtPhlowUpdateOnViewMethodChange >> subscribeOn: aGtPhlowElementContext [
+GtPhlowUpdateViewOnDefiningMethodChange >> subscribeOn: aGtPhlowElementContext [
 	aGtPhlowElementContext definingMethod ifNil: [ ^ self ].
 	self addContext: aGtPhlowElementContext.
 	self setSubscribedIfAlreadySubscribedDo: [ ^ self ].
@@ -25,13 +31,13 @@ GtPhlowUpdateOnViewMethodChange >> subscribeOn: aGtPhlowElementContext [
 ]
 
 { #category : #updating }
-GtPhlowUpdateOnViewMethodChange >> updatePhlowView: aGtPhlowElementContext [
-	self scheduleTask: (GtPhlowUpdateElementContext new
+GtPhlowUpdateViewOnDefiningMethodChange >> updatePhlowView: aGtPhlowElementContext [
+	self scheduleTask: (GtPhlowUpdateView new
 		elementContext: aGtPhlowElementContext)
 ]
 
 { #category : #updating }
-GtPhlowUpdateOnViewMethodChange >> updatePhlowViews [
+GtPhlowUpdateViewOnDefiningMethodChange >> updatePhlowViews [
 	self contexts do: [ :eachContext | 
 		eachContext hasBuildContext ifTrue: [ 
 			self updatePhlowView: eachContext ] ].

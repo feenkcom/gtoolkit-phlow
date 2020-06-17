@@ -1,6 +1,6 @@
 "
 I remove a ${class:GtPhlowCompositeView}$ subview and its corresponding ${class:BrTab}$ in ${class:BrTabGroup}$.
-I am used by ${class:GtPhlowUpdateCompositeSubViewListOnMethodChange}$.
+I am used by ${class:GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange}$.
 
 !! Removing Tab
 

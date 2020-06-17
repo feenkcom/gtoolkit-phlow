@@ -38,6 +38,35 @@ GtPhlowCompositeViewExamples >> addViewThreeDefinition [
 	^ aContainer
 ]
 
+{ #category : #'examples - updating' }
+GtPhlowCompositeViewExamples >> addViewThreeDefinition_WithEmptyView [
+	<gtExample>
+	| aTabGroup aView aCommand aNewSubView aContainer anInitialTabs aFinalTabs |
+	aContainer := self container.
+	aTabGroup := self element.
+	anInitialTabs := aTabGroup viewModel tabs copy.
+
+	aContainer addChild: aTabGroup.
+	aView := aTabGroup phlow entity.
+	aNewSubView := self subViewEmpty.
+	
+	aCommand := GtPhlowAddCompositeSubView new
+		elementContext: aTabGroup phlow;
+		compiledMethod: aNewSubView definingMethod compiledMethod.
+	BlUseAsyncFeatures disableDuring: [
+		aCommand execute ].
+
+	aFinalTabs := aTabGroup viewModel tabs copy.
+
+	self assert: aFinalTabs size equals: 2.
+	self assert: aFinalTabs first equals: anInitialTabs first.
+	self assert: aFinalTabs second equals: anInitialTabs second.
+
+	self assert: aView views size equals: 2.
+
+	^ aContainer
+]
+
 { #category : #'examples - elements' }
 GtPhlowCompositeViewExamples >> element [
 	<gtExample>
@@ -60,12 +89,9 @@ GtPhlowCompositeViewExamples >> gtAutoUpdatingFor: aView [
 	^ GtPhlowTextEditorViewExamples new gtAutoUpdatingFor: aView
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : #'examples - sub-views' }
 GtPhlowCompositeViewExamples >> gtPhlowViewFor: aView [
-	<gtView>
-	^ aView composite
-		title: 'Composite View';
-		views: { self subViewOne. self subViewTwo }
+	^ GtPhlowEmptyViewExamples new gtPhlowViewFor: aView
 ]
 
 { #category : #'gt-extensions' }

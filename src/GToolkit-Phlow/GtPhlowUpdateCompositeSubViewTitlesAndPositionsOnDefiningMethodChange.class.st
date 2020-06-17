@@ -5,13 +5,13 @@ See ${class:GtPhlowUpdateCompositeSubViewTitleAndPosition}$ for more details.
 
 "
 Class {
-	#name : #GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange,
+	#name : #GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
 	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #'announcement handling' }
-GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange >> handleMethodModifiedAnnouncement: aMethodModified [ 
+GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> handleMethodModifiedAnnouncement: aMethodModified [ 
 	self hasContexts ifFalse: [ ^ self ].
 	self views do: [ :eachView | 
 		(eachView definingMethod isNotNil and: [ 
@@ -20,7 +20,7 @@ GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange >> handleMethodMod
 ]
 
 { #category : #subscriptions }
-GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange >> subscribeOn: aGtPhlowElementContext [
+GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> subscribeOn: aGtPhlowElementContext [
 	self addContext: aGtPhlowElementContext.
 	self setSubscribedIfAlreadySubscribedDo: [ ^ self ].
 	self
@@ -30,20 +30,20 @@ GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange >> subscribeOn: aG
 ]
 
 { #category : #updating }
-GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange >> updateSubView: aGtPhlowView [
+GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> updateSubView: aGtPhlowView [
 	self contexts do: [ :eachContext | 
 		self updateSubView: aGtPhlowView inContext: eachContext ].
 ]
 
 { #category : #updating }
-GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange >> updateSubView: aGtPhlowView inContext: aGtPhlowElementContext [
+GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> updateSubView: aGtPhlowView inContext: aGtPhlowElementContext [
 	self scheduleTask: (GtPhlowUpdateCompositeSubViewTitleAndPosition new
 		elementContext: aGtPhlowElementContext;
 		subView: aGtPhlowView)
 ]
 
 { #category : #'accessing - convenience' }
-GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange >> views [
+GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> views [
 	<return: #Array of: #GtPhlowView>
 	^ self contexts anyOne entity views
 ]

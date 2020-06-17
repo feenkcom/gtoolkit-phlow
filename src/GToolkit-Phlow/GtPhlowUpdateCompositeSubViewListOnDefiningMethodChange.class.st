@@ -6,7 +6,7 @@ See ${class:GtPhlowAddCompositeSubView}$ and ${GtPhlowRemoveCompositeSubView}$ f
 
 "
 Class {
-	#name : #GtPhlowUpdateCompositeSubViewListOnMethodChange,
+	#name : #GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
 	#traits : 'TGtPhlowObservedClassAccessors',
 	#classTraits : 'TGtPhlowObservedClassAccessors classTrait',
@@ -17,19 +17,19 @@ Class {
 }
 
 { #category : #'private - updating' }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> addSubView: aMethodAdded inContext: aGtPhlowElementContext [
+GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> addSubView: aMethodAdded inContext: aGtPhlowElementContext [
 	self scheduleTask: (GtPhlowAddCompositeSubView new
 		elementContext: aGtPhlowElementContext;
 		compiledMethod: aMethodAdded)
 ]
 
 { #category : #defaults }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> defaultPragmas [
+GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> defaultPragmas [
 	^ GtPhlowViewsCollector defaultViewPragmaNames
 ]
 
 { #category : #'announcement handling' }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> handleMethodAddedAnnouncement: aMethodAdded [ 
+GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> handleMethodAddedAnnouncement: aMethodAdded [ 
 	self ifItDoesNotHaveContextsDo: [ ^ self ].
 	self ifItDoesNotHaveObservedClassDo: [ ^ self ]. 
 	(self pragmas anySatisfy: [ :eachSymbol |
@@ -42,7 +42,7 @@ GtPhlowUpdateCompositeSubViewListOnMethodChange >> handleMethodAddedAnnouncement
 ]
 
 { #category : #'announcement handling' }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> handleMethodRemovedAnnouncement: aMethodRemoved [ 
+GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> handleMethodRemovedAnnouncement: aMethodRemoved [ 
 	self hasContexts ifFalse: [ ^ self ].
 	(self pragmas anySatisfy: [ :eachSymbol |
 		aMethodRemoved methodRemoved hasPragmaNamed: eachSymbol ]) ifFalse: [ ^ self ].
@@ -54,35 +54,35 @@ GtPhlowUpdateCompositeSubViewListOnMethodChange >> handleMethodRemovedAnnounceme
 ]
 
 { #category : #initialization }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> initialize [
+GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> initialize [
 	super initialize.
 	pragmas := self defaultPragmas.
 ]
 
 { #category : #'accessing - convenience' }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> pragma: aSymbol [
+GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> pragma: aSymbol [
 	self pragmas: (Array with: aSymbol)
 ]
 
 { #category : #accessing }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> pragmas [
+GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> pragmas [
 	^ pragmas
 ]
 
 { #category : #accessing }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> pragmas: anObject [
+GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> pragmas: anObject [
 	pragmas := anObject
 ]
 
 { #category : #'private - updating' }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> removeSubView: aMethodRemoved inContext: aGtPhlowElementContext [
+GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> removeSubView: aMethodRemoved inContext: aGtPhlowElementContext [
 	self scheduleTask: (GtPhlowRemoveCompositeSubView new
 		elementContext: aGtPhlowElementContext;
 		compiledMethod: aMethodRemoved)
 ]
 
 { #category : #subscriptions }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> subscribeToSystemOn: aGtPhlowElementContext [
+GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> subscribeToSystemOn: aGtPhlowElementContext [
 	self
 		subscribeAnnouncement: MethodAdded
 		send: #handleMethodAddedAnnouncement:
@@ -94,20 +94,20 @@ GtPhlowUpdateCompositeSubViewListOnMethodChange >> subscribeToSystemOn: aGtPhlow
 ]
 
 { #category : #updating }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> updateSubView: aGtPhlowView [
+GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> updateSubView: aGtPhlowView [
 	self contexts do: [ :eachContext | 
 		self updateSubView: aGtPhlowView inContext: eachContext ].
 ]
 
 { #category : #updating }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> updateSubView: aGtPhlowView inContext: aGtPhlowElementContext [
+GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> updateSubView: aGtPhlowView inContext: aGtPhlowElementContext [
 	self scheduleTask: (GtPhlowUpdateCompositeSubViewTitleAndPosition new
 		elementContext: aGtPhlowElementContext;
 		subView: aGtPhlowView)
 ]
 
 { #category : #'accessing - convenience' }
-GtPhlowUpdateCompositeSubViewListOnMethodChange >> views [
+GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> views [
 	<return: #Array of: #GtPhlowView>
 	^ self contexts anyOne entity views
 ]

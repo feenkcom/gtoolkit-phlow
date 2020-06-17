@@ -1,6 +1,6 @@
 "
 I update a ${class:GtPhlowCompositeView}$ subview and its corresponding ${class:BrTab}$ label and position in ${class:BrTabGroup}$.
-I am used by ${class:GtPhlowUpdateCompositeSubViewListOnMethodChange}$ and by ${class:GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange}$.
+I am used by ${class:GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange}$ and by ${class:GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange}$.
 
 !! Updating Tab
 

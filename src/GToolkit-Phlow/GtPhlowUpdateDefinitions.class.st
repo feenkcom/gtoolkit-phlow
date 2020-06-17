@@ -86,5 +86,5 @@ GtPhlowUpdateDefinitions >> updateOnClassChange [
 
 { #category : #adding }
 GtPhlowUpdateDefinitions >> updateOnDefinitionChange [
-	self add: GtPhlowUpdateOnViewMethodChange new
+	self add: GtPhlowUpdateViewOnDefiningMethodChange new
 ]

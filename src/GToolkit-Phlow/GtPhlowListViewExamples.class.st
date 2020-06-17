@@ -91,6 +91,21 @@ GtPhlowListViewExamples >> autoUpdatedView_WithParent [
 	^ aView
 ]
 
+{ #category : #'examples - element' }
+GtPhlowListViewExamples >> element [
+	<gtExample>
+	| aView aList |
+	aView := self phlowView.
+	aList := aView asElementDo: [ :theElement | theElement ].
+
+	self assertViewElement: aList ofClass: BrColumnedList inView: aView.
+
+	self assert: aList items size equals: 10.
+	self assert: (aList items allSatisfy: [ :eachItem | eachItem isInteger ]).
+	
+	^ aList
+]
+
 { #category : #examples }
 GtPhlowListViewExamples >> emptyList [
 	<gtExample>
@@ -134,6 +149,31 @@ GtPhlowListViewExamples >> gtTenLinesFor: aView [
 			BlElement new background: Color orange; size: 10 @ x; margin: (BlInsets all: 10) ]
 ]
 
+{ #category : #'examples - element' }
+GtPhlowListViewExamples >> modifiedElement [
+	<gtExample>
+	| aView aList |
+	aView := self modifiedPhlowView.
+	aList := aView asElementDo: [ :theElement | theElement ].
+
+	self assertViewElement: aList ofClass: BrColumnedList inView: aView.
+
+	self assert: aList items size equals: 3.
+	self assert: (aList items allSatisfy: [ :eachItem | eachItem isInteger ]).
+	
+	^ aList
+]
+
+{ #category : #'examples - updating' }
+GtPhlowListViewExamples >> modifiedPhlowView [
+	<gtExample>
+	| aView |
+	aView := self phlowView.
+	aView items: [ (1 to: 3) asOrderedCollection ].
+	aView title: 'an incorrect title'.
+	^ aView
+]
+
 { #category : #'gt-extension' }
 GtPhlowListViewExamples >> myself [
 	<gtExample>
@@ -143,7 +183,33 @@ GtPhlowListViewExamples >> myself [
 { #category : #'examples - updating' }
 GtPhlowListViewExamples >> phlowView [
 	<gtExample>
-	^ self viewWithItemsAndItemElement
+	| aView |
+	aView := GtPhlowView empty on: self perform: #gtTenLinesFor:.
+	self assert: aView hasBuildContext.
+	^ aView
+]
+
+{ #category : #'examples - updating' }
+GtPhlowListViewExamples >> updateOnDefiningMethodChange [
+	<gtExample>
+	| anElement aView anElementContext aCommand aContainer |
+	aContainer := self container.
+	anElement := self modifiedElement.
+	anElementContext := anElement phlow.
+	aView := anElement phlow entity.
+	aContainer addChild: anElement.
+	
+	aCommand := GtPhlowUpdateView new
+		elementContext: anElement phlow.
+	BlUseAsyncFeatures disableDuring: [ 
+		aCommand execute ].
+
+	self assert: anElement phlow equals: anElementContext.
+	self assert: anElement phlow entity ~= aView.
+	self assert: anElement items size equals: 10.
+	self assert: anElement phlow entity title equals: '10 Lines'.
+	
+	^ aContainer
 ]
 
 { #category : #examples }
