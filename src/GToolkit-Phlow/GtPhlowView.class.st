@@ -366,6 +366,12 @@ GtPhlowView >> autoUpdates [
 	^ autoUpdates
 ]
 
+{ #category : #'private - updating' }
+GtPhlowView >> basicReplaceOldElement: anOldElement by: aNewElement in: aParent [
+	anOldElement parent == aParent ifFalse: [
+		aParent replaceChild: anOldElement with: aNewElement ]
+]
+
 { #category : #'private - elements' }
 GtPhlowView >> beViewElement: anElement [
 	"Set up a given element to play a role of the root element for a phlow view.
@@ -627,7 +633,7 @@ GtPhlowView >> replaceOldElement: anOldElement by: aNewElement in: aParent [
 	anOldElement phlow isViewContent ifTrue: [ 
 		aNewElement phlow beViewContent ].
 	self 
-		enqueueAction: [ aParent replaceChild: anOldElement with: aNewElement ] 
+		enqueueAction: [ self basicReplaceOldElement: anOldElement by: aNewElement in: aParent ] 
 		in: aParent.
 ]
 
