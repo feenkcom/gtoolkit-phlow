@@ -1,3 +1,9 @@
+"
+I listen to system changes.
+I change a ${class:BrTab}$ label and position of a changed ${class:GtPhlowView}$ subview definition in a given ${class:BrTabGroup}$ element.
+See ${class:GtPhlowUpdateCompositeSubViewTitleAndPosition}$ for more details.
+
+"
 Class {
 	#name : #GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,

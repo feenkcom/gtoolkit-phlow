@@ -1,3 +1,10 @@
+"
+I listen to system changes.
+I add a ${class:BrTab}$ in a given ${class:BrTabGroup}$ element when a new ${class:GtPhlowView}$ is defined.
+I remove a ${class:BrTab}$ in a given ${class:BrTabGroup}$ element when an existing ${class:GtPhlowView}$ defining method is removed.
+See ${class:GtPhlowAddCompositeSubView}$ and ${GtPhlowRemoveCompositeSubView}$ for more details.
+
+"
 Class {
 	#name : #GtPhlowUpdateCompositeSubViewListOnMethodChange,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
