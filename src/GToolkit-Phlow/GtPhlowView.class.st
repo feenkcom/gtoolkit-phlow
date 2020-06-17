@@ -368,7 +368,7 @@ GtPhlowView >> autoUpdates [
 
 { #category : #'private - updating' }
 GtPhlowView >> basicReplaceOldElement: anOldElement by: aNewElement in: aParent [
-	anOldElement parent == aParent ifFalse: [
+	anOldElement parent == aParent ifTrue: [
 		aParent replaceChild: anOldElement with: aNewElement ]
 ]
 
