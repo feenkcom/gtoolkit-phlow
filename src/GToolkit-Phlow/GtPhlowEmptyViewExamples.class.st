@@ -22,7 +22,7 @@ GtPhlowEmptyViewExamples >> gtPhlowViewFor: aView [
 		priority: 3
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowEmptyViewExamples >> phlowView [
 	<return: #GtPhlowView>
 	| aView |

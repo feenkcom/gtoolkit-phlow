@@ -116,6 +116,11 @@ GtPhlowListViewExamples >> emptyList [
 	^ aView
 ]
 
+{ #category : #'examples - element' }
+GtPhlowListViewExamples >> expectedElementClass [
+	^ BrColumnedList
+]
+
 { #category : #'gt-extension' }
 GtPhlowListViewExamples >> gtAutoUpdatingListFor: aView [
 	<gtView>
@@ -152,11 +157,8 @@ GtPhlowListViewExamples >> gtTenLinesFor: aView [
 { #category : #'examples - element' }
 GtPhlowListViewExamples >> modifiedElement [
 	<gtExample>
-	| aView aList |
-	aView := self modifiedPhlowView.
-	aList := aView asElementDo: [ :theElement | theElement ].
-
-	self assertViewElement: aList ofClass: BrColumnedList inView: aView.
+	| aList |
+	aList := super modifiedElement.
 
 	self assert: aList items size equals: 3.
 	self assert: (aList items allSatisfy: [ :eachItem | eachItem isInteger ]).
@@ -164,13 +166,12 @@ GtPhlowListViewExamples >> modifiedElement [
 	^ aList
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowListViewExamples >> modifiedPhlowView [
 	<gtExample>
 	| aView |
-	aView := self phlowView.
+	aView := super modifiedPhlowView.
 	aView items: [ (1 to: 3) asOrderedCollection ].
-	aView title: 'an incorrect title'.
 	^ aView
 ]
 
@@ -180,7 +181,7 @@ GtPhlowListViewExamples >> myself [
 	^ self
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowListViewExamples >> phlowView [
 	<gtExample>
 	| aView |

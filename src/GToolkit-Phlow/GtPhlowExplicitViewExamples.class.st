@@ -93,7 +93,7 @@ GtPhlowExplicitViewExamples >> myself [
 	^ self
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowExplicitViewExamples >> phlowView [
 	<gtExample>
 	^ GtPhlowView empty explicit 

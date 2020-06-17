@@ -84,6 +84,11 @@ GtPhlowCompositeViewExamples >> element [
 	^ aTabGroup
 ]
 
+{ #category : #'examples - element' }
+GtPhlowCompositeViewExamples >> expectedElementClass [
+	^ BrTabGroup
+]
+
 { #category : #'examples - sub-views' }
 GtPhlowCompositeViewExamples >> gtAutoUpdatingFor: aView [
 	^ GtPhlowTextEditorViewExamples new gtAutoUpdatingFor: aView
@@ -100,7 +105,7 @@ GtPhlowCompositeViewExamples >> itself [
 	^ self
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowCompositeViewExamples >> phlowView [
 	<gtExample>
 	| aView theSubViews |
