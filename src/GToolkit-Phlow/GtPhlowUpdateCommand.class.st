@@ -1,3 +1,8 @@
+"
+I am an abstract class.
+I provide a basic support ${class:GtPhlowView}$ updates.
+
+"
 Class {
 	#name : #GtPhlowUpdateCommand,
 	#superclass : #BlTktCommand,

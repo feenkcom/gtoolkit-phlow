@@ -26,7 +26,7 @@ Class {
 { #category : #comparing }
 GtPhlowRemoveCompositeSubView >> = anObject [
 	^ super = anObject and: [ 
-		self compiledMethod = anObject compiledMethod ]
+		self ringDefinition = anObject ringDefinition ]
 ]
 
 { #category : #'private - updating' }
