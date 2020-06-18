@@ -158,7 +158,7 @@ GtPhlowCompositeViewExamples >> removeViewOneDefinition [
 GtPhlowCompositeViewExamples >> subViewEmpty [
 	<gtExample>
 	| aView |
-	aView := GtPhlowView empty on: GtPhlowEmptyViewExamples new perform: #gtPhlowViewFor:.
+	aView := GtPhlowView empty on: GtPhlowEmptyViewExamples new perform: #gtPhlowEmptyViewFor:.
 	aView title: 'Empty View'.
 	aView priority: 4.
 	^ aView
