@@ -4,7 +4,7 @@ Class {
 	#category : #'GToolkit-Phlow-Context'
 }
 
-{ #category : #testing }
+{ #category : #'api - testing' }
 GtPhlowAbstractBuildContext >> isBuildContext [
 	^ true
 ]

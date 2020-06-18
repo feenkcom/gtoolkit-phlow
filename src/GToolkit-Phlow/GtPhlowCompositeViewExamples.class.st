@@ -89,14 +89,22 @@ GtPhlowCompositeViewExamples >> expectedElementClass [
 	^ BrTabGroup
 ]
 
-{ #category : #'examples - sub-views' }
+{ #category : #'gt-extensions' }
 GtPhlowCompositeViewExamples >> gtAutoUpdatingFor: aView [
 	^ GtPhlowTextEditorViewExamples new gtAutoUpdatingFor: aView
 ]
 
-{ #category : #'examples - sub-views' }
-GtPhlowCompositeViewExamples >> gtPhlowViewFor: aView [
+{ #category : #'gt-extensions' }
+GtPhlowCompositeViewExamples >> gtPhlowEmptyViewFor: aView [
 	^ GtPhlowEmptyViewExamples new gtPhlowViewFor: aView
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowCompositeViewExamples >> gtPhlowViewFor: aView [
+	<gtView>
+	^ aView composite
+		title: 'Composite';
+		views: { self subViewOne. self subViewTwo } asOrderedCollection
 ]
 
 { #category : #'gt-extensions' }

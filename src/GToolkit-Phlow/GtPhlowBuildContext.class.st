@@ -28,6 +28,12 @@ GtPhlowBuildContext >> arguments: anObject [
 	arguments := anObject
 ]
 
+{ #category : #initialization }
+GtPhlowBuildContext >> initialize [
+	super initialize.
+	arguments := Array empty.
+]
+
 { #category : #accessing }
 GtPhlowBuildContext >> object [
 	^ object

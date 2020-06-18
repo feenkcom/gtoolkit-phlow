@@ -8,7 +8,7 @@ A supposively original view definition with three items:
 
 ${example:GtPhlowListViewExamples>>#modifiedElement|codeExpanded=false|previewExpanded=true}$
 
-is udpated to a new definition with ten elements:
+is updated to a new definition with ten elements:
 
 ${example:GtPhlowListViewExamples>>#updateOnDefiningMethodChange|codeExpanded=false|previewExpanded=true}$
 
