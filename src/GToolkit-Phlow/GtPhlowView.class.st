@@ -39,6 +39,7 @@ GtPhlowView >> action: anOneArgBlock [
 	| newPhlowAction |
 	newPhlowAction := anOneArgBlock value: GtPhlowAction noAction.
 	newPhlowAction definingMethod: self definingMethod.
+	newPhlowAction priority: GtPhlowAction defaultPriority + self actions size + 1.
 	self addPhlowAction: newPhlowAction.
 ]
 
