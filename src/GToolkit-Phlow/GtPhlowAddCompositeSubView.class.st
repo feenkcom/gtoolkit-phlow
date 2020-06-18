@@ -17,7 +17,8 @@ Class {
 	#name : #GtPhlowAddCompositeSubView,
 	#superclass : #GtPhlowUpdateCommand,
 	#instVars : [
-		'compiledMethod'
+		'compiledMethod',
+		'ringDefinition'
 	],
 	#category : #'GToolkit-Phlow-Updating'
 }
@@ -25,7 +26,7 @@ Class {
 { #category : #comparing }
 GtPhlowAddCompositeSubView >> = anObject [
 	^ super = anObject and: [ 
-		self compiledMethod = anObject compiledMethod ]
+		self ringDefinition = anObject ringDefinition ]
 ]
 
 { #category : #'private - updating' }
@@ -50,7 +51,8 @@ GtPhlowAddCompositeSubView >> compiledMethod [
 
 { #category : #accessing }
 GtPhlowAddCompositeSubView >> compiledMethod: aCompiledMethod [
-	compiledMethod := aCompiledMethod
+	compiledMethod := aCompiledMethod.
+	ringDefinition := aCompiledMethod asRingDefinition.
 ]
 
 { #category : #evaluating }
@@ -71,4 +73,9 @@ GtPhlowAddCompositeSubView >> newPhlowSubView [
 		on: self object
 		perform: self compiledMethod selector
 		withSomeArguments: self arguments
+]
+
+{ #category : #accessing }
+GtPhlowAddCompositeSubView >> ringDefinition [
+	^ ringDefinition
 ]
