@@ -9,8 +9,8 @@ See ${class:GtPhlowViewExamples}$.
 Class {
 	#name : #GtPhlowView,
 	#superclass : #GtPhlowProtoView,
-	#traits : 'TGtPhlowTooltipBuilder',
-	#classTraits : 'TGtPhlowTooltipBuilder classTrait',
+	#traits : 'TGtPhlowViewTooltipBuilder',
+	#classTraits : 'TGtPhlowViewTooltipBuilder classTrait',
 	#instVars : [
 		'title',
 		'priority',
@@ -245,6 +245,26 @@ GtPhlowView >> actionToggleLabel: aStringOrRope tooltip: aTooltipText activated:
 			deactivatedAction: aDeactivatedValuable ]
 ]
 
+{ #category : #'adding - actions' }
+GtPhlowView >> actionUpdateButton [
+	self actionUpdateButtonTooltip: 'Update'
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionUpdateButtonIcon: anIcon tooltip: aTooltip [
+	self 
+		actionButtonIcon: anIcon
+		tooltip: aTooltip
+		action: [ :aButton :aTab | aTab viewContentElement phlow update ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionUpdateButtonTooltip: aTooltip [
+	self 
+		actionUpdateButtonIcon: BrGlamorousVectorIcons refresh 
+		tooltip: aTooltip
+]
+
 { #category : #accessing }
 GtPhlowView >> actions [
 	<return: #OrderedCollection of: #GtPhlowAction>
@@ -267,6 +287,11 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 	 ^ aToolbar
 ]
 
+{ #category : #'adding - update definitions' }
+GtPhlowView >> addAutoUpdate: aGtPhlowUpdateDefinition [
+	self autoUpdates add: aGtPhlowUpdateDefinition
+]
+
 { #category : #'adding - actions' }
 GtPhlowView >> addPhlowAction: aPhlowAction [
 	phlowActions add: aPhlowAction.
@@ -284,22 +309,32 @@ GtPhlowView >> addPhlowActions: aCollectionOfPhlowActions [
 
 { #category : #'adding - actions' }
 GtPhlowView >> addUpdateButton [
-	self addUpdateButtonTooltip: 'Update'
+	self
+		deprecated: 'Please use actionUpdateButton method instead.'
+		transformWith:
+			'`@receiver addUpdateButton'
+				-> '`@receiver actionUpdateButton'.	
+	^ self actionUpdateButton
 ]
 
 { #category : #'adding - actions' }
 GtPhlowView >> addUpdateButtonIcon: anIcon tooltip: aTooltip [
-	self 
-		actionButtonIcon: anIcon
-		tooltip: aTooltip
-		action: [ :aButton :aTab | aTab viewContentElement phlow update ]
+	self
+		deprecated: 'Please use actionUpdateButtonIcon:tooltip: method instead.'
+		transformWith:
+			'`@receiver addUpdateButtonIcon: `@statements1 tooltip: `@statements2'
+				-> '`@receiver actionUpdateButtonIcon: `@statements1 tooltip: `@statements2'.	
+	^ self actionUpdateButtonIcon: anIcon tooltip: aTooltip
 ]
 
 { #category : #'adding - actions' }
 GtPhlowView >> addUpdateButtonTooltip: aTooltip [
-	self 
-		addUpdateButtonIcon: BrGlamorousVectorIcons refresh 
-		tooltip: aTooltip
+	self
+		deprecated: 'Please use actionUpdateButtonTooltip: method instead.'
+		transformWith:
+			'`@receiver addUpdateButtonTooltip: `@statements1'
+				-> '`@receiver actionUpdateButtonTooltip: `@statements1'.	
+	^ self actionUpdateButtonTooltip: aTooltip
 ]
 
 { #category : #'accessing - computed' }
@@ -329,6 +364,12 @@ GtPhlowView >> asTaskItView [
 GtPhlowView >> autoUpdates [
 	<return: #GtPhlowUpdateDefinitions>
 	^ autoUpdates
+]
+
+{ #category : #'private - updating' }
+GtPhlowView >> basicReplaceOldElement: anOldElement by: aNewElement in: aParent [
+	anOldElement parent == aParent ifTrue: [
+		aParent replaceChild: anOldElement with: aNewElement ]
 ]
 
 { #category : #'private - elements' }
@@ -376,7 +417,7 @@ GtPhlowView >> defaultTitle [
 
 { #category : #defaults }
 GtPhlowView >> defaultUpdateDefinitions [
-	^ { GtPhlowUpdateOnViewMethodChange new }
+	^ { GtPhlowUpdateViewOnDefiningMethodChange new }
 ]
 
 { #category : #accessing }
@@ -402,8 +443,9 @@ GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
 ]
 
-{ #category : #accessing }
+{ #category : #'api - async ui building' }
 GtPhlowView >> disableAsync [
+	"Disable element creation in background (while calling ${method:GtPhlowProtoView>>#asElementDo:}$)"
 	asyncEnabled := false.
 ]
 
@@ -413,8 +455,9 @@ GtPhlowView >> dontUpdateOnSystemChange [
 	self autoUpdates dontUpdateOnSystemChange.
 ]
 
-{ #category : #accessing }
+{ #category : #'api - async ui building' }
 GtPhlowView >> enableAsync [
+	"Enable element creation in background (while calling ${method:GtPhlowProtoView>>#asElementDo:}$)"
 	asyncEnabled := true.
 ]
 
@@ -467,6 +510,11 @@ GtPhlowView >> initialize [
 { #category : #initialization }
 GtPhlowView >> initializeDefaultUpdateDefinitions [
 	self autoUpdates addAll: self defaultUpdateDefinitions
+]
+
+{ #category : #testing }
+GtPhlowView >> isAsyncEnabled [
+	^ asyncEnabled
 ]
 
 { #category : #accessing }
@@ -585,7 +633,7 @@ GtPhlowView >> replaceOldElement: anOldElement by: aNewElement in: aParent [
 	anOldElement phlow isViewContent ifTrue: [ 
 		aNewElement phlow beViewContent ].
 	self 
-		enqueueAction: [ aParent replaceChild: anOldElement with: aNewElement ] 
+		enqueueAction: [ self basicReplaceOldElement: anOldElement by: aNewElement in: aParent ] 
 		in: aParent.
 ]
 

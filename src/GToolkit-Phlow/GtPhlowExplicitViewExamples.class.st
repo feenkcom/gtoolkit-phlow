@@ -83,7 +83,7 @@ GtPhlowExplicitViewExamples >> gtUpdatingFor: aView [
 					c horizontal matchParent.
 					c vertical matchParent.
 					c margin: (BlInsets all: 40) ]  ];
-		addUpdateButton
+		actionUpdateButton
 ]
 
 { #category : #'gt-extension' }
@@ -93,7 +93,7 @@ GtPhlowExplicitViewExamples >> myself [
 	^ self
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowExplicitViewExamples >> phlowView [
 	<gtExample>
 	^ GtPhlowView empty explicit 

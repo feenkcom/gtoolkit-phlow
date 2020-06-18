@@ -1,3 +1,18 @@
+"
+I remove a ${class:GtPhlowCompositeView}$ subview and its corresponding ${class:BrTab}$ in ${class:BrTabGroup}$.
+I am used by ${class:GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange}$.
+
+!! Removing Tab
+
+The first tab:
+
+${example:GtPhlowCompositeViewExamples>>#element|codeExpanded=false|previewExpanded=true}$
+
+is removed:
+
+${example:GtPhlowCompositeViewExamples>>#removeViewOneDefinition|codeExpanded=false|previewExpanded=true}$
+
+"
 Class {
 	#name : #GtPhlowRemoveCompositeSubView,
 	#superclass : #GtPhlowUpdateCommand,

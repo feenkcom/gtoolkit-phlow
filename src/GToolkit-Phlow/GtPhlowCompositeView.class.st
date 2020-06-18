@@ -1,3 +1,18 @@
+"
+I compose several views that are displayed using ${class:BrTabGroup}$.
+
+I am typically used by other tools, e.g., inspectors and coders, to build a composition of object views. To build such views, Phlow provides ${class:GtPhlowViewsCollector}$ to collect subviews for a given object, and ${class:GtPhlowCompositeViewBuilder}$ to build composite views. It is quite unusual defining composite views by users.
+
+!! Example
+
+A definition like this:
+
+${method:GtPhlowCompositeViewExamples>>#gtPhlowViewFor:|expanded=true}$
+
+Is represented in tools as in following example:
+${example:GtPhlowCompositeViewExamples>>#phlowView|codeExpanded=false|previewExpanded=true|previewShow=#gtLiveFor:}$
+
+"
 Class {
 	#name : #GtPhlowCompositeView,
 	#superclass : #GtPhlowViewDecorator,
@@ -36,8 +51,8 @@ GtPhlowCompositeView >> defaultUpdateDefinitions [
 	^ Array new: 3 streamContents: [ :aStream |
 		aStream 
 			nextPutAll: super defaultUpdateDefinitions;
-			nextPut: GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange new;
-			nextPut: GtPhlowUpdateCompositeSubViewListOnMethodChange new ]
+			nextPut: GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange new;
+			nextPut: GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange new ]
 ]
 
 { #category : #ui }

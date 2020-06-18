@@ -4,6 +4,11 @@ Class {
 	#category : #'GToolkit-Phlow-Examples'
 }
 
+{ #category : #'examples - element' }
+GtPhlowTextEditorViewExamples >> expectedElementClass [
+	^ BrEditor
+]
+
 { #category : #'gt-extension' }
 GtPhlowTextEditorViewExamples >> gtAutoUpdatingFor: aView [
 	<gtView>
@@ -35,10 +40,34 @@ GtPhlowTextEditorViewExamples >> myself [
 	^ self
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowTextEditorViewExamples >> phlowView [
 	<gtExample>
 	^ GtPhlowView empty textEditor text: 'abc' asRopedText
+]
+
+{ #category : #initialization }
+GtPhlowTextEditorViewExamples >> setFontSize [
+	<gtExample>
+	| aView anElement |
+	aView := self phlowView.
+	aView fontSize: 21.
+	aView asElementDo: [ :theElement | anElement := theElement ].
+	self assertViewElement: anElement ofClass: BrEditor inView: aView.
+	^ aView
+]
+
+{ #category : #examples }
+GtPhlowTextEditorViewExamples >> setFontSizeSecondAsElementDoCall [
+	<gtExample>
+	| view element |
+
+	view := self setFontSize.
+	view asElementDo: [ :el | element := el ].
+
+	self assertViewElement: element ofClass: BrEditor inView: view.
+
+	^ view
 ]
 
 { #category : #examples }
@@ -47,10 +76,25 @@ GtPhlowTextEditorViewExamples >> textView [
 	| view element |
 
 	view := GtPhlowView empty textEditor text: 'abc' asRopedText.
+	
+	self assert: view attributesBuilder class equals: BlTextDelegatedAttributesBuilder.
+	
 	view asElementDo: [ :el | element := el ].
 
 	self assertViewElement: element ofClass: BrEditor inView: view.
 
-	"Do not be confused by by error '...can not install the same look instance on multiple widgets'"
+	^ view
+]
+
+{ #category : #examples }
+GtPhlowTextEditorViewExamples >> textViewSecondAsElementDoCall [
+	<gtExample>
+	| view element |
+
+	view := self textView.
+	view asElementDo: [ :el | element := el ].
+
+	self assertViewElement: element ofClass: BrEditor inView: view.
+
 	^ view
 ]

@@ -66,6 +66,11 @@ GtPhlowColumnedTreeViewExamples >> emptyColumnedTreeView [
 	^ aView
 ]
 
+{ #category : #'examples - element' }
+GtPhlowColumnedTreeViewExamples >> expectedElementClass [
+	^ BlElement
+]
+
 { #category : #'gt-extension' }
 GtPhlowColumnedTreeViewExamples >> gtAutoUpdatingTreeFor: aView [
 	<gtView>
@@ -90,7 +95,7 @@ GtPhlowColumnedTreeViewExamples >> myself [
 	^ self
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowColumnedTreeViewExamples >> phlowView [
 	<gtExample>
 	^ self columnedTreeViewWithItemsAndChildren

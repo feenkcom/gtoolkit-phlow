@@ -10,6 +10,17 @@ GtPhlowViewExamples class >> isAbstract [
 ]
 
 { #category : #asserting }
+GtPhlowViewExamples >> assertCommonDefaultView: aView [
+	self assert: aView title isNotNil.
+	self assert: aView priority isNumber.
+	self assert: aView definingMethod isNotNil.
+	self assert: aView autoUpdates isNotNil.
+	self assert: aView actions isCollection.
+	self assert: aView buildContext isNotNil.
+	self assert: aView isAsyncEnabled.
+]
+
+{ #category : #asserting }
 GtPhlowViewExamples >> assertErrorElement: anElement inView: aView [
 	self assert: anElement class equals: BrFrame.
 	self assert: anElement childrenCount equals: 1.
@@ -24,7 +35,7 @@ GtPhlowViewExamples >> assertViewElement: anElement ofClass: aClass inView: aVie
 	self assert: anElement phlow entity equals: aView
 ]
 
-{ #category : #'examples - basic elements' }
+{ #category : #'examples - element' }
 GtPhlowViewExamples >> container [
 	<gtExample>
 	^ BlElement new
@@ -35,7 +46,52 @@ GtPhlowViewExamples >> container [
 			c padding: (BlInsets all: 5) ]
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - element' }
+GtPhlowViewExamples >> element [
+	<gtExample>
+	| aView anElement |
+	self class isAbstract ifTrue: [ ^ self ].
+
+	aView := self phlowView.
+	anElement := aView asElementDo: [ :theElement | theElement ].
+
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+
+	^ anElement
+]
+
+{ #category : #'examples - element' }
+GtPhlowViewExamples >> expectedElementClass [
+	^ BlElement
+]
+
+{ #category : #'examples - element' }
+GtPhlowViewExamples >> modifiedElement [
+	<gtExample>
+	| aView anElement |
+	self class isAbstract ifTrue: [ ^ self ].
+
+	aView := self modifiedPhlowView.
+	aView asElementDo: [ :theElement | anElement := theElement ].
+
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+
+	^ anElement
+]
+
+{ #category : #'examples - view' }
+GtPhlowViewExamples >> modifiedPhlowView [
+	<gtExample>
+	| aView |
+	self class isAbstract ifTrue: [ ^ self ].
+	aView := self phlowView.
+	aView title: 'an incorrect title'.
+	aView priority: 10000.
+	aView tooltip: 'an incorrect tooltip'.
+	^ aView
+]
+
+{ #category : #'examples - view' }
 GtPhlowViewExamples >> phlowView [
 	<return: #GtPhlowView>
 	^ self subclassResponsibility
