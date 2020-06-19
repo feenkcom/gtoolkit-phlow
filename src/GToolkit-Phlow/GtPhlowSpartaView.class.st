@@ -62,7 +62,7 @@ GtPhlowSpartaView >> hMatchParent [
 
 { #category : #accessing }
 GtPhlowSpartaView >> height: aNumber [
-	verticalResizer := BlLayoutResizer exact: aNumber
+	verticalResizer := BlLayoutResizer exact: aNumber asFloat
 ]
 
 { #category : #initialization }
@@ -91,5 +91,5 @@ GtPhlowSpartaView >> vMatchParent [
 
 { #category : #accessing }
 GtPhlowSpartaView >> width: aNumber [
-	horizontalResizer := BlLayoutResizer exact: aNumber
+	horizontalResizer := BlLayoutResizer exact: aNumber asFloat
 ]
