@@ -1,8 +1,24 @@
+"
+I add a ${class:GtPhlowCompositeView}$ subview as a ${class:BrTab}$ in ${class:BrTabGroup}$.
+I am used by ${class:GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange}$.
+
+!! Adding Tab
+
+In the composite view with two tabs:
+
+${example:GtPhlowCompositeViewExamples>>#element|codeExpanded=false|previewExpanded=true}$
+
+a third is added:
+
+${example:GtPhlowCompositeViewExamples>>#addViewThreeDefinition|codeExpanded=false|previewExpanded=true}$
+
+"
 Class {
 	#name : #GtPhlowAddCompositeSubView,
 	#superclass : #GtPhlowUpdateCommand,
 	#instVars : [
-		'compiledMethod'
+		'compiledMethod',
+		'ringDefinition'
 	],
 	#category : #'GToolkit-Phlow-Updating'
 }
@@ -10,7 +26,7 @@ Class {
 { #category : #comparing }
 GtPhlowAddCompositeSubView >> = anObject [
 	^ super = anObject and: [ 
-		self compiledMethod = anObject compiledMethod ]
+		self ringDefinition = anObject ringDefinition ]
 ]
 
 { #category : #'private - updating' }
@@ -35,7 +51,8 @@ GtPhlowAddCompositeSubView >> compiledMethod [
 
 { #category : #accessing }
 GtPhlowAddCompositeSubView >> compiledMethod: aCompiledMethod [
-	compiledMethod := aCompiledMethod
+	compiledMethod := aCompiledMethod.
+	ringDefinition := aCompiledMethod asRingDefinition.
 ]
 
 { #category : #evaluating }
@@ -56,4 +73,9 @@ GtPhlowAddCompositeSubView >> newPhlowSubView [
 		on: self object
 		perform: self compiledMethod selector
 		withSomeArguments: self arguments
+]
+
+{ #category : #accessing }
+GtPhlowAddCompositeSubView >> ringDefinition [
+	^ ringDefinition
 ]

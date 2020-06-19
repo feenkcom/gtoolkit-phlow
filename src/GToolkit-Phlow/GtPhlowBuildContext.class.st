@@ -14,6 +14,11 @@ GtPhlowBuildContext class >> null [
 ]
 
 { #category : #accessing }
+GtPhlowBuildContext >> argument: anArgument [
+	self arguments: (Array with: anArgument)
+]
+
+{ #category : #accessing }
 GtPhlowBuildContext >> arguments [
 	^ arguments
 ]
@@ -21,6 +26,12 @@ GtPhlowBuildContext >> arguments [
 { #category : #accessing }
 GtPhlowBuildContext >> arguments: anObject [
 	arguments := anObject
+]
+
+{ #category : #initialization }
+GtPhlowBuildContext >> initialize [
+	super initialize.
+	arguments := Array empty.
 ]
 
 { #category : #accessing }

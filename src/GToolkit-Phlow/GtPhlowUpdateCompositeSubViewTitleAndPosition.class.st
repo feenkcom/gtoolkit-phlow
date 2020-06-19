@@ -1,7 +1,8 @@
 "
 I update a ${class:GtPhlowCompositeView}$ subview and its corresponding ${class:BrTab}$ label and position in ${class:BrTabGroup}$.
+I am used by ${class:GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange}$ and by ${class:GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange}$.
 
-!! Example
+!! Updating Tab
 
 The first tab:
 
@@ -10,6 +11,14 @@ ${example:GtPhlowCompositeViewExamples>>#element|codeExpanded=false|previewExpan
 is moved to the second position and renamed:
 
 ${example:GtPhlowCompositeViewExamples>>#updateViewOneDefinition|codeExpanded=false|previewExpanded=true}$
+
+
+!! Removing Tab
+
+If a new view is in instance of ${class:GtPhlowEmptyView}$, the tab is removed. In the same example above, the first tab is removed in such scenario: 
+
+${example:GtPhlowCompositeViewExamples>>#updateViewOneDefinition_ByEmptyView|codeExpanded=false|previewExpanded=true}$
+
 
 "
 Class {

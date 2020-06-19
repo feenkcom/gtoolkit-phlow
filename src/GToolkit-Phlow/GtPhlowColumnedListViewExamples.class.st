@@ -288,6 +288,11 @@ GtPhlowColumnedListViewExamples >> emptyList [
 	^ view
 ]
 
+{ #category : #'examples - element' }
+GtPhlowColumnedListViewExamples >> expectedElementClass [
+	^ BlElement
+]
+
 { #category : #'gt-extension' }
 GtPhlowColumnedListViewExamples >> gtAutoUpdatingListFor: aView [
 	<gtView>
@@ -311,7 +316,7 @@ GtPhlowColumnedListViewExamples >> myself [
 	^ self
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowColumnedListViewExamples >> phlowView [
 	<gtExample>
 	^ self viewWithItems

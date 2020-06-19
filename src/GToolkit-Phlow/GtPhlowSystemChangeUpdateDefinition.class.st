@@ -1,3 +1,8 @@
+"
+I am an abstract class.
+I add basic support for update definitions that listen to ${class:SystemAnnouncer}$.
+
+"
 Class {
 	#name : #GtPhlowSystemChangeUpdateDefinition,
 	#superclass : #GtPhlowUpdateDefinition,

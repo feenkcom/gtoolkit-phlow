@@ -11,6 +11,11 @@ Class {
 	#category : #'GToolkit-Phlow-! Views and Actions'
 }
 
+{ #category : #defaults }
+GtPhlowAction class >> defaultPriority [
+	^ 50
+]
+
 { #category : #accessing }
 GtPhlowAction class >> noAction [
 	^ GtPhlowNoAction new
@@ -41,6 +46,11 @@ GtPhlowAction >> button [
 		definingMethod: (GtPhlowDefiningMethodsCollector new 
 			stack: thisContext stack;
 			collect)
+]
+
+{ #category : #initialization }
+GtPhlowAction >> defaultPriority [
+	^ self class defaultPriority
 ]
 
 { #category : #initialization }
@@ -113,8 +123,8 @@ GtPhlowAction >> help: aString [
 GtPhlowAction >> initialize [
 	super initialize.
 	target := self defaultTarget.
-	priority := 50.
-	self initializeTooltipBuilder.
+	priority := self defaultPriority.
+	self initializeTooltipBuilder
 ]
 
 { #category : #testing }

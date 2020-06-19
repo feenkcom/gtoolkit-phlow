@@ -4,6 +4,11 @@ Class {
 	#category : #'GToolkit-Phlow-Examples'
 }
 
+{ #category : #'examples - element' }
+GtPhlowTextEditorViewExamples >> expectedElementClass [
+	^ BrEditor
+]
+
 { #category : #'gt-extension' }
 GtPhlowTextEditorViewExamples >> gtAutoUpdatingFor: aView [
 	<gtView>
@@ -35,7 +40,7 @@ GtPhlowTextEditorViewExamples >> myself [
 	^ self
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowTextEditorViewExamples >> phlowView [
 	<gtExample>
 	^ GtPhlowView empty textEditor text: 'abc' asRopedText

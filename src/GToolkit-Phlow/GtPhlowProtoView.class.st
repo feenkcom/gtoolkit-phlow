@@ -204,6 +204,13 @@ GtPhlowProtoView >> list [
 ]
 
 { #category : #convenience }
+GtPhlowProtoView >> object: anObject argument: anArgument [
+	self buildContext: (GtPhlowBuildContext new
+		object: anObject;
+		argument: anArgument)
+]
+
+{ #category : #convenience }
 GtPhlowProtoView >> object: anObject arguments: theExecutionArguments [
 	self buildContext: (GtPhlowBuildContext new
 		object: anObject;

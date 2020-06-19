@@ -39,6 +39,7 @@ GtPhlowView >> action: anOneArgBlock [
 	| newPhlowAction |
 	newPhlowAction := anOneArgBlock value: GtPhlowAction noAction.
 	newPhlowAction definingMethod: self definingMethod.
+	newPhlowAction priority: GtPhlowAction defaultPriority + self actions size + 1.
 	self addPhlowAction: newPhlowAction.
 ]
 
@@ -366,6 +367,12 @@ GtPhlowView >> autoUpdates [
 	^ autoUpdates
 ]
 
+{ #category : #'private - updating' }
+GtPhlowView >> basicReplaceOldElement: anOldElement by: aNewElement in: aParent [
+	anOldElement parent == aParent ifTrue: [
+		aParent replaceChild: anOldElement with: aNewElement ]
+]
+
 { #category : #'private - elements' }
 GtPhlowView >> beViewElement: anElement [
 	"Set up a given element to play a role of the root element for a phlow view.
@@ -411,7 +418,7 @@ GtPhlowView >> defaultTitle [
 
 { #category : #defaults }
 GtPhlowView >> defaultUpdateDefinitions [
-	^ { GtPhlowUpdateOnViewMethodChange new }
+	^ { GtPhlowUpdateViewOnDefiningMethodChange new }
 ]
 
 { #category : #accessing }
@@ -627,7 +634,7 @@ GtPhlowView >> replaceOldElement: anOldElement by: aNewElement in: aParent [
 	anOldElement phlow isViewContent ifTrue: [ 
 		aNewElement phlow beViewContent ].
 	self 
-		enqueueAction: [ aParent replaceChild: anOldElement with: aNewElement ] 
+		enqueueAction: [ self basicReplaceOldElement: anOldElement by: aNewElement in: aParent ] 
 		in: aParent.
 ]
 

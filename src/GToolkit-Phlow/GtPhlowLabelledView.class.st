@@ -19,7 +19,7 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 		tab phlow beView; entity: self.
 		tab
 			look: BrGlamorousTabWithoutBarLook;
-			label: self label;
+			label: self newLabel;
 			stencil: [ 
 				originalElement phlow beViewContent.
 				originalElement asScrollableElement ];
@@ -48,4 +48,10 @@ GtPhlowLabelledView >> label [
 { #category : #accessing }
 GtPhlowLabelledView >> label: anObject [
 	label := anObject
+]
+
+{ #category : #'instance creation' }
+GtPhlowLabelledView >> newLabel [
+	<return: #BlRopedText or: #String>
+	^ self label value
 ]

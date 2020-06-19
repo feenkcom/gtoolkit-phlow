@@ -1,3 +1,6 @@
+"
+I update a view on every ${class:BlElementAddedToSceneGraphEvent}$ notification.
+"
 Class {
 	#name : #GtPhlowUpdateViewOnAddedToScene,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,

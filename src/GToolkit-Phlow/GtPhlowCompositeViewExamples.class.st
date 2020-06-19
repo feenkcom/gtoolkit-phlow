@@ -7,23 +7,104 @@ Class {
 	#category : #'GToolkit-Phlow-Examples'
 }
 
-{ #category : #accessing }
+{ #category : #'examples - updating' }
+GtPhlowCompositeViewExamples >> addViewThreeDefinition [
+	<gtExample>
+	| aTabGroup aView aCommand aNewSubView aContainer anInitialTabs aFinalTabs |
+	aContainer := self container.
+	aTabGroup := self element.
+	anInitialTabs := aTabGroup viewModel tabs copy.
+
+	aContainer addChild: aTabGroup.
+	aView := aTabGroup phlow entity.
+	aNewSubView := self subViewThree.
+	
+	aCommand := GtPhlowAddCompositeSubView new
+		elementContext: aTabGroup phlow;
+		compiledMethod: aNewSubView definingMethod compiledMethod.
+	BlUseAsyncFeatures disableDuring: [
+		aCommand execute ].
+
+	aFinalTabs := aTabGroup viewModel tabs copy.
+
+	self assert: aFinalTabs size equals: 3.
+	self assert: aFinalTabs first equals: anInitialTabs first.
+	self assert: aFinalTabs second equals: anInitialTabs second.
+	self assert: aFinalTabs third widget label asString equals: 'Auto Updating Text'.
+
+	self assert: aView views size equals: 3.
+	self assert: aView views third title asString equals: 'Auto Updating Text'.
+
+	^ aContainer
+]
+
+{ #category : #'examples - updating' }
+GtPhlowCompositeViewExamples >> addViewThreeDefinition_WithEmptyView [
+	<gtExample>
+	| aTabGroup aView aCommand aNewSubView aContainer anInitialTabs aFinalTabs |
+	aContainer := self container.
+	aTabGroup := self element.
+	anInitialTabs := aTabGroup viewModel tabs copy.
+
+	aContainer addChild: aTabGroup.
+	aView := aTabGroup phlow entity.
+	aNewSubView := self subViewEmpty.
+	
+	aCommand := GtPhlowAddCompositeSubView new
+		elementContext: aTabGroup phlow;
+		compiledMethod: aNewSubView definingMethod compiledMethod.
+	BlUseAsyncFeatures disableDuring: [
+		aCommand execute ].
+
+	aFinalTabs := aTabGroup viewModel tabs copy.
+
+	self assert: aFinalTabs size equals: 2.
+	self assert: aFinalTabs first equals: anInitialTabs first.
+	self assert: aFinalTabs second equals: anInitialTabs second.
+
+	self assert: aView views size equals: 2.
+
+	^ aContainer
+]
+
+{ #category : #'examples - elements' }
 GtPhlowCompositeViewExamples >> element [
 	<gtExample>
-	| aView anElement |
+	| aView aTabGroup anInitialTabs |
 	aView := self phlowView.
-	anElement := aView asElementDo: [ :theElement | theElement ].
-	self assert: anElement class equals: BrTabGroup.
-	self assert: anElement viewModel tabs size equals: 2.
-	^ anElement
+	aTabGroup := aView asElementDo: [ :theElement | theElement ].
+
+	self assertViewElement: aTabGroup ofClass: BrTabGroup inView: aView.
+
+	anInitialTabs := aTabGroup viewModel tabs.
+	self assert: anInitialTabs size equals: 2.
+	self assert: anInitialTabs first widget label asString equals: 'View One'.
+	self assert: anInitialTabs second widget label asString equals: 'View Two'.
+	
+	^ aTabGroup
+]
+
+{ #category : #'examples - element' }
+GtPhlowCompositeViewExamples >> expectedElementClass [
+	^ BrTabGroup
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowCompositeViewExamples >> gtAutoUpdatingFor: aView [
+	^ GtPhlowTextEditorViewExamples new gtAutoUpdatingFor: aView
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowCompositeViewExamples >> gtPhlowEmptyViewFor: aView [
+	^ GtPhlowEmptyViewExamples new gtPhlowViewFor: aView
 ]
 
 { #category : #'gt-extensions' }
 GtPhlowCompositeViewExamples >> gtPhlowViewFor: aView [
 	<gtView>
 	^ aView composite
-		title: 'Composite View';
-		views: { self subViewOne. self subViewTwo }
+		title: 'Composite';
+		views: { self subViewOne. self subViewTwo } asOrderedCollection
 ]
 
 { #category : #'gt-extensions' }
@@ -32,22 +113,52 @@ GtPhlowCompositeViewExamples >> itself [
 	^ self
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowCompositeViewExamples >> phlowView [
 	<gtExample>
 	| aView theSubViews |
 	aView := GtPhlowView empty composite.
+	aView buildContext: (GtPhlowBuildContext new 
+		object: self;
+		argument: aView originalView).
 	theSubViews := { self subViewOne. self subViewTwo } asOrderedCollection.
 	aView views: theSubViews.
 	self assert: aView views equals: theSubViews.
 	^ aView
 ]
 
+{ #category : #'examples - updating' }
+GtPhlowCompositeViewExamples >> removeViewOneDefinition [
+	<gtExample>
+	| aTabGroup aView aSubView aCommand aContainer anInitialTabs aFinalTabs |
+	aContainer := self container.
+	aTabGroup := self element.
+	anInitialTabs := aTabGroup viewModel tabs copy.
+
+	aContainer addChild: aTabGroup.
+	aView := aTabGroup phlow entity.
+	aSubView := aView views first.
+	
+	aCommand := GtPhlowRemoveCompositeSubView new
+		elementContext: aTabGroup phlow;
+		compiledMethod: aSubView definingMethod compiledMethod.
+	BlUseAsyncFeatures disableDuring: [
+		aCommand execute ].
+
+	aFinalTabs := aTabGroup viewModel tabs copy.
+
+	self assert: aFinalTabs size equals: 1.
+	self assert: aFinalTabs first equals: anInitialTabs second.
+	self assert: aFinalTabs first widget label asString equals: 'View Two'.
+
+	^ aContainer
+]
+
 { #category : #'examples - sub-views' }
 GtPhlowCompositeViewExamples >> subViewEmpty [
 	<gtExample>
 	| aView |
-	aView := GtPhlowView empty on: GtPhlowEmptyViewExamples new perform: #gtPhlowViewFor:.
+	aView := GtPhlowView empty on: GtPhlowEmptyViewExamples new perform: #gtPhlowEmptyViewFor:.
 	aView title: 'Empty View'.
 	aView priority: 4.
 	^ aView
@@ -91,10 +202,6 @@ GtPhlowCompositeViewExamples >> updateViewOneDefinition [
 	aTabGroup := self element.
 	anInitialTabs := aTabGroup viewModel tabs copy.
 
-	self assert: anInitialTabs size equals: 2.
-	self assert: anInitialTabs first widget label asString equals: 'View One'.
-	self assert: anInitialTabs second widget label asString equals: 'View Two'.
-
 	aContainer addChild: aTabGroup.
 	aView := aTabGroup phlow entity.
 	aSubView := aView views first.
@@ -126,10 +233,6 @@ GtPhlowCompositeViewExamples >> updateViewOneDefinition_ByEmptyView [
 	aContainer := self container.
 	aTabGroup := self element.
 	anInitialTabs := aTabGroup viewModel tabs copy.
-
-	self assert: anInitialTabs size equals: 2.
-	self assert: anInitialTabs first widget label asString equals: 'View One'.
-	self assert: anInitialTabs second widget label asString equals: 'View Two'.
 
 	aContainer addChild: aTabGroup.
 	aView := aTabGroup phlow entity.

@@ -1,3 +1,9 @@
+"
+I listen to system changes.
+I udpate a ${class:GtPhlowLabelledView}$ and a corresponding ${class:BlElement}$ label on class definition changes.
+See ${class:GtPhlowUpdateLabelledViewTitle}$ for more details.
+
+"
 Class {
 	#name : #GtPhlowUpdateLabeledOnClassAndSuperClassChange,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,

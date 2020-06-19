@@ -51,8 +51,8 @@ GtPhlowCompositeView >> defaultUpdateDefinitions [
 	^ Array new: 3 streamContents: [ :aStream |
 		aStream 
 			nextPutAll: super defaultUpdateDefinitions;
-			nextPut: GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnMethodChange new;
-			nextPut: GtPhlowUpdateCompositeSubViewListOnMethodChange new ]
+			nextPut: GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange new;
+			nextPut: GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange new ]
 ]
 
 { #category : #ui }

@@ -4,6 +4,11 @@ Class {
 	#category : #'GToolkit-Phlow-Examples'
 }
 
+{ #category : #'examples - element' }
+GtPhlowPannableViewExamples >> expectedElementClass [
+	^ BlPannableElement
+]
+
 { #category : #decorating }
 GtPhlowPannableViewExamples >> pannable [
 	<gtExample>
@@ -18,7 +23,7 @@ GtPhlowPannableViewExamples >> pannable [
 	^ pannableView
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowPannableViewExamples >> phlowView [
 	<gtExample>
 	^ self pannable

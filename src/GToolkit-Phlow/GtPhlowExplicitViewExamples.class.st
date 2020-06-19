@@ -93,10 +93,16 @@ GtPhlowExplicitViewExamples >> myself [
 	^ self
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowExplicitViewExamples >> phlowView [
 	<gtExample>
 	^ GtPhlowView empty explicit 
 		title: 'Sample';
-		stencil: [ BlElement new background: Color random ]
+		object: self argument: GtPhlowView empty;
+		stencil: [ BlElement new 
+			background: Color random;
+			constraintsDo: [ :c | 
+				c horizontal matchParent.
+				c vertical matchParent.
+				c margin: (BlInsets all: 10) ] ]
 ]

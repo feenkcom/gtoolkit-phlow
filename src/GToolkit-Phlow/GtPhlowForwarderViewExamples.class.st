@@ -120,7 +120,7 @@ GtPhlowForwarderViewExamples >> myself [
 	^ self
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowForwarderViewExamples >> phlowView [
 	<gtExample>
 	^ self forwardedView

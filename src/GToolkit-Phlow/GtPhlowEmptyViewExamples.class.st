@@ -15,6 +15,14 @@ GtPhlowEmptyViewExamples >> element [
 ]
 
 { #category : #'gt-extensions' }
+GtPhlowEmptyViewExamples >> gtPhlowEmptyViewFor: aView [
+	<gtView>
+	^ aView empty
+		title: 'Empty View';
+		priority: 3
+]
+
+{ #category : #'gt-extensions' }
 GtPhlowEmptyViewExamples >> gtPhlowViewFor: aView [
 	<gtView>
 	^ aView empty
@@ -22,7 +30,7 @@ GtPhlowEmptyViewExamples >> gtPhlowViewFor: aView [
 		priority: 3
 ]
 
-{ #category : #'examples - updating' }
+{ #category : #'examples - view' }
 GtPhlowEmptyViewExamples >> phlowView [
 	<return: #GtPhlowView>
 	| aView |

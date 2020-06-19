@@ -37,6 +37,7 @@ TGtPhlowObservedClassAccessors >> observedClass: aClass [
 
 { #category : #'api - subscriptions' }
 TGtPhlowObservedClassAccessors >> subscribeOn: aGtPhlowElementContext [
+	aGtPhlowElementContext hasBuildContext ifFalse: [ ^ self ].
 	self addContext: aGtPhlowElementContext.
 	self setSubscribedIfAlreadySubscribedDo: [ ^ self ].
 	self initializeObservedClassOn: aGtPhlowElementContext.

@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #accessing }
+GtPhlowDefiningMethods >> compiledMethod [
+	<return: #CompiledMethod>
+	^ self methods first compiledMethod
+]
+
+{ #category : #accessing }
 GtPhlowDefiningMethods >> fullName [
 	"Return Class>>#selector name"
 	<return: #Symbol>
