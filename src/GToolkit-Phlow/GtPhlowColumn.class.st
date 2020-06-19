@@ -164,5 +164,5 @@ GtPhlowColumn >> titleStencil: aStencil [
 
 { #category : #scripting }
 GtPhlowColumn >> width: aNumber [
-	self resizer: (BlLayoutResizer exact: aNumber)
+	self resizer: (BlLayoutResizer exact: aNumber asFloat)
 ]
