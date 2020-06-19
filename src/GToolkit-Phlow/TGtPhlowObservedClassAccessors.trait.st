@@ -30,7 +30,7 @@ TGtPhlowObservedClassAccessors >> observedClass [
 { #category : #accessing }
 TGtPhlowObservedClassAccessors >> observedClass: aClass [
 	self 
-		assert: [ aClass isClass ]
+		assert: [ aClass isClassOrTrait ]
 		description: [ 'Observed class must be a class' ].
 	observedClass := aClass
 ]
