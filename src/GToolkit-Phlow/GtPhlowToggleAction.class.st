@@ -36,10 +36,10 @@ GtPhlowToggleAction >> asElement: aBlock withHostElement: aTargetElement [
 	aToggle 
 		when: BrToggleActivatedEvent do: [ :anEvent | 
 			(self isDefinitionRequested: anEvent) ifFalse: [ 
-				activatedAction cull: aToggle ] ];
+				activatedAction glamourValueWithArgs: { aToggle. aTargetElement. anEvent } ] ];
 		when: BrToggleDeactivatedEvent do: [ :anEvent | 
 			(self isDefinitionRequested: anEvent) ifFalse: [ 
-				deactivatedAction cull: aToggle ] ].
+				deactivatedAction glamourValueWithArgs: { aToggle. aTargetElement. anEvent } ] ].
 	self attachShowDefinitionEventHandler: aToggle.
 	self attachTooltipFor: aToggle hostElement: aTargetElement.
 	^ aBlock value: aToggle
