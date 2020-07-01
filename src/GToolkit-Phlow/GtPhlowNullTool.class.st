@@ -6,12 +6,17 @@ Class {
 	#category : #'GToolkit-Phlow-Tools'
 }
 
-{ #category : #converting }
+{ #category : #'api - converting' }
 GtPhlowNullTool >> asElementDo: aOneArgBlock [
 	"Do nothing"
 ]
 
-{ #category : #accessing }
+{ #category : #'api - converting' }
+GtPhlowNullTool >> asTabDo: aBlock [
+	"do nothing"
+]
+
+{ #category : #'api - accessing' }
 GtPhlowNullTool >> object: anObject [
 	"ignore it"
 ]

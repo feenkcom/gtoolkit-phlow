@@ -20,9 +20,9 @@ GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block."
 	| aTabGroup |
 	aTabGroup := BrTabGroup new
-		look: BrGlamorousTabGroupSwitcherLook;
+		look: BrGlamorousTabGroupSwitcherWithHiddenSelectedTabLook;
 		addTabs: self toolTabs.
-	aOneArgBlock cull: aTabGroup
+	^ aOneArgBlock cull: aTabGroup
 ]
 
 { #category : #defaults }
@@ -46,20 +46,15 @@ GtPhlowCompositeTool >> initialize [
 	tools := self defaultTools.
 ]
 
-{ #category : #'private - instance creation' }
-GtPhlowCompositeTool >> toolElementFrom: aGtPhlowTool [
-	aGtPhlowTool asElementDo: [ :anElement | ^ anElement ].
-	self error: 'I must be called only for tools that create an element'
+{ #category : #'api - accessing' }
+GtPhlowCompositeTool >> name [
+	^ 'composite'
 ]
 
 { #category : #'private - instance creation' }
 GtPhlowCompositeTool >> toolTab: aGtPhlowTool into: aStream [
-	| aTab |
-	aTab := BrTab new
-		look: BrGlamorousTabWithoutBarLook;
-		label: aGtPhlowTool name;
-		stencil: [ self toolElementFrom: aGtPhlowTool ].
-	aStream nextPut: aTab.
+	aGtPhlowTool asTabDo: [ :aTab | 
+		aStream nextPut: aTab ]
 ]
 
 { #category : #'private - instance creation' }

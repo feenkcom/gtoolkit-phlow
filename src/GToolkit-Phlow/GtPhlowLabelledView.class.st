@@ -18,7 +18,7 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 		tab := BrTab new.
 		tab phlow beView; entity: self.
 		tab
-			look: BrGlamorousTabWithoutBarLook;
+			look: BrGlamorousTabWithoutBarWithLabelLook;
 			label: self newLabel;
 			stencil: [ 
 				originalElement phlow beViewContent.
