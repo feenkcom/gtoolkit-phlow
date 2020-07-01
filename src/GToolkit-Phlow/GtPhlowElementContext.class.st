@@ -68,6 +68,21 @@ GtPhlowElementContext >> buildContext [
 	^ self entity buildContext
 ]
 
+{ #category : #'api - events' }
+GtPhlowElementContext >> composite [
+	self
+		deprecated: 'Please use compositeTool method instead.'
+		transformWith:
+			'`@receiver composite'
+				-> '`@receiver compositeTool'.
+	^ self compositeTool
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> compositeTool [
+	^ GtPhlowCompositeToolBuilder new context: self
+]
+
 { #category : #'api - convenience' }
 GtPhlowElementContext >> definingMethod [
 	<return: #RGMethodDefinition>
@@ -189,30 +204,30 @@ GtPhlowElementContext >> postponeUpdate [
 	BlTaskAtQueue default schedule: aCommand
 ]
 
-{ #category : #events }
+{ #category : #'api - events' }
 GtPhlowElementContext >> selectObject: anObject [
 	self selectTool: (GtPhlowTool default object: anObject)
 ]
 
-{ #category : #events }
+{ #category : #'api - events' }
 GtPhlowElementContext >> selectTool: aTool [
 	self element fireEvent: (GtPhlowObjectToSelect new
 		tool: aTool;
 		sourceElement: self element) 
 ]
 
-{ #category : #events }
+{ #category : #'api - events' }
 GtPhlowElementContext >> spawnDefiningMethod [
 	self entity definingMethod ifNotNil: [ :aMethod | 
 		self spawnObject: aMethod ]
 ]
 
-{ #category : #events }
+{ #category : #'api - events' }
 GtPhlowElementContext >> spawnObject: anObject [
 	self spawnTool: (GtPhlowTool default object: anObject)
 ]
 
-{ #category : #events }
+{ #category : #'api - events' }
 GtPhlowElementContext >> spawnTool: aTool [
 	self element fireEvent: (GtPhlowObjectToSpawn new
 		tool: aTool;

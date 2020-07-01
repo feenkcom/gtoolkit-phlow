@@ -20,7 +20,7 @@ GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block."
 	| aTabGroup |
 	aTabGroup := BrTabGroup new
-		look: BrGlamorousTabGroupLook;
+		look: BrGlamorousTabGroupSwitcherLook;
 		addTabs: self toolTabs.
 	aOneArgBlock cull: aTabGroup
 ]
@@ -56,7 +56,7 @@ GtPhlowCompositeTool >> toolElementFrom: aGtPhlowTool [
 GtPhlowCompositeTool >> toolTab: aGtPhlowTool into: aStream [
 	| aTab |
 	aTab := BrTab new
-		look: BrGlamorousTabLook;
+		look: BrGlamorousTabWithoutBarLook;
 		label: aGtPhlowTool name;
 		stencil: [ self toolElementFrom: aGtPhlowTool ].
 	aStream nextPut: aTab.
