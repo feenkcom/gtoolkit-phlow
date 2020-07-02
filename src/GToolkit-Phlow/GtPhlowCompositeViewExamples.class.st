@@ -67,6 +67,31 @@ GtPhlowCompositeViewExamples >> addViewThreeDefinition_WithEmptyView [
 	^ aContainer
 ]
 
+{ #category : #'examples - collector' }
+GtPhlowCompositeViewExamples >> collectorUsage [
+	<gtExample>
+	| aView |
+	aView := GtPhlowView empty on: self perform: #gtPhlowViewWithCollectorFor:.
+	self assert: aView class equals: GtPhlowCompositeView.
+	self assert: aView views size equals: 2.
+	self assert: aView views first definingMethod selector equals: #gtTenLinesFor:.
+	self assert: aView views second definingMethod selector equals: #gtAutoUpdatingFor:.
+
+	^ aView
+]
+
+{ #category : #'examples - collector' }
+GtPhlowCompositeViewExamples >> collectorUsageElement [
+	<gtExample>
+	| aView anElement |
+	aView := self collectorUsage.
+	anElement := aView asElementDo: [ :theElement | theElement ].
+	self assert: anElement class equals: BrTabGroup.
+	self assert: anElement viewModel tabs size equals: 2.
+
+	^ anElement
+]
+
 { #category : #'examples - elements' }
 GtPhlowCompositeViewExamples >> element [
 	<gtExample>
@@ -91,7 +116,9 @@ GtPhlowCompositeViewExamples >> expectedElementClass [
 
 { #category : #'gt-extensions' }
 GtPhlowCompositeViewExamples >> gtAutoUpdatingFor: aView [
-	^ GtPhlowTextEditorViewExamples new gtAutoUpdatingFor: aView
+	<gtDemoView>
+	^ (GtPhlowTextEditorViewExamples new gtAutoUpdatingFor: aView)
+		priority: 2
 ]
 
 { #category : #'gt-extensions' }
@@ -105,6 +132,24 @@ GtPhlowCompositeViewExamples >> gtPhlowViewFor: aView [
 	^ aView composite
 		title: 'Composite';
 		views: { self subViewOne. self subViewTwo } asOrderedCollection
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowCompositeViewExamples >> gtPhlowViewWithCollectorFor: aView [
+	<gtView>
+	^ aView composite
+		title: 'Collector';
+		collectorDo: [ :aCollector | 
+			aCollector
+				pragmaName: #gtDemoView;
+				fromObject: self ]
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowCompositeViewExamples >> gtTenLinesFor: aView [
+	<gtDemoView>
+	^ (GtPhlowListViewExamples new gtTenLinesFor: aView)
+		priority: 1
 ]
 
 { #category : #'gt-extensions' }

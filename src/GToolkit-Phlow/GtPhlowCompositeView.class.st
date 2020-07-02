@@ -4,13 +4,21 @@ I compose several views that are displayed using ${class:BrTabGroup}$.
 I am typically used by other tools, e.g., inspectors and coders, to build a composition of object views. To build such views, Phlow provides ${class:GtPhlowViewsCollector}$ to collect subviews for a given object, and ${class:GtPhlowCompositeViewBuilder}$ to build composite views. It is quite unusual defining composite views by users.
 
 !! Example
-
+!!! Manual Definition of Sub-Views 
 A definition like this:
 
 ${method:GtPhlowCompositeViewExamples>>#gtPhlowViewFor:|expanded=true}$
 
 Is represented in tools as in following example:
 ${example:GtPhlowCompositeViewExamples>>#phlowView|codeExpanded=false|previewExpanded=true|previewShow=#gtLiveFor:}$
+
+!!! Sub-View Collector Usage
+A definition like this:
+
+${method:GtPhlowCompositeViewExamples>>#gtPhlowViewWithCollectorFor:|expanded=true}$
+
+Is represented in tools as in following example:
+${example:GtPhlowCompositeViewExamples>>#collectorUsage|codeExpanded=false|previewExpanded=true|previewShow=#gtLiveFor:}$
 
 "
 Class {
@@ -44,6 +52,15 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 		look: BrGlamorousTabGroupLook;
 		addTabs: tabs.
 	^ aBlock value: group
+]
+
+{ #category : #'api - building' }
+GtPhlowCompositeView >> collectorDo: aBlock [
+	"configure ${class:GtPhlowViewsCollector}$ to collect views"
+	| aCollector |
+	aCollector := GtPhlowViewsCollector new.
+	aBlock value: aCollector.
+	self views: aCollector collect.
 ]
 
 { #category : #'adding - update definitions' }
