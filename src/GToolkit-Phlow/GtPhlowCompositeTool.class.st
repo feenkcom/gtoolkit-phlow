@@ -19,10 +19,10 @@ GtPhlowCompositeTool >> addTool: aGtPhlowTool [
 GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block."
 	| aTabGroup |
-	aTabGroup := GtPhlowCompositeElement new
+	aTabGroup := BrTabGroup new
 		look: BrGlamorousTabGroupSwitcherWithHiddenSelectedTabLook;
 		addTabs: self toolTabs.
-	^ aOneArgBlock cull: aTabGroup asPagerPageElement
+	^ aOneArgBlock cull: aTabGroup
 ]
 
 { #category : #defaults }
