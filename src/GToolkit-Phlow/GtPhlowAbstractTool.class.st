@@ -17,6 +17,16 @@ GtPhlowAbstractTool >> asElementDo: aOneArgBlock [
 	self subclassResponsibility
 ]
 
+{ #category : #'api - converting' }
+GtPhlowAbstractTool >> asTabDo: aBlock [
+	| aTab |
+	aTab := BrTab new
+		look: BrGlamorousTabSwitcherWithLabelLook;
+		label: self name;
+		stencil: [ self asElementDo: [ :anElement | anElement ] ].
+	aBlock cull: aTab.
+]
+
 { #category : #'gt-extension' }
 GtPhlowAbstractTool >> gtLiveFor: aView [
 	<gtView>
@@ -27,8 +37,10 @@ GtPhlowAbstractTool >> gtLiveFor: aView [
 		stencil: [ 
 			| aContainer |
 			aContainer := BrFrame new
-				matchParent.
-			self asElementDo: [ :anElement | aContainer addChild: anElement ].
+				matchParent;
+				padding: (BlInsets all: 20).
+			self asElementDo: [ :anElement | 
+				aContainer addChild: anElement ].
 			aContainer ]
 ]
 
