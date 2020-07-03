@@ -49,6 +49,11 @@ GtPhlowUpdateDefinitions >> initialize [
 	definitions := OrderedCollection new: 1.
 ]
 
+{ #category : #copying }
+GtPhlowUpdateDefinitions >> size [
+	^ self definitions size
+]
+
 { #category : #subscriptions }
 GtPhlowUpdateDefinitions >> subscribeAutoUpdatesOn: aGtPhlowElementContext [
 	self definitions do: [ :eachDefinition | 

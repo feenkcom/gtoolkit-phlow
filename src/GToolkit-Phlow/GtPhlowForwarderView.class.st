@@ -74,7 +74,6 @@ GtPhlowForwarderView >> createPhlowView [
 	| aView |
 	aView := self on: self viewObject perform: self viewSymbol.
 	aView copySendFrom: self send.
-	aView copyAutoUpdatesFrom: self autoUpdates.
 	^ aView
 ]
 
@@ -117,6 +116,13 @@ GtPhlowForwarderView >> phlowView [
 	^ phlowView ifNil: [ phlowView := self createPhlowView ]
 ]
 
+{ #category : #'private - elements' }
+GtPhlowForwarderView >> resubscribeFrom: aCurrentElement to: aNewChild [
+	aNewChild = aCurrentElement ifTrue: [ ^ self ].
+	aNewChild isAttachedToSceneGraph ifFalse: [ ^ self ].
+	self subscribeAutoUpdatesOn: aNewChild phlow
+]
+
 { #category : #private }
 GtPhlowForwarderView >> secureObjectExecution [
 	^ [ self object value ]
@@ -154,8 +160,12 @@ GtPhlowForwarderView >> updateContent: aCurrentElement [
 	aParent ifNil: [ ^ self ].
 	anIndex := aParent childIndexOf: aCurrentElement.
 	self phlowView updateContent: aCurrentElement.
-	aNewChild := aParent childAt: anIndex.
-	self beViewElement: aNewChild.
+	self
+		enqueueAction: [ 
+			aNewChild := aParent childAt: anIndex.
+			self beViewElement: aNewChild.
+			self resubscribeFrom: aCurrentElement to: aNewChild ]
+		in: aParent
 ]
 
 { #category : #accessing }

@@ -390,11 +390,6 @@ GtPhlowView >> buildContext: aGtPhlowBuildContext [
 	buildContext := aGtPhlowBuildContext
 ]
 
-{ #category : #updating }
-GtPhlowView >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
-	self autoUpdates copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions
-]
-
 { #category : #defaults }
 GtPhlowView >> defaultAutoUpdates [
 	^ GtPhlowUpdateDefinitions new
