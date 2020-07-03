@@ -44,6 +44,7 @@ GtPhlowViewDecorator >> gtDecoratorChainFor: aView [
 
 { #category : #accessing }
 GtPhlowViewDecorator >> originalView [
+	<return: #GtPhlowView>
 	^ originalView
 ]
 

@@ -10,9 +10,9 @@ Class {
 { #category : #converting }
 GtPhlowTaskItView >> asElementDo: aBlock [
 
-	| aContainerElement |
+	| aLazyElement |
 
-	aContainerElement := BlLazyElement new
+	aLazyElement := BlLazyElement new
 		layout: BlFrameLayout new;
 		background: BlBackground transparent;
 		constraintsDo: [ :c | 
@@ -20,7 +20,10 @@ GtPhlowTaskItView >> asElementDo: aBlock [
 			c vertical matchParent ];
 		elementBuilder: [ self originalElementDo: [ :anElement | anElement ] ];
 		withGlamorousPreview.
-	^ aBlock value: aContainerElement
+
+	self assignMeAsEntityFor: aLazyElement.
+	
+	^ aBlock value: aLazyElement
 ]
 
 { #category : #converting }

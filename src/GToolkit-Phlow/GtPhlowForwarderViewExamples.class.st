@@ -115,6 +115,16 @@ GtPhlowForwarderViewExamples >> gtBasicFor: aView [
 ]
 
 { #category : #'gt-extension' }
+GtPhlowForwarderViewExamples >> gtCompositeFor: aView [
+	<gtView>
+	^ aView forward 
+		title: 'Composite';
+		object: [ GtPhlowCompositeViewExamples new ];
+		view: #gtPhlowViewWithCollectorFor:;
+		actionUpdateButton
+]
+
+{ #category : #'gt-extension' }
 GtPhlowForwarderViewExamples >> myself [
 	<gtExample>
 	^ self

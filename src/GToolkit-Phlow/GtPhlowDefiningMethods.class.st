@@ -53,6 +53,12 @@ GtPhlowDefiningMethods >> gtSourceFor: aView [
 ]
 
 { #category : #accessing }
+GtPhlowDefiningMethods >> methodClass [
+	<return: #Class>
+	^ self methods first methodClass
+]
+
+{ #category : #accessing }
 GtPhlowDefiningMethods >> methods [
 	^ methods
 ]

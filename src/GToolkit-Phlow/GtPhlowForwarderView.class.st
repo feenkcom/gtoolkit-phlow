@@ -17,6 +17,8 @@ You can define me as follow: ${method:GtPhlowForwarderViewExamples>>#gtBasicFor:
 Class {
 	#name : #GtPhlowForwarderView,
 	#superclass : #GtPhlowViewDecorator,
+	#traits : 'TGtPhlowCompositeViewDecorator',
+	#classTraits : 'TGtPhlowCompositeViewDecorator classTrait',
 	#instVars : [
 		'view',
 		'phlowView',
@@ -56,11 +58,16 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 	^ self phlowView asElementDo: [ :anElement |
 		[ 
-			anElement phlow entity: self.
+			self beViewElement: anElement.
 			aBlock value: anElement.
 		] on: Error do: [ :anException | 
 			(self phlowErrorViewWithException: anException)
 				asElementDo: [ :anErrorElement | anErrorElement ] ] ]
+]
+
+{ #category : #'private - elements' }
+GtPhlowForwarderView >> assignMeAsEntityFor: anElement [
+	anElement phlow replaceEntity: self.
 ]
 
 { #category : #private }
@@ -108,6 +115,7 @@ GtPhlowForwarderView >> originMethodsInto: aStream [
 
 { #category : #'accessing - computed' }
 GtPhlowForwarderView >> phlowView [
+	<return: #GtPhlowView>
 	^ phlowView ifNil: [ phlowView := self createPhlowView ]
 ]
 
@@ -149,7 +157,7 @@ GtPhlowForwarderView >> updateContent: aCurrentElement [
 	anIndex := aParent childIndexOf: aCurrentElement.
 	self phlowView updateContent: aCurrentElement.
 	aNewChild := aParent childAt: anIndex.
-	aNewChild phlow entity: self.
+	self beViewElement: aNewChild.
 ]
 
 { #category : #accessing }
@@ -165,4 +173,10 @@ GtPhlowForwarderView >> viewObject [
 { #category : #'accessing - computed' }
 GtPhlowForwarderView >> viewSymbol [
 	^ view ifNil: [ #gtLiveFor: ]
+]
+
+{ #category : #'api - accessing composite view' }
+GtPhlowForwarderView >> views [
+	<return: #Array of: #GtPhlowView>
+	^ self phlowView views
 ]

@@ -35,6 +35,13 @@ GtPhlowElementContext >> allChildrenWithView [
 	^ aTab parent children select: [ :child | child phlow isView ]
 ]
 
+{ #category : #asserting }
+GtPhlowElementContext >> assertIncomingView: aGtPhlowView [
+	self
+		assert: [ aGtPhlowView isNotNil ]
+		description: [ 'Phlow view must be non-nil' ]
+]
+
 { #category : #'api - updating' }
 GtPhlowElementContext >> asyncUpdate [
 	BlUseAsyncFeatures
@@ -95,8 +102,14 @@ GtPhlowElementContext >> element [
 ]
 
 { #category : #'api - accessing' }
-GtPhlowElementContext >> element: anObject [
-	element := anObject
+GtPhlowElementContext >> element: anElement [
+	self 
+		assert: [ anElement isNotNil ] 
+		description: [ 'Element must be non-nil' ].
+	self 
+		assert: [ element isNil ] 
+		description: [ 'Context element can be initialized only once' ].
+	element := anElement
 ]
 
 { #category : #'api - accessing' }
@@ -105,8 +118,12 @@ GtPhlowElementContext >> entity [
 ]
 
 { #category : #'api - accessing' }
-GtPhlowElementContext >> entity: anObject [
-	entity := anObject
+GtPhlowElementContext >> entity: aGtPhlowView [
+	self assertIncomingView: aGtPhlowView.
+	self
+		assert: [ entity isNil ]
+		description: [ 'Context entity (Phlow view) can be initialized only once' ].
+	entity := aGtPhlowView
 ]
 
 { #category : #'api - search' }
@@ -204,6 +221,15 @@ GtPhlowElementContext >> postponeUpdate [
 	BlTaskAtQueue default schedule: aCommand
 ]
 
+{ #category : #'api - updating' }
+GtPhlowElementContext >> replaceEntity: aNewPhlow [
+	self assertIncomingView: aNewPhlow.
+	self 
+		assert: [ self entity isNotNil ] 
+		description: [ 'I cannot replace entity that is not initialized' ].
+	entity := aNewPhlow.
+]
+
 { #category : #'api - events' }
 GtPhlowElementContext >> selectObject: anObject [
 	self selectTool: (GtPhlowTool default object: anObject)
@@ -256,6 +282,14 @@ GtPhlowElementContext >> update [
 GtPhlowElementContext >> updateCommand [
 	^ [ self syncUpdate ] asBlTktTerminableCommand 
 		asBlTktSingleCommand identifier: self
+]
+
+{ #category : #'api - updating' }
+GtPhlowElementContext >> updateEntity: aNewPhlow [
+	self assertIncomingView: aNewPhlow.
+	self entity 
+		ifNil: [ self entity: aNewPhlow ]
+		ifNotNil: [ self replaceEntity: aNewPhlow ].
 ]
 
 { #category : #'api - search' }

@@ -373,18 +373,6 @@ GtPhlowView >> basicReplaceOldElement: anOldElement by: aNewElement in: aParent 
 		aParent replaceChild: anOldElement with: aNewElement ]
 ]
 
-{ #category : #'private - elements' }
-GtPhlowView >> beViewElement: anElement [
-	"Set up a given element to play a role of the root element for a phlow view.
-	The given element is marked as a view and its phlow entity is set to me.
-	In addition we also setup auto updates"
-
-	self subscribeToElement: anElement.
-	anElement phlow
-		beView;
-		entity: self
-]
-
 { #category : #accessing }
 GtPhlowView >> buildContext [
 	<return: #GtPhlowBuildContext>
@@ -645,6 +633,7 @@ GtPhlowView >> subscribeAutoUpdatesOn: aGtPhlowElementContext [
 
 { #category : #'private - elements' }
 GtPhlowView >> subscribeToElement: anElement [
+	super subscribeToElement: anElement.
 	anElement
 		when: BlElementAddedToSceneGraphEvent 
 			do: [ :anEvent | self subscribeAutoUpdatesOn: anEvent currentTarget phlow ];

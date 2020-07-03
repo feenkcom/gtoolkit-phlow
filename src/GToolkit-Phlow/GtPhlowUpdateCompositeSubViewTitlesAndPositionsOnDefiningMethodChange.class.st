@@ -10,6 +10,13 @@ Class {
 	#category : #'GToolkit-Phlow-Updating'
 }
 
+{ #category : #accessing }
+GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> assertContext: aGtPhlowElementContext [
+	self 
+		assert: [ aGtPhlowElementContext entity isKindOf: GtPhlowCompositeView ]
+		description: [ GtPhlowCompositeView name, ' instance is expected' ]
+]
+
 { #category : #'announcement handling' }
 GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> handleMethodModifiedAnnouncement: aMethodModified [ 
 	self hasContexts ifFalse: [ ^ self ].
