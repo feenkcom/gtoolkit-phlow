@@ -8,8 +8,8 @@ See ${class:GtPhlowAddCompositeSubView}$ and ${GtPhlowRemoveCompositeSubView}$ f
 Class {
 	#name : #GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
-	#traits : 'TGtPhlowObservedClassAccessors',
-	#classTraits : 'TGtPhlowObservedClassAccessors classTrait',
+	#traits : 'TGtPhlowObservedClassAccessors + TGtPhlowCompositeViewAccessors',
+	#classTraits : 'TGtPhlowObservedClassAccessors classTrait + TGtPhlowCompositeViewAccessors classTrait',
 	#instVars : [
 		'pragmas'
 	],
@@ -104,10 +104,4 @@ GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> updateSubView: aGtPhl
 	self scheduleTask: (GtPhlowUpdateCompositeSubViewTitleAndPosition new
 		elementContext: aGtPhlowElementContext;
 		subView: aGtPhlowView)
-]
-
-{ #category : #'accessing - convenience' }
-GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> views [
-	<return: #Array of: #GtPhlowView>
-	^ self contexts anyOne entity views
 ]

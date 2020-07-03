@@ -7,18 +7,12 @@ Class {
 	#category : #'GToolkit-Phlow-Updating'
 }
 
-{ #category : #adding }
+{ #category : #'api - adding' }
 GtPhlowUpdateDefinitions >> add: aDefinition [
-	self definitions add: aDefinition asPhlowUpdateDefinition.
+	self definitions add: aDefinition.
 ]
 
-{ #category : #adding }
-GtPhlowUpdateDefinitions >> addAll: aCollectionOfDefinitions [
-	aCollectionOfDefinitions do: [ :eachDefinition | 
-		self add: eachDefinition ]
-]
-
-{ #category : #adding }
+{ #category : #'api - adding' }
 GtPhlowUpdateDefinitions >> asyncWhen: anAnnouncement if: anIfCondition in: anAnnouncer [
 	self add: (GtPhlowAsyncUpdateWithConditionDefinition new
 		announcement: anAnnouncement;
@@ -26,7 +20,7 @@ GtPhlowUpdateDefinitions >> asyncWhen: anAnnouncement if: anIfCondition in: anAn
 		announcer: anAnnouncer)
 ]
 
-{ #category : #adding }
+{ #category : #'api - adding' }
 GtPhlowUpdateDefinitions >> asyncWhen: anAnnouncement in: anAnnouncer [
 	self add: (GtPhlowAsyncUpdateDefinition new
 		announcement: anAnnouncement;
@@ -49,11 +43,6 @@ GtPhlowUpdateDefinitions >> definitions: anObject [
 	definitions := anObject
 ]
 
-{ #category : #adding }
-GtPhlowUpdateDefinitions >> dontUpdateOnSystemChange [
-	self flag: 'remove all system change definitions'
-]
-
 { #category : #initialization }
 GtPhlowUpdateDefinitions >> initialize [
 	super initialize.
@@ -66,7 +55,7 @@ GtPhlowUpdateDefinitions >> subscribeAutoUpdatesOn: aGtPhlowElementContext [
 		eachDefinition subscribeOn: aGtPhlowElementContext ]
 ]
 
-{ #category : #adding }
+{ #category : #'api - adding' }
 GtPhlowUpdateDefinitions >> syncWhen: anAnnouncement in: anAnnouncer [
 	self add: (GtPhlowSyncUpdateDefinition new
 		announcement: anAnnouncement;
@@ -77,14 +66,4 @@ GtPhlowUpdateDefinitions >> syncWhen: anAnnouncement in: anAnnouncer [
 GtPhlowUpdateDefinitions >> unsubscribeAutoUpdatesOn: aGtPhlowElementContext [
 	self definitions do: [ :eachDefinition | 
 		eachDefinition unsubscribeOn: aGtPhlowElementContext ]
-]
-
-{ #category : #adding }
-GtPhlowUpdateDefinitions >> updateOnClassChange [
-	self add: GtPhlowUpdateViewOnClassChange new
-]
-
-{ #category : #adding }
-GtPhlowUpdateDefinitions >> updateOnDefinitionChange [
-	self add: GtPhlowUpdateViewOnDefiningMethodChange new
 ]

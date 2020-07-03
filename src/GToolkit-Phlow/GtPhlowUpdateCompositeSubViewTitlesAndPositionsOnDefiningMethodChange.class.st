@@ -7,6 +7,8 @@ See ${class:GtPhlowUpdateCompositeSubViewTitleAndPosition}$ for more details.
 Class {
 	#name : #GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
+	#traits : 'TGtPhlowCompositeViewAccessors',
+	#classTraits : 'TGtPhlowCompositeViewAccessors classTrait',
 	#category : #'GToolkit-Phlow-Updating'
 }
 
@@ -47,10 +49,4 @@ GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> updateS
 	self scheduleTask: (GtPhlowUpdateCompositeSubViewTitleAndPosition new
 		elementContext: aGtPhlowElementContext;
 		subView: aGtPhlowView)
-]
-
-{ #category : #'accessing - convenience' }
-GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> views [
-	<return: #Array of: #GtPhlowView>
-	^ self contexts anyOne entity views
 ]

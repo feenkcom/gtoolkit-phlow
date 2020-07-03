@@ -75,8 +75,7 @@ GtPhlowExplicitViewExamples >> gtUpdatingDisabledOnSystemChangeFor: aView [
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent.
-					c margin: (BlInsets all: 40) ]  ];
-		dontUpdateOnSystemChange
+					c margin: (BlInsets all: 40) ]  ]
 ]
 
 { #category : #'gt-extension' }
@@ -89,8 +88,7 @@ GtPhlowExplicitViewExamples >> gtUpdatingEnabledOnSystemChangeFor: aView [
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent.
-					c margin: (BlInsets all: 40) ]  ];
-		updateOnDefinitionChange
+					c margin: (BlInsets all: 40) ]  ]
 ]
 
 { #category : #'gt-extension' }

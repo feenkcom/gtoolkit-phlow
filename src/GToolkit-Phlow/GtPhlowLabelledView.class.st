@@ -37,7 +37,7 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 
 { #category : #defaults }
 GtPhlowLabelledView >> defaultUpdateDefinitions [
-	^ super defaultUpdateDefinitions copyWith: GtPhlowUpdateLabeledOnClassAndSuperClassChange new
+	^ super defaultUpdateDefinitions copyWith: GtPhlowUpdateLabeledOnClassAndSuperClassChange
 ]
 
 { #category : #accessing }

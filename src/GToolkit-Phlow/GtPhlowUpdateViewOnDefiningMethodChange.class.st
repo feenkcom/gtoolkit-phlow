@@ -13,7 +13,7 @@ Class {
 { #category : #'announcement handling' }
 GtPhlowUpdateViewOnDefiningMethodChange >> handleMethodModifiedAnnouncement: aMethodModified [ 
 	self hasContexts ifFalse: [ ^ self ].
-	self definingMethod ifNil: [ ^ self ].
+	self hasDefiningMethod ifFalse: [ ^ self ].
 	(self definingMethod gtPhlowIncludesCompiledMethod: aMethodModified methodAffected)
 		ifFalse: [ ^ self ].
 	self updatePhlowViews.
@@ -21,7 +21,7 @@ GtPhlowUpdateViewOnDefiningMethodChange >> handleMethodModifiedAnnouncement: aMe
 
 { #category : #subscriptions }
 GtPhlowUpdateViewOnDefiningMethodChange >> subscribeOn: aGtPhlowElementContext [
-	aGtPhlowElementContext definingMethod ifNil: [ ^ self ].
+	self hasDefiningMethod ifFalse: [ ^ self ].
 	self addContext: aGtPhlowElementContext.
 	self setSubscribedIfAlreadySubscribedDo: [ ^ self ].
 	self

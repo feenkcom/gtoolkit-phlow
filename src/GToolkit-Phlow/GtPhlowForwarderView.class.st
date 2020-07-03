@@ -17,8 +17,6 @@ You can define me as follow: ${method:GtPhlowForwarderViewExamples>>#gtBasicFor:
 Class {
 	#name : #GtPhlowForwarderView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowCompositeViewDecorator',
-	#classTraits : 'TGtPhlowCompositeViewDecorator classTrait',
 	#instVars : [
 		'view',
 		'phlowView',

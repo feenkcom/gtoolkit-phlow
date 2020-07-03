@@ -8,8 +8,6 @@ For example, a view of an object can be a visualization with the title being Vis
 Class {
 	#name : #GtPhlowExplicitView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowCompositeViewDecorator',
-	#classTraits : 'TGtPhlowCompositeViewDecorator classTrait',
 	#instVars : [
 		'stencilBuilder',
 		'phlowView'

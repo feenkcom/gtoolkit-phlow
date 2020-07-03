@@ -4,7 +4,15 @@ Class {
 	#category : #'GToolkit-Phlow-Examples'
 }
 
-{ #category : #'forwarded view' }
+{ #category : #'examples - composite' }
+GtPhlowForwarderViewExamples >> forwardedCompositeView [
+	<gtExample>
+	| aView |
+	aView := self gtCompositeFor: GtPhlowView empty.
+	^ aView
+]
+
+{ #category : #'examples - forwarded view' }
 GtPhlowForwarderViewExamples >> forwardedIntegerView [
 	<gtExample>
 	| aView anElement |
@@ -20,7 +28,7 @@ GtPhlowForwarderViewExamples >> forwardedIntegerView [
 	^ aView
 ]
 
-{ #category : #'forwarded view' }
+{ #category : #'examples - forwarded view' }
 GtPhlowForwarderViewExamples >> forwardedView [
 	<gtExample>
 	| aView |
@@ -51,7 +59,7 @@ GtPhlowForwarderViewExamples >> forwardedView [
 	^ aView
 ]
 
-{ #category : #'forwarded view' }
+{ #category : #'examples - forwarded view' }
 GtPhlowForwarderViewExamples >> forwardedViewWithObjectCreationError [
 	<gtExample>
 	| aView |
@@ -77,7 +85,7 @@ GtPhlowForwarderViewExamples >> forwardedViewWithObjectCreationError [
 	^ aView
 ]
 
-{ #category : #'forwarded view' }
+{ #category : #'examples - forwarded view' }
 GtPhlowForwarderViewExamples >> forwardedWithUndefinedViewMessage [
 	<gtExample>
 	| aView |
