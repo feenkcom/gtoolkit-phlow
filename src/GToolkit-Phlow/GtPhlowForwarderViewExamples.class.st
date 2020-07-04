@@ -4,7 +4,19 @@ Class {
 	#category : #'GToolkit-Phlow-Examples'
 }
 
-{ #category : #'forwarded view' }
+{ #category : #'examples - composite' }
+GtPhlowForwarderViewExamples >> forwardedCompositeView [
+	<gtExample>
+	| aView |
+	aView := self gtCompositeFor: GtPhlowView empty.
+	self assert: aView class equals: GtPhlowForwarderView.
+	self assert: aView phlowView class equals: GtPhlowCompositeView.
+	self assert: aView autoUpdates size equals: aView defaultUpdateDefinitions size.
+	self assert: aView phlowView autoUpdates size equals: aView phlowView defaultUpdateDefinitions size.
+	^ aView
+]
+
+{ #category : #'examples - forwarded view' }
 GtPhlowForwarderViewExamples >> forwardedIntegerView [
 	<gtExample>
 	| aView anElement |
@@ -20,7 +32,7 @@ GtPhlowForwarderViewExamples >> forwardedIntegerView [
 	^ aView
 ]
 
-{ #category : #'forwarded view' }
+{ #category : #'examples - forwarded view' }
 GtPhlowForwarderViewExamples >> forwardedView [
 	<gtExample>
 	| aView |
@@ -51,7 +63,7 @@ GtPhlowForwarderViewExamples >> forwardedView [
 	^ aView
 ]
 
-{ #category : #'forwarded view' }
+{ #category : #'examples - forwarded view' }
 GtPhlowForwarderViewExamples >> forwardedViewWithObjectCreationError [
 	<gtExample>
 	| aView |
@@ -77,7 +89,7 @@ GtPhlowForwarderViewExamples >> forwardedViewWithObjectCreationError [
 	^ aView
 ]
 
-{ #category : #'forwarded view' }
+{ #category : #'examples - forwarded view' }
 GtPhlowForwarderViewExamples >> forwardedWithUndefinedViewMessage [
 	<gtExample>
 	| aView |
@@ -91,6 +103,37 @@ GtPhlowForwarderViewExamples >> forwardedWithUndefinedViewMessage [
 	^ aView
 ]
 
+{ #category : #'examples - update actions' }
+GtPhlowForwarderViewExamples >> forwardedWithUpdateAction [
+	<gtExample>
+	| aView |
+	aView := self gtAutoUpdatingExplicitFor: GtPhlowView empty.
+	self assert: aView autoUpdates size equals: aView defaultUpdateDefinitions size + 1.
+	^ aView
+]
+
+{ #category : #'examples - update actions' }
+GtPhlowForwarderViewExamples >> forwardedWithUpdateActionElement [
+	<gtExample>
+	| aView anElement aContainer aNewElement |
+	aView := self forwardedWithUpdateAction.
+	aContainer := self container.
+	anElement := aView asElementDo: [ :theElement | theElement ].
+	aContainer addChild: anElement.
+	self assert: anElement phlow entity equals: aView.
+	self assert: aView autoUpdates size equals: aView defaultUpdateDefinitions size + 1.
+
+	BlUseAsyncFeatures disableDuring: [ anElement phlow syncUpdate ].
+	self assert: anElement phlow entity equals: aView.
+	self assert: aView autoUpdates size equals: aView defaultUpdateDefinitions size + 1.
+	
+	aNewElement := aContainer childAt: 1.
+	self assert: aNewElement phlow entity equals: aView.
+	self assert: aView autoUpdates size equals: aView defaultUpdateDefinitions size + 1.
+
+	^ anElement
+]
+
 { #category : #'gt-extension' }
 GtPhlowForwarderViewExamples >> gtAutoUpdatingExplicitFor: aView [
 	<gtView>
@@ -102,7 +145,7 @@ GtPhlowForwarderViewExamples >> gtAutoUpdatingExplicitFor: aView [
 		view: #gtBasicFor:;
 		updateWhen: Announcement in: [ anAnnouncer ];
 		actionButtonIcon: BrGlamorousIcons refresh
-			action: [ anAnnouncer announce: Announcement new ]
+			action: [ BlUseAsyncFeatures disableDuring: [ anAnnouncer announce: Announcement new ] ]
 ]
 
 { #category : #'gt-extension' }
@@ -112,6 +155,16 @@ GtPhlowForwarderViewExamples >> gtBasicFor: aView [
 		title: 'Forwarded Explicit View';
 		object: [ GtPhlowExplicitViewExamples new ];
 		view: #gtBasicFor:
+]
+
+{ #category : #'gt-extension' }
+GtPhlowForwarderViewExamples >> gtCompositeFor: aView [
+	<gtView>
+	^ aView forward 
+		title: 'Composite';
+		object: [ GtPhlowCompositeViewExamples new ];
+		view: #gtPhlowViewWithCollectorFor:;
+		actionUpdateButton
 ]
 
 { #category : #'gt-extension' }

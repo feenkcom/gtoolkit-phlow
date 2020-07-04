@@ -45,6 +45,22 @@ GtPhlowProtoView >> asTaskItView [
 		ifFalse: [ self ]
 ]
 
+{ #category : #'private - elements' }
+GtPhlowProtoView >> assignMeAsEntityFor: anElement [
+	anElement phlow entity: self.
+]
+
+{ #category : #'private - elements' }
+GtPhlowProtoView >> beViewElement: anElement [
+	"Set up a given element to play a role of the root element for a phlow view.
+	The given element is marked as a view and its phlow entity is set to me.
+	In addition we also setup auto updates"
+
+	self subscribeToElement: anElement.
+	anElement phlow beView.
+	self assignMeAsEntityFor: anElement.
+]
+
 { #category : #accessing }
 GtPhlowProtoView >> buildContext [
 	<return: #GtPhlowBuildContext>
@@ -248,6 +264,11 @@ GtPhlowProtoView >> sparta [
 		definingMethod: (GtPhlowDefiningMethodsCollector new 
 			stack: thisContext stack;
 			collect)
+]
+
+{ #category : #'private - elements' }
+GtPhlowProtoView >> subscribeToElement: anElement [
+	"subclasses can subscribe to an element events"
 ]
 
 { #category : #decorating }

@@ -37,6 +37,6 @@ GtPhlowUpdateView >> execute [
 
 { #category : #'private - updating' }
 GtPhlowUpdateView >> updateElementWithNewPhlowView: aNewPhlow [
-	self elementContext entity: aNewPhlow.
+	self elementContext replaceEntity: aNewPhlow.
 	self elementContext syncUpdate.
 ]

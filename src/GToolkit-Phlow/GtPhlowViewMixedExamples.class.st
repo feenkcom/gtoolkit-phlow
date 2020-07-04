@@ -151,13 +151,6 @@ GtPhlowViewMixedExamples >> gtExtraViewActionFor: anAction [
 ]
 
 { #category : #'gt-extension' }
-GtPhlowViewMixedExamples >> gtViewWithExceptionAtCreationFor: aView [
-	<gtView>
-	1/0.
-	^ aView title: 'With error during view creation'
-]
-
-{ #category : #'gt-extension' }
 GtPhlowViewMixedExamples >> gtViewWithExtraActionsFor: aView [
 	<gtView>
 	^ aView textEditor 
@@ -258,57 +251,6 @@ GtPhlowViewMixedExamples >> listView [
 GtPhlowViewMixedExamples >> myself [
 	<gtExample>
 	^ self
-]
-
-{ #category : #'secure execution' }
-GtPhlowViewMixedExamples >> onPerformWithErrorAtCreation [
-	<gtExample>
-	| aView |
-	aView := GtPhlowView empty on: self perform: #gtViewWithExceptionAtCreationFor:.
-	self assert: aView class equals: GtPhlowViewWithError.
-	self 
-		assert: aView definingMethod 
-		equals: (self class >> #gtViewWithExceptionAtCreationFor:) asRingDefinition.
-	^ aView
-]
-
-{ #category : #'secure execution' }
-GtPhlowViewMixedExamples >> onPerformWithNonExistingMethodError [
-	<gtExample>
-	| aView |
-	aView := GtPhlowView empty on: self perform: #nonExistingMethod:.
-	self assert: aView class equals: GtPhlowViewWithError.
-	^ aView
-]
-
-{ #category : #'secure execution' }
-GtPhlowViewMixedExamples >> onPerformWithNonExistingMethodErrorBlocElement [
-	<gtExample>
-	| aView anElement |
-	aView := self onPerformWithNonExistingMethodError.
-	anElement := aView asElementDo: [ :theElement | theElement ].
-	self assert: (anElement isKindOf: BlElement).
-	^ anElement
-]
-
-{ #category : #'secure execution' }
-GtPhlowViewMixedExamples >> onPerformWithoutError [
-	<gtExample>
-	| aView |
-	aView := GtPhlowView empty on: self perform: #gtViewsFor:.
-	self assert: aView class equals: GtPhlowLabelledView.
-	self assert: aView originalView originalView class equals: GtPhlowEmptyView.
-	^ aView
-]
-
-{ #category : #'secure execution' }
-GtPhlowViewMixedExamples >> onPerformWithoutErrorBlocElement [
-	<gtExample>
-	| aView anElement |
-	aView := self onPerformWithoutError.
-	anElement := aView asElementDo: [ :theElement | theElement ].
-	self assert: (anElement isKindOf: BlElement).
-	^ anElement
 ]
 
 { #category : #updating }

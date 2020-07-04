@@ -290,7 +290,13 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 
 { #category : #'adding - update definitions' }
 GtPhlowView >> addAutoUpdate: aGtPhlowUpdateDefinition [
-	self autoUpdates add: aGtPhlowUpdateDefinition
+	self autoUpdates add: (aGtPhlowUpdateDefinition on: self)
+]
+
+{ #category : #'adding - update definitions' }
+GtPhlowView >> addAutoUpdates: aCollectionOOfGtPhlowUpdateDefinition [
+	aCollectionOOfGtPhlowUpdateDefinition do: [ :eachDefinition | 
+		self addAutoUpdate: eachDefinition ]
 ]
 
 { #category : #'adding - actions' }
@@ -373,18 +379,6 @@ GtPhlowView >> basicReplaceOldElement: anOldElement by: aNewElement in: aParent 
 		aParent replaceChild: anOldElement with: aNewElement ]
 ]
 
-{ #category : #'private - elements' }
-GtPhlowView >> beViewElement: anElement [
-	"Set up a given element to play a role of the root element for a phlow view.
-	The given element is marked as a view and its phlow entity is set to me.
-	In addition we also setup auto updates"
-
-	self subscribeToElement: anElement.
-	anElement phlow
-		beView;
-		entity: self
-]
-
 { #category : #accessing }
 GtPhlowView >> buildContext [
 	<return: #GtPhlowBuildContext>
@@ -394,11 +388,6 @@ GtPhlowView >> buildContext [
 { #category : #accessing }
 GtPhlowView >> buildContext: aGtPhlowBuildContext [
 	buildContext := aGtPhlowBuildContext
-]
-
-{ #category : #updating }
-GtPhlowView >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
-	self autoUpdates copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions
 ]
 
 { #category : #defaults }
@@ -418,7 +407,7 @@ GtPhlowView >> defaultTitle [
 
 { #category : #defaults }
 GtPhlowView >> defaultUpdateDefinitions [
-	^ { GtPhlowUpdateViewOnDefiningMethodChange new }
+	^ { GtPhlowUpdateViewOnDefiningMethodChange }
 ]
 
 { #category : #accessing }
@@ -448,12 +437,6 @@ GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 GtPhlowView >> disableAsync [
 	"Disable element creation in background (while calling ${method:GtPhlowProtoView>>#asElementDo:}$)"
 	asyncEnabled := false.
-]
-
-{ #category : #'adding - update definitions' }
-GtPhlowView >> dontUpdateOnSystemChange [
-	"Do not update view on any system change"
-	self autoUpdates dontUpdateOnSystemChange.
 ]
 
 { #category : #'api - async ui building' }
@@ -510,7 +493,7 @@ GtPhlowView >> initialize [
 
 { #category : #initialization }
 GtPhlowView >> initializeDefaultUpdateDefinitions [
-	self autoUpdates addAll: self defaultUpdateDefinitions
+	self addAutoUpdates: self defaultUpdateDefinitions
 ]
 
 { #category : #testing }
@@ -645,6 +628,7 @@ GtPhlowView >> subscribeAutoUpdatesOn: aGtPhlowElementContext [
 
 { #category : #'private - elements' }
 GtPhlowView >> subscribeToElement: anElement [
+	super subscribeToElement: anElement.
 	anElement
 		when: BlElementAddedToSceneGraphEvent 
 			do: [ :anEvent | self subscribeAutoUpdatesOn: anEvent currentTarget phlow ];
@@ -676,18 +660,6 @@ GtPhlowView >> updateContent: aCurrentElement [
 	aParent ifNotNil: [ 
 		self asElementDo: [ :aNewElement |
 			self replaceOldElement: aCurrentElement by: aNewElement in: aParent. ] ].
-]
-
-{ #category : #'adding - update definitions' }
-GtPhlowView >> updateOnClassChange [
-	"Update view on class (any its method) change"
-	self autoUpdates updateOnClassChange.
-]
-
-{ #category : #'adding - update definitions' }
-GtPhlowView >> updateOnDefinitionChange [
-	"Update view only if method definition changed"
-	self autoUpdates updateOnDefinitionChange.
 ]
 
 { #category : #'adding - update definitions' }

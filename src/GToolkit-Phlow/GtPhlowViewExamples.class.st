@@ -145,7 +145,7 @@ GtPhlowViewExamples >> updatePhlowView: aCurrentPhlowView to: aNewPhlowView [
 	
 	aContainer := self container.
 	aContainer addChild: aCurrentElement.
-	aCurrentElement phlow entity: aNewPhlowView.
+	aCurrentElement phlow replaceEntity: aNewPhlowView.
 	BlUseAsyncFeatures disableDuring: [
 		aCurrentElement phlow syncUpdate ].
 	

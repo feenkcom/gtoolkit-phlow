@@ -56,11 +56,16 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 	^ self phlowView asElementDo: [ :anElement |
 		[ 
-			anElement phlow entity: self.
+			self beViewElement: anElement.
 			aBlock value: anElement.
 		] on: Error do: [ :anException | 
 			(self phlowErrorViewWithException: anException)
 				asElementDo: [ :anErrorElement | anErrorElement ] ] ]
+]
+
+{ #category : #'private - elements' }
+GtPhlowForwarderView >> assignMeAsEntityFor: anElement [
+	anElement phlow replaceEntity: self.
 ]
 
 { #category : #private }
@@ -69,7 +74,6 @@ GtPhlowForwarderView >> createPhlowView [
 	| aView |
 	aView := self on: self viewObject perform: self viewSymbol.
 	aView copySendFrom: self send.
-	aView copyAutoUpdatesFrom: self autoUpdates.
 	^ aView
 ]
 
@@ -108,7 +112,15 @@ GtPhlowForwarderView >> originMethodsInto: aStream [
 
 { #category : #'accessing - computed' }
 GtPhlowForwarderView >> phlowView [
+	<return: #GtPhlowView>
 	^ phlowView ifNil: [ phlowView := self createPhlowView ]
+]
+
+{ #category : #'private - elements' }
+GtPhlowForwarderView >> resubscribeFrom: aCurrentElement to: aNewChild [
+	aNewChild = aCurrentElement ifTrue: [ ^ self ].
+	aNewChild isAttachedToSceneGraph ifFalse: [ ^ self ].
+	self subscribeAutoUpdatesOn: aNewChild phlow
 ]
 
 { #category : #private }
@@ -148,8 +160,12 @@ GtPhlowForwarderView >> updateContent: aCurrentElement [
 	aParent ifNil: [ ^ self ].
 	anIndex := aParent childIndexOf: aCurrentElement.
 	self phlowView updateContent: aCurrentElement.
-	aNewChild := aParent childAt: anIndex.
-	aNewChild phlow entity: self.
+	self
+		enqueueAction: [ 
+			aNewChild := aParent childAt: anIndex.
+			self beViewElement: aNewChild.
+			self resubscribeFrom: aCurrentElement to: aNewChild ]
+		in: aParent
 ]
 
 { #category : #accessing }
@@ -165,4 +181,10 @@ GtPhlowForwarderView >> viewObject [
 { #category : #'accessing - computed' }
 GtPhlowForwarderView >> viewSymbol [
 	^ view ifNil: [ #gtLiveFor: ]
+]
+
+{ #category : #'api - accessing composite view' }
+GtPhlowForwarderView >> views [
+	<return: #Array of: #GtPhlowView>
+	^ self phlowView views
 ]

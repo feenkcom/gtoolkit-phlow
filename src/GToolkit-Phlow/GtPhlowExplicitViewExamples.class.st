@@ -44,6 +44,28 @@ GtPhlowExplicitViewExamples >> gtBasicFor: aView [
 ]
 
 { #category : #'gt-extension' }
+GtPhlowExplicitViewExamples >> gtCompositeFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Composite';
+		stencil: [ 
+			(GtPhlowCompositeViewExamples new gtPhlowViewWithCollectorFor: GtPhlowView empty)
+				asElementDo: [ :theElement | theElement ] ];
+		actionUpdateButton
+]
+
+{ #category : #'gt-extension' }
+GtPhlowExplicitViewExamples >> gtStencilWithPhlowFor: aView [ 
+	<gtView>
+	^ aView explicit 
+		title: 'Stencil with Phlow';
+		stencil: [ 
+			(GtPhlowView empty on: GtPhlowCompositeViewExamples new perform: #gtPhlowViewFor:)
+				asElementDo: [ :anElement | anElement ] ];
+		actionUpdateButton
+]
+
+{ #category : #'gt-extension' }
 GtPhlowExplicitViewExamples >> gtUpdatingDisabledOnSystemChangeFor: aView [ 
 	^ aView explicit 
 		title: 'Updating Disabled on System Change';
@@ -53,8 +75,7 @@ GtPhlowExplicitViewExamples >> gtUpdatingDisabledOnSystemChangeFor: aView [
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent.
-					c margin: (BlInsets all: 40) ]  ];
-		dontUpdateOnSystemChange
+					c margin: (BlInsets all: 40) ]  ]
 ]
 
 { #category : #'gt-extension' }
@@ -67,8 +88,7 @@ GtPhlowExplicitViewExamples >> gtUpdatingEnabledOnSystemChangeFor: aView [
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent.
-					c margin: (BlInsets all: 40) ]  ];
-		updateOnDefinitionChange
+					c margin: (BlInsets all: 40) ]  ]
 ]
 
 { #category : #'gt-extension' }
@@ -105,4 +125,15 @@ GtPhlowExplicitViewExamples >> phlowView [
 				c horizontal matchParent.
 				c vertical matchParent.
 				c margin: (BlInsets all: 10) ] ]
+]
+
+{ #category : #'examples - view' }
+GtPhlowExplicitViewExamples >> stencilWithPhlow [
+	<gtExample>
+	| aView anElement |
+	aView := GtPhlowView empty on: self perform: #gtStencilWithPhlowFor:.
+	self assert: aView class equals: GtPhlowExplicitView.
+	anElement := aView asElementDo: [ :theElement | theElement ].
+	self assert: anElement class equals: BrTabGroup.
+	^ aView
 ]

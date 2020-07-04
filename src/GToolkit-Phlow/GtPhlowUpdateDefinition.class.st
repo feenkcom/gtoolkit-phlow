@@ -4,14 +4,14 @@ Class {
 	#category : #'GToolkit-Phlow-Updating'
 }
 
-{ #category : #converting }
-GtPhlowUpdateDefinition class >> asPhlowUpdateDefinition [
-	^ self new
+{ #category : #'api - instance creation' }
+GtPhlowUpdateDefinition class >> on: aGtPhlowView [
+	^ self new on: aGtPhlowView
 ]
 
-{ #category : #converting }
-GtPhlowUpdateDefinition >> asPhlowUpdateDefinition [
-	^ self
+{ #category : #'api - initialization' }
+GtPhlowUpdateDefinition >> on: aView [
+	
 ]
 
 { #category : #subscriptions }

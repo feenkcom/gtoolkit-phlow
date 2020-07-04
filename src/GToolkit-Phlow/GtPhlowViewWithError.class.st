@@ -9,7 +9,10 @@ Class {
 
 { #category : #accessing }
 GtPhlowViewWithError >> asElementDo: aBlock [
-	^ aBlock value: error asDebuggableElement
+	| anElement |
+	anElement := error asDebuggableElement.
+	self beViewElement: anElement.
+	^ aBlock value: anElement
 ]
 
 { #category : #accessing }

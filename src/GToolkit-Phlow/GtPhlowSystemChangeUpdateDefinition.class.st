@@ -10,7 +10,8 @@ Class {
 		'mutexContexts',
 		'contexts',
 		'mutexSubscription',
-		'isSubscribedToSystem'
+		'isSubscribedToSystem',
+		'view'
 	],
 	#category : #'GToolkit-Phlow-Updating'
 }
@@ -41,15 +42,22 @@ GtPhlowSystemChangeUpdateDefinition >> defaultContexts [
 	^ Array empty
 ]
 
-{ #category : #accessing }
+{ #category : #'api - view' }
 GtPhlowSystemChangeUpdateDefinition >> definingMethod [
-	^ self contexts anyOne definingMethod
+	<return: #RGMethodDefinition>
+	^ self view definingMethod
 ]
 
 { #category : #testing }
 GtPhlowSystemChangeUpdateDefinition >> hasContexts [
 	<return: #Boolean>
 	^ self contexts isEmptyOrNil not
+]
+
+{ #category : #'api - view' }
+GtPhlowSystemChangeUpdateDefinition >> hasDefiningMethod [
+	<return: #Boolean>
+	^ self definingMethod isNotNil
 ]
 
 { #category : #testing }
@@ -64,6 +72,12 @@ GtPhlowSystemChangeUpdateDefinition >> initialize [
 	isSubscribedToSystem := false.
 	mutexContexts := Mutex new.
 	contexts := self defaultContexts.
+]
+
+{ #category : #'api - initialization' }
+GtPhlowSystemChangeUpdateDefinition >> on: aView [
+	super on: aView.
+	self view: aView.
 ]
 
 { #category : #'adding/removing' }
@@ -117,4 +131,18 @@ GtPhlowSystemChangeUpdateDefinition >> unsubscribeOn: aGtPhlowElementContext [
 			SystemAnnouncer uniqueInstance unsubscribe: self.
 		]
 	]
+]
+
+{ #category : #'api - view' }
+GtPhlowSystemChangeUpdateDefinition >> view [
+	<return: #GtPhlowView>
+	^ view
+]
+
+{ #category : #'api - view' }
+GtPhlowSystemChangeUpdateDefinition >> view: aGtPhlowView [
+	self
+		assert: [ aGtPhlowView isNotNil ]
+		description: [ 'Phlow view must be non-nil' ].
+	view := aGtPhlowView
 ]

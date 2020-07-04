@@ -39,7 +39,7 @@ GtPhlowUtility class >> createTabElementFor: aPhlowView andDo: aBlock [
 				| aTaskItView |
 				aTaskItView := aPhlowView asTaskItView.
 				aTaskItView asElementDo: [ :element | 
-					element phlow beViewContent; entity: aTaskItView.
+					element phlow beViewContent.
 					element asScrollableElement ] ];
 			toolbarStencil: [ aPhlowView actionsToolbarForElement: aTab ].
 		aPhlowView attachTooltipFor: aTab.

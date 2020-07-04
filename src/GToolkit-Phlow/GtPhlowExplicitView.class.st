@@ -9,7 +9,8 @@ Class {
 	#name : #GtPhlowExplicitView,
 	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
-		'stencilBuilder'
+		'stencilBuilder',
+		'phlowView'
 	],
 	#category : #'GToolkit-Phlow-! Views and Actions'
 }
@@ -31,6 +32,13 @@ GtPhlowExplicitView >> asElementDo: aBlock [
 	^ aBlock value: anElement
 ]
 
+{ #category : #'private - elements' }
+GtPhlowExplicitView >> assignMeAsEntityFor: anElement [
+	anElement phlow entity ifNotNil: [ :aPhlowView | 
+		phlowView := aPhlowView ].
+	anElement phlow updateEntity: self.
+]
+
 { #category : #accessing }
 GtPhlowExplicitView >> stencil: aStencilBuilder [
 	stencilBuilder := aStencilBuilder asStencilBuilder
@@ -39,4 +47,13 @@ GtPhlowExplicitView >> stencil: aStencilBuilder [
 { #category : #accessing }
 GtPhlowExplicitView >> stencilBuilder [
 	^ stencilBuilder
+]
+
+{ #category : #'api - accessing composite view' }
+GtPhlowExplicitView >> views [
+	<return: #Array of: #GtPhlowView>
+	self 
+		assert: [ phlowView isNotNil ] 
+		description: [ 'I must not receive #views message when phlowView instance is nil' ].
+	^ phlowView views
 ]

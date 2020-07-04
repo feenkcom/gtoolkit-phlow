@@ -76,6 +76,7 @@ GtPhlowCompositeViewExamples >> collectorUsage [
 	self assert: aView views size equals: 2.
 	self assert: aView views first definingMethod selector equals: #gtTenLinesFor:.
 	self assert: aView views second definingMethod selector equals: #gtAutoUpdatingFor:.
+	self assert: aView autoUpdates size equals: aView defaultUpdateDefinitions size.
 
 	^ aView
 ]
