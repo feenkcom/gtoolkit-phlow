@@ -4,6 +4,11 @@ Class {
 	#category : #'GToolkit-Phlow-Examples'
 }
 
+{ #category : #'examples - element' }
+GtPhlowViewWithErrorExamples >> expectedElementClass [
+	^ BrFrame
+]
+
 { #category : #'gt-extensions' }
 GtPhlowViewWithErrorExamples >> gtViewWithExceptionAtCreationFor: aView [
 	<gtView>
