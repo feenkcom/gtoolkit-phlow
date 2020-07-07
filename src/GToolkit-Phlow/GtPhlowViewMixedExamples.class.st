@@ -235,18 +235,6 @@ GtPhlowViewMixedExamples >> levelTwoViewFor: aView [
 		text: [ 'Level Two' ]
 ]
 
-{ #category : #examples }
-GtPhlowViewMixedExamples >> listView [
-	<gtExample>
-	| view element |
-	view := GtPhlowView empty list items: (1 to: 100).
-	view asElementDo: [ :el | element := el ].
-	self assert: element class equals: BrColumnedList.
-	self assert: element phlow isView.
-	self assert: element phlow entity equals: view.
-	^ view
-]
-
 { #category : #'gt-extension' }
 GtPhlowViewMixedExamples >> myself [
 	<gtExample>
