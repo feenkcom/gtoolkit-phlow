@@ -4,9 +4,11 @@ Class {
 	#instVars : [
 		'itemsBuilder',
 		'itemStencil',
-		'transformation'
+		'transformation',
+		'itemDataBinder',
+		'itemTypeStencil'
 	],
-	#category : #'GToolkit-Phlow-! Views and Actions'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #converting }
@@ -16,7 +18,7 @@ GtPhlowListView >> asElementDo: aBlock [
 	theItems := self itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	
 	aList := self elementClass new items: theItems.
-	aList addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
+	aList addEventHandler: (GtPhlowListToSelectHandler new transformation: self send).
 	aList constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 
 	aList stencil: [ :eachNode :index | 
