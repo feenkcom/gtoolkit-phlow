@@ -11,7 +11,7 @@ Class {
 	#category : #'GToolkit-Phlow-! Views'
 }
 
-{ #category : #converting }
+{ #category : #'api - converting' }
 GtPhlowListView >> asElementDo: aBlock [
 	| theItems aList |
 	
@@ -21,12 +21,10 @@ GtPhlowListView >> asElementDo: aBlock [
 	aList addEventHandler: (GtPhlowListToSelectHandler new transformation: self send).
 	aList constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 
-	aList stencil: [ :eachNode :index | 
-		| itemElement |
-		itemElement := self performBlock: [ self itemStencil value: eachNode ].
-		itemElement constraintsDo: [ :c | 
-			c horizontal matchParent. 
-			c padding: (BlInsets top: 3 left: 10 bottom: 3 right: 0) ] ].
+	aList
+		itemStencil: self itemElementStencil;
+		itemDataBinder: self itemDataBinder;
+		itemType: self itemTypeStencil.
 
 	self beViewElement: aList.
 	
@@ -34,10 +32,12 @@ GtPhlowListView >> asElementDo: aBlock [
 ]
 
 { #category : #'private - building' }
-GtPhlowListView >> buildTextElementFor: aString [
+GtPhlowListView >> buildTextElement [
 	^ BrLabel new
 		look: BrGlamorousListLabelLook;
-		text: aString.
+		hMatchParent;
+		vFitContent;
+		padding: (BlInsets top: 3 left: 10 bottom: 3 right: 10).
 ]
 
 { #category : #copying }
@@ -70,15 +70,29 @@ GtPhlowListView >> format: aBlockOrSymbol [
 { #category : #initialization }
 GtPhlowListView >> initialize [
 	super initialize.
-	itemStencil := [ :anObject | 
-		self buildTextElementFor: anObject gtDisplayString ].
-	itemsBuilder := [ { } ].
+	self items: [ { } ].
+	self itemType: [ :anItemTypeFactory :anItemObject :anItemIndex | anItemTypeFactory default ].
+	self itemText: [ :aValue | aValue ].
 	transformation := [ :aValue | "by default there is no transformation" aValue ].
 ]
 
 { #category : #testing }
 GtPhlowListView >> isExpectedElement: aCurrentElement [
 	^ aCurrentElement class = self elementClass
+]
+
+{ #category : #'private - accessing' }
+GtPhlowListView >> itemDataBinder [
+	"Return a stencil that is used to bind data to a given item element"
+	<return: #BrListItemDataBinder>
+
+	^ itemDataBinder
+]
+
+{ #category : #'api - scripting' }
+GtPhlowListView >> itemDataBinder: aBrListItemDataBinderOrBlock [
+	"An item type stencil can be a #value-able of the form [ :anItemElement :anItemObject :anItemIndex | ]"
+	itemDataBinder := aBrListItemDataBinderOrBlock asStencilBuilder: BrListItemDataBinder.
 ]
 
 { #category : #'scripting - deprecated' }
@@ -89,28 +103,58 @@ GtPhlowListView >> itemElement: anObject [
 	itemStencil := anObject
 ]
 
-{ #category : #'scripting - utils' }
-GtPhlowListView >> itemFormat: aBlockOrSymbol [
-	self itemStencil: [ :anObject |
-		self buildTextElementFor: (aBlockOrSymbol phlowValue: anObject) ]
-]
-
-{ #category : #accessing }
-GtPhlowListView >> itemStencil [
+{ #category : #'private - accessing' }
+GtPhlowListView >> itemElementStencil [
 	^ itemStencil
 ]
 
-{ #category : #accessing }
-GtPhlowListView >> itemStencil: anElementStencil [
-	itemStencil := anElementStencil
+{ #category : #'api - scripting' }
+GtPhlowListView >> itemFormat: aBlockOrSymbol [
+	self 
+		deprecated: 'Please use #itemText: instead.'
+		transformWith: '`@receiver itemFormat: `@statements' -> '`@receiver itemText: `@statements'.
+	self itemText: aBlockOrSymbol
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting' }
+GtPhlowListView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
+	"An item element stencil can be a #value-able of the form [ :anItemType :aListWidget | ]"
+
+	itemStencil := aBrListItemElementStencilBuilderOrBlock asStencilBuilder: BrListItemElementStencilBuilder.
+]
+
+{ #category : #'api - scripting' }
+GtPhlowListView >> itemText: aBlockOrSymbol [
+	self itemStencil: [ self buildTextElement ].
+	self itemDataBinder: [ :anElement :anItem :anIndex |
+		| aText |
+		aText := (aBlockOrSymbol phlowValue: anItem withEnoughArguments: { anItem. anIndex. anElement }).
+		anElement text: aText asRopedText
+	]
+]
+
+{ #category : #'api - scripting' }
+GtPhlowListView >> itemType: aBrListItemTypeStencilBuilderOrBlock [
+	"An item type stencil can be a #value-able of the form [ :anItemTypeFactory :anItemObject :anItemIndex | ].
+	==anItemTypeFactory== is a ${class:BrListItemType class}$"
+
+	itemTypeStencil := aBrListItemTypeStencilBuilderOrBlock asStencilBuilder: BrListItemTypeStencilBuilder.
+]
+
+{ #category : #'private - accessing' }
+GtPhlowListView >> itemTypeStencil [
+	"Return a stencil that is used to create an item type of a given item object"
+	<return: #BrListItemTypeStencilBuilder>
+
+	^ itemTypeStencil
+]
+
+{ #category : #'api - items' }
 GtPhlowListView >> items: anObject [
 	itemsBuilder := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 GtPhlowListView >> itemsBuilder [
 	^ itemsBuilder
 ]
@@ -123,13 +167,14 @@ GtPhlowListView >> itemsOnExceptionErrorElement: aBlock [
 			aBlock value: anElement ].
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 GtPhlowListView >> send [
 	^ transformation
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting' }
 GtPhlowListView >> send: aBlock [
+	"Define what object should be displayed on selection and/or spawn item (object) request"
 	self
 		assert: [ aBlock notNil ]
 		description: [ 'Send transformation block must be non-nil'  ].
@@ -143,6 +188,33 @@ GtPhlowListView >> send: aBlock [
 		assert: [ aBlock numArgs <= 2 ]
 		description: [ 'Send transformation block must have two or less arguments'  ].
 	transformation := aBlock
+]
+
+{ #category : #'api - scripting' }
+GtPhlowListView >> stencil: aBrListRowStencilBuilder [
+	"I am a part of the `toy` api. It is inefficient to use me because I always create a new
+	element for each new row which may be expensive. It is much better to split it in two (or three)
+	steps:
+		- item element creation using #itemStencil: (the items are reused when they go out of the viewport)
+		- data binding using #itemDataBinder: (to update just a part of the reused item element)
+	A stencil builder can be a value-able of the form [ :aRowValue :anIndex :aListWidget | ]"
+	| listRowStencil |
+
+	self itemType: (BrListItemTypeStencilBuilder new).
+
+	listRowStencil := aBrListRowStencilBuilder asStencilBuilder: BrListRowStencilBuilder.
+	self itemDataBinder: [ :anItemElement :anItemObject :anItemPosition |
+		| aRowStencil |
+
+		aRowStencil := listRowStencil
+			listElement: self;
+			rowValue: anItemObject;
+			rowIndex: anItemPosition;
+			build.
+		
+		listRowStencil reset.
+		
+		aRowStencil ]
 ]
 
 { #category : #updating }

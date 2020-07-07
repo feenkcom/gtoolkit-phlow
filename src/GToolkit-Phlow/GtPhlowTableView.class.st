@@ -31,7 +31,7 @@ Class {
 		'rowAccessorBlock',
 		'cellAccessorBlock'
 	],
-	#category : #'GToolkit-Phlow-! Views and Actions'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #converting }

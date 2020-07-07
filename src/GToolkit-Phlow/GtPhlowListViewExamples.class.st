@@ -150,8 +150,57 @@ GtPhlowListViewExamples >> gtTenLinesFor: aView [
 	^ aView list 
 		title: '10 Lines';
 		items: [ (1 to: 10) ];
-		itemStencil: [ :x | 
-			BlElement new background: Color orange; size: 10 @ x; margin: (BlInsets all: 10) ]
+		itemStencil: [ 
+			BlElement new 
+				background: Color orange; 
+				size: 10 @ 10; 
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c margin: (BlInsets all: 10) ]
+				 ];
+		itemDataBinder: [ :anElement :aNumber :anIndex |
+			anElement height: aNumber ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowListViewExamples >> gtTextFor: aView [
+	<gtView>
+	^ aView list 
+		title: 'Text Items';
+		items: [ (1 to: 10) ];
+		itemText: [ :aNumber | 'Item number ', aNumber asString ]
+]
+
+{ #category : #'examples - text' }
+GtPhlowListViewExamples >> itemText [
+	<gtExample>
+	| aView anElement |
+	aView := GtPhlowView empty on: self perform: #gtTextFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: BrSimpleList inView: aView.
+	self assert: anElement items size equals: 10.
+	anElement forceLayout.
+	self assert: anElement look listElement childrenCount equals: 10.
+	self assert: (anElement look listElement childAt: 1) class equals: BrLabel.
+	self assert: (anElement look listElement childAt: 1) text asString equals: 'Item number 1'.
+	^ aView
+]
+
+{ #category : #'examples - text' }
+GtPhlowListViewExamples >> itemsAsDefaultTexts [
+	<gtExample>
+	| aView anElement |
+	aView := GtPhlowView empty on: self perform: #gtTenItemsFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: BrSimpleList inView: aView.
+	self assert: anElement items size equals: 10.
+	anElement forceLayout.
+	self assert: anElement look listElement childrenCount equals: 10.
+	self assert: (anElement look listElement childAt: 1) class equals: BrLabel.
+	self assert: (anElement look listElement childAt: 1) text asString equals: 1 asString.
+	^ aView
 ]
 
 { #category : #'examples - element' }
