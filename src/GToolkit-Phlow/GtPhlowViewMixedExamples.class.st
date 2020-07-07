@@ -14,7 +14,7 @@ ${example:GtPhlowTextEditorViewExamples>>#textView|previewHeight=150|previewExpa
 
 !!List view
 
-${example:GtPhlowViewMixedExamples>>#listView|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
+${example:GtPhlowListViewExamples>>#itemsAsDefaultTexts|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
 
 
 !!Columned view
