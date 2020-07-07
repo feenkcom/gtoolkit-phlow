@@ -5,12 +5,13 @@ Class {
 	#name : #GtPhlowElementContext,
 	#superclass : #Object,
 	#instVars : [
+		'entity',
 		'element',
 		'isView',
 		'isAction',
 		'isViewContent',
-		'entity',
-		'isPopupContainer'
+		'isPopupContainer',
+		'isException'
 	],
 	#category : #'GToolkit-Phlow-Context'
 }
@@ -52,6 +53,11 @@ GtPhlowElementContext >> asyncUpdate [
 { #category : #'api - initialization' }
 GtPhlowElementContext >> beAction [
 	isAction := true
+]
+
+{ #category : #'api - initialization' }
+GtPhlowElementContext >> beException [
+	isException := true
 ]
 
 { #category : #'api - initialization' }
@@ -182,11 +188,17 @@ GtPhlowElementContext >> initialize [
 	isView := false.
 	isViewContent := false.
 	isPopupContainer := false.
+	isException := false.
 ]
 
 { #category : #'api - testing' }
 GtPhlowElementContext >> isAction [
 	^ isAction
+]
+
+{ #category : #'api - testing' }
+GtPhlowElementContext >> isException [
+	^ isException
 ]
 
 { #category : #'api - testing' }

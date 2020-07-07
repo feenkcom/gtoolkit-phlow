@@ -112,7 +112,7 @@ GtPhlowListViewExamples >> emptyList [
 	| aView anElement |
 	aView := GtPhlowView empty list.
 	aView asElementDo: [ :el | anElement := el ].
-	self assertViewElement: anElement ofClass: BrColumnedList inView: aView.
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
 	^ aView
 ]
 
@@ -354,7 +354,7 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement [
 	<gtExample>
 	| view element |
 	view := self viewWithItems 
-		itemStencil: [:x | 
+		stencil: [ :x | 
 			BlElement new background: Color orange; size: 10 @ x; margin: (BlInsets all: 10) ].
 	view asElementDo: [ :el | element := el ].
 	"I do not know how to assert the nature of the item elements because they are not yet rendered"
@@ -365,9 +365,10 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement [
 { #category : #examples }
 GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError [
 	<gtExample>
+	<noTest>
 	| aView anElement |
 	aView := self viewWithItems 
-		itemStencil: [:x |
+		stencil: [ :x |
 			Error signal. 
 			BlElement new background: Color orange; size: 10 @ x; margin: (BlInsets all: 10) ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
@@ -379,6 +380,7 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError [
 { #category : #examples }
 GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError_InSpace [
 	<gtExample>
+	<noTest>
 	| aView anElement aSpace anException |
 	aView := self viewWithItemsAndItemElement_ProducingError.
 	aSpace := BlSpace new.
