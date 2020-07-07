@@ -31,15 +31,6 @@ GtPhlowListView >> asElementDo: aBlock [
 	^ aBlock value: aList
 ]
 
-{ #category : #'private - building' }
-GtPhlowListView >> buildTextElement [
-	^ BrLabel new
-		look: BrGlamorousListLabelLook;
-		hMatchParent;
-		vFitContent;
-		padding: (BlInsets top: 3 left: 10 bottom: 3 right: 10).
-]
-
 { #category : #copying }
 GtPhlowListView >> copySendFrom: aSendBlock [
 	aSendBlock ifNil: [ ^ self ].
@@ -125,12 +116,20 @@ GtPhlowListView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 
 { #category : #'api - scripting' }
 GtPhlowListView >> itemText: aBlockOrSymbol [
-	self itemStencil: [ self buildTextElement ].
+	self itemStencil: [ self newItemLabel ].
 	self itemDataBinder: [ :anElement :anItem :anIndex |
-		| aText |
-		aText := (aBlockOrSymbol phlowValue: anItem withEnoughArguments: { anItem. anIndex. anElement }).
-		anElement text: aText asRopedText
-	]
+		self 
+			performBlock: [ 
+				| aText aLabel |
+				aText := aBlockOrSymbol phlowValue: anItem withEnoughArguments: { anItem. anIndex. anElement }.
+				aLabel := (anElement class = BrLabel)
+					ifTrue: [ anElement ] 
+					ifFalse: [ self newItemLabel ].
+				aLabel text: aText ]
+			onException: [ :anException | 
+				anException asDebuggableElement 
+					vFitContent;
+					padding: self newItemElementPadding ] ]
 ]
 
 { #category : #'api - scripting' }
@@ -165,6 +164,24 @@ GtPhlowListView >> itemsOnExceptionErrorElement: aBlock [
 		performBlock: [ self itemsBuilder value ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
+]
+
+{ #category : #'private - building' }
+GtPhlowListView >> newItemElementPadding [
+	^ BlInsets
+		top: 3
+		left: 10
+		bottom: 3
+		right: 10
+]
+
+{ #category : #'private - building' }
+GtPhlowListView >> newItemLabel [
+	^ BrLabel new
+		look: BrGlamorousListLabelLook;
+		hMatchParent;
+		vFitContent;
+		padding: self newItemElementPadding
 ]
 
 { #category : #'private - accessing' }
