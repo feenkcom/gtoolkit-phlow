@@ -98,7 +98,7 @@ GtPhlowListViewExamples >> element [
 	aView := self phlowView.
 	aList := aView asElementDo: [ :theElement | theElement ].
 
-	self assertViewElement: aList ofClass: BrColumnedList inView: aView.
+	self assertViewElement: aList ofClass: BrSimpleList inView: aView.
 
 	self assert: aList items size equals: 10.
 	self assert: (aList items allSatisfy: [ :eachItem | eachItem isInteger ]).

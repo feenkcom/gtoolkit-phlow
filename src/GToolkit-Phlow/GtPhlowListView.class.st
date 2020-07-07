@@ -19,14 +19,12 @@ GtPhlowListView >> asElementDo: aBlock [
 	aList addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
 	aList constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 
-	aList column
-		title: 'Item';
-		stencil: [ :eachNode :index | 
-			| itemElement |
-			itemElement := self performBlock: [ self itemStencil value: eachNode ].
-			itemElement constraintsDo: [ :c | 
-				c horizontal matchParent. 
-				c padding: (BlInsets top: 3 left: 10 bottom: 3 right: 0) ] ].
+	aList stencil: [ :eachNode :index | 
+		| itemElement |
+		itemElement := self performBlock: [ self itemStencil value: eachNode ].
+		itemElement constraintsDo: [ :c | 
+			c horizontal matchParent. 
+			c padding: (BlInsets top: 3 left: 10 bottom: 3 right: 0) ] ].
 
 	self beViewElement: aList.
 	
@@ -56,7 +54,7 @@ GtPhlowListView >> display: aBlock [
 
 { #category : #defaults }
 GtPhlowListView >> elementClass [
-	^ BrColumnedList
+	^ BrSimpleList
 ]
 
 { #category : #'scripting - deprecated' }
