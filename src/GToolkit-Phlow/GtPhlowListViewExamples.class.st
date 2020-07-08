@@ -98,7 +98,7 @@ GtPhlowListViewExamples >> element [
 	aView := self phlowView.
 	aList := aView asElementDo: [ :theElement | theElement ].
 
-	self assertViewElement: aList ofClass: BrColumnedList inView: aView.
+	self assertViewElement: aList ofClass: BrSimpleList inView: aView.
 
 	self assert: aList items size equals: 10.
 	self assert: (aList items allSatisfy: [ :eachItem | eachItem isInteger ]).
@@ -112,13 +112,43 @@ GtPhlowListViewExamples >> emptyList [
 	| aView anElement |
 	aView := GtPhlowView empty list.
 	aView asElementDo: [ :el | anElement := el ].
-	self assertViewElement: anElement ofClass: BrColumnedList inView: aView.
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+	^ aView
+]
+
+{ #category : #'examples - errors' }
+GtPhlowListViewExamples >> errorInItemText [
+	<gtExample>
+	| aView anElement |
+	aView := GtPhlowView empty on: self perform: #gtErrorInItemTextFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+	self assert: anElement items size equals: 1000.
+	anElement forceLayout.
+
+	self assert: (anElement look listElement childAt: 1) class equals: BrLabel.
+	self assert: (anElement look listElement childAt: 1) text asString equals: 'Item number 1'.
+
+	self assert: (anElement look listElement childAt: 3) class equals: BrFrame.
+
+	^ aView
+]
+
+{ #category : #'examples - errors' }
+GtPhlowListViewExamples >> errorInItemsWithDefaultItemTexts [
+	<gtExample> 
+	| aView anElement |
+	aView := GtPhlowView empty on: self perform: #gtErrorInItemsFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: BrFrame inView: aView.
 	^ aView
 ]
 
 { #category : #'examples - element' }
 GtPhlowListViewExamples >> expectedElementClass [
-	^ BrColumnedList
+	^ BrSimpleList
 ]
 
 { #category : #'gt-extension' }
@@ -130,6 +160,7 @@ GtPhlowListViewExamples >> gtAutoUpdatingListFor: aView [
 	anAnnouncer := Announcer new.
 	^ aView list
 		title: 'Auto Updating List';
+		priority: 4;
 		items: [ aCollection ];
 		actionButtonIcon: BrGlamorousVectorIcons add 
 			action: [ aCollection add: 100 atRandom. anAnnouncer announce: Announcement new ];
@@ -137,10 +168,54 @@ GtPhlowListViewExamples >> gtAutoUpdatingListFor: aView [
 ]
 
 { #category : #'gt-extension' }
+GtPhlowListViewExamples >> gtErrorInItemTextFor: aView [
+	<gtView>
+	^ aView list 
+		title: 'Error in itemText:';
+		priority: 21;
+		items: [ (1 to: 1000) ];
+		itemText: [ :aNumber | 
+			aNumber = 3 ifTrue: [ 
+				ZeroDivide signal: 'itemText: error' ].
+			'Item number ', aNumber asString ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowListViewExamples >> gtErrorInItemsFor: aView [
+	<gtView>
+	^ aView list 
+		title: 'Error in items:';
+		priority: 20;
+		items: [ ZeroDivide signal: 'items: error'. (1 to: 1000) ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowListViewExamples >> gtErrrorInItemDataBinderTenLinesFor: aView [
+	<gtView>
+	^ aView list 
+		title: 'Error in itemDataBinder:';
+		priority: 22;
+		items: [ (1 to: 1000) ];
+		itemStencil: [ 
+			BlElement new 
+				background: Color orange; 
+				size: 10 @ 10; 
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c margin: (BlInsets all: 10) ]
+				 ];
+		itemDataBinder: [ :anElement :aNumber :anIndex |
+			aNumber = 3 ifTrue: [ 
+				ZeroDivide signal: 'itemDataBinder: error' ].
+			anElement height: aNumber ]
+]
+
+{ #category : #'gt-extension' }
 GtPhlowListViewExamples >> gtTenItemsFor: aView [
 	<gtView>
 	^ aView list 
 		title: '10 Items';
+		priority: 1;
 		items: [ (1 to: 10) ]
 ]
 
@@ -149,9 +224,60 @@ GtPhlowListViewExamples >> gtTenLinesFor: aView [
 	<gtView>
 	^ aView list 
 		title: '10 Lines';
+		priority: 3;
 		items: [ (1 to: 10) ];
-		itemStencil: [ :x | 
-			BlElement new background: Color orange; size: 10 @ x; margin: (BlInsets all: 10) ]
+		itemStencil: [ 
+			BlElement new 
+				background: Color orange; 
+				size: 10 @ 10; 
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c margin: (BlInsets all: 10) ]
+				 ];
+		itemDataBinder: [ :anElement :aNumber :anIndex |
+			anElement height: aNumber ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowListViewExamples >> gtTextFor: aView [
+	<gtView>
+	^ aView list 
+		title: 'Text Items';
+		priority: 2;
+		items: [ (1 to: 10) ];
+		itemText: [ :aNumber | 'Item number ', aNumber asString ]
+]
+
+{ #category : #'examples - text' }
+GtPhlowListViewExamples >> itemText [
+	<gtExample>
+	| aView anElement |
+	aView := GtPhlowView empty on: self perform: #gtTextFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+	self assert: anElement items size equals: 10.
+	anElement forceLayout.
+	self assert: anElement look listElement childrenCount equals: 10.
+	self assert: (anElement look listElement childAt: 1) class equals: BrLabel.
+	self assert: (anElement look listElement childAt: 1) text asString equals: 'Item number 1'.
+	^ aView
+]
+
+{ #category : #'examples - text' }
+GtPhlowListViewExamples >> itemsAsDefaultTexts [
+	<gtExample>
+	| aView anElement |
+	aView := GtPhlowView empty on: self perform: #gtTenItemsFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+	self assert: anElement items size equals: 10.
+	anElement forceLayout.
+	self assert: anElement look listElement childrenCount equals: 10.
+	self assert: (anElement look listElement childAt: 1) class equals: BrLabel.
+	self assert: (anElement look listElement childAt: 1) text asString equals: 1 asString.
+	^ aView
 ]
 
 { #category : #'examples - element' }
@@ -228,7 +354,7 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement [
 	<gtExample>
 	| view element |
 	view := self viewWithItems 
-		itemStencil: [:x | 
+		stencil: [ :x | 
 			BlElement new background: Color orange; size: 10 @ x; margin: (BlInsets all: 10) ].
 	view asElementDo: [ :el | element := el ].
 	"I do not know how to assert the nature of the item elements because they are not yet rendered"
@@ -239,9 +365,10 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement [
 { #category : #examples }
 GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError [
 	<gtExample>
+	<noTest>
 	| aView anElement |
 	aView := self viewWithItems 
-		itemStencil: [:x |
+		stencil: [ :x |
 			Error signal. 
 			BlElement new background: Color orange; size: 10 @ x; margin: (BlInsets all: 10) ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
@@ -253,6 +380,7 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError [
 { #category : #examples }
 GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError_InSpace [
 	<gtExample>
+	<noTest>
 	| aView anElement aSpace anException |
 	aView := self viewWithItemsAndItemElement_ProducingError.
 	aSpace := BlSpace new.

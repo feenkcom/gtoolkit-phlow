@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'label'
 	],
-	#category : #'GToolkit-Phlow-! Views and Actions'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #accessing }

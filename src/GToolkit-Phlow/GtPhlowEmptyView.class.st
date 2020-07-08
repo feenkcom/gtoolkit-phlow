@@ -6,7 +6,7 @@ I am used to override an existing view.
 Class {
 	#name : #GtPhlowEmptyView,
 	#superclass : #GtPhlowViewDecorator,
-	#category : #'GToolkit-Phlow-! Views and Actions'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #accessing }

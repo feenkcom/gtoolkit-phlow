@@ -22,7 +22,7 @@ Class {
 		'horizontalResizer',
 		'verticalResizer'
 	],
-	#category : #'GToolkit-Phlow-! Views and Actions'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #converting }

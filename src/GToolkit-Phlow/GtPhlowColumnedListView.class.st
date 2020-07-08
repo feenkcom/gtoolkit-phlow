@@ -6,7 +6,7 @@ Class {
 		'transformation',
 		'itemsBuilder'
 	],
-	#category : #'GToolkit-Phlow-! Views and Actions'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #converting }
@@ -25,7 +25,7 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	header := self buildHeaderForItems: theItems.
 	list := self columnedListClass new items: theItems.
 	list
-		addEventHandler: (GtInspectorListToSelectHandler new transformation: self send).
+		addEventHandler: (GtPhlowListToSelectHandler new transformation: self send).
 	list
 		rowStencil:
 			(BrListClickableRowStencilBuilder new
