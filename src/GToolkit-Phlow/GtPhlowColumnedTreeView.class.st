@@ -34,19 +34,14 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	
 	aTree addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :aNode | self send value: aNode value ]).
-	aTree
-		rowStencil:
-			(BrColumnedTreeRowStencilBuilder new
-				cellSpacing: 2;
-				padding: (BlInsets top: 2 bottom: 2)).
 	columns
 		do: [ :eachPhlowColumn | 
 			aTree column
 				title: eachPhlowColumn title;
-				stencil: [ :eachNode :eachIndex | 
+				stencil: [ :eachItemObject :eachIndex | 
 					| aRowElement |
 					aRowElement := eachPhlowColumn
-						createRowElementFor: eachNode value
+						createRowElementFor: eachItemObject
 						atIndex: eachIndex.
 					eachPhlowColumn resizer
 						ifNotNil: [ :aLayoutResizer | 

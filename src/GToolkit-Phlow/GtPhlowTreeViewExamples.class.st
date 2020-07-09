@@ -109,7 +109,7 @@ GtPhlowTreeViewExamples >> emptyTree [
 	| aView anElement |
 	aView := GtPhlowView empty tree.
 	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assertViewElement: anElement ofClass: BrColumnedTree inView: aView.
+	self assertViewElement: anElement ofClass: BrSimpleTree inView: aView.
 	^ aView
 ]
 
@@ -153,7 +153,7 @@ GtPhlowTreeViewExamples >> treeViewWithItems [
 	aView := self emptyTree.
 	aView items: [ 1 to: 10 ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assertViewElement: anElement ofClass: BrColumnedTree inView: aView.
+	self assertViewElement: anElement ofClass: BrSimpleTree inView: aView.
 	self assert: anElement viewModel root children size equals: 10.
 	^ aView
 ]
@@ -165,7 +165,7 @@ GtPhlowTreeViewExamples >> treeViewWithItemsAndChildren [
 	aView := self treeViewWithItems.
 	aView children: [ :aNumber | aNumber // 2 to: aNumber ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assertViewElement: anElement ofClass: BrColumnedTree inView: aView.
+	self assertViewElement: anElement ofClass: BrSimpleTree inView: aView.
 	self assert: anElement viewModel root children size equals: 10.
 	^ aView
 ]
