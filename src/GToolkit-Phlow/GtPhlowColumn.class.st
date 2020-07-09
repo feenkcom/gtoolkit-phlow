@@ -38,12 +38,12 @@ GtPhlowColumn >> buildRowElementFor: aStringOrText forColumn: aPhlowColumn [
 	^ rowElement 
 ]
 
-{ #category : #building }
+{ #category : #'api - building' }
 GtPhlowColumn >> createHeaderRowElement [
 	^ (titleStencil valueWithEnoughArguments: {self title . self}) asElement
 ]
 
-{ #category : #building }
+{ #category : #'api - building' }
 GtPhlowColumn >> createRowElementFor: anItem atIndex: anIndex [
 	"Return an element that represents a cell in the columned list for a given item.
 	The amount of cells in a row is equal to amount of columns"
@@ -53,7 +53,7 @@ GtPhlowColumn >> createRowElementFor: anItem atIndex: anIndex [
 	^ (self rowStencil valueWithEnoughArguments: { computedValue . self }) asElement
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting' }
 GtPhlowColumn >> evaluated: aBlock [
 	self 
 		deprecated: 'Please use #item: instead.'
@@ -61,7 +61,7 @@ GtPhlowColumn >> evaluated: aBlock [
 	self item: aBlock
 ]
 
-{ #category : #scripting }
+{ #category : #'api - scripting' }
 GtPhlowColumn >> fitContent [
 	self resizer: BlLayoutResizer fitContent
 ]
@@ -88,58 +88,58 @@ GtPhlowColumn >> initialize [
 			forColumn: phlowColumn ].
 ]
 
-{ #category : #scripting }
+{ #category : #'api - scripting' }
 GtPhlowColumn >> item: aBlockOrSymbol [
 	itemComputation := aBlockOrSymbol
 ]
 
-{ #category : #private }
+{ #category : #'private - accessing' }
 GtPhlowColumn >> itemComputation [
 	^ itemComputation
 ]
 
-{ #category : #scripting }
+{ #category : #'api - scripting' }
 GtPhlowColumn >> itemFormat: aBlockOrSymbol [
 	self rowStencil: [ :eachColumnItem :phlowColumn | 
 		self buildRowElementFor: (aBlockOrSymbol phlowValue: eachColumnItem) forColumn: phlowColumn ]
 ]
 
-{ #category : #scripting }
+{ #category : #'api - scripting' }
 GtPhlowColumn >> itemStencil: aRowStencil [
 	self rowStencil: aRowStencil
 ]
 
-{ #category : #scripting }
+{ #category : #'api - scripting' }
 GtPhlowColumn >> matchParent [
 	self resizer: BlLayoutResizer matchParent
 ]
 
-{ #category : #scripting }
+{ #category : #'api - scripting' }
 GtPhlowColumn >> noResize [
 	resizer := nil
 ]
 
-{ #category : #private }
+{ #category : #'private - accessing' }
 GtPhlowColumn >> resizer [
 	^ resizer
 ]
 
-{ #category : #private }
+{ #category : #'private - accessing' }
 GtPhlowColumn >> resizer: aBlLayoutResizer [
 	resizer := aBlLayoutResizer
 ]
 
-{ #category : #private }
+{ #category : #'private - accessing' }
 GtPhlowColumn >> rowStencil [
 	^ rowStencil
 ]
 
-{ #category : #scripting }
+{ #category : #'api - scripting' }
 GtPhlowColumn >> rowStencil: aRowStencil [
 	rowStencil := aRowStencil
 ]
 
-{ #category : #scripting }
+{ #category : #'api - scripting' }
 GtPhlowColumn >> stencil: aRowStencil [
 	self 
 		deprecated: 'Please use #rowStencil: instead.'
@@ -147,22 +147,22 @@ GtPhlowColumn >> stencil: aRowStencil [
 	self rowStencil: aRowStencil
 ]
 
-{ #category : #private }
+{ #category : #'private - accessing' }
 GtPhlowColumn >> title [
 	^ title
 ]
 
-{ #category : #scripting }
+{ #category : #'api - scripting' }
 GtPhlowColumn >> title: anObject [
 	title := anObject
 ]
 
-{ #category : #scripting }
+{ #category : #'api - scripting' }
 GtPhlowColumn >> titleStencil: aStencil [
 	titleStencil := aStencil
 ]
 
-{ #category : #scripting }
+{ #category : #'api - scripting' }
 GtPhlowColumn >> width: aNumber [
 	self resizer: (BlLayoutResizer exact: aNumber asFloat)
 ]

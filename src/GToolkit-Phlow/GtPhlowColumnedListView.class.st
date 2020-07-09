@@ -18,6 +18,7 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	aContainer := self elementClass new.
 	aContainer
+		labeled: 'Columned List Container';
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
