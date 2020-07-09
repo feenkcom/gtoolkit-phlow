@@ -8,7 +8,7 @@ Class {
 		'childrenBuilder',
 		'expandUpTo'
 	],
-	#category : #'GToolkit-Phlow-! Views and Actions'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #converting }
@@ -23,10 +23,18 @@ GtPhlowTreeView >> asElementDo: aBlock [
 		performBlock: [ aTree items: theItems children: self childrenBuilder ]
 		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 
-	aTree addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :aNode | self send value: aNode value ]).
+	aTree addEventHandler: (GtPhlowListToSelectHandler new transformation: [ :aNode | self send value: aNode value ]).
 	aTree constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
+	aTree rowStencil: (BrColumnedTreeRowStencilBuilder new
+		cellSpacing: 2;
+		padding: (BlInsets left: 0)).
 
-	aTree	stencil: [ :aNode :index :aTreeWidget | (self itemStencil value: aNode value) padding: (BlInsets top: 3 left: 0 bottom: 3 right: 0) ].
+	aTree column
+		title: 'Item';
+		stencil: [ :aNode :index | 
+			| itemElement |
+			itemElement := self itemStencil value: aNode value.
+			itemElement padding: (BlInsets top: 3 left: 0 bottom: 3 right: 0) ].
 
 	self expandTree: aTree.
 	self beViewElement: aTree.

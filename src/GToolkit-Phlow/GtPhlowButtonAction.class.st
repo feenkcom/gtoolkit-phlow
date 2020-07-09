@@ -6,7 +6,7 @@ Class {
 		'label',
 		'action'
 	],
-	#category : #'GToolkit-Phlow-! Views and Actions'
+	#category : #'GToolkit-Phlow-! Actions'
 }
 
 { #category : #accessing }

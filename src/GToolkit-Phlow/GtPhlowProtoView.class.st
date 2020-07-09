@@ -9,7 +9,7 @@ Class {
 	#classVars : [
 		'IsTaskItViewGloballyEnabled'
 	],
-	#category : #'GToolkit-Phlow-! Views and Actions'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #setup }
@@ -29,13 +29,13 @@ GtPhlowProtoView class >> initialize [
 	IsTaskItViewGloballyEnabled := true.
 ]
 
-{ #category : #converting }
+{ #category : #'api - converting' }
 GtPhlowProtoView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 	self subclassResponsibility
 ]
 
-{ #category : #converting }
+{ #category : #'api - converting' }
 GtPhlowProtoView >> asTaskItView [
 	^ self isTaskItViewGloballyEnabled
 		ifTrue: [
@@ -182,7 +182,7 @@ GtPhlowProtoView >> hasBuildContext [
 	^ self buildContext isBuildContext
 ]
 
-{ #category : #converting }
+{ #category : #'api - converting' }
 GtPhlowProtoView >> ifItHasContent: aBlock [
 	^ self subclassResponsibility
 ]
