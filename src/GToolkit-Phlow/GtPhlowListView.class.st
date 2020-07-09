@@ -1,3 +1,10 @@
+"
+I represent a simple list view.
+I create ${class:BrSimpleList}$  to display items. 
+!! Examples 
+The following object displays several examples. You can ==ALT+CLICK== on tab names to display their definitions: ${example:GtPhlowListViewExamples>>#myself|noCode=true}$ 
+ 
+"
 Class {
 	#name : #GtPhlowListView,
 	#superclass : #GtPhlowViewDecorator,
@@ -50,6 +57,53 @@ GtPhlowListView >> elementClass [
 	^ BrSimpleList
 ]
 
+{ #category : #'private - errors' }
+GtPhlowListView >> errorTreatedItemDataBinderFor: aBlockOrSymbol [
+	 ^ [ :aContainer :anItemObject :anItemIndex |
+			self 
+				performBlock: [ 
+					aBlockOrSymbol glamourValueWithArgs: { aContainer content. anItemObject. anItemIndex. self }.
+					aContainer removeException; showContent. ]
+				onException: [ :anException | 
+					| anElement |
+					anElement := anException asDebuggableElement vFitContent; hMatchParent.
+					aContainer exception: anElement. ].
+			aContainer ]
+]
+
+{ #category : #'private - errors' }
+GtPhlowListView >> errorTreatedItemStencilFor: aBlockOrSymbol [
+	 ^ [ :anItemType |
+			| aContainer |
+			aContainer := self newLineContainer.
+			(anItemType class = GtPhlowExceptionItemType) 
+				ifTrue: [ 
+					| anElement |
+					anElement := anItemType exception asDebuggableElement vFitContent; hMatchParent.
+					aContainer exception: anElement ]
+				ifFalse: [ 
+					self 
+						performBlock: [ 
+							| anElement |
+							anElement := aBlockOrSymbol glamourValueWithArgs: { anItemType. self }.
+							aContainer content: anElement. ]
+						onException: [ :anException | 
+							| anElement |
+							anElement := anException asDebuggableElement vFitContent; hMatchParent.
+							aContainer exception: anElement. ] ].
+			aContainer ]
+]
+
+{ #category : #'private - errors' }
+GtPhlowListView >> errorTreatedItemTypeFor: aBlockOrSymbol [
+	 ^ [ :anItemTypeFactory :anItemObject :anItemIndex |
+			self 
+				performBlock: [ 
+					aBlockOrSymbol glamourValueWithArgs: { anItemTypeFactory. anItemObject. anItemIndex. self } ]
+				onException: [ :anException |
+					GtPhlowExceptionItemType exception: anException freezeOrWithoutContext ] ]
+]
+
 { #category : #'scripting - deprecated' }
 GtPhlowListView >> format: aBlockOrSymbol [
 	self 
@@ -75,7 +129,6 @@ GtPhlowListView >> isExpectedElement: aCurrentElement [
 { #category : #'private - accessing' }
 GtPhlowListView >> itemDataBinder [
 	"Return a stencil that is used to bind data to a given item element"
-	<return: #BrListItemDataBinder>
 
 	^ itemDataBinder
 ]
@@ -83,7 +136,7 @@ GtPhlowListView >> itemDataBinder [
 { #category : #'api - scripting' }
 GtPhlowListView >> itemDataBinder: aBrListItemDataBinderOrBlock [
 	"An item type stencil can be a #value-able of the form [ :anItemElement :anItemObject :anItemIndex | ]"
-	itemDataBinder := aBrListItemDataBinderOrBlock asStencilBuilder: BrListItemDataBinder.
+	itemDataBinder := self errorTreatedItemDataBinderFor: aBrListItemDataBinderOrBlock.
 ]
 
 { #category : #'scripting - deprecated' }
@@ -99,7 +152,7 @@ GtPhlowListView >> itemElementStencil [
 	^ itemStencil
 ]
 
-{ #category : #'api - scripting' }
+{ #category : #'scripting - deprecated' }
 GtPhlowListView >> itemFormat: aBlockOrSymbol [
 	self 
 		deprecated: 'Please use #itemText: instead.'
@@ -111,25 +164,16 @@ GtPhlowListView >> itemFormat: aBlockOrSymbol [
 GtPhlowListView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 	"An item element stencil can be a #value-able of the form [ :anItemType :aListWidget | ]"
 
-	itemStencil := aBrListItemElementStencilBuilderOrBlock asStencilBuilder: BrListItemElementStencilBuilder.
+	itemStencil := self errorTreatedItemStencilFor: aBrListItemElementStencilBuilderOrBlock.
 ]
 
 { #category : #'api - scripting' }
 GtPhlowListView >> itemText: aBlockOrSymbol [
 	self itemStencil: [ self newItemLabel ].
-	self itemDataBinder: [ :anElement :anItem :anIndex |
-		self 
-			performBlock: [ 
-				| aText aLabel |
-				aText := aBlockOrSymbol phlowValue: anItem withEnoughArguments: { anItem. anIndex. anElement }.
-				aLabel := (anElement class = BrLabel)
-					ifTrue: [ anElement ] 
-					ifFalse: [ self newItemLabel ].
-				aLabel text: aText ]
-			onException: [ :anException | 
-				anException asDebuggableElement 
-					vFitContent;
-					padding: self newItemElementPadding ] ]
+	self itemDataBinder: [ :aLabel :anItem :anIndex |
+		| aText |
+		aText := aBlockOrSymbol phlowValue: anItem withEnoughArguments: { anItem. anIndex. aLabel. self }.
+		aLabel text: aText asRopedText. ]
 ]
 
 { #category : #'api - scripting' }
@@ -137,18 +181,17 @@ GtPhlowListView >> itemType: aBrListItemTypeStencilBuilderOrBlock [
 	"An item type stencil can be a #value-able of the form [ :anItemTypeFactory :anItemObject :anItemIndex | ].
 	==anItemTypeFactory== is a ${class:BrListItemType class}$"
 
-	itemTypeStencil := aBrListItemTypeStencilBuilderOrBlock asStencilBuilder: BrListItemTypeStencilBuilder.
+	itemTypeStencil := self errorTreatedItemTypeFor: aBrListItemTypeStencilBuilderOrBlock.
 ]
 
 { #category : #'private - accessing' }
 GtPhlowListView >> itemTypeStencil [
 	"Return a stencil that is used to create an item type of a given item object"
-	<return: #BrListItemTypeStencilBuilder>
 
 	^ itemTypeStencil
 ]
 
-{ #category : #'api - items' }
+{ #category : #'api - scripting' }
 GtPhlowListView >> items: anObject [
 	itemsBuilder := anObject
 ]
@@ -180,8 +223,15 @@ GtPhlowListView >> newItemLabel [
 	^ BrLabel new
 		look: BrGlamorousListLabelLook;
 		hMatchParent;
+		vFitContent
+]
+
+{ #category : #'private - building' }
+GtPhlowListView >> newLineContainer [
+	^ GtPhlowCellElement new
+		hMatchParent;
 		vFitContent;
-		padding: self newItemElementPadding
+		padding: (BlInsets top: 3 left: 10 bottom: 3 right: 10)
 ]
 
 { #category : #'private - accessing' }

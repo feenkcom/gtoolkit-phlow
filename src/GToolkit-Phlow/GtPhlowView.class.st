@@ -607,7 +607,7 @@ GtPhlowView >> priority [
 	^ priority
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting' }
 GtPhlowView >> priority: anObject [
 	priority := anObject
 ]
@@ -641,7 +641,7 @@ GtPhlowView >> title [
 	^ title
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting' }
 GtPhlowView >> title: aString [ 
 	title := aString
 ]

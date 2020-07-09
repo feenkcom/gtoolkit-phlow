@@ -1,3 +1,6 @@
+"
+I exemplify ${class:GtPhlowListView}$. 
+"
 Class {
 	#name : #GtPhlowListViewExamples,
 	#superclass : #GtPhlowViewExamples,
@@ -117,6 +120,48 @@ GtPhlowListViewExamples >> emptyList [
 ]
 
 { #category : #'examples - errors' }
+GtPhlowListViewExamples >> errorInItemDataBinder [
+	<gtExample> 
+	| aView anElement |
+	aView := GtPhlowView empty on: self perform: #gtErrorInItemDataBinderFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+	self assert: anElement items size equals: 1000.
+	anElement forceLayout.
+
+	self assert: (anElement look listElement childAt: 1) class equals: GtPhlowCellElement.
+	self assert: (anElement look listElement childAt: 1) content isNotNil.
+	self assert: (anElement look listElement childAt: 1) content visibility isVisible.
+	self assert: (anElement look listElement childAt: 1) exception isNil.
+
+	self assert: (anElement look listElement childAt: 3) class equals: GtPhlowCellElement.
+	self assert: (anElement look listElement childAt: 3) content isNotNil.
+	self assert: (anElement look listElement childAt: 3) content visibility isGone.
+	self assert: (anElement look listElement childAt: 3) exception isNotNil.
+	self assert: (anElement look listElement childAt: 3) exception visibility isVisible.
+	^ aView
+]
+
+{ #category : #'examples - errors' }
+GtPhlowListViewExamples >> errorInItemStencil [
+	<gtExample> 
+	| aView anElement |
+	aView := GtPhlowView empty on: self perform: #gtErrorInItemStencilFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+	self assert: anElement items size equals: 1000.
+	anElement forceLayout.
+
+	self assert: (anElement look listElement childAt: 1) class equals: GtPhlowCellElement.
+	self assert: (anElement look listElement childAt: 1) content isNil.
+	self assert: (anElement look listElement childAt: 1) exception isNotNil.
+	self assert: (anElement look listElement childAt: 1) exception visibility isVisible.
+	^ aView
+]
+
+{ #category : #'examples - errors' }
 GtPhlowListViewExamples >> errorInItemText [
 	<gtExample>
 	| aView anElement |
@@ -127,11 +172,45 @@ GtPhlowListViewExamples >> errorInItemText [
 	self assert: anElement items size equals: 1000.
 	anElement forceLayout.
 
-	self assert: (anElement look listElement childAt: 1) class equals: BrLabel.
-	self assert: (anElement look listElement childAt: 1) text asString equals: 'Item number 1'.
+	self assert: (anElement look listElement childAt: 1) class equals: GtPhlowCellElement.
+	self assert: (anElement look listElement childAt: 1) content isNotNil.
+	self assert: (anElement look listElement childAt: 1) content visibility isVisible.
+	self assert: (anElement look listElement childAt: 1) exception isNil.
 
-	self assert: (anElement look listElement childAt: 3) class equals: BrFrame.
+	self assert: (anElement look listElement childAt: 1) content class equals: BrLabel.
+	self assert: (anElement look listElement childAt: 1) content text asString equals: 'Item number 1'.
 
+	self assert: (anElement look listElement childAt: 3) class equals: GtPhlowCellElement.
+	self assert: (anElement look listElement childAt: 3) content isNotNil.
+	self assert: (anElement look listElement childAt: 3) content visibility isGone.
+	self assert: (anElement look listElement childAt: 3) exception isNotNil.
+	self assert: (anElement look listElement childAt: 3) exception visibility isVisible.
+
+	self assert: (anElement look listElement childAt: 3) exception class equals: BrFrame.
+
+	^ aView
+]
+
+{ #category : #'examples - errors' }
+GtPhlowListViewExamples >> errorInItemType [
+	<gtExample> 
+	| aView anElement |
+	aView := GtPhlowView empty on: self perform: #gtErrorInItemTypeFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+	self assert: anElement items size equals: 1000.
+	anElement forceLayout.
+
+	self assert: (anElement look listElement childAt: 1) class equals: GtPhlowCellElement.
+	self assert: (anElement look listElement childAt: 1) content isNotNil.
+	self assert: (anElement look listElement childAt: 1) content visibility isVisible.
+	self assert: (anElement look listElement childAt: 1) exception isNil.
+
+	self assert: (anElement look listElement childAt: 3) class equals: GtPhlowCellElement.
+	self assert: (anElement look listElement childAt: 3) content isNil.
+	self assert: (anElement look listElement childAt: 3) exception isNotNil.
+	self assert: (anElement look listElement childAt: 3) exception visibility isVisible.
 	^ aView
 ]
 
@@ -168,29 +247,7 @@ GtPhlowListViewExamples >> gtAutoUpdatingListFor: aView [
 ]
 
 { #category : #'gt-extension' }
-GtPhlowListViewExamples >> gtErrorInItemTextFor: aView [
-	<gtView>
-	^ aView list 
-		title: 'Error in itemText:';
-		priority: 21;
-		items: [ (1 to: 1000) ];
-		itemText: [ :aNumber | 
-			aNumber = 3 ifTrue: [ 
-				ZeroDivide signal: 'itemText: error' ].
-			'Item number ', aNumber asString ]
-]
-
-{ #category : #'gt-extension' }
-GtPhlowListViewExamples >> gtErrorInItemsFor: aView [
-	<gtView>
-	^ aView list 
-		title: 'Error in items:';
-		priority: 20;
-		items: [ ZeroDivide signal: 'items: error'. (1 to: 1000) ]
-]
-
-{ #category : #'gt-extension' }
-GtPhlowListViewExamples >> gtErrrorInItemDataBinderTenLinesFor: aView [
+GtPhlowListViewExamples >> gtErrorInItemDataBinderFor: aView [
 	<gtView>
 	^ aView list 
 		title: 'Error in itemDataBinder:';
@@ -208,6 +265,71 @@ GtPhlowListViewExamples >> gtErrrorInItemDataBinderTenLinesFor: aView [
 			aNumber = 3 ifTrue: [ 
 				ZeroDivide signal: 'itemDataBinder: error' ].
 			anElement height: aNumber ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowListViewExamples >> gtErrorInItemStencilFor: aView [
+	<gtView>
+	^ aView list 
+		title: 'Error in itemStencil:';
+		priority: 25;
+		items: [ (1 to: 1000) ];
+		itemStencil: [ 
+			ZeroDivide signal: 'itemStencil: error'. 
+			BlElement new 
+				background: Color orange; 
+				size: 10 @ 10; 
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c margin: (BlInsets all: 10) ]
+				 ];
+		itemDataBinder: [ :anElement :aNumber :anIndex |
+			anElement height: aNumber ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowListViewExamples >> gtErrorInItemTextFor: aView [
+	<gtView>
+	^ aView list 
+		title: 'Error in itemText:';
+		priority: 21;
+		items: [ (1 to: 1000) ];
+		itemText: [ :aNumber | 
+			aNumber = 3 ifTrue: [ 
+				ZeroDivide signal: 'itemText: error' ].
+			'Item number ', aNumber asString ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowListViewExamples >> gtErrorInItemTypeFor: aView [
+	<gtView>
+	^ aView list 
+		title: 'Error in itemType:';
+		priority: 23;
+		items: [ (1 to: 1000) ];
+		itemType: [ :anItemTypeFactory :aNumber :anItemIndex |
+			aNumber = 3 ifTrue: [ 
+				ZeroDivide signal: 'itemType: error' ].
+		];
+		itemStencil: [ 
+			BlElement new 
+				background: Color orange; 
+				size: 10 @ 10; 
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c margin: (BlInsets all: 10) ]
+				 ];
+		itemDataBinder: [ :anElement :aNumber :anIndex |
+			anElement height: aNumber ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowListViewExamples >> gtErrorInItemsFor: aView [
+	<gtView>
+	^ aView list 
+		title: 'Error in items:';
+		priority: 20;
+		items: [ ZeroDivide signal: 'items: error'. (1 to: 1000) ]
 ]
 
 { #category : #'gt-extension' }
@@ -259,8 +381,9 @@ GtPhlowListViewExamples >> itemText [
 	self assert: anElement items size equals: 10.
 	anElement forceLayout.
 	self assert: anElement look listElement childrenCount equals: 10.
-	self assert: (anElement look listElement childAt: 1) class equals: BrLabel.
-	self assert: (anElement look listElement childAt: 1) text asString equals: 'Item number 1'.
+	self assert: (anElement look listElement childAt: 1) class equals: GtPhlowCellElement.
+	self assert: (anElement look listElement childAt: 1) content class equals: BrLabel.
+	self assert: (anElement look listElement childAt: 1) content text asString equals: 'Item number 1'.
 	^ aView
 ]
 
@@ -274,9 +397,16 @@ GtPhlowListViewExamples >> itemsAsDefaultTexts [
 	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
 	self assert: anElement items size equals: 10.
 	anElement forceLayout.
+	
 	self assert: anElement look listElement childrenCount equals: 10.
-	self assert: (anElement look listElement childAt: 1) class equals: BrLabel.
-	self assert: (anElement look listElement childAt: 1) text asString equals: 1 asString.
+	self assert: (anElement look listElement childAt: 1) class equals: GtPhlowCellElement.
+	self assert: (anElement look listElement childAt: 1) content isNotNil.
+	self assert: (anElement look listElement childAt: 1) content visibility isVisible.
+	self assert: (anElement look listElement childAt: 1) exception isNil.
+	
+	self assert: (anElement look listElement childAt: 1) content class equals: BrLabel.
+	self assert: (anElement look listElement childAt: 1) content text asString equals: 1 asString.
+	self assert: (anElement look listElement childAt: 1) content text asString equals: 1 asString.
 	^ aView
 ]
 
@@ -365,7 +495,6 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement [
 { #category : #examples }
 GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError [
 	<gtExample>
-	<noTest>
 	| aView anElement |
 	aView := self viewWithItems 
 		stencil: [ :x |
@@ -380,7 +509,6 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError [
 { #category : #examples }
 GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError_InSpace [
 	<gtExample>
-	<noTest>
 	| aView anElement aSpace anException |
 	aView := self viewWithItemsAndItemElement_ProducingError.
 	aSpace := BlSpace new.
