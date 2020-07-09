@@ -25,15 +25,12 @@ GtPhlowTreeView >> asElementDo: aBlock [
 
 	aTree addEventHandler: (GtPhlowListToSelectHandler new transformation: [ :aNode | self send value: aNode value ]).
 	aTree constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
-	aTree rowStencil: (BrColumnedTreeRowStencilBuilder new
-		cellSpacing: 2;
-		padding: (BlInsets left: 0)).
 
 	aTree column
 		title: 'Item';
-		stencil: [ :aNode :index | 
+		stencil: [ :anItemObject :index | 
 			| itemElement |
-			itemElement := self itemStencil value: aNode value.
+			itemElement := self itemStencil value: anItemObject.
 			itemElement padding: (BlInsets top: 3 left: 0 bottom: 3 right: 0) ].
 
 	self expandTree: aTree.
