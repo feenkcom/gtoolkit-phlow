@@ -54,9 +54,9 @@ GtPhlowColumnedListView >> buildColumnsInList: aList [
 				eachPhlowColumn resizer ifNotNil: [ :aLayoutResizer |
 					aRowElement constraintsDo: [ :c |
 						c horizontal resizer: aLayoutResizer.
-						c vertical matchParent ].
+						c vertical fitContent ].
 					aRowElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
-					aRowElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
+					aRowElement dispatchEvent: (BrLayoutVerticalResizerWish fitContent) ].
 				aRowElement ] ].
 ]
 
