@@ -1,3 +1,10 @@
+"
+I represent a columned list view.
+I create ${class:BrColumnedList}$ to display items. 
+!! Examples 
+The following object displays several examples. You can ==ALT+CLICK== on tab names to display their definitions: ${example:GtPhlowColumnedListViewExamples>>#myself|noCode=true}$  
+ 
+"
 Class {
 	#name : #GtPhlowColumnedListView,
 	#superclass : #GtPhlowViewDecorator,
@@ -164,6 +171,24 @@ GtPhlowColumnedListView >> column: aTitleString format: aBlock width: aNumber [
 ]
 
 { #category : #'api - scripting column' }
+GtPhlowColumnedListView >> column: aTitleString icon: aFormatBlocOrSymbol [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn icon: aFormatBlocOrSymbol.
+	aColumn width: 36.
+]
+
+{ #category : #'api - scripting column' }
+GtPhlowColumnedListView >> column: aTitleString icon: aFormatBlocOrSymbol width: aNumber [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn icon: aFormatBlocOrSymbol.
+	aColumn width: aNumber.
+]
+
+{ #category : #'api - scripting column' }
 GtPhlowColumnedListView >> column: aTitleString item: aBlock [
 	| aColumn |
 	aColumn := self column.
@@ -186,6 +211,16 @@ GtPhlowColumnedListView >> column: aTitleString item: anItemComputation format: 
 		transformWith: '`@receiver column: `@one item: `@two format: `@three width: `@four'
 			-> '`@receiver column: `@one item: `@two text: `@three width: `@four'.
 	self column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol width: aNumber
+]
+
+{ #category : #'api - scripting column' }
+GtPhlowColumnedListView >> column: aTitleString item: anItemComputation icon: aFormatBlocOrSymbol width: aNumber [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn item: anItemComputation.
+	aColumn icon: aFormatBlocOrSymbol.
+	aColumn width: aNumber.
 ]
 
 { #category : #'api - scripting column' }

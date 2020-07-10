@@ -311,6 +311,72 @@ GtPhlowColumnedListViewExamples >> gtAutoUpdatingListFor: aView [
 		updateWhen: Announcement in: [ anAnnouncer ]
 ]
 
+{ #category : #accessing }
+GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'column:icon: usage';
+		priority: 7;
+		items: [ self registeredColors ];
+		column: 'Icon' 
+			icon: [ :aColor |
+				BlElement new
+					padding: (BlInsets all: 6);
+					margin: (BlInsets top: 3 left: 0 bottom: 3 right: 0);
+					background: aColor;
+					geometry: BlCircle new;
+					layout: BlLinearLayout horizontal alignCenter;
+					constraintsDo: [ :c |
+						c horizontal fitContent.
+						c vertical fitContent ] ];
+		column: 'Name' item: #name
+]
+
+{ #category : #accessing }
+GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconWidthFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'column:icon:width: usage';
+		priority: 7;
+		items: [ self registeredColors reversed ];
+		column: 'Icon' 
+			icon: [ :aColor |
+				BlElement new
+					padding: (BlInsets all: 6);
+					margin: (BlInsets top: 3 left: 0 bottom: 3 right: 0);
+					background: aColor;
+					geometry: BlCircle new;
+					layout: BlLinearLayout horizontal alignCenter;
+					constraintsDo: [ :c |
+						c horizontal fitContent.
+						c vertical fitContent ] ] 
+			width: 36;
+		column: 'Name' item: #name
+]
+
+{ #category : #accessing }
+GtPhlowColumnedListViewExamples >> gtColorsWithColumnItemIconWidthFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'column:item:icon:width: usage';
+		priority: 6;
+		items: [ self registeredColors ];
+		column: 'Icon' 
+			item: [ :aColor | aColor ] 
+			icon: [ :aColor |
+				BlElement new
+					padding: (BlInsets all: 6);
+					margin: (BlInsets top: 3 left: 0 bottom: 3 right: 0);
+					background: aColor;
+					geometry: BlCircle new;
+					layout: BlLinearLayout horizontal alignCenter;
+					constraintsDo: [ :c |
+						c horizontal fitContent.
+						c vertical fitContent ] ] 
+			width: 36;
+		column: 'Name' item: #name
+]
+
 { #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnItemFormatFor: aView [
 	<gtView>
@@ -365,6 +431,16 @@ GtPhlowColumnedListViewExamples >> myself [
 GtPhlowColumnedListViewExamples >> phlowView [
 	<gtExample>
 	^ self viewWithItems
+]
+
+{ #category : #accessing }
+GtPhlowColumnedListViewExamples >> registeredColors [
+	<gtExample>
+	| aCollection |
+	aCollection := Color registeredColorNames collect: [ :aColorName | Color named: aColorName ].
+	self assert: aCollection isNotNil.
+	self assert: aCollection isNotEmpty.
+	^ aCollection
 ]
 
 { #category : #'api-shortcuts' }

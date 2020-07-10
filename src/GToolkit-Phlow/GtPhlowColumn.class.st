@@ -116,6 +116,19 @@ GtPhlowColumn >> fitContent [
 	self resizer: BlLayoutResizer fitContent
 ]
 
+{ #category : #'api - scripting cell content' }
+GtPhlowColumn >> icon: aBlockOrSymbol [
+	self cellStencil: [ self newIconContainer ].
+	self dataBinder: [ :anIconContainer :anItem :aRowIndex :aRowHolder :aColumnIndex |
+		| aValue anIcon anElement |
+		aValue := self itemComputation phlowValue: anItem withEnoughArguments: { anItem. aRowIndex. aColumnIndex. anIconContainer. self }.
+		anIcon := aBlockOrSymbol phlowValue: aValue withEnoughArguments: { aValue. aRowIndex. aColumnIndex. anIconContainer. self }.
+		anElement := anIcon asElement labeled: 'Icon'.
+		anIconContainer
+			removeChildren;
+			addChild: anElement. ]
+]
+
 { #category : #initialization }
 GtPhlowColumn >> initialize [
 	super initialize.
@@ -157,9 +170,17 @@ GtPhlowColumn >> matchParent [
 ]
 
 { #category : #'private - building' }
+GtPhlowColumn >> newIconContainer [
+	^ BrHorizontalPane new
+	 	alignCenter;
+		fitContent
+]
+
+{ #category : #'private - building' }
 GtPhlowColumn >> newItemLabel [
 	^ BrLabel new
 		look: BrGlamorousListLabelLook;
+		alignCenterLeft;
 		hMatchParent;
 		vFitContent
 ]

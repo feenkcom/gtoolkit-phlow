@@ -108,7 +108,7 @@ GtPhlowColumnedTreeView >> column: aTitleString format: aBlock [
 	| aColumn |
 	aColumn := self column.
 	aColumn title: aTitleString.
-	aColumn itemFormat: aBlock
+	aColumn text: aBlock
 ]
 
 { #category : #accessing }
