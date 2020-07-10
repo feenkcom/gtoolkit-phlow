@@ -1,3 +1,8 @@
+"
+I add a scripting method to display items as a text.
+I am used by ${class:GtPhlowListView}$ and ${class:GtPhlowTreeView}$.
+
+"
 Trait {
 	#name : #TGtPhlowItemText,
 	#category : #'GToolkit-Phlow-Support'

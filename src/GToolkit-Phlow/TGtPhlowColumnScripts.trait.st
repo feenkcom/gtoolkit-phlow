@@ -1,3 +1,6 @@
+"
+I add scripting methods that simplify colum definitions for ${class:GtPhlowColumnedListView}$ and ${class:GtPhlowColumnedTreeView}$.
+"
 Trait {
 	#name : #TGtPhlowColumnScripts,
 	#category : #'GToolkit-Phlow-Support'
