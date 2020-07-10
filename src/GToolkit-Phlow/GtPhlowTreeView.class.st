@@ -1,17 +1,21 @@
 Class {
 	#name : #GtPhlowTreeView,
 	#superclass : #GtPhlowViewDecorator,
+	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:} + TGtPhlowItemText',
+	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait',
 	#instVars : [
 		'itemsBuilder',
 		'itemStencil',
 		'transformation',
 		'childrenBuilder',
-		'expandUpTo'
+		'expandUpTo',
+		'itemTypeStencil',
+		'itemDataBinder'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
 
-{ #category : #converting }
+{ #category : #'api - converting' }
 GtPhlowTreeView >> asElementDo: aBlock [
 	| theItems aTree |
 	
@@ -26,37 +30,35 @@ GtPhlowTreeView >> asElementDo: aBlock [
 	aTree addEventHandler: (GtPhlowListToSelectHandler new transformation: [ :aNode | self send value: aNode value ]).
 	aTree constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 
-	aTree column
+	aTree
+		nodeType: self itemTypeStencil;
+		nodeStencil: self itemStencil;
+		nodeDataBinder: self itemDataBinder.
+
+	"aTree column
 		title: 'Item';
 		stencil: [ :anItemObject :index | 
 			| itemElement |
 			itemElement := self itemStencil value: anItemObject.
-			itemElement padding: (BlInsets top: 3 left: 0 bottom: 3 right: 0) ].
-
+			itemElement padding: (BlInsets top: 3 left: 0 bottom: 3 right: 0) ]."
+		
 	self expandTree: aTree.
 	self beViewElement: aTree.
 
 	^ aBlock value: aTree
 ]
 
-{ #category : #'private - building' }
-GtPhlowTreeView >> buildTextElementFor: aString [
-	^ BrLabel new
-		look: BrGlamorousListLabelLook;
-		text: aString.
-]
-
-{ #category : #accessing }
+{ #category : #'api - scripting' }
 GtPhlowTreeView >> children: anObject [
 	childrenBuilder := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 GtPhlowTreeView >> childrenBuilder [
 	^ childrenBuilder
 ]
 
-{ #category : #'expanding-collapsing' }
+{ #category : #'api - scripting tree node expansion' }
 GtPhlowTreeView >> collapseAll [
 	expandUpTo := nil.
 ]
@@ -75,28 +77,28 @@ GtPhlowTreeView >> display: aBlock [
 	self items: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 GtPhlowTreeView >> elementClass [
-	^ BrColumnedTree
+	^ BrSimpleTree
 ]
 
-{ #category : #'expanding-collapsing' }
+{ #category : #'api - scripting tree node expansion' }
 GtPhlowTreeView >> expandAll [
 	self expandUpTo: 20
 ]
 
-{ #category : #'expanding-collapsing' }
+{ #category : #'api - scripting tree node expansion' }
 GtPhlowTreeView >> expandOneLevel [
 	self expandUpTo: 1
 ]
 
-{ #category : #'private - actions' }
+{ #category : #'private - building' }
 GtPhlowTreeView >> expandTree: aBrColumnedTree [ 
 	expandUpTo ifNil: [ ^ self ].
 	aBrColumnedTree expandUpTo: expandUpTo
 ]
 
-{ #category : #'expanding-collapsing' }
+{ #category : #'api - scripting tree node expansion' }
 GtPhlowTreeView >> expandUpTo: aLevelIndex [
 	self 
 		assert: [ aLevelIndex isInteger and: [ aLevelIndex > 0 ] ] 
@@ -115,48 +117,79 @@ GtPhlowTreeView >> format: aBlockOrSymbol [
 { #category : #initialization }
 GtPhlowTreeView >> initialize [
 	super initialize.
-	itemStencil := [ :anObject | 
-		self buildTextElementFor: anObject gtDisplayText ].
 	itemsBuilder := [ { } ].
 	childrenBuilder := [ :each | { } ].
 	transformation := [ :aValue | "by default there is no transformation" aValue ].
+	self itemType: [ :anItemTypeFactory :anItemObject :anItemIndex | anItemTypeFactory default ].
+	self itemText: [ :anObject | anObject gtDisplayText ].
 ]
 
-{ #category : #testing }
+{ #category : #'private - testing' }
 GtPhlowTreeView >> isExpectedElement: aCurrentElement [
 	^ aCurrentElement class = self elementClass
 ]
 
+{ #category : #'private - accessing' }
+GtPhlowTreeView >> itemDataBinder [
+	"Return a stencil that is used to bind data to a given item element"
+
+	^ itemDataBinder
+]
+
+{ #category : #'api - scripting' }
+GtPhlowTreeView >> itemDataBinder: aBrTreeNodeDataBinderOrBlock [
+	"An item type stencil can be a #value-able of the form [ :anElement :anItem :anIndex | ]"
+
+	itemDataBinder := self errorTreatedCellDataBinderFor: aBrTreeNodeDataBinderOrBlock
+]
+
 { #category : #'scripting - deprecated' }
 GtPhlowTreeView >> itemElement: anObject [
-	self 
-		deprecated: 'Please use #itemStencil: instead.'
-		transformWith: '`@receiver itemElement: `@statements' -> '`@receiver itemStencil: `@statements'.
-	itemStencil := anObject
+	self deprecated: 'itemElement: is not supported'.
+	Error signal: 'itemElement: is not supported'
 ]
 
-{ #category : #'scripting - utils' }
+{ #category : #'scripting - deprecated' }
 GtPhlowTreeView >> itemFormat: aBlockOrSymbol [
-	self itemStencil: [ :anObject |
-		self buildTextElementFor: (aBlockOrSymbol phlowValue: anObject) ]
+	self 
+		deprecated: 'Please use #itemText: instead.'
+		transformWith: '`@receiver itemFormat: `@statements' -> '`@receiver itemText: `@statements'.
+	self itemText: aBlockOrSymbol
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 GtPhlowTreeView >> itemStencil [
 	^ itemStencil
 ]
 
-{ #category : #accessing }
-GtPhlowTreeView >> itemStencil: anElementStencil [
-	itemStencil := anElementStencil
+{ #category : #'api - scripting' }
+GtPhlowTreeView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
+	"A node element stencil can be a #value-able of the form [ :aNodeType | ]"
+
+	itemStencil := self errorTreatedCellStencilFor: aBrListItemElementStencilBuilderOrBlock
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting' }
+GtPhlowTreeView >> itemType: aBrTreeNodeTypeStencilBuilderOrBlock [
+	"An item type stencil can be a #value-able of the form [ :anItemTypeFactory :anItem :anIndex | ].
+	anItemTypeFactory is a ${class:BrListItemType class}$ "
+	
+	itemTypeStencil := self errorTreatedCellTypeFor: aBrTreeNodeTypeStencilBuilderOrBlock
+]
+
+{ #category : #'private - accessing' }
+GtPhlowTreeView >> itemTypeStencil [
+	"Return a stencil that is used to create an item type of a given item object"
+
+	^ itemTypeStencil
+]
+
+{ #category : #'api - scripting' }
 GtPhlowTreeView >> items: anObject [
 	itemsBuilder := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 GtPhlowTreeView >> itemsBuilder [
 	^ itemsBuilder
 ]
@@ -169,12 +202,12 @@ GtPhlowTreeView >> itemsOnExceptionErrorElement: aBlock [
 			aBlock value: anElement ].
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting' }
 GtPhlowTreeView >> send [
 	^ transformation
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting' }
 GtPhlowTreeView >> send: aBlock [
 	self
 		assert: [ aBlock notNil ]
@@ -191,7 +224,7 @@ GtPhlowTreeView >> send: aBlock [
 	transformation := aBlock
 ]
 
-{ #category : #updating }
+{ #category : #'api - updating' }
 GtPhlowTreeView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 	| aParent |

@@ -8,8 +8,8 @@ The following object displays several examples. You can ==ALT+CLICK== on tab nam
 Class {
 	#name : #GtPhlowListView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:}',
-	#classTraits : 'TGtPhlowErrorTolerantCell classTrait',
+	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:} + TGtPhlowItemText',
+	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait',
 	#instVars : [
 		'itemsBuilder',
 		'itemStencil',
@@ -76,7 +76,7 @@ GtPhlowListView >> initialize [
 	transformation := [ :aValue | "by default there is no transformation" aValue ].
 ]
 
-{ #category : #testing }
+{ #category : #'private - testing' }
 GtPhlowListView >> isExpectedElement: aCurrentElement [
 	^ aCurrentElement class = self elementClass
 ]
@@ -117,18 +117,9 @@ GtPhlowListView >> itemFormat: aBlockOrSymbol [
 
 { #category : #'api - scripting' }
 GtPhlowListView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
-	"An item element stencil can be a #value-able of the form [ :anItemType :aListWidget | ]"
+	"An item element stencil can be a #value-able of the form [ :anItemType | ]"
 
 	itemStencil := self errorTreatedCellStencilFor: aBrListItemElementStencilBuilderOrBlock.
-]
-
-{ #category : #'api - scripting' }
-GtPhlowListView >> itemText: aBlockOrSymbol [
-	self itemStencil: [ self newItemLabel ].
-	self itemDataBinder: [ :aLabel :anItem :anIndex |
-		| aText |
-		aText := aBlockOrSymbol phlowValue: anItem withEnoughArguments: { anItem. anIndex. aLabel. self }.
-		aLabel text: aText asRopedText. ]
 ]
 
 { #category : #'api - scripting' }
@@ -162,14 +153,6 @@ GtPhlowListView >> itemsOnExceptionErrorElement: aBlock [
 		performBlock: [ self itemsBuilder value ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
-]
-
-{ #category : #'private - building' }
-GtPhlowListView >> newItemLabel [
-	^ BrLabel new
-		look: BrGlamorousListLabelLook;
-		hMatchParent;
-		vFitContent
 ]
 
 { #category : #'private - accessing' }
@@ -222,7 +205,7 @@ GtPhlowListView >> stencil: aBrListRowStencilBuilder [
 		aRowStencil ]
 ]
 
-{ #category : #updating }
+{ #category : #'api - updating' }
 GtPhlowListView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 

@@ -280,17 +280,24 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView_WithParent [
 { #category : #'examples - text' }
 GtPhlowColumnedListViewExamples >> columnItemView [
 	<gtExample>
-	| aView anElement |
+	| aView anElement aColumnedList aCellElement |
 	aView := GtPhlowView empty on: self perform: #gtTenItemsWithColumnItemsFor:.
 	BlUseAsyncFeatures disableDuring: [ 
 		anElement := aView asElementDo: [ :theElement | theElement ] ].
 	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
-	self assert: anElement items size equals: 10.
+
+	aColumnedList := anElement childAt: 2.
+	self assert: aColumnedList class equals: BrColumnedList.
+	self assert: aColumnedList items size equals: 10.
+	
 	anElement forceLayout.
-	self assert: anElement look listElement childrenCount equals: 10.
-	self assert: (anElement look listElement childAt: 1) class equals: GtPhlowCellElement.
-	self assert: (anElement look listElement childAt: 1) content class equals: BrLabel.
-	self assert: (anElement look listElement childAt: 1) content text asString equals: 'Item number 1'.
+	self assert: aColumnedList look listElement childrenCount equals: 10.
+	
+	aCellElement := (aColumnedList look listElement childAt: 1) childAt: 1.
+	
+	self assert: aCellElement class equals: GtPhlowCellElement.
+	self assert: aCellElement content class equals: BrLabel.
+	self assert: aCellElement content text asString equals: '1'.
 	^ aView
 ]
 
@@ -691,12 +698,18 @@ GtPhlowColumnedListViewExamples >> registeredColors [
 GtPhlowColumnedListViewExamples >> viewWithItems [
 	<gtExample>
 	| view element |
-	view := self emptyList 
-		items: [ (1 to: 100) ];
-		column: 'x' do: [:column | 
-			column item: [ :number | number ]; matchParent ];
-		column: 'x * 2' translated do: [:column | 
-			column item: [:number | number * 2 ]; matchParent ].
+	view := self emptyList
+		items: [ 1 to: 100 ];
+		column: 'x'
+			do: [ :column | 
+			column
+				item: [ :number | number ];
+				weight: 1 ];
+		column: 'x * 2' translated
+			do: [ :column | 
+			column
+				item: [ :number | number * 2 ];
+				weight: 1 ].
 	view asElementDo: [ :el | element := el ].
 	self assert: element children second items size = 100.
 	^ view
@@ -706,9 +719,12 @@ GtPhlowColumnedListViewExamples >> viewWithItems [
 GtPhlowColumnedListViewExamples >> viewWithItemsWithColumnCreationError [
 	<gtExample>
 	| view element |
-	view := self viewWithItems 
-		column: 'Error' translated do: [:column | 
-			column item: [ :number | number * 4 / 0 ]; matchParent ].
+	view := self viewWithItems
+		column: 'Error' translated
+		do: [ :column | 
+			column
+				item: [ :number | number * 4 / 0 ];
+				weight: 1 ].
 	view asElementDo: [ :el | element := el ].
 	self assert: element children second items size = 100.
 	^ view
