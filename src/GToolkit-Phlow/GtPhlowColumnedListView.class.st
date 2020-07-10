@@ -8,8 +8,8 @@ The following object displays several examples. You can ==ALT+CLICK== on tab nam
 Class {
 	#name : #GtPhlowColumnedListView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowColumnedHeader',
-	#classTraits : 'TGtPhlowColumnedHeader classTrait',
+	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts',
+	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait',
 	#instVars : [
 		'columns',
 		'transformation',
@@ -81,137 +81,6 @@ GtPhlowColumnedListView >> column [
 	aColumn := GtPhlowColumn new.
 	columns add: aColumn.
 	^ aColumn
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedListView >> column: aTitleString do: aBlock [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aBlock value: aColumn
-]
-
-{ #category : #'scripting - deprecated' }
-GtPhlowColumnedListView >> column: aTitleString evaluated: aBlock [
-	self 
-		deprecated: 'Please use #column:item: instead.'
-		transformWith: '`@receiver column: `@one evaluated: `@two' -> '`@receiver column: `@one item: `@two'.
-	^ self column: aTitleString item: aBlock
-]
-
-{ #category : #'scripting - deprecated' }
-GtPhlowColumnedListView >> column: aTitleString format: aBlock [
-	self 
-		deprecated: 'Please use #column:text: instead.'
-		transformWith: '`@receiver column: `@one format: `@two' -> '`@receiver column: `@one text: `@two'.
-	self column: aTitleString text: aBlock
-]
-
-{ #category : #'scripting - deprecated' }
-GtPhlowColumnedListView >> column: aTitleString format: aBlock width: aNumber [
-	self 
-		deprecated: 'Please use #column:text:width: instead.'
-		transformWith: '`@receiver column: `@one format: `@two width: `@three' 
-			-> '`@receiver column: `@one text: `@two width: `@three'.
-	self column: aTitleString text: aBlock width: aNumber
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedListView >> column: aTitleString icon: aFormatBlocOrSymbol [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn icon: aFormatBlocOrSymbol.
-	aColumn width: 36.
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedListView >> column: aTitleString icon: aFormatBlocOrSymbol width: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn icon: aFormatBlocOrSymbol.
-	aColumn width: aNumber.
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedListView >> column: aTitleString item: aBlock [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: aBlock
-]
-
-{ #category : #'scripting - deprecated' }
-GtPhlowColumnedListView >> column: aTitleString item: anItemComputation format: aFormatBlocOrSymbol [
-	self 
-		deprecated: 'Please use #column:item:text: instead.'
-		transformWith: '`@receiver column: `@one item: `@two format: `@three' -> '`@receiver column: `@one item: `@two text: `@three'.
-	self column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol
-]
-
-{ #category : #'scripting - deprecated' }
-GtPhlowColumnedListView >> column: aTitleString item: anItemComputation format: aFormatBlocOrSymbol width: aNumber [
-	self 
-		deprecated: 'Please use #column:item:text:width. instead.'
-		transformWith: '`@receiver column: `@one item: `@two format: `@three width: `@four'
-			-> '`@receiver column: `@one item: `@two text: `@three width: `@four'.
-	self column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol width: aNumber
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedListView >> column: aTitleString item: anItemComputation icon: aFormatBlocOrSymbol width: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: anItemComputation.
-	aColumn icon: aFormatBlocOrSymbol.
-	aColumn width: aNumber.
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedListView >> column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: anItemComputation.
-	aColumn text: aFormatBlocOrSymbol
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedListView >> column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol width: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: anItemComputation.
-	aColumn text: aFormatBlocOrSymbol.
-	aColumn width: aNumber.
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedListView >> column: aTitleString item: aBlock width: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: aBlock.
-	aColumn width: aNumber.
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedListView >> column: aTitleString text: aBlock [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn text: aBlock
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedListView >> column: aTitleString text: aBlock width: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn text: aBlock.
-	aColumn width: aNumber.
 ]
 
 { #category : #'private - testing' }

@@ -1,8 +1,8 @@
 Class {
 	#name : #GtPhlowColumnedTreeView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowColumnedHeader',
-	#classTraits : 'TGtPhlowColumnedHeader classTrait',
+	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts',
+	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait',
 	#instVars : [
 		'columns',
 		'transformation',
@@ -75,76 +75,6 @@ GtPhlowColumnedTreeView >> column [
 	aColumn := GtPhlowColumn new.
 	columns add: aColumn.
 	^ aColumn
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedTreeView >> column: aTitleString do: aBlock [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aBlock value: aColumn
-]
-
-{ #category : #'scripting - deprecated' }
-GtPhlowColumnedTreeView >> column: aTitleString evaluated: aBlock [
-	self 
-		deprecated: 'Please use #column:item: instead.'
-		transformWith: '`@receiver column: `@one evaluated: `@two' 
-			-> '`@receiver column: `@one item: `@two'.
-	^ self column: aTitleString item: aBlock
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedTreeView >> column: aTitleString format: aBlock [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn text: aBlock
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedTreeView >> column: aTitleString format: aBlock width: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn itemFormat: aBlock.
-	aColumn width: aNumber.
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedTreeView >> column: aTitleString item: aBlock [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: aBlock
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedTreeView >> column: aTitleString item: anItemComputation format: aFormatBlocOrSymbol [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: anItemComputation.
-	aColumn itemFormat: aFormatBlocOrSymbol
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedTreeView >> column: aTitleString item: anItemComputation format: aFormatBlocOrSymbol width: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: anItemComputation.
-	aColumn itemFormat: aFormatBlocOrSymbol.
-	aColumn width: aNumber.
-]
-
-{ #category : #'api - scripting column' }
-GtPhlowColumnedTreeView >> column: aTitleString item: aBlock width: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: aBlock.
-	aColumn width: aNumber.
 ]
 
 { #category : #'private - accessing' }
