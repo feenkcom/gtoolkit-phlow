@@ -9,7 +9,6 @@ Class {
 	#traits : 'TGtPhlowErrorTolerantCell - {#errorTreatedCellTypeFor:}',
 	#classTraits : 'TGtPhlowErrorTolerantCell classTrait',
 	#instVars : [
-		'resizer',
 		'rowStencil',
 		'title',
 		'titleStencil',
@@ -21,34 +20,22 @@ Class {
 	#category : #'GToolkit-Phlow-Support'
 }
 
-{ #category : #'private - building' }
-GtPhlowColumn >> buildHeaderElementFor: aText forColumn: aPhlowColumn [
+{ #category : #'api - building' }
+GtPhlowColumn >> buildHeaderElement [
 	| aLabel |
-	aLabel := BrLabel new
-		look: BrGlamorousLabelLook;
-		text: (aText asRopedText foreground: BrGlamorousColors defaultButtonTextColor).
+	aLabel := (titleStencil valueWithEnoughArguments: {self title. self}) asElement.
 	self cellWidth applyOn: aLabel.
 	^ aLabel
 ]
 
 { #category : #'private - building' }
-GtPhlowColumn >> buildRowElementFor: aStringOrText forColumn: aPhlowColumn [
-	| rowElement |
-		
-	rowElement := BrLabel new
-		look: BrGlamorousListLabelLook;
-		text: aStringOrText.
-			
-	(aPhlowColumn resizer notNil and: [ aPhlowColumn resizer isMatchParent ])
-		ifTrue: [
-			rowElement addChild: (BlElement new
-				background: (BlLinearGradientPaint horizontal from: (Color white alpha: 0) to: Color white);
-				constraintsDo: [ :c |
-					c ignoreByLayout.
-					c ignored horizontal alignRight.
-					c vertical matchParent.
-					c horizontal exact: 30 ]) ].
-	^ rowElement 
+GtPhlowColumn >> buildHeaderElementFor: aText forColumn: aPhlowColumn [
+	| aLabel |
+	aLabel := BrLabel new
+		look: BrGlamorousLabelLook;
+		alignCenterLeft;
+		text: (aText asRopedText foreground: BrGlamorousColors defaultButtonTextColor).
+	^ aLabel
 ]
 
 { #category : #'private - accessing' }
@@ -75,21 +62,6 @@ GtPhlowColumn >> configureColumn: aBrColumn [
 		cellWidth: self cellWidth.
 ]
 
-{ #category : #'api - building' }
-GtPhlowColumn >> createHeaderRowElement [
-	^ (titleStencil valueWithEnoughArguments: {self title . self}) asElement
-]
-
-{ #category : #'api - building' }
-GtPhlowColumn >> createRowElementFor: anItem atIndex: anIndex [
-	"Return an element that represents a cell in the columned list for a given item.
-	The amount of cells in a row is equal to amount of columns"
-	| computedValue |
-
-	computedValue := self itemComputation phlowValue: anItem  withEnoughArguments: { anItem . anIndex }.
-	^ (self rowStencil valueWithEnoughArguments: { computedValue . self }) asElement
-]
-
 { #category : #'private - accessing' }
 GtPhlowColumn >> dataBinder [
 	^ dataBinder
@@ -108,11 +80,6 @@ GtPhlowColumn >> defaultHeaderElementBuilder [
 { #category : #defaults }
 GtPhlowColumn >> defaultItemComputation [
 	^ [ :eachItem :eachRowIndex :eachColumnIndex | eachItem ]
-]
-
-{ #category : #defaults }
-GtPhlowColumn >> defaultResizer [
-	^ BlLayoutResizer matchParent
 ]
 
 { #category : #defaults }
@@ -138,9 +105,12 @@ GtPhlowColumn >> evaluated: aBlock [
 	self item: aBlock
 ]
 
-{ #category : #'api - scripting cell width' }
+{ #category : #'scripting - deprecated' }
 GtPhlowColumn >> fitContent [
-	self resizer: BlLayoutResizer fitContent
+	self 
+		deprecated: 'Please use #width: instead.'
+		transformWith: '`@receiver fitContent' -> '`@receiver width: 50'.
+	self width: 50
 ]
 
 { #category : #'api - scripting cell content' }
@@ -163,7 +133,6 @@ GtPhlowColumn >> initialize [
 	titleStencil := self defaultHeaderElementBuilder.
 	itemComputation := self defaultItemComputation.
 	width := self defaultWidth.
-	resizer := self defaultResizer.
 	self text: self defaultTextStencil
 ]
 
@@ -193,10 +162,12 @@ GtPhlowColumn >> itemStencil: aRowStencil [
 	self stencil: aRowStencil
 ]
 
-{ #category : #'api - scripting cell width' }
+{ #category : #'scripting - deprecated' }
 GtPhlowColumn >> matchParent [
-	self weight: 1.
-	self resizer: BlLayoutResizer matchParent
+	self 
+		deprecated: 'Please use #width: instead.'
+		transformWith: '`@receiver matchParent' -> '`@receiver width: 1'.
+	self width: 1.
 ]
 
 { #category : #'private - building' }
@@ -215,20 +186,17 @@ GtPhlowColumn >> newItemLabel [
 		vFitContent
 ]
 
-{ #category : #'api - scripting cell width' }
+{ #category : #'scripting - deprecated' }
 GtPhlowColumn >> noResize [
-	resizer := nil.
+	self 
+		deprecated: 'Please use #noWidth instead.'
+		transformWith: '`@receiver noResize' -> '`@receiver noWidth'.
+	self noWidth
+]
+
+{ #category : #'api - scripting cell width' }
+GtPhlowColumn >> noWidth [
 	width := BrColumnUndefinedWidth new.
-]
-
-{ #category : #'private - accessing' }
-GtPhlowColumn >> resizer [
-	^ resizer
-]
-
-{ #category : #'private - accessing' }
-GtPhlowColumn >> resizer: aBlLayoutResizer [
-	resizer := aBlLayoutResizer
 ]
 
 { #category : #'private - accessing' }
@@ -299,5 +267,4 @@ GtPhlowColumn >> width: aNumber [
 	"Make column occupy a fixed space defined by aNumber"
 
 	width := BrColumnFixedWidth new width: aNumber.
-	self resizer: (BlLayoutResizer exact: aNumber asFloat).
 ]

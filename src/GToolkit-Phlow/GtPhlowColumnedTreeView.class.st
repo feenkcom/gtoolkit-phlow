@@ -50,26 +50,6 @@ GtPhlowColumnedTreeView >> buildColumnsInTree: aTree [
 	columns
 		do: [ :eachPhlowColumn | 
 			eachPhlowColumn configureColumn: aTree column ].
-	"columns
-		do: [ :eachPhlowColumn | 
-			aTree column
-				title: eachPhlowColumn title;
-				stencil: [ :anItemObject :eachIndex | 
-					| aRowElement |
-					aRowElement := eachPhlowColumn
-						createRowElementFor: anItemObject
-						atIndex: eachIndex.
-					eachPhlowColumn resizer
-						ifNotNil: [ :aLayoutResizer | 
-							aRowElement
-								constraintsDo: [ :c | 
-									c horizontal resizer: aLayoutResizer.
-									c vertical matchParent ].
-							aRowElement
-								dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
-							aRowElement
-								dispatchEvent: BrLayoutVerticalResizerWish matchParent ].
-					aRowElement ] ]"
 ]
 
 { #category : #accessing }
@@ -255,47 +235,6 @@ GtPhlowColumnedTreeView >> itemsOnExceptionErrorElement: aBlock [
 		performBlock: [ self itemsBuilder value ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
-]
-
-{ #category : #'instance creation' }
-GtPhlowColumnedTreeView >> newColumnElementsForItems: theItems [
-	^ columns
-		collect: [ :eachColumn | 
-			| aWrapper aLabel aScaledLabel |
-			aWrapper := self newWrapper.
-			aLabel := BrLabel new
-				look: BrGlamorousLabelLook;
-				text:
-					(eachColumn title asRopedText
-						foreground: BrGlamorousColors defaultButtonTextColor).
-			aScaledLabel := aLabel asScalableElement.
-			aScaledLabel maxScale: 1.
-			aScaledLabel
-				constraintsDo: [ :c | 
-					c horizontal matchParent.
-					c vertical matchParent.
-					c ignoreByLayout ].
-			theItems
-				ifNotEmpty: [ | aRowElement |
-					aRowElement := eachColumn
-						createRowElementFor: theItems first
-						atIndex: 1.
-					aRowElement visibility: BlVisibility hidden.
-					eachColumn resizer
-						ifNotNil: [ :aLayoutResizer | 
-							aRowElement
-								constraintsDo: [ :c | 
-									c horizontal resizer: aLayoutResizer.
-									c vertical matchParent ].
-							aWrapper
-								constraintsDo: [ :c | c horizontal resizer: aLayoutResizer ].
-							aRowElement
-								dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
-							aRowElement
-								dispatchEvent: BrLayoutVerticalResizerWish matchParent ].
-					aWrapper addChild: aRowElement ].
-			aWrapper addChild: aScaledLabel.
-			aWrapper ]
 ]
 
 { #category : #'instance creation' }

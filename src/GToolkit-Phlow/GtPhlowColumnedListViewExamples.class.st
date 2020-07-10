@@ -529,7 +529,7 @@ GtPhlowColumnedListViewExamples >> gtColorsWithColumnItemIconWidthFor: aView [
 					constraintsDo: [ :c |
 						c horizontal fitContent.
 						c vertical fitContent ] ] 
-			width: 36;
+			width: 12;
 		column: 'Name' item: #name
 ]
 
