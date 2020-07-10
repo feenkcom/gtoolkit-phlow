@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowColumnedListViewExamples,
 	#superclass : #GtPhlowViewExamples,
-	#category : #'GToolkit-Phlow-Examples'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #'examples - auto updates' }
@@ -274,6 +274,23 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView_WithParent [
 	^ aView
 ]
 
+{ #category : #'examples - text' }
+GtPhlowColumnedListViewExamples >> columnItemView [
+	<gtExample>
+	| aView anElement |
+	aView := GtPhlowView empty on: self perform: #gtTenItemsWithColumnItemsFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+	self assert: anElement items size equals: 10.
+	anElement forceLayout.
+	self assert: anElement look listElement childrenCount equals: 10.
+	self assert: (anElement look listElement childAt: 1) class equals: GtPhlowCellElement.
+	self assert: (anElement look listElement childAt: 1) content class equals: BrLabel.
+	self assert: (anElement look listElement childAt: 1) content text asString equals: 'Item number 1'.
+	^ aView
+]
+
 { #category : #'api-shortcuts' }
 GtPhlowColumnedListViewExamples >> emptyList [
 	<gtExample>
@@ -311,7 +328,7 @@ GtPhlowColumnedListViewExamples >> gtAutoUpdatingListFor: aView [
 		updateWhen: Announcement in: [ anAnnouncer ]
 ]
 
-{ #category : #accessing }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -332,7 +349,7 @@ GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconFor: aView [
 		column: 'Name' item: #name
 ]
 
-{ #category : #accessing }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconWidthFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -354,7 +371,7 @@ GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconWidthFor: aView [
 		column: 'Name' item: #name
 ]
 
-{ #category : #accessing }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtColorsWithColumnItemIconWidthFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -388,7 +405,7 @@ GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnItemFormatFor: aView [
 		column: 'x * x' item: [ :x | 4 * x * x ] text: [ :squared | 'Square ', squared asString ]
 ]
 
-{ #category : #accessing }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnItemFormatWidthFor: aView [
 	<gtView>
 	^ aView columnedList

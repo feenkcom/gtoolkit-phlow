@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowTreeViewExamples,
 	#superclass : #GtPhlowViewExamples,
-	#category : #'GToolkit-Phlow-Examples'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #'examples - auto updates' }

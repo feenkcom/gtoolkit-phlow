@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowViewExamples,
 	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Examples'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #testing }

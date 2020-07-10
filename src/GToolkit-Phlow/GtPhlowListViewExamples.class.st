@@ -4,7 +4,7 @@ I exemplify ${class:GtPhlowListView}$.
 Class {
 	#name : #GtPhlowListViewExamples,
 	#superclass : #GtPhlowViewExamples,
-	#category : #'GToolkit-Phlow-Examples'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #'examples - auto updates' }

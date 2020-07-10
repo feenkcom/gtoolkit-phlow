@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowForwarderViewExamples,
 	#superclass : #GtPhlowViewExamples,
-	#category : #'GToolkit-Phlow-Examples'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #'examples - composite' }

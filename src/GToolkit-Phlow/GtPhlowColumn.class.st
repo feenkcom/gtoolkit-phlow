@@ -94,13 +94,33 @@ GtPhlowColumn >> dataBinder: aBlockOrSymbol [
 ]
 
 { #category : #defaults }
+GtPhlowColumn >> defaultHeaderElementBuilder [
+	^ [ :aTitle :aPhlowColumn | self buildHeaderElementFor: aTitle forColumn: aPhlowColumn ]
+]
+
+{ #category : #defaults }
 GtPhlowColumn >> defaultItemComputation [
 	^ [ :eachItem :eachRowIndex :eachColumnIndex | eachItem ]
 ]
 
 { #category : #defaults }
+GtPhlowColumn >> defaultResizer [
+	^ BlLayoutResizer matchParent
+]
+
+{ #category : #defaults }
 GtPhlowColumn >> defaultTextStencil [
 	^ [ :anItem :aRowIndex :aColumnIndex :aBrLabel :aGtPhlowColumn | anItem ]
+]
+
+{ #category : #defaults }
+GtPhlowColumn >> defaultTitle [
+	^ 'Column'
+]
+
+{ #category : #defaults }
+GtPhlowColumn >> defaultWidth [
+	^ GtPhlowColumnProportionalWidth new
 ]
 
 { #category : #'scripting - deprecated' }
@@ -132,13 +152,12 @@ GtPhlowColumn >> icon: aBlockOrSymbol [
 { #category : #initialization }
 GtPhlowColumn >> initialize [
 	super initialize.
-	resizer := BlLayoutResizer matchParent.
-	title := 'Column'.
-	titleStencil := [ :aTitle :aPhlowColumn | self buildHeaderElementFor: aTitle forColumn: aPhlowColumn ].
+	title := self defaultTitle.
+	titleStencil := self defaultHeaderElementBuilder.
 	itemComputation := self defaultItemComputation.
-	width := BrColumnUndefinedWidth new.
-	self text: self defaultTextStencil.
-	
+	width := self defaultWidth.
+	resizer := self defaultResizer.
+	self text: self defaultTextStencil
 ]
 
 { #category : #'api - scripting cell content' }
@@ -159,13 +178,17 @@ GtPhlowColumn >> itemFormat: aBlockOrSymbol [
 	self text: aBlockOrSymbol
 ]
 
-{ #category : #'api - scripting cell content' }
+{ #category : #'scripting - deprecated' }
 GtPhlowColumn >> itemStencil: aRowStencil [
-	self rowStencil: aRowStencil
+	self 
+		deprecated: 'Please use #stencil: instead.'
+		transformWith: '`@receiver itemStencil: `@statements' -> '`@receiver stencil: `@statements'.
+	self stencil: aRowStencil
 ]
 
 { #category : #'api - scripting cell width' }
 GtPhlowColumn >> matchParent [
+	self weight: 1.
 	self resizer: BlLayoutResizer matchParent
 ]
 
@@ -187,7 +210,8 @@ GtPhlowColumn >> newItemLabel [
 
 { #category : #'api - scripting cell width' }
 GtPhlowColumn >> noResize [
-	resizer := nil
+	resizer := nil.
+	width := BrColumnUndefinedWidth new.
 ]
 
 { #category : #'private - accessing' }
@@ -225,8 +249,8 @@ GtPhlowColumn >> stencil: aBlock [
 				c vertical fitContent.
 				c horizontal matchParent ].
 		aCellWrapper ].
-	self dataBinder: [ :_ :aRowObject :aRowIndex :aRowHolder :aColumnIndex |
-		(aRowHolder columnElements at: aColumnIndex)
+	self dataBinder: [ :aCellWrapper :aRowObject :aRowIndex :aRowHolder :aColumnIndex |
+		aCellWrapper
 			removeChildren
 			addChild: (aBlock cull: aRowObject cull: aRowIndex cull: aColumnIndex) asElement ]
 ]
@@ -260,7 +284,7 @@ GtPhlowColumn >> titleStencil: aStencil [
 GtPhlowColumn >> weight: aNumber [
 	"Make a column match parent with a given proportion as a number (usually between 0 and 1)"
 
-	width := BrColumnProportionalWidth new weight: aNumber
+	width := GtPhlowColumnProportionalWidth new weight: aNumber
 ]
 
 { #category : #'api - scripting cell width' }
