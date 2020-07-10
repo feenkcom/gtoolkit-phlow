@@ -293,7 +293,7 @@ GtPhlowColumnedListViewExamples >> expectedElementClass [
 	^ BlElement
 ]
 
-{ #category : #'gt-extension' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtAutoUpdatingListFor: aView [
 	<gtView>
 	| aCollection anAnnouncer |
@@ -306,11 +306,56 @@ GtPhlowColumnedListViewExamples >> gtAutoUpdatingListFor: aView [
 		column: 'x' item: [ :x | x ];
 		column: 'x * x' item: [ :x | x * x ];
 		actionButtonIcon: BrGlamorousVectorIcons add 
+			tooltip: 'Add an item'
 			action: [ aCollection add: 100 atRandom. anAnnouncer announce: Announcement new ];
 		updateWhen: Announcement in: [ anAnnouncer ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnItemFormatFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'column:item:text: usage';
+		priority: 3;
+		items: [ 1 to: 10 ];
+		column: 'x' item: [ :x | 2 * x ] text: [ :x | 'Base ', x asString ];
+		column: 'x * x' item: [ :x | 4 * x * x ] text: [ :squared | 'Square ', squared asString ]
+]
+
+{ #category : #accessing }
+GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnItemFormatWidthFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'column:item:text:width: usage';
+		priority: 4;
+		items: [ 1 to: 10 ];
+		column: 'x' item: [ :x | x ] text: [ :x | 'Base ', x asString ] width: 100;
+		column: 'x * x' item: [ :x | x * x ] text: [ :squared | 'Square ', squared asString ] width: 100
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnItemsFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'column:item: usage';
+		priority: 1;
+		items: [ 1 to: 10 ];
+		column: 'x' item: [ :x | x ];
+		column: 'x * x' item: [ :x | x * x ]
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnTextFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'column:text: usage';
+		priority: 2;
+		items: [ 1 to: 10 ];
+		column: 'x' text: [ :x | 'Base ', x asString ];
+		column: 'x * x' text: [ :x | 'Square ', (x * x) asString ]
+]
+
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> myself [
 	<gtExample>
 	^ self
