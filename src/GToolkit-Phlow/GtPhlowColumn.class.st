@@ -29,11 +29,12 @@ GtPhlowColumn >> buildHeaderElement [
 ]
 
 { #category : #'private - building' }
-GtPhlowColumn >> buildHeaderElementFor: aText forColumn: aPhlowColumn [
+GtPhlowColumn >> buildHeaderElementFor: aText [
 	| aLabel |
 	aLabel := BrLabel new
 		look: BrGlamorousLabelLook;
 		alignCenterLeft;
+		padding: self newCellPaddingInsets;
 		text: (aText asRopedText foreground: BrGlamorousColors defaultButtonTextColor).
 	^ aLabel
 ]
@@ -74,7 +75,7 @@ GtPhlowColumn >> dataBinder: aBlockOrSymbol [
 
 { #category : #defaults }
 GtPhlowColumn >> defaultHeaderElementBuilder [
-	^ [ :aTitle :aPhlowColumn | self buildHeaderElementFor: aTitle forColumn: aPhlowColumn ]
+	^ [ :aTitle :aPhlowColumn | self buildHeaderElementFor: aTitle ]
 ]
 
 { #category : #defaults }
@@ -165,9 +166,9 @@ GtPhlowColumn >> itemStencil: aRowStencil [
 { #category : #'scripting - deprecated' }
 GtPhlowColumn >> matchParent [
 	self 
-		deprecated: 'Please use #width: instead.'
-		transformWith: '`@receiver matchParent' -> '`@receiver width: 1'.
-	self width: 1.
+		deprecated: 'Please use #weight: instead.'
+		transformWith: '`@receiver matchParent' -> '`@receiver weight: 1'.
+	self weight: 1.
 ]
 
 { #category : #'private - building' }

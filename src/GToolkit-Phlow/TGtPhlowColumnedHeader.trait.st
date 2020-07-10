@@ -7,7 +7,7 @@ Trait {
 TGtPhlowColumnedHeader >> buildHeaderForItems: theItems [
 	| aHeader |
 	aHeader := BlElement new.
-	aHeader layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: 10).
+	aHeader layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: 0).
 	aHeader padding: (BlInsets top: 5 bottom: 5).
 	aHeader labeled: 'Columned Header'.
 	aHeader constraintsDo: [ :c |

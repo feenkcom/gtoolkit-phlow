@@ -60,7 +60,16 @@ TGtPhlowErrorTolerantCell >> newCellContainer [
 	^ GtPhlowCellElement new
 		hMatchParent;
 		vFitContent;
-		padding: (BlInsets top: 3 left: 10 bottom: 3 right: 10)
+		padding: self newCellPaddingInsets
+]
+
+{ #category : #'private - building' }
+TGtPhlowErrorTolerantCell >> newCellPaddingInsets [
+	^ BlInsets
+		top: 0
+		left: 10
+		bottom: 0
+		right: 0
 ]
 
 { #category : #'private - errors' }
