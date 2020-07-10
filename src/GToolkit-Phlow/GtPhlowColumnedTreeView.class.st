@@ -1,6 +1,8 @@
 Class {
 	#name : #GtPhlowColumnedTreeView,
 	#superclass : #GtPhlowViewDecorator,
+	#traits : 'TGtPhlowColumnedHeader',
+	#classTraits : 'TGtPhlowColumnedHeader classTrait',
 	#instVars : [
 		'columns',
 		'transformation',
@@ -11,31 +13,44 @@ Class {
 	#category : #'GToolkit-Phlow-! Views'
 }
 
-{ #category : #converting }
+{ #category : #'api - converting' }
 GtPhlowColumnedTreeView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
+
 	| aContainer aHeader aTree theItems |
-
-	theItems := self itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
-
+	theItems := self
+		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	aContainer := self elementClass new.
-	aContainer constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
+	aContainer
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical matchParent ].
 	aContainer layout: BlLinearLayout vertical.
-	
-	aHeader := self newHeader.
-	aHeader addChildren: (self newColumnElementsForItems: theItems).
-
+	aHeader := self buildHeaderForItems: theItems.
 	aTree := self columnedTreeClass new.
-	
-	self 
-		performBlock: [ aTree items: theItems children: self childrenBuilder ] 
+	self
+		performBlock: [ aTree items: theItems children: self childrenBuilder ]
 		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
-	
-	aTree addEventHandler: (GtPhlowListToSelectHandler new transformation: [ :aNode | self send value: aNode value ]).
-	
+	aTree
+		addEventHandler:
+			(GtPhlowListToSelectHandler new
+				transformation: [ :aNode | self send value: aNode value ]).
+	self buildColumnsInTree: aTree.
+	self expandTree: aTree.
+	aContainer
+		addChildren:
+			{aHeader.
+			aTree}.
+	self beViewElement: aContainer.
+	^ aBlock value: aContainer
+]
+
+{ #category : #'private - building' }
+GtPhlowColumnedTreeView >> buildColumnsInTree: aTree [
 	columns
+		do: [ :eachPhlowColumn | 
+			eachPhlowColumn configureColumn: aTree column ].
+	"columns
 		do: [ :eachPhlowColumn | 
 			aTree column
 				title: eachPhlowColumn title;
@@ -54,15 +69,7 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 								dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
 							aRowElement
 								dispatchEvent: BrLayoutVerticalResizerWish matchParent ].
-					aRowElement ] ].
-
-	self expandTree: aTree.
-
-	aContainer addChildren: { aHeader. aTree }.
-	
-	self beViewElement: aContainer.
-
-	^ aBlock value: aContainer
+					aRowElement ] ]"
 ]
 
 { #category : #accessing }
@@ -80,7 +87,7 @@ GtPhlowColumnedTreeView >> collapseAll [
 	expandUpTo := nil.
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting column' }
 GtPhlowColumnedTreeView >> column [
 	<return: #GtPhlowColumn>
 	| aColumn |
@@ -90,7 +97,7 @@ GtPhlowColumnedTreeView >> column [
 	^ aColumn
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting column' }
 GtPhlowColumnedTreeView >> column: aTitleString do: aBlock [
 	| aColumn |
 	aColumn := self column.
@@ -98,12 +105,16 @@ GtPhlowColumnedTreeView >> column: aTitleString do: aBlock [
 	aBlock value: aColumn
 ]
 
-{ #category : #accessing }
+{ #category : #'scripting - deprecated' }
 GtPhlowColumnedTreeView >> column: aTitleString evaluated: aBlock [
+	self 
+		deprecated: 'Please use #column:item: instead.'
+		transformWith: '`@receiver column: `@one evaluated: `@two' 
+			-> '`@receiver column: `@one item: `@two'.
 	^ self column: aTitleString item: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting column' }
 GtPhlowColumnedTreeView >> column: aTitleString format: aBlock [
 	| aColumn |
 	aColumn := self column.
@@ -111,7 +122,7 @@ GtPhlowColumnedTreeView >> column: aTitleString format: aBlock [
 	aColumn text: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting column' }
 GtPhlowColumnedTreeView >> column: aTitleString format: aBlock width: aNumber [
 	| aColumn |
 	aColumn := self column.
@@ -120,7 +131,7 @@ GtPhlowColumnedTreeView >> column: aTitleString format: aBlock width: aNumber [
 	aColumn width: aNumber.
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting column' }
 GtPhlowColumnedTreeView >> column: aTitleString item: aBlock [
 	| aColumn |
 	aColumn := self column.
@@ -128,7 +139,7 @@ GtPhlowColumnedTreeView >> column: aTitleString item: aBlock [
 	aColumn item: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting column' }
 GtPhlowColumnedTreeView >> column: aTitleString item: anItemComputation format: aFormatBlocOrSymbol [
 	| aColumn |
 	aColumn := self column.
@@ -137,7 +148,7 @@ GtPhlowColumnedTreeView >> column: aTitleString item: anItemComputation format: 
 	aColumn itemFormat: aFormatBlocOrSymbol
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting column' }
 GtPhlowColumnedTreeView >> column: aTitleString item: anItemComputation format: aFormatBlocOrSymbol width: aNumber [
 	| aColumn |
 	aColumn := self column.
@@ -147,7 +158,7 @@ GtPhlowColumnedTreeView >> column: aTitleString item: anItemComputation format: 
 	aColumn width: aNumber.
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting column' }
 GtPhlowColumnedTreeView >> column: aTitleString item: aBlock width: aNumber [
 	| aColumn |
 	aColumn := self column.
@@ -156,9 +167,15 @@ GtPhlowColumnedTreeView >> column: aTitleString item: aBlock width: aNumber [
 	aColumn width: aNumber.
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 GtPhlowColumnedTreeView >> columnedTreeClass [
 	^ BrColumnedTree
+]
+
+{ #category : #'private - accessing' }
+GtPhlowColumnedTreeView >> columns [
+	<return: #Collection of: #GtPhlowColumn>
+	^ columns
 ]
 
 { #category : #copying }
@@ -167,7 +184,7 @@ GtPhlowColumnedTreeView >> copySendFrom: aSendBlock [
 	self send: aSendBlock
 ]
 
-{ #category : #deprecated }
+{ #category : #'scripting - deprecated' }
 GtPhlowColumnedTreeView >> display: aBlock [
 	self 
 		deprecated: 'Please use #items: instead.'
@@ -175,7 +192,7 @@ GtPhlowColumnedTreeView >> display: aBlock [
 	self items: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 GtPhlowColumnedTreeView >> elementClass [
 	^ BlElement
 ]

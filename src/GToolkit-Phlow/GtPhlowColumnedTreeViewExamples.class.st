@@ -80,6 +80,7 @@ GtPhlowColumnedTreeViewExamples >> gtAutoUpdatingTreeFor: aView [
 	anAnnouncer := Announcer new.
 	^ aView columnedTree
 		title: 'Auto Updating Tree';
+		priority: 15;
 		items: [ aCollection ];
 		children: [ :aNumber | aNumber // 2 to: aNumber ];
 		column: 'x' item: [ :aNumber | aNumber ];
@@ -87,6 +88,18 @@ GtPhlowColumnedTreeViewExamples >> gtAutoUpdatingTreeFor: aView [
 		actionButtonIcon: BrGlamorousVectorIcons add 
 			action: [ aCollection add: 100 atRandom. anAnnouncer announce: Announcement new ];
 		updateWhen: Announcement in: [ anAnnouncer ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowColumnedTreeViewExamples >> gtNumbersFor: aView [
+	<gtView>
+	^ aView columnedTree
+		title: 'Numbers';
+		priority: 1;
+		items: [ 1 to: 10 ];
+		children: [ :aNumber | aNumber // 2 to: aNumber ];
+		column: 'x' item: [ :aNumber | aNumber ];
+		column: 'x * x' item: [ :aNumber | aNumber * aNumber ]
 ]
 
 { #category : #'gt-extension' }
