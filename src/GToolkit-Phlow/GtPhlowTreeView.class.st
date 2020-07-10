@@ -77,7 +77,7 @@ GtPhlowTreeView >> display: aBlock [
 
 { #category : #accessing }
 GtPhlowTreeView >> elementClass [
-	^ BrSimpleTree
+	^ BrColumnedTree
 ]
 
 { #category : #'expanding-collapsing' }
