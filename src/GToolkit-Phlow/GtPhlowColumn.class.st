@@ -205,9 +205,12 @@ GtPhlowColumn >> rowStencil [
 	^ rowStencil
 ]
 
-{ #category : #'api - scripting cell content' }
+{ #category : #'scripting - deprecated' }
 GtPhlowColumn >> rowStencil: aRowStencil [
-	rowStencil := aRowStencil
+	self 
+		deprecated: 'Please use #stencil: instead.'
+		transformWith: '`@receiver rowStencil: `@statements' -> '`@receiver stencil: `@statements'.
+	self stencil: aRowStencil
 ]
 
 { #category : #'api - scripting cell content' }
