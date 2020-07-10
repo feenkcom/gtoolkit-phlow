@@ -8,6 +8,8 @@ The following object displays several examples. You can ==ALT+CLICK== on tab nam
 Class {
 	#name : #GtPhlowListView,
 	#superclass : #GtPhlowViewDecorator,
+	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:}',
+	#classTraits : 'TGtPhlowErrorTolerantCell classTrait',
 	#instVars : [
 		'itemsBuilder',
 		'itemStencil',
@@ -57,53 +59,6 @@ GtPhlowListView >> elementClass [
 	^ BrSimpleList
 ]
 
-{ #category : #'private - errors' }
-GtPhlowListView >> errorTreatedItemDataBinderFor: aBlockOrSymbol [
-	 ^ [ :aContainer :anItemObject :anItemIndex |
-			self 
-				performBlock: [ 
-					aBlockOrSymbol glamourValueWithArgs: { aContainer content. anItemObject. anItemIndex. self }.
-					aContainer removeException; showContent. ]
-				onException: [ :anException | 
-					| anElement |
-					anElement := anException asDebuggableElement vFitContent; hMatchParent.
-					aContainer exception: anElement. ].
-			aContainer ]
-]
-
-{ #category : #'private - errors' }
-GtPhlowListView >> errorTreatedItemStencilFor: aBlockOrSymbol [
-	 ^ [ :anItemType |
-			| aContainer |
-			aContainer := self newLineContainer.
-			(anItemType class = GtPhlowExceptionItemType) 
-				ifTrue: [ 
-					| anElement |
-					anElement := anItemType exception asDebuggableElement vFitContent; hMatchParent.
-					aContainer exception: anElement ]
-				ifFalse: [ 
-					self 
-						performBlock: [ 
-							| anElement |
-							anElement := aBlockOrSymbol glamourValueWithArgs: { anItemType. self }.
-							aContainer content: anElement. ]
-						onException: [ :anException | 
-							| anElement |
-							anElement := anException asDebuggableElement vFitContent; hMatchParent.
-							aContainer exception: anElement. ] ].
-			aContainer ]
-]
-
-{ #category : #'private - errors' }
-GtPhlowListView >> errorTreatedItemTypeFor: aBlockOrSymbol [
-	 ^ [ :anItemTypeFactory :anItemObject :anItemIndex |
-			self 
-				performBlock: [ 
-					aBlockOrSymbol glamourValueWithArgs: { anItemTypeFactory. anItemObject. anItemIndex. self } ]
-				onException: [ :anException |
-					GtPhlowExceptionItemType exception: anException freezeOrWithoutContext ] ]
-]
-
 { #category : #'scripting - deprecated' }
 GtPhlowListView >> format: aBlockOrSymbol [
 	self 
@@ -136,7 +91,7 @@ GtPhlowListView >> itemDataBinder [
 { #category : #'api - scripting' }
 GtPhlowListView >> itemDataBinder: aBrListItemDataBinderOrBlock [
 	"An item type stencil can be a #value-able of the form [ :anItemElement :anItemObject :anItemIndex | ]"
-	itemDataBinder := self errorTreatedItemDataBinderFor: aBrListItemDataBinderOrBlock.
+	itemDataBinder := self errorTreatedCellDataBinderFor: aBrListItemDataBinderOrBlock.
 ]
 
 { #category : #'scripting - deprecated' }
@@ -164,7 +119,7 @@ GtPhlowListView >> itemFormat: aBlockOrSymbol [
 GtPhlowListView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 	"An item element stencil can be a #value-able of the form [ :anItemType :aListWidget | ]"
 
-	itemStencil := self errorTreatedItemStencilFor: aBrListItemElementStencilBuilderOrBlock.
+	itemStencil := self errorTreatedCellStencilFor: aBrListItemElementStencilBuilderOrBlock.
 ]
 
 { #category : #'api - scripting' }
@@ -181,7 +136,7 @@ GtPhlowListView >> itemType: aBrListItemTypeStencilBuilderOrBlock [
 	"An item type stencil can be a #value-able of the form [ :anItemTypeFactory :anItemObject :anItemIndex | ].
 	==anItemTypeFactory== is a ${class:BrListItemType class}$"
 
-	itemTypeStencil := self errorTreatedItemTypeFor: aBrListItemTypeStencilBuilderOrBlock.
+	itemTypeStencil := self errorTreatedCellTypeFor: aBrListItemTypeStencilBuilderOrBlock.
 ]
 
 { #category : #'private - accessing' }
@@ -210,28 +165,11 @@ GtPhlowListView >> itemsOnExceptionErrorElement: aBlock [
 ]
 
 { #category : #'private - building' }
-GtPhlowListView >> newItemElementPadding [
-	^ BlInsets
-		top: 3
-		left: 10
-		bottom: 3
-		right: 10
-]
-
-{ #category : #'private - building' }
 GtPhlowListView >> newItemLabel [
 	^ BrLabel new
 		look: BrGlamorousListLabelLook;
 		hMatchParent;
 		vFitContent
-]
-
-{ #category : #'private - building' }
-GtPhlowListView >> newLineContainer [
-	^ GtPhlowCellElement new
-		hMatchParent;
-		vFitContent;
-		padding: (BlInsets top: 3 left: 10 bottom: 3 right: 10)
 ]
 
 { #category : #'private - accessing' }

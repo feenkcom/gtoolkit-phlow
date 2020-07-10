@@ -1,6 +1,13 @@
+"
+I keep information to configure ${class:BrColumn}$ instances.
+I am used by ${class:GtPhlowColumnedListView}$ and ${class:GtPhlowColumnedTreeView}$.
+
+"
 Class {
 	#name : #GtPhlowColumn,
 	#superclass : #Object,
+	#traits : 'TGtPhlowErrorTolerantCell - {#errorTreatedCellTypeFor:}',
+	#classTraits : 'TGtPhlowErrorTolerantCell classTrait',
 	#instVars : [
 		'resizer',
 		'rowStencil',
@@ -51,7 +58,7 @@ GtPhlowColumn >> cellStencil [
 
 { #category : #'api - scripting cell content' }
 GtPhlowColumn >> cellStencil: aBlockOrSymbol [
-	cellStencil := aBlockOrSymbol
+	cellStencil := self errorTreatedCellStencilFor: aBlockOrSymbol
 ]
 
 { #category : #'private - accessing' }
@@ -90,7 +97,7 @@ GtPhlowColumn >> dataBinder [
 
 { #category : #'api - scripting cell content' }
 GtPhlowColumn >> dataBinder: aBlockOrSymbol [ 
-	dataBinder := aBlockOrSymbol
+	dataBinder := self errorTreatedCellDataBinderFor: aBlockOrSymbol
 ]
 
 { #category : #defaults }

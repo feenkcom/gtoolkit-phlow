@@ -1,3 +1,6 @@
+"
+I exemplify ${class:GtPhlowColumnedListView}$. 
+"
 Class {
 	#name : #GtPhlowColumnedListViewExamples,
 	#superclass : #GtPhlowViewExamples,
@@ -305,6 +308,141 @@ GtPhlowColumnedListViewExamples >> emptyList [
 	^ view
 ]
 
+{ #category : #'examples - errors' }
+GtPhlowColumnedListViewExamples >> errorInColumnDoCellStencil [
+	<gtExample> 
+	| aView anElement aColumnedList aCellElement |
+	aView := GtPhlowView empty on: self perform: #gtErrorInColumnDoCellStencilFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+	aColumnedList := anElement childAt: 2.
+	self assert: aColumnedList items size equals: 1000.
+	anElement forceLayout.
+	
+	aCellElement := (aColumnedList look listElement childAt: 1) childAt: 1.
+
+	self assert: aCellElement class equals: GtPhlowCellElement.
+	self assert: aCellElement content isNil.
+	self assert: aCellElement exception isNotNil.
+	self assert: aCellElement exception visibility isVisible.
+	^ aView
+]
+
+{ #category : #'examples - errors' }
+GtPhlowColumnedListViewExamples >> errorInColumnDoDataBinder [
+	<gtExample> 
+	| aView anElement aColumnedList aCellElement |
+	aView := GtPhlowView empty on: self perform: #gtErrorInColumnDoDataBinderFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+	aColumnedList := anElement childAt: 2.
+	self assert: aColumnedList items size equals: 1000.
+	anElement forceLayout.
+
+	aCellElement := (aColumnedList look listElement childAt: 1) childAt: 1.
+
+	self assert: aCellElement class equals: GtPhlowCellElement.
+	self assert: aCellElement content isNotNil.
+	self assert: aCellElement content visibility isVisible.
+	self assert: aCellElement exception isNil.
+
+	aCellElement := (aColumnedList look listElement childAt: 3) childAt: 1.
+
+	self assert: aCellElement class equals: GtPhlowCellElement.
+	self assert: aCellElement content isNotNil.
+	self assert: aCellElement content visibility isGone.
+	self assert: aCellElement exception isNotNil.
+	self assert: aCellElement exception visibility isVisible.
+	^ aView
+]
+
+{ #category : #'examples - errors' }
+GtPhlowColumnedListViewExamples >> errorInColumnIcon [
+	<gtExample> 
+	| aView anElement aColumnedList aCellElement |
+	aView := GtPhlowView empty on: self perform: #gtErrorInColumnIcon:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+	aColumnedList := anElement childAt: 2.
+	self assert: aColumnedList items size > 3.
+	anElement forceLayout.
+
+	aCellElement := (aColumnedList look listElement childAt: 1) childAt: 1.
+
+	self assert: aCellElement class equals: GtPhlowCellElement.
+	self assert: aCellElement content isNotNil.
+	self assert: aCellElement content visibility isVisible.
+	self assert: aCellElement exception isNil.
+
+	aCellElement := (aColumnedList look listElement childAt: 3) childAt: 1.
+
+	self assert: aCellElement class equals: GtPhlowCellElement.
+	self assert: aCellElement content isNotNil.
+	self assert: aCellElement content visibility isGone.
+	self assert: aCellElement exception isNotNil.
+	self assert: aCellElement exception visibility isVisible.
+
+	aCellElement := (aColumnedList look listElement childAt: 3) childAt: 2.
+
+	self assert: aCellElement class equals: GtPhlowCellElement.
+	self assert: aCellElement content isNotNil.
+	self assert: aCellElement content visibility isVisible.
+	self assert: aCellElement exception isNil.
+
+	^ aView
+]
+
+{ #category : #'examples - errors' }
+GtPhlowColumnedListViewExamples >> errorInColumnText [
+	<gtExample> 
+	| aView anElement aColumnedList aCellElement |
+	aView := GtPhlowView empty on: self perform: #gtErrorInColumnTextFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+	aColumnedList := anElement childAt: 2.
+	self assert: aColumnedList items size equals: 1000.
+	anElement forceLayout.
+
+	aCellElement := (aColumnedList look listElement childAt: 1) childAt: 1.
+
+	self assert: aCellElement class equals: GtPhlowCellElement.
+	self assert: aCellElement content isNotNil.
+	self assert: aCellElement content visibility isVisible.
+	self assert: aCellElement exception isNil.
+
+	aCellElement := (aColumnedList look listElement childAt: 3) childAt: 1.
+
+	self assert: aCellElement class equals: GtPhlowCellElement.
+	self assert: aCellElement content isNotNil.
+	self assert: aCellElement content visibility isGone.
+	self assert: aCellElement exception isNotNil.
+	self assert: aCellElement exception visibility isVisible.
+
+	aCellElement := (aColumnedList look listElement childAt: 3) childAt: 2.
+
+	self assert: aCellElement class equals: GtPhlowCellElement.
+	self assert: aCellElement content isNotNil.
+	self assert: aCellElement content visibility isVisible.
+	self assert: aCellElement exception isNil.
+
+	^ aView
+]
+
+{ #category : #'examples - errors' }
+GtPhlowColumnedListViewExamples >> errorInItems [
+	<gtExample> 
+	| aView anElement |
+	aView := GtPhlowView empty on: self perform: #gtErrorInItemsFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: BrFrame inView: aView.
+	^ aView
+]
+
 { #category : #'examples - element' }
 GtPhlowColumnedListViewExamples >> expectedElementClass [
 	^ BlElement
@@ -319,6 +457,7 @@ GtPhlowColumnedListViewExamples >> gtAutoUpdatingListFor: aView [
 	anAnnouncer := Announcer new.
 	^ aView columnedList
 		title: 'Auto Updating List';
+		priority: 15;
 		items: [ aCollection ];
 		column: 'x' item: [ :x | x ];
 		column: 'x * x' item: [ :x | x * x ];
@@ -392,6 +531,94 @@ GtPhlowColumnedListViewExamples >> gtColorsWithColumnItemIconWidthFor: aView [
 						c vertical fitContent ] ] 
 			width: 36;
 		column: 'Name' item: #name
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtErrorInColumnDoCellStencilFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Error in cellStencil:';
+		priority: 21;
+		items: [ (1 to: 1000) ];
+		column: 'Rectangle' do: [ :aColumn |
+			aColumn
+				cellStencil: [ 
+					ZeroDivide signal: 'cellStencil: error'. 
+					BlElement new 
+						background: Color orange; 
+						size: 10 @ 10; 
+						constraintsDo: [ :c | 
+							c horizontal matchParent.
+							c margin: (BlInsets all: 10) ] ];
+				dataBinder: [ :anElement :aNumber :anIndex |
+					anElement height: aNumber ] ]
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtErrorInColumnDoDataBinderFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Error in dataBinder:';
+		priority: 22;
+		items: [ (1 to: 1000) ];
+		column: 'Rectangle' do: [ :aColumn |
+			aColumn
+				cellStencil: [ 
+					BlElement new 
+						background: Color orange; 
+						size: 10 @ 10; 
+						constraintsDo: [ :c | 
+							c horizontal matchParent.
+							c margin: (BlInsets all: 10) ] ];
+				dataBinder: [ :anElement :aNumber :anIndex |
+					aNumber = 3 ifTrue: [ ZeroDivide signal: 'cellStencil: error'. ].
+					anElement height: aNumber ] ]
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtErrorInColumnIcon: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Error in column:icon:';
+		priority: 25;
+		items: [ self registeredColors ];
+		column: 'Icon' 
+			icon: [ :aColor :aRowIndex |
+				aRowIndex = 3 ifTrue: [ ZeroDivide signal: 'column:icon: error'. ].
+				BlElement new
+					padding: (BlInsets all: 6);
+					margin: (BlInsets top: 3 left: 0 bottom: 3 right: 0);
+					background: aColor;
+					geometry: BlCircle new;
+					layout: BlLinearLayout horizontal alignCenter;
+					constraintsDo: [ :c |
+						c horizontal fitContent.
+						c vertical fitContent ] ];
+		column: 'Name' item: #name
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtErrorInColumnTextFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Error in column:text:';
+		priority: 24;
+		items: [ (1 to: 1000) ];
+		column: 'x' text: [ :x | 
+			x = 3 ifTrue: [ ZeroDivide signal: 'column:text: error' ].
+			'Base ', x asString ];
+		column: 'x * x' text: [ :x | 'Square ', (x * x) asString ]
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtErrorInItemsFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Error in items:';
+		priority: 20;
+		items: [ ZeroDivide signal: 'items: error'. (1 to: 1000) ];
+		column: 'x' text: [ :x | 'Base ', x asString ];
+		column: 'x * x' text: [ :x | 'Square ', (x * x) asString ]
 ]
 
 { #category : #'gt-extensions' }
