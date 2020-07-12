@@ -25,7 +25,7 @@ ${example:GtPhlowColumnedListViewExamples>>#viewWithItems|previewHeight=150|prev
 Class {
 	#name : #GtPhlowViewMixedExamples,
 	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Examples'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #updating }

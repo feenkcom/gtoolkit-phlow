@@ -1,6 +1,15 @@
+"
+I represent a columned list view.
+I create ${class:BrColumnedList}$ to display items. 
+!! Examples 
+The following object displays several examples. You can ==ALT+CLICK== on tab names to display their definitions: ${example:GtPhlowColumnedListViewExamples>>#myself|noCode=true}$  
+ 
+"
 Class {
 	#name : #GtPhlowColumnedListView,
 	#superclass : #GtPhlowViewDecorator,
+	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts',
+	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait',
 	#instVars : [
 		'columns',
 		'transformation',
@@ -9,7 +18,7 @@ Class {
 	#category : #'GToolkit-Phlow-! Views'
 }
 
-{ #category : #converting }
+{ #category : #'api - converting' }
 GtPhlowColumnedListView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 
@@ -18,6 +27,7 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	aContainer := self elementClass new.
 	aContainer
+		labeled: 'Columned List Container';
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
@@ -40,11 +50,14 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	^ aBlock value: aContainer
 ]
 
-{ #category : #private }
+{ #category : #'private - building' }
 GtPhlowColumnedListView >> buildColumnsInList: aList [
 	columns do: [ :eachPhlowColumn |
-		aList column
+		eachPhlowColumn configureColumn: aList column ]
+		"aList column
 			title: eachPhlowColumn title;
+			cellStencil: eachPhlowColumn cellStencil;
+			dataBinder: eachPhlowColumn dataBinder;
 			stencil: [ :eachItem :eachIndex |
 				| aRowElement |
 
@@ -54,68 +67,13 @@ GtPhlowColumnedListView >> buildColumnsInList: aList [
 				eachPhlowColumn resizer ifNotNil: [ :aLayoutResizer |
 					aRowElement constraintsDo: [ :c |
 						c horizontal resizer: aLayoutResizer.
-						c vertical matchParent ].
+						c vertical fitContent ].
 					aRowElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
-					aRowElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
-				aRowElement ] ].
+					aRowElement dispatchEvent: (BrLayoutVerticalResizerWish fitContent) ].
+				aRowElement ] ]."
 ]
 
-{ #category : #private }
-GtPhlowColumnedListView >> buildHeaderForItems: theItems [
-	| aHeader |
-	aHeader := BlElement new.
-	aHeader layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: 10).
-	aHeader padding: (BlInsets top: 5 bottom: 5).
-	aHeader constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical fitContent ].
-	self buildHeaderItems: theItems inHeader: aHeader.
-	^ aHeader
-]
-
-{ #category : #private }
-GtPhlowColumnedListView >> buildHeaderItems: theItems inHeader: aHeader [
-
-	aHeader addChildren: (columns collect: [ :eachColumn |
-		| aWrapper aLabel aScaledLabel |
-		
-		aWrapper := BlElement new.
-		aWrapper layout: BlLinearLayout vertical.
-		aWrapper constraintsDo: [ :c |
-			c horizontal fitContent.
-			c vertical matchParent ].
-		
-		aLabel := eachColumn createHeaderRowElement.
-
-		aScaledLabel := aLabel asScalableElement.
-		aScaledLabel maxScale: 1.
-		aScaledLabel constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical matchParent.
-			c ignoreByLayout ].
-		
-		theItems ifNotEmpty: [
-			| aRowElement  |
-			aRowElement := self performBlock: [ 
-				eachColumn createRowElementFor: theItems first atIndex: 1 ].
-			aRowElement visibility: BlVisibility hidden.
-
-			eachColumn resizer ifNotNil: [ :aLayoutResizer |
-				aRowElement constraintsDo: [ :c |
-					c horizontal resizer: aLayoutResizer.
-					c vertical matchParent ].
-				aWrapper constraintsDo: [ :c | c horizontal resizer: aLayoutResizer ].
-				aRowElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
-				aRowElement dispatchEvent: (BrLayoutVerticalResizerWish matchParent) ].
-			
-			aWrapper addChild: aRowElement	].
-		
-		aWrapper addChild: aScaledLabel.
-		aWrapper
-	]).
-]
-
-{ #category : #accessing }
+{ #category : #'api - scripting column' }
 GtPhlowColumnedListView >> column [
 	<return: #GtPhlowColumn>
 	| aColumn |
@@ -125,75 +83,15 @@ GtPhlowColumnedListView >> column [
 	^ aColumn
 ]
 
-{ #category : #accessing }
-GtPhlowColumnedListView >> column: aTitleString do: aBlock [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aBlock value: aColumn
-]
-
-{ #category : #accessing }
-GtPhlowColumnedListView >> column: aTitleString evaluated: aBlock [
-	^ self column: aTitleString item: aBlock
-]
-
-{ #category : #accessing }
-GtPhlowColumnedListView >> column: aTitleString format: aBlock [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn itemFormat: aBlock
-]
-
-{ #category : #accessing }
-GtPhlowColumnedListView >> column: aTitleString format: aBlock width: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn itemFormat: aBlock.
-	aColumn width: aNumber.
-]
-
-{ #category : #accessing }
-GtPhlowColumnedListView >> column: aTitleString item: aBlock [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: aBlock
-]
-
-{ #category : #accessing }
-GtPhlowColumnedListView >> column: aTitleString item: anItemComputation format: aFormatBlocOrSymbol [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: anItemComputation.
-	aColumn itemFormat: aFormatBlocOrSymbol
-]
-
-{ #category : #accessing }
-GtPhlowColumnedListView >> column: aTitleString item: anItemComputation format: aFormatBlocOrSymbol width: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: anItemComputation.
-	aColumn itemFormat: aFormatBlocOrSymbol.
-	aColumn width: aNumber.
-]
-
-{ #category : #accessing }
-GtPhlowColumnedListView >> column: aTitleString item: aBlock width: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: aBlock.
-	aColumn width: aNumber.
-]
-
-{ #category : #testing }
+{ #category : #'private - testing' }
 GtPhlowColumnedListView >> columnedListClass [
 	^ BrColumnedList
+]
+
+{ #category : #'private - accessing' }
+GtPhlowColumnedListView >> columns [
+	<return: #Collection of: #GtPhlowColumn>
+	^ columns
 ]
 
 { #category : #copying }
@@ -202,7 +100,7 @@ GtPhlowColumnedListView >> copySendFrom: aSendBlock [
 	self send: aSendBlock
 ]
 
-{ #category : #deprecated }
+{ #category : #'scripting - deprecated' }
 GtPhlowColumnedListView >> display: aBlock [
 	self 
 		deprecated: 'Please use #items: instead.'
@@ -210,7 +108,7 @@ GtPhlowColumnedListView >> display: aBlock [
 	self items: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 GtPhlowColumnedListView >> elementClass [
 	^ BlElement
 ]
@@ -224,7 +122,7 @@ GtPhlowColumnedListView >> initialize [
 	transformation := [ :aValue | "by default there is no transformation" aValue ].
 ]
 
-{ #category : #testing }
+{ #category : #'private - testing' }
 GtPhlowColumnedListView >> isExpectedElement: aCurrentElement [
 	aCurrentElement class = self elementClass ifFalse: [ ^ false ].
 	aCurrentElement childrenCount = 2 ifFalse: [ ^ false ].
@@ -232,12 +130,12 @@ GtPhlowColumnedListView >> isExpectedElement: aCurrentElement [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting' }
 GtPhlowColumnedListView >> items: aValuable [
 	itemsBuilder := aValuable
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 GtPhlowColumnedListView >> itemsBuilder [
 	^ itemsBuilder
 ]
@@ -250,12 +148,12 @@ GtPhlowColumnedListView >> itemsOnExceptionErrorElement: aBlock [
 			aBlock value: anElement ].
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 GtPhlowColumnedListView >> send [
 	^ transformation
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting' }
 GtPhlowColumnedListView >> send: aBlock [
 	self
 		assert: [ aBlock notNil ]
@@ -272,7 +170,7 @@ GtPhlowColumnedListView >> send: aBlock [
 	transformation := aBlock
 ]
 
-{ #category : #updating }
+{ #category : #'api - updating' }
 GtPhlowColumnedListView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 	
