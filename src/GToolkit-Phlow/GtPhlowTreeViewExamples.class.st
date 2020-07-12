@@ -115,7 +115,7 @@ GtPhlowTreeViewExamples >> emptyTree [
 
 { #category : #'examples - element' }
 GtPhlowTreeViewExamples >> expectedElementClass [
-	^ BrColumnedTree
+	^ BrSimpleTree
 ]
 
 { #category : #'gt-extension' }
