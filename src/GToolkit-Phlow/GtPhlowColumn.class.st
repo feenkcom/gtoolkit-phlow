@@ -215,7 +215,12 @@ GtPhlowColumn >> rowStencil: aRowStencil [
 
 { #category : #'api - scripting cell content' }
 GtPhlowColumn >> stencil: aBlock [
-	"aStencil is a BlockClosure of type [ :aRowObject :aRowIndex :aCellIndex ]"
+	"I am a part of the `toy` api. It is inefficient to use me because I always create a new
+	element for each new cell which may be expensive. It is much better to split it in two (or three)
+	steps:
+		- cell element creation using #cellStencil: (the items are reused when they go out of the viewport)
+		- data binding using #dataBinder: (to update just a part of the reused item element).
+	aStencil is a BlockClosure of type [ :aRowObject :aRowIndex :aCellIndex ]"
 
 	self cellStencil: [
 		| aCellWrapper |

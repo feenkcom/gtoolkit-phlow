@@ -82,13 +82,10 @@ GtPhlowTableView >> columnedListView [
 
 	1 to: columnCount do: [ :c |
 		view
-			column: c asString do: [ :aColumn |
-				aColumn
-					item: [ :each |
+			column: c asString item: [ :each |
 						(self cellAccessorBlock value: each value: c)
 							ifNil: [ '' ]
-							ifNotNil: [ :v | v asString ] ];
-					matchParent ] ].
+							ifNotNil: [ :v | v asString ] ] ].
 
 	^ view
 ]

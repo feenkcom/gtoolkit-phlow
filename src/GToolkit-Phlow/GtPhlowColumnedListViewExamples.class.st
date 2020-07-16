@@ -700,16 +700,8 @@ GtPhlowColumnedListViewExamples >> viewWithItems [
 	| view element |
 	view := self emptyList
 		items: [ 1 to: 100 ];
-		column: 'x'
-			do: [ :column | 
-			column
-				item: [ :number | number ];
-				weight: 1 ];
-		column: 'x * 2' translated
-			do: [ :column | 
-			column
-				item: [ :number | number * 2 ];
-				weight: 1 ].
+		column: 'x' item: [ :number | number ];
+		column: 'x * 2' translated item: [ :number | number * 2 ].
 	view asElementDo: [ :el | element := el ].
 	self assert: element children second items size = 100.
 	^ view
@@ -721,10 +713,7 @@ GtPhlowColumnedListViewExamples >> viewWithItemsWithColumnCreationError [
 	| view element |
 	view := self viewWithItems
 		column: 'Error' translated
-		do: [ :column | 
-			column
-				item: [ :number | number * 4 / 0 ];
-				weight: 1 ].
+		item: [ :number | number * 4 / 0 ].
 	view asElementDo: [ :el | element := el ].
 	self assert: element children second items size = 100.
 	^ view
