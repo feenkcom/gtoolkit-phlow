@@ -108,6 +108,16 @@ TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aFor
 ]
 
 { #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol weight: aNumber [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn item: anItemComputation.
+	aColumn text: aFormatBlocOrSymbol.
+	aColumn weight: aNumber.
+]
+
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol width: aNumber [
 	| aColumn |
 	aColumn := self column.
@@ -115,6 +125,15 @@ TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aFor
 	aColumn item: anItemComputation.
 	aColumn text: aFormatBlocOrSymbol.
 	aColumn width: aNumber.
+]
+
+{ #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString item: aBlock weight: aNumber [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn item: aBlock.
+	aColumn weight: aNumber.
 ]
 
 { #category : #'api - scripting column' }
@@ -132,6 +151,15 @@ TGtPhlowColumnScripts >> column: aTitleString text: aBlock [
 	aColumn := self column.
 	aColumn title: aTitleString.
 	aColumn text: aBlock
+]
+
+{ #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString text: aBlock weight: aNumber [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn text: aBlock.
+	aColumn weight: aNumber.
 ]
 
 { #category : #'api - scripting column' }
