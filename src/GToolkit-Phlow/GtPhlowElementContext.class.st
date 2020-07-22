@@ -244,7 +244,9 @@ GtPhlowElementContext >> replaceEntity: aNewPhlow [
 
 { #category : #'api - events' }
 GtPhlowElementContext >> selectObject: anObject [
-	self selectTool: (GtPhlowTool default object: anObject)
+	(anObject isKindOf: GtPhlowAbstractTool)
+		ifTrue: [ self selectTool: anObject ]
+		ifFalse: [ self selectTool: (GtPhlowTool default object: anObject) ]
 ]
 
 { #category : #'api - events' }
@@ -262,7 +264,9 @@ GtPhlowElementContext >> spawnDefiningMethod [
 
 { #category : #'api - events' }
 GtPhlowElementContext >> spawnObject: anObject [
-	self spawnTool: (GtPhlowTool default object: anObject)
+	(anObject isKindOf: GtPhlowAbstractTool)
+		ifTrue: [ self spawnTool: anObject ]
+		ifFalse: [ self spawnTool: (GtPhlowTool default object: anObject) ]
 ]
 
 { #category : #'api - events' }
