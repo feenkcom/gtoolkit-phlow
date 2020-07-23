@@ -48,7 +48,7 @@ GtPhlowDefiningMethods >> gtSourceFor: aView [
 			self methods do: [ :eachMethod | 
 				aContainer addChild: (
 					(GtMethodCoder forMethod: eachMethod) 
-						expanded: true; asElement) ].
+						expanded: true; withHeader; asElement) ].
 			aContainer asScrollableElement]
 ]
 
