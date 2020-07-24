@@ -457,14 +457,13 @@ GtPhlowView >> gtActionsFor: aView [
 	<gtView>
 	self actions ifEmpty: [ ^ self ].
 	^ aView columnedList
-			title: 'Actions';
-			priority: 5;
-			items: [ self actions ];
-			column: 'Action' 
-				format: [ :aPhlowAction | aPhlowAction className ];
-			column: 'Defining Method'
-				item: [ :aPhlowAction | aPhlowAction definingMethod ]
-				format: [ :aMethodDefinition | aMethodDefinition selector ]
+		title: 'Actions';
+		priority: 5;
+		items: [ self actions ];
+		column: 'Action' text: [ :aPhlowAction | aPhlowAction className ];
+		column: 'Defining Method'
+			item: [ :aPhlowAction | aPhlowAction definingMethod ]
+			text: [ :aMethodDefinition | aMethodDefinition selector ]
 ]
 
 { #category : #testing }
