@@ -14,7 +14,7 @@ Class {
 
 { #category : #converting }
 GtPhlowTextEditorView >> asElementDo: aBlock [
-	| aBrickEditor aText aNewLook |
+	| aBrickEditor aText aNewLook aNewStyler |
 
 	aBrickEditor := self elementClass new.
 
@@ -25,10 +25,14 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 	aNewLook := self 
 		performBlock: [ self newLook ] 
 		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
+		
+	aNewStyler := self 
+		performBlock: [ styler value ] 
+		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
 
 	aBrickEditor 
 		look: aNewLook;
-		styler: styler;
+		styler: aNewStyler;
 		text: aText.
 
 	aBrickEditor constraintsDo: [ :c | 
