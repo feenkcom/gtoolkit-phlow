@@ -111,7 +111,7 @@ GtPhlowToolVolumeModelExamples >> containerContainerToolDetailedVolume [
 GtPhlowToolVolumeModelExamples >> containerContainerToolDetailedVolume_ContainerVolumeReponse [
 	<gtExample>
 	| aContainerOne aTool aContainerOneDimension aContainerTwo aContainerTwoDimension aToolDimension aReceivedDimension |
-	aContainerOne := self containerContainerToolElement.
+	aContainerOne := self containerContainerToolDetailedVolume.
 
 	aContainerTwo := aContainerOne childAt: 1.
 	aTool := aContainerTwo childAt: 1.
