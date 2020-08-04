@@ -7,7 +7,7 @@ Class {
 		'tool',
 		'context'
 	],
-	#category : #'GToolkit-Phlow-Tools'
+	#category : #'GToolkit-Phlow-Tool - Core'
 }
 
 { #category : #'api - accessing' }
