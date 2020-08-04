@@ -17,6 +17,11 @@ GtPhlowToolVolumeCommonModel >> beNormalTool [
 	self dimension: GtPhlowToolVolumeState normalName
 ]
 
+{ #category : #'api - configuration' }
+GtPhlowToolVolumeCommonModel >> beUndefinedTool [
+	self dimension: GtPhlowToolVolumeState undefinedName
+]
+
 { #category : #defaults }
 GtPhlowToolVolumeCommonModel >> defaultDimension [
 	^ self subclassResponsibility
@@ -62,7 +67,8 @@ GtPhlowToolVolumeCommonModel >> initializeListeners [
 { #category : #printing }
 GtPhlowToolVolumeCommonModel >> printOn: aStream [
 	aStream
-		nextPutAll: self modelName, '(';
+		nextPutAll: self modelName;
+		nextPutAll: '(';
 		nextPutAll: self dimension asString;
 		nextPutAll: ')'
 ]

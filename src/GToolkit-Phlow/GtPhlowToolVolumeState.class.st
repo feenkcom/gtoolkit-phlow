@@ -74,3 +74,10 @@ GtPhlowToolVolumeState >> initialize [
 GtPhlowToolVolumeState >> isUndefined [
 	^ self dimension = self class undefinedName
 ]
+
+{ #category : #printing }
+GtPhlowToolVolumeState >> printOn: aStream [
+	aStream
+		nextPutAll: 'Tool Volume State: ';
+		print: self dimension
+]

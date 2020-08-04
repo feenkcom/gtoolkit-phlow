@@ -29,6 +29,13 @@ GtPhlowToolVolumeChanged >> isUndefined [
 	^ self dimension = GtPhlowToolVolumeState undefinedName
 ]
 
+{ #category : #printing }
+GtPhlowToolVolumeChanged >> printOn: aStream [
+	aStream
+		nextPutAll: 'Tool Volume Changed: ';
+		print: self dimension
+]
+
 { #category : #accessing }
 GtPhlowToolVolumeChanged >> state: anObject [
 	"Override me to properly set the given state"

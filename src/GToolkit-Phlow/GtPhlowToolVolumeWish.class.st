@@ -18,6 +18,11 @@ GtPhlowToolVolumeWish class >> beNormalTool [
 ]
 
 { #category : #'instance creation' }
+GtPhlowToolVolumeWish class >> beUndefinedTool [
+	^ self new dimension: GtPhlowToolVolumeState undefinedName
+]
+
+{ #category : #'instance creation' }
 GtPhlowToolVolumeWish class >> beVolume: aNamedVolume [
 	^ self new dimension: aNamedVolume
 ]
