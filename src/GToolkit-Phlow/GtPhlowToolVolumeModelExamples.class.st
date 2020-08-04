@@ -192,6 +192,19 @@ GtPhlowToolVolumeModelExamples >> element [
 			c horizontal matchParent ].
 ]
 
+{ #category : #'examples - support' }
+GtPhlowToolVolumeModelExamples >> labelWithText: aString [
+	<gtExample>
+	^ BrLabel new
+		look: BrGlamorousLabelLook;
+		fitContent;
+		alignCenter;
+		constraintsDo: [ :c | 
+			c frame horizontal alignCenter.
+			c frame vertical alignCenter ];
+		text: aString
+]
+
 { #category : #'examples - looks' }
 GtPhlowToolVolumeModelExamples >> lookWithBackgroundChanges [
 	<gtExample>
@@ -294,12 +307,14 @@ GtPhlowToolVolumeModelExamples >> toolOne [
 	aTool := self basicValuableTool.
 	aTool valuable: [ 
 		BlElement new
+			layout: BlFrameLayout new;
 			constraintsDo: [ :c | 
 				c horizontal matchParent.
 				c vertical matchParent ];
 			background: self defaultBackgroundColor;
 			addInteractiveModelState: self basicToolVolumeModel;
-			addLook: self lookWithBackgroundChanges ].
+			addLook: self lookWithBackgroundChanges;
+			addChild: (self labelWithText: 'One') ].
 	aTool name: 'One'.
 
 	anElement := aTool asElementDo: [ :theElement | theElement ].
@@ -315,12 +330,14 @@ GtPhlowToolVolumeModelExamples >> toolTwo [
 	aTool := self basicValuableTool.
 	aTool valuable: [ 
 		BlElement new
+			layout: BlFrameLayout new;
 			constraintsDo: [ :c | 
 				c horizontal matchParent.
 				c vertical matchParent ];
 			background: self defaultBackgroundColor;
 			addInteractiveModelState: self basicToolVolumeModel;
-			addLook: self lookWithBackgroundChanges ].
+			addLook: self lookWithBackgroundChanges;
+			addChild: (self labelWithText: 'Two') ].
 	aTool name: 'Two'.
 
 	anElement := aTool asElementDo: [ :theElement | theElement ].
