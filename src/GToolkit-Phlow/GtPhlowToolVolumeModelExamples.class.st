@@ -4,6 +4,17 @@ Class {
 	#category : #'GToolkit-Phlow-Tool - Examples'
 }
 
+{ #category : #'examples - tools' }
+GtPhlowToolVolumeModelExamples >> basicCompositeTool [
+	<gtExample>
+	| aTool anElement |
+	aTool := GtPhlowCompositeTool new.
+	anElement := aTool asElementDo: [ :theElement | theElement ].
+	self assert: (anElement isKindOf: BlElement).
+	self assert: aTool name isString.
+	^ aTool
+]
+
 { #category : #'examples - models' }
 GtPhlowToolVolumeModelExamples >> basicContainerVolumeModel [
 	<gtExample>
@@ -30,6 +41,31 @@ GtPhlowToolVolumeModelExamples >> basicToolVolumeModel [
 	self assert: aModel dimension isNotNil.
 	self assert: aModel dimension equals: GtPhlowToolVolumeState normalName.
 	^ aModel
+]
+
+{ #category : #'examples - tools' }
+GtPhlowToolVolumeModelExamples >> basicValuableTool [
+	<gtExample>
+	| aTool anElement |
+	aTool := GtPhlowValuableTool new.
+	anElement := aTool asElementDo: [ :theElement | theElement ].
+	self assert: (anElement isKindOf: BlElement).
+	self assert: aTool name isString.
+	^ aTool
+]
+
+{ #category : #'examples - tools' }
+GtPhlowToolVolumeModelExamples >> compositeTool [
+	<gtExample>
+	| aTool anElement |
+	aTool := self basicCompositeTool.
+	aTool addTool: self toolOne.
+	aTool addTool: self toolTwo.
+
+	anElement := aTool asElementDo: [ :theElement | theElement ].
+	self assert: (anElement isKindOf: BlElement).
+
+	^ aTool
 ]
 
 { #category : #'examples - elements' }
@@ -133,6 +169,12 @@ GtPhlowToolVolumeModelExamples >> containerWithToolElementWithVolumeLook_Normal 
 GtPhlowToolVolumeModelExamples >> customBackgroundColor [
 	<gtExample>
 	^ Color red alpha: 0.3
+]
+
+{ #category : #'examples - support' }
+GtPhlowToolVolumeModelExamples >> defaultBackgroundColor [
+	<gtExample>
+	^ Color yellow alpha: 0.3
 ]
 
 { #category : #'examples - support' }
@@ -243,4 +285,46 @@ GtPhlowToolVolumeModelExamples >> toolElementInSpace [
 		assert: aToolDimension 
 		equals: self basicToolVolumeModel defaultDimension.
 	^ aSpace
+]
+
+{ #category : #'examples - tools' }
+GtPhlowToolVolumeModelExamples >> toolOne [
+	<gtExample>
+	| aTool anElement |
+	aTool := self basicValuableTool.
+	aTool valuable: [ 
+		BlElement new
+			constraintsDo: [ :c | 
+				c horizontal matchParent.
+				c vertical matchParent ];
+			background: self defaultBackgroundColor;
+			addInteractiveModelState: self basicToolVolumeModel;
+			addLook: self lookWithBackgroundChanges ].
+	aTool name: 'One'.
+
+	anElement := aTool asElementDo: [ :theElement | theElement ].
+	self assert: (anElement isKindOf: BlElement).
+	self assert: aTool name equals: 'One'.
+	^ aTool
+]
+
+{ #category : #'examples - tools' }
+GtPhlowToolVolumeModelExamples >> toolTwo [
+	<gtExample>
+	| aTool anElement |
+	aTool := self basicValuableTool.
+	aTool valuable: [ 
+		BlElement new
+			constraintsDo: [ :c | 
+				c horizontal matchParent.
+				c vertical matchParent ];
+			background: self defaultBackgroundColor;
+			addInteractiveModelState: self basicToolVolumeModel;
+			addLook: self lookWithBackgroundChanges ].
+	aTool name: 'Two'.
+
+	anElement := aTool asElementDo: [ :theElement | theElement ].
+	self assert: (anElement isKindOf: BlElement).
+	self assert: aTool name equals: 'Two'.
+	^ aTool
 ]
