@@ -68,6 +68,100 @@ GtPhlowToolVolumeModelExamples >> compositeTool [
 	^ aTool
 ]
 
+{ #category : #'examples - events' }
+GtPhlowToolVolumeModelExamples >> containerContainerToolDetailedResponse [
+	<gtExample>
+	| aContainerOne aTool aPreviousDimension aNewDimension aContainerDimension aSpace aContainerTwo |
+	aContainerOne := self containerContainerToolElement.
+	aContainerOne dispatchEvent: GtPhlowToolVolumeWish beDetailedTool.
+	aContainerDimension := self requestToolVolumeDimension: aContainerOne.
+	aContainerTwo := aContainerOne childAt: 1.
+	aTool := aContainerTwo childAt: 1.
+	aPreviousDimension := self requestToolVolumeDimension: aTool.
+	self assert: aPreviousDimension ~= aContainerDimension.
+	aSpace := self putInSpace: aContainerOne.
+	aNewDimension := self requestToolVolumeDimension: aTool.
+	self assert: aNewDimension ~= aPreviousDimension.
+	self assert: aNewDimension equals: aContainerDimension.
+	^ aSpace
+]
+
+{ #category : #'examples - events' }
+GtPhlowToolVolumeModelExamples >> containerContainerToolDetailedVolume [
+	<gtExample>
+	| aContainerOne aTool aContainerOneDimension aContainerTwo aContainerTwoDimension aToolDimension |
+	aContainerOne := self containerContainerToolElement.
+	aContainerOne dispatchEvent: GtPhlowToolVolumeWish beDetailedTool.
+
+	aContainerTwo := aContainerOne childAt: 1.
+	aTool := aContainerTwo childAt: 1.
+
+	aContainerOneDimension := self requestToolVolumeDimension: aContainerOne.
+	aContainerTwoDimension := self requestToolVolumeDimension: aContainerTwo.
+	aToolDimension := self requestToolVolumeDimension: aTool.
+
+	self assert: aContainerOneDimension equals: GtPhlowToolVolumeState detailedName.
+	self assert: aContainerTwoDimension equals: GtPhlowToolVolumeState undefinedName.
+	self assert: aToolDimension equals: GtPhlowToolVolumeState normalName.
+
+	^ aContainerOne
+]
+
+{ #category : #'examples - events' }
+GtPhlowToolVolumeModelExamples >> containerContainerToolDetailedVolume_ContainerVolumeReponse [
+	<gtExample>
+	| aContainerOne aTool aContainerOneDimension aContainerTwo aContainerTwoDimension aToolDimension aReceivedDimension |
+	aContainerOne := self containerContainerToolElement.
+
+	aContainerTwo := aContainerOne childAt: 1.
+	aTool := aContainerTwo childAt: 1.
+
+	aReceivedDimension := self requestContainerVolumeDimension: aTool.
+	self assert: aReceivedDimension equals: GtPhlowToolVolumeState detailedName.
+
+	aContainerOneDimension := self requestToolVolumeDimension: aContainerOne.
+	aContainerTwoDimension := self requestToolVolumeDimension: aContainerTwo.
+	aToolDimension := self requestToolVolumeDimension: aTool.
+
+	self assert: aContainerOneDimension equals: GtPhlowToolVolumeState detailedName.
+	self assert: aContainerTwoDimension equals: GtPhlowToolVolumeState undefinedName.
+	self assert: aToolDimension equals: GtPhlowToolVolumeState normalName.
+
+	^ aContainerOne
+]
+
+{ #category : #'examples - events' }
+GtPhlowToolVolumeModelExamples >> containerContainerToolDetailedVolume_InSpace [
+	<gtExample>
+	| aContainerOne aTool aSpace aContainerTwo aContainerOneDimension aContainerTwoDimension aToolDimension |
+	aContainerOne := self containerContainerToolDetailedVolume.
+	aContainerTwo := aContainerOne childAt: 1.
+	aTool := aContainerTwo childAt: 1.
+
+	aSpace := self putInSpace: aContainerOne.
+
+	aContainerOneDimension := self requestToolVolumeDimension: aContainerOne.
+	aContainerTwoDimension := self requestToolVolumeDimension: aContainerTwo.
+	aToolDimension := self requestToolVolumeDimension: aTool.
+
+	self assert: aContainerOneDimension equals: GtPhlowToolVolumeState detailedName.
+	self assert: aContainerTwoDimension equals: GtPhlowToolVolumeState undefinedName.
+	self assert: aToolDimension equals: GtPhlowToolVolumeState detailedName.
+
+	^ aSpace
+]
+
+{ #category : #'examples - elements' }
+GtPhlowToolVolumeModelExamples >> containerContainerToolElement [
+	<gtExample>
+	| aContainerOne aContainerTwo |
+	aContainerOne := self containerElement.
+	aContainerTwo := self containerWithToolElement.
+	aContainerTwo labeled: 'Container Two'.
+	aContainerOne addChild: aContainerTwo.
+	^ aContainerOne
+]
+
 { #category : #'examples - elements' }
 GtPhlowToolVolumeModelExamples >> containerElement [
 	<gtExample>
@@ -253,7 +347,7 @@ GtPhlowToolVolumeModelExamples >> requestContainerVolumeDimension: anElement [
 	<gtExample>
 	| aRequest |
 	aRequest := GtPhlowToolContainerVolumeRequest new.
-	anElement dispatchEvent: aRequest.
+	anElement fireEvent: aRequest.
 	^ aRequest response dimension
 ]
 

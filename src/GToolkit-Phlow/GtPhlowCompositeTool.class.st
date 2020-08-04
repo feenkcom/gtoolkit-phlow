@@ -20,6 +20,7 @@ GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block."
 	| aTabGroup |
 	aTabGroup := BrTabGroup new
+		labeled: 'Composite Tool';
 		look: BrGlamorousTabGroupSwitcherWithHiddenSelectedTabLook;
 		addTabs: self toolTabs.
 	^ aOneArgBlock cull: aTabGroup

@@ -17,8 +17,20 @@ GtPhlowToolContainerVolumeModel >> defaultDimension [
 { #category : #initialization }
 GtPhlowToolContainerVolumeModel >> initializeListeners [
 	super initializeListeners.
-	
-	self 
-		when: GtPhlowToolContainerVolumeRequest 
-		reply: [ :aResponse | aResponse dimension: self dimension ].
+	self
+		when: GtPhlowToolContainerVolumeRequest
+		reply: [ :aResponse :aRequest | self volumeResponse: aResponse for: aRequest ]
+]
+
+{ #category : #testing }
+GtPhlowToolContainerVolumeModel >> isUndefined [
+	^ self dimension = GtPhlowToolVolumeState undefinedName
+]
+
+{ #category : #'private - event handling' }
+GtPhlowToolContainerVolumeModel >> volumeResponse: aResponse for: aRequest [
+	self isUndefined 
+		ifTrue: [ aRequest consumed: false ]
+		ifFalse: [ aResponse dimension: self dimension ].
+	^ aResponse
 ]
