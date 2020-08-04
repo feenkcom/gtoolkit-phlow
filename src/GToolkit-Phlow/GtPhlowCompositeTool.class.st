@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'tools'
 	],
-	#category : #'GToolkit-Phlow-Tools'
+	#category : #'GToolkit-Phlow-Tool - Core'
 }
 
 { #category : #'api - accessing' }
