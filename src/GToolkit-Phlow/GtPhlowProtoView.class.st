@@ -30,6 +30,11 @@ GtPhlowProtoView class >> initialize [
 ]
 
 { #category : #'api - converting' }
+GtPhlowProtoView >> asElement [
+	^ self asElementDo: [ :anElement | anElement ]
+]
+
+{ #category : #'api - converting' }
 GtPhlowProtoView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 	self subclassResponsibility
