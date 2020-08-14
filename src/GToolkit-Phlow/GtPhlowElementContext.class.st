@@ -264,9 +264,7 @@ GtPhlowElementContext >> spawnDefiningMethod [
 
 { #category : #'api - events' }
 GtPhlowElementContext >> spawnObject: anObject [
-	(anObject isKindOf: GtPhlowAbstractTool)
-		ifTrue: [ self spawnTool: anObject ]
-		ifFalse: [ self spawnTool: (GtPhlowTool default object: anObject) ]
+	self spawnTool: (GtPhlowTool default object: anObject)
 ]
 
 { #category : #'api - events' }
