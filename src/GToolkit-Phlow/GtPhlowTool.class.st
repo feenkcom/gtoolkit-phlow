@@ -27,3 +27,9 @@ GtPhlowTool class >> priority [
 	<return: #Number>
 	^ 50
 ]
+
+{ #category : #converting }
+GtPhlowTool >> asElement [
+	<return: #BlElement>
+	^ self asElementDo: [ :anElement | anElement ]
+]
