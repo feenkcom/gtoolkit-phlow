@@ -25,7 +25,8 @@ GtPhlowCollector >> collect [
 ]
 
 { #category : #private }
-GtPhlowCollector >> collectPragmas [
+GtPhlowCollector >> collectAllPragmas [
+	"I collect all pragmas, including overriden methods."
 	<return: #Collection of: #Pragma>
 	^ self pragmaNames 
 		flatCollect: [ :eachPragmaName |
@@ -34,6 +35,20 @@ GtPhlowCollector >> collectPragmas [
 				from: self from
 				to: self to ] 
 		as: OrderedCollection.
+]
+
+{ #category : #private }
+GtPhlowCollector >> collectPragmas [
+	"I exclude overriden methods"
+	<return: #Collection of: #Pragma>
+	| allPragmas overridenPragmas |
+	allPragmas := self collectAllPragmas.
+	overridenPragmas := allPragmas 
+		groupedBy: [ :aPragma | aPragma methodSelector ] 
+		having: [ :aCollection | aCollection size > 1 ].
+	overridenPragmas keysAndValuesDo: [ :aSelector :thePragmas | 
+		self removeOverridenPragmas: thePragmas from: allPragmas ].
+	^ allPragmas
 ]
 
 { #category : #defaults }
@@ -123,6 +138,20 @@ GtPhlowCollector >> pragmaNames: aCollectionOfSymbols [
 		assert: [ aCollectionOfSymbols notNil ]
 		description: [ 'Collection of pragma names must be non-nil' ].
 	pragmaNames := aCollectionOfSymbols
+]
+
+{ #category : #private }
+GtPhlowCollector >> removeOverridenPragmas: pragmasWithSameSelector from: allPragmas [
+	| overridenPragmas |
+	overridenPragmas := pragmasWithSameSelector select: [ :aPragma | 
+		pragmasWithSameSelector anySatisfy: [ :otherPragma | 
+			| isSuperclass |
+			isSuperclass := false.
+			otherPragma methodClass allSuperclassesDo: [ :aClass | 
+				aClass = aPragma methodClass ifTrue: [ isSuperclass := true ] ].
+			isSuperclass ] ].
+	overridenPragmas do: [ :eachOverridenPragma | 
+		allPragmas remove: eachOverridenPragma ].
 ]
 
 { #category : #sorting }
