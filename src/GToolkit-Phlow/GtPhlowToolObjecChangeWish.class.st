@@ -1,5 +1,5 @@
 "
-I am fired by ${class:GtPhlowTool}$ widgets to inform that user changed a displayed object and would like to reflect the change in other composed tool widgets of a ${class:GtCompositeTool}$.
+I am fired by ${class:GtPhlowTool}$ widgets to inform that user changed a displayed object and would like to reflect the change in other composed tool widgets of a ${class:GtPhlowCompositeTool}$.
 "
 Class {
 	#name : #GtPhlowToolObjecChangeWish,
