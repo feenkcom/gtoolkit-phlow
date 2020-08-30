@@ -55,7 +55,7 @@ GtPhlowAbstractTool >> gtLiveFor: aView [
 { #category : #'api - accessing' }
 GtPhlowAbstractTool >> icon [
 	"Return a tool icon"
-	<return: #Element>
+	<return: #BlElement>
 	^ BrGlamorousVectorIcons inspect 
 ]
 
