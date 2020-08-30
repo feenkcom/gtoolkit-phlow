@@ -21,10 +21,18 @@ GtPhlowAbstractTool >> asElementDo: aOneArgBlock [
 GtPhlowAbstractTool >> asTabDo: aBlock [
 	| aTab |
 	aTab := BrTab new
-		look: BrGlamorousTabSwitcherWithLabelLook;
+		look: self tabLook;
 		label: self name;
-		stencil: [ self asElementDo: [ :anElement | anElement ] ].
-	aBlock cull: aTab.
+		icon: self icon;
+		stencil: [ self asTabElement ].
+	aBlock cull: aTab cull: self.
+]
+
+{ #category : #'private - converting' }
+GtPhlowAbstractTool >> asTabElement [
+	"Return a tool element that is going to be used as a part of ${class:GtPhlowCompositeTool}$"
+	<return: #BlElement>
+	^ self asElementDo: [ :anElement | anElement ]
 ]
 
 { #category : #'gt-extension' }
@@ -45,9 +53,16 @@ GtPhlowAbstractTool >> gtLiveFor: aView [
 ]
 
 { #category : #'api - accessing' }
+GtPhlowAbstractTool >> icon [
+	"Return a tool icon"
+	<return: #Element>
+	^ BrGlamorousVectorIcons inspect 
+]
+
+{ #category : #'api - accessing' }
 GtPhlowAbstractTool >> name [
 	"Return a tool name"
-	<return: #String or: #BlRope>
+	<return: #String or: #BlText>
 	^ self className
 ]
 
@@ -60,4 +75,10 @@ GtPhlowAbstractTool >> object [
 { #category : #'api - accessing' }
 GtPhlowAbstractTool >> object: anObject [
 	"defaults tools must implement this message"
+]
+
+{ #category : #'private - accessing' }
+GtPhlowAbstractTool >> tabLook [
+	"Return a look to display tab tool"
+	^ BrGlamorousTabSwitcherWithLabelLook
 ]
