@@ -1,6 +1,7 @@
 Trait {
 	#name : #TGtPhlowActionTooltipBuilder,
 	#traits : 'TGtPhlowTooltipBuilder',
+	#classTraits : 'TGtPhlowTooltipBuilder classTrait',
 	#category : #'GToolkit-Phlow-Tooltip'
 }
 
