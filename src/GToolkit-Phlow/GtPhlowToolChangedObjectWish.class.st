@@ -1,3 +1,10 @@
+"
+I am a ${class:BrWish}$.
+I am fired by ${class:GtPhlowTool}$ to inform which object (domain model) should be displayed. See ${class:GtPhlowToolChangedObjectHandler}$ and ${class:GtPhlowToolObjectChangeHandler}$ for more information.
+!! Example
+See a complete example in the ${class:GtPhlowCompositeTool}$ class comment.
+
+"
 Class {
 	#name : #GtPhlowToolChangedObjectWish,
 	#superclass : #BrWish,
@@ -5,7 +12,7 @@ Class {
 		'object',
 		'hasObject'
 	],
-	#category : #'GToolkit-Phlow-Tool - Events'
+	#category : #'GToolkit-Phlow-Tool - Object Changer'
 }
 
 { #category : #visiting }

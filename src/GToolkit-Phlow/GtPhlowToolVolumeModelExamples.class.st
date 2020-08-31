@@ -1,19 +1,8 @@
 Class {
 	#name : #GtPhlowToolVolumeModelExamples,
-	#superclass : #Object,
+	#superclass : #GtPhlowToolExamples,
 	#category : #'GToolkit-Phlow-Tool - Examples'
 }
-
-{ #category : #'examples - tools' }
-GtPhlowToolVolumeModelExamples >> basicCompositeTool [
-	<gtExample>
-	| aTool anElement |
-	aTool := GtPhlowCompositeTool new.
-	anElement := aTool asElementDo: [ :theElement | theElement ].
-	self assert: (anElement isKindOf: BlElement).
-	self assert: aTool name isString.
-	^ aTool
-]
 
 { #category : #'examples - models' }
 GtPhlowToolVolumeModelExamples >> basicContainerVolumeModel [
@@ -41,17 +30,6 @@ GtPhlowToolVolumeModelExamples >> basicToolVolumeModel [
 	self assert: aModel dimension isNotNil.
 	self assert: aModel dimension equals: GtPhlowToolVolumeState normalName.
 	^ aModel
-]
-
-{ #category : #'examples - tools' }
-GtPhlowToolVolumeModelExamples >> basicValuableTool [
-	<gtExample>
-	| aTool anElement |
-	aTool := GtPhlowValuableTool new.
-	anElement := aTool asElementDo: [ :theElement | theElement ].
-	self assert: (anElement isKindOf: BlElement).
-	self assert: aTool name isString.
-	^ aTool
 ]
 
 { #category : #'examples - tools' }
@@ -266,12 +244,6 @@ GtPhlowToolVolumeModelExamples >> customBackgroundColor [
 ]
 
 { #category : #'examples - support' }
-GtPhlowToolVolumeModelExamples >> defaultBackgroundColor [
-	<gtExample>
-	^ Color yellow alpha: 0.3
-]
-
-{ #category : #'examples - support' }
 GtPhlowToolVolumeModelExamples >> detailedBackgroundColor [
 	<gtExample>
 	^ Color green alpha: 0.3
@@ -284,19 +256,6 @@ GtPhlowToolVolumeModelExamples >> element [
 		constraintsDo: [ :c | 
 			c vertical matchParent.
 			c horizontal matchParent ].
-]
-
-{ #category : #'examples - support' }
-GtPhlowToolVolumeModelExamples >> labelWithText: aString [
-	<gtExample>
-	^ BrLabel new
-		look: BrGlamorousLabelLook;
-		fitContent;
-		alignCenter;
-		constraintsDo: [ :c | 
-			c frame horizontal alignCenter.
-			c frame vertical alignCenter ];
-		text: aString
 ]
 
 { #category : #'examples - looks' }
@@ -312,34 +271,10 @@ GtPhlowToolVolumeModelExamples >> lookWithBackgroundChanges [
 	^ aLook
 ]
 
-{ #category : #'examples - spaces' }
-GtPhlowToolVolumeModelExamples >> newSpace [
-	<gtExample>
-	| aSpace |
-	aSpace := BlSpace new.
-	aSpace host: BlHeadlessHost new.
-	aSpace title: 'Phlow Tool Volume Examples'.
-	aSpace extent: 600@400.
-	aSpace withHalos.
-	^ aSpace
-]
-
 { #category : #'examples - support' }
 GtPhlowToolVolumeModelExamples >> normalBackgroundColor [
 	<gtExample>
 	^ Color blue alpha: 0.3
-]
-
-{ #category : #'examples - spaces' }
-GtPhlowToolVolumeModelExamples >> putInSpace: aBlElement [
-	<gtExample>
-	| aSpace |
-	self 
-		assert: [ aBlElement isNotNil ]
-		description: [ 'Element must be non-nil' ].
-	aSpace := self newSpace.
-	aSpace root addChild: aBlElement.
-	^ aSpace
 ]
 
 { #category : #'examples - support' }

@@ -1,10 +1,21 @@
+"
+I am used by ${class:GtPhlowCompositeTool}$ to store and share objects that should be displayed by composed sub-tools. 
+!! Listening to Object Change Requests
+I receive requests to store new objects by listening to ${class:GtPhlowToolObjectChangeWish}$.
+I store objects in a weak array to omit undesired memory leaks.
+For more details, see ${method:GtPhlowToolObjectChangeHandler>>#visitToolObjectChangeWish:|label=#selector}$.
+!! Providing Objects to Display
+${class:GtPhlowTool}$ widgets may install ${class:GtPhlowToolChangedObjectHandler}$ to be informed about stored objects that should be displayed. I listen to ${class:GtPhlowToolChangedObjectWish}$ to provide such information. See the ${class:GtPhlowToolChangedObjectHandler}$ for more details.
+!! Example
+See a complete example in the ${class:GtPhlowCompositeTool}$ class comment.
+"
 Class {
 	#name : #GtPhlowToolObjectChangeHandler,
 	#superclass : #BlBasicEventHandler,
 	#instVars : [
 		'element'
 	],
-	#category : #'GToolkit-Phlow-Tool - Events'
+	#category : #'GToolkit-Phlow-Tool - Object Changer'
 }
 
 { #category : #comparing }
@@ -22,7 +33,7 @@ GtPhlowToolObjectChangeHandler >> element [
 { #category : #'api - accessing' }
 GtPhlowToolObjectChangeHandler >> eventsToHandle [
 	^ Array 
-		with: GtPhlowToolObjecChangeWish
+		with: GtPhlowToolObjectChangeWish
 		with: GtPhlowToolChangedObjectWish
 ]
 
@@ -70,6 +81,6 @@ GtPhlowToolObjectChangeHandler >> visitToolObjectChangeWish: aWish [
 
 { #category : #'api - event managing' }
 GtPhlowToolObjectChangeHandler >> wantsEvent: anEvent [
-	^ anEvent class == GtPhlowToolObjecChangeWish or: [ 
+	^ anEvent class == GtPhlowToolObjectChangeWish or: [ 
 			anEvent class == GtPhlowToolChangedObjectWish ]
 ]

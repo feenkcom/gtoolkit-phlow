@@ -1,3 +1,13 @@
+"
+I am used by ${class:GtPhlowTool}$. 
+I am responsible for changing objects (domain models) in ${class:GtPhlowCompositeTool}$ sub-tools.
+I should be installed in tool widgets only if the tools are part of a ${class:GtPhlowCompositeTool}$. I am not  useful if a tool is used alone (not composed). To this aim, we recommend to install the handler in an overriden ${method:GtPhlowAbstractTool>>#asTabElement}$ method. 
+!! Requesting and Changing Displayed Objects
+I ask the ${class:GtPhlowCompositeTool}$ widget for a current object (domain model) that should be displayed each time a ${class:GtPhlowTool}$ widget is displayed. To this aim, I listen to ${class:BlElementAddedToSceneGraphEvent}$. When the tool is added to a scene graph, I ${method:BlElement>>#fireEvent:|label=fire}$ ${class:GtPhlowToolChangedObjectWish}$ and if the wish ${method:GtPhlowToolChangedObjectWish>>#hasObject|label=has an object}$, I set the new tool object according to ${method:GtPhlowToolChangedObjectHandler>>#onChangeSend:to:|label=#selector}$. 
+!! Example
+See a complete example in the ${class:GtPhlowCompositeTool}$ class comment.
+
+"
 Class {
 	#name : #GtPhlowToolChangedObjectHandler,
 	#superclass : #BlBasicEventHandler,
@@ -5,7 +15,7 @@ Class {
 		'element',
 		'action'
 	],
-	#category : #'GToolkit-Phlow-Tool - Events'
+	#category : #'GToolkit-Phlow-Tool - Object Changer'
 }
 
 { #category : #comparing }
@@ -54,6 +64,7 @@ GtPhlowToolChangedObjectHandler >> initialize [
 
 { #category : #'api - accessing' }
 GtPhlowToolChangedObjectHandler >> onChangeSend: aSymbol to: aReceiver [
+	"Set the ${class:MessageSend}$ that is used to update ${class:GtPhlowTool}$ displayed object (domain model)."
 	action := MessageSend receiver: aReceiver selector: aSymbol
 ]
 

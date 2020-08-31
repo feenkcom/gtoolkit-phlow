@@ -1,3 +1,12 @@
+"
+I composte several ${class:GtPhlowTool}$ tools in one view.
+I use ${class:BrTabGroup}$ to display all my sub-tools, see ${method:GtPhlowCompositeTool>>#asElementDo:|label=#selector}$.
+!! Changing Displayed Objects
+${class:GtPhlowTool}$ sub-tools can ask to change observed objects (domain models) in all my sub-tools by ${method:BlElement>>#fireEvent:|label=firing}$ the ${class:GtPhlowToolObjectChangeWish}$ event. To this aim, sub-tools should install ${class:GtPhlowToolChangedObjectHandler}$ which asks for objects (domain models) that a user wish to observe by individual ${class:GtPhlowTool}$ sub-tools. We recomend to install the handler in an overriden ${method:GtPhlowAbstractTool>>#asTabElement|label=#selector}$ method since the handler is not useful if a tool is used alone (not composed by me).
+!!! Shared Object Example
+In the following example, you can increase the displayed value by clicking on the plus button. The changes are properly reflected in both tabs: ${example:GtPhlowCompositeToolExamples>>#compositeTool|codeExpanded=false|previewExpanded=true}$ 
+
+"
 Class {
 	#name : #GtPhlowCompositeTool,
 	#superclass : #GtPhlowTool,
