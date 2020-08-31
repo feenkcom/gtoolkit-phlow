@@ -35,13 +35,12 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 		styler: aNewStyler;
 		text: aText.
 
-	aBrickEditor constraintsDo: [ :c | 
-		c vertical matchParent. 
-		c horizontal matchParent.
-		c padding: (BlInsets all: 10) ].
+	aBrickEditor
+		matchParent;
+		padding: (BlInsets all: 10).
 
 	self beViewElement: aBrickEditor.
-	
+
 	^ aBlock value: aBrickEditor
 ]
 
