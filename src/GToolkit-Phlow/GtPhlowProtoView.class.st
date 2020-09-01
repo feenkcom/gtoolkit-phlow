@@ -286,6 +286,15 @@ GtPhlowProtoView >> table [
 ]
 
 { #category : #decorating }
+GtPhlowProtoView >> text [
+	^ GtPhlowTextView new 
+		originalView: self;
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
+]
+
+{ #category : #decorating }
 GtPhlowProtoView >> textEditor [
 	^ GtPhlowTextEditorView new 
 		originalView: self;
