@@ -21,9 +21,9 @@ TGtPhlowItemText >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 { #category : #'api - scripting' }
 TGtPhlowItemText >> itemText: aBlockOrSymbol [
 	self itemStencil: [ self newItemLabel ].
-	self itemDataBinder: [ :aLabel :anItem :anIndex |
+	self itemDataBinder: [ :aLabel :anItem :anItemNode |
 		| aText |
-		aText := aBlockOrSymbol phlowValue: anItem withEnoughArguments: { anItem. anIndex. aLabel. self }.
+		aText := aBlockOrSymbol phlowValue: anItem withEnoughArguments: { anItem. anItemNode. aLabel. self }.
 		aLabel text: aText asRopedText. ]
 ]
 

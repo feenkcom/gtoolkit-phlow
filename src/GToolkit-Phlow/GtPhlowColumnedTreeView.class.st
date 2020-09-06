@@ -29,7 +29,7 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 	aHeader := self buildHeaderForItems: theItems.
 	aTree := self columnedTreeClass new.
 	self
-		performBlock: [ aTree items: theItems children: self childrenBuilder ]
+		performBlock: [ aTree items: theItems lazy: self childrenBuilder ]
 		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	aTree
 		addEventHandler:

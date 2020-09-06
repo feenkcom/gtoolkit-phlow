@@ -241,9 +241,9 @@ GtPhlowTreeView >> stencil: aBlock [
 				c horizontal matchParent.
 				c vertical fitContent ] ].
 
-	self itemDataBinder: [ :aWrapperElement :anItemObject :anItemPosition |
+	self itemDataBinder: [ :aWrapperElement :anItemObject :aTreeNode |
 		| aNodeStencil |
-		aNodeStencil := aBlock glamourValueWithArgs: { anItemObject. anItemPosition }.
+		aNodeStencil := aBlock glamourValueWithArgs: { anItemObject. aTreeNode indexInTree }.
 		aWrapperElement
 			removeChildren;
 			addChild: aNodeStencil asElement ]
