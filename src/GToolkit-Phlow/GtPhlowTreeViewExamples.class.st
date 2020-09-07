@@ -17,24 +17,28 @@ GtPhlowTreeViewExamples >> autoUpdatedView_InSpace [
 	
 	aView := self treeViewWithItemsAndChildren items: [ aCollection ].
 	aView updateWhen: Announcement in: [ anAnnouncer ].
-
+	
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	
-	self assert: anElement viewModel root children size equals: 10.
+	self assert: anElement viewModel root childrenValues size equals: 10.
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
 	aParent addChild: anElement.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	
-	aCollection := aCollection copy addFirst: 100; yourself.
-
-	BlUseAsyncFeatures disableDuring: [ anAnnouncer announce: Announcement new ].
+	aCollection := aCollection copy
+		addFirst: 100;
+		yourself.
+	BlUseAsyncFeatures
+		disableDuring: [ anAnnouncer announce: Announcement new ].
 	
 	self assert: aParent childrenCount equals: 1.
 	self assert: aParent children first == anElement.
-	self assert: aParent children first viewModel root children size equals: 11.
+	self
+		assert: aParent children first viewModel root childrenValues size
+		equals: 11.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	^ aView
 ]
@@ -85,20 +89,22 @@ GtPhlowTreeViewExamples >> autoUpdatedView_WithParent [
 	aParent := BrHorizontalPane new matchParent.
 	aView := self treeViewWithItemsAndChildren items: aCollection.
 	aView updateWhen: Announcement in: [ anAnnouncer ].
-
+	
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: anElement viewModel root children size equals: 10.
+	self assert: anElement viewModel root childrenValues size equals: 10.
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
-
+	
 	aParent addChild: anElement.
 	
-	aCollection := aCollection copy addFirst: 100; yourself.
-	BlUseAsyncFeatures disableDuring: [
-		anAnnouncer announce: Announcement new ].
+	aCollection := aCollection copy
+		addFirst: 100;
+		yourself.
+	BlUseAsyncFeatures
+		disableDuring: [ anAnnouncer announce: Announcement new ].
 	
-	self assert: anElement viewModel root children size equals: 10.
+	self assert: anElement viewModel root childrenValues size equals: 10.
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	^ aView
 ]
@@ -154,7 +160,7 @@ GtPhlowTreeViewExamples >> treeViewWithItems [
 	aView items: [ 1 to: 10 ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assertViewElement: anElement ofClass: BrSimpleTree inView: aView.
-	self assert: anElement viewModel root children size equals: 10.
+	self assert: anElement viewModel root childrenValues size equals: 10.
 	^ aView
 ]
 
@@ -166,7 +172,7 @@ GtPhlowTreeViewExamples >> treeViewWithItemsAndChildren [
 	aView children: [ :aNumber | aNumber // 2 to: aNumber ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assertViewElement: anElement ofClass: BrSimpleTree inView: aView.
-	self assert: anElement viewModel root children size equals: 10.
+	self assert: anElement viewModel root childrenValues size equals: 10.
 	^ aView
 ]
 
