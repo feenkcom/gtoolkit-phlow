@@ -18,18 +18,18 @@ Class {
 { #category : #'api - converting' }
 GtPhlowTreeView >> asElementDo: aBlock [
 	| theItems aTree |
-	
-	theItems := self itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
-	
+	theItems := self
+		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	aTree := self elementClass new.
-
-	self 
-		performBlock: [ aTree items: theItems children: self childrenBuilder ]
+	self
+		performBlock: [ aTree items: theItems lazy: self childrenBuilder ]
 		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
-
-	aTree addEventHandler: (GtPhlowListToSelectHandler new transformation: [ :aNode | self send value: aNode value ]).
-	aTree constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
-
+	aTree
+		addEventHandler:
+			(GtPhlowListToSelectHandler new
+				transformation: [ :aNode | self send value: aNode value ]).
+	aTree
+		constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 	aTree
 		nodeType: self itemTypeStencil;
 		nodeStencil: self itemStencil;
@@ -41,10 +41,8 @@ GtPhlowTreeView >> asElementDo: aBlock [
 			| itemElement |
 			itemElement := self itemStencil value: anItemObject.
 			itemElement padding: (BlInsets top: 3 left: 0 bottom: 3 right: 0) ]."
-		
 	self expandTree: aTree.
 	self beViewElement: aTree.
-
 	^ aBlock value: aTree
 ]
 
@@ -252,18 +250,21 @@ GtPhlowTreeView >> stencil: aBlock [
 { #category : #'api - updating' }
 GtPhlowTreeView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
-	| aParent |
 
-	(self isExpectedElement: aCurrentElement) ifFalse: [
-		^ super updateContent: aCurrentElement ].
+	| aParent |
+	(self isExpectedElement: aCurrentElement)
+		ifFalse: [ ^ super updateContent: aCurrentElement ].
 	aParent := aCurrentElement parent.
-	aParent ifNotNil: [ 
-		| theItems |
-		theItems := self itemsOnExceptionErrorElement: [ :anErrorElement | 
-			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
-		self 
-			enqueueAction: [ 
-				aCurrentElement items: theItems children: self childrenBuilder.
-				self expandTree: aCurrentElement. ] 
-			in: aCurrentElement ]
+	aParent
+		ifNotNil: [ | theItems |
+			theItems := self
+				itemsOnExceptionErrorElement: [ :anErrorElement | 
+					^ self
+						replaceOldElement: aCurrentElement
+						by: anErrorElement
+						in: aParent ].
+			self
+				enqueueAction: [ aCurrentElement items: theItems lazy: self childrenBuilder.
+					self expandTree: aCurrentElement ]
+				in: aCurrentElement ]
 ]
