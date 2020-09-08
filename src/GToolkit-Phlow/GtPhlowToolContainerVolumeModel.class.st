@@ -22,11 +22,6 @@ GtPhlowToolContainerVolumeModel >> initializeListeners [
 		reply: [ :aResponse :aRequest | self volumeResponse: aResponse for: aRequest ]
 ]
 
-{ #category : #testing }
-GtPhlowToolContainerVolumeModel >> isUndefined [
-	^ self dimension = GtPhlowToolVolumeState undefinedName
-]
-
 { #category : #'private - event handling' }
 GtPhlowToolContainerVolumeModel >> volumeResponse: aResponse for: aRequest [
 	self isUndefined 
