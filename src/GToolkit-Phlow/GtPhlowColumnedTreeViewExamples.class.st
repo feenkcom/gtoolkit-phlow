@@ -14,7 +14,9 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItems [
 	aView column: 'x * x' item: [ :aNumber | aNumber * aNumber ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: (anElement isKindOf: BlElement).
-	self assert: anElement children second viewModel root children size equals: 10.
+	self
+		assert: anElement children second viewModel root childrenValues size
+		equals: 10.
 	^ aView
 ]
 
@@ -24,10 +26,16 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItemsAndChildren [
 	| aView anElement |
 	aView := self columnedTreeViewWithItems.
 	aView items: [ 1 to: 10 ].
-	aView children: [ :aNumber | aNumber < 3 ifTrue: [ #() ] ifFalse: [ 1 to: (aNumber - 1) ] ].
+	aView
+		children: [ :aNumber | 
+			aNumber < 3
+				ifTrue: [ #() ]
+				ifFalse: [ 1 to: aNumber - 1 ] ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: (anElement isKindOf: BlElement).
-	self assert: anElement children second viewModel root children size equals: 10.
+	self
+		assert: anElement children second viewModel root childrenValues size
+		equals: 10.
 	^ aView
 ]
 
@@ -36,6 +44,7 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItemsAndChildren_WithChil
 	<gtExample>
 	| aView anElement |
 	aView := self columnedTreeViewWithItems.
+	aView expandOneLevel.
 	aView items: [ 1 to: 10 ].
 	aView children: [ :aNumber | 21/0. aNumber < 3 ifTrue: [ #() ] ifFalse: [ 1 to: (aNumber - 1) ] ].
 	aView asElementDo: [ :theElement | anElement := theElement ].

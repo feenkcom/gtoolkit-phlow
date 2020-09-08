@@ -36,7 +36,11 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 			(GtPhlowListToSelectHandler new
 				transformation: [ :aNode | self send value: aNode value ]).
 	self buildColumnsInTree: aTree.
-	self expandTree: aTree.
+	
+	self
+		performBlock: [ self expandTree: aTree ]
+		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
+
 	aContainer
 		addChildren:
 			{aHeader.
