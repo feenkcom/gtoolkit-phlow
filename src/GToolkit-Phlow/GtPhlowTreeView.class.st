@@ -41,7 +41,10 @@ GtPhlowTreeView >> asElementDo: aBlock [
 			| itemElement |
 			itemElement := self itemStencil value: anItemObject.
 			itemElement padding: (BlInsets top: 3 left: 0 bottom: 3 right: 0) ]."
-	self expandTree: aTree.
+	self
+		performBlock: [ self expandTree: aTree ]
+		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
+
 	self beViewElement: aTree.
 	^ aBlock value: aTree
 ]

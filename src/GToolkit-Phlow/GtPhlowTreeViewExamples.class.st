@@ -55,26 +55,24 @@ GtPhlowTreeViewExamples >> autoUpdatedView_InSpace_WithChildrenError [
 	aParent := BrHorizontalPane new matchParent.
 	aSpace addChild: aParent.
 	aView := self treeViewWithItemsAndChildren items: [ aCollection ].
-	aView children: [ :aNumber | { 1 / aNumber * aNumber } ].
+	aView children: [ :aNumber | {(1 / aNumber * aNumber)} ].
 	aView updateWhen: Announcement in: [ anAnnouncer ].
-
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
-	
 	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: anElement viewModel root children size equals: 10.
+	self assert: anElement viewModel root childrenValues size equals: 10.
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
-	
 	aParent addChild: anElement.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
-	
-	aCollection := aCollection copy addFirst: 0; yourself.
-
-	BlUseAsyncFeatures disableDuring: [
-		anAnnouncer announce: Announcement new ].
-	
+	aCollection := aCollection copy
+		addFirst: 0;
+		yourself.
+	BlUseAsyncFeatures
+		disableDuring: [ anAnnouncer announce: Announcement new ].
 	self assert: aParent childrenCount equals: 1.
 	self assert: aParent children first == anElement.
-	self assert: aParent children first viewModel root children size equals: 11.
+	self
+		assert: aParent children first viewModel root childrenValues size
+		equals: 11.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	^ aView
 ]
@@ -181,6 +179,7 @@ GtPhlowTreeViewExamples >> treeViewWithItemsAndChildrenWithChildrenError [
 	<gtExample>
 	| aView anElement |
 	aView := self treeViewWithItems.
+	aView expandOneLevel.
 	aView children: [ :aNumber | 3/0. aNumber // 2 to: aNumber ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement class equals: BrFrame.
