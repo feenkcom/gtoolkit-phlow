@@ -64,6 +64,16 @@ GtPhlowToolVolumeCommonModel >> initializeListeners [
 			self dimension: aWish dimension ].
 ]
 
+{ #category : #testing }
+GtPhlowToolVolumeCommonModel >> isDetailed [
+	^ self dimension = GtPhlowToolVolumeState detailedName
+]
+
+{ #category : #testing }
+GtPhlowToolVolumeCommonModel >> isUndefined [
+	^ self dimension = GtPhlowToolVolumeState undefinedName
+]
+
 { #category : #printing }
 GtPhlowToolVolumeCommonModel >> printOn: aStream [
 	aStream

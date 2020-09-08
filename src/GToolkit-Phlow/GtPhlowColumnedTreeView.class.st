@@ -230,7 +230,7 @@ GtPhlowColumnedTreeView >> updateContent: aCurrentElement [
 		aTree := aCurrentElement children second.
 		self 
 			enqueueAction: [ 
-				aTree items: theItems children: self childrenBuilder.
+				aTree items: theItems lazy: self childrenBuilder.
 				self expandTree: aTree ] 
 			in: aTree ].
 ]
