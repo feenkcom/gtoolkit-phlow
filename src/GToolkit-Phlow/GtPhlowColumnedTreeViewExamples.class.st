@@ -44,6 +44,7 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItemsAndChildren_WithChil
 	<gtExample>
 	| aView anElement |
 	aView := self columnedTreeViewWithItems.
+	aView expandOneLevel.
 	aView items: [ 1 to: 10 ].
 	aView children: [ :aNumber | 21/0. aNumber < 3 ifTrue: [ #() ] ifFalse: [ 1 to: (aNumber - 1) ] ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
