@@ -70,7 +70,7 @@ GtPhlowListView >> initialize [
 	self items: [ { } ].
 	self itemType: [ :anItemTypeFactory :anItemObject :anItemIndex | anItemTypeFactory default ].
 	self itemText: [ :aValue | aValue ].
-	transformation := self defaultTransformation.
+	self transformation: self defaultTransformation.
 ]
 
 { #category : #'private - testing' }

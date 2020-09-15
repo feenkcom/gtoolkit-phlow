@@ -4,6 +4,8 @@ I exemplify ${class:GtPhlowColumnedListView}$.
 Class {
 	#name : #GtPhlowColumnedListViewExamples,
 	#superclass : #GtPhlowViewExamples,
+	#traits : 'TGtPhlowSendTransformationExamples',
+	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
 	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
@@ -299,6 +301,16 @@ GtPhlowColumnedListViewExamples >> columnItemView [
 	self assert: aCellElement content class equals: BrLabel.
 	self assert: aCellElement content text asString equals: '1'.
 	^ aView
+]
+
+{ #category : #'examples - support' }
+GtPhlowColumnedListViewExamples >> elementItemsFor: anElement [
+	"Return element items"
+
+	<gtExample>
+	| aListElement |
+	aListElement := self listElementFor: anElement.
+	^ aListElement items
 ]
 
 { #category : #'api-shortcuts' }
@@ -672,6 +684,14 @@ GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnTextFor: aView [
 		column: 'x * x' text: [ :x | 'Square ', (x * x) asString ]
 ]
 
+{ #category : #'examples - support' }
+GtPhlowColumnedListViewExamples >> listElementFor: anElement [
+	| aListElement |
+	aListElement := anElement childAt: 2.
+	self assert: aListElement class equals: BrColumnedList.
+	^ aListElement
+]
+
 { #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> myself [
 	<gtExample>
@@ -692,6 +712,16 @@ GtPhlowColumnedListViewExamples >> registeredColors [
 	self assert: aCollection isNotNil.
 	self assert: aCollection isNotEmpty.
 	^ aCollection
+]
+
+{ #category : #'examples - support' }
+GtPhlowColumnedListViewExamples >> selectItemAt: anIndex for: anElement [
+	<gtExample>
+	"Select an item at anIndex in anElement (list, tree)"
+	| aListElement |
+	aListElement := self listElementFor: anElement.
+	aListElement selectOne: anIndex.
+	self assert: (aListElement isSelectedAt: anIndex).
 ]
 
 { #category : #'api-shortcuts' }
@@ -728,4 +758,12 @@ GtPhlowColumnedListViewExamples >> viewWithItemsWithItemsError [
 	view asElementDo: [ :el | element := el ].
 	self assert: element childrenCount equals: 1.
 	^ view
+]
+
+{ #category : #'examples - view' }
+GtPhlowColumnedListViewExamples >> viewWithTenItems [
+	"Return an initialized view with 10 (root) items"
+	<gtExample>
+	^ self viewWithItems
+		items: [ 1 to: 10 ]
 ]

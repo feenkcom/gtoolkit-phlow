@@ -1,8 +1,8 @@
 Class {
 	#name : #GtPhlowColumnedTreeView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTransformable',
-	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTransformable classTrait',
+	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTreeNodeTransformable',
+	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTreeNodeTransformable classTrait',
 	#instVars : [
 		'columns',
 		'transformation',
@@ -34,7 +34,7 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 	aTree
 		addEventHandler:
 			(GtPhlowListToSelectHandler new
-				transformation: [ :aNode | self send value: aNode value ]).
+				transformation: self transformation asTreeNodeTransformation).
 	self buildColumnsInTree: aTree.
 	
 	self
@@ -142,7 +142,7 @@ GtPhlowColumnedTreeView >> initialize [
 	columns := OrderedCollection new.
 	itemsBuilder := [ { } ].
 	childrenBuilder := [ :each | { } ].
-	transformation := self defaultTransformation.
+	self transformation: self defaultTransformation.
 ]
 
 { #category : #testing }

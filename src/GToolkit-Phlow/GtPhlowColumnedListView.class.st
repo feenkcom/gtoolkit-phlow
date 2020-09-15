@@ -118,7 +118,7 @@ GtPhlowColumnedListView >> initialize [
 	
 	columns := OrderedCollection new.
 	itemsBuilder := [ { } ].
-	transformation := self defaultTransformation.
+	self transformation: self defaultTransformation.
 ]
 
 { #category : #'private - testing' }

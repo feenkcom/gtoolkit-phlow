@@ -1,8 +1,8 @@
 Class {
 	#name : #GtPhlowTreeView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:} + TGtPhlowItemText + TGtPhlowSendTransformable',
-	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait + TGtPhlowSendTransformable classTrait',
+	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:} + TGtPhlowItemText + TGtPhlowSendTreeNodeTransformable',
+	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait + TGtPhlowSendTreeNodeTransformable classTrait',
 	#instVars : [
 		'itemsBuilder',
 		'itemStencil',
@@ -26,7 +26,7 @@ GtPhlowTreeView >> asElementDo: aBlock [
 	aTree
 		addEventHandler:
 			(GtPhlowListToSelectHandler new
-				transformation: [ :aNode | self send value: aNode value ]).
+				transformation: self transformation asTreeNodeTransformation).
 	aTree
 		constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 	aTree

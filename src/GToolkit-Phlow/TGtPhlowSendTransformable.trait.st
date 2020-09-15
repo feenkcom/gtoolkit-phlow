@@ -6,6 +6,13 @@ Trait {
 	#category : #'GToolkit-Phlow-Support - Transformation'
 }
 
+{ #category : #'private - asserting' }
+TGtPhlowSendTransformable >> assertTransformation: aGtPhlowSendTransformation [
+	self 
+		assert: [ aGtPhlowSendTransformation isKindOf: GtPhlowSendTransformation ] 
+		description: [ self className, '''s transformation must be a ', GtPhlowSendTransformation name, ' object' ]
+]
+
 { #category : #defaults }
 TGtPhlowSendTransformable >> defaultTransformation [
 	^ GtPhlowSendTransformation default
@@ -36,12 +43,12 @@ TGtPhlowSendTransformable >> send: aBlock [
 		self 
 			assert: [ aBlock isUnary ]
 			description: [ 'Send transformation symbol must be unary' ].
-		transformation := GtPhlowSendTransformation object: [ :obj | aBlock value: obj ].
-		^self ].
+		self transformation: (GtPhlowSendTransformation object: [ :obj | aBlock value: obj ]).
+		^ self ].
 	self
 		assert: [ aBlock numArgs <= 2 ]
 		description: [ 'Send transformation block must have two or less arguments'  ].
-	transformation := GtPhlowSendTransformation object: aBlock
+	self transformation: (GtPhlowSendTransformation object: aBlock)
 ]
 
 { #category : #'api - scripting' }
@@ -54,16 +61,22 @@ TGtPhlowSendTransformable >> sendTool: aBlock [
 		self 
 			assert: [ aBlock isUnary ]
 			description: [ 'Send transformation symbol must be unary' ].
-		transformation := GtPhlowSendTransformation tool: [ :obj | aBlock value: obj ].
-		^self ].
+		self transformation: (GtPhlowSendTransformation tool: [ :obj | aBlock value: obj ]).
+		^ self ].
 	self
 		assert: [ aBlock numArgs <= 2 ]
 		description: [ 'Send transformation block must have two or less arguments'  ].
-	transformation := GtPhlowSendTransformation tool: aBlock
+	self transformation: (GtPhlowSendTransformation tool: aBlock).
 ]
 
 { #category : #'private - accessing' }
 TGtPhlowSendTransformable >> transformation [
 	<return: #GtPhlowSendTransformation>
 	^ transformation ifNil: [ self defaultTransformation ]
+]
+
+{ #category : #'private - accessing' }
+TGtPhlowSendTransformable >> transformation: aGtPhlowSendTransformation [
+	self assertTransformation: aGtPhlowSendTransformation.
+	transformation := aGtPhlowSendTransformation.
 ]

@@ -7,6 +7,13 @@ Class {
 	#category : #'GToolkit-Phlow-Events'
 }
 
+{ #category : #'private - asserting' }
+GtPhlowListHandler >> assertTransformation: aGtPhlowSendTransformation [
+	self 
+		assert: [ aGtPhlowSendTransformation isKindOf: GtPhlowSendTransformation ] 
+		description: [ self className, '''s transformation must be a ', GtPhlowSendTransformation name, ' object' ]
+]
+
 { #category : #defaults }
 GtPhlowListHandler >> defaultTransformation [
 	^ GtPhlowSendTransformation default
@@ -26,5 +33,6 @@ GtPhlowListHandler >> transformation [
 
 { #category : #accessing }
 GtPhlowListHandler >> transformation: aGtPhlowSendTransformation [	
+	self assertTransformation: aGtPhlowSendTransformation.
 	transformation := aGtPhlowSendTransformation
 ]

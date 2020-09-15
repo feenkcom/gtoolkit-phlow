@@ -1,6 +1,6 @@
 Class {
 	#name : #GtPhlowSendToolTransformation,
-	#superclass : #GtPhlowSendTransformation,
+	#superclass : #GtPhlowSendValuableTransformatioin,
 	#category : #'GToolkit-Phlow-Support - Transformation'
 }
 
