@@ -8,11 +8,10 @@ The following object displays several examples. You can ==ALT+CLICK== on tab nam
 Class {
 	#name : #GtPhlowColumnedListView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts',
-	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait',
+	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTransformable',
+	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTransformable classTrait',
 	#instVars : [
 		'columns',
-		'transformation',
 		'itemsBuilder'
 	],
 	#category : #'GToolkit-Phlow-! Views'
@@ -35,7 +34,7 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	header := self buildHeaderForItems: theItems.
 	list := self columnedListClass new items: theItems.
 	list
-		addEventHandler: (GtPhlowListToSelectHandler new transformation: self send).
+		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation).
 	list
 		rowStencil:
 			(BrListClickableRowStencilBuilder new
@@ -95,7 +94,7 @@ GtPhlowColumnedListView >> columns [
 ]
 
 { #category : #copying }
-GtPhlowColumnedListView >> copySendFrom: aSendBlock [
+GtPhlowColumnedListView >> copyTransformationFrom: aSendBlock [
 	aSendBlock ifNil: [ ^ self ].
 	self send: aSendBlock
 ]
@@ -119,7 +118,7 @@ GtPhlowColumnedListView >> initialize [
 	
 	columns := OrderedCollection new.
 	itemsBuilder := [ { } ].
-	transformation := [ :aValue | "by default there is no transformation" aValue ].
+	self transformation: self defaultTransformation.
 ]
 
 { #category : #'private - testing' }
@@ -146,28 +145,6 @@ GtPhlowColumnedListView >> itemsOnExceptionErrorElement: aBlock [
 		performBlock: [ self itemsBuilder value ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
-]
-
-{ #category : #'private - accessing' }
-GtPhlowColumnedListView >> send [
-	^ transformation
-]
-
-{ #category : #'api - scripting' }
-GtPhlowColumnedListView >> send: aBlock [
-	self
-		assert: [ aBlock notNil ]
-		description: [ 'Send transformation block must be non-nil'  ].
-	aBlock isSymbol ifTrue: [ 
-		self 
-			assert: [ aBlock isUnary ]
-			description: [ 'Send transformation symbol must be unary' ].
-		transformation := [ :obj | aBlock value: obj ].
-		^self ].
-	self
-		assert: [ aBlock numArgs <= 2 ]
-		description: [ 'Send transformation block must have two or less arguments'  ].
-	transformation := aBlock
 ]
 
 { #category : #'api - updating' }

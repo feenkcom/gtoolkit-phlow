@@ -110,7 +110,7 @@ GtPhlowProtoView >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
 ]
 
 { #category : #copying }
-GtPhlowProtoView >> copySendFrom: aSendBlock [
+GtPhlowProtoView >> copyTransformationFrom: aSendBlock [
 
 ]
 

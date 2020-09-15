@@ -4,6 +4,8 @@ I exemplify ${class:GtPhlowListView}$.
 Class {
 	#name : #GtPhlowListViewExamples,
 	#superclass : #GtPhlowViewExamples,
+	#traits : 'TGtPhlowSendTransformationExamples',
+	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
 	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
@@ -107,6 +109,13 @@ GtPhlowListViewExamples >> element [
 	self assert: (aList items allSatisfy: [ :eachItem | eachItem isInteger ]).
 	
 	^ aList
+]
+
+{ #category : #'examples - support' }
+GtPhlowListViewExamples >> elementItemsFor: anElement [
+	"Return element items"
+	<gtExample>
+	^ anElement items
 ]
 
 { #category : #examples }
@@ -446,6 +455,13 @@ GtPhlowListViewExamples >> phlowView [
 	^ aView
 ]
 
+{ #category : #'examples - support' }
+GtPhlowListViewExamples >> selectItemAt: anIndex for: anElement [
+	<gtExample>
+	"Select an item at anIndex in anElement (list, tree)"
+	anElement selectOne: 1
+]
+
 { #category : #'examples - updating' }
 GtPhlowListViewExamples >> updateOnDefiningMethodChange [
 	<gtExample>
@@ -531,4 +547,11 @@ GtPhlowListViewExamples >> viewWithItems_WithGetItemsError [
 	aView asElementDo: [ :el | anElement := el ].
 	self assertErrorElement: anElement inView: aView.
 	^ aView
+]
+
+{ #category : #'examples - view' }
+GtPhlowListViewExamples >> viewWithTenItems [
+	"Return an initialized view with 10 (root) items"
+	<gtExample>
+	^ self viewWithItems
 ]

@@ -4,9 +4,17 @@ Class {
 	#category : #'GToolkit-Phlow-Events'
 }
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 GtPhlowListToSelectHandler >> eventClasses [
 	^ { BrSelectionChanged . BrSelectionDoubleClicked }
+]
+
+{ #category : #'api - accessing' }
+GtPhlowListToSelectHandler >> eventsToHandle [
+	"I return a collection of element types I may be interested in"
+	<return: #Collection of: #'BlEvent class'>	
+
+	^ self eventClasses
 ]
 
 { #category : #'api - event managing' }
@@ -16,34 +24,34 @@ GtPhlowListToSelectHandler >> handleEvent: anEvent [
 
 { #category : #'api - event managing' }
 GtPhlowListToSelectHandler >> selectionChangedEvent: anEvent [
-	| aWidgetElement |
-
-	aWidgetElement := anEvent currentTarget.
 	anEvent asBeaconSignal emit.
 
-	anEvent selectedDo: [ :anInterval |
-		| selectedObject |
+	anEvent selectedDo: [ :theIndices |
+		| aWidgetElement aSelectedObject |
 
-		selectedObject := aWidgetElement viewModel itemAt: anInterval first.
-		aWidgetElement phlow 
-			selectObject: (self transformedValueFrom: selectedObject selection: anInterval).
-		aWidgetElement fireEvent: (GLMBlocObjectToSelect new toSelect: (self transformedValueFrom: selectedObject selection: anInterval)) ]
+		aWidgetElement := anEvent currentTarget.
+		aSelectedObject := aWidgetElement viewModel itemAt: theIndices first.
+		
+		self transformation 
+			select: aSelectedObject
+			indices: theIndices
+			from: aWidgetElement ]
 ]
 
 { #category : #'api - event managing' }
 GtPhlowListToSelectHandler >> selectionDoubleClickedEvent: anEvent [
+	anEvent asBeaconSignal emit.
 	
-	anEvent selection
-		ifNotEmpty: [ :theIndices |
-			| aWidgetElement selectedObject |
+	anEvent selection ifNotEmpty: [ :anInterval |
+		| aWidgetElement aSelectedObject |
 	
-			aWidgetElement := anEvent currentTarget.
+		aWidgetElement := anEvent currentTarget.
 			
-			selectedObject := aWidgetElement viewModel itemAt: theIndices first.
-			aWidgetElement phlow spawnObject: 
-				(self transformedValueFrom: selectedObject selection: theIndices).
-			aWidgetElement fireEvent: (GLMBlocObjectToSelect new 
-				toSelect: (self transformedValueFrom: selectedObject selection: theIndices)) ]
+		aSelectedObject := aWidgetElement viewModel itemAt: anInterval first.
+		self transformation 
+			spawn: aSelectedObject
+			indices: anInterval
+			from: aWidgetElement ]
 ]
 
 { #category : #'api - event managing' }

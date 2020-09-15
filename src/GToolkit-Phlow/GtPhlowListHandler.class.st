@@ -7,23 +7,33 @@ Class {
 	#category : #'GToolkit-Phlow-Events'
 }
 
+{ #category : #'private - asserting' }
+GtPhlowListHandler >> assertTransformation: aGtPhlowSendTransformation [
+	self 
+		assert: [ aGtPhlowSendTransformation respondsTo: #asPhlowSendTransformation ] 
+		description: [ self className, '''s transformation must understand the ', 
+			#asPhlowSendTransformation asString, ' method' ]
+]
+
+{ #category : #defaults }
+GtPhlowListHandler >> defaultTransformation [
+	^ GtPhlowSendTransformation default
+]
+
 { #category : #initialization }
 GtPhlowListHandler >> initialize [
 	super initialize.
-	transformation := [ :x : indices | "by default there is no transformation" x ]
+	transformation := self defaultTransformation
 ]
 
 { #category : #accessing }
 GtPhlowListHandler >> transformation [
+	<return: #GtPhlowSendTransformation>
 	^ transformation
 ]
 
 { #category : #accessing }
-GtPhlowListHandler >> transformation: anObject [	
-	transformation := anObject
-]
-
-{ #category : #accessing }
-GtPhlowListHandler >> transformedValueFrom: anObject selection: aSelectionIndices [
-	^ self transformation cull: anObject cull: aSelectionIndices
+GtPhlowListHandler >> transformation: aGtPhlowSendTransformation [	
+	self assertTransformation: aGtPhlowSendTransformation.
+	transformation := aGtPhlowSendTransformation asPhlowSendTransformation.
 ]
