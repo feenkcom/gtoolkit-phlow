@@ -1,6 +1,8 @@
 Class {
 	#name : #GtPhlowTreeViewExamples,
 	#superclass : #GtPhlowViewExamples,
+	#traits : 'TGtPhlowSendTransformationExamples',
+	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
 	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
@@ -107,6 +109,14 @@ GtPhlowTreeViewExamples >> autoUpdatedView_WithParent [
 	^ aView
 ]
 
+{ #category : #'examples - support' }
+GtPhlowTreeViewExamples >> elementItemsFor: anElement [
+	"Return element items"
+
+	<gtExample>
+	^ anElement viewModel root childrenValues
+]
+
 { #category : #'examples - tree view' }
 GtPhlowTreeViewExamples >> emptyTree [
 	<gtExample>
@@ -148,6 +158,13 @@ GtPhlowTreeViewExamples >> myself [
 GtPhlowTreeViewExamples >> phlowView [
 	<gtExample>
 	^ self treeViewWithItemsAndChildren
+]
+
+{ #category : #'examples - support' }
+GtPhlowTreeViewExamples >> selectItemAt: anIndex for: anElement [
+	<gtExample>
+	"Select an item at anIndex in anElement (list, tree)"
+	anElement selectOne: 1
 ]
 
 { #category : #'examples - tree view' }
@@ -195,4 +212,11 @@ GtPhlowTreeViewExamples >> treeViewWithItemsWithItemsError [
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement class equals: BrFrame.
 	^ aView
+]
+
+{ #category : #'examples - view' }
+GtPhlowTreeViewExamples >> viewWithTenItems [
+	"Return an initialized view with 10 (root) items"
+	<gtExample>
+	^ self treeViewWithItemsAndChildren
 ]

@@ -34,12 +34,6 @@ GtPhlowTreeView >> asElementDo: aBlock [
 		nodeStencil: self itemStencil;
 		nodeDataBinder: self itemDataBinder.
 
-	"aTree column
-		title: 'Item';
-		stencil: [ :anItemObject :index | 
-			| itemElement |
-			itemElement := self itemStencil value: anItemObject.
-			itemElement padding: (BlInsets top: 3 left: 0 bottom: 3 right: 0) ]."
 	self
 		performBlock: [ self expandTree: aTree ]
 		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
@@ -119,7 +113,7 @@ GtPhlowTreeView >> initialize [
 	super initialize.
 	itemsBuilder := [ { } ].
 	childrenBuilder := [ :each | { } ].
-	transformation := self defaultTransformation.
+	self transformation: self defaultTransformation.
 	self itemType: [ :anItemTypeFactory :anItemObject :anItemIndex | anItemTypeFactory default ].
 	self itemText: [ :anObject | anObject gtDisplayText ].
 ]
