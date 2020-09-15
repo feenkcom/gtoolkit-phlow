@@ -19,6 +19,11 @@ GtPhlowSendTransformation class >> tool: aBlock [
 	^ GtPhlowSendToolTransformation new valuable: aBlock
 ]
 
+{ #category : #'api - converting' }
+GtPhlowSendTransformation >> asPhlowSendTransformation [
+	^ self
+]
+
 { #category : #'api - events' }
 GtPhlowSendTransformation >> select: aSelectedObject indices: aSelectionIndices from: anElement [
 	"Fire a ${class:GtPhlowSele"

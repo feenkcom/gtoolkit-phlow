@@ -9,8 +9,9 @@ Trait {
 { #category : #'private - asserting' }
 TGtPhlowSendTransformable >> assertTransformation: aGtPhlowSendTransformation [
 	self 
-		assert: [ aGtPhlowSendTransformation isKindOf: GtPhlowSendTransformation ] 
-		description: [ self className, '''s transformation must be a ', GtPhlowSendTransformation name, ' object' ]
+		assert: [ aGtPhlowSendTransformation respondsTo: #asPhlowSendTransformation ] 
+		description: [ self className, '''s transformation must understand the ', 
+			#asPhlowSendTransformation asString, ' method' ]
 ]
 
 { #category : #defaults }
@@ -78,5 +79,5 @@ TGtPhlowSendTransformable >> transformation [
 { #category : #'private - accessing' }
 TGtPhlowSendTransformable >> transformation: aGtPhlowSendTransformation [
 	self assertTransformation: aGtPhlowSendTransformation.
-	transformation := aGtPhlowSendTransformation.
+	transformation := aGtPhlowSendTransformation asPhlowSendTransformation.
 ]

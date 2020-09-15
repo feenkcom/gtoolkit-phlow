@@ -8,5 +8,5 @@ Trait {
 { #category : #accessing }
 TGtPhlowSendTreeNodeTransformable >> transformation: aGtPhlowSendTransformation [
 	self assertTransformation: aGtPhlowSendTransformation.
-	transformation := aGtPhlowSendTransformation asTreeNodeTransformation.
+	transformation := aGtPhlowSendTransformation asPhlowSendTransformation asTreeNodeTransformation.
 ]
