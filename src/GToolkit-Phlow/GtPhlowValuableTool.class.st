@@ -16,7 +16,7 @@ GtPhlowValuableTool >> asElementDo: aOneArgBlock [
 	self 
 		assert: [ anElement isKindOf: BlElement ] 
 		description: [ 'Valuable tool must create an element on #asElementDo: call' ].
-	^ aOneArgBlock cull: anElement
+	^ aOneArgBlock cull: anElement cull: self
 ]
 
 { #category : #initialization }

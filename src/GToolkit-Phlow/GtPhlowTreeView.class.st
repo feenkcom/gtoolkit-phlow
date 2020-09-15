@@ -1,12 +1,11 @@
 Class {
 	#name : #GtPhlowTreeView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:} + TGtPhlowItemText',
-	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait',
+	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:} + TGtPhlowItemText + TGtPhlowSendTransformable',
+	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait + TGtPhlowSendTransformable classTrait',
 	#instVars : [
 		'itemsBuilder',
 		'itemStencil',
-		'transformation',
 		'childrenBuilder',
 		'expandUpTo',
 		'itemTypeStencil',
@@ -65,7 +64,7 @@ GtPhlowTreeView >> collapseAll [
 ]
 
 { #category : #copying }
-GtPhlowTreeView >> copySendFrom: aSendBlock [
+GtPhlowTreeView >> copyTransformationFrom: aSendBlock [
 	aSendBlock ifNil: [ ^ self ].
 	self send: aSendBlock
 ]
@@ -120,7 +119,7 @@ GtPhlowTreeView >> initialize [
 	super initialize.
 	itemsBuilder := [ { } ].
 	childrenBuilder := [ :each | { } ].
-	transformation := [ :aValue | "by default there is no transformation" aValue ].
+	transformation := self defaultTransformation.
 	self itemType: [ :anItemTypeFactory :anItemObject :anItemIndex | anItemTypeFactory default ].
 	self itemText: [ :anObject | anObject gtDisplayText ].
 ]
@@ -201,28 +200,6 @@ GtPhlowTreeView >> itemsOnExceptionErrorElement: aBlock [
 		performBlock: [ self itemsBuilder value ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
-]
-
-{ #category : #'api - scripting' }
-GtPhlowTreeView >> send [
-	^ transformation
-]
-
-{ #category : #'api - scripting' }
-GtPhlowTreeView >> send: aBlock [
-	self
-		assert: [ aBlock notNil ]
-		description: [ 'Send transformation block must be non-nil'  ].
-	aBlock isSymbol ifTrue: [ 
-		self 
-			assert: [ aBlock isUnary ]
-			description: [ 'Send transformation symbol must be unary' ].
-		transformation := [ :obj :event | aBlock value: obj ].
-		^self ].
-	self
-		assert: [ aBlock numArgs <= 2 ]
-		description: [ 'Send transformation block must have two or less arguments'  ].
-	transformation := aBlock
 ]
 
 { #category : #'api - scripting' }

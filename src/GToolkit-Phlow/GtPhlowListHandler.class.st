@@ -7,23 +7,24 @@ Class {
 	#category : #'GToolkit-Phlow-Events'
 }
 
+{ #category : #defaults }
+GtPhlowListHandler >> defaultTransformation [
+	^ GtPhlowSendTransformation default
+]
+
 { #category : #initialization }
 GtPhlowListHandler >> initialize [
 	super initialize.
-	transformation := [ :x : indices | "by default there is no transformation" x ]
+	transformation := self defaultTransformation
 ]
 
 { #category : #accessing }
 GtPhlowListHandler >> transformation [
+	<return: #GtPhlowSendTransformation>
 	^ transformation
 ]
 
 { #category : #accessing }
-GtPhlowListHandler >> transformation: anObject [	
-	transformation := anObject
-]
-
-{ #category : #accessing }
-GtPhlowListHandler >> transformedValueFrom: anObject selection: aSelectionIndices [
-	^ self transformation cull: anObject cull: aSelectionIndices
+GtPhlowListHandler >> transformation: aGtPhlowSendTransformation [	
+	transformation := aGtPhlowSendTransformation
 ]

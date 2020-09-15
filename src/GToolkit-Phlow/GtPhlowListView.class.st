@@ -8,12 +8,11 @@ The following object displays several examples. You can ==ALT+CLICK== on tab nam
 Class {
 	#name : #GtPhlowListView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:} + TGtPhlowItemText',
-	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait',
+	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:} + TGtPhlowItemText + TGtPhlowSendTransformable',
+	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait + TGtPhlowSendTransformable classTrait',
 	#instVars : [
 		'itemsBuilder',
 		'itemStencil',
-		'transformation',
 		'itemDataBinder',
 		'itemTypeStencil'
 	],
@@ -23,25 +22,23 @@ Class {
 { #category : #'api - converting' }
 GtPhlowListView >> asElementDo: aBlock [
 	| theItems aList |
-	
-	theItems := self itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
-	
+	theItems := self
+		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	aList := self elementClass new items: theItems.
-	aList addEventHandler: (GtPhlowListToSelectHandler new transformation: self send).
-	aList constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
-
+	aList
+		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation).
+	aList
+		constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 	aList
 		itemStencil: self itemElementStencil;
 		itemDataBinder: self itemDataBinder;
 		itemType: self itemTypeStencil.
-
 	self beViewElement: aList.
-	
 	^ aBlock value: aList
 ]
 
 { #category : #copying }
-GtPhlowListView >> copySendFrom: aSendBlock [
+GtPhlowListView >> copyTransformationFrom: aSendBlock [
 	aSendBlock ifNil: [ ^ self ].
 	self send: aSendBlock
 ]
@@ -73,7 +70,7 @@ GtPhlowListView >> initialize [
 	self items: [ { } ].
 	self itemType: [ :anItemTypeFactory :anItemObject :anItemIndex | anItemTypeFactory default ].
 	self itemText: [ :aValue | aValue ].
-	transformation := [ :aValue | "by default there is no transformation" aValue ].
+	transformation := self defaultTransformation.
 ]
 
 { #category : #'private - testing' }
@@ -153,29 +150,6 @@ GtPhlowListView >> itemsOnExceptionErrorElement: aBlock [
 		performBlock: [ self itemsBuilder value ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
-]
-
-{ #category : #'private - accessing' }
-GtPhlowListView >> send [
-	^ transformation
-]
-
-{ #category : #'api - scripting' }
-GtPhlowListView >> send: aBlock [
-	"Define what object should be displayed on selection and/or spawn item (object) request"
-	self
-		assert: [ aBlock notNil ]
-		description: [ 'Send transformation block must be non-nil'  ].
-	aBlock isSymbol ifTrue: [ 
-		self 
-			assert: [ aBlock isUnary ]
-			description: [ 'Send transformation symbol must be unary' ].
-		transformation := [ :obj | aBlock value: obj ].
-		^self ].
-	self
-		assert: [ aBlock numArgs <= 2 ]
-		description: [ 'Send transformation block must have two or less arguments'  ].
-	transformation := aBlock
 ]
 
 { #category : #'api - scripting' }

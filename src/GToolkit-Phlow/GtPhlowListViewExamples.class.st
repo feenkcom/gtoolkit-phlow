@@ -446,6 +446,167 @@ GtPhlowListViewExamples >> phlowView [
 	^ aView
 ]
 
+{ #category : #'examples - transformation' }
+GtPhlowListViewExamples >> sendObject_Block [
+	<gtExample>
+	| view element |
+	view := self viewWithItems.
+	view send: [ :aNumber :aSelectionIndices | 
+		aNumber + 200 ].
+	view asElementDo: [ :el | element := el ].
+	self assert: element items size equals: 10.
+	^ view
+]
+
+{ #category : #'examples - transformation' }
+GtPhlowListViewExamples >> sendObject_Block_Element [
+	<gtExample>
+	| view element |
+	view := self sendObject_Block.
+	view asElementDo: [ :el | element := el ].
+	self assert: element items size equals: 10.
+	^ element
+]
+
+{ #category : #'examples - transformation' }
+GtPhlowListViewExamples >> sendObject_Block_Element_SelectEvent [
+	<gtExample>
+	| anElement aCollection |
+	aCollection := OrderedCollection new.
+	anElement := self sendObject_Block_Element.
+	anElement 
+		addEventHandlerOn: GtPhlowObjectEvent 
+		do: [ :anEvent | aCollection add: anEvent ].
+	anElement selectOne: 1.
+	self assert: (anElement isSelectedAt: 1).
+	self assert: aCollection size equals: 1.
+	self assert: aCollection first class equals: GtPhlowObjectToSelect.
+	self assert: aCollection first object equals: 201.
+	^ anElement
+]
+
+{ #category : #'examples - transformation' }
+GtPhlowListViewExamples >> sendObject_Symbol [
+	<gtExample>
+	| view element |
+	view := self viewWithItems.
+	view send: #negated.
+	view asElementDo: [ :el | element := el ].
+	self assert: element items size equals: 10.
+	^ view
+]
+
+{ #category : #'examples - transformation' }
+GtPhlowListViewExamples >> sendObject_Symbol_Element [
+	<gtExample>
+	| view element |
+	view := self sendObject_Symbol.
+	view asElementDo: [ :el | element := el ].
+	self assert: element items size equals: 10.
+	^ element
+]
+
+{ #category : #'examples - transformation' }
+GtPhlowListViewExamples >> sendObject_Symbol_Element_SelectEvent [
+	<gtExample>
+	| anElement aCollection |
+	aCollection := OrderedCollection new.
+	anElement := self sendObject_Symbol_Element.
+	anElement 
+		addEventHandlerOn: GtPhlowObjectEvent 
+		do: [ :anEvent | aCollection add: anEvent ].
+	anElement selectOne: 1.
+	self assert: (anElement isSelectedAt: 1).
+	self assert: aCollection size equals: 1.
+	self assert: aCollection first class equals: GtPhlowObjectToSelect.
+	self assert: aCollection first object equals: -1.
+	^ anElement
+]
+
+{ #category : #'examples - transformation' }
+GtPhlowListViewExamples >> sendTool [
+	<gtExample>
+	| view element |
+	view := self viewWithItems.
+	view sendTool: [ :aNumber | GtPhlowValuableTool new
+		valuable: [ BrFrame new
+			labeled: 'tool';
+			matchParent;
+			alignCenter;
+			addChild: (BrLabel new
+				look: BrGlamorousLabelLook;
+				text: aNumber;
+				constraintsDo: [ :c | 
+					c frame horizontal alignCenter.
+					c frame vertical alignCenter ]) ] ].
+	view asElementDo: [ :el | element := el ].
+	self assert: element items size equals: 10.
+	^ view
+]
+
+{ #category : #'examples - transformation' }
+GtPhlowListViewExamples >> sendTool_Element [
+	<gtExample>
+	| view element |
+	view := self sendTool.
+	view asElementDo: [ :el | element := el ].
+	self assert: element items size equals: 10.
+	^ element
+]
+
+{ #category : #'examples - transformation' }
+GtPhlowListViewExamples >> sendTool_Element_SelectEvent [
+	<gtExample>
+	| anElement aCollection |
+	aCollection := OrderedCollection new.
+	anElement := self sendTool_Element.
+	anElement 
+		addEventHandlerOn: GtPhlowObjectEvent 
+		do: [ :anEvent | aCollection add: anEvent ].
+	anElement selectOne: 1.
+	self assert: (anElement isSelectedAt: 1).
+	self assert: aCollection size equals: 1.
+	self assert: aCollection first class equals: GtPhlowObjectToSelect.
+	self assert: aCollection first tool class equals: GtPhlowValuableTool.
+	
+	^ anElement
+]
+
+{ #category : #'examples - transformation' }
+GtPhlowListViewExamples >> sendTool_Element_SelectEvent_Tool [
+	<gtExample>
+	| anElement aCollection |
+	aCollection := OrderedCollection new.
+	anElement := self sendTool_Element.
+	anElement 
+		addEventHandlerOn: GtPhlowObjectEvent 
+		do: [ :anEvent | aCollection add: anEvent ].
+	anElement selectOne: 1.
+	self assert: (anElement isSelectedAt: 1).
+	self assert: aCollection size equals: 1.
+	self assert: aCollection first class equals: GtPhlowObjectToSelect.
+	self assert: aCollection first tool class equals: GtPhlowValuableTool.
+	
+	^ aCollection first tool.
+]
+
+{ #category : #'examples - transformation' }
+GtPhlowListViewExamples >> sendTool_Element_SelectEvent_ToolElement [
+	<gtExample>
+	| aTool anElement aLabel |
+	aTool := self sendTool_Element_SelectEvent_Tool.
+	anElement := aTool asElement.
+
+	self assert: anElement class equals: BrFrame.
+	self assert: anElement childrenCount equals: 1.
+	
+	aLabel := anElement childAt: 1.
+	self assert: aLabel class equals: BrLabel.
+	self assert: aLabel text characters equals: '1'.
+	
+	^ anElement
+]
+
 { #category : #'examples - updating' }
 GtPhlowListViewExamples >> updateOnDefiningMethodChange [
 	<gtExample>

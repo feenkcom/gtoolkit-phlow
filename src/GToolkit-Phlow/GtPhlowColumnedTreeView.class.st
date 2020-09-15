@@ -1,8 +1,8 @@
 Class {
 	#name : #GtPhlowColumnedTreeView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts',
-	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait',
+	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTransformable',
+	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTransformable classTrait',
 	#instVars : [
 		'columns',
 		'transformation',
@@ -93,7 +93,7 @@ GtPhlowColumnedTreeView >> columns [
 ]
 
 { #category : #copying }
-GtPhlowColumnedTreeView >> copySendFrom: aSendBlock [
+GtPhlowColumnedTreeView >> copyTransformationFrom: aSendBlock [
 	aSendBlock ifNil: [ ^ self ].
 	self send: aSendBlock
 ]
@@ -142,7 +142,7 @@ GtPhlowColumnedTreeView >> initialize [
 	columns := OrderedCollection new.
 	itemsBuilder := [ { } ].
 	childrenBuilder := [ :each | { } ].
-	transformation := [ :aValue | "by default there is no transformation" aValue ].
+	transformation := self defaultTransformation.
 ]
 
 { #category : #testing }
@@ -191,28 +191,6 @@ GtPhlowColumnedTreeView >> newWrapper [
 			c horizontal fitContent.
 			c vertical matchParent ].
 	^ aWrapper
-]
-
-{ #category : #accessing }
-GtPhlowColumnedTreeView >> send [
-	^ transformation
-]
-
-{ #category : #accessing }
-GtPhlowColumnedTreeView >> send: aBlock [
-	self
-		assert: [ aBlock notNil ]
-		description: [ 'Send transformation block must be non-nil'  ].
-	aBlock isSymbol ifTrue: [ 
-		self 
-			assert: [ aBlock isUnary ]
-			description: [ 'Send transformation symbol must be unary' ].
-		transformation := [ :obj :event | aBlock value: obj ].
-		^self ].
-	self
-		assert: [ aBlock numArgs <= 2 ]
-		description: [ 'Send transformation block must have two or less arguments'  ].
-	transformation := aBlock
 ]
 
 { #category : #updating }

@@ -17,12 +17,13 @@ You can define me as follow: ${method:GtPhlowForwarderViewExamples>>#gtBasicFor:
 Class {
 	#name : #GtPhlowForwarderView,
 	#superclass : #GtPhlowViewDecorator,
+	#traits : 'TGtPhlowSendTransformable',
+	#classTraits : 'TGtPhlowSendTransformable classTrait',
 	#instVars : [
 		'view',
 		'phlowView',
 		'viewObject',
 		'alreadyIncludesForwardedActions',
-		'transformation',
 		'object'
 	],
 	#category : #'GToolkit-Phlow-! Views'
@@ -73,7 +74,8 @@ GtPhlowForwarderView >> createPhlowView [
 	<return: #GtPhlowView>
 	| aView |
 	aView := self on: self viewObject perform: self viewSymbol.
-	aView copySendFrom: self send.
+	self hasTransformation ifTrue: [ 
+		aView copyTransformationFrom: self transformation ].
 	^ aView
 ]
 
@@ -129,28 +131,6 @@ GtPhlowForwarderView >> secureObjectExecution [
 		on: Error do: [ :anException | 
 			phlowView := self phlowErrorViewWithException: anException.
 			anException ]
-]
-
-{ #category : #accessing }
-GtPhlowForwarderView >> send [
-	^ transformation
-]
-
-{ #category : #accessing }
-GtPhlowForwarderView >> send: aBlock [
-	self
-		assert: [ aBlock notNil ]
-		description: [ 'Send transformation block must be non-nil'  ].
-	aBlock isSymbol ifTrue: [ 
-		self 
-			assert: [ aBlock isUnary ]
-			description: [ 'Send transformation symbol must be unary' ].
-		transformation := [ :obj | aBlock value: obj ].
-		^self ].
-	self
-		assert: [ aBlock numArgs <= 2 ]
-		description: [ 'Send transformation block must have two or less arguments'  ].
-	transformation := aBlock
 ]
 
 { #category : #updating }
