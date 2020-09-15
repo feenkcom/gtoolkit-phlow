@@ -1,6 +1,8 @@
 Class {
 	#name : #GtPhlowColumnedTreeViewExamples,
 	#superclass : #GtPhlowViewExamples,
+	#traits : 'TGtPhlowSendTransformationExamples',
+	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
 	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
@@ -63,6 +65,16 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItems_WithItemsError [
 	^ aView
 ]
 
+{ #category : #'examples - support' }
+GtPhlowColumnedTreeViewExamples >> elementItemsFor: anElement [
+	"Return element items"
+
+	<gtExample>
+	| aListElement |
+	aListElement := self listElementFor: anElement.
+	^ aListElement viewModel root childrenValues
+]
+
 { #category : #'examples - columned tree view' }
 GtPhlowColumnedTreeViewExamples >> emptyColumnedTreeView [
 	<gtExample>
@@ -111,6 +123,14 @@ GtPhlowColumnedTreeViewExamples >> gtNumbersFor: aView [
 		column: 'x * x' item: [ :aNumber | aNumber * aNumber ]
 ]
 
+{ #category : #'examples - support' }
+GtPhlowColumnedTreeViewExamples >> listElementFor: anElement [
+	| aListElement |
+	aListElement := anElement childAt: 2.
+	self assert: aListElement class equals: BrColumnedTree.
+	^ aListElement
+]
+
 { #category : #'gt-extension' }
 GtPhlowColumnedTreeViewExamples >> myself [
 	<gtExample>
@@ -119,6 +139,23 @@ GtPhlowColumnedTreeViewExamples >> myself [
 
 { #category : #'examples - view' }
 GtPhlowColumnedTreeViewExamples >> phlowView [
+	<gtExample>
+	^ self columnedTreeViewWithItemsAndChildren
+]
+
+{ #category : #'examples - support' }
+GtPhlowColumnedTreeViewExamples >> selectItemAt: anIndex for: anElement [
+	<gtExample>
+	"Select an item at anIndex in anElement (list, tree)"
+	| aListElement |
+	aListElement := self listElementFor: anElement.
+	aListElement selectOne: anIndex.
+	self assert: (aListElement isSelectedAt: anIndex).
+]
+
+{ #category : #'examples - view' }
+GtPhlowColumnedTreeViewExamples >> viewWithTenItems [
+	"Return an initialized view with 10 (root) items"
 	<gtExample>
 	^ self columnedTreeViewWithItemsAndChildren
 ]
