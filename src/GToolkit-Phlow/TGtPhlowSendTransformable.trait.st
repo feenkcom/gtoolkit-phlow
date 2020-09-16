@@ -1,3 +1,14 @@
+"
+I am used by some concrete ${class:GtPhlowView}$ subclasses, see ${class:TGtPhlowSendTransformable|label=my users|show=#gtUsersFor:|height=150|expanded}$:
+I extend those classes with:
+- ${method:TGtPhlowSendTransformable>>#send:|label=#selector}$, and
+- ${method:TGtPhlowSendTransformable>>#sendTool:|label=#selector}$.
+!! Send Example
+In the following example, when the list items are selected (double click), ${example:GtPhlowListViewExamples>>#sendNumberAddition|label}$ is added to selected items that are displayed in the next pane: ${example:GtPhlowListViewExamples>>#sendObject_Block|codeExpanded=false|previewExpanded=true}$
+!! Send Tool Example
+In the following example, when the list items are selected (double click), a ${class:GtPhlowTool|label=Phlow tool}$ is used to display selected items in the next pane: ${example:GtPhlowListViewExamples>>#sendTool|codeExpanded=false|previewExpanded=true}$
+In this case, it is a  ${class:BlElement}$ widget that displays selected numbers in the middle. More elaborate and dedicated Phlow tools can be used, see ${class:GtPhlowTool|expanded|show=#gtSubclassesFor:}$ subclasses:
+"
 Trait {
 	#name : #TGtPhlowSendTransformable,
 	#instVars : [
@@ -36,7 +47,7 @@ TGtPhlowSendTransformable >> send [
 
 { #category : #'api - scripting' }
 TGtPhlowSendTransformable >> send: aBlock [
-	"Define what object should be displayed on selection and fire select or spawn item request"
+	"Define what object should be displayed on selection and fire select or spawn item requests"
 	self
 		assert: [ aBlock isNotNil ]
 		description: [ 'Send transformation block must be non-nil'  ].
@@ -54,7 +65,7 @@ TGtPhlowSendTransformable >> send: aBlock [
 
 { #category : #'api - scripting' }
 TGtPhlowSendTransformable >> sendTool: aBlock [
-	"Define what tool should be displayed on selection and send select or spawn tool request"
+	"Define what tool should be displayed on selection and send select or spawn tool requests"
 	self
 		assert: [ aBlock isNotNil ]
 		description: [ 'Send transformation block must be non-nil'  ].

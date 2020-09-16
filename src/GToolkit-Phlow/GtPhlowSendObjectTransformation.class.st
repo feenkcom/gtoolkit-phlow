@@ -1,6 +1,11 @@
+"
+I am ${class:GtPhlowSendValuableTransformation}$.
+I use ${method:GtPhlowElementContext>>#selectObject:}$ and ${method:GtPhlowElementContext>>#spawnObject:|label=#selector}$ in order to display objects.
+See ${class:TGtPhlowSendTransformable}$ for more details and examples.
+"
 Class {
 	#name : #GtPhlowSendObjectTransformation,
-	#superclass : #GtPhlowSendValuableTransformatioin,
+	#superclass : #GtPhlowSendValuableTransformation,
 	#category : #'GToolkit-Phlow-Support - Transformation'
 }
 

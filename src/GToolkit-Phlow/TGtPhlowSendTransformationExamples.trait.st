@@ -1,3 +1,7 @@
+"
+I exemplify ${class:TGtPhlowSendTransformable}$ and ${class:TGtPhlowSendTreeNodeTransformable}$.
+
+"
 Trait {
 	#name : #TGtPhlowSendTransformationExamples,
 	#category : #'GToolkit-Phlow-Examples - Views'
@@ -26,13 +30,19 @@ TGtPhlowSendTransformationExamples >> selectItemAt: anIndex for: anElement [
 	self explicitRequirement
 ]
 
+{ #category : #'examples - support' }
+TGtPhlowSendTransformationExamples >> sendNumberAddition [
+	<gtExample>
+	^ 200
+]
+
 { #category : #'examples - transformation' }
 TGtPhlowSendTransformationExamples >> sendObject_Block [
 	<gtExample>
 	| view element |
 	view := self viewWithTenItems.
 	view send: [ :aNumber :aSelectionIndices | 
-		aNumber + 200 ].
+		aNumber + self sendNumberAddition ].
 	view asElementDo: [ :el | element := el ].
 	self itemsFor: element ofSize: 10.
 	^ view
