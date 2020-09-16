@@ -244,9 +244,7 @@ GtPhlowElementContext >> replaceEntity: aNewPhlow [
 
 { #category : #'api - events' }
 GtPhlowElementContext >> selectObject: anObject [
-	(anObject isKindOf: GtPhlowAbstractTool)
-		ifTrue: [ self selectTool: anObject ]
-		ifFalse: [ self selectTool: (GtPhlowTool default object: anObject) ]
+	self selectTool: (GtPhlowTool default object: anObject)
 ]
 
 { #category : #'api - events' }
