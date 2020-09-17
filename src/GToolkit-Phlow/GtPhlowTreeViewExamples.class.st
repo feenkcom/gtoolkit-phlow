@@ -1,3 +1,6 @@
+"
+I exemplify ${class:GtPhlowTreeView}$.
+"
 Class {
 	#name : #GtPhlowTreeViewExamples,
 	#superclass : #GtPhlowViewExamples,

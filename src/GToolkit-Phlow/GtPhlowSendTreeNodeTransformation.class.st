@@ -27,7 +27,7 @@ GtPhlowSendTreeNodeTransformation >> select: aSelectedNode indices: aSelectionIn
 { #category : #'api - events' }
 GtPhlowSendTreeNodeTransformation >> spawn: aSelectedNode indices: aSelectionIndices from: anElement [
 	self transformation 
-		select: aSelectedNode value
+		spawn: aSelectedNode value
 		indices: aSelectionIndices 
 		from: anElement
 ]
