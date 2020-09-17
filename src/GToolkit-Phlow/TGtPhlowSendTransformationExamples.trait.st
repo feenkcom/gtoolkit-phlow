@@ -4,8 +4,30 @@ I exemplify ${class:TGtPhlowSendTransformable}$ and ${class:TGtPhlowSendTreeNode
 "
 Trait {
 	#name : #TGtPhlowSendTransformationExamples,
+	#traits : 'TGtSpaceExamples',
+	#classTraits : 'TGtSpaceExamples classTrait',
 	#category : #'GToolkit-Phlow-Examples - Views'
 }
+
+{ #category : #'examples - support' }
+TGtPhlowSendTransformationExamples >> doubleClickItemAt: anIndex for: anElement [
+	<gtExample>
+	"Double click on an item at anIndex in anElement (list, tree)"
+	| anInfiniteElement anItemElement |
+	anElement 
+		allChildrenBreadthFirstDetect: [ :eachChild | 
+			(eachChild isKindOf: BlInfiniteElement) ]
+		ifFound: [ :aChild | anInfiniteElement := aChild ].
+	self 
+		assert: anInfiniteElement isNotNil 
+		description: [ 'Cannot find an infinite element in ', anElement asString ].
+	self 
+		assert: anInfiniteElement childrenCount >= anIndex 
+		description: [ anElement asString, '''s infinite element has ', anInfiniteElement childrenCount asString, 
+			' children. Cannot double click on an item at ', anIndex asString, ' position.' ].
+	anItemElement := anInfiniteElement childAt: anIndex.
+	BlSpace simulateDoubleClickOn: anItemElement.
+]
 
 { #category : #'examples - support' }
 TGtPhlowSendTransformationExamples >> elementItemsFor: anElement [
@@ -56,6 +78,26 @@ TGtPhlowSendTransformationExamples >> sendObject_Block_Element [
 	view asElementDo: [ :el | element := el ].
 	self itemsFor: element ofSize: 10.
 	^ element
+]
+
+{ #category : #'examples - transformation' }
+TGtPhlowSendTransformationExamples >> sendObject_Block_Element_DoubleClickEvent [
+	<gtExample>
+	| anElement aCollection |
+	aCollection := OrderedCollection new.
+	anElement := self sendObject_Block_Element.
+	anElement size: 600@400; forceLayout.
+	anElement 
+		addEventHandlerOn: GtPhlowObjectEvent 
+		do: [ :anEvent | aCollection add: anEvent ].
+	self doubleClickItemAt: 1 for: anElement.
+	self assert: aCollection size equals: 2.
+	self assert: aCollection first class equals: GtPhlowObjectToSelect.
+	self assert: aCollection second class equals: GtPhlowObjectToSpawn.
+	self assert: aCollection first object equals: 201.
+	self assert: aCollection second object equals: 201.
+	
+	^ anElement
 ]
 
 { #category : #'examples - transformation' }
