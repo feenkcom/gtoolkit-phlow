@@ -2,7 +2,7 @@
 I am a ${class:BrStencil}$.
 I create an empty (default) ${class:GtPhlowSidebarElement}$ content, see ${method:GtPhlowSidebarElement>>#defaultContentStencil}$.
 !! Example
-The following example shows a sidebar with a default empty content (that I generate): ${example:GtPhlowSidebarElementExamples>>#basicSidebarElement|codeExpanded=false|previewExpanded=true}$
+The following example shows a sidebar with a default empty content (that I generate): ${example:GtPhlowSidebarElementExamples>>#basicHorizontalSidebarElement|codeExpanded=false|previewExpanded=true}$
 "
 Class {
 	#name : #GtPhlowSidebarEmptyContentStencil,
