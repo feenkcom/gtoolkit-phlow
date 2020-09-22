@@ -6,7 +6,7 @@ Trait {
 	#instVars : [
 		'tooltipBuilder'
 	],
-	#category : #'GToolkit-Phlow-Tooltip'
+	#category : #'GToolkit-Phlow-Support - Tooltip'
 }
 
 { #category : #defaults }
