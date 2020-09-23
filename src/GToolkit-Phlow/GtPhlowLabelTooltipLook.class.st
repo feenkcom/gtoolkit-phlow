@@ -5,7 +5,7 @@ If a user clicks on the action, a defining method is displayed.
 Class {
 	#name : #GtPhlowLabelTooltipLook,
 	#superclass : #BrGlamorousLabelTooltipLook,
-	#category : #'GToolkit-Phlow-Tooltip'
+	#category : #'GToolkit-Phlow-Support - Tooltip'
 }
 
 { #category : #'instance creation' }

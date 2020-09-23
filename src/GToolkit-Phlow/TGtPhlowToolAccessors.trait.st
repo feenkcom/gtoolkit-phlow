@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'tool'
 	],
-	#category : #'GToolkit-Phlow-Events'
+	#category : #'GToolkit-Phlow-Tool - Support'
 }
 
 { #category : #defaults }

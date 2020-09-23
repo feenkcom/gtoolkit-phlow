@@ -24,7 +24,6 @@ GtPhlowListToSelectHandler >> handleEvent: anEvent [
 
 { #category : #'api - event managing' }
 GtPhlowListToSelectHandler >> selectionChangedEvent: anEvent [
-	anEvent asBeaconSignal emit.
 
 	anEvent selectedDo: [ :theIndices |
 		| aWidgetElement aSelectedObject |
@@ -40,7 +39,6 @@ GtPhlowListToSelectHandler >> selectionChangedEvent: anEvent [
 
 { #category : #'api - event managing' }
 GtPhlowListToSelectHandler >> selectionDoubleClickedEvent: anEvent [
-	anEvent asBeaconSignal emit.
 	
 	anEvent selection ifNotEmpty: [ :anInterval |
 		| aWidgetElement aSelectedObject |
