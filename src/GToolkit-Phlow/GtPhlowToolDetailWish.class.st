@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-GtPhlowToolDetailWish class >> beDetailedTool [
+GtPhlowToolDetailWish class >> beDetailedLevel [
 	^ self new level: GtPhlowToolDetailState detailedName
 ]
 
@@ -18,12 +18,12 @@ GtPhlowToolDetailWish class >> beLevel: aNamedVolume [
 ]
 
 { #category : #'instance creation' }
-GtPhlowToolDetailWish class >> beNormalTool [
+GtPhlowToolDetailWish class >> beNormalLevel [
 	^ self new level: GtPhlowToolDetailState normalName
 ]
 
 { #category : #'instance creation' }
-GtPhlowToolDetailWish class >> beUndefinedTool [
+GtPhlowToolDetailWish class >> beUndefinedLevel [
 	^ self new level: GtPhlowToolDetailState undefinedName
 ]
 

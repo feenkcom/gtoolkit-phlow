@@ -56,7 +56,7 @@ GtPhlowToolDetailModelExamples >> containerContainerToolDetailedResponse [
 	<gtExample>
 	| aContainerOne aTool aPreviousDimension aNewDimension aContainerDimension aSpace aContainerTwo |
 	aContainerOne := self containerContainerToolElement.
-	aContainerOne dispatchEvent: GtPhlowToolDetailWish beDetailedTool.
+	aContainerOne dispatchEvent: GtPhlowToolDetailWish beDetailedLevel.
 	aContainerDimension := self requestToolDetailLevel: aContainerOne.
 	aContainerTwo := aContainerOne childAt: 1.
 	aTool := aContainerTwo childAt: 1.
@@ -74,7 +74,7 @@ GtPhlowToolDetailModelExamples >> containerContainerToolDetailedVolume [
 	<gtExample>
 	| aContainerOne aTool aContainerOneDimension aContainerTwo aContainerTwoDimension aToolDimension |
 	aContainerOne := self containerContainerToolElement.
-	aContainerOne dispatchEvent: GtPhlowToolDetailWish beDetailedTool.
+	aContainerOne dispatchEvent: GtPhlowToolDetailWish beDetailedLevel.
 
 	aContainerTwo := aContainerOne childAt: 1.
 	aTool := aContainerTwo childAt: 1.
@@ -141,7 +141,7 @@ GtPhlowToolDetailModelExamples >> containerContainerToolElement [
 	aContainerOne := self containerElement.
 	aContainerTwo := self containerWithToolElement.
 	aContainerTwo labeled: 'Container Two'.
-	aContainerOne addChild: aContainerTwo.
+	aContainerOne addChild: aContainerTwo at: 1 as: #container.
 	^ aContainerOne
 ]
 
@@ -156,24 +156,36 @@ GtPhlowToolDetailModelExamples >> containerElement [
 	self 
 		assert: aDimension
 		equals: self basicContainerDetailModel defaultLevel.
+		
+	self showcaseContainerElementConfiguration: anElement.
+	
 	^ anElement
 ]
 
 { #category : #'examples - events' }
 GtPhlowToolDetailModelExamples >> containerElementDetailedResponse [
 	<gtExample>
-	| aContainer aTool aPreviousDimension aNewDimension aContainerDimension aSpace |
+	| aContainer aTool aPreviousToolLevel aNewToolLevel aContainerLevel aSpace |
+
+	"Define a tool with a detailed level."
 	aContainer := self containerWithToolElement.
-	aContainer dispatchEvent: GtPhlowToolDetailWish beDetailedTool.
-	aContainerDimension := self requestToolDetailLevel: aContainer.
+	aContainer dispatchEvent: GtPhlowToolDetailWish beDetailedLevel.
+	aContainerLevel := self requestToolDetailLevel: aContainer.
+	
+	"Request a current tool level."
 	aTool := aContainer childAt: 1.
-	aPreviousDimension := self requestToolDetailLevel: aTool.
-	self assert: aPreviousDimension ~= aContainerDimension.
+	aPreviousToolLevel := self requestToolDetailLevel: aTool.
+	self assert: aPreviousToolLevel ~= aContainerLevel.
+
+	"By attaching the widget into a space, 
+	the tool will ask its parents for a level of detail that should be used."
 	aSpace := self putInSpace: aContainer.
-	aNewDimension := self requestToolDetailLevel: aTool.
-	self assert: aNewDimension ~= aPreviousDimension.
-	self assert: aNewDimension equals: aContainerDimension.
-	^ aSpace
+	aNewToolLevel := self requestToolDetailLevel: aTool.
+	self assert: aNewToolLevel ~= aPreviousToolLevel.
+	self assert: aNewToolLevel equals: aContainerLevel.
+
+	self closeSpace: aSpace with: aContainer.
+	^ aContainer
 ]
 
 { #category : #'examples - events' }
@@ -195,7 +207,7 @@ GtPhlowToolDetailModelExamples >> containerWithToolElement [
 	| aContainer aTool |
 	aContainer := self containerElement.
 	aTool := self toolElement.
-	aContainer addChild: aTool.
+	aContainer addChild: aTool at: 1 as: #tool.
 	^ aContainer
 ]
 
@@ -226,7 +238,7 @@ GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Detaile
 	|  aContainer aTool |
 	aContainer := self containerWithToolElementWithDetailLook.
 	aTool := aContainer childAt: 1.
-	aTool dispatchEvent: GtPhlowToolDetailWish beDetailedTool.
+	aTool dispatchEvent: GtPhlowToolDetailWish beDetailedLevel.
 	self assert: aTool background paint color equals: self detailedBackgroundColor.
 	^ aContainer
 ]
@@ -237,7 +249,7 @@ GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Normal 
 	|  aContainer aTool |
 	aContainer := self containerWithToolElementWithDetailLook.
 	aTool := aContainer childAt: 1.
-	aTool dispatchEvent: GtPhlowToolDetailWish beNormalTool.
+	aTool dispatchEvent: GtPhlowToolDetailWish beNormalLevel.
 	self assert: aTool background paint color equals: self normalBackgroundColor.
 	^ aContainer
 ]
@@ -302,17 +314,69 @@ GtPhlowToolDetailModelExamples >> requestToolDetailLevel: anElement [
 	^ aRequest response states anyOne level
 ]
 
+{ #category : #'examples - support' }
+GtPhlowToolDetailModelExamples >> showcaseContainerElementConfiguration: anElement [
+	<gtExample>
+	| aLevel aLabel |
+	aLevel := self requestToolDetailLevel: anElement.
+	aLabel := BrLabel new
+			look: (BrGlamorousLabelLook new
+				foreground: Color white);
+			text: 'Container Level of Detail: ', aLevel asString.
+	anElement
+		layout: BlFrameLayout new;
+		background: (Color black alpha: 0.2);
+		constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical matchParent.
+			c frame horizontal alignCenter.
+			c frame vertical alignCenter.
+			c margin: (BlInsets all: 30) ];
+		addChild: (aLabel);
+		when: GtPhlowToolDetailChanged
+		do: [ :anEvent | aLabel text: 'Container Level of Detail: ', anEvent level asString ].
+	^ anElement
+]
+
+{ #category : #'examples - support' }
+GtPhlowToolDetailModelExamples >> showcaseToolElementConfiguration: anElement [
+	<gtExample>
+	| aLevel aLabel |
+	aLevel := self requestToolDetailLevel: anElement.
+	aLabel := BrLabel new
+			look: (BrGlamorousLabelLook new
+				foreground: Color white);
+			text: 'Tool Level of Detail: ', aLevel asString.
+	anElement
+		layout: BlFrameLayout new;
+		background: (Color blue alpha: 0.2);
+		constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical matchParent.
+			c frame horizontal alignCenter.
+			c frame vertical alignCenter.
+			c margin: (BlInsets all: 30) ];
+		addChild: (aLabel);
+		when: GtPhlowToolDetailChanged
+		do: [ :anEvent | aLabel text: 'Tool Level of Detail: ', anEvent level asString ].
+	^ anElement
+]
+
 { #category : #'examples - elements' }
 GtPhlowToolDetailModelExamples >> toolElement [
 	<gtExample>
-	| anElement aDimension |
+	| anElement aLevel |
 	anElement := self element.
 	anElement labeled: 'Tool'.
 	anElement addInteractiveModelState: self basicToolDetailModel.
-	aDimension := self requestToolDetailLevel: anElement.
+	aLevel := self requestToolDetailLevel: anElement.
 	self 
-		assert: aDimension
+		assert: aLevel
 		equals: self basicToolDetailModel defaultLevel.
+	
+	"Some configuration for a showcase"
+	self showcaseToolElementConfiguration: anElement.
+	
 	^ anElement
 ]
 

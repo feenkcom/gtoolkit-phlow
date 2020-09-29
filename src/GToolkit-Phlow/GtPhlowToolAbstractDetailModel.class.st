@@ -1,3 +1,15 @@
+"
+I am an abstract class.
+I implement common code to set a ${method:GtPhlowToolAbstractDetailModel>>#level|label=#selector}$ which is:
+- a ${class:GtPhlowToolDetailState}$'s ${method:GtPhlowToolDetailState>>#level|label=#selector}$ value,
+- a ${class:Symbol}$ value in order to define a custom values,
+- a value that defines how a ${class:BlElement}$ (a tool) should be displayed, e.g., showing all information, and minimum information.
+There are three predefined values that can be set by sending the following messages:
+- ${method:GtPhlowToolAbstractDetailModel>>#beUndefinedLevel|label=#selector}$,
+- ${method:GtPhlowToolAbstractDetailModel>>#beNormalLevel|label=#selector}$,
+- ${method:GtPhlowToolAbstractDetailModel>>#beDetailedLevel|label=#selector}$.
+See my ${class:GtPhlowToolAbstractDetailModel|expanded|show=#gtSubclassesFor:|height=100}$ for more details:
+"
 Class {
 	#name : #GtPhlowToolAbstractDetailModel,
 	#superclass : #BrStateModel,
@@ -8,18 +20,46 @@ Class {
 }
 
 { #category : #'api - configuration' }
-GtPhlowToolAbstractDetailModel >> beDetailedTool [
+GtPhlowToolAbstractDetailModel >> beDetailedLevel [
+	"A ${class:BlElement}$ (a tool) should display all details."
 	self level: GtPhlowToolDetailState detailedName
 ]
 
 { #category : #'api - configuration' }
-GtPhlowToolAbstractDetailModel >> beNormalTool [
+GtPhlowToolAbstractDetailModel >> beDetailedTool [
+	self 
+		deprecated: 'Use #beDetailedLevel instead' 
+		transformWith: '`@receiver beDetailedTool' -> '`@receiver beDetailedLevel'.
+	self beDetailedLevel
+]
+
+{ #category : #'api - configuration' }
+GtPhlowToolAbstractDetailModel >> beNormalLevel [
+	"A ${class:BlElement}$ (a tool) should display a common information (hidding some details)."
 	self level: GtPhlowToolDetailState normalName
 ]
 
 { #category : #'api - configuration' }
-GtPhlowToolAbstractDetailModel >> beUndefinedTool [
+GtPhlowToolAbstractDetailModel >> beNormalTool [
+	self 
+		deprecated: 'Use #beNormalLevel instead' 
+		transformWith: '`@receiver beNormalTool' -> '`@receiver beNormalLevel'.
+	self beNormalLevel
+]
+
+{ #category : #'api - configuration' }
+GtPhlowToolAbstractDetailModel >> beUndefinedLevel [
+	"Undefined level has a special meaning and is used internally.
+	See ${class:GtPhlowToolContainerDetailModel}$ for more details."
 	self level: GtPhlowToolDetailState undefinedName
+]
+
+{ #category : #'api - configuration' }
+GtPhlowToolAbstractDetailModel >> beUndefinedTool [
+	self 
+		deprecated: 'Use #beUndefinedLevel instead' 
+		transformWith: '`@receiver beUndefinedTool' -> '`@receiver beUndefinedLevel'.
+	self beUndefinedLevel
 ]
 
 { #category : #defaults }
@@ -82,6 +122,7 @@ GtPhlowToolAbstractDetailModel >> level [
 
 { #category : #'api - configuration' }
 GtPhlowToolAbstractDetailModel >> level: aSymbol [
+	"A ${class:BlElement}$ (a tool) should display a user defined level of information."
 
 	self level = aSymbol
 		ifTrue: [ ^ self ].

@@ -4,11 +4,11 @@ Trait {
 }
 
 { #category : #'api - tool volume adjustable' }
-TGtPhlowToolDetailAdjustable >> beDetailedTool [
-	self dispatchEvent: GtPhlowToolDetailWish beDetailedTool
+TGtPhlowToolDetailAdjustable >> beDetailedLevel [
+	self dispatchEvent: GtPhlowToolDetailWish beDetailedLevel
 ]
 
 { #category : #'api - tool volume adjustable' }
-TGtPhlowToolDetailAdjustable >> beNormalTool [
-	self dispatchEvent: GtPhlowToolDetailWish beNormalTool
+TGtPhlowToolDetailAdjustable >> beNormalLevel [
+	self dispatchEvent: GtPhlowToolDetailWish beNormalLevel
 ]

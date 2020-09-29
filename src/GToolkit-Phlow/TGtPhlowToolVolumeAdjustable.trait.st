@@ -12,11 +12,11 @@ TGtPhlowToolVolumeAdjustable classSide >> isDeprecated [
 ]
 
 { #category : #'api - tool volume adjustable' }
-TGtPhlowToolVolumeAdjustable >> beDetailedTool [
-	self dispatchEvent: GtPhlowToolDetailWish beDetailedTool
+TGtPhlowToolVolumeAdjustable >> beDetailedLevel [
+	self dispatchEvent: GtPhlowToolDetailWish beDetailedLevel
 ]
 
 { #category : #'api - tool volume adjustable' }
-TGtPhlowToolVolumeAdjustable >> beNormalTool [
-	self dispatchEvent: GtPhlowToolDetailWish beNormalTool
+TGtPhlowToolVolumeAdjustable >> beNormalLevel [
+	self dispatchEvent: GtPhlowToolDetailWish beNormalLevel
 ]
