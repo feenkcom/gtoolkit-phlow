@@ -3,12 +3,12 @@ Trait {
 	#category : #'GToolkit-Phlow-Tool - Support'
 }
 
-{ #category : #'api - tool volume adjustable' }
+{ #category : #'api - tool detail level adjustable' }
 TGtPhlowToolDetailAdjustable >> beDetailedLevel [
 	self dispatchEvent: GtPhlowToolDetailWish beDetailedLevel
 ]
 
-{ #category : #'api - tool volume adjustable' }
+{ #category : #'api - tool detail level adjustable' }
 TGtPhlowToolDetailAdjustable >> beNormalLevel [
 	self dispatchEvent: GtPhlowToolDetailWish beNormalLevel
 ]
