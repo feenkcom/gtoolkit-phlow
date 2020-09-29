@@ -26,6 +26,14 @@ GtPhlowToolExamples >> basicValuableTool [
 	^ aTool
 ]
 
+{ #category : #'examples - spaces' }
+GtPhlowToolExamples >> closeSpace: aSpace with: anElement [
+	<gtExample>
+	"Remove an element from the space and close the space"
+	anElement removeFromParent.
+	aSpace close.
+]
+
 { #category : #'examples - support' }
 GtPhlowToolExamples >> defaultBackgroundColor [
 	<gtExample>
