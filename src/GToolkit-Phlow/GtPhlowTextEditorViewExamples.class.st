@@ -1,3 +1,6 @@
+"
+I exemplify ${class:GtPhlowTextEditorView}$.
+"
 Class {
 	#name : #GtPhlowTextEditorViewExamples,
 	#superclass : #GtPhlowViewExamples,

@@ -33,8 +33,9 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 	aBrickEditor 
 		look: aNewLook;
 		styler: aNewStyler;
-		text: aText.
-
+		enqueueTask: (BlTaskAction new action: [
+			aBrickEditor text: aText ]).
+			
 	aBrickEditor
 		matchParent;
 		padding: (BlInsets all: 10).

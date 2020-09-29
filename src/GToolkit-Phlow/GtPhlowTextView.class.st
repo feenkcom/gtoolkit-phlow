@@ -19,7 +19,8 @@ GtPhlowTextView >> asElementDo: aBlock [
 
 	aBrickEditor 
 		look: BrGlamorousEditorLook;
-		text: aText.
+		enqueueTask: (BlTaskAction new action: [
+			aBrickEditor text: aText ]).
 
 	aBrickEditor
 		matchParent;
