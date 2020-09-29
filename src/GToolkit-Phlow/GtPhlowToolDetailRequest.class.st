@@ -1,10 +1,10 @@
 Class {
-	#name : #GtPhlowToolVolumeRequest,
+	#name : #GtPhlowToolDetailRequest,
 	#superclass : #BrRequest,
 	#category : #'GToolkit-Phlow-Tool - Events'
 }
 
 { #category : #initialization }
-GtPhlowToolVolumeRequest >> responseClass [
-	^ GtPhlowToolVolumeChanged
+GtPhlowToolDetailRequest >> responseClass [
+	^ GtPhlowToolDetailChanged
 ]
