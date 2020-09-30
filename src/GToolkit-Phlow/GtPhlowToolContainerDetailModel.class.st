@@ -1,3 +1,15 @@
+"
+I am a ${class:GtPhlowToolAbstractDetailModel}$.
+I define what level of information detail should be used by ${class:BlElement}$ child instances (tools). The tools should use the given level of detail and display corresponding context information. For example, in case of a ${class:Class}$, a normal level of information detail can only display basic class definition, while a detailed level of information can display also the class hierarchy.
+!! How I Work
+I am attached to a ${class:BlElement|label=tool}$ using ${method:BlElement>>#addInteractiveModelState:}$. I listen to ${class:GtPhlowToolContainerDetailRequest}$ from the attached element ${method:BlElement>>#children|label=#selector}$.  I answer the current level of information detail. 
+
+Notice, that I do """"not"""" inform my element children, when I change my state. Currently, it is supposed that my children need to update the level of information deail only when attached to a scene graph.
+!! Example
+The following example shows how a tool obtains a detailed level response from a parent element to which I am attached to: ${example:GtPhlowToolDetailModelExamples>>#containerElementDetailedResponse}$
+!! Example With Undefined State
+The following example shows the case in which a container has undefined state. The undefined state is never answered by ${class:GtPhlowToolContainerDetailModel}$: ${example:GtPhlowToolDetailModelExamples>>#containerElementUndefinedResponse|codeExpanded=false|previewExpanded=true}$ 
+"
 Class {
 	#name : #GtPhlowToolContainerDetailModel,
 	#superclass : #GtPhlowToolAbstractDetailModel,
