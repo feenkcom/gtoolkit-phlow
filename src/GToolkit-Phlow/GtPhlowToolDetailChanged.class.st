@@ -1,3 +1,9 @@
+"
+I am a ${class:BrStateChangedEvent}$.
+I am used to inform about a level of information detail value.
+See ${class:GtPhlowToolAbstractDetailModel}$ for more details.
+
+"
 Class {
 	#name : #GtPhlowToolDetailChanged,
 	#superclass : #BrStateChangedEvent,

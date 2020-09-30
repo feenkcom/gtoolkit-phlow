@@ -52,49 +52,31 @@ GtPhlowToolDetailModelExamples >> compositeTool [
 ]
 
 { #category : #'examples - events' }
-GtPhlowToolDetailModelExamples >> containerContainerToolDetailedResponse [
+GtPhlowToolDetailModelExamples >> containerContainerToolDetailedLevel [
 	<gtExample>
-	| aContainerOne aTool aPreviousDimension aNewDimension aContainerDimension aSpace aContainerTwo |
-	aContainerOne := self containerContainerToolElement.
-	aContainerOne dispatchEvent: GtPhlowToolDetailWish beDetailedLevel.
-	aContainerDimension := self requestToolDetailLevel: aContainerOne.
-	aContainerTwo := aContainerOne childAt: 1.
-	aTool := aContainerTwo childAt: 1.
-	aPreviousDimension := self requestToolDetailLevel: aTool.
-	self assert: aPreviousDimension ~= aContainerDimension.
-	aSpace := self putInSpace: aContainerOne.
-	aNewDimension := self requestToolDetailLevel: aTool.
-	self assert: aNewDimension ~= aPreviousDimension.
-	self assert: aNewDimension equals: aContainerDimension.
-	^ aSpace
-]
-
-{ #category : #'examples - events' }
-GtPhlowToolDetailModelExamples >> containerContainerToolDetailedVolume [
-	<gtExample>
-	| aContainerOne aTool aContainerOneDimension aContainerTwo aContainerTwoDimension aToolDimension |
+	| aContainerOne aTool aContainerOneLevel aContainerTwo aContainerTwoLevel aToolLevel |
 	aContainerOne := self containerContainerToolElement.
 	aContainerOne dispatchEvent: GtPhlowToolDetailWish beDetailedLevel.
 
 	aContainerTwo := aContainerOne childAt: 1.
 	aTool := aContainerTwo childAt: 1.
 
-	aContainerOneDimension := self requestToolDetailLevel: aContainerOne.
-	aContainerTwoDimension := self requestToolDetailLevel: aContainerTwo.
-	aToolDimension := self requestToolDetailLevel: aTool.
+	aContainerOneLevel := self requestToolDetailLevel: aContainerOne.
+	aContainerTwoLevel := self requestToolDetailLevel: aContainerTwo.
+	aToolLevel := self requestToolDetailLevel: aTool.
 
-	self assert: aContainerOneDimension equals: GtPhlowToolDetailState detailedName.
-	self assert: aContainerTwoDimension equals: GtPhlowToolDetailState undefinedName.
-	self assert: aToolDimension equals: GtPhlowToolDetailState normalName.
+	self assert: aContainerOneLevel equals: GtPhlowToolDetailState detailedName.
+	self assert: aContainerTwoLevel equals: GtPhlowToolDetailState undefinedName.
+	self assert: aToolLevel equals: GtPhlowToolDetailState normalName.
 
 	^ aContainerOne
 ]
 
 { #category : #'examples - events' }
-GtPhlowToolDetailModelExamples >> containerContainerToolDetailedVolume_ContainerVolumeReponse [
+GtPhlowToolDetailModelExamples >> containerContainerToolDetailedLevel_ContainerLevelReponse [
 	<gtExample>
 	| aContainerOne aTool aContainerOneDimension aContainerTwo aContainerTwoDimension aToolDimension aReceivedDimension |
-	aContainerOne := self containerContainerToolDetailedVolume.
+	aContainerOne := self containerContainerToolDetailedLevel.
 
 	aContainerTwo := aContainerOne childAt: 1.
 	aTool := aContainerTwo childAt: 1.
@@ -114,10 +96,10 @@ GtPhlowToolDetailModelExamples >> containerContainerToolDetailedVolume_Container
 ]
 
 { #category : #'examples - events' }
-GtPhlowToolDetailModelExamples >> containerContainerToolDetailedVolume_InSpace [
+GtPhlowToolDetailModelExamples >> containerContainerToolDetailedLevel_InSpace [
 	<gtExample>
 	| aContainerOne aTool aSpace aContainerTwo aContainerOneDimension aContainerTwoDimension aToolDimension |
-	aContainerOne := self containerContainerToolDetailedVolume.
+	aContainerOne := self containerContainerToolDetailedLevel.
 	aContainerTwo := aContainerOne childAt: 1.
 	aTool := aContainerTwo childAt: 1.
 
@@ -131,7 +113,27 @@ GtPhlowToolDetailModelExamples >> containerContainerToolDetailedVolume_InSpace [
 	self assert: aContainerTwoDimension equals: GtPhlowToolDetailState undefinedName.
 	self assert: aToolDimension equals: GtPhlowToolDetailState detailedName.
 
-	^ aSpace
+	self closeSpace: aSpace with: aContainerOne.
+	^ aContainerOne
+]
+
+{ #category : #'examples - events' }
+GtPhlowToolDetailModelExamples >> containerContainerToolDetailedResponse [
+	<gtExample>
+	| aContainerOne aTool aPreviousDimension aNewDimension aContainerDimension aSpace aContainerTwo |
+	aContainerOne := self containerContainerToolElement.
+	aContainerOne dispatchEvent: GtPhlowToolDetailWish beDetailedLevel.
+	aContainerDimension := self requestToolDetailLevel: aContainerOne.
+	aContainerTwo := aContainerOne childAt: 1.
+	aTool := aContainerTwo childAt: 1.
+	aPreviousDimension := self requestToolDetailLevel: aTool.
+	self assert: aPreviousDimension ~= aContainerDimension.
+	aSpace := self putInSpace: aContainerOne.
+	aNewDimension := self requestToolDetailLevel: aTool.
+	self assert: aNewDimension ~= aPreviousDimension.
+	self assert: aNewDimension equals: aContainerDimension.
+	self closeSpace: aSpace with: aContainerOne.
+	^ aContainerOne
 ]
 
 { #category : #'examples - elements' }
@@ -156,7 +158,7 @@ GtPhlowToolDetailModelExamples >> containerElement [
 	self 
 		assert: aDimension
 		equals: self basicContainerDetailModel defaultLevel.
-		
+
 	self showcaseContainerElementConfiguration: anElement.
 	
 	^ anElement
@@ -198,7 +200,9 @@ GtPhlowToolDetailModelExamples >> containerElementUndefinedResponse [
 	aSpace := self putInSpace: aContainer.
 	aNewDimension := self requestToolDetailLevel: aTool.
 	self assert: aNewDimension equals: aPreviousDimension.
-	^ aSpace
+
+	self closeSpace: aSpace with: aContainer.
+	^ aContainer
 ]
 
 { #category : #'examples - elements' }
@@ -254,6 +258,16 @@ GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Normal 
 	^ aContainer
 ]
 
+{ #category : #'examples - looks' }
+GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Showcase [
+	<gtExample>
+	|  aContainer aTool |
+	aContainer := self containerWithToolElementWithDetailLook.
+	aTool := aContainer childAt: 1.
+	self lookShowcaseButtonsFor: aTool.
+	^ aContainer
+]
+
 { #category : #'examples - support' }
 GtPhlowToolDetailModelExamples >> customBackgroundColor [
 	<gtExample>
@@ -273,6 +287,36 @@ GtPhlowToolDetailModelExamples >> element [
 		constraintsDo: [ :c | 
 			c vertical matchParent.
 			c horizontal matchParent ].
+]
+
+{ #category : #'examples - support' }
+GtPhlowToolDetailModelExamples >> lookShowcaseButtonFor: aSymbol element: aTool [
+	"aSymbol defines what information level should be used by clicking on a button"
+	<gtExample>
+	^ BrButton new
+		look: BrGlamorousButtonWithLabelLook;
+		label: aSymbol asString;
+		action: [ :aButton | 
+			aTool dispatchEvent: (GtPhlowToolDetailWish beLevel: aSymbol) ]
+]
+
+{ #category : #'examples - support' }
+GtPhlowToolDetailModelExamples >> lookShowcaseButtonsFor: aTool [
+	<gtExample>
+	| aToolbar |
+	aToolbar := BrToolbar new
+		look: BrGlamorousToolbarLook new;
+		constraintsDo: [ :c | 
+			c frame horizontal alignCenter.
+			c frame vertical alignCenter ];
+		addItem: (self 
+			lookShowcaseButtonFor: #normal element: aTool);
+		addItem: (self
+			lookShowcaseButtonFor: #detailed element: aTool);
+		addItem: (self
+			lookShowcaseButtonFor: #custom element: aTool).
+	aTool addChild: aToolbar as: #toolbar.
+	^ aTool
 ]
 
 { #category : #'examples - looks' }
