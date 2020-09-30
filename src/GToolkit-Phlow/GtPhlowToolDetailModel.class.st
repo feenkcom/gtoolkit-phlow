@@ -10,7 +10,7 @@ The following example changes an element background color on information level c
 !! Obtaining Information Detail Level Example
 The following example shows how a tool obtains a detailed level response from a parent element (container): ${example:GtPhlowToolDetailModelExamples>>#containerElementDetailedResponse|codeExpanded=false|previewExpanded=true}$
 !! Meaning of Undefined Level Example
-The show that the tool obtains the level of information detail from the second parent, since first parent has undefined state: ${example:GtPhlowToolDetailModelExamples>>#containerContainerToolDetailedLevel_InSpace|codeExpanded=false|previewExpanded=true|previewHeight=350}$ 
+The following example shows that the tool obtains the level of information detail from the second parent, since first parent has undefined state: ${example:GtPhlowToolDetailModelExamples>>#containerContainerToolDetailedLevel_InSpace|codeExpanded=false|previewExpanded=true|previewHeight=350}$ 
 "
 Class {
 	#name : #GtPhlowToolDetailModel,
