@@ -1,3 +1,11 @@
+"
+I am a ${class:BrWish}$.
+I inform ${class:GtPhlowToolAbstractDetailModel}$ models about new new ${method:GtPhlowToolDetailWish>>#level|label=#selector}$ that a user wish to use.
+!! Usage
+Users can use ${class:TGtPhlowToolDetailAdjustable}$ that defines a predefined levels of information details.
+!! Example
+The following example changes an element background color on information level changes. I am fired each time users click on the example buttons: ${example:GtPhlowToolDetailModelExamples>>#containerWithToolElementWithDetailLook_Showcase|codeExpanded=false|previewExpanded=true}$
+"
 Class {
 	#name : #GtPhlowToolDetailWish,
 	#superclass : #BrWish,

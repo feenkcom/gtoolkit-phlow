@@ -258,6 +258,16 @@ GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Normal 
 	^ aContainer
 ]
 
+{ #category : #'examples - looks' }
+GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Showcase [
+	<gtExample>
+	|  aContainer aTool |
+	aContainer := self containerWithToolElementWithDetailLook.
+	aTool := aContainer childAt: 1.
+	self lookShowcaseButtonsFor: aTool.
+	^ aContainer
+]
+
 { #category : #'examples - support' }
 GtPhlowToolDetailModelExamples >> customBackgroundColor [
 	<gtExample>
@@ -277,6 +287,36 @@ GtPhlowToolDetailModelExamples >> element [
 		constraintsDo: [ :c | 
 			c vertical matchParent.
 			c horizontal matchParent ].
+]
+
+{ #category : #'examples - support' }
+GtPhlowToolDetailModelExamples >> lookShowcaseButtonFor: aSymbol element: aTool [
+	"aSymbol defines what information level should be used by clicking on a button"
+	<gtExample>
+	^ BrButton new
+		look: BrGlamorousButtonWithLabelLook;
+		label: aSymbol asString;
+		action: [ :aButton | 
+			aTool dispatchEvent: (GtPhlowToolDetailWish beLevel: aSymbol) ]
+]
+
+{ #category : #'examples - support' }
+GtPhlowToolDetailModelExamples >> lookShowcaseButtonsFor: aTool [
+	<gtExample>
+	| aToolbar |
+	aToolbar := BrToolbar new
+		look: BrGlamorousToolbarLook new;
+		constraintsDo: [ :c | 
+			c frame horizontal alignCenter.
+			c frame vertical alignCenter ];
+		addItem: (self 
+			lookShowcaseButtonFor: #normal element: aTool);
+		addItem: (self
+			lookShowcaseButtonFor: #detailed element: aTool);
+		addItem: (self
+			lookShowcaseButtonFor: #custom element: aTool).
+	aTool addChild: aToolbar as: #toolbar.
+	^ aTool
 ]
 
 { #category : #'examples - looks' }
