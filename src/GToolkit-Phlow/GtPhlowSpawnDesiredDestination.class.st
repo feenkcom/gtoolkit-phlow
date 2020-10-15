@@ -1,0 +1,49 @@
+"
+I indicate where inspected results should be shown as a result of a ${class:GtPhlowObjectToSpawn}$ event.
+
+My subclasses indicate the concrete destinations:
+- next pane: ${class:GtPhlowSpawnBelowDestination}$
+- open below: ${class:GtPhlowSpawnNextPaneDestination}$
+
+Relevant API metods:
+- ${method:GtPhlowSpawnDesiredDestination>>#followingDestination}$
+- ${method:GtPhlowSpawnDesiredDestination>>#icon}$
+
+The default destination is given by ${method:GtPhlowSpawnDesiredDestination class>>#defaultDestination}$
+"
+Class {
+	#name : #GtPhlowSpawnDesiredDestination,
+	#superclass : #Object,
+	#category : #'GToolkit-Phlow-Direction'
+}
+
+{ #category : #initialization }
+GtPhlowSpawnDesiredDestination class >> defaultDestination [
+	^ GtPhlowSpawnNextPaneDestination new
+]
+
+{ #category : #accessing }
+GtPhlowSpawnDesiredDestination >> followingDestination [
+	"The destination that comes after this one. It is used to when 
+	switching destinations to determine the next destination."
+	
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+GtPhlowSpawnDesiredDestination >> icon [
+	"An icon that to visually indicate the destination. Used in tools to indicate
+	this direction to users."
+	
+	^ self subclassResponsibility 
+]
+
+{ #category : #testing }
+GtPhlowSpawnDesiredDestination >> isSpawnBelow [
+	^ false
+]
+
+{ #category : #testing }
+GtPhlowSpawnDesiredDestination >> isSpawnNextPane [
+	^ false
+]

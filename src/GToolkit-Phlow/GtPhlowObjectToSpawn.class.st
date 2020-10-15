@@ -19,17 +19,17 @@ GtPhlowObjectToSpawn >> previousSpawnEvent: aSpawnEvent [
 ]
 
 { #category : #'accessing - utils' }
-GtPhlowObjectToSpawn >> spawnDirection [
+GtPhlowObjectToSpawn >> spawnDestination [
 	^ self 
-		propertyAt: #spawnDirection 
-		ifAbsent: [ GtPhlowSpawnDirection defaultDirection ]
+		propertyAt: #spawnDestination 
+		ifAbsent: [ GtPhlowSpawnDesiredDestination defaultDestination ]
 ]
 
 { #category : #'accessing - utils' }
-GtPhlowObjectToSpawn >> spawnDirection: aSpawnDirection [
-	self assert: [ aSpawnDirection notNil ].
+GtPhlowObjectToSpawn >> spawnDestination: aSpawnDestination [
+	self assert: [ aSpawnDestination notNil ].
 	
 	^ self 
-		propertyAt: #spawnDirection 
-		put: aSpawnDirection
+		propertyAt: #spawnDestination 
+		put: aSpawnDestination
 ]
