@@ -6,7 +6,7 @@ Class {
 
 { #category : #'accessing - utils' }
 GtPhlowObjectToSpawn >> previousSpawnEvent [
-	^ self propertyAt: #previousSpawnEvent 
+	^ self propertyAt: #previousSpawnEvent ifAbsent: [ nil ]
 ]
 
 { #category : #'accessing - utils' }
