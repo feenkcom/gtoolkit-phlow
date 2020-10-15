@@ -1,5 +1,5 @@
 "
-I indicate where inspected results should be shown as a result of a ${class:GtPhlowObjectToSpawn}$ event.
+I indicate where a ${class:GtPhlowObjectToSpawn}$ event show the corresponding tool.
 
 My subclasses indicate the concrete destinations:
 - next pane: ${class:GtPhlowSpawnBelowDestination}$

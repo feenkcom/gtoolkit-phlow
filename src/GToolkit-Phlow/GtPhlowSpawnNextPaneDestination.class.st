@@ -1,3 +1,8 @@
+"
+I indicate that the spawn event should spawn a new pane with the result.
+
+Tools using these event are responsible with managing extra informations for determining the current pane.
+"
 Class {
 	#name : #GtPhlowSpawnNextPaneDestination,
 	#superclass : #GtPhlowSpawnDesiredDestination,
