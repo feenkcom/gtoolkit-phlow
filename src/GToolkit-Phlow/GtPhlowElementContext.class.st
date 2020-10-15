@@ -266,9 +266,24 @@ GtPhlowElementContext >> spawnObject: anObject [
 ]
 
 { #category : #'api - events' }
+GtPhlowElementContext >> spawnObject: anObject withDestination: aPhlowDestination [
+	self 
+		spawnTool: (GtPhlowTool default object: anObject)
+		withDestination: aPhlowDestination
+]
+
+{ #category : #'api - events' }
 GtPhlowElementContext >> spawnTool: aTool [
+	self 
+		spawnTool: aTool 
+		withDestination: GtPhlowSpawnDesiredDestination defaultDestination
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> spawnTool: aTool withDestination: aPhlowDestination [
 	self element fireEvent: (GtPhlowObjectToSpawn new
 		tool: aTool;
+		spawnDestination: aPhlowDestination;
 		sourceElement: self element)
 ]
 
