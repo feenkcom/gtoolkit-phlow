@@ -29,7 +29,7 @@ GtPhlowObjectToSpawn >> spawnDestination [
 GtPhlowObjectToSpawn >> spawnDestination: aSpawnDestination [
 	self assert: [ aSpawnDestination notNil ].
 	
-	^ self 
+	self 
 		propertyAt: #spawnDestination 
 		put: aSpawnDestination
 ]
