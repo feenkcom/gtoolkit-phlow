@@ -106,7 +106,7 @@ GtPhlowToolAbstractDetailModel >> initializeListeners [
 
 { #category : #testing }
 GtPhlowToolAbstractDetailModel >> isDetailed [
-	^ self dimension = GtPhlowToolDetailState detailedName
+	^ self level = GtPhlowToolDetailState detailedName
 ]
 
 { #category : #testing }
