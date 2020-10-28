@@ -37,7 +37,7 @@ GtPhlowUtility class >> createTabElementFor: aPhlowView andDo: aBlock [
 			look: BrGlamorousTabLook;
 			label: aPhlowView title;
 			stencil: [ self newElementForView: aPhlowView ];
-			toolbarStencil: [ aPhlowView actionsToolbarForElement: aTab ].
+			toolbarStencil: [ self newToolbarForTab: aTab view: aPhlowView ].
 		aPhlowView attachTooltipFor: aTab.
 		aBlock value: aTab ]
 ]
@@ -94,6 +94,12 @@ GtPhlowUtility class >> newElementForView: aPhlowView [
 		^ aTaskItView asElementDo: [ :anElement | 
 			anElement phlow beViewContent.
 			anElement asScrollableElement ] 
+]
+
+{ #category : #'instance creation' }
+GtPhlowUtility class >> newToolbarForTab: aTab view: aPhlowView [ 
+	<return: #BrToolbar>
+	^ aPhlowView actionsToolbarForElement: aTab
 ]
 
 { #category : #subscriptions }
