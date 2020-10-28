@@ -15,6 +15,7 @@ GtPhlowUtility class >> compositeViewElementIn: anElement [
 
 { #category : #'instance creation' }
 GtPhlowUtility class >> createSafelyTabElementFor: aPhlowView andDo: aBlock [
+	aPhlowView autoUpdates removeOfClass: GtPhlowUpdateViewOnDefiningMethodChange.
 	[ self createTabElementFor: aPhlowView andDo: aBlock ]
 		on: Error
 		do: [ :anException | 
