@@ -23,20 +23,23 @@ Class {
 { #category : #evaluating }
 GtPhlowUpdateView >> execute [
 	<return: #GtPhlowView>
-	| aNewPhlow |
+	| aNewPhlow anElement |
 	self element hasParent ifFalse: [ ^ self ].
 	self hasBuildContext ifFalse: [ ^ self ].
 	aNewPhlow := GtPhlowView empty 
 		on: self object 
 		perform: self methodSelector 
 		withSomeArguments: self arguments.
+	anElement := aNewPhlow asElementDo: [ :theElement | theElement ].
 	self scheduleValuable: [ 
-		self updateElementWithNewPhlowView: aNewPhlow ].
+		self replaceElementBy: anElement ].
 	^ aNewPhlow
 ]
 
 { #category : #'private - updating' }
-GtPhlowUpdateView >> updateElementWithNewPhlowView: aNewPhlow [
-	self elementContext replaceEntity: aNewPhlow.
-	self elementContext syncUpdate.
+GtPhlowUpdateView >> replaceElementBy: anElement [
+	| aParent |
+	aParent := self element parent.
+	aParent ifNil: [ ^ self ].
+	self view replaceOldElement: self element by: anElement in: aParent.
 ]

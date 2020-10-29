@@ -15,6 +15,7 @@ GtPhlowUtility class >> compositeViewElementIn: anElement [
 
 { #category : #'instance creation' }
 GtPhlowUtility class >> createSafelyTabElementFor: aPhlowView andDo: aBlock [
+	aPhlowView autoUpdates removeOfClass: GtPhlowUpdateViewOnDefiningMethodChange.
 	[ self createTabElementFor: aPhlowView andDo: aBlock ]
 		on: Error
 		do: [ :anException | 
@@ -35,13 +36,8 @@ GtPhlowUtility class >> createTabElementFor: aPhlowView andDo: aBlock [
 		aTab
 			look: BrGlamorousTabLook;
 			label: aPhlowView title;
-			stencil: [
-				| aTaskItView |
-				aTaskItView := aPhlowView asTaskItView.
-				aTaskItView asElementDo: [ :element | 
-					element phlow beViewContent.
-					element asScrollableElement ] ];
-			toolbarStencil: [ aPhlowView actionsToolbarForElement: aTab ].
+			stencil: [ self newElementForView: aPhlowView ];
+			toolbarStencil: [ self newToolbarForTab: aTab view: aPhlowView ].
 		aPhlowView attachTooltipFor: aTab.
 		aBlock value: aTab ]
 ]
@@ -89,6 +85,21 @@ GtPhlowUtility class >> isDefinitionRequested: anEvent [
 		anEvent modifiers isCmd not and: [ 
 			anEvent modifiers isCtrl not and: [ 
 				anEvent modifiers isShift not ] ] ]
+]
+
+{ #category : #'instance creation' }
+GtPhlowUtility class >> newElementForView: aPhlowView [
+		| aTaskItView |
+		aTaskItView := aPhlowView asTaskItView.
+		^ aTaskItView asElementDo: [ :anElement | 
+			anElement phlow beViewContent.
+			anElement asScrollableElement ] 
+]
+
+{ #category : #'instance creation' }
+GtPhlowUtility class >> newToolbarForTab: aTab view: aPhlowView [ 
+	<return: #BrToolbar>
+	^ aPhlowView actionsToolbarForElement: aTab
 ]
 
 { #category : #subscriptions }
