@@ -465,7 +465,7 @@ GtPhlowListViewExamples >> selectItemAt: anIndex for: anElement [
 { #category : #'examples - updating' }
 GtPhlowListViewExamples >> updateOnDefiningMethodChange [
 	<gtExample>
-	| anElement aView anElementContext aCommand aContainer |
+	| anElement aView anElementContext aCommand aContainer aNewElement |
 	aContainer := self container.
 	anElement := self modifiedElement.
 	anElementContext := anElement phlow.
@@ -476,11 +476,18 @@ GtPhlowListViewExamples >> updateOnDefiningMethodChange [
 		elementContext: anElement phlow.
 	BlUseAsyncFeatures disableDuring: [ 
 		aCommand execute ].
-
+	
+	self assert: aContainer childrenCount equals: 1.
+	
 	self assert: anElement phlow equals: anElementContext.
-	self assert: anElement phlow entity ~= aView.
-	self assert: anElement items size equals: 10.
-	self assert: anElement phlow entity title equals: '10 Lines'.
+	self assert: anElement phlow entity equals: aView.
+
+	aNewElement := aContainer childAt: 1.
+	
+
+	self assert: aNewElement ~= anElement.	
+	self assert: aNewElement items size equals: 10.
+	self assert: aNewElement phlow entity title equals: '10 Lines'.
 	
 	^ aContainer
 ]

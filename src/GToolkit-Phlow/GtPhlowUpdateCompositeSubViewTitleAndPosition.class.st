@@ -50,6 +50,8 @@ GtPhlowUpdateCompositeSubViewTitleAndPosition >> basicUpdateTabModel: aTabModel 
 		findIndexFor: aNewSubView
 		in: self view views.
 	aTabModel widget label: aNewSubView title value asRopedText.
+	aTabModel stencil: [ GtPhlowUtility newElementForView: aNewSubView ].
+	aTabModel toolbarStencil: [ GtPhlowUtility newToolbarForTab: aTabModel widget view: aNewSubView ].
 	self element viewModel moveTab: aTabModel at: aNewIndex.
 	aCurrentIndex := self view views indexOf: self subView.
 	self view views add: aNewSubView beforeIndex: aNewIndex.

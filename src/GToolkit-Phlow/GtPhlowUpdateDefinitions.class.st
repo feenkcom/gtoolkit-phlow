@@ -49,6 +49,13 @@ GtPhlowUpdateDefinitions >> initialize [
 	definitions := OrderedCollection new: 1.
 ]
 
+{ #category : #'api - removing' }
+GtPhlowUpdateDefinitions >> removeOfClass: aClass [
+	self definitions 
+		removeAllSuchThat: [ :eachDefinition | 
+			eachDefinition class = aClass ]
+]
+
 { #category : #copying }
 GtPhlowUpdateDefinitions >> size [
 	^ self definitions size
