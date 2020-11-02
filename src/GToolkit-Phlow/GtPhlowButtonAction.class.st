@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'icon',
 		'label',
-		'action'
+		'action',
+		'name'
 	],
 	#category : #'GToolkit-Phlow-! Actions'
 }
@@ -28,6 +29,7 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	action ifNotNil: [ aButton action: [ :theButton :aButtonModel :anEvent | 
 			(self isDefinitionRequested: anEvent) ifFalse: [ 
 				action glamourValueWithArgs: { theButton. aTargetElement. aButtonModel. anEvent } ] ] ].
+	name ifNotNil: [ :aName | aButton containerName: aName ].
 	self attachTooltipFor: aButton hostElement: aTargetElement.
 	self attachShowDefinitionEventHandler: aButton.
 	^ aBlock value: aButton
@@ -47,6 +49,12 @@ GtPhlowButtonAction >> initialize [
 { #category : #accessing }
 GtPhlowButtonAction >> label: aString [
 	label := aString
+]
+
+{ #category : #accessing }
+GtPhlowButtonAction >> name: aSymbol [
+	"Set a child name of the corresponding element"
+	name := aSymbol
 ]
 
 { #category : #'instance creation' }
