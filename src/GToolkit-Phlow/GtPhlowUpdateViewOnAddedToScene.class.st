@@ -9,5 +9,10 @@ Class {
 
 { #category : #subscriptions }
 GtPhlowUpdateViewOnAddedToScene >> subscribeOn: aGtPhlowElementContext [
-	aGtPhlowElementContext asyncUpdate
+	self inform: aGtPhlowElementContext element printString.
+	aGtPhlowElementContext element userData
+		at: #GtPhlowUpdateViewOnAddedToScene
+		ifPresent: [ :aValue | 
+			aGtPhlowElementContext asyncUpdate ]
+		ifAbsentPut: [ #updateNextTime ]
 ]
