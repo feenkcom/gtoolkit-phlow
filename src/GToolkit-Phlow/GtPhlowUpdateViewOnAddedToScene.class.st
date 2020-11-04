@@ -9,7 +9,6 @@ Class {
 
 { #category : #subscriptions }
 GtPhlowUpdateViewOnAddedToScene >> subscribeOn: aGtPhlowElementContext [
-	self inform: aGtPhlowElementContext element printString.
 	aGtPhlowElementContext element userData
 		at: #GtPhlowUpdateViewOnAddedToScene
 		ifPresent: [ :aValue | 
