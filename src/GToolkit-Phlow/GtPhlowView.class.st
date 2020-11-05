@@ -523,6 +523,10 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOf
 				perform: aMessageSymbol
 				withArguments: aCollectionOfArguments
 				inClass: anObject class.
+			self 
+				assert: [ aPhlowView ~= self ] 
+				description: [ 'Phlow view definition cannot return same view that is passed as an argument. Use `aView empty` instead in: ',
+					anObject printString, '>>#', aMessageSymbol asString ].
 			aPhlowView object: anObject arguments: aCollectionOfArguments.
 		] on: Error do: [ :anException |
 			self 
