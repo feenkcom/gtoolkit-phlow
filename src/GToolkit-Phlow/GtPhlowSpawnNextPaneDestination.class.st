@@ -16,7 +16,7 @@ GtPhlowSpawnNextPaneDestination >> followingDestination [
 
 { #category : #accessing }
 GtPhlowSpawnNextPaneDestination >> icon [
-	^ BrGlamorousIcons right 
+	^ BrGlamorousVectorIcons right 
 ]
 
 { #category : #testing }
