@@ -18,7 +18,7 @@ GtPhlowSpawnBelowDestination >> followingDestination [
 
 { #category : #accessing }
 GtPhlowSpawnBelowDestination >> icon [
-	^ BrGlamorousIcons down 
+	^ BrGlamorousVectorIcons down 
 ]
 
 { #category : #testing }
