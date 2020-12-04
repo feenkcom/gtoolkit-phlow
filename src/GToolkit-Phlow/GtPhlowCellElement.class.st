@@ -88,9 +88,6 @@ GtPhlowCellElement >> hideContent [
 GtPhlowCellElement >> initialize [
 	super initialize.
 	self layout: BlLinearLayout horizontal alignCenterLeft.
-	self viewModel: (BrInteractiveModel withAll: {
-				BrLayoutHorizontalResizerModel matchParent.
-				BrLayoutVerticalResizerModel matchParent }).
 	self addLook: (BrLayoutResizerLook inherit).
 	self hMatchParent.
 	self vFitContent.

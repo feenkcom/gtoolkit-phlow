@@ -64,9 +64,10 @@ GtPhlowHorizontalSidebarElement >> expand [
 { #category : #initialization }
 GtPhlowHorizontalSidebarElement >> initialize [
 	super initialize.
+
 	self addLook: (BrLayoutResizerLook new
-		vInherit: self;
-		vInheritIn: [ :aBlock | self contentElementDo: aBlock ])
+		vInherit;
+		vInherit: [ :aBlock | self contentElementDo: aBlock ])
 ]
 
 { #category : #'private - testing' }
