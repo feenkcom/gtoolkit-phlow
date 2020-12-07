@@ -29,6 +29,8 @@ GtPhlowTreeView >> asElementDo: aBlock [
 				transformation: self transformation asTreeNodeTransformation).
 	aTree
 		constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
+		
+	aTree rowStencil: (GtPhlowTreeRowElementStencilBuilder new padding: (BlInsets left: 10 right: 10)).
 	aTree
 		nodeType: self itemTypeStencil;
 		nodeStencil: self itemStencil;
@@ -194,6 +196,15 @@ GtPhlowTreeView >> itemsOnExceptionErrorElement: aBlock [
 		performBlock: [ self itemsBuilder value ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
+]
+
+{ #category : #'private - building' }
+GtPhlowTreeView >> newCellPaddingInsets [
+	^ BlInsets
+		top: 0
+		left: 0
+		bottom: 0
+		right: 0
 ]
 
 { #category : #'api - scripting' }

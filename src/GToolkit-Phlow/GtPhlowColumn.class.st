@@ -9,6 +9,7 @@ Class {
 	#traits : 'TGtPhlowErrorTolerantCell - {#errorTreatedCellTypeFor:}',
 	#classTraits : 'TGtPhlowErrorTolerantCell classTrait',
 	#instVars : [
+		'index',
 		'rowStencil',
 		'title',
 		'titleStencil',
@@ -74,6 +75,11 @@ GtPhlowColumn >> dataBinder: aBlockOrSymbol [
 ]
 
 { #category : #defaults }
+GtPhlowColumn >> defaultColumnIndex [
+	^ 1
+]
+
+{ #category : #defaults }
 GtPhlowColumn >> defaultHeaderElementBuilder [
 	^ [ :aTitle :aPhlowColumn | self buildHeaderElementFor: aTitle ]
 ]
@@ -127,9 +133,21 @@ GtPhlowColumn >> icon: aBlockOrSymbol [
 			addChild: anElement. ]
 ]
 
+{ #category : #'private - accessing' }
+GtPhlowColumn >> index [
+	^ index
+]
+
+{ #category : #'private - accessing' }
+GtPhlowColumn >> index: anObject [
+	index := anObject
+]
+
 { #category : #initialization }
 GtPhlowColumn >> initialize [
 	super initialize.
+	
+	index := self defaultColumnIndex.
 	title := self defaultTitle.
 	titleStencil := self defaultHeaderElementBuilder.
 	itemComputation := self defaultItemComputation.
@@ -169,6 +187,11 @@ GtPhlowColumn >> matchParent [
 		deprecated: 'Please use #weight: instead.'
 		transformWith: '`@receiver matchParent' -> '`@receiver weight: 1'.
 	self weight: 1.
+]
+
+{ #category : #'private - building' }
+GtPhlowColumn >> newCellPaddingInsets [
+	^ BlInsets empty
 ]
 
 { #category : #'private - building' }

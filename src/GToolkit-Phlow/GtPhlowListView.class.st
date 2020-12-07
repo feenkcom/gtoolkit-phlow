@@ -152,6 +152,15 @@ GtPhlowListView >> itemsOnExceptionErrorElement: aBlock [
 			aBlock value: anElement ].
 ]
 
+{ #category : #'private - building' }
+GtPhlowListView >> newItemLabel [
+	^ BrLabel new
+		look: BrGlamorousListLabelLook + BrGlamorousListItemLook;
+		alignCenterLeft;
+		hMatchParent;
+		vFitContent
+]
+
 { #category : #'api - scripting' }
 GtPhlowListView >> stencil: aBrListRowStencilBuilder [
 	"I am a part of the `toy` api. It is inefficient to use me because I always create a new

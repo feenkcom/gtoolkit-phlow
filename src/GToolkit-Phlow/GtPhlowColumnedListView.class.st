@@ -36,10 +36,7 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	list
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation).
 	list
-		rowStencil:
-			(BrListClickableRowStencilBuilder new
-				cellSpacing: 10;
-				padding: (BlInsets top: 4 bottom: 4)).
+		rowStencil: (GtPhlowColumnedListRowElementStencilBuilder new cellSpacing: self cellSpacing).
 	self buildColumnsInList: list.
 	aContainer
 		addChildren:
@@ -72,12 +69,17 @@ GtPhlowColumnedListView >> buildColumnsInList: aList [
 				aRowElement ] ]."
 ]
 
+{ #category : #accessing }
+GtPhlowColumnedListView >> cellSpacing [
+	^ 10
+]
+
 { #category : #'api - scripting column' }
 GtPhlowColumnedListView >> column [
 	<return: #GtPhlowColumn>
 	| aColumn |
 	
-	aColumn := GtPhlowColumn new.
+	aColumn := GtPhlowColumn new index: columns size + 1.
 	columns add: aColumn.
 	^ aColumn
 ]
