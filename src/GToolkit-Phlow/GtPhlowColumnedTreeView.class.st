@@ -38,7 +38,7 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 	aTree
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation asTreeNodeTransformation).
 	aTree
-		rowStencil: (GtPhlowColumnedTreeRowElementStencilBuilder new cellSpacing: self cellSpacing).				
+		rowStencil: (BrGlamorousColumnedTreeSelectableRowElementStencilBuilder new cellSpacing: self cellSpacing).				
 
 	self buildColumnsInTree: aTree.
 	
