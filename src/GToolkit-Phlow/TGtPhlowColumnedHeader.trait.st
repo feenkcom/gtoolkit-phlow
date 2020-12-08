@@ -10,7 +10,7 @@ Trait {
 TGtPhlowColumnedHeader >> buildHeaderForItems: theItems [
 	| aHeader |
 	aHeader := BlElement new.
-	aHeader layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: 0).
+	aHeader layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: self cellSpacing).
 	aHeader padding: (BlInsets top: 5 bottom: 5).
 	aHeader labeled: 'Columned Header'.
 	aHeader constraintsDo: [ :c |
@@ -25,6 +25,11 @@ TGtPhlowColumnedHeader >> buildHeaderItems: theItems inHeader: aHeader [
 
 	aHeader addChildren: (self columns collect: [ :eachColumn |
 		eachColumn buildHeaderElement ]).
+]
+
+{ #category : #accessing }
+TGtPhlowColumnedHeader >> cellSpacing [
+	^ self explicitRequirement
 ]
 
 { #category : #'private - accessing' }

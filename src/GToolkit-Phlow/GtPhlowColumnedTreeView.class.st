@@ -27,14 +27,19 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 			c vertical matchParent ].
 	aContainer layout: BlLinearLayout vertical.
 	aHeader := self buildHeaderForItems: theItems.
+	aHeader children
+		ifNotEmpty: [ aHeader children first padding: (BlInsets left: 20) ].
+
 	aTree := self columnedTreeClass new.
 	self
 		performBlock: [ aTree items: theItems lazy: self childrenBuilder ]
 		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
+	
 	aTree
-		addEventHandler:
-			(GtPhlowListToSelectHandler new
-				transformation: self transformation asTreeNodeTransformation).
+		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation asTreeNodeTransformation).
+	aTree
+		rowStencil: (BrGlamorousColumnedTreeSelectableRowElementStencilBuilder new cellSpacing: self cellSpacing).				
+
 	self buildColumnsInTree: aTree.
 	
 	self
@@ -57,6 +62,11 @@ GtPhlowColumnedTreeView >> buildColumnsInTree: aTree [
 ]
 
 { #category : #accessing }
+GtPhlowColumnedTreeView >> cellSpacing [
+	^ 10
+]
+
+{ #category : #accessing }
 GtPhlowColumnedTreeView >> children: aValuable [
 	childrenBuilder := aValuable
 ]
@@ -76,7 +86,7 @@ GtPhlowColumnedTreeView >> column [
 	<return: #GtPhlowColumn>
 	| aColumn |
 	
-	aColumn := GtPhlowColumn new.
+	aColumn := GtPhlowColumn new index: columns size + 1.
 	columns add: aColumn.
 	^ aColumn
 ]
