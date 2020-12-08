@@ -30,7 +30,7 @@ GtPhlowTreeView >> asElementDo: aBlock [
 	aTree
 		constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 		
-	aTree rowStencil: (GtPhlowTreeRowElementStencilBuilder new padding: (BlInsets left: 10 right: 10)).
+	aTree rowStencil: (BrGlamorousSimpleTreeSelectableRowElementStencilBuilder new padding: (BlInsets left: 10 right: 10)).
 	aTree
 		nodeType: self itemTypeStencil;
 		nodeStencil: self itemStencil;
