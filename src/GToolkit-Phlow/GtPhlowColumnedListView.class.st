@@ -36,7 +36,7 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	list
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation).
 	list
-		rowStencil: (GtPhlowColumnedListRowElementStencilBuilder new cellSpacing: self cellSpacing).
+		rowStencil: (BrGlamorousColumnedListSelectableRowElementStencilBuilder new cellSpacing: self cellSpacing).
 	self buildColumnsInList: list.
 	aContainer
 		addChildren:
