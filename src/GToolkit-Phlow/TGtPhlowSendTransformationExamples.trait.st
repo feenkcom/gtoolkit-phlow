@@ -86,9 +86,11 @@ TGtPhlowSendTransformationExamples >> sendObject_Block_Element_DoubleClickEvent 
 	| anElement aCollection |
 	aCollection := OrderedCollection new.
 	anElement := self sendObject_Block_Element.
-	anElement
-		exact: 600@400;
-		forceLayout.
+	anElement height: 300.
+	anElement width: 300.
+	anElement states addState: BrLayoutHorizontalResizerState exact.
+	anElement states addState: BrLayoutVerticalResizerState exact.
+	anElement forceLayout.
 	anElement 
 		addEventHandlerOn: GtPhlowObjectEvent 
 		do: [ :anEvent | aCollection add: anEvent ].
