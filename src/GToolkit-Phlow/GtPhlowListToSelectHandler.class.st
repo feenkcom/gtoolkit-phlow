@@ -19,7 +19,6 @@ GtPhlowListToSelectHandler >> eventsToHandle [
 
 { #category : #'api - event managing' }
 GtPhlowListToSelectHandler >> handleEvent: anEvent [
-	self haltOnce.
 	anEvent acceptPhlowHandler: self
 ]
 
