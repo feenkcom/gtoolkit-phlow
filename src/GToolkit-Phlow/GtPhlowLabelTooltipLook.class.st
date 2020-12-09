@@ -4,7 +4,7 @@ If a user clicks on the action, a defining method is displayed.
 "
 Class {
 	#name : #GtPhlowLabelTooltipLook,
-	#superclass : #BrGlamorousLabelTooltipLook,
+	#superclass : #BrGlamorousWithLabelTooltipLook,
 	#category : #'GToolkit-Phlow-Support - Tooltip'
 }
 
