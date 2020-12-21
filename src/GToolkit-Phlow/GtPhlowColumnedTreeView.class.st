@@ -8,7 +8,7 @@ Class {
 		'transformation',
 		'itemsBuilder',
 		'childrenBuilder',
-		'expandUpTo'
+		'expander'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -78,7 +78,7 @@ GtPhlowColumnedTreeView >> childrenBuilder [
 
 { #category : #'expanding-collapsing' }
 GtPhlowColumnedTreeView >> collapseAll [
-	expandUpTo := nil.
+	expander := GtPhlowTreeNodeExpander null.
 ]
 
 { #category : #'api - scripting column' }
@@ -131,18 +131,22 @@ GtPhlowColumnedTreeView >> expandOneLevel [
 	self expandUpTo: 1
 ]
 
+{ #category : #'expanding-collapsing' }
+GtPhlowColumnedTreeView >> expandSuchThat: aBlock [
+	"It stops expanding children if a parent node does not satisfy the condition.
+	The block receives [ :aTreeNode :aNodeValue | ... ]"
+	expander := GtPhlowTreeNodeExpander suchThat: aBlock.
+]
+
 { #category : #'private - actions' }
 GtPhlowColumnedTreeView >> expandTree: aBrColumnedTree [ 
-	expandUpTo ifNil: [ ^ self ].
-	aBrColumnedTree expandUpTo: expandUpTo
+	expander ifNil: [ ^ self ].
+	expander expandTree: aBrColumnedTree.
 ]
 
 { #category : #'expanding-collapsing' }
 GtPhlowColumnedTreeView >> expandUpTo: aLevelIndex [
-	self 
-		assert: [ aLevelIndex isInteger and: [ aLevelIndex > 0 ] ] 
-		description: [ 'Level index must be a natural number' ].
-	expandUpTo := aLevelIndex.
+	expander := GtPhlowTreeNodeExpander upTo: aLevelIndex.
 ]
 
 { #category : #initialization }
@@ -152,6 +156,7 @@ GtPhlowColumnedTreeView >> initialize [
 	columns := OrderedCollection new.
 	itemsBuilder := [ { } ].
 	childrenBuilder := [ :each | { } ].
+	expander := GtPhlowTreeNodeExpander null.
 	self transformation: self defaultTransformation.
 ]
 
