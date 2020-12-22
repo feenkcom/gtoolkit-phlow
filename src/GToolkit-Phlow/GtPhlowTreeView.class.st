@@ -1,13 +1,12 @@
 Class {
 	#name : #GtPhlowTreeView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:} + TGtPhlowItemText + TGtPhlowSendTreeNodeTransformable',
-	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait + TGtPhlowSendTreeNodeTransformable classTrait',
+	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:} + TGtPhlowItemText + TGtPhlowSendTreeNodeTransformable + TGtPhlowTreeNodeExpansion',
+	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait + TGtPhlowSendTreeNodeTransformable classTrait + TGtPhlowTreeNodeExpansion classTrait',
 	#instVars : [
 		'itemsBuilder',
 		'itemStencil',
 		'childrenBuilder',
-		'expandUpTo',
 		'itemTypeStencil',
 		'itemDataBinder'
 	],
@@ -54,11 +53,6 @@ GtPhlowTreeView >> childrenBuilder [
 	^ childrenBuilder
 ]
 
-{ #category : #'api - scripting tree node expansion' }
-GtPhlowTreeView >> collapseAll [
-	expandUpTo := nil.
-]
-
 { #category : #copying }
 GtPhlowTreeView >> copyTransformationFrom: aSendBlock [
 	aSendBlock ifNil: [ ^ self ].
@@ -76,30 +70,6 @@ GtPhlowTreeView >> display: aBlock [
 { #category : #'private - accessing' }
 GtPhlowTreeView >> elementClass [
 	^ BrSimpleTree
-]
-
-{ #category : #'api - scripting tree node expansion' }
-GtPhlowTreeView >> expandAll [
-	self expandUpTo: 20
-]
-
-{ #category : #'api - scripting tree node expansion' }
-GtPhlowTreeView >> expandOneLevel [
-	self expandUpTo: 1
-]
-
-{ #category : #'private - building' }
-GtPhlowTreeView >> expandTree: aBrColumnedTree [ 
-	expandUpTo ifNil: [ ^ self ].
-	aBrColumnedTree expandUpTo: expandUpTo
-]
-
-{ #category : #'api - scripting tree node expansion' }
-GtPhlowTreeView >> expandUpTo: aLevelIndex [
-	self 
-		assert: [ aLevelIndex isInteger and: [ aLevelIndex > 0 ] ] 
-		description: [ 'Level index must be a natural number' ].
-	expandUpTo := aLevelIndex.
 ]
 
 { #category : #'scripting - deprecated' }

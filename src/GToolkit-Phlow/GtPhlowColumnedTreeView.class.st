@@ -1,14 +1,13 @@
 Class {
 	#name : #GtPhlowColumnedTreeView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTreeNodeTransformable',
-	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTreeNodeTransformable classTrait',
+	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTreeNodeTransformable + TGtPhlowTreeNodeExpansion',
+	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTreeNodeTransformable classTrait + TGtPhlowTreeNodeExpansion classTrait',
 	#instVars : [
 		'columns',
 		'transformation',
 		'itemsBuilder',
-		'childrenBuilder',
-		'expandUpTo'
+		'childrenBuilder'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -76,11 +75,6 @@ GtPhlowColumnedTreeView >> childrenBuilder [
 	^ childrenBuilder
 ]
 
-{ #category : #'expanding-collapsing' }
-GtPhlowColumnedTreeView >> collapseAll [
-	expandUpTo := nil.
-]
-
 { #category : #'api - scripting column' }
 GtPhlowColumnedTreeView >> column [
 	<return: #GtPhlowColumn>
@@ -119,30 +113,6 @@ GtPhlowColumnedTreeView >> display: aBlock [
 { #category : #'private - accessing' }
 GtPhlowColumnedTreeView >> elementClass [
 	^ BlElement
-]
-
-{ #category : #'expanding-collapsing' }
-GtPhlowColumnedTreeView >> expandAll [
-	self expandUpTo: 20
-]
-
-{ #category : #'expanding-collapsing' }
-GtPhlowColumnedTreeView >> expandOneLevel [
-	self expandUpTo: 1
-]
-
-{ #category : #'private - actions' }
-GtPhlowColumnedTreeView >> expandTree: aBrColumnedTree [ 
-	expandUpTo ifNil: [ ^ self ].
-	aBrColumnedTree expandUpTo: expandUpTo
-]
-
-{ #category : #'expanding-collapsing' }
-GtPhlowColumnedTreeView >> expandUpTo: aLevelIndex [
-	self 
-		assert: [ aLevelIndex isInteger and: [ aLevelIndex > 0 ] ] 
-		description: [ 'Level index must be a natural number' ].
-	expandUpTo := aLevelIndex.
 ]
 
 { #category : #initialization }
