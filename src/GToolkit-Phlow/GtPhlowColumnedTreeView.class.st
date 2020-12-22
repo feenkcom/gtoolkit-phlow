@@ -1,14 +1,13 @@
 Class {
 	#name : #GtPhlowColumnedTreeView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTreeNodeTransformable',
-	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTreeNodeTransformable classTrait',
+	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTreeNodeTransformable + TGtPhlowTreeNodeExpansion',
+	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTreeNodeTransformable classTrait + TGtPhlowTreeNodeExpansion classTrait',
 	#instVars : [
 		'columns',
 		'transformation',
 		'itemsBuilder',
-		'childrenBuilder',
-		'expander'
+		'childrenBuilder'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -76,11 +75,6 @@ GtPhlowColumnedTreeView >> childrenBuilder [
 	^ childrenBuilder
 ]
 
-{ #category : #'expanding-collapsing' }
-GtPhlowColumnedTreeView >> collapseAll [
-	expander := GtPhlowTreeNodeExpander null.
-]
-
 { #category : #'api - scripting column' }
 GtPhlowColumnedTreeView >> column [
 	<return: #GtPhlowColumn>
@@ -121,34 +115,6 @@ GtPhlowColumnedTreeView >> elementClass [
 	^ BlElement
 ]
 
-{ #category : #'expanding-collapsing' }
-GtPhlowColumnedTreeView >> expandAll [
-	self expandUpTo: 20
-]
-
-{ #category : #'expanding-collapsing' }
-GtPhlowColumnedTreeView >> expandOneLevel [
-	self expandUpTo: 1
-]
-
-{ #category : #'expanding-collapsing' }
-GtPhlowColumnedTreeView >> expandSuchThat: aBlock [
-	"It stops expanding children if a parent node does not satisfy the condition.
-	The block receives [ :aTreeNode :aNodeValue | ... ]"
-	expander := GtPhlowTreeNodeExpander suchThat: aBlock.
-]
-
-{ #category : #'private - actions' }
-GtPhlowColumnedTreeView >> expandTree: aBrColumnedTree [ 
-	expander ifNil: [ ^ self ].
-	expander expandTree: aBrColumnedTree.
-]
-
-{ #category : #'expanding-collapsing' }
-GtPhlowColumnedTreeView >> expandUpTo: aLevelIndex [
-	expander := GtPhlowTreeNodeExpander upTo: aLevelIndex.
-]
-
 { #category : #initialization }
 GtPhlowColumnedTreeView >> initialize [
 	super initialize.
@@ -156,7 +122,6 @@ GtPhlowColumnedTreeView >> initialize [
 	columns := OrderedCollection new.
 	itemsBuilder := [ { } ].
 	childrenBuilder := [ :each | { } ].
-	expander := GtPhlowTreeNodeExpander null.
 	self transformation: self defaultTransformation.
 ]
 
