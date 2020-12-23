@@ -1,5 +1,5 @@
 Class {
-	#name : #GtPhlowBlockTitleLabelBuilder,
+	#name : #GtPhlowShortTitleLabelBuilder,
 	#superclass : #GtPhlowTitleLabelBuilder,
 	#instVars : [
 		'block'
@@ -8,16 +8,16 @@ Class {
 }
 
 { #category : #'api - accessing' }
-GtPhlowBlockTitleLabelBuilder >> block [
+GtPhlowShortTitleLabelBuilder >> block [
 	^ block
 ]
 
 { #category : #'api - accessing' }
-GtPhlowBlockTitleLabelBuilder >> block: anObject [
+GtPhlowShortTitleLabelBuilder >> block: anObject [
 	block := anObject
 ]
 
 { #category : #'api - building' }
-GtPhlowBlockTitleLabelBuilder >> build [
+GtPhlowShortTitleLabelBuilder >> build [
 	^ self block value
 ]
