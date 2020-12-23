@@ -20,6 +20,12 @@ GtPhlowLabelBuilder >> articleFor: aString [
 	^ aString first isVowel ifTrue: [ 'an ' ] ifFalse: [ 'a ' ]
 ]
 
+{ #category : #'api - building' }
+GtPhlowLabelBuilder >> build [
+	<return: #BlRopedText or: #String>
+	^ self titleOfObject: self object
+]
+
 { #category : #accessing }
 GtPhlowLabelBuilder >> object [
 	^ object
@@ -59,5 +65,5 @@ GtPhlowLabelBuilder >> titleOfObject: anObject [
 { #category : #'api - building' }
 GtPhlowLabelBuilder >> value [
 	<return: #BlRopedText or: #String>
-	^ self titleOfObject: self object
+	^ self build
 ]
