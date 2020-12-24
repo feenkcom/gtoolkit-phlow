@@ -6,12 +6,25 @@ Class {
 
 { #category : #'api - instance creation' }
 GtPhlowTitleLabelBuilder class >> block: aBlock [
-	^ GtPhlowBlockTitleLabelBuilder new block: aBlock
+	self 
+		deprecated: 'Use #shortLabel: instead.' 
+		transformWith: '`@receiver block: `@arg' -> '`@receiver shortLabel: `@arg'.
+	^ self shortLabel: aBlock
+]
+
+{ #category : #'api - instance creation' }
+GtPhlowTitleLabelBuilder class >> longLabel: aBlock [
+	^ GtPhlowLongTitleLabelBuilder new block: aBlock
 ]
 
 { #category : #'api - instance creation' }
 GtPhlowTitleLabelBuilder class >> null [
 	^ GtPhlowNoTitleLabelBuilder default
+]
+
+{ #category : #'api - instance creation' }
+GtPhlowTitleLabelBuilder class >> shortLabel: aBlock [
+	^ GtPhlowShortTitleLabelBuilder new block: aBlock
 ]
 
 { #category : #'api - instance creation' }
