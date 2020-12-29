@@ -55,6 +55,15 @@ TGtPhlowColumnScripts >> column: aTitleString icon: aFormatBlocOrSymbol [
 ]
 
 { #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString icon: aFormatBlocOrSymbol weight: aNumber [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn icon: aFormatBlocOrSymbol.
+	aColumn weight: aNumber.
+]
+
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString icon: aFormatBlocOrSymbol width: aNumber [
 	| aColumn |
 	aColumn := self column.

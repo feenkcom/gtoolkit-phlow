@@ -1,35 +1,53 @@
 Class {
 	#name : #GtPhlowTitleNotifier,
-	#superclass : #Object,
+	#superclass : #BlCustomEventHandler,
 	#instVars : [
+		'hasFocus',
 		'element',
 		'labelBuilder'
 	],
 	#category : #'GToolkit-Phlow-Tool - Title'
 }
 
-{ #category : #'api - accessing' }
-GtPhlowTitleNotifier >> block: aBlock [
-	self 
-		deprecated: 'Use #shortLabel: instead.' 
-		transformWith: '`@receiver block: `@arg' -> '`@receiver shortLabel: `@arg'.
-	self shortLabel: aBlock
+{ #category : #testing }
+GtPhlowTitleNotifier class >> isAbstract [
+	^ self name = #GtPhlowTitleNotifier 
 ]
 
-{ #category : #'api - accessing' }
+{ #category : #'private - accessing' }
 GtPhlowTitleNotifier >> element [
+	<return: #BlElement>
 	^ element
 ]
 
 { #category : #'api - accessing' }
-GtPhlowTitleNotifier >> element: anObject [
-	element := anObject
+GtPhlowTitleNotifier >> eventsToHandle [
+	^ { BlFocusInEvent. BlFocusOutEvent }
+]
+
+{ #category : #'focus handlers' }
+GtPhlowTitleNotifier >> focusInEvent: anEvent [
+	hasFocus := true.
+	self element isAttachedToSceneGraph ifFalse: [ ^ self ].
+	self notify.
+]
+
+{ #category : #'focus handlers' }
+GtPhlowTitleNotifier >> focusOutEvent: anEvent [
+	hasFocus := false
+]
+
+{ #category : #'private - testing' }
+GtPhlowTitleNotifier >> hasFocus [
+	<return: #Boolean>
+	^ hasFocus
 ]
 
 { #category : #initialization }
 GtPhlowTitleNotifier >> initialize [
 	super initialize.
 	labelBuilder := GtPhlowTitleLabelBuilder null.
+	hasFocus := false.
 ]
 
 { #category : #'private - building' }
@@ -56,8 +74,20 @@ GtPhlowTitleNotifier >> notify [
 
 { #category : #'api - notifying' }
 GtPhlowTitleNotifier >> notifyIfFocused [
-	self element hasFocus ifFalse: [ ^ self ].
+	self hasFocus ifFalse: [ ^ self ].
 	self notify.
+]
+
+{ #category : #'api - hooks' }
+GtPhlowTitleNotifier >> onInstalledIn: anObject [
+	super onInstalledIn: anObject.
+	element := anObject
+]
+
+{ #category : #'api - hooks' }
+GtPhlowTitleNotifier >> onUninstalledIn: anObject [
+	super onUninstalledIn: anObject.
+	element := nil
 ]
 
 { #category : #'api - accessing' }
