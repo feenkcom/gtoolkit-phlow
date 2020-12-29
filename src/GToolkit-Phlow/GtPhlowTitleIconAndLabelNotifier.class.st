@@ -19,9 +19,11 @@ GtPhlowTitleIconAndLabelNotifier >> icon: anObject [
 
 { #category : #'api - notifying' }
 GtPhlowTitleIconAndLabelNotifier >> notify [
-	| aLabel |
+	| aLabel anIcon |
 	aLabel := self label ifEmpty: [ nil ].
+	anIcon := self icon value.
+	(aLabel isNil and: [ anIcon isNil ]) ifTrue: [ ^ self ].
 	self element fireEvent: (GtPhlowChangeTitleIconAndLabelWish new 
 		label: aLabel;
-		icon: self icon value)
+		icon: anIcon)
 ]
