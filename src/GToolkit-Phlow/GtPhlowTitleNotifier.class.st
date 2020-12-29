@@ -56,7 +56,7 @@ GtPhlowTitleNotifier >> notify [
 
 { #category : #'api - notifying' }
 GtPhlowTitleNotifier >> notifyIfFocused [
-	self element focused ifFalse: [ ^ self ].
+	self element hasFocus ifFalse: [ ^ self ].
 	self notify.
 ]
 
