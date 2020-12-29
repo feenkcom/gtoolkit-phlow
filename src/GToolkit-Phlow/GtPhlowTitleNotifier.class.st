@@ -28,7 +28,6 @@ GtPhlowTitleNotifier >> eventsToHandle [
 { #category : #'focus handlers' }
 GtPhlowTitleNotifier >> focusInEvent: anEvent [
 	hasFocus := true.
-	self element isAttachedToSceneGraph ifFalse: [ ^ self ].
 	self notify.
 ]
 
