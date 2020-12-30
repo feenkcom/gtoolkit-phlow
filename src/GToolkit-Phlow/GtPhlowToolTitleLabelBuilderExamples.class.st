@@ -1,6 +1,9 @@
+"
+I exemplify ${class:GtPhlowToolTitleLabelBuilder}$.
+"
 Class {
 	#name : #GtPhlowToolTitleLabelBuilderExamples,
-	#superclass : #Object,
+	#superclass : #GtPhlowTitleLabelBuilderExamples,
 	#category : #'GToolkit-Phlow-Tool - Title'
 }
 
@@ -11,6 +14,8 @@ GtPhlowToolTitleLabelBuilderExamples >> builder [
 	aBuilder := GtPhlowToolTitleLabelBuilder new.
 	self assert: aBuilder toolName isNil.
 	self assert: aBuilder subjectName isNil.
+	self assert: aBuilder build isNotNil.
+	self assert: aBuilder build isEmpty.
 	^ aBuilder
 ]
 
@@ -23,7 +28,7 @@ GtPhlowToolTitleLabelBuilderExamples >> emptySubjectName [
 	aBuilder subjectName: ''.
 	aTitle := aBuilder build.
 	self assert: aTitle asString equals: 'My Tool'.
-	^ aTitle
+	^ aBuilder
 ]
 
 { #category : #'examples - builder' }
@@ -35,7 +40,7 @@ GtPhlowToolTitleLabelBuilderExamples >> longTitle [
 	aBuilder subjectName: 'My very loooooooooooooooooooooooooooooooooooooooong subject name'.
 	aTitle := aBuilder build.
 	self assert: aTitle asString equals: 'My Tool: My very looo... subject name'.
-	^ aTitle
+	^ aBuilder
 ]
 
 { #category : #'examples - builder' }
@@ -47,7 +52,7 @@ GtPhlowToolTitleLabelBuilderExamples >> longTitle_Block [
 	aBuilder subjectName: [ 'My very loooooooooooooooooooooooooooooooooooooooong subject name' ].
 	aTitle := aBuilder build.
 	self assert: aTitle asString equals: 'My Tool: My very looo... subject name'.
-	^ aTitle
+	^ aBuilder
 ]
 
 { #category : #'examples - builder' }
@@ -63,7 +68,7 @@ GtPhlowToolTitleLabelBuilderExamples >> longTitle_RopedText [
 	self 
 		assert: aBuilder subjectName asString 
 		equals: 'My very loooooooooooooooooooooooooooooooooooooooong subject name'.
-	^ aTitle
+	^ aBuilder
 ]
 
 { #category : #'examples - builder' }
@@ -74,7 +79,7 @@ GtPhlowToolTitleLabelBuilderExamples >> noSubjectName [
 	aBuilder toolName: 'My Tool'.
 	aTitle := aBuilder build.
 	self assert: aTitle asString equals: 'My Tool'.
-	^ aTitle
+	^ aBuilder
 ]
 
 { #category : #'examples - builder' }
@@ -85,7 +90,7 @@ GtPhlowToolTitleLabelBuilderExamples >> noToolName [
 	aBuilder subjectName: 'My Subject'.
 	aTitle := aBuilder build.
 	self assert: aTitle asString equals: ''.
-	^ aTitle
+	^ aBuilder
 ]
 
 { #category : #'examples - builder' }
@@ -97,7 +102,7 @@ GtPhlowToolTitleLabelBuilderExamples >> shortTitle [
 	aBuilder subjectName: 'My Subject'.
 	aTitle := aBuilder build.
 	self assert: aTitle asString equals: 'My Tool: My Subject'.
-	^ aTitle
+	^ aBuilder
 ]
 
 { #category : #'examples - builder' }
@@ -109,5 +114,5 @@ GtPhlowToolTitleLabelBuilderExamples >> shortTitle_Block [
 	aBuilder subjectName: [ 'My Subject' ].
 	aTitle := aBuilder build.
 	self assert: aTitle asString equals: 'My Tool: My Subject'.
-	^ aTitle
+	^ aBuilder
 ]
