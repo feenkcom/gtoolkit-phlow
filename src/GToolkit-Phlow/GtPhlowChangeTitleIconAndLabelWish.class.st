@@ -8,11 +8,6 @@ Class {
 	#category : #'GToolkit-Phlow-Tool - Title'
 }
 
-{ #category : #visitor }
-GtPhlowChangeTitleIconAndLabelWish >> accept: aVisitor [
-	^ aVisitor visitGtPhlowChangeTitleIconAndlabelWish: self
-]
-
 { #category : #'api - accessing' }
 GtPhlowChangeTitleIconAndLabelWish >> icon [
 	^ icon
@@ -24,13 +19,6 @@ GtPhlowChangeTitleIconAndLabelWish >> icon: anObject [
 ]
 
 { #category : #'api - accessing' }
-GtPhlowChangeTitleIconAndLabelWish >> iconDo: aBlock [
-	self icon 
-		ifNotNil: aBlock
-		ifNil: [ aBlock cull: BrGlamorousVectorIcons noIcon ]
-]
-
-{ #category : #'api - accessing' }
 GtPhlowChangeTitleIconAndLabelWish >> label [
 	^ label
 ]
@@ -38,9 +26,4 @@ GtPhlowChangeTitleIconAndLabelWish >> label [
 { #category : #'api - accessing' }
 GtPhlowChangeTitleIconAndLabelWish >> label: anObject [
 	label := anObject
-]
-
-{ #category : #'api - accessing' }
-GtPhlowChangeTitleIconAndLabelWish >> labelDo: aBlock [
-	self label ifNotNil: aBlock
 ]
