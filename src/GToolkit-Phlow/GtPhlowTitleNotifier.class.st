@@ -1,3 +1,14 @@
+"
+I am ${class:BlCustomEventHandler}$.
+I am an abstract class.
+I notify ${class:BlElement}$ parents that a label should be updated.
+!! Collaborators
+I use ${class:GtPhlowChangeTitleWish}$ to notify parents.
+I use ${class:GtPhlowTitleLabelBuilder}$ to create labels.
+!! Examples
+See my ${class:GtPhlowTitleNotifier|show=#gtSubclassesFor:|label=subclasses|expanded=true|height=130}$ for specific examples:
+
+"
 Class {
 	#name : #GtPhlowTitleNotifier,
 	#superclass : #BlCustomEventHandler,
@@ -34,6 +45,16 @@ GtPhlowTitleNotifier >> focusInEvent: anEvent [
 { #category : #'focus handlers' }
 GtPhlowTitleNotifier >> focusOutEvent: anEvent [
 	hasFocus := false
+]
+
+{ #category : #'gt-extension' }
+GtPhlowTitleNotifier >> gtLiveFor: aView [
+	<gtView>
+	self element ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Live';
+		object: [ self element ];
+		view: #gtLiveFor:
 ]
 
 { #category : #'private - testing' }

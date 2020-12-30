@@ -4,7 +4,7 @@ I exemplify ${class:GtPhlowNoTitleLabelBuilder}$.
 Class {
 	#name : #GtPhlowNoTitleLabelBuilderExamples,
 	#superclass : #GtPhlowTitleLabelBuilderExamples,
-	#category : #'GToolkit-Phlow-Tool - Title'
+	#category : #'GToolkit-Phlow-Tool - Title Examples'
 }
 
 { #category : #'examples - builder' }
