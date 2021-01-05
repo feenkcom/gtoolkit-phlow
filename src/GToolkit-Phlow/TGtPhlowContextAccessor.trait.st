@@ -22,7 +22,7 @@ TGtPhlowContextAccessor >> context: aGtPhlowContext [
 
 { #category : #defaults }
 TGtPhlowContextAccessor >> defaultPhlowContext [
-	^ GtPhlowContext null
+	^ GtPhlowContext new
 ]
 
 { #category : #initialization }

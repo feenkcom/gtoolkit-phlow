@@ -1,3 +1,9 @@
+"
+I am an abstract class.
+My subclasses build labels using different constraints.
+See my ${class:GtPhlowTitleLabelBuilder|show=#gtSubclassesFor:|expanded=true|label=subclasses|height=170}$ for specific examples:
+
+"
 Class {
 	#name : #GtPhlowTitleLabelBuilder,
 	#superclass : #Object,
@@ -37,9 +43,4 @@ GtPhlowTitleLabelBuilder class >> toolName: aToolName subjectName: aSubjectName 
 { #category : #building }
 GtPhlowTitleLabelBuilder >> build [
 	^ self subclassResponsibility
-]
-
-{ #category : #'api - testing' }
-GtPhlowTitleLabelBuilder >> hasLabel [
-	^ true
 ]
