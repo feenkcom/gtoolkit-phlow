@@ -155,7 +155,7 @@ GtPhlowViewMixedExamples >> gtViewWithExtraActionsFor: aView [
 	<gtView>
 	^ aView textEditor 
 		title: 'Extra actions';
-		text: 'Use <Alt + mouse click> on buttons to see their definitions' asRopedText monospace.
+		text: 'Use <Alt + mouse click> on buttons to see their definitions' asRopedText
 ]
 
 { #category : #examples }
