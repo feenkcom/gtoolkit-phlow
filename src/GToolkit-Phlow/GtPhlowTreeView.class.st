@@ -74,13 +74,18 @@ GtPhlowTreeView >> elementClass [
 
 { #category : #'private - accessing' }
 GtPhlowTreeView >> errorCatchingChildrenBuilder [
-	^ [ :aParent | self
-			performBlock: [ self childrenBuilder value: aParent ] 
-			onException: [ :anException | 
-				Array with: (GtPhlowChildrenBuilderError new 
-					exception: anException;
-					parent: aParent;
-					childrenBuilder: self childrenBuilder) ] ]
+	^ [ :aParent | 
+			(aParent isKindOf: GtPhlowChildrenBuilderError)
+				ifTrue: [ Array empty ]
+				ifFalse: [ 
+					self
+						performBlock: [ self childrenBuilder value: aParent ] 
+						onException: [ :anException | 
+							anException freeze.
+							Array with: (GtPhlowChildrenBuilderError new 
+								exception: anException;
+								parent: aParent;
+								childrenBuilder: self childrenBuilder) ] ] ]
 ]
 
 { #category : #'scripting - deprecated' }

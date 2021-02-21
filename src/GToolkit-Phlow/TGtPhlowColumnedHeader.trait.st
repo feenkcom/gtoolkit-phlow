@@ -37,3 +37,14 @@ TGtPhlowColumnedHeader >> columns [
 	<return: #Collection of: #GtPhlowColumn>
 	^ self explicitRequirement
 ]
+
+{ #category : #'gt - extensions' }
+TGtPhlowColumnedHeader >> gtColumnsFor: aView [
+	<gtView>
+	self columns ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Columns';
+		column: 'Title' item: #title;
+		column: 'Item' item: #itemComputation;
+		column: 'Stencil' item: #cellStencil
+]

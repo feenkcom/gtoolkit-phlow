@@ -266,7 +266,7 @@ GtPhlowColumn >> text: aBlockOrSymbol [
 		| aValue aText |
 		aValue := self itemComputation phlowValue: anItem withEnoughArguments: { anItem. aRowIndex. aColumnIndex. aLabel. self }.
 		aText := aBlockOrSymbol phlowValue: aValue withEnoughArguments: { aValue. aRowIndex. aColumnIndex. aLabel. self }.
-		aLabel text: aText asRopedText. ]
+		aLabel text: aText gtDisplayText asRopedText. ]
 ]
 
 { #category : #'private - accessing' }

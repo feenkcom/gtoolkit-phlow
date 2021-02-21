@@ -53,6 +53,20 @@ GtPhlowChildrenBuilderError >> gtDebugActionFor: anAction [
 			[ (self childrenBuilder value: self parent) debug ] fork ]
 ]
 
+{ #category : #printing }
+GtPhlowChildrenBuilderError >> gtDisplayString [
+	^ self exception
+		ifNotNil: #gtDisplayString 
+		ifNil: [ super gtDisplayString ]
+]
+
+{ #category : #printing }
+GtPhlowChildrenBuilderError >> gtDisplayText [
+	^ super gtDisplayText
+		glamorousCodeFontAndSmallSize;
+		foreground: BrGlamorousColors linkWithErrorColor
+]
+
 { #category : #'gt - extensions' }
 GtPhlowChildrenBuilderError >> gtLiveFor: aView [
 	<gtView>
@@ -100,4 +114,14 @@ GtPhlowChildrenBuilderError >> parent [
 { #category : #accessing }
 GtPhlowChildrenBuilderError >> parent: anObject [
 	parent := anObject
+]
+
+{ #category : #printing }
+GtPhlowChildrenBuilderError >> printOn: aStream [
+	super printOn: aStream.
+	self exception ifNil: [ ^ self ].
+	aStream
+		nextPut: $(;
+		print: self exception;
+		nextPut: $)
 ]

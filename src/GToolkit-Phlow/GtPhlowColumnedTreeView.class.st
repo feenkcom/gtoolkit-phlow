@@ -131,6 +131,17 @@ GtPhlowColumnedTreeView >> errorCatchingChildrenBuilder [
 								childrenBuilder: self childrenBuilder) ] ] ]
 ]
 
+{ #category : #'gt - extensions' }
+GtPhlowColumnedTreeView >> gtColumnsFor: aView [
+	<gtView>
+	self columns ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Columns';
+		items: [ self columns ];
+		column: 'Title' item: #title weight: 0.25;
+		column: 'Item' item: #itemComputation
+]
+
 { #category : #initialization }
 GtPhlowColumnedTreeView >> initialize [
 	super initialize.
