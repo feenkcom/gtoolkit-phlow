@@ -202,7 +202,7 @@ GtPhlowTreeViewExamples >> treeViewWithItemsAndChildrenWithChildrenError [
 	aView expandOneLevel.
 	aView children: [ :aNumber | 3/0. aNumber // 2 to: aNumber ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assert: anElement class equals: BrFrame.
+	self assert: anElement class equals: BrSimpleTree.
 	^ aView
 ]
 

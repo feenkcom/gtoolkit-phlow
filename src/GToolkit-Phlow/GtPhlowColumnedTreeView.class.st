@@ -31,7 +31,7 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 
 	aTree := self columnedTreeClass new.
 	self
-		performBlock: [ aTree items: theItems lazy: self childrenBuilder ]
+		performBlock: [ aTree items: theItems lazy: self errorCatchingChildrenBuilder ]
 		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	
 	aTree
@@ -65,12 +65,12 @@ GtPhlowColumnedTreeView >> cellSpacing [
 	^ 10
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting' }
 GtPhlowColumnedTreeView >> children: aValuable [
 	childrenBuilder := aValuable
 ]
 
-{ #category : #accessing }
+{ #category : #'private - accessing' }
 GtPhlowColumnedTreeView >> childrenBuilder [
 	^ childrenBuilder
 ]
@@ -115,6 +115,33 @@ GtPhlowColumnedTreeView >> elementClass [
 	^ BlElement
 ]
 
+{ #category : #'private - accessing' }
+GtPhlowColumnedTreeView >> errorCatchingChildrenBuilder [
+	^ [ :aParent | 
+			(aParent isKindOf: GtPhlowChildrenBuilderError)
+				ifTrue: [ Array empty ]
+				ifFalse: [ 
+					self
+						performBlock: [ self childrenBuilder value: aParent ] 
+						onException: [ :anException | 
+							anException freeze.
+							Array with: (GtPhlowChildrenBuilderError new 
+								exception: anException;
+								parent: aParent;
+								childrenBuilder: self childrenBuilder) ] ] ]
+]
+
+{ #category : #'gt - extensions' }
+GtPhlowColumnedTreeView >> gtColumnsFor: aView [
+	<gtView>
+	self columns ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Columns';
+		items: [ self columns ];
+		column: 'Title' item: #title weight: 0.25;
+		column: 'Item' item: #itemComputation
+]
+
 { #category : #initialization }
 GtPhlowColumnedTreeView >> initialize [
 	super initialize.
@@ -133,7 +160,7 @@ GtPhlowColumnedTreeView >> isExpectedElement: aCurrentElement [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : #'api - scripting' }
 GtPhlowColumnedTreeView >> items: aValuable [
 	itemsBuilder := aValuable
 ]
@@ -188,7 +215,7 @@ GtPhlowColumnedTreeView >> updateContent: aCurrentElement [
 		aTree := aCurrentElement children second.
 		self 
 			enqueueAction: [ 
-				aTree items: theItems lazy: self childrenBuilder.
+				aTree items: theItems lazy: self errorCatchingChildrenBuilder.
 				self expandTree: aTree ] 
 			in: aTree ].
 ]
