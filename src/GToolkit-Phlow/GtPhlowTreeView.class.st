@@ -20,7 +20,7 @@ GtPhlowTreeView >> asElementDo: aBlock [
 		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	aTree := self elementClass new.
 	self
-		performBlock: [ aTree items: theItems lazy: self childrenBuilder ]
+		performBlock: [ aTree items: theItems lazy: self errorCatchingChildrenBuilder ]
 		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 	aTree
 		addEventHandler:
@@ -70,6 +70,17 @@ GtPhlowTreeView >> display: aBlock [
 { #category : #'private - accessing' }
 GtPhlowTreeView >> elementClass [
 	^ BrSimpleTree
+]
+
+{ #category : #'private - accessing' }
+GtPhlowTreeView >> errorCatchingChildrenBuilder [
+	^ [ :aParent | self
+			performBlock: [ self childrenBuilder value: aParent ] 
+			onException: [ :anException | 
+				Array with: (GtPhlowChildrenBuilderError new 
+					exception: anException;
+					parent: aParent;
+					childrenBuilder: self childrenBuilder) ] ]
 ]
 
 { #category : #'scripting - deprecated' }
@@ -219,7 +230,7 @@ GtPhlowTreeView >> updateContent: aCurrentElement [
 						by: anErrorElement
 						in: aParent ].
 			self
-				enqueueAction: [ aCurrentElement items: theItems lazy: self childrenBuilder.
+				enqueueAction: [ aCurrentElement items: theItems lazy: self errorCatchingChildrenBuilder.
 					self expandTree: aCurrentElement ]
 				in: aCurrentElement ]
 ]
