@@ -155,6 +155,21 @@ TGtPhlowColumnScripts >> column: aTitleString item: aBlock width: aNumber [
 ]
 
 { #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString stencil: aFormatBlocOrSymbol [
+	self column: aTitleString icon: aFormatBlocOrSymbol weight: 1
+]
+
+{ #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString stencil: aFormatBlocOrSymbol weight: aNumber [
+	self column: aTitleString icon: aFormatBlocOrSymbol weight: aNumber
+]
+
+{ #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString stencil: aFormatBlocOrSymbol width: aNumber [
+	self column: aTitleString icon: aFormatBlocOrSymbol width: aNumber
+]
+
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString text: aBlock [
 	| aColumn |
 	aColumn := self column.
