@@ -24,7 +24,7 @@ TGtPhlowItemText >> itemText: aBlockOrSymbol [
 	self itemDataBinder: [ :aLabel :anItem :anItemNode |
 		| aText |
 		aText := aBlockOrSymbol phlowValue: anItem withEnoughArguments: { anItem. anItemNode. aLabel. self }.
-		aLabel text: aText asRopedText. ]
+		aLabel text: aText gtDisplayText asRopedText. ]
 ]
 
 { #category : #'private - building' }
