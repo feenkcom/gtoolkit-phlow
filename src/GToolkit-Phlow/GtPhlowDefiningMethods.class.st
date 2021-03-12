@@ -47,7 +47,7 @@ GtPhlowDefiningMethods >> gtSourceFor: aView [
 					c horizontal matchParent ].
 			self methods do: [ :eachMethod | 
 				aContainer addChild: (
-					(GtMethodCoder forMethod: eachMethod) withHeader asCoderUIModel
+					(GtPharoMethodCoder forMethod: eachMethod) withHeader asCoderUIModel
 						expanded: true; asElement) ].
 			aContainer asScrollableElement]
 ]
