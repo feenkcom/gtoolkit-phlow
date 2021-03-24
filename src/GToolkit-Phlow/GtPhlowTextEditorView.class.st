@@ -78,7 +78,7 @@ GtPhlowTextEditorView >> look [
 { #category : #accessing }
 GtPhlowTextEditorView >> look: aLook [
 	self
-		assert: [ (aLook isKindOf: BrLook) not ] 
+		assert: [ (aLook isKindOf: BrAptitude) not ] 
 		description: [ 'Look must be a valuable or just a look class, not a look instance' ].
 	look := aLook
 ]
