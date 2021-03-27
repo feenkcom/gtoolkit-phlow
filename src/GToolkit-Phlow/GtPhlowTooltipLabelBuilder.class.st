@@ -21,7 +21,7 @@ Class {
 
 { #category : #building }
 GtPhlowTooltipLabelBuilder >> applyOn: anElement [
-	anElement addLook: (GtPhlowLabelTooltipLook new text: self text)
+	anElement addAptitude: (GtPhlowLabelTooltipAptitude new text: self text)
 ]
 
 { #category : #building }

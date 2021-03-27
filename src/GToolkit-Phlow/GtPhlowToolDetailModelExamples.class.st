@@ -23,7 +23,7 @@ GtPhlowToolDetailModelExamples >> basicContainerDetailModel [
 GtPhlowToolDetailModelExamples >> basicToolDetailLook [
 	<gtExample>
 	| aLook |
-	aLook := GtPhlowToolDetailLook new.
+	aLook := GtPhlowToolDetailAptitude new.
 	^ aLook
 ]
 
@@ -221,7 +221,7 @@ GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook [
 	|  aTool aContainer |
 	aContainer := self containerWithToolElement.
 	aTool := aContainer childAt: 1.
-	aTool look: self lookWithBackgroundChanges.
+	aTool aptitude: self lookWithBackgroundChanges.
 	^ aContainer
 ]
 
@@ -294,7 +294,7 @@ GtPhlowToolDetailModelExamples >> lookShowcaseButtonFor: aSymbol element: aTool 
 	"aSymbol defines what information level should be used by clicking on a button"
 	<gtExample>
 	^ BrButton new
-		look: BrGlamorousButtonWithLabelLook;
+		aptitude: BrGlamorousButtonWithLabelAptitude;
 		label: aSymbol asString;
 		action: [ :aButton | 
 			aTool dispatchEvent: (GtPhlowToolDetailWish beLevel: aSymbol) ]
@@ -305,7 +305,7 @@ GtPhlowToolDetailModelExamples >> lookShowcaseButtonsFor: aTool [
 	<gtExample>
 	| aToolbar |
 	aToolbar := BrToolbar new
-		look: BrGlamorousToolbarLook new;
+		aptitude: BrGlamorousToolbarAptitude new;
 		constraintsDo: [ :c | 
 			c frame horizontal alignCenter.
 			c frame vertical alignCenter ];
@@ -364,7 +364,7 @@ GtPhlowToolDetailModelExamples >> showcaseContainerElementConfiguration: anEleme
 	| aLevel aLabel |
 	aLevel := self requestToolDetailLevel: anElement.
 	aLabel := BrLabel new
-			look: (BrGlamorousLabelLook new
+			aptitude: (BrGlamorousLabelAptitude new
 				foreground: Color white);
 			text: 'Container Level of Detail: ', aLevel asString.
 	anElement
@@ -388,7 +388,7 @@ GtPhlowToolDetailModelExamples >> showcaseToolElementConfiguration: anElement [
 	| aLevel aLabel |
 	aLevel := self requestToolDetailLevel: anElement.
 	aLabel := BrLabel new
-			look: (BrGlamorousLabelLook new
+			aptitude: (BrGlamorousLabelAptitude new
 				foreground: Color white);
 			text: 'Tool Level of Detail: ', aLevel asString.
 	anElement
@@ -455,7 +455,7 @@ GtPhlowToolDetailModelExamples >> toolOne [
 				c vertical matchParent ];
 			background: self defaultBackgroundColor;
 			addInteractiveModelState: self basicToolDetailModel;
-			addLook: self lookWithBackgroundChanges;
+			addAptitude: self lookWithBackgroundChanges;
 			addChild: (self labelWithText: 'One') ].
 	aTool name: 'One'.
 
@@ -478,7 +478,7 @@ GtPhlowToolDetailModelExamples >> toolTwo [
 				c vertical matchParent ];
 			background: self defaultBackgroundColor;
 			addInteractiveModelState: self basicToolDetailModel;
-			addLook: self lookWithBackgroundChanges;
+			addAptitude: self lookWithBackgroundChanges;
 			addChild: (self labelWithText: 'Two') ].
 	aTool name: 'Two'.
 

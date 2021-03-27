@@ -53,7 +53,7 @@ GtPhlowVerticalSidebarElement >> defaultContentOffset [
 
 { #category : #defaults }
 GtPhlowVerticalSidebarElement >> defaultResizerLook [
-	^ BrGlamorousWithVerticalResizerLook new beTop
+	^ BrGlamorousWithVerticalResizerAptitude new beTop
 ]
 
 { #category : #'api - visibility' }
@@ -65,7 +65,7 @@ GtPhlowVerticalSidebarElement >> expand [
 GtPhlowVerticalSidebarElement >> initialize [
 	super initialize.
 	
-	self addLook: (BrLayoutResizerLook new
+	self addAptitude: (BrLayoutResizerAptitude new
 		hInherit;
 		hInherit: [ :aBlock | self contentElementDo: aBlock ])
 ]

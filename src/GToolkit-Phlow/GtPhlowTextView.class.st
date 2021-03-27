@@ -18,7 +18,7 @@ GtPhlowTextView >> asElementDo: aBlock [
 		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
 
 	aBrickEditor 
-		look: BrGlamorousEditorLook;
+		aptitude: BrGlamorousEditorAptitude;
 		enqueueTask: (BlTaskAction new action: [
 			aBrickEditor text: aText ]).
 

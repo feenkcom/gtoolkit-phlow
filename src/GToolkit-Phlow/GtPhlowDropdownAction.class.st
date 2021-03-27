@@ -23,7 +23,7 @@ GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 	aDropdown phlow
 		beAction;
 		entity: self.
-	aDropdown look: self newButtonLook
+	aDropdown aptitude: self newButtonLook
 		+ (self newDropdownLookFor: aDropdown targetElement: aTargetElement).
 	self attachShowDefinitionEventHandler: aDropdown.
 	self attachTooltipFor: aDropdown hostElement: aTargetElement.
@@ -71,9 +71,9 @@ GtPhlowDropdownAction >> newButton [
 
 { #category : #'instance creation' }
 GtPhlowDropdownAction >> newButtonLook [
-	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ ^ BrGlamorousButtonWithIconAndLabelLook ].
-	(label notNil and: [ icon isNil ]) ifTrue: [ ^ BrGlamorousButtonWithLabelLook ].
-	^ BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
+	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ ^ BrGlamorousButtonWithIconAndLabelAptitude ].
+	(label notNil and: [ icon isNil ]) ifTrue: [ ^ BrGlamorousButtonWithLabelAptitude ].
+	^ BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
 ]
 
 { #category : #'instance creation' }
@@ -86,11 +86,11 @@ GtPhlowDropdownAction >> newContentForDropdown: aDropdown targetElement: aTarget
 
 { #category : #converting }
 GtPhlowDropdownAction >> newDropdownLookFor: aDropdown targetElement: aTargetElement [
-	^ BrGlamorousWithDropdownLook
+	^ BrGlamorousWithDropdownAptitude
 		handle: [ self newButton
-				look:
-					self newButtonLook - BrGlamorousButtonWithLabelTooltipLook
-						- BrGlamorousButtonExteriorLook;
+				aptitude:
+					self newButtonLook - BrGlamorousButtonWithLabelTooltipAptitude
+						- BrGlamorousButtonExteriorAptitude;
 				yourself ]
 		content:
 			[ self newContentForDropdown: aDropdown targetElement: aTargetElement ]

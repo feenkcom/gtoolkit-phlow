@@ -88,7 +88,7 @@ GtPhlowCellElement >> hideContent [
 GtPhlowCellElement >> initialize [
 	super initialize.
 	self layout: BlLinearLayout horizontal alignCenterLeft.
-	self addLook: (BrLayoutResizerLook inherit).
+	self addAptitude: (BrLayoutResizerAptitude inherit).
 	self hMatchParent.
 	self vFitContent.
 ]

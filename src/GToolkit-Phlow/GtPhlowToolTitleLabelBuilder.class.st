@@ -41,7 +41,7 @@ GtPhlowToolTitleLabelBuilder >> gtResultFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'Build result';
-		look: [ BrGlamorousRegularEditorLook new ];
+		aptitude: [ BrGlamorousRegularEditorAptitude new ];
 		text: [ 
 			'Tool name: ' asRopedText
 				append: (self toolName value ifNil: [ '' ]) asRopedText;

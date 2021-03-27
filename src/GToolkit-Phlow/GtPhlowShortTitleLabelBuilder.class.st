@@ -37,7 +37,7 @@ GtPhlowShortTitleLabelBuilder >> gtResultFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'Build result';
-		look: [ BrGlamorousRegularEditorLook new ];
+		aptitude: [ BrGlamorousRegularEditorAptitude new ];
 		text: [ self build ];
 		actionButtonIcon: BrGlamorousVectorIcons inspect 
 			tooltip: 'Inspect build result' 

@@ -29,7 +29,7 @@ GtPhlowToggleAction >> asElement: aBlock withHostElement: aTargetElement [
 	aToggle phlow 
 		beAction;
 		entity: self.
-	aToggle look: self newToggleLook.
+	aToggle aptitude: self newToggleLook.
 	label ifNotNil: [ aToggle label: label asRopedText ].
 	icon ifNotNil: [ aToggle icon: icon asElement ].
 	aToggle activated: isActivated value.
@@ -78,9 +78,9 @@ GtPhlowToggleAction >> label: aString [
 { #category : #'instance creation' }
 GtPhlowToggleAction >> newToggleLook [
 	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ 
-		^ BrGlamorousButtonWithLabelAndIconLook + BrGlamorousToggleBackgroundLook ].
+		^ BrGlamorousButtonWithLabelAndIconAptitude + BrGlamorousToggleBackgroundAptitude ].
 	(label isNotNil and: [ icon isNil ]) ifTrue: [ 
-		^ BrGlamorousButtonWithLabelLook + BrGlamorousToggleBackgroundLook ].
-	^ BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook 
-		+ BrGlamorousToggleBackgroundLook
+		^ BrGlamorousButtonWithLabelAptitude + BrGlamorousToggleBackgroundAptitude ].
+	^ BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude 
+		+ BrGlamorousToggleBackgroundAptitude
 ]

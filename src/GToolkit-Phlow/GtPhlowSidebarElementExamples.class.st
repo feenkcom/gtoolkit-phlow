@@ -49,7 +49,7 @@ GtPhlowSidebarElementExamples >> contentStencil [
 			matchParent;
 			background: (Color blue alpha: 0.1);
 			addChild: (BrLabel new
-				look: (BrGlamorousLabelLook new
+				aptitude: (BrGlamorousLabelAptitude new
 					foreground: Color white);
 				text: 'Sidebar Content';
 				constraintsDo: [ :c | 

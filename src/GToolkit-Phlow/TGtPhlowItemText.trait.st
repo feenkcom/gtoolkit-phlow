@@ -44,7 +44,7 @@ TGtPhlowItemText >> itemText: aBlockOrSymbol [
 { #category : #'private - building' }
 TGtPhlowItemText >> newItemLabel [
 	^ BrLabel new
-		look: BrGlamorousListLabelLook;
+		aptitude: BrGlamorousListLabelAptitude;
 		alignCenterLeft;
 		hMatchParent;
 		vFitContent

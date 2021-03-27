@@ -139,16 +139,16 @@ GtPhlowListViewExamples >> errorInItemDataBinder [
 	self assert: anElement items size equals: 1000.
 	anElement forceLayout.
 
-	self assert: (anElement look listElement childAt: 1) class equals: GtPhlowCellElement.
-	self assert: (anElement look listElement childAt: 1) content isNotNil.
-	self assert: (anElement look listElement childAt: 1) content visibility isVisible.
-	self assert: (anElement look listElement childAt: 1) exception isNil.
+	self assert: (anElement aptitude listElement childAt: 1) class equals: GtPhlowCellElement.
+	self assert: (anElement aptitude listElement childAt: 1) content isNotNil.
+	self assert: (anElement aptitude listElement childAt: 1) content visibility isVisible.
+	self assert: (anElement aptitude listElement childAt: 1) exception isNil.
 
-	self assert: (anElement look listElement childAt: 3) class equals: GtPhlowCellElement.
-	self assert: (anElement look listElement childAt: 3) content isNotNil.
-	self assert: (anElement look listElement childAt: 3) content visibility isGone.
-	self assert: (anElement look listElement childAt: 3) exception isNotNil.
-	self assert: (anElement look listElement childAt: 3) exception visibility isVisible.
+	self assert: (anElement aptitude listElement childAt: 3) class equals: GtPhlowCellElement.
+	self assert: (anElement aptitude listElement childAt: 3) content isNotNil.
+	self assert: (anElement aptitude listElement childAt: 3) content visibility isGone.
+	self assert: (anElement aptitude listElement childAt: 3) exception isNotNil.
+	self assert: (anElement aptitude listElement childAt: 3) exception visibility isVisible.
 	^ aView
 ]
 
@@ -163,10 +163,10 @@ GtPhlowListViewExamples >> errorInItemStencil [
 	self assert: anElement items size equals: 1000.
 	anElement forceLayout.
 
-	self assert: (anElement look listElement childAt: 1) class equals: GtPhlowCellElement.
-	self assert: (anElement look listElement childAt: 1) content isNil.
-	self assert: (anElement look listElement childAt: 1) exception isNotNil.
-	self assert: (anElement look listElement childAt: 1) exception visibility isVisible.
+	self assert: (anElement aptitude listElement childAt: 1) class equals: GtPhlowCellElement.
+	self assert: (anElement aptitude listElement childAt: 1) content isNil.
+	self assert: (anElement aptitude listElement childAt: 1) exception isNotNil.
+	self assert: (anElement aptitude listElement childAt: 1) exception visibility isVisible.
 	^ aView
 ]
 
@@ -181,21 +181,21 @@ GtPhlowListViewExamples >> errorInItemText [
 	self assert: anElement items size equals: 1000.
 	anElement forceLayout.
 
-	self assert: (anElement look listElement childAt: 1) class equals: GtPhlowCellElement.
-	self assert: (anElement look listElement childAt: 1) content isNotNil.
-	self assert: (anElement look listElement childAt: 1) content visibility isVisible.
-	self assert: (anElement look listElement childAt: 1) exception isNil.
+	self assert: (anElement aptitude listElement childAt: 1) class equals: GtPhlowCellElement.
+	self assert: (anElement aptitude listElement childAt: 1) content isNotNil.
+	self assert: (anElement aptitude listElement childAt: 1) content visibility isVisible.
+	self assert: (anElement aptitude listElement childAt: 1) exception isNil.
 
-	self assert: (anElement look listElement childAt: 1) content class equals: BrLabel.
-	self assert: (anElement look listElement childAt: 1) content text asString equals: 'Item number 1'.
+	self assert: (anElement aptitude listElement childAt: 1) content class equals: BrLabel.
+	self assert: (anElement aptitude listElement childAt: 1) content text asString equals: 'Item number 1'.
 
-	self assert: (anElement look listElement childAt: 3) class equals: GtPhlowCellElement.
-	self assert: (anElement look listElement childAt: 3) content isNotNil.
-	self assert: (anElement look listElement childAt: 3) content visibility isGone.
-	self assert: (anElement look listElement childAt: 3) exception isNotNil.
-	self assert: (anElement look listElement childAt: 3) exception visibility isVisible.
+	self assert: (anElement aptitude listElement childAt: 3) class equals: GtPhlowCellElement.
+	self assert: (anElement aptitude listElement childAt: 3) content isNotNil.
+	self assert: (anElement aptitude listElement childAt: 3) content visibility isGone.
+	self assert: (anElement aptitude listElement childAt: 3) exception isNotNil.
+	self assert: (anElement aptitude listElement childAt: 3) exception visibility isVisible.
 
-	self assert: (anElement look listElement childAt: 3) exception class equals: BrFrame.
+	self assert: (anElement aptitude listElement childAt: 3) exception class equals: BrFrame.
 
 	^ aView
 ]
@@ -211,15 +211,15 @@ GtPhlowListViewExamples >> errorInItemType [
 	self assert: anElement items size equals: 1000.
 	anElement forceLayout.
 
-	self assert: (anElement look listElement childAt: 1) class equals: GtPhlowCellElement.
-	self assert: (anElement look listElement childAt: 1) content isNotNil.
-	self assert: (anElement look listElement childAt: 1) content visibility isVisible.
-	self assert: (anElement look listElement childAt: 1) exception isNil.
+	self assert: (anElement aptitude listElement childAt: 1) class equals: GtPhlowCellElement.
+	self assert: (anElement aptitude listElement childAt: 1) content isNotNil.
+	self assert: (anElement aptitude listElement childAt: 1) content visibility isVisible.
+	self assert: (anElement aptitude listElement childAt: 1) exception isNil.
 
-	self assert: (anElement look listElement childAt: 3) class equals: GtPhlowCellElement.
-	self assert: (anElement look listElement childAt: 3) content isNil.
-	self assert: (anElement look listElement childAt: 3) exception isNotNil.
-	self assert: (anElement look listElement childAt: 3) exception visibility isVisible.
+	self assert: (anElement aptitude listElement childAt: 3) class equals: GtPhlowCellElement.
+	self assert: (anElement aptitude listElement childAt: 3) content isNil.
+	self assert: (anElement aptitude listElement childAt: 3) exception isNotNil.
+	self assert: (anElement aptitude listElement childAt: 3) exception visibility isVisible.
 	^ aView
 ]
 
@@ -389,10 +389,10 @@ GtPhlowListViewExamples >> itemText [
 	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
 	self assert: anElement items size equals: 10.
 	anElement forceLayout.
-	self assert: anElement look listElement childrenCount equals: 10.
-	self assert: (anElement look listElement childAt: 1) class equals: GtPhlowCellElement.
-	self assert: (anElement look listElement childAt: 1) content class equals: BrLabel.
-	self assert: (anElement look listElement childAt: 1) content text asString equals: 'Item number 1'.
+	self assert: anElement aptitude listElement childrenCount equals: 10.
+	self assert: (anElement aptitude listElement childAt: 1) class equals: GtPhlowCellElement.
+	self assert: (anElement aptitude listElement childAt: 1) content class equals: BrLabel.
+	self assert: (anElement aptitude listElement childAt: 1) content text asString equals: 'Item number 1'.
 	^ aView
 ]
 
@@ -407,15 +407,15 @@ GtPhlowListViewExamples >> itemsAsDefaultTexts [
 	self assert: anElement items size equals: 10.
 	anElement forceLayout.
 	
-	self assert: anElement look listElement childrenCount equals: 10.
-	self assert: (anElement look listElement childAt: 1) class equals: GtPhlowCellElement.
-	self assert: (anElement look listElement childAt: 1) content isNotNil.
-	self assert: (anElement look listElement childAt: 1) content visibility isVisible.
-	self assert: (anElement look listElement childAt: 1) exception isNil.
+	self assert: anElement aptitude listElement childrenCount equals: 10.
+	self assert: (anElement aptitude listElement childAt: 1) class equals: GtPhlowCellElement.
+	self assert: (anElement aptitude listElement childAt: 1) content isNotNil.
+	self assert: (anElement aptitude listElement childAt: 1) content visibility isVisible.
+	self assert: (anElement aptitude listElement childAt: 1) exception isNil.
 	
-	self assert: (anElement look listElement childAt: 1) content class equals: BrLabel.
-	self assert: (anElement look listElement childAt: 1) content text asString equals: 1 asString.
-	self assert: (anElement look listElement childAt: 1) content text asString equals: 1 asString.
+	self assert: (anElement aptitude listElement childAt: 1) content class equals: BrLabel.
+	self assert: (anElement aptitude listElement childAt: 1) content text asString equals: 1 asString.
+	self assert: (anElement aptitude listElement childAt: 1) content text asString equals: 1 asString.
 	^ aView
 ]
 
@@ -460,6 +460,27 @@ GtPhlowListViewExamples >> selectItemAt: anIndex for: anElement [
 	<gtExample>
 	"Select an item at anIndex in anElement (list, tree)"
 	anElement selectOne: 1
+]
+
+{ #category : #'examples - transformation' }
+GtPhlowListViewExamples >> sendTool [
+	<gtExample>
+	| view element |
+	view := self viewWithTenItems.
+	view sendTool: [ :aNumber | GtPhlowValuableTool new
+		valuable: [ BrFrame new
+			labeled: 'tool';
+			matchParent;
+			alignCenter;
+			addChild: (BrLabel new
+				aptitude: BrGlamorousLabelAptitude;
+				text: aNumber;
+				constraintsDo: [ :c | 
+					c frame horizontal alignCenter.
+					c frame vertical alignCenter ]) ] ].
+	view asElementDo: [ :el | element := el ].
+	self itemsFor: element ofSize: 10.
+	^ view
 ]
 
 { #category : #'examples - updating' }

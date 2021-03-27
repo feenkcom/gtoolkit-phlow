@@ -168,7 +168,7 @@ TGtPhlowSendTransformationExamples >> sendTool [
 			matchParent;
 			alignCenter;
 			addChild: (BrLabel new
-				look: BrGlamorousLabelLook;
+				aptitude: BrGlamorousLabelAptitude;
 				text: aNumber;
 				constraintsDo: [ :c | 
 					c frame horizontal alignCenter.

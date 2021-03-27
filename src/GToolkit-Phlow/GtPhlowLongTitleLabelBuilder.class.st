@@ -49,7 +49,7 @@ GtPhlowLongTitleLabelBuilder >> gtResultFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'Build result';
-		look: [ BrGlamorousRegularEditorLook new ];
+		aptitude: [ BrGlamorousRegularEditorAptitude new ];
 		text: [ 
 			'Original title: ' asRopedText
 				append: (self longLabel ifNil: [ '' ]) asRopedText;

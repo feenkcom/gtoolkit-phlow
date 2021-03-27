@@ -293,9 +293,9 @@ GtPhlowColumnedListViewExamples >> columnItemView [
 	self assert: aColumnedList items size equals: 10.
 	
 	anElement forceLayout.
-	self assert: aColumnedList look listElement childrenCount equals: 10.
+	self assert: aColumnedList aptitude listElement childrenCount equals: 10.
 	
-	aCellElement := (aColumnedList look listElement childAt: 1) childAt: 1.
+	aCellElement := (aColumnedList aptitude listElement childAt: 1) childAt: 1.
 	
 	self assert: aCellElement class equals: GtPhlowCellElement.
 	self assert: aCellElement content class equals: BrLabel.
@@ -339,7 +339,7 @@ GtPhlowColumnedListViewExamples >> errorInColumnDoCellStencil [
 	self assert: aColumnedList items size equals: 1000.
 	anElement forceLayout.
 	
-	aCellElement := (aColumnedList look listElement childAt: 1) childAt: 1.
+	aCellElement := (aColumnedList aptitude listElement childAt: 1) childAt: 1.
 
 	self assert: aCellElement class equals: GtPhlowCellElement.
 	self assert: aCellElement content isNil.
@@ -360,14 +360,14 @@ GtPhlowColumnedListViewExamples >> errorInColumnDoDataBinder [
 	self assert: aColumnedList items size equals: 1000.
 	anElement forceLayout.
 
-	aCellElement := (aColumnedList look listElement childAt: 1) childAt: 1.
+	aCellElement := (aColumnedList aptitude listElement childAt: 1) childAt: 1.
 
 	self assert: aCellElement class equals: GtPhlowCellElement.
 	self assert: aCellElement content isNotNil.
 	self assert: aCellElement content visibility isVisible.
 	self assert: aCellElement exception isNil.
 
-	aCellElement := (aColumnedList look listElement childAt: 3) childAt: 1.
+	aCellElement := (aColumnedList aptitude listElement childAt: 3) childAt: 1.
 
 	self assert: aCellElement class equals: GtPhlowCellElement.
 	self assert: aCellElement content isNotNil.
@@ -389,14 +389,14 @@ GtPhlowColumnedListViewExamples >> errorInColumnIcon [
 	self assert: aColumnedList items size > 3.
 	anElement forceLayout.
 
-	aCellElement := (aColumnedList look listElement childAt: 1) childAt: 1.
+	aCellElement := (aColumnedList aptitude listElement childAt: 1) childAt: 1.
 
 	self assert: aCellElement class equals: GtPhlowCellElement.
 	self assert: aCellElement content isNotNil.
 	self assert: aCellElement content visibility isVisible.
 	self assert: aCellElement exception isNil.
 
-	aCellElement := (aColumnedList look listElement childAt: 3) childAt: 1.
+	aCellElement := (aColumnedList aptitude listElement childAt: 3) childAt: 1.
 
 	self assert: aCellElement class equals: GtPhlowCellElement.
 	self assert: aCellElement content isNotNil.
@@ -404,7 +404,7 @@ GtPhlowColumnedListViewExamples >> errorInColumnIcon [
 	self assert: aCellElement exception isNotNil.
 	self assert: aCellElement exception visibility isVisible.
 
-	aCellElement := (aColumnedList look listElement childAt: 3) childAt: 2.
+	aCellElement := (aColumnedList aptitude listElement childAt: 3) childAt: 2.
 
 	self assert: aCellElement class equals: GtPhlowCellElement.
 	self assert: aCellElement content isNotNil.
@@ -426,14 +426,14 @@ GtPhlowColumnedListViewExamples >> errorInColumnText [
 	self assert: aColumnedList items size equals: 1000.
 	anElement forceLayout.
 
-	aCellElement := (aColumnedList look listElement childAt: 1) childAt: 1.
+	aCellElement := (aColumnedList aptitude listElement childAt: 1) childAt: 1.
 
 	self assert: aCellElement class equals: GtPhlowCellElement.
 	self assert: aCellElement content isNotNil.
 	self assert: aCellElement content visibility isVisible.
 	self assert: aCellElement exception isNil.
 
-	aCellElement := (aColumnedList look listElement childAt: 3) childAt: 1.
+	aCellElement := (aColumnedList aptitude listElement childAt: 3) childAt: 1.
 
 	self assert: aCellElement class equals: GtPhlowCellElement.
 	self assert: aCellElement content isNotNil.
@@ -441,7 +441,7 @@ GtPhlowColumnedListViewExamples >> errorInColumnText [
 	self assert: aCellElement exception isNotNil.
 	self assert: aCellElement exception visibility isVisible.
 
-	aCellElement := (aColumnedList look listElement childAt: 3) childAt: 2.
+	aCellElement := (aColumnedList aptitude listElement childAt: 3) childAt: 2.
 
 	self assert: aCellElement class equals: GtPhlowCellElement.
 	self assert: aCellElement content isNotNil.
@@ -722,6 +722,27 @@ GtPhlowColumnedListViewExamples >> selectItemAt: anIndex for: anElement [
 	aListElement := self listElementFor: anElement.
 	aListElement selectOne: anIndex.
 	self assert: (aListElement isSelectedAt: anIndex).
+]
+
+{ #category : #'examples - transformation' }
+GtPhlowColumnedListViewExamples >> sendTool [
+	<gtExample>
+	| view element |
+	view := self viewWithTenItems.
+	view sendTool: [ :aNumber | GtPhlowValuableTool new
+		valuable: [ BrFrame new
+			labeled: 'tool';
+			matchParent;
+			alignCenter;
+			addChild: (BrLabel new
+				aptitude: BrGlamorousLabelAptitude;
+				text: aNumber;
+				constraintsDo: [ :c | 
+					c frame horizontal alignCenter.
+					c frame vertical alignCenter ]) ] ].
+	view asElementDo: [ :el | element := el ].
+	self itemsFor: element ofSize: 10.
+	^ view
 ]
 
 { #category : #'api-shortcuts' }

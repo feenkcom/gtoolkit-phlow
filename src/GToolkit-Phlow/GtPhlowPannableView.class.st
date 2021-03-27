@@ -25,22 +25,22 @@ GtPhlowPannableView >> initialize [
 	super initialize.
 	self actionStencil: [ 
 		BrButton new 
-			look: BrGlamorousButtonWithIconLook;
+			aptitude: BrGlamorousButtonWithIconAptitude;
 			icon: BrGlamorousIcons zoomin asElement ;
 			action: [ element zoomIn ] ].
 	self actionStencil: [ 
 		BrButton new 
-			look: BrGlamorousButtonWithIconLook;
+			aptitude: BrGlamorousButtonWithIconAptitude;
 			icon: BrGlamorousIcons zoomout asElement ;
 			action: [ element zoomOut ] ].
 	self actionStencil: [ 
 		BrButton new 
-			look: BrGlamorousButtonWithIconLook;
+			aptitude: BrGlamorousButtonWithIconAptitude;
 			icon: BrGlamorousIcons zoomtofit asElement ;
 			action: [ element zoomToFit ] ].
 	self actionStencil: [ 
 		BrButton new
-			look: BrGlamorousButtonWithIconLook;
+			aptitude: BrGlamorousButtonWithIconAptitude;
 			icon: BrGlamorousIcons actualsize asElement;
 			action: [ element zoomToActualSize ] ]
 ]

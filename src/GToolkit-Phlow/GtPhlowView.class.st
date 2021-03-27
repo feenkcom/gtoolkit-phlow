@@ -277,7 +277,7 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 	| aToolbar |
 
 	aToolbar := BrToolbar new.
-	aToolbar look: BrGlamorousToolbarLook.
+	aToolbar aptitude: BrGlamorousToolbarAptitude.
 
 	self allActions do: [ :phlowAction |
 		phlowAction 

@@ -11,7 +11,7 @@ Class {
 GtPhlowTitleNotifierExamples >> element [
 	<gtExample>
 	^ BrButton new
-		look: BrGlamorousButtonWithIconAndLabelLook;
+		aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
 		when: GtPhlowChangeTitleWish do: [ :aWish | 
 			aWish iconDo: [ :aStencil | 
 				aWish currentTarget icon: aStencil ].

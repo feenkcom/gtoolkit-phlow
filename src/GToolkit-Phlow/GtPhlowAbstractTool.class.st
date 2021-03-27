@@ -21,7 +21,7 @@ GtPhlowAbstractTool >> asElementDo: aOneArgBlock [
 GtPhlowAbstractTool >> asTabDo: aBlock [
 	| aTab |
 	aTab := BrTab new
-		look: self tabLook;
+		aptitude: self tabLook;
 		label: self name;
 		icon: self icon;
 		stencil: [ self asTabElement ].
@@ -80,5 +80,5 @@ GtPhlowAbstractTool >> object: anObject [
 { #category : #'private - accessing' }
 GtPhlowAbstractTool >> tabLook [
 	"Return a look to display tab tool"
-	^ BrGlamorousTabSwitcherWithLabelLook
+	^ BrGlamorousTabSwitcherWithLabelAptitude
 ]
