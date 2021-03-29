@@ -160,14 +160,15 @@ GtPhlowDemoDefinitionsExamples >> demoSubClass [
 	| aClass |
 	aClass := self class environment
 		at: self demoSubClassName
-		ifAbsent: [ self demoClass
-				subclass: self demoSubClassName
-				instanceVariableNames: ''
-				classVariableNames: ''
+		ifAbsent: [
+			GtPharoCodeModifier
+				createSubclassOf: self demoClass
+				named: self demoSubClassName
 				package: self demoPackageName ].
 	self
 		assert: (self class environment at: self demoSubClassName)
 		equals: aClass.
+
 	^ aClass
 ]
 
