@@ -131,10 +131,10 @@ GtPhlowDemoDefinitionsExamples >> demoClass [
 	| aClass |
 	aClass := self class environment
 		at: self demoClassName
-		ifAbsent: [ Object
-				subclass: self demoClassName
-				instanceVariableNames: ''
-				classVariableNames: ''
+		ifAbsent: [
+			GtPharoCodeModifier
+				createSubclassOf: Object
+				named: self demoClassName
 				package: self demoPackageName ].
 	self
 		assert: (self class environment at: self demoClassName)
@@ -218,7 +218,7 @@ GtPhlowDemoDefinitionsExamples >> ensureFooMethodRemoved [
 	| aRing |
 	self demoClass 
 		compiledMethodAt: self fooMethodName 
-		ifPresent: [ :aCompiledMethod | self demoClass removeSelector: self fooMethodName ]
+		ifPresent: [ :aCompiledMethod | GtPharoCodeModifier removeMethod: aCompiledMethod ]
 		ifAbsent: [ "do nothing" ].
 	aRing := RGMethodDefinition new 
 			name: self fooMethodName;
@@ -235,7 +235,7 @@ GtPhlowDemoDefinitionsExamples >> ensurePrintOnMethodRemoved [
 	| aRing |
 	self demoClass 
 		compiledMethodAt: self printOnMethodName 
-		ifPresent: [ :aCompiledMethod | self demoClass removeSelector: self printOnMethodName ]
+		ifPresent: [ :aCompiledMethod | GtPharoCodeModifier removeMethod: aCompiledMethod ]
 		ifAbsent: [ "do nothing" ].
 	aRing := RGMethodDefinition new 
 			name: self printOnMethodName;
