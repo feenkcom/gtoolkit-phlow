@@ -49,7 +49,7 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 	group := BrTabGroup new.
 	self beViewElement: group.
 	group
-		look: BrGlamorousTabGroupLook;
+		aptitude: BrGlamorousTabGroupAptitude;
 		addTabs: tabs.
 	^ aBlock value: group
 ]

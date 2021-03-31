@@ -18,7 +18,7 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 		tab := BrTab new.
 		tab phlow beView; entity: self.
 		tab
-			look: BrGlamorousTabWithoutBarLook;
+			aptitude: BrGlamorousTabWithoutBarAptitude;
 			label: self newLabel;
 			stencil: [ 
 				originalElement phlow beViewContent.
@@ -26,7 +26,7 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 			toolbarStencil: [ self actionsToolbarForElement: tab ];
 			padding: (BlInsets top: 15 right: 0 bottom: 15 left: 10) ].
 	group 
-		look: (BrGlamorousTabGroupLook new headerBackground: (BrGlamorousColors defaultHeaderBackgroundColor));
+		aptitude: (BrGlamorousTabGroupAptitude new headerBackground: (BrGlamorousColors defaultHeaderBackgroundColor));
 		addTab: tab;
 		constraintsDo: [ :c | 
 			c vertical matchParent. 

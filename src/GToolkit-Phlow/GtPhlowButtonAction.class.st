@@ -20,7 +20,7 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	<return: #BrButton>
 	| aButton |
 	aButton := BrButton new.
-	aButton look: self newButtonLook.
+	aButton aptitude: self newButtonLook.
 	aButton phlow 
 		beAction;
 		entity: self.
@@ -59,7 +59,7 @@ GtPhlowButtonAction >> name: aSymbol [
 
 { #category : #'instance creation' }
 GtPhlowButtonAction >> newButtonLook [
-	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ ^ BrGlamorousButtonWithIconAndLabelLook ].
-	(label notNil and: [ icon isNil ]) ifTrue: [ ^ BrGlamorousButtonWithLabelLook ].
-	^ BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
+	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ ^ BrGlamorousButtonWithIconAndLabelAptitude ].
+	(label notNil and: [ icon isNil ]) ifTrue: [ ^ BrGlamorousButtonWithLabelAptitude ].
+	^ BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
 ]

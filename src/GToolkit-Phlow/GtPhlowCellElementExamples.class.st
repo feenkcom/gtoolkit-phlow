@@ -112,7 +112,7 @@ GtPhlowCellElementExamples >> exceptionElement [
 GtPhlowCellElementExamples >> labelElement [
 	<gtExample>
 	^ BrLabel new
-		look: BrGlamorousLabelLook;
+		aptitude: BrGlamorousLabelAptitude;
 		text: 'item one';
 		fitContent
 ]

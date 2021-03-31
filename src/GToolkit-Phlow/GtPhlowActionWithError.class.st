@@ -12,10 +12,10 @@ GtPhlowActionWithError >> asElement: aBlock withHostElement: aTargetElement [
 	| aDebugButton |
 	aDebugButton := BrButton new.
 	aDebugButton 
-		look: (
-			(BrGlamorousButtonExteriorLook new backgroundPaint: BrGlamorousColors errorBackgroundColor)
-			+ BrGlamorousButtonRectangularLook
-			+ BrGlamorousButtonLabelLook);
+		aptitude: (
+			(BrGlamorousButtonExteriorAptitude new backgroundPaint: BrGlamorousColors errorBackgroundColor)
+			+ BrGlamorousButtonRectangularAptitude
+			+ BrGlamorousButtonLabelAptitude);
 		label: 'Error';
 		action: [ [ self error defaultAction ] fork ].
 	self attachShowDefinitionEventHandler: aDebugButton.

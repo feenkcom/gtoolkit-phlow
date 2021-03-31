@@ -155,7 +155,7 @@ GtPhlowListView >> itemsOnExceptionErrorElement: aBlock [
 { #category : #'private - building' }
 GtPhlowListView >> newItemLabel [
 	^ BrLabel new
-		look: BrGlamorousListLabelLook + BrGlamorousListItemLook;
+		aptitude: BrGlamorousListLabelAptitude + BrGlamorousListItemAptitude;
 		alignCenterLeft;
 		hMatchParent;
 		vFitContent

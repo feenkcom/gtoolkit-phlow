@@ -54,7 +54,7 @@ GtPhlowActionExamples >> buttonWithIcon [
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton icon background image equals: BrGlamorousIcons edit.
-	self assert: aButton look class equals: BrGlamorousButtonWithIconLook.
+	self assert: aButton aptitude class equals: BrGlamorousButtonWithIconAptitude.
 	^ anAction
 ]
 
@@ -70,7 +70,7 @@ GtPhlowActionExamples >> buttonWithIconAndLabel [
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton label asString equals: 'Edit'.
 	self assert: aButton icon background image equals: BrGlamorousIcons edit.
-	self assert: aButton look class equals: BrGlamorousButtonWithIconAndLabelLook.
+	self assert: aButton aptitude class equals: BrGlamorousButtonWithIconAndLabelAptitude.
 	^ anAction
 ]
 
@@ -82,7 +82,7 @@ GtPhlowActionExamples >> buttonWithIconAndLabelAndTooltip [
 	anAction tooltip: 'I am a tooltip'.
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
-	self assert: (aButton look children anySatisfy: [ :e | e class = GtPhlowLabelTooltipLook ]).
+	self assert: (aButton aptitude children anySatisfy: [ :e | e class = GtPhlowLabelTooltipAptitude ]).
 	^ anAction
 ]
 
@@ -94,7 +94,7 @@ GtPhlowActionExamples >> buttonWithIconAndTooltip [
 	anAction tooltip: 'I am tooltip'.
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
-	self assert: (aButton look children anySatisfy: [ :e | e class = GtPhlowLabelTooltipLook ]).
+	self assert: (aButton aptitude children anySatisfy: [ :e | e class = GtPhlowLabelTooltipAptitude ]).
 	^ anAction
 ]
 
@@ -108,7 +108,7 @@ GtPhlowActionExamples >> buttonWithLabel [
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton label asString equals: 'Refresh'.
-	self assert: aButton look class equals: BrGlamorousButtonWithLabelLook.
+	self assert: aButton aptitude class equals: BrGlamorousButtonWithLabelAptitude.
 	^ anAction
 ]
 
@@ -120,7 +120,7 @@ GtPhlowActionExamples >> buttonWithLabelWithTooltip [
 	anAction tooltip: 'I am tooltip'.
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
-	self assert: (aButton look children anySatisfy: [ :e | e class = GtPhlowLabelTooltipLook ]).
+	self assert: (aButton aptitude children anySatisfy: [ :e | e class = GtPhlowLabelTooltipAptitude ]).
 	^ anAction
 ]
 
@@ -132,8 +132,8 @@ GtPhlowActionExamples >> buttonWithNoConfiguration [
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: (aButton isKindOf: BrButton).
-	self assert: aButton look class equals: BrGlamorousButtonWithIconLook.
-	self assert: (aButton look children allSatisfy: [ :e | e class ~= GtPhlowLabelTooltipLook ]).
+	self assert: aButton aptitude class equals: BrGlamorousButtonWithIconAptitude.
+	self assert: (aButton aptitude children allSatisfy: [ :e | e class ~= GtPhlowLabelTooltipAptitude ]).
 	^ anAction 
 ]
 
@@ -167,7 +167,7 @@ GtPhlowActionExamples >> dropdownWithIcon [
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton icon background image equals: BrGlamorousIcons menu.
-	self assert: (aButton look hasActor: BrGlamorousButtonWithIconLook).
+	self assert: (aButton aptitude hasActor: BrGlamorousButtonWithIconAptitude).
 	^ anAction
 ]
 
@@ -186,7 +186,7 @@ GtPhlowActionExamples >> dropdownWithIconAndLabel [
 	self assert: aButton label asString equals: 'Check me :-)'.
 	self assert: aButton icon background image equals: BrGlamorousIcons menu.
 	self
-		assert: (aButton look hasActor: BrGlamorousButtonWithIconAndLabelLook).
+		assert: (aButton aptitude hasActor: BrGlamorousButtonWithIconAndLabelAptitude).
 	^ aButton
 ]
 
@@ -196,7 +196,7 @@ GtPhlowActionExamples >> explicitAction [
 	| anAction |
 	anAction := GtPhlowAction noAction explicit stencil: [
 		BrButton new
-			look: BrGlamorousButtonWithIconLook; 
+			aptitude: BrGlamorousButtonWithIconAptitude; 
 			action:  [ self inform: 'Explicit' ];
 			icon: BrGlamorousIcons edit asElement;
 			label: 'Edit' translated ].

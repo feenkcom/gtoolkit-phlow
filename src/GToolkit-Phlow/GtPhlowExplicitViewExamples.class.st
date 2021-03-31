@@ -35,7 +35,7 @@ GtPhlowExplicitViewExamples >> gtBasicFor: aView [
 	^ aView explicit 
 		title: 'Update on click';
 		stencil: [ BlElement new 
-				look: BrShadowLook;
+				aptitude: BrShadowAptitude;
 				background: Color random;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
@@ -70,7 +70,7 @@ GtPhlowExplicitViewExamples >> gtUpdatingDisabledOnSystemChangeFor: aView [
 	^ aView explicit 
 		title: 'Updating Disabled on System Change';
 		stencil: [ BlElement new 
-				look: BrShadowLook;
+				aptitude: BrShadowAptitude;
 				background: Color random;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
@@ -83,7 +83,7 @@ GtPhlowExplicitViewExamples >> gtUpdatingEnabledOnSystemChangeFor: aView [
 	^ aView explicit 
 		title: 'Updating Enabled on System Change';
 		stencil: [ BlElement new 
-				look: BrShadowLook;
+				aptitude: BrShadowAptitude;
 				background: Color random;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
@@ -97,7 +97,7 @@ GtPhlowExplicitViewExamples >> gtUpdatingFor: aView [
 	^ aView explicit 
 		title: 'Update on click';
 		stencil: [ BlElement new 
-				look: BrShadowLook;
+				aptitude: BrShadowAptitude;
 				background: Color random;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.

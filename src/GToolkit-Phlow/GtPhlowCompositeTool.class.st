@@ -30,7 +30,7 @@ GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 	| aTabGroup |
 	aTabGroup := BrTabGroup new
 		labeled: 'Composite Tool';
-		look: BrGlamorousTabGroupSwitcherWithHiddenSelectedTabLook;
+		aptitude: BrGlamorousTabGroupSwitcherWithHiddenSelectedTabAptitude;
 		addTabs: self toolTabs.
 	aTabGroup addEventHandler: GtPhlowToolObjectChangeHandler new.
 	^ aOneArgBlock cull: aTabGroup

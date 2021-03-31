@@ -8,33 +8,33 @@ I perform user defined actions on ${class:GtPhlowToolDetailModel}$ changes. User
 The following example changes an element background color on information level changes: ${example:GtPhlowToolDetailModelExamples>>#containerWithToolElementWithDetailLook_Showcase|codeExpanded=false|previewExpanded=true}$ 
 "
 Class {
-	#name : #GtPhlowToolDetailLook,
-	#superclass : #BrInteractiveLook,
+	#name : #GtPhlowToolDetailAptitude,
+	#superclass : #BrInteractiveAptitude,
 	#category : #'GToolkit-Phlow-Tool - Looks'
 }
 
 { #category : #'api - style' }
-GtPhlowToolDetailLook >> detailed: aStyleBlock [
+GtPhlowToolDetailAptitude >> detailed: aStyleBlock [
 	self
 		when: self state detailed
 		style: aStyleBlock
 ]
 
 { #category : #'api - style' }
-GtPhlowToolDetailLook >> level: aNamedVolume style: aStyleBlock [
+GtPhlowToolDetailAptitude >> level: aNamedVolume style: aStyleBlock [
 	self
 		when: (self state level: aNamedVolume)
 		style: aStyleBlock
 ]
 
 { #category : #'api - style' }
-GtPhlowToolDetailLook >> normal: aStyleBlock [
+GtPhlowToolDetailAptitude >> normal: aStyleBlock [
 	self
 		when: self state normal
 		style: aStyleBlock
 ]
 
 { #category : #'api - style' }
-GtPhlowToolDetailLook >> state [
+GtPhlowToolDetailAptitude >> state [
 	^ GtPhlowToolDetailState
 ]

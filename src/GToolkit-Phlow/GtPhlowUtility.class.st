@@ -34,7 +34,7 @@ GtPhlowUtility class >> createTabElementFor: aPhlowView andDo: aBlock [
 			beView;
 			entity: aPhlowView.
 		aTab
-			look: BrGlamorousTabLook;
+			aptitude: BrGlamorousTabAptitude;
 			label: aPhlowView title;
 			stencil: [ self newElementForView: aPhlowView ];
 			toolbarStencil: [ self newToolbarForTab: aTab view: aPhlowView ].
@@ -49,7 +49,7 @@ GtPhlowUtility class >> createTabErrorElementFor: aPhlowView withError: anExcept
 	anException messageText: 'You likely did not return the proper view (' 
 		, anException messageText , ')'.
 	aTab := BrTab new
-		look: BrGlamorousTabLook;
+		aptitude: BrGlamorousTabAptitude;
 		label: 'Error';
 		stencil: [ anException asDebuggableElement ].
 	aTab phlow

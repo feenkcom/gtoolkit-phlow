@@ -24,7 +24,7 @@ GtPhlowNoTitleLabelBuilder >> gtResultFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'Build result';
-		look: [ BrGlamorousRegularEditorLook new 
+		aptitude: [ BrGlamorousRegularEditorAptitude new 
 			foreground: BrGlamorousColors disabledButtonTextColor ];
 		text: [ 'The result is an empty string' ];
 		actionButtonIcon: BrGlamorousVectorIcons inspect 

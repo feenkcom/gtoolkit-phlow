@@ -12,6 +12,19 @@ Class {
 	#category : #'GToolkit-Phlow-! Views'
 }
 
+{ #category : #accessing }
+GtPhlowTextEditorView >> aptitude [
+	^ look
+]
+
+{ #category : #accessing }
+GtPhlowTextEditorView >> aptitude: aLook [
+	self
+		assert: [ (aLook isKindOf: BrAptitude) not ] 
+		description: [ 'Look must be a valuable or just a look class, not a look instance' ].
+	look := aLook
+]
+
 { #category : #converting }
 GtPhlowTextEditorView >> asElementDo: aBlock [
 	| aBrickEditor aText aNewLook aNewStyler |
@@ -31,7 +44,7 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
 
 	aBrickEditor 
-		look: aNewLook;
+		aptitude: aNewLook;
 		styler: aNewStyler;
 		enqueueTask: (BlTaskAction new action: [
 			aBrickEditor text: aText ]).
@@ -61,26 +74,13 @@ GtPhlowTextEditorView >> elementClass [
 GtPhlowTextEditorView >> initialize [
 	super initialize.
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
-	look := BrGlamorousRegularEditorLook.
+	look := BrGlamorousRegularEditorAptitude.
 	styler := BlTextNullStyler new.
 ]
 
 { #category : #testing }
 GtPhlowTextEditorView >> isExpectedElement: aCurrentElement [
 	^ aCurrentElement class = self elementClass
-]
-
-{ #category : #accessing }
-GtPhlowTextEditorView >> look [
-	^ look
-]
-
-{ #category : #accessing }
-GtPhlowTextEditorView >> look: aLook [
-	self
-		assert: [ (aLook isKindOf: BrLook) not ] 
-		description: [ 'Look must be a valuable or just a look class, not a look instance' ].
-	look := aLook
 ]
 
 { #category : #'instance creation' }
@@ -133,5 +133,5 @@ GtPhlowTextEditorView >> updateContent: aCurrentElement [
 
 { #category : #accessing }
 GtPhlowTextEditorView >> withoutLook [
-	look := BrGlamorousEditorLook
+	look := BrGlamorousEditorAptitude
 ]

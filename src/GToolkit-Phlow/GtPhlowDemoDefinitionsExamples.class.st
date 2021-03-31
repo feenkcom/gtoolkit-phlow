@@ -33,14 +33,19 @@ GtPhlowDemoDefinitionsExamples >> collectionOfDefiningMethods [
 GtPhlowDemoDefinitionsExamples >> compileBazMethod [
 	<gtExample>
 	| aSymbol |
-	aSymbol := self demoClass compile: self bazMethodName asString, ' aView
+		
+	aSymbol := GtPharoCodeModifier
+		compileMethodSource: self bazMethodName asString, ' aView
 	<gtView>
 	^ aView explicit 
 		title: ''Baz'';
 		priority: 2;
 		stencil: [ BlElement new
 			background: Color random;
-			size: 150@300 ]' classified: 'gt-extension'.
+			size: 150@300 ]'
+		in: self demoClass
+		protocol: 'gt-extension'.
+	
 	self assert: aSymbol equals: self bazMethodName.
 	^ aSymbol
 ]
@@ -49,11 +54,16 @@ GtPhlowDemoDefinitionsExamples >> compileBazMethod [
 GtPhlowDemoDefinitionsExamples >> compileEmptyViewMethod [
 	<gtExample>
 	| aSymbol |
-	aSymbol := self demoClass compile: self emptyViewMethodName asString, ' aView
+	
+	aSymbol := GtPharoCodeModifier
+		compileMethodSource: self emptyViewMethodName asString, ' aView
 	<gtView>
 	^ aView empty 
 		priority: -100; 
-		title: ''Empty''' classified: 'gt-extension'.
+		title: ''Empty'''
+		in: self demoClass
+		protocol: 'gt-extension'.
+		
 	self assert: aSymbol equals: self emptyViewMethodName.
 	^ aSymbol
 ]
@@ -62,15 +72,19 @@ GtPhlowDemoDefinitionsExamples >> compileEmptyViewMethod [
 GtPhlowDemoDefinitionsExamples >> compileFooMethod [
 	<gtExample>
 	| aSymbol |
-	aSymbol := self demoClass compile: self fooMethodName asString, ' aView
+	
+	aSymbol := GtPharoCodeModifier
+		compileMethodSource: self fooMethodName asString, ' aView
 	<gtView>
 	^ aView explicit 
 		title: ''Foo'';
 		priority: 1;
 		stencil: [ BlElement new
 			background: Color random;
-			size: 300@150 ]' classified: 'gt-extension'.
-	self assert: aSymbol equals: self fooMethodName.
+			size: 300@150 ]'
+		in: self demoClass
+		protocol: 'gt-extension'.
+	
 	^ aSymbol
 ]
 
@@ -78,7 +92,9 @@ GtPhlowDemoDefinitionsExamples >> compileFooMethod [
 GtPhlowDemoDefinitionsExamples >> compileFooMethodVersionTwo [
 	<gtExample>
 	| aSymbol |
-	aSymbol := self demoClass compile: self fooMethodName asString, ' aView
+
+	aSymbol := GtPharoCodeModifier
+		compileMethodSource: self fooMethodName asString, ' aView
 	<gtView>
 	^ aView explicit 
 		title: ''Foo'';
@@ -86,7 +102,10 @@ GtPhlowDemoDefinitionsExamples >> compileFooMethodVersionTwo [
 		stencil: [ BlElement new
 			background: Color random;
 			geometry: BlCircle new;
-			size: 300@150 ]' classified: 'gt-extension'.
+			size: 300@150 ]'
+		in: self demoClass
+		protocol: 'gt-extension'.
+	
 	self assert: aSymbol equals: self fooMethodName.
 	^ aSymbol
 ]
@@ -94,13 +113,15 @@ GtPhlowDemoDefinitionsExamples >> compileFooMethodVersionTwo [
 { #category : #'method - printOn' }
 GtPhlowDemoDefinitionsExamples >> compilePrintOnMethod [
 	<gtExample>
-	| aCompiledMethod |
-	aCompiledMethod := self demoClass
-		compile:
-			'printOn: aStream
+	| aSymbol |
+	
+	aSymbol := GtPharoCodeModifier
+		compileMethodSource: 'printOn: aStream
 	aStream nextPutAll: ''Print A'''
-		classified: 'printing'.
-	self assert: aCompiledMethod equals: #printOn:.
+		in: self demoClass
+		protocol: 'printing'.
+
+	self assert: aSymbol equals: #printOn:.
 	^ (self demoClass >> self printOnMethodName) asRingDefinition
 ]
 
@@ -110,10 +131,10 @@ GtPhlowDemoDefinitionsExamples >> demoClass [
 	| aClass |
 	aClass := self class environment
 		at: self demoClassName
-		ifAbsent: [ Object
-				subclass: self demoClassName
-				instanceVariableNames: ''
-				classVariableNames: ''
+		ifAbsent: [
+			GtPharoCodeModifier
+				createSubclassOf: Object
+				named: self demoClassName
 				package: self demoPackageName ].
 	self
 		assert: (self class environment at: self demoClassName)
@@ -139,14 +160,15 @@ GtPhlowDemoDefinitionsExamples >> demoSubClass [
 	| aClass |
 	aClass := self class environment
 		at: self demoSubClassName
-		ifAbsent: [ self demoClass
-				subclass: self demoSubClassName
-				instanceVariableNames: ''
-				classVariableNames: ''
+		ifAbsent: [
+			GtPharoCodeModifier
+				createSubclassOf: self demoClass
+				named: self demoSubClassName
 				package: self demoPackageName ].
 	self
 		assert: (self class environment at: self demoSubClassName)
 		equals: aClass.
+
 	^ aClass
 ]
 
@@ -179,7 +201,7 @@ GtPhlowDemoDefinitionsExamples >> ensureBazMethodRemoved [
 	| aRing |
 	self demoClass 
 		compiledMethodAt: self bazMethodName 
-		ifPresent: [ :aCompiledMethod | self demoClass removeSelector: self bazMethodName ]
+		ifPresent: [ :aCompiledMethod | GtPharoCodeModifier removeMethod: aCompiledMethod ]
 		ifAbsent: [ "do nothing" ].
 	aRing := RGMethodDefinition new 
 			name: self bazMethodName;
@@ -196,7 +218,7 @@ GtPhlowDemoDefinitionsExamples >> ensureFooMethodRemoved [
 	| aRing |
 	self demoClass 
 		compiledMethodAt: self fooMethodName 
-		ifPresent: [ :aCompiledMethod | self demoClass removeSelector: self fooMethodName ]
+		ifPresent: [ :aCompiledMethod | GtPharoCodeModifier removeMethod: aCompiledMethod ]
 		ifAbsent: [ "do nothing" ].
 	aRing := RGMethodDefinition new 
 			name: self fooMethodName;
@@ -213,7 +235,7 @@ GtPhlowDemoDefinitionsExamples >> ensurePrintOnMethodRemoved [
 	| aRing |
 	self demoClass 
 		compiledMethodAt: self printOnMethodName 
-		ifPresent: [ :aCompiledMethod | self demoClass removeSelector: self printOnMethodName ]
+		ifPresent: [ :aCompiledMethod | GtPharoCodeModifier removeMethod: aCompiledMethod ]
 		ifAbsent: [ "do nothing" ].
 	aRing := RGMethodDefinition new 
 			name: self printOnMethodName;

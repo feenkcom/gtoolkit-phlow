@@ -150,7 +150,7 @@ GtPhlowSidebarElement >> initializeElement [
 { #category : #initialization }
 GtPhlowSidebarElement >> initializeResizerElement [
 	self
-		addLook: (self defaultResizerLook
+		addAptitude: (self defaultResizerLook
 			resizerDo: [ :theResizer | resizerElement := theResizer ]).
 
 	self resizerElement

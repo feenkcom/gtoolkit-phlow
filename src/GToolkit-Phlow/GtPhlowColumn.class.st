@@ -33,7 +33,7 @@ GtPhlowColumn >> buildHeaderElement [
 GtPhlowColumn >> buildHeaderElementFor: aText [
 	| aLabel |
 	aLabel := BrLabel new
-		look: BrGlamorousLabelLook;
+		aptitude: BrGlamorousLabelAptitude;
 		alignCenterLeft;
 		padding: self newCellPaddingInsets;
 		text: (aText asRopedText foreground: BrGlamorousColors defaultButtonTextColor).
@@ -204,7 +204,7 @@ GtPhlowColumn >> newIconContainer [
 { #category : #'private - building' }
 GtPhlowColumn >> newItemLabel [
 	^ BrLabel new
-		look: BrGlamorousListLabelLook;
+		aptitude: BrGlamorousListLabelAptitude;
 		alignCenterLeft;
 		hMatchParent;
 		vFitContent

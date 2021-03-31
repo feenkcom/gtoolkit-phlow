@@ -44,7 +44,7 @@ GtPhlowToolExamples >> defaultBackgroundColor [
 GtPhlowToolExamples >> labelWithText: aString [
 	<gtExample>
 	^ BrLabel new
-		look: BrGlamorousLabelLook;
+		aptitude: BrGlamorousLabelAptitude;
 		fitContent;
 		alignCenter;
 		constraintsDo: [ :c | 
