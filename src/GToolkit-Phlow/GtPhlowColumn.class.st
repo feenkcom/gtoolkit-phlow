@@ -196,9 +196,12 @@ GtPhlowColumn >> newCellPaddingInsets [
 
 { #category : #'private - building' }
 GtPhlowColumn >> newIconContainer [
-	^ BrHorizontalPane new
-	 	alignCenter;
-		fitContent
+	| container |
+	container := BrHorizontalPane new.
+	width class = GtPhlowColumnProportionalWidth 
+		ifFalse: [ container fitContent ]
+		ifTrue: [container hMatchParent; vFitContent ].
+	^ container
 ]
 
 { #category : #'private - building' }
