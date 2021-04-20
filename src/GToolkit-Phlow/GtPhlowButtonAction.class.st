@@ -29,7 +29,7 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	action ifNotNil: [ aButton action: [ :theButton :aButtonModel :anEvent | 
 			(self isDefinitionRequested: anEvent) ifFalse: [ 
 				action glamourValueWithArgs: { theButton. aTargetElement. aButtonModel. anEvent } ] ] ].
-	name ifNotNil: [ :aName | aButton containerName: aName ].
+	name ifNotNil: [ :aName | aButton id: aName ].
 	self attachTooltipFor: aButton hostElement: aTargetElement.
 	self attachShowDefinitionEventHandler: aButton.
 	^ aBlock value: aButton
