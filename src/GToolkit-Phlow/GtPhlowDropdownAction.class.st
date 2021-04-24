@@ -5,6 +5,7 @@ Class {
 		'icon',
 		'label',
 		'action',
+		'name',
 		'contentStencilBuilder'
 	],
 	#category : #'GToolkit-Phlow-! Actions'
@@ -25,6 +26,7 @@ GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 		entity: self.
 	aDropdown aptitude: self newButtonLook
 		+ (self newDropdownLookFor: aDropdown targetElement: aTargetElement).
+	name ifNotNil: [ :aName | aDropdown id: aName ].
 	self attachShowDefinitionEventHandler: aDropdown.
 	self attachTooltipFor: aDropdown hostElement: aTargetElement.
 	^ aBlock value: aDropdown
@@ -56,6 +58,16 @@ GtPhlowDropdownAction >> initialize [
 { #category : #accessing }
 GtPhlowDropdownAction >> label: aString [
 	label := aString
+]
+
+{ #category : #accessing }
+GtPhlowDropdownAction >> name [
+	^ name
+]
+
+{ #category : #accessing }
+GtPhlowDropdownAction >> name: anObject [
+	name := anObject
 ]
 
 { #category : #'instance creation' }

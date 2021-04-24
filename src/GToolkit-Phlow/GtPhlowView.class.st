@@ -529,6 +529,14 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOf
 					anObject printString, '>>#', aMessageSymbol asString ].
 			aPhlowView object: anObject arguments: aCollectionOfArguments.
 		] on: Error do: [ :anException |
+			NonInteractiveTranscript stdout
+				nextPut: $[;
+				nextPutAll: self class name;
+				nextPut: $];
+				space;
+				print: anException;
+				cr.
+			
 			self 
 				phlowErrorViewWithException: anException 
 				forBuildContext: (GtPhlowBuildContext new object: anObject; arguments: aCollectionOfArguments) 
