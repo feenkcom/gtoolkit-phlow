@@ -1,11 +1,14 @@
 "
-I am a ${class:GtPhlowTitleLabelBuilder}$.
-I build ${class:BlText}$ and ${class:String}$ instances. I am used when a user does not want to abbreviate a possibly long title.
-!! Examples
-!!! Short title
-${example:GtPhlowShortTitleLabelBuilderExamples>>#shortText_Block|codeExpanded=false|previewExpanded=true|previewHeight=180}$
-!!! Long title
-${example:GtPhlowShortTitleLabelBuilderExamples>>#longText|codeExpanded=false|previewExpanded=true|previewHeight=180}$
+I am a {{gtClass:GtPhlowTitleLabelBuilder}}.
+I build {{gtClass:BlText}} and {{gtClass:String}} instances. I am used when a user does not want to abbreviate a possibly long title.
+1. # Examples
+## Short title
+
+{{gtExample:GtPhlowShortTitleLabelBuilderExamples>>#shortText_Block|codeExpanded=false|previewExpanded=true|previewHeight=180}}
+1. ## Long title
+
+{{gtExample:GtPhlowShortTitleLabelBuilderExamples>>#longText|codeExpanded=false|previewExpanded=true|previewHeight=180}}
+
 
 "
 Class {

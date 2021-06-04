@@ -1,6 +1,7 @@
 "
 I am an abstract class.
-I provide a basic support ${class:GtPhlowView}$ updates.
+I provide a basic support {{gtClass:GtPhlowView}} updates.
+
 
 "
 Class {

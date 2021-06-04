@@ -1,13 +1,18 @@
 "
-I am used by ${class:GtPhlowCompositeTool}$ to store and share objects that should be displayed by composed sub-tools. 
-!! Listening to Object Change Requests
-I receive requests to store new objects by listening to ${class:GtPhlowToolObjectChangeWish}$.
+I am used by {{gtClass:GtPhlowCompositeTool}} to store and share objects that should be displayed by composed sub-tools. 
+1. # Listening to Object Change Requests
+
+I receive requests to store new objects by listening to {{gtClass:GtPhlowToolObjectChangeWish}}.
 I store objects in a weak array to omit undesired memory leaks.
-For more details, see ${method:GtPhlowToolObjectChangeHandler>>#visitToolObjectChangeWish:|label=#selector}$.
-!! Providing Objects to Display
-${class:GtPhlowTool}$ widgets may install ${class:GtPhlowToolChangedObjectHandler}$ to be informed about stored objects that should be displayed. I listen to ${class:GtPhlowToolChangedObjectWish}$ to provide such information. See the ${class:GtPhlowToolChangedObjectHandler}$ for more details.
-!! Example
-See a complete example in the ${class:GtPhlowCompositeTool}$ class comment.
+For more details, see {{gtMethod:GtPhlowToolObjectChangeHandler>>#visitToolObjectChangeWish:|label=#selector}}.
+1. # Providing Objects to Display
+
+{{gtClass:GtPhlowTool}} widgets may install {{gtClass:GtPhlowToolChangedObjectHandler}} to be informed about stored objects that should be displayed. I listen to {{gtClass:GtPhlowToolChangedObjectWish}} to provide such information. See the {{gtClass:GtPhlowToolChangedObjectHandler}} for more details.
+1. # Example
+
+See a complete example in the {{gtClass:GtPhlowCompositeTool}} class comment.
+
+
 "
 Class {
 	#name : #GtPhlowToolObjectChangeHandler,

@@ -1,8 +1,9 @@
 "
 I am an abstract class.
-I am ${class:GtPhlowSendTransformation}$.
-I provide a common ${method:GtPhlowSendValuableTransformation>>#valuable|label=#selector}$ code to ${method:GtPhlowSendValuableTransformation>>#transformedValueFrom:selection:|label=transform}$ and request displaying given objects using dedicated ${class:GtPhlowTool}$ instances.
-See ${class:GtPhlowSendValuableTransformation|label=my subclasses|expanded|show=#gtSubclassesFor:}$ for more details:
+I am {{gtClass:GtPhlowSendTransformation}}.
+I provide a common {{gtMethod:GtPhlowSendValuableTransformation>>#valuable|label=#selector}} code to {{gtMethod:GtPhlowSendValuableTransformation>>#transformedValueFrom:selection:|label=transform}} and request displaying given objects using dedicated {{gtClass:GtPhlowTool}} instances.
+See {{gtClass:GtPhlowSendValuableTransformation|label=my subclasses|expanded|show=#gtSubclassesFor:}} for more details:
+
 
 "
 Class {

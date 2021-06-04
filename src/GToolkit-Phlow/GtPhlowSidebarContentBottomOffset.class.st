@@ -1,13 +1,17 @@
 "
-I am ${class:GtPhlowSidebarContentOffset}$.
-I am used by ${class:GtPhlowVerticalSidebarElement}$ by calling its ${method:GtPhlowVerticalSidebarElement>>#beTop|label=#selector}$ method.
+I am {{gtClass:GtPhlowSidebarContentOffset}}.
+I am used by {{gtClass:GtPhlowVerticalSidebarElement}} by calling its {{gtMethod:GtPhlowVerticalSidebarElement>>#beTop|label=#selector}} method.
 
-!! Big Distance Example
-The following example shows a big distance: ${example:GtPhlowSidebarElementExamples>>#verticalSidebarElement_Top_Offset_Bigger_InContainer|codeExpanded=false|previewExpanded=true}$
-!! No Distance Example
-The following example shows a zero distance: ${example:GtPhlowSidebarElementExamples>>#verticalSidebarElement_Top_Offset_Smaller_InContainer|codeExpanded=false|previewExpanded=true}$
-!! Default Distance Example
-The following example shows a default distance: ${example:GtPhlowSidebarElementExamples>>#verticalSidebarElement_Top_InContainer|codeExpanded=false|previewExpanded=true}$
+1. # Big Distance Example
+
+The following example shows a big distance: {{gtExample:GtPhlowSidebarElementExamples>>#verticalSidebarElement_Top_Offset_Bigger_InContainer|codeExpanded=false|previewExpanded=true}}
+1. # No Distance Example
+
+The following example shows a zero distance: {{gtExample:GtPhlowSidebarElementExamples>>#verticalSidebarElement_Top_Offset_Smaller_InContainer|codeExpanded=false|previewExpanded=true}}
+1. # Default Distance Example
+
+The following example shows a default distance: {{gtExample:GtPhlowSidebarElementExamples>>#verticalSidebarElement_Top_InContainer|codeExpanded=false|previewExpanded=true}}
+
 
 "
 Class {

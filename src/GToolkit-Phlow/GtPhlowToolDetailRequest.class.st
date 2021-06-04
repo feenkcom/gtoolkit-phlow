@@ -1,7 +1,8 @@
 "
-I am a ${class:BrRequest}$.
+I am a {{gtClass:BrRequest}}.
 I am used to obtain a level of information detail value.
-See ${class:GtPhlowToolAbstractDetailModel}$ for more details.
+See {{gtClass:GtPhlowToolAbstractDetailModel}} for more details.
+
 
 "
 Class {

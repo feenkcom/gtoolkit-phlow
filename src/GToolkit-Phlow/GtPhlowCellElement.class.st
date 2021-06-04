@@ -1,12 +1,16 @@
 "
-I am a container for rows and cells in ${class:GtPhlowListView}$.  
-I can hold a domain ${class:BlElement}$ instance.
+I am a container for rows and cells in {{gtClass:GtPhlowListView}}.  
+I can hold a domain {{gtClass:BlElement}} instance.
 If there is an exception, I hide the domain element and display the one that represents the exception.
-!! Example with Domain Element
-${example:GtPhlowCellElementExamples>>#cellElementWithLabel}$
-!! Example with Exception Element
-${example:GtPhlowCellElementExamples>>#cellElementWithException}$
+1. # Example with Domain Element
+
+{{gtExample:GtPhlowCellElementExamples>>#cellElementWithLabel}}
+1. # Example with Exception Element
+
+{{gtExample:GtPhlowCellElementExamples>>#cellElementWithException}}
  
+
+
 "
 Class {
 	#name : #GtPhlowCellElement,

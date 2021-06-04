@@ -1,7 +1,9 @@
 "
-I am ${class:GtPhlowSendValuableTransformation}$.
-I use ${method:GtPhlowElementContext>>#selectObject:}$ and ${method:GtPhlowElementContext>>#spawnObject:|label=#selector}$ in order to display objects.
-See ${class:TGtPhlowSendTransformable}$ for more details and examples.
+I am {{gtClass:GtPhlowSendValuableTransformation}}.
+I use {{gtMethod:GtPhlowElementContext>>#selectObject:}} and {{gtMethod:GtPhlowElementContext>>#spawnObject:|label=#selector}} in order to display objects.
+See {{gtClass:TGtPhlowSendTransformable}} for more details and examples.
+
+
 "
 Class {
 	#name : #GtPhlowSendObjectTransformation,

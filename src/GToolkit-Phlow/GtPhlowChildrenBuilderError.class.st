@@ -1,6 +1,7 @@
 "
 I am displayed as a child when a parent produces an error during children computation.
-I am used by ${class:GtPhlowTreeView}$ and ${class:GtPhlowColumnedTreeView}$.
+I am used by {{gtClass:GtPhlowTreeView}} and {{gtClass:GtPhlowColumnedTreeView}}.
+
 
 "
 Class {

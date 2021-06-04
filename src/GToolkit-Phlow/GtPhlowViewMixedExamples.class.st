@@ -1,25 +1,30 @@
 "
-!Phlow views by example 
+1. Phlow views by example 
 
-!!Explicit view
+1. # Explicit view
+
 
 The most fine grained view is the explicit one through which you can specify the detailed stencil to be used to create the final element.
 
-${example:GtPhlowViewMixedExamples>>#explicitViewWithElementStencil|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
+{{gtExample:GtPhlowViewMixedExamples>>#explicitViewWithElementStencil|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}}
 
 
-!!Text view
-
-${example:GtPhlowTextEditorViewExamples>>#textView|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
-
-!!List view
-
-${example:GtPhlowListViewExamples>>#itemsAsDefaultTexts|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
+1. # Text view
 
 
-!!Columned view
+{{gtExample:GtPhlowTextEditorViewExamples>>#textView|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}}
 
-${example:GtPhlowColumnedListViewExamples>>#viewWithItems|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}$
+1. # List view
+
+
+{{gtExample:GtPhlowListViewExamples>>#itemsAsDefaultTexts|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}}
+
+
+1. # Columned view
+
+
+{{gtExample:GtPhlowColumnedListViewExamples>>#viewWithItems|previewHeight=150|previewExpanded=|previewShow=#gtLiveFor:}}
+
 
 "
 Class {

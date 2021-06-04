@@ -1,8 +1,9 @@
 "
 I build a label that represents an object.
-I use ${method:Object>>gtDisplayString}$ to build a label representation of an object.
-I am used by ${class:GtPhlowLabelledViewBuilder}$.
-For more details, see ${class:GtPhlowUpdateLabelledViewTitle}$.
+I use {{gtMethod:Object>>gtDisplayString}} to build a label representation of an object.
+I am used by {{gtClass:GtPhlowLabelledViewBuilder}}.
+For more details, see {{gtClass:GtPhlowUpdateLabelledViewTitle}}.
+
 
 "
 Class {

@@ -1,5 +1,7 @@
 "
-I am used by ${class:GtPhlowListView}$ in case there is an error during item type creation.
+I am used by {{gtClass:GtPhlowListView}} in case there is an error during item type creation.
+
+
 "
 Class {
 	#name : #GtPhlowExceptionItemType,

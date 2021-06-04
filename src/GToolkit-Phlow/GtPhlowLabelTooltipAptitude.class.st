@@ -1,6 +1,8 @@
 "
 I display a label tooltip.
 If a user clicks on the action, a defining method is displayed.
+
+
 "
 Class {
 	#name : #GtPhlowLabelTooltipAptitude,

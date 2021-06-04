@@ -1,11 +1,14 @@
 "
-I am a ${class:GtPhlowTitleLabelBuilder}$.
-I build ${class:BlText}$ instances. I abbreviate long titles.
-!! Examples
-!!! Long title
-${example:GtPhlowLongTitleLabelBuilderExamples>>#longTitle_Block|codeExpanded=false|previewExpanded=true|previewHeight=180}$
-!!! Short title
-${example:GtPhlowLongTitleLabelBuilderExamples>>#shortTitle_Block|codeExpanded=false|previewExpanded=true|previewHeight=180}$
+I am a {{gtClass:GtPhlowTitleLabelBuilder}}.
+I build {{gtClass:BlText}} instances. I abbreviate long titles.
+1. # Examples
+## Long title
+
+{{gtExample:GtPhlowLongTitleLabelBuilderExamples>>#longTitle_Block|codeExpanded=false|previewExpanded=true|previewHeight=180}}
+1. ## Short title
+
+{{gtExample:GtPhlowLongTitleLabelBuilderExamples>>#shortTitle_Block|codeExpanded=false|previewExpanded=true|previewHeight=180}}
+
 
 "
 Class {

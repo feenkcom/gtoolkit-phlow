@@ -1,23 +1,25 @@
 "
-I update a ${class:GtPhlowCompositeView}$ subview and its corresponding ${class:BrTab}$ label and position in ${class:BrTabGroup}$.
-I am used by ${class:GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange}$ and by ${class:GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange}$.
+I update a {{gtClass:GtPhlowCompositeView}} subview and its corresponding {{gtClass:BrTab}} label and position in {{gtClass:BrTabGroup}}.
+I am used by {{gtClass:GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange}} and by {{gtClass:GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange}}.
 
-!! Updating Tab
+1. # Updating Tab
+
 
 The first tab:
 
-${example:GtPhlowCompositeViewExamples>>#element|codeExpanded=false|previewExpanded=true}$
+{{gtExample:GtPhlowCompositeViewExamples>>#element|codeExpanded=false|previewExpanded=true}}
 
 is moved to the second position and renamed:
 
-${example:GtPhlowCompositeViewExamples>>#updateViewOneDefinition|codeExpanded=false|previewExpanded=true}$
+{{gtExample:GtPhlowCompositeViewExamples>>#updateViewOneDefinition|codeExpanded=false|previewExpanded=true}}
 
 
-!! Removing Tab
+1. # Removing Tab
 
-If a new view is in instance of ${class:GtPhlowEmptyView}$, the tab is removed. In the same example above, the first tab is removed in such scenario: 
 
-${example:GtPhlowCompositeViewExamples>>#updateViewOneDefinition_ByEmptyView|codeExpanded=false|previewExpanded=true}$
+If a new view is in instance of {{gtClass:GtPhlowEmptyView}}, the tab is removed. In the same example above, the first tab is removed in such scenario: 
+
+{{gtExample:GtPhlowCompositeViewExamples>>#updateViewOneDefinition_ByEmptyView|codeExpanded=false|previewExpanded=true}}
 
 
 "

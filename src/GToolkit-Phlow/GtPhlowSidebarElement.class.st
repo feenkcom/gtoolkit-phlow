@@ -1,7 +1,9 @@
 "
 I am an abstract class.
 I define a common API (code) for my subclasses.
-For more details, see my ${class:GtPhlowSidebarElement|show=#gtSubclassesFor:|expanded}$:
+For more details, see my {{gtClass:GtPhlowSidebarElement|show=#gtSubclassesFor:|expanded}}:
+
+
 "
 Class {
 	#name : #GtPhlowSidebarElement,

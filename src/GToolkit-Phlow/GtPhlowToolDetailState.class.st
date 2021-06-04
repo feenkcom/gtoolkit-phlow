@@ -1,7 +1,9 @@
 "
-I am a ${class:BrInteractionState}$.
-I define a level of information detail that says how ${class:BlElement}$ (tool) should be displayed, e.g., displaying a little or more information to users.
-See ${class:GtPhlowToolAbstractDetailModel}$ for more details.
+I am a {{gtClass:BrInteractionState}}.
+I define a level of information detail that says how {{gtClass:BlElement}} (tool) should be displayed, e.g., displaying a little or more information to users.
+See {{gtClass:GtPhlowToolAbstractDetailModel}} for more details.
+
+
 "
 Class {
 	#name : #GtPhlowToolDetailState,

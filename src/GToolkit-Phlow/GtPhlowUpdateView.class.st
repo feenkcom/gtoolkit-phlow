@@ -1,16 +1,17 @@
 "
-I update a ${class:GtPhlowView}$ and its corresponding ${class:BlElement}$.
-I am used by ${class:GtPhlowUpdateViewOnDefiningMethodChange}$.
+I update a {{gtClass:GtPhlowView}} and its corresponding {{gtClass:BlElement}}.
+I am used by {{gtClass:GtPhlowUpdateViewOnDefiningMethodChange}}.
 
-!! Updating View and Element
+1. # Updating View and Element
+
 
 A supposively original view definition with three items:
 
-${example:GtPhlowListViewExamples>>#modifiedElement|codeExpanded=false|previewExpanded=true}$
+{{gtExample:GtPhlowListViewExamples>>#modifiedElement|codeExpanded=false|previewExpanded=true}}
 
 is updated to a new definition with ten elements:
 
-${example:GtPhlowListViewExamples>>#updateOnDefiningMethodChange|codeExpanded=false|previewExpanded=true}$
+{{gtExample:GtPhlowListViewExamples>>#updateOnDefiningMethodChange|codeExpanded=false|previewExpanded=true}}
 
 
 "

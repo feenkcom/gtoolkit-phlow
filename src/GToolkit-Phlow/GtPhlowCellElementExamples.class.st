@@ -1,5 +1,7 @@
 "
-I exemplify ${class:GtPhlowCellElement}$.   
+I exemplify {{gtClass:GtPhlowCellElement}}.   
+
+
 "
 Class {
 	#name : #GtPhlowCellElementExamples,

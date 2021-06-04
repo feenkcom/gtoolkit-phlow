@@ -1,7 +1,8 @@
 "
 I am an abstract class.
-I exemplify ${class:GtPhlowTitleLabelBuilder}$.
-See my ${class:GtPhlowTitleLabelBuilderExamples|show=#gtSubclassesFor:|expanded=true|height=170}$ for specific examples:
+I exemplify {{gtClass:GtPhlowTitleLabelBuilder}}.
+See my {{gtClass:GtPhlowTitleLabelBuilderExamples|show=#gtSubclassesFor:|expanded=true|height=170}} for specific examples:
+
 
 "
 Class {

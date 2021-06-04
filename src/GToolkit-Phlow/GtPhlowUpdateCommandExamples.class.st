@@ -1,6 +1,7 @@
 "
 I am an abstract class.
-I provide basic support to exemplify ${class:GtPhlowUpdateCommand}$ subclasses.
+I provide basic support to exemplify {{gtClass:GtPhlowUpdateCommand}} subclasses.
+
 
 "
 Class {

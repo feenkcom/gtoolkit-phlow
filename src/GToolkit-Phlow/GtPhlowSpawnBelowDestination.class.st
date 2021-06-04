@@ -4,6 +4,8 @@ I indicate that the spawn event should show the inspected object below in the sa
 The actual element handling this event can decide the exact position where to display the event.
 Also it is up to tools using this event to manage extra information needed in order to correctly
 determine where to place the event.
+
+
 "
 Class {
 	#name : #GtPhlowSpawnBelowDestination,

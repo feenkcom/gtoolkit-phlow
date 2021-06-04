@@ -1,5 +1,7 @@
 "
 I do not attach any tooltip.
+
+
 "
 Class {
 	#name : #GtPhlowTooltipNullBuilder,

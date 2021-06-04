@@ -1,11 +1,15 @@
 "
-I am ${class:BrWish}$.
-I am ${class:GtPhlowChangeTitleWish}$¡
-I notify ${class:BlElement}$ that title icon and label should be changed.
-!! Collaborators
-${class:GtPhlowTitleIconAndLabelNotifier}$ fires my instances.
-!! Examples
-Browse ${class:GtPhlowTitleIconAndLabelNotifier}$ for examples.
+I am {{gtClass:BrWish}}.
+I am {{gtClass:GtPhlowChangeTitleWish}}¡
+I notify {{gtClass:BlElement}} that title icon and label should be changed.
+1. # Collaborators
+
+{{gtClass:GtPhlowTitleIconAndLabelNotifier}} fires my instances.
+1. # Examples
+
+Browse {{gtClass:GtPhlowTitleIconAndLabelNotifier}} for examples.
+
+
 "
 Class {
 	#name : #GtPhlowChangeTitleIconAndLabelWish,

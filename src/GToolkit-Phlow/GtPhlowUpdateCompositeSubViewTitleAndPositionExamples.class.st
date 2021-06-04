@@ -1,5 +1,6 @@
 "
-I exemplify ${class:GtPhlowUpdateCompositeSubViewTitleAndPosition}$.
+I exemplify {{gtClass:GtPhlowUpdateCompositeSubViewTitleAndPosition}}.
+
 
 "
 Class {

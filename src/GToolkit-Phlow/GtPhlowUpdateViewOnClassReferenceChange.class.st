@@ -1,5 +1,7 @@
 "
 I update a view when observed class references are added or removed.
+
+
 "
 Class {
 	#name : #GtPhlowUpdateViewOnClassReferenceChange,

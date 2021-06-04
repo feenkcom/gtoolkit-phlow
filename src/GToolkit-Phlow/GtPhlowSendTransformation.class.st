@@ -1,10 +1,11 @@
 "
 I am an abstract class.
-I am used by ${class:GtPhlowListHandler}$.
+I am used by {{gtClass:GtPhlowListHandler}}.
 My concrete subclasses implement:
-- ${method:GtPhlowSendTransformation>>#select:indices:from:|label=#selector}$, and
-- ${method:GtPhlowSendTransformation>>#spawn:indices:from:|label=#selector}$.
-See ${class:GtPhlowSendTransformation|label=my subclasses|expanded|show=#gtSubclassesFor:}$ for more details:
+- {{gtMethod:GtPhlowSendTransformation>>#select:indices:from:|label=#selector}}, and
+- {{gtMethod:GtPhlowSendTransformation>>#spawn:indices:from:|label=#selector}}.
+See {{gtClass:GtPhlowSendTransformation|label=my subclasses|expanded|show=#gtSubclassesFor:}} for more details:
+
 
 "
 Class {

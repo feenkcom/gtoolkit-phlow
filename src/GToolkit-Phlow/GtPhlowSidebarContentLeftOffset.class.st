@@ -1,12 +1,16 @@
 "
-I am ${class:GtPhlowSidebarContentOffset}$.
-I am used by ${class:GtPhlowHorizontalSidebarElement}$ by calling its ${method:GtPhlowHorizontalSidebarElement>>#beRight|label=#selector}$ method.
-!! Big Distance Example
-The following example shows a big distance: ${example:GtPhlowSidebarElementExamples>>#horizontalSidebarElement_RightSide_Offset_Bigger_InContainer|codeExpanded=false|previewExpanded=true}$
-!! No Distance Example
-The following example shows a zero distance: ${example:GtPhlowSidebarElementExamples>>#horizontalSidebarElement_RightSide_Offset_Smaller_InContainer|codeExpanded=false|previewExpanded=true}$
-!! Default Distance Example
-The following example shows a default distance: ${example:GtPhlowSidebarElementExamples>>#horizontalSidebarElement_RightSide_InContainer|codeExpanded=false|previewExpanded=true}$
+I am {{gtClass:GtPhlowSidebarContentOffset}}.
+I am used by {{gtClass:GtPhlowHorizontalSidebarElement}} by calling its {{gtMethod:GtPhlowHorizontalSidebarElement>>#beRight|label=#selector}} method.
+1. # Big Distance Example
+
+The following example shows a big distance: {{gtExample:GtPhlowSidebarElementExamples>>#horizontalSidebarElement_RightSide_Offset_Bigger_InContainer|codeExpanded=false|previewExpanded=true}}
+1. # No Distance Example
+
+The following example shows a zero distance: {{gtExample:GtPhlowSidebarElementExamples>>#horizontalSidebarElement_RightSide_Offset_Smaller_InContainer|codeExpanded=false|previewExpanded=true}}
+1. # Default Distance Example
+
+The following example shows a default distance: {{gtExample:GtPhlowSidebarElementExamples>>#horizontalSidebarElement_RightSide_InContainer|codeExpanded=false|previewExpanded=true}}
+
 
 "
 Class {

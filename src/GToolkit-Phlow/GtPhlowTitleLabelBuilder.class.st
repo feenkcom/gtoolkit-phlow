@@ -1,7 +1,8 @@
 "
 I am an abstract class.
 My subclasses build labels using different constraints.
-See my ${class:GtPhlowTitleLabelBuilder|show=#gtSubclassesFor:|expanded=true|label=subclasses|height=170}$ for specific examples:
+See my {{gtClass:GtPhlowTitleLabelBuilder|show=#gtSubclassesFor:|expanded=true|label=subclasses|height=170}} for specific examples:
+
 
 "
 Class {

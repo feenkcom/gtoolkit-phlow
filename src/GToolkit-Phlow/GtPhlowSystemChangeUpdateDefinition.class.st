@@ -1,6 +1,7 @@
 "
 I am an abstract class.
-I add basic support for update definitions that listen to ${class:SystemAnnouncer}$.
+I add basic support for update definitions that listen to {{gtClass:SystemAnnouncer}}.
+
 
 "
 Class {

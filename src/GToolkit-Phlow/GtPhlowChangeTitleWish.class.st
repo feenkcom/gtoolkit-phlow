@@ -1,14 +1,18 @@
 "
-I am ${class:BrWish}$.
+I am {{gtClass:BrWish}}.
 I am an abstract class.
-I notify ${class:BlElement}$ that a title should be changed.
-The title can be composed of an ${method:GtPhlowChangeTitleWish>>#iconDo:|label=icon}$ and a ${method:GtPhlowChangeTitleWish>>#labelDo:|label=label}$.
-!! Collaborators
-${class:GtPhlowTitleNotifier}$ fires instances of my subclasses.
-!! Other information
-See my ${class:GtPhlowChangeTitleWish|show=#gtSubclassesFor:|label=subclasses|expanded=true|height=130}$ for specific examples:
-!! Examples
-See ${class:GtPhlowTitleNotifier|show=#gtSubclassesFor:|expanded=true|height=130}$ subclasses for specific examples:
+I notify {{gtClass:BlElement}} that a title should be changed.
+The title can be composed of an {{gtMethod:GtPhlowChangeTitleWish>>#iconDo:|label=icon}} and a {{gtMethod:GtPhlowChangeTitleWish>>#labelDo:|label=label}}.
+1. # Collaborators
+
+{{gtClass:GtPhlowTitleNotifier}} fires instances of my subclasses.
+1. # Other information
+
+See my {{gtClass:GtPhlowChangeTitleWish|show=#gtSubclassesFor:|label=subclasses|expanded=true|height=130}} for specific examples:
+1. # Examples
+
+See {{gtClass:GtPhlowTitleNotifier|show=#gtSubclassesFor:|expanded=true|height=130}} subclasses for specific examples:
+
 
 "
 Class {

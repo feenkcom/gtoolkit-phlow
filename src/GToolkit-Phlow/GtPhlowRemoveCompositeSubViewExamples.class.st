@@ -1,5 +1,6 @@
 "
-I exemplify ${class:GtPhlowRemoveCompositeSubView}$.
+I exemplify {{gtClass:GtPhlowRemoveCompositeSubView}}.
+
 
 "
 Class {

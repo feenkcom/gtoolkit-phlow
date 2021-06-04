@@ -1,5 +1,7 @@
 "
 I offer the Phlow navigation API over the Bloc element tree starting with the specific element I am tied with.
+
+
 "
 Class {
 	#name : #GtPhlowElementContext,

@@ -1,5 +1,7 @@
 "
-I update a view on every ${class:BlElementAddedToSceneGraphEvent}$ notification.
+I update a view on every {{gtClass:BlElementAddedToSceneGraphEvent}} notification.
+
+
 "
 Class {
 	#name : #GtPhlowUpdateViewOnAddedToScene,

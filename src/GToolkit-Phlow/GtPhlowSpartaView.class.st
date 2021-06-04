@@ -1,7 +1,7 @@
 "
 I let users define views with custom rendering
 
-[[[
+```
 view := GtPhlowSpartaView new.
 view hMatchParent.
 view height: 500.
@@ -11,7 +11,9 @@ view rendering: [ :aCanvas :anElement |
 		path: anElement bounds asRectangle;
 		draw ].
 view asElementDo: #yourself
-]]]
+```
+
+
 "
 Class {
 	#name : #GtPhlowSpartaView,

@@ -1,16 +1,18 @@
 "
-I add a ${class:GtPhlowCompositeView}$ subview as a ${class:BrTab}$ in ${class:BrTabGroup}$.
-I am used by ${class:GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange}$.
+I add a {{gtClass:GtPhlowCompositeView}} subview as a {{gtClass:BrTab}} in {{gtClass:BrTabGroup}}.
+I am used by {{gtClass:GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange}}.
 
-!! Adding Tab
+1. # Adding Tab
+
 
 In the composite view with two tabs:
 
-${example:GtPhlowCompositeViewExamples>>#element|codeExpanded=false|previewExpanded=true}$
+{{gtExample:GtPhlowCompositeViewExamples>>#element|codeExpanded=false|previewExpanded=true}}
 
 a third is added:
 
-${example:GtPhlowCompositeViewExamples>>#addViewThreeDefinition|codeExpanded=false|previewExpanded=true}$
+{{gtExample:GtPhlowCompositeViewExamples>>#addViewThreeDefinition|codeExpanded=false|previewExpanded=true}}
+
 
 "
 Class {

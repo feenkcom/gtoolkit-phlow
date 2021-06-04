@@ -1,5 +1,6 @@
 "
-I exemplify ${class:GtPhlowUpdateLabelledViewTitle}$.
+I exemplify {{gtClass:GtPhlowUpdateLabelledViewTitle}}.
+
 
 "
 Class {

@@ -1,5 +1,6 @@
 "
-I exemplify ${class:GtPhlowSidebarElement}$.
+I exemplify {{gtClass:GtPhlowSidebarElement}}.
+
 
 "
 Class {

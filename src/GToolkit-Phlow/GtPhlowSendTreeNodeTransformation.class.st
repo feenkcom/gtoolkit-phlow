@@ -1,6 +1,8 @@
 "
-I am ${class:GtPhlowSendTransformation}$.
-I am used by ${class:TGtPhlowSendTreeNodeTransformable}$ where you can find more details and examples.
+I am {{gtClass:GtPhlowSendTransformation}}.
+I am used by {{gtClass:TGtPhlowSendTreeNodeTransformable}} where you can find more details and examples.
+
+
 "
 Class {
 	#name : #GtPhlowSendTreeNodeTransformation,
