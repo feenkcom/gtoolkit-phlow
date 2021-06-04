@@ -1,7 +1,8 @@
 "
 I listen to system changes.
-I change a ${class:BrTab}$ label and position of a changed ${class:GtPhlowView}$ subview definition in a given ${class:BrTabGroup}$ element.
-See ${class:GtPhlowUpdateCompositeSubViewTitleAndPosition}$ for more details.
+I change a {{gtClass:BrTab}} label and position of a changed {{gtClass:GtPhlowView}} subview definition in a given {{gtClass:BrTabGroup}} element.
+See {{gtClass:GtPhlowUpdateCompositeSubViewTitleAndPosition}} for more details.
+
 
 "
 Class {

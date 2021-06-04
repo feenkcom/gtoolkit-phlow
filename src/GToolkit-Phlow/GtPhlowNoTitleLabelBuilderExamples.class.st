@@ -1,5 +1,7 @@
 "
-I exemplify ${class:GtPhlowNoTitleLabelBuilder}$.
+I exemplify {{gtClass:GtPhlowNoTitleLabelBuilder}}.
+
+
 "
 Class {
 	#name : #GtPhlowNoTitleLabelBuilderExamples,

@@ -1,5 +1,7 @@
 "
-I exemplify ${class:GtPhlowToolAbstractDetailModel}$.
+I exemplify {{gtClass:GtPhlowToolAbstractDetailModel}}.
+
+
 "
 Class {
 	#name : #GtPhlowToolDetailModelExamples,

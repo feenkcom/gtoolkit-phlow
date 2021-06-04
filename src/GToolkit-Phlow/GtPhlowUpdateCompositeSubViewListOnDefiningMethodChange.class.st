@@ -1,8 +1,9 @@
 "
 I listen to system changes.
-I add a ${class:BrTab}$ in a given ${class:BrTabGroup}$ element when a new ${class:GtPhlowView}$ is defined.
-I remove a ${class:BrTab}$ in a given ${class:BrTabGroup}$ element when an existing ${class:GtPhlowView}$ defining method is removed.
-See ${class:GtPhlowAddCompositeSubView}$ and ${GtPhlowRemoveCompositeSubView}$ for more details.
+I add a {{gtClass:BrTab}} in a given {{gtClass:BrTabGroup}} element when a new {{gtClass:GtPhlowView}} is defined.
+I remove a {{gtClass:BrTab}} in a given {{gtClass:BrTabGroup}} element when an existing {{gtClass:GtPhlowView}} defining method is removed.
+See {{gtClass:GtPhlowAddCompositeSubView}} and {{gtClass:name=GtPhlowRemoveCompositeSubView}} for more details.
+
 
 "
 Class {

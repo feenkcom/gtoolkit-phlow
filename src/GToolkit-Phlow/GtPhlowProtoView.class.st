@@ -1,5 +1,7 @@
 "
 I define a common API that should be implemented by all Phlow views.
+
+
 "
 Class {
 	#name : #GtPhlowProtoView,

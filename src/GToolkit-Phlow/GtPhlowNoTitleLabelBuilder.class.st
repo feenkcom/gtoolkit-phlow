@@ -1,10 +1,14 @@
 "
-I am a ${class:GtPhlowTitleLabelBuilder}$.
-I ${method:GtPhlowNoTitleLabelBuilder>>#build|label=#selector}$ empty texts.
-!! Usage
-I am used as an *null object pattern>https://en.wikipedia.org/wiki/Null_object_pattern*.
-!! Example
-${example:GtPhlowNoTitleLabelBuilderExamples>>#basicBuilder|codeExpanded=false|previewExpanded=true|previewHeight=150}$
+I am a {{gtClass:GtPhlowTitleLabelBuilder}}.
+I {{gtMethod:GtPhlowNoTitleLabelBuilder>>#build|label=#selector}} empty texts.
+1. # Usage
+
+I am used as an [null object pattern](https://en.wikipedia.org/wiki/Null_object_pattern).
+1. # Example
+
+{{gtExample:GtPhlowNoTitleLabelBuilderExamples>>#basicBuilder|codeExpanded=false|previewExpanded=true|previewHeight=150}}
+
+
 "
 Class {
 	#name : #GtPhlowNoTitleLabelBuilder,

@@ -5,13 +5,16 @@ I am also useful in situtions, when the object is created only for the purpose o
 
 I create the object only if someone clicks on my tab (view).
 
-!! Important
+1. # Important
 
-${method:GtPhlowView>>#title}$ and ${method:GtPhlowView>>#priority}$ are not taken from the original view. If that were the case, the advantage of the solution would be lost since the title and priority are necessary to build the view tab using the title and priority.
 
-!! Example
+{{gtMethod:GtPhlowView>>#title}} and {{gtMethod:GtPhlowView>>#priority}} are not taken from the original view. If that were the case, the advantage of the solution would be lost since the title and priority are necessary to build the view tab using the title and priority.
 
-You can define me as follow: ${method:GtPhlowForwarderViewExamples>>#gtBasicFor:|expanded=true}$
+1. # Example
+
+
+You can define me as follow: {{gtMethod:GtPhlowForwarderViewExamples>>#gtBasicFor:|expanded=true}}
+
 
 "
 Class {

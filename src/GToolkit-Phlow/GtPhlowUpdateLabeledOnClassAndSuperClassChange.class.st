@@ -1,7 +1,8 @@
 "
 I listen to system changes.
-I udpate a ${class:GtPhlowLabelledView}$ and a corresponding ${class:BlElement}$ label on class definition changes.
-See ${class:GtPhlowUpdateLabelledViewTitle}$ for more details.
+I udpate a {{gtClass:GtPhlowLabelledView}} and a corresponding {{gtClass:BlElement}} label on class definition changes.
+See {{gtClass:GtPhlowUpdateLabelledViewTitle}} for more details.
+
 
 "
 Class {

@@ -1,19 +1,26 @@
 "
 I am an abstract class.
-My subclasses are used by ${class:GtPhlowSidebarElement}$.
-My subclasses provide a common API to compute a ${class:GtPhlowSidebarElement}$'s offset (margin) between its border and its content. The purpose of this distance is to create a distance between the sidebar resizer and the sidebar content.
-!! Common API
-- ${method:GtPhlowSidebarContentOffset>>#length:|label=#selector}$
-- ${method:GtPhlowSidebarContentOffset>>#margin|label=#selector}$
-- ${method:GtPhlowSidebarContentOffset>>#marginExtra:|label=#selector}$
-!! Big Distance Example
-The following example shows a big distance: ${example:GtPhlowSidebarElementExamples>>#horizontalSidebarElement_LeftSide_Offset_Bigger_InContainer|codeExpanded=false|previewExpanded=true}$
-!! No Distance Example
-The following example shows a zero distance: ${example:GtPhlowSidebarElementExamples>>#horizontalSidebarElement_LeftSide_Offset_Smaller_InContainer|codeExpanded=false|previewExpanded=true}$
-!! Default Distance Example
-The following example shows a default distance: ${example:GtPhlowSidebarElementExamples>>#horizontalSidebarElement_LeftSide_InContainer|codeExpanded=false|previewExpanded=true}$
-!! Concrete Implementations
-See my ${class:GtPhlowSidebarContentOffset|expanded|show=#gtSubclassesFor:}$ for concrete implementations:
+My subclasses are used by {{gtClass:GtPhlowSidebarElement}}.
+My subclasses provide a common API to compute a {{gtClass:GtPhlowSidebarElement}}'s offset (margin) between its border and its content. The purpose of this distance is to create a distance between the sidebar resizer and the sidebar content.
+1. # Common API
+
+- {{gtMethod:GtPhlowSidebarContentOffset>>#length:|label=#selector}}
+- {{gtMethod:GtPhlowSidebarContentOffset>>#margin|label=#selector}}
+- {{gtMethod:GtPhlowSidebarContentOffset>>#marginExtra:|label=#selector}}
+1. # Big Distance Example
+
+The following example shows a big distance: {{gtExample:GtPhlowSidebarElementExamples>>#horizontalSidebarElement_LeftSide_Offset_Bigger_InContainer|codeExpanded=false|previewExpanded=true}}
+1. # No Distance Example
+
+The following example shows a zero distance: {{gtExample:GtPhlowSidebarElementExamples>>#horizontalSidebarElement_LeftSide_Offset_Smaller_InContainer|codeExpanded=false|previewExpanded=true}}
+1. # Default Distance Example
+
+The following example shows a default distance: {{gtExample:GtPhlowSidebarElementExamples>>#horizontalSidebarElement_LeftSide_InContainer|codeExpanded=false|previewExpanded=true}}
+1. # Concrete Implementations
+
+See my {{gtClass:GtPhlowSidebarContentOffset|expanded|show=#gtSubclassesFor:}} for concrete implementations:
+
+
 "
 Class {
 	#name : #GtPhlowSidebarContentOffset,

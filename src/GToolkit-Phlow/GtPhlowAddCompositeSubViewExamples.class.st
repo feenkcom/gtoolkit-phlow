@@ -1,5 +1,6 @@
 "
-I exemplify ${class:GtPhlowUpdateCommand}$.
+I exemplify {{gtClass:GtPhlowUpdateCommand}}.
+
 
 "
 Class {

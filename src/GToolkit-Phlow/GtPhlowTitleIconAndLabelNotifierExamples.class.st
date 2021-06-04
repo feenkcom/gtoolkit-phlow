@@ -1,5 +1,7 @@
 "
-I exemplify ${class:GtPhlowTitleIconAndLabelNotifier}$.
+I exemplify {{gtClass:GtPhlowTitleIconAndLabelNotifier}}.
+
+
 "
 Class {
 	#name : #GtPhlowTitleIconAndLabelNotifierExamples,

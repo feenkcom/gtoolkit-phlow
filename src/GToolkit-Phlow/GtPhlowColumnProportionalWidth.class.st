@@ -1,5 +1,7 @@
 "
-I extend the ${class:BrColumnProportionalWidth}$ by adding a ${class:BlLinearGradientPaint}$ gradient to the right of a ${class:BrColumn}$ cell element in order to visually separate two columns with a content larger than an available width.
+I extend the {{gtClass:BrColumnProportionalWidth}} by adding a {{gtClass:BlLinearGradientPaint}} gradient to the right of a {{gtClass:BrColumn}} cell element in order to visually separate two columns with a content larger than an available width.
+
+
 "
 Class {
 	#name : #GtPhlowColumnProportionalWidth,

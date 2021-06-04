@@ -2,6 +2,7 @@
 I attach a tooltip to a given element.
 I am an abstract class.
 
+
 "
 Class {
 	#name : #GtPhlowTooltipBuilder,

@@ -1,40 +1,44 @@
 "
-!Phlow actions
+1. Phlow actions
 
-Any ${class:GtPhlowView}$ can be associated a set of ${class:GtPhlowAction}$ that are applicable. 
+Any {{gtClass:GtPhlowView}} can be associated a set of {{gtClass:GtPhlowAction}} that are applicable. 
 
-Often these actions are defined as an extension method discovered through a pragma. See ${class:GtPhlowActionsCollectorExamples}$.
+Often these actions are defined as an extension method discovered through a pragma. See {{gtClass:GtPhlowActionsCollectorExamples}}.
 
-!!Explicit widgets
+1. # Explicit widgets
+
 
 The most basic action is the one that can be explicitly specified. For example, below we see the explict creation of a button widget.
 
-${example:GtPhlowActionExamples>>#explicitAction|previewExpanded|previewShow=#gtLiveFor:|previewHeight=50}$
+{{gtExample:GtPhlowActionExamples>>#explicitAction|previewExpanded|previewShow=#gtLiveFor:|previewHeight=50}}
 
 
-!!Buttons
+1. # Buttons
+
 
 Buttons are the most used actions. Thus, there is a higher level action that allows you to do just that without creating explicit button widgets.
 
-${example:GtPhlowActionExamples>>#buttonWithIcon|previewExpanded|previewShow=#gtLiveFor:|previewHeight=50}$
+{{gtExample:GtPhlowActionExamples>>#buttonWithIcon|previewExpanded|previewShow=#gtLiveFor:|previewHeight=50}}
 
 A button can have both an icon and a label.
 
-${example:GtPhlowActionExamples>>#buttonWithIconAndLabel|previewExpanded|previewShow=#gtLiveFor:|previewHeight=50}$
+{{gtExample:GtPhlowActionExamples>>#buttonWithIconAndLabel|previewExpanded|previewShow=#gtLiveFor:|previewHeight=50}}
 
 
-!!Toggles
+1. # Toggles
+
 
 Another form of buttons are toggles.
 
-${example:GtPhlowActionExamples>>#toggleWithIconAndLabelDeactivated|previewExpanded|previewShow=#gtLiveFor:|previewHeight=50}$
+{{gtExample:GtPhlowActionExamples>>#toggleWithIconAndLabelDeactivated|previewExpanded|previewShow=#gtLiveFor:|previewHeight=50}}
 
 
-!!Dropdowns 
+1. # Dropdowns 
+
 
 Dropdowns can also be defined.
 
-${example:GtPhlowActionExamples>>#dropdownWithIconAndLabel|previewExpanded|previewShow=#gtLiveFor:|previewHeight=50}$
+{{gtExample:GtPhlowActionExamples>>#dropdownWithIconAndLabel|previewExpanded|previewShow=#gtLiveFor:|previewHeight=50}}
 
 
 "

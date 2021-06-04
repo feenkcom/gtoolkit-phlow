@@ -1,11 +1,14 @@
 "
-I am a ${class:BrInteractiveLook}$.
-I perform user defined actions on ${class:GtPhlowToolDetailModel}$ changes. Users may use the following methods to configure actions for different states:
-- ${method:GtPhlowToolDetailLook>>#normal:|label=#selector}$,
-- ${method:GtPhlowToolDetailLook>>#detailed:|label=#selector}$, and
-- ${method:GtPhlowToolDetailLook>>#level:style:|label=#selector}$.
-!! Example
-The following example changes an element background color on information level changes: ${example:GtPhlowToolDetailModelExamples>>#containerWithToolElementWithDetailLook_Showcase|codeExpanded=false|previewExpanded=true}$ 
+I am a {{gtClass:BrInteractiveLook}}.
+I perform user defined actions on {{gtClass:GtPhlowToolDetailModel}} changes. Users may use the following methods to configure actions for different states:
+- {{gtMethod:GtPhlowToolDetailLook>>#normal:|label=#selector}},
+- {{gtMethod:GtPhlowToolDetailLook>>#detailed:|label=#selector}}, and
+- {{gtMethod:GtPhlowToolDetailLook>>#level:style:|label=#selector}}.
+1. # Example
+
+The following example changes an element background color on information level changes: {{gtExample:GtPhlowToolDetailModelExamples>>#containerWithToolElementWithDetailLook_Showcase|codeExpanded=false|previewExpanded=true}} 
+
+
 "
 Class {
 	#name : #GtPhlowToolDetailAptitude,

@@ -1,5 +1,7 @@
 "
-I exemplify ${class:GtPhlowListView}$. 
+I exemplify {{gtClass:GtPhlowListView}}. 
+
+
 "
 Class {
 	#name : #GtPhlowListViewExamples,

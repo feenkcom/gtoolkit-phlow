@@ -1,19 +1,21 @@
 "
-!Phlow
+1. Phlow
 
-Phlow is a generic browsing engine for specifying views and transmissions. It is primarily used for defining inspector extensions (see ${class:BaselineOfGToolkitInspector}$).
+Phlow is a generic browsing engine for specifying views and transmissions. It is primarily used for defining inspector extensions (see {{gtClass:BaselineOfGToolkitInspector}}).
 
-!!Views
+1. # Views
+
 
 Views define the logic through which the concrete widgets get built. They are essentially stencils.
 
-See ${class:GtPhlowViewExamples}$.
+See {{gtClass:GtPhlowViewExamples}}.
 
-!!Actions
+1. # Actions
+
 
 Views have actions.
 
-See ${class:GtPhlowActionExamples}$
+See {{gtClass:GtPhlowActionExamples}}
 
 
 "

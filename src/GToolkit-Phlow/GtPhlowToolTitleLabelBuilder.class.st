@@ -1,15 +1,20 @@
 "
-I am a ${class:GtPhlowTitleLabelBuilder}$.
-I build short labels, ${class:BlText}$ and ${class:String}$ instances, composed of ${method:GtPhlowToolTitleLabelBuilder>>#toolName|label=#selector}$ and ${method:GtPhlowToolTitleLabelBuilder>>#subjectName|label=#selector}$. The subject name may be abbreviated.
-!! Examples
-!!! Abbreviated subject name
-${example:GtPhlowToolTitleLabelBuilderExamples>>#longTitle_Block|codeExpanded=false|previewExpanded=true|previewHeight=180}$
-!!! Provided short subject name
-${example:GtPhlowToolTitleLabelBuilderExamples>>#shortTitle_Block|codeExpanded=false|previewExpanded=true|previewHeight=180}$
-!!! Missing subject name
-${example:GtPhlowToolTitleLabelBuilderExamples>>#noSubjectName|codeExpanded=false|previewExpanded=true|previewHeight=180}$
-!!! Missing tool name
-${example:GtPhlowToolTitleLabelBuilderExamples>>#noToolName|codeExpanded=false|previewExpanded=true|previewHeight=180}$
+I am a {{gtClass:GtPhlowTitleLabelBuilder}}.
+I build short labels, {{gtClass:BlText}} and {{gtClass:String}} instances, composed of {{gtMethod:GtPhlowToolTitleLabelBuilder>>#toolName|label=#selector}} and {{gtMethod:GtPhlowToolTitleLabelBuilder>>#subjectName|label=#selector}}. The subject name may be abbreviated.
+1. # Examples
+## Abbreviated subject name
+
+{{gtExample:GtPhlowToolTitleLabelBuilderExamples>>#longTitle_Block|codeExpanded=false|previewExpanded=true|previewHeight=180}}
+1. ## Provided short subject name
+
+{{gtExample:GtPhlowToolTitleLabelBuilderExamples>>#shortTitle_Block|codeExpanded=false|previewExpanded=true|previewHeight=180}}
+1. ## Missing subject name
+
+{{gtExample:GtPhlowToolTitleLabelBuilderExamples>>#noSubjectName|codeExpanded=false|previewExpanded=true|previewHeight=180}}
+1. ## Missing tool name
+
+{{gtExample:GtPhlowToolTitleLabelBuilderExamples>>#noToolName|codeExpanded=false|previewExpanded=true|previewHeight=180}}
+
 
 "
 Class {

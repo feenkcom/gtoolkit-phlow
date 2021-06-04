@@ -1,8 +1,11 @@
 "
-I am a ${class:BrStencil}$.
-I create an empty (default) ${class:GtPhlowSidebarElement}$ content, see ${method:GtPhlowSidebarElement>>#defaultContentStencil}$.
-!! Example
-The following example shows a sidebar with a default empty content (that I generate): ${example:GtPhlowSidebarElementExamples>>#basicHorizontalSidebarElement|codeExpanded=false|previewExpanded=true}$
+I am a {{gtClass:BrStencil}}.
+I create an empty (default) {{gtClass:GtPhlowSidebarElement}} content, see {{gtMethod:GtPhlowSidebarElement>>#defaultContentStencil}}.
+1. # Example
+
+The following example shows a sidebar with a default empty content (that I generate): {{gtExample:GtPhlowSidebarElementExamples>>#basicHorizontalSidebarElement|codeExpanded=false|previewExpanded=true}}
+
+
 "
 Class {
 	#name : #GtPhlowSidebarEmptyContentStencil,

@@ -1,9 +1,12 @@
 "
 I represent a columned list view.
-I create ${class:BrColumnedList}$ to display items. 
-!! Examples 
-The following object displays several examples. You can ==ALT+CLICK== on tab names to display their definitions: ${example:GtPhlowColumnedListViewExamples>>#myself|noCode=true}$  
+I create {{gtClass:BrColumnedList}} to display items. 
+1. # Examples 
+
+The following object displays several examples. You can `ALT+CLICK` on tab names to display their definitions: {{gtExample:GtPhlowColumnedListViewExamples>>#myself|noCode=true}}  
  
+
+
 "
 Class {
 	#name : #GtPhlowColumnedListView,

@@ -1,12 +1,15 @@
 "
-I am ${class:BlCustomEventHandler}$.
+I am {{gtClass:BlCustomEventHandler}}.
 I am an abstract class.
-I notify ${class:BlElement}$ parents that a label should be updated.
-!! Collaborators
-I use ${class:GtPhlowChangeTitleWish}$ to notify parents.
-I use ${class:GtPhlowTitleLabelBuilder}$ to create labels.
-!! Examples
-See my ${class:GtPhlowTitleNotifier|show=#gtSubclassesFor:|label=subclasses|expanded=true|height=130}$ for specific examples:
+I notify {{gtClass:BlElement}} parents that a label should be updated.
+1. # Collaborators
+
+I use {{gtClass:GtPhlowChangeTitleWish}} to notify parents.
+I use {{gtClass:GtPhlowTitleLabelBuilder}} to create labels.
+1. # Examples
+
+See my {{gtClass:GtPhlowTitleNotifier|show=#gtSubclassesFor:|label=subclasses|expanded=true|height=130}} for specific examples:
+
 
 "
 Class {

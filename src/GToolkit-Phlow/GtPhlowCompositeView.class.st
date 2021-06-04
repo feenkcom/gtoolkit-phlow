@@ -1,24 +1,27 @@
 "
-I compose several views that are displayed using ${class:BrTabGroup}$.
+I compose several views that are displayed using {{gtClass:BrTabGroup}}.
 
-I am typically used by other tools, e.g., inspectors and coders, to build a composition of object views. To build such views, Phlow provides ${class:GtPhlowViewsCollector}$ to collect subviews for a given object, and ${class:GtPhlowCompositeViewBuilder}$ to build composite views. It is quite unusual defining composite views by users.
+I am typically used by other tools, e.g., inspectors and coders, to build a composition of object views. To build such views, Phlow provides {{gtClass:GtPhlowViewsCollector}} to collect subviews for a given object, and {{gtClass:GtPhlowCompositeViewBuilder}} to build composite views. It is quite unusual defining composite views by users.
 
-!! Example
-!!! Manual Definition of Sub-Views 
+1. # Example
+## Manual Definition of Sub-Views 
+
 A definition like this:
 
-${method:GtPhlowCompositeViewExamples>>#gtPhlowViewFor:|expanded=true}$
+{{gtMethod:GtPhlowCompositeViewExamples>>#gtPhlowViewFor:|expanded=true}}
 
 Is represented in tools as in following example:
-${example:GtPhlowCompositeViewExamples>>#phlowView|codeExpanded=false|previewExpanded=true|previewShow=#gtLiveFor:}$
+{{gtExample:GtPhlowCompositeViewExamples>>#phlowView|codeExpanded=false|previewExpanded=true|previewShow=#gtLiveFor:}}
 
-!!! Sub-View Collector Usage
+1. ## Sub-View Collector Usage
+
 A definition like this:
 
-${method:GtPhlowCompositeViewExamples>>#gtPhlowViewWithCollectorFor:|expanded=true}$
+{{gtMethod:GtPhlowCompositeViewExamples>>#gtPhlowViewWithCollectorFor:|expanded=true}}
 
 Is represented in tools as in following example:
-${example:GtPhlowCompositeViewExamples>>#collectorUsage|codeExpanded=false|previewExpanded=true|previewShow=#gtLiveFor:}$
+{{gtExample:GtPhlowCompositeViewExamples>>#collectorUsage|codeExpanded=false|previewExpanded=true|previewShow=#gtLiveFor:}}
+
 
 "
 Class {

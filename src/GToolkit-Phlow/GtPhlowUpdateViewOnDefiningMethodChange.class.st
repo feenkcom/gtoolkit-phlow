@@ -1,7 +1,8 @@
 "
 I listen to system changes.
-I udpate a ${class:GtPhlowView}$ and a corresponsind ${class:BlElement}$ on view definition change.
-See ${class:GtPhlowUpdateView}$ for more details.
+I udpate a {{gtClass:GtPhlowView}} and a corresponsind {{gtClass:BlElement}} on view definition change.
+See {{gtClass:GtPhlowUpdateView}} for more details.
+
 
 "
 Class {

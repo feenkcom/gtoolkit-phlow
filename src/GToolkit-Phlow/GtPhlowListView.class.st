@@ -1,9 +1,12 @@
 "
 I represent a simple list view.
-I create ${class:BrSimpleList}$  to display items. 
-!! Examples 
-The following object displays several examples. You can ==ALT+CLICK== on tab names to display their definitions: ${example:GtPhlowListViewExamples>>#myself|noCode=true}$ 
+I create {{gtClass:BrSimpleList}}  to display items. 
+1. # Examples 
+
+The following object displays several examples. You can `ALT+CLICK` on tab names to display their definitions: {{gtExample:GtPhlowListViewExamples>>#myself|noCode=true}} 
  
+
+
 "
 Class {
 	#name : #GtPhlowListView,

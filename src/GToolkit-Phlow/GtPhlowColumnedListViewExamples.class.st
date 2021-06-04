@@ -1,5 +1,7 @@
 "
-I exemplify ${class:GtPhlowColumnedListView}$. 
+I exemplify {{gtClass:GtPhlowColumnedListView}}. 
+
+
 "
 Class {
 	#name : #GtPhlowColumnedListViewExamples,

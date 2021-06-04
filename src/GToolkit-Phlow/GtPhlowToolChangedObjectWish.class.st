@@ -1,8 +1,10 @@
 "
-I am a ${class:BrWish}$.
-I am fired by ${class:GtPhlowTool}$ to inform which object (domain model) should be displayed. See ${class:GtPhlowToolChangedObjectHandler}$ and ${class:GtPhlowToolObjectChangeHandler}$ for more information.
-!! Example
-See a complete example in the ${class:GtPhlowCompositeTool}$ class comment.
+I am a {{gtClass:BrWish}}.
+I am fired by {{gtClass:GtPhlowTool}} to inform which object (domain model) should be displayed. See {{gtClass:GtPhlowToolChangedObjectHandler}} and {{gtClass:GtPhlowToolObjectChangeHandler}} for more information.
+1. # Example
+
+See a complete example in the {{gtClass:GtPhlowCompositeTool}} class comment.
+
 
 "
 Class {

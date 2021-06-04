@@ -1,5 +1,7 @@
 "
 I wrap a view and add a title to it.
+
+
 "
 Class {
 	#name : #GtPhlowLabelledView,

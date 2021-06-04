@@ -1,15 +1,17 @@
 "
-I indicate where a ${class:GtPhlowObjectToSpawn}$ event show the corresponding tool.
+I indicate where a {{gtClass:GtPhlowObjectToSpawn}} event show the corresponding tool.
 
 My subclasses indicate the concrete destinations:
-- next pane: ${class:GtPhlowSpawnBelowDestination}$
-- open below: ${class:GtPhlowSpawnNextPaneDestination}$
+- next pane: {{gtClass:GtPhlowSpawnBelowDestination}}
+- open below: {{gtClass:GtPhlowSpawnNextPaneDestination}}
 
 Relevant API metods:
-- ${method:GtPhlowSpawnDesiredDestination>>#followingDestination}$
-- ${method:GtPhlowSpawnDesiredDestination>>#icon}$
+- {{gtMethod:GtPhlowSpawnDesiredDestination>>#followingDestination}}
+- {{gtMethod:GtPhlowSpawnDesiredDestination>>#icon}}
 
-The default destination is given by ${method:GtPhlowSpawnDesiredDestination class>>#defaultDestination}$
+The default destination is given by {{gtMethod:GtPhlowSpawnDesiredDestination class>>#defaultDestination}}
+
+
 "
 Class {
 	#name : #GtPhlowSpawnDesiredDestination,

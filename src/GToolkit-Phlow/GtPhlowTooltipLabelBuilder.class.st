@@ -1,13 +1,15 @@
 "
 I attach a label tooltip to a given element.
 
-!! Examples 
+1. # Examples 
 
-${example:GtPhlowActionExamples>>#buttonWithIconAndLabelAndTooltip}$
 
-${example:GtPhlowActionExamples>>#buttonWithLabelWithTooltip}$
+{{gtExample:GtPhlowActionExamples>>#buttonWithIconAndLabelAndTooltip}}
 
-${example:GtPhlowActionExamples>>#buttonWithIconAndTooltip}$
+{{gtExample:GtPhlowActionExamples>>#buttonWithLabelWithTooltip}}
+
+{{gtExample:GtPhlowActionExamples>>#buttonWithIconAndTooltip}}
+
 
 "
 Class {

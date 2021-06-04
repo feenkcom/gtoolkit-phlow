@@ -1,17 +1,18 @@
 "
-I update a ${class:BlElement}$ label that corresponds to a ${class:GtPhlowLabelledView}$ instance.
-I am used by ${class:GtPhlowUpdateLabeledOnClassAndSuperClassChange}$.
-I default ${class:GtPhlowLabelledView}$ uses ${class:GtPhlowLabelBuilder}$ to build labels.
+I update a {{gtClass:BlElement}} label that corresponds to a {{gtClass:GtPhlowLabelledView}} instance.
+I am used by {{gtClass:GtPhlowUpdateLabeledOnClassAndSuperClassChange}}.
+I default {{gtClass:GtPhlowLabelledView}} uses {{gtClass:GtPhlowLabelBuilder}} to build labels.
 
-!! Updating Element
+1. # Updating Element
+
 
 A supposively original view definition:
 
-${example:GtPhlowLabelledViewExamples>>#element|codeExpanded=false|previewExpanded=true}$
+{{gtExample:GtPhlowLabelledViewExamples>>#element|codeExpanded=false|previewExpanded=true}}
 
 is updated to:
 
-${example:GtPhlowLabelledViewExamples>>#updateLabel|codeExpanded=false|previewExpanded=true}$
+{{gtExample:GtPhlowLabelledViewExamples>>#updateLabel|codeExpanded=false|previewExpanded=true}}
 
 
 "

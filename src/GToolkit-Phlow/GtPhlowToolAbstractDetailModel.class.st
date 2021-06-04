@@ -1,14 +1,16 @@
 "
 I am an abstract class.
-I implement common code to set a ${method:GtPhlowToolAbstractDetailModel>>#level|label=#selector}$ which is:
-- a ${class:GtPhlowToolDetailState}$'s ${method:GtPhlowToolDetailState>>#level|label=#selector}$ value,
-- a ${class:Symbol}$ value in order to define a custom values,
-- a value that defines how a ${class:BlElement}$ (a tool) should be displayed, e.g., showing all information, and minimum information.
+I implement common code to set a {{gtMethod:GtPhlowToolAbstractDetailModel>>#level|label=#selector}} which is:
+- a {{gtClass:GtPhlowToolDetailState}}'s {{gtMethod:GtPhlowToolDetailState>>#level|label=#selector}} value,
+- a {{gtClass:Symbol}} value in order to define a custom values,
+- a value that defines how a {{gtClass:BlElement}} (a tool) should be displayed, e.g., showing all information, and minimum information.
 There are three predefined values that can be set by sending the following messages:
-- ${method:GtPhlowToolAbstractDetailModel>>#beUndefinedLevel|label=#selector}$,
-- ${method:GtPhlowToolAbstractDetailModel>>#beNormalLevel|label=#selector}$,
-- ${method:GtPhlowToolAbstractDetailModel>>#beDetailedLevel|label=#selector}$.
-See my ${class:GtPhlowToolAbstractDetailModel|expanded|show=#gtSubclassesFor:|height=100}$ for more details:
+- {{gtMethod:GtPhlowToolAbstractDetailModel>>#beUndefinedLevel|label=#selector}},
+- {{gtMethod:GtPhlowToolAbstractDetailModel>>#beNormalLevel|label=#selector}},
+- {{gtMethod:GtPhlowToolAbstractDetailModel>>#beDetailedLevel|label=#selector}}.
+See my {{gtClass:GtPhlowToolAbstractDetailModel|expanded|show=#gtSubclassesFor:|height=100}} for more details:
+
+
 "
 Class {
 	#name : #GtPhlowToolAbstractDetailModel,

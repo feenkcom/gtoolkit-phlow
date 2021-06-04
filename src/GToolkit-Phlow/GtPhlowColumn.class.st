@@ -1,6 +1,7 @@
 "
-I keep information to configure ${class:BrColumn}$ instances.
-I am used by ${class:GtPhlowColumnedListView}$ and ${class:GtPhlowColumnedTreeView}$.
+I keep information to configure {{gtClass:BrColumn}} instances.
+I am used by {{gtClass:GtPhlowColumnedListView}} and {{gtClass:GtPhlowColumnedTreeView}}.
+
 
 "
 Class {

@@ -1,5 +1,7 @@
 "
-I exemplify ${class:GtPhlowTitleNotifier|expanded=true|show=#gtSubclassesFor:|height=130}$ subclasses.
+I exemplify {{gtClass:GtPhlowTitleNotifier|expanded=true|show=#gtSubclassesFor:|height=130}} subclasses.
+
+
 "
 Class {
 	#name : #GtPhlowTitleNotifierExamples,
