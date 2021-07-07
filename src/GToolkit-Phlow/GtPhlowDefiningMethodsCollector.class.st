@@ -14,7 +14,7 @@ GtPhlowDefiningMethodsCollector >> collect [
 	aMethods := OrderedCollection new.
 	2 to: (self stack size min: 5) do: [ :anIndex | 
 		| aCompiledMethod |
-		aCompiledMethod := (self stack at: anIndex) outerMostContext method.
+		aCompiledMethod := (self stack at: anIndex) blocDefiningMethod.
 		(aCompiledMethod hasPragmaNamed: #gtCollector)
 			ifTrue: [ ^ self definingMethodsFrom: aMethods ].
 		aMethods addFirst: aCompiledMethod asRingDefinition ].
