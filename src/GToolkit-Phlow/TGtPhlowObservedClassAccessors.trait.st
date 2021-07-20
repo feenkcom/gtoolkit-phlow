@@ -1,33 +1,33 @@
 Trait {
-	#name : #TGtPhlowObservedClassAccessors,
+	#name : 'TGtPhlowObservedClassAccessors',
 	#instVars : [
 		'observedClass'
 	],
-	#category : #'GToolkit-Phlow-Updating'
+	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 TGtPhlowObservedClassAccessors >> hasObservedClass [
 	^ self observedClass isNotNil.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 TGtPhlowObservedClassAccessors >> ifItDoesNotHaveObservedClassDo: aBlock [
 	self hasObservedClass ifFalse: aBlock
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 TGtPhlowObservedClassAccessors >> initializeObservedClassOn: aGtPhlowElementContext [
 	aGtPhlowElementContext hasBuildContext ifFalse: [ ^ self ].
 	self observedClass: aGtPhlowElementContext buildContext object class instanceSide.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TGtPhlowObservedClassAccessors >> observedClass [
 	^ observedClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TGtPhlowObservedClassAccessors >> observedClass: aClass [
 	self 
 		assert: [ aClass isClassOrTrait ]
@@ -35,7 +35,7 @@ TGtPhlowObservedClassAccessors >> observedClass: aClass [
 	observedClass := aClass
 ]
 
-{ #category : #'api - subscriptions' }
+{ #category : 'api - subscriptions' }
 TGtPhlowObservedClassAccessors >> subscribeOn: aGtPhlowElementContext [
 	aGtPhlowElementContext hasBuildContext ifFalse: [ ^ self ].
 	self addContext: aGtPhlowElementContext.
@@ -44,7 +44,7 @@ TGtPhlowObservedClassAccessors >> subscribeOn: aGtPhlowElementContext [
 	self subscribeToSystemOn: aGtPhlowElementContext.
 ]
 
-{ #category : #subscriptions }
+{ #category : 'subscriptions' }
 TGtPhlowObservedClassAccessors >> subscribeToSystemOn: aGtPhlowElementContext [
 	self explicitRequirement
 ]

@@ -1,15 +1,15 @@
 Class {
-	#name : #GtPhlowListToSelectHandler,
-	#superclass : #GtPhlowListHandler,
-	#category : #'GToolkit-Phlow-Events'
+	#name : 'GtPhlowListToSelectHandler',
+	#superclass : 'GtPhlowListHandler',
+	#category : 'GToolkit-Phlow-Events'
 }
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowListToSelectHandler >> eventClasses [
 	^ { BrSelectionChanged . BrSelectionDoubleClicked }
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowListToSelectHandler >> eventsToHandle [
 	"I return a collection of element types I may be interested in"
 	<return: #Collection of: #'BlEvent class'>	
@@ -17,12 +17,12 @@ GtPhlowListToSelectHandler >> eventsToHandle [
 	^ self eventClasses
 ]
 
-{ #category : #'api - event managing' }
+{ #category : 'api - event managing' }
 GtPhlowListToSelectHandler >> handleEvent: anEvent [
 	anEvent acceptPhlowHandler: self
 ]
 
-{ #category : #'api - event managing' }
+{ #category : 'api - event managing' }
 GtPhlowListToSelectHandler >> selectionChangedEvent: anEvent [
 
 	anEvent selectedDo: [ :theIndices |
@@ -37,7 +37,7 @@ GtPhlowListToSelectHandler >> selectionChangedEvent: anEvent [
 			from: aWidgetElement ]
 ]
 
-{ #category : #'api - event managing' }
+{ #category : 'api - event managing' }
 GtPhlowListToSelectHandler >> selectionDoubleClickedEvent: anEvent [
 	
 	anEvent selection ifNotEmpty: [ :anInterval |
@@ -52,7 +52,7 @@ GtPhlowListToSelectHandler >> selectionDoubleClickedEvent: anEvent [
 			from: aWidgetElement ]
 ]
 
-{ #category : #'api - event managing' }
+{ #category : 'api - event managing' }
 GtPhlowListToSelectHandler >> wantsEvent: anEvent [
 	^ self eventClasses includes: anEvent class
 ]

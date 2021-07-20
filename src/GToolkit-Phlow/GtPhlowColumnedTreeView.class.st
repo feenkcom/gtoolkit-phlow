@@ -1,6 +1,6 @@
 Class {
-	#name : #GtPhlowColumnedTreeView,
-	#superclass : #GtPhlowViewDecorator,
+	#name : 'GtPhlowColumnedTreeView',
+	#superclass : 'GtPhlowViewDecorator',
 	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTreeNodeTransformable + TGtPhlowTreeNodeExpansion',
 	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTreeNodeTransformable classTrait + TGtPhlowTreeNodeExpansion classTrait',
 	#instVars : [
@@ -9,10 +9,10 @@ Class {
 		'itemsBuilder',
 		'childrenBuilder'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : #'api - converting' }
+{ #category : 'api - converting' }
 GtPhlowColumnedTreeView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 
@@ -53,29 +53,29 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 	^ aBlock value: aContainer
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 GtPhlowColumnedTreeView >> buildColumnsInTree: aTree [
 	columns
 		do: [ :eachPhlowColumn | 
 			eachPhlowColumn configureColumn: aTree column ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowColumnedTreeView >> cellSpacing [
 	^ 10
 ]
 
-{ #category : #'api - scripting' }
+{ #category : 'api - scripting' }
 GtPhlowColumnedTreeView >> children: aValuable [
 	childrenBuilder := aValuable
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowColumnedTreeView >> childrenBuilder [
 	^ childrenBuilder
 ]
 
-{ #category : #'api - scripting column' }
+{ #category : 'api - scripting column' }
 GtPhlowColumnedTreeView >> column [
 	<return: #GtPhlowColumn>
 	| aColumn |
@@ -85,24 +85,24 @@ GtPhlowColumnedTreeView >> column [
 	^ aColumn
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowColumnedTreeView >> columnedTreeClass [
 	^ BrColumnedTree
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowColumnedTreeView >> columns [
 	<return: #Collection of: #GtPhlowColumn>
 	^ columns
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 GtPhlowColumnedTreeView >> copyTransformationFrom: aSendBlock [
 	aSendBlock ifNil: [ ^ self ].
 	self send: aSendBlock
 ]
 
-{ #category : #'scripting - deprecated' }
+{ #category : 'scripting - deprecated' }
 GtPhlowColumnedTreeView >> display: aBlock [
 	self 
 		deprecated: 'Please use #items: instead.'
@@ -110,12 +110,12 @@ GtPhlowColumnedTreeView >> display: aBlock [
 	self items: aBlock
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowColumnedTreeView >> elementClass [
 	^ BlElement
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowColumnedTreeView >> errorCatchingChildrenBuilder [
 	^ [ :aParent | 
 			(aParent isKindOf: GtPhlowChildrenBuilderError)
@@ -131,7 +131,7 @@ GtPhlowColumnedTreeView >> errorCatchingChildrenBuilder [
 								childrenBuilder: self childrenBuilder) ] ] ]
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 GtPhlowColumnedTreeView >> gtColumnsFor: aView [
 	<gtView>
 	self columns ifNil: [ ^ aView empty ].
@@ -142,7 +142,7 @@ GtPhlowColumnedTreeView >> gtColumnsFor: aView [
 		column: 'Item' item: #itemComputation
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowColumnedTreeView >> initialize [
 	super initialize.
 	
@@ -152,7 +152,7 @@ GtPhlowColumnedTreeView >> initialize [
 	self transformation: self defaultTransformation.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowColumnedTreeView >> isExpectedElement: aCurrentElement [
 	aCurrentElement class = self elementClass ifFalse: [ ^ false ].
 	aCurrentElement childrenCount = 2 ifFalse: [ ^ false ].
@@ -160,17 +160,17 @@ GtPhlowColumnedTreeView >> isExpectedElement: aCurrentElement [
 	^ true
 ]
 
-{ #category : #'api - scripting' }
+{ #category : 'api - scripting' }
 GtPhlowColumnedTreeView >> items: aValuable [
 	itemsBuilder := aValuable
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowColumnedTreeView >> itemsBuilder [
 	^ itemsBuilder
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowColumnedTreeView >> itemsOnExceptionErrorElement: aBlock [
 	^ self 
 		performBlock: [ self itemsBuilder value ]
@@ -178,7 +178,7 @@ GtPhlowColumnedTreeView >> itemsOnExceptionErrorElement: aBlock [
 			aBlock value: anElement ].
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowColumnedTreeView >> newHeader [
 	^ BlElement new
 		layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: 10);
@@ -188,7 +188,7 @@ GtPhlowColumnedTreeView >> newHeader [
 			c vertical fitContent ].
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowColumnedTreeView >> newWrapper [
 	| aWrapper |
 	aWrapper := BlElement new.
@@ -200,7 +200,7 @@ GtPhlowColumnedTreeView >> newWrapper [
 	^ aWrapper
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtPhlowColumnedTreeView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 	

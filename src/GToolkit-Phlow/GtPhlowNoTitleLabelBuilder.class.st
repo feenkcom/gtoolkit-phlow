@@ -11,19 +11,19 @@ I am used as an [null object pattern](https://en.wikipedia.org/wiki/Null_object_
 
 "
 Class {
-	#name : #GtPhlowNoTitleLabelBuilder,
-	#superclass : #GtPhlowTitleLabelBuilder,
+	#name : 'GtPhlowNoTitleLabelBuilder',
+	#superclass : 'GtPhlowTitleLabelBuilder',
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : #'GToolkit-Phlow-Tool - Title'
+	#category : 'GToolkit-Phlow-Tool - Title'
 }
 
-{ #category : #building }
+{ #category : 'building' }
 GtPhlowNoTitleLabelBuilder >> build [
 	^ BlText empty
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowNoTitleLabelBuilder >> gtResultFor: aView [
 	<gtView>
 	^ aView textEditor

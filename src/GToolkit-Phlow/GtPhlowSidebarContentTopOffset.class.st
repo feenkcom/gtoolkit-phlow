@@ -15,22 +15,22 @@ The following example shows a default distance: {{gtExample:GtPhlowSidebarElemen
 
 "
 Class {
-	#name : #GtPhlowSidebarContentTopOffset,
-	#superclass : #GtPhlowSidebarContentOffset,
-	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
+	#name : 'GtPhlowSidebarContentTopOffset',
+	#superclass : 'GtPhlowSidebarContentOffset',
+	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowSidebarContentTopOffset >> margin [
 	^ BlInsets top: self length
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowSidebarContentTopOffset >> marginExtra: anExtraLength [
 	^ BlInsets top: self length + anExtraLength
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowSidebarContentTopOffset >> name [
 	^ 'Top Offset'
 ]

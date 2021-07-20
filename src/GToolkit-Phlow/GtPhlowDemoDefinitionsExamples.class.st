@@ -1,10 +1,10 @@
 Class {
-	#name : #GtPhlowDemoDefinitionsExamples,
-	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Examples'
+	#name : 'GtPhlowDemoDefinitionsExamples',
+	#superclass : 'Object',
+	#category : 'GToolkit-Phlow-Examples'
 }
 
-{ #category : #'method - baz' }
+{ #category : 'method - baz' }
 GtPhlowDemoDefinitionsExamples >> bazMethodDefinition [
 	<gtExample>
 	| aRing |
@@ -15,13 +15,13 @@ GtPhlowDemoDefinitionsExamples >> bazMethodDefinition [
 	^ aRing
 ]
 
-{ #category : #'method - baz' }
+{ #category : 'method - baz' }
 GtPhlowDemoDefinitionsExamples >> bazMethodName [
 	<gtExample>
 	^ #bazFor:
 ]
 
-{ #category : #methods }
+{ #category : 'methods' }
 GtPhlowDemoDefinitionsExamples >> collectionOfDefiningMethods [
 	<gtExample>
 	^ Array 
@@ -29,7 +29,7 @@ GtPhlowDemoDefinitionsExamples >> collectionOfDefiningMethods [
 		with: self bazMethodDefinition
 ]
 
-{ #category : #'method - baz' }
+{ #category : 'method - baz' }
 GtPhlowDemoDefinitionsExamples >> compileBazMethod [
 	<gtExample>
 	| aSymbol |
@@ -50,7 +50,7 @@ GtPhlowDemoDefinitionsExamples >> compileBazMethod [
 	^ aSymbol
 ]
 
-{ #category : #'method - empty view' }
+{ #category : 'method - empty view' }
 GtPhlowDemoDefinitionsExamples >> compileEmptyViewMethod [
 	<gtExample>
 	| aSymbol |
@@ -68,7 +68,7 @@ GtPhlowDemoDefinitionsExamples >> compileEmptyViewMethod [
 	^ aSymbol
 ]
 
-{ #category : #'method - foo' }
+{ #category : 'method - foo' }
 GtPhlowDemoDefinitionsExamples >> compileFooMethod [
 	<gtExample>
 	| aSymbol |
@@ -88,7 +88,7 @@ GtPhlowDemoDefinitionsExamples >> compileFooMethod [
 	^ aSymbol
 ]
 
-{ #category : #'method - foo' }
+{ #category : 'method - foo' }
 GtPhlowDemoDefinitionsExamples >> compileFooMethodVersionTwo [
 	<gtExample>
 	| aSymbol |
@@ -110,7 +110,7 @@ GtPhlowDemoDefinitionsExamples >> compileFooMethodVersionTwo [
 	^ aSymbol
 ]
 
-{ #category : #'method - printOn' }
+{ #category : 'method - printOn' }
 GtPhlowDemoDefinitionsExamples >> compilePrintOnMethod [
 	<gtExample>
 	| aSymbol |
@@ -125,7 +125,7 @@ GtPhlowDemoDefinitionsExamples >> compilePrintOnMethod [
 	^ (self demoClass >> self printOnMethodName) asRingDefinition
 ]
 
-{ #category : #classes }
+{ #category : 'classes' }
 GtPhlowDemoDefinitionsExamples >> demoClass [
 	<gtExample>
 	| aClass |
@@ -142,19 +142,19 @@ GtPhlowDemoDefinitionsExamples >> demoClass [
 	^ aClass
 ]
 
-{ #category : #classes }
+{ #category : 'classes' }
 GtPhlowDemoDefinitionsExamples >> demoClassName [
 	<gtExample>
 	^ #GtPhlowDemoClass
 ]
 
-{ #category : #packages }
+{ #category : 'packages' }
 GtPhlowDemoDefinitionsExamples >> demoPackageName [
 	<gtExample>
 	^ 'GToolkit-PhlowTempPackage'
 ]
 
-{ #category : #classes }
+{ #category : 'classes' }
 GtPhlowDemoDefinitionsExamples >> demoSubClass [
 	<gtExample>
 	| aClass |
@@ -172,13 +172,13 @@ GtPhlowDemoDefinitionsExamples >> demoSubClass [
 	^ aClass
 ]
 
-{ #category : #classes }
+{ #category : 'classes' }
 GtPhlowDemoDefinitionsExamples >> demoSubClassName [
 	<gtExample>
 	^ #GtPhlowDemoSubClass
 ]
 
-{ #category : #'method - empty view' }
+{ #category : 'method - empty view' }
 GtPhlowDemoDefinitionsExamples >> emptyViewMethodDefinition [
 	<gtExample>
 	| aRing |
@@ -189,13 +189,13 @@ GtPhlowDemoDefinitionsExamples >> emptyViewMethodDefinition [
 	^ aRing
 ]
 
-{ #category : #'method - empty view' }
+{ #category : 'method - empty view' }
 GtPhlowDemoDefinitionsExamples >> emptyViewMethodName [
 	<gtExample>
 	^ #emptyViewFor:
 ]
 
-{ #category : #'method - baz' }
+{ #category : 'method - baz' }
 GtPhlowDemoDefinitionsExamples >> ensureBazMethodRemoved [
 	<gtExample>
 	| aRing |
@@ -212,7 +212,7 @@ GtPhlowDemoDefinitionsExamples >> ensureBazMethodRemoved [
 	^ aRing
 ]
 
-{ #category : #'method - foo' }
+{ #category : 'method - foo' }
 GtPhlowDemoDefinitionsExamples >> ensureFooMethodRemoved [
 	<gtExample>
 	| aRing |
@@ -229,7 +229,7 @@ GtPhlowDemoDefinitionsExamples >> ensureFooMethodRemoved [
 	^ aRing
 ]
 
-{ #category : #'method - printOn' }
+{ #category : 'method - printOn' }
 GtPhlowDemoDefinitionsExamples >> ensurePrintOnMethodRemoved [
 	<gtExample>
 	| aRing |
@@ -246,7 +246,7 @@ GtPhlowDemoDefinitionsExamples >> ensurePrintOnMethodRemoved [
 	^ aRing
 ]
 
-{ #category : #'method - foo' }
+{ #category : 'method - foo' }
 GtPhlowDemoDefinitionsExamples >> fooMethodDefinition [
 	<gtExample>
 	| aRing |
@@ -257,13 +257,13 @@ GtPhlowDemoDefinitionsExamples >> fooMethodDefinition [
 	^ aRing
 ]
 
-{ #category : #'method - foo' }
+{ #category : 'method - foo' }
 GtPhlowDemoDefinitionsExamples >> fooMethodName [
 	<gtExample>
 	^ #fooFor:
 ]
 
-{ #category : #'method - printOn' }
+{ #category : 'method - printOn' }
 GtPhlowDemoDefinitionsExamples >> printOnMethodDefinition [
 	<gtExample>
 	| aRing |
@@ -275,7 +275,7 @@ GtPhlowDemoDefinitionsExamples >> printOnMethodDefinition [
 	^ aRing
 ]
 
-{ #category : #'method - printOn' }
+{ #category : 'method - printOn' }
 GtPhlowDemoDefinitionsExamples >> printOnMethodName [
 	^ #printOn:
 ]

@@ -6,7 +6,7 @@ See my {{gtClass:GtPhlowTitleLabelBuilderExamples|show=#gtSubclassesFor:|expande
 
 "
 Class {
-	#name : #GtPhlowTitleLabelBuilderExamples,
-	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Tool - Title Examples'
+	#name : 'GtPhlowTitleLabelBuilderExamples',
+	#superclass : 'Object',
+	#category : 'GToolkit-Phlow-Tool - Title Examples'
 }

@@ -8,14 +8,14 @@ The following example shows a sidebar with a default empty content (that I gener
 
 "
 Class {
-	#name : #GtPhlowSidebarEmptyContentStencil,
-	#superclass : #BrStencil,
+	#name : 'GtPhlowSidebarEmptyContentStencil',
+	#superclass : 'BrStencil',
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
-{ #category : #'api - instantiation' }
+{ #category : 'api - instantiation' }
 GtPhlowSidebarEmptyContentStencil >> create [
 	<return: #Object>
 

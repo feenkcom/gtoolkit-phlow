@@ -5,8 +5,8 @@ I add basic support for update definitions that listen to {{gtClass:SystemAnnoun
 
 "
 Class {
-	#name : #GtPhlowSystemChangeUpdateDefinition,
-	#superclass : #GtPhlowUpdateDefinition,
+	#name : 'GtPhlowSystemChangeUpdateDefinition',
+	#superclass : 'GtPhlowUpdateDefinition',
 	#instVars : [
 		'mutexContexts',
 		'contexts',
@@ -14,59 +14,59 @@ Class {
 		'isSubscribedToSystem',
 		'view'
 	],
-	#category : #'GToolkit-Phlow-Updating'
+	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowSystemChangeUpdateDefinition class >> isAbstract [
 	^ self name = #GtPhlowSystemChangeUpdateDefinition 
 ]
 
-{ #category : #'adding/removing' }
+{ #category : 'adding/removing' }
 GtPhlowSystemChangeUpdateDefinition >> addContext: aGtPhlowElementContext [
 	mutexContexts critical: [ 
 		self contexts: (self contexts copyWith: aGtPhlowElementContext) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSystemChangeUpdateDefinition >> contexts [
 	^ mutexContexts critical: [ contexts ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSystemChangeUpdateDefinition >> contexts: anArray [
 	mutexContexts critical: [ contexts := anArray ]
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtPhlowSystemChangeUpdateDefinition >> defaultContexts [
 	^ Array empty
 ]
 
-{ #category : #'api - view' }
+{ #category : 'api - view' }
 GtPhlowSystemChangeUpdateDefinition >> definingMethod [
 	<return: #RGMethodDefinition>
 	^ self view definingMethod
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowSystemChangeUpdateDefinition >> hasContexts [
 	<return: #Boolean>
 	^ self contexts isEmptyOrNil not
 ]
 
-{ #category : #'api - view' }
+{ #category : 'api - view' }
 GtPhlowSystemChangeUpdateDefinition >> hasDefiningMethod [
 	<return: #Boolean>
 	^ self definingMethod isNotNil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowSystemChangeUpdateDefinition >> ifItDoesNotHaveContextsDo: aBlock [
 	self hasContexts ifFalse: aBlock
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowSystemChangeUpdateDefinition >> initialize [
 	super initialize.
 	mutexSubscription := Mutex new.
@@ -75,19 +75,19 @@ GtPhlowSystemChangeUpdateDefinition >> initialize [
 	contexts := self defaultContexts.
 ]
 
-{ #category : #'api - initialization' }
+{ #category : 'api - initialization' }
 GtPhlowSystemChangeUpdateDefinition >> on: aView [
 	super on: aView.
 	self view: aView.
 ]
 
-{ #category : #'adding/removing' }
+{ #category : 'adding/removing' }
 GtPhlowSystemChangeUpdateDefinition >> removeContext: aGtPhlowElementContext [
 	mutexContexts critical: [ 
 		self contexts: (self contexts copyWithout: aGtPhlowElementContext) ]
 ]
 
-{ #category : #schedulling }
+{ #category : 'schedulling' }
 GtPhlowSystemChangeUpdateDefinition >> scheduleTask: aTask [
 	| aCommand |
 	aCommand := BlTaskAtPostponedTerminableTask new
@@ -98,7 +98,7 @@ GtPhlowSystemChangeUpdateDefinition >> scheduleTask: aTask [
 	BlTaskAtQueue default schedule: aCommand
 ]
 
-{ #category : #subscriptions }
+{ #category : 'subscriptions' }
 GtPhlowSystemChangeUpdateDefinition >> setSubscribedIfAlreadySubscribedDo: aBlock [
 	| wantEvaluateBlock |
 	wantEvaluateBlock := false.
@@ -109,7 +109,7 @@ GtPhlowSystemChangeUpdateDefinition >> setSubscribedIfAlreadySubscribedDo: aBloc
 	wantEvaluateBlock ifTrue: [ aBlock ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtPhlowSystemChangeUpdateDefinition >> subscribeAnnouncement: anAnnouncement send: aMethodSelector subscriber: aGtPhlowElementContext [
 	| anAction aSubscription |
 	anAction := WeakMessageSend receiver: self selector: aMethodSelector.
@@ -122,7 +122,7 @@ GtPhlowSystemChangeUpdateDefinition >> subscribeAnnouncement: anAnnouncement sen
 	
 ]
 
-{ #category : #subscriptions }
+{ #category : 'subscriptions' }
 GtPhlowSystemChangeUpdateDefinition >> unsubscribeOn: aGtPhlowElementContext [
 	mutexContexts critical: [ 
 		self removeContext: aGtPhlowElementContext.
@@ -134,13 +134,13 @@ GtPhlowSystemChangeUpdateDefinition >> unsubscribeOn: aGtPhlowElementContext [
 	]
 ]
 
-{ #category : #'api - view' }
+{ #category : 'api - view' }
 GtPhlowSystemChangeUpdateDefinition >> view [
 	<return: #GtPhlowView>
 	^ view
 ]
 
-{ #category : #'api - view' }
+{ #category : 'api - view' }
 GtPhlowSystemChangeUpdateDefinition >> view: aGtPhlowView [
 	self
 		assert: [ aGtPhlowView isNotNil ]

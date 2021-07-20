@@ -23,37 +23,37 @@ See my {{gtClass:GtPhlowSidebarContentOffset|expanded|show=#gtSubclassesFor:}} f
 
 "
 Class {
-	#name : #GtPhlowSidebarContentOffset,
-	#superclass : #Object,
+	#name : 'GtPhlowSidebarContentOffset',
+	#superclass : 'Object',
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
 	#instVars : [
 		'length'
 	],
-	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
-{ #category : #factory }
+{ #category : 'factory' }
 GtPhlowSidebarContentOffset class >> bottom: anInteger [
 	^ GtPhlowSidebarContentBottomOffset new length: anInteger
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 GtPhlowSidebarContentOffset class >> left: anInteger [
 	^ GtPhlowSidebarContentLeftOffset new length: anInteger
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 GtPhlowSidebarContentOffset class >> right: anInteger [
 	^ GtPhlowSidebarContentRightOffset new length: anInteger
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 GtPhlowSidebarContentOffset class >> top: anInteger [
 	^ GtPhlowSidebarContentTopOffset new length: anInteger
 ]
 
-{ #category : #'private - asserting' }
+{ #category : 'private - asserting' }
 GtPhlowSidebarContentOffset >> assertLength: anInteger [
 	self 
 		assert: [ anInteger isNotNil ] 
@@ -64,7 +64,7 @@ GtPhlowSidebarContentOffset >> assertLength: anInteger [
 	
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowSidebarContentOffset >> length [
 	"Return the distance between a sidebar border and its content.
 	The distance is considered only on the side with the sidebar resizer."
@@ -72,7 +72,7 @@ GtPhlowSidebarContentOffset >> length [
 	^ length
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowSidebarContentOffset >> length: anInteger [
 	"Set the distance between a sidebar border and its content.
 	The distance is considered only on the side with the sidebar resizer."
@@ -80,7 +80,7 @@ GtPhlowSidebarContentOffset >> length: anInteger [
 	length := anInteger
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowSidebarContentOffset >> margin [
 	"Return insets that is add to a content element margin with the purpose 
 	to create an offset (margin) between the sidebar content and the sidebar resizer."
@@ -88,7 +88,7 @@ GtPhlowSidebarContentOffset >> margin [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowSidebarContentOffset >> marginExtra: anExtraLength [
 	"Return insets that is add to a content element margin with the purpose 
 	to create an offset (margin) between the sidebar content and the sidebar resizer.
@@ -98,12 +98,12 @@ GtPhlowSidebarContentOffset >> marginExtra: anExtraLength [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowSidebarContentOffset >> name [
 	^ self asString
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtPhlowSidebarContentOffset >> printOn: aStream [
 	aStream
 		nextPutAll: self name;

@@ -1,10 +1,10 @@
 Class {
-	#name : #GtPhlowViewsCollectorExamples,
-	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Examples'
+	#name : 'GtPhlowViewsCollectorExamples',
+	#superclass : 'Object',
+	#category : 'GToolkit-Phlow-Examples'
 }
 
-{ #category : #'examples - views' }
+{ #category : 'examples - views' }
 GtPhlowViewsCollectorExamples >> collectOverridingPragmas [
 	<gtExample>
 	| anObject thePragmas |
@@ -19,7 +19,7 @@ GtPhlowViewsCollectorExamples >> collectOverridingPragmas [
 	^ thePragmas
 ]
 
-{ #category : #'examples - views' }
+{ #category : 'examples - views' }
 GtPhlowViewsCollectorExamples >> collectOverridingViews [
 	<gtExample>
 	| anObject theViews |

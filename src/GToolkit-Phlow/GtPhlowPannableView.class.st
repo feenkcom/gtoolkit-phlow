@@ -1,14 +1,14 @@
 Class {
-	#name : #GtPhlowPannableView,
-	#superclass : #GtPhlowViewDecorator,
+	#name : 'GtPhlowPannableView',
+	#superclass : 'GtPhlowViewDecorator',
 	#instVars : [
 		'stencilBuilder',
 		'element'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowPannableView >> asElementDo: aBlock [
 	self assert: stencilBuilder notNil description: 'The stencil should be initialized'.
 	element := [ stencilBuilder asElement asPannableElement ] 
@@ -20,7 +20,7 @@ GtPhlowPannableView >> asElementDo: aBlock [
 	^ aBlock value: element.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowPannableView >> initialize [
 	super initialize.
 	self actionStencil: [ 
@@ -45,12 +45,12 @@ GtPhlowPannableView >> initialize [
 			action: [ element zoomToActualSize ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowPannableView >> stencil: aStencilBuilder [
 	stencilBuilder := aStencilBuilder asStencilBuilder
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowPannableView >> stencilBuilder [
 	^ stencilBuilder
 ]

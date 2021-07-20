@@ -4,12 +4,12 @@ I exemplify {{gtClass:GtPhlowUpdateCompositeSubViewTitleAndPosition}}.
 
 "
 Class {
-	#name : #GtPhlowUpdateCompositeSubViewTitleAndPositionExamples,
-	#superclass : #GtPhlowUpdateCommandExamples,
-	#category : #'GToolkit-Phlow-Examples'
+	#name : 'GtPhlowUpdateCompositeSubViewTitleAndPositionExamples',
+	#superclass : 'GtPhlowUpdateCommandExamples',
+	#category : 'GToolkit-Phlow-Examples'
 }
 
-{ #category : #'examples - commands' }
+{ #category : 'examples - commands' }
 GtPhlowUpdateCompositeSubViewTitleAndPositionExamples >> basicCommand [
 	<gtExample>
 	| aCommand anElement |
@@ -22,7 +22,7 @@ GtPhlowUpdateCompositeSubViewTitleAndPositionExamples >> basicCommand [
 	^ aCommand
 ]
 
-{ #category : #'examples - comparison' }
+{ #category : 'examples - comparison' }
 GtPhlowUpdateCompositeSubViewTitleAndPositionExamples >> differentEntryIdentifiers [
 	<gtExample>
 	| aCommandOne aCommandTwo |
@@ -32,7 +32,7 @@ GtPhlowUpdateCompositeSubViewTitleAndPositionExamples >> differentEntryIdentifie
 	^ aCommandOne
 ]
 
-{ #category : #'examples - comparison' }
+{ #category : 'examples - comparison' }
 GtPhlowUpdateCompositeSubViewTitleAndPositionExamples >> differentEntryIdentifiers_SameContext_DifferentSubView [
 	<gtExample>
 	| aCommandOne aCommandTwo |
@@ -44,7 +44,7 @@ GtPhlowUpdateCompositeSubViewTitleAndPositionExamples >> differentEntryIdentifie
 	^ aCommandOne
 ]
 
-{ #category : #'examples - commands' }
+{ #category : 'examples - commands' }
 GtPhlowUpdateCompositeSubViewTitleAndPositionExamples >> emptyCommand [
 	<gtExample>
 	| aCommand |
@@ -54,7 +54,7 @@ GtPhlowUpdateCompositeSubViewTitleAndPositionExamples >> emptyCommand [
 	^ aCommand
 ]
 
-{ #category : #'examples - comparison' }
+{ #category : 'examples - comparison' }
 GtPhlowUpdateCompositeSubViewTitleAndPositionExamples >> sameEntryIdentifiers [
 	<gtExample>
 	| aCommandOne aCommandTwo |

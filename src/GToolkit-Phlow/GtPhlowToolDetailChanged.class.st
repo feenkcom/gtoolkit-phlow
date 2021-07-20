@@ -6,15 +6,15 @@ See {{gtClass:GtPhlowToolAbstractDetailModel}} for more details.
 
 "
 Class {
-	#name : #GtPhlowToolDetailChanged,
-	#superclass : #BrStateChangedEvent,
+	#name : 'GtPhlowToolDetailChanged',
+	#superclass : 'BrStateChangedEvent',
 	#instVars : [
 		'level'
 	],
-	#category : #'GToolkit-Phlow-Tool - Events'
+	#category : 'GToolkit-Phlow-Tool - Events'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowToolDetailChanged >> dimension [
 	<return: #Symbol>
 	self 
@@ -23,7 +23,7 @@ GtPhlowToolDetailChanged >> dimension [
 	^ self level
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowToolDetailChanged >> dimension: aSymbol [
 
 	self 
@@ -32,37 +32,37 @@ GtPhlowToolDetailChanged >> dimension: aSymbol [
 	self level: aSymbol
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowToolDetailChanged >> initialize [
 	super initialize.
 	
 	level := GtPhlowToolDetailState undefinedName.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowToolDetailChanged >> isUndefined [
 	^ self level = GtPhlowToolDetailState undefinedName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowToolDetailChanged >> level [
 	<return: #Symbol>
 	^ level
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowToolDetailChanged >> level: aSymbol [
 	level := aSymbol.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtPhlowToolDetailChanged >> printOn: aStream [
 	aStream
 		nextPutAll: 'Tool Volume Changed: ';
 		print: self dimension
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowToolDetailChanged >> state: anObject [
 	"Override me to properly set the given state"
 

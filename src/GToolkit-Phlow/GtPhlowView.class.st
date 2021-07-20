@@ -8,8 +8,8 @@ See {{gtClass:GtPhlowViewExamples}}.
 
 "
 Class {
-	#name : #GtPhlowView,
-	#superclass : #GtPhlowProtoView,
+	#name : 'GtPhlowView',
+	#superclass : 'GtPhlowProtoView',
 	#traits : 'TGtPhlowViewTooltipBuilder',
 	#classTraits : 'TGtPhlowViewTooltipBuilder classTrait',
 	#instVars : [
@@ -21,21 +21,21 @@ Class {
 		'asyncEnabled',
 		'buildContext'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowView class >> empty [
 	^ GtPhlowEmptyView new
 		definingMethod: thisContext stack second method asRingDefinition
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowView class >> isAbstract [
 	^ self name = #GtPhlowView 
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> action: anOneArgBlock [
 	| newPhlowAction |
 	newPhlowAction := anOneArgBlock value: GtPhlowAction noAction.
@@ -44,13 +44,13 @@ GtPhlowView >> action: anOneArgBlock [
 	self addPhlowAction: newPhlowAction.
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionButtonDo: aBlock [
 	self action: [ :aPhlowAction | 
 		aBlock cull: aPhlowAction button ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionButtonIcon: anIcon action: aValuable [
 	self actionButtonDo: [ :aButtonAction | 
 		aButtonAction
@@ -58,7 +58,7 @@ GtPhlowView >> actionButtonIcon: anIcon action: aValuable [
 			action: aValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionButtonIcon: anIcon label: aStringOrRope action: aValuable [
 	self actionButtonDo: [ :aButtonAction | 
 		aButtonAction
@@ -67,7 +67,7 @@ GtPhlowView >> actionButtonIcon: anIcon label: aStringOrRope action: aValuable [
 			action: aValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionButtonIcon: anIcon label: aStringOrRope tooltip: aTooltipText action: aValuable [
 	self actionButtonDo: [ :aButtonAction | 
 		aButtonAction
@@ -77,7 +77,7 @@ GtPhlowView >> actionButtonIcon: anIcon label: aStringOrRope tooltip: aTooltipTe
 			action: aValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionButtonIcon: anIcon tooltip: aTooltipText action: aValuable [
 	self actionButtonDo: [ :aButtonAction | 
 		aButtonAction
@@ -86,7 +86,7 @@ GtPhlowView >> actionButtonIcon: anIcon tooltip: aTooltipText action: aValuable 
 			action: aValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionButtonLabel: aString action: aValuable [
 	self actionButtonDo: [ :aButtonAction | 
 		aButtonAction
@@ -94,7 +94,7 @@ GtPhlowView >> actionButtonLabel: aString action: aValuable [
 			action: aValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionButtonLabel: aString tooltip: aTooltipText action: aValuable [
 	self actionButtonDo: [ :aButtonAction | 
 		aButtonAction
@@ -103,13 +103,13 @@ GtPhlowView >> actionButtonLabel: aString tooltip: aTooltipText action: aValuabl
 			action: aValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionDropdownButtonDo: aBlock [
 	self action: [ :aPhlowAction | 
 		aBlock cull: aPhlowAction dropdown ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionDropdownButtonIcon: anIcon content: aValuable [
 	self actionDropdownButtonDo: [ :aDrodownAction | 
 		aDrodownAction dropdown 
@@ -117,7 +117,7 @@ GtPhlowView >> actionDropdownButtonIcon: anIcon content: aValuable [
 			content: aValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionDropdownButtonIcon: anIcon label: aStringOrRope content: aValuable [
 	self actionDropdownButtonDo: [ :aDrodownAction | 
 		aDrodownAction dropdown 
@@ -126,7 +126,7 @@ GtPhlowView >> actionDropdownButtonIcon: anIcon label: aStringOrRope content: aV
 			content: aValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionDropdownButtonIcon: anIcon label: aStringOrRope tooltip: aTooltipText content: aValuable [
 	self actionDropdownButtonDo: [ :aDrodownAction | 
 		aDrodownAction dropdown 
@@ -136,7 +136,7 @@ GtPhlowView >> actionDropdownButtonIcon: anIcon label: aStringOrRope tooltip: aT
 			content: aValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionDropdownButtonIcon: anIcon tooltip: aTooltipText content: aValuable [
 	self actionDropdownButtonDo: [ :aDrodownAction | 
 		aDrodownAction dropdown 
@@ -145,7 +145,7 @@ GtPhlowView >> actionDropdownButtonIcon: anIcon tooltip: aTooltipText content: a
 			content: aValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionDropdownButtonLabel: aStringOrRope content: aValuable [
 	self actionDropdownButtonDo: [ :aDrodownAction | 
 		aDrodownAction dropdown 
@@ -153,7 +153,7 @@ GtPhlowView >> actionDropdownButtonLabel: aStringOrRope content: aValuable [
 			content: aValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionDropdownButtonLabel: aStringOrRope tooltip: aTooltipText content: aValuable [
 	self actionDropdownButtonDo: [ :aDrodownAction | 
 		aDrodownAction dropdown 
@@ -162,13 +162,13 @@ GtPhlowView >> actionDropdownButtonLabel: aStringOrRope tooltip: aTooltipText co
 			content: aValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionStencil: anActionStencil [
 	self actionStencilDo: [ :anExplicit | 
 		anExplicit stencil: anActionStencil ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionStencil: anActionStencil tooltip: aTooltipText [
 	self actionStencilDo: [ :anExplicit | 
 		anExplicit 
@@ -176,19 +176,19 @@ GtPhlowView >> actionStencil: anActionStencil tooltip: aTooltipText [
 			tooltip: aTooltipText ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionStencilDo: aBlock [
 	self action: [ :aPhlowAction | 
 		aBlock cull: aPhlowAction explicit ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionToggleDo: aBlock [
 	self action: [ :aPhlowAction | 
 		aBlock cull: aPhlowAction toggle ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionToggleIcon: anIcon activated: anActivatedValuable deactivated: aDeactivatedValuable [
 	self actionToggleDo: [ :aToggleAction |
 		aToggleAction 
@@ -197,7 +197,7 @@ GtPhlowView >> actionToggleIcon: anIcon activated: anActivatedValuable deactivat
 			deactivatedAction: aDeactivatedValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionToggleIcon: anIcon label: aStringOrRope activated: anActivatedValuable deactivated: aDeactivatedValuable [
 	self actionToggleDo: [ :aToggleAction |
 		aToggleAction 
@@ -207,7 +207,7 @@ GtPhlowView >> actionToggleIcon: anIcon label: aStringOrRope activated: anActiva
 			deactivatedAction: aDeactivatedValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionToggleIcon: anIcon label: aStringOrRope tooltip: aTooltipText activated: anActivatedValuable deactivated: aDeactivatedValuable [
 	self actionToggleDo: [ :aToggleAction |
 		aToggleAction 
@@ -218,7 +218,7 @@ GtPhlowView >> actionToggleIcon: anIcon label: aStringOrRope tooltip: aTooltipTe
 			deactivatedAction: aDeactivatedValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionToggleIcon: anIcon tooltip: aTooltipText activated: anActivatedValuable deactivated: aDeactivatedValuable [
 	self actionToggleDo: [ :aToggleAction |
 		aToggleAction 
@@ -228,7 +228,7 @@ GtPhlowView >> actionToggleIcon: anIcon tooltip: aTooltipText activated: anActiv
 			deactivatedAction: aDeactivatedValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionToggleLabel: aStringOrRope activated: anActivatedValuable deactivated: aDeactivatedValuable [
 	self actionToggleDo: [ :aToggleAction |
 		aToggleAction 
@@ -237,7 +237,7 @@ GtPhlowView >> actionToggleLabel: aStringOrRope activated: anActivatedValuable d
 			deactivatedAction: aDeactivatedValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionToggleLabel: aStringOrRope tooltip: aTooltipText activated: anActivatedValuable deactivated: aDeactivatedValuable [
 	self actionToggleDo: [ :aToggleAction |
 		aToggleAction 
@@ -247,12 +247,12 @@ GtPhlowView >> actionToggleLabel: aStringOrRope tooltip: aTooltipText activated:
 			deactivatedAction: aDeactivatedValuable ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionUpdateButton [
 	self actionUpdateButtonTooltip: 'Update'
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionUpdateButtonIcon: anIcon tooltip: aTooltip [
 	self 
 		actionButtonIcon: anIcon
@@ -260,20 +260,20 @@ GtPhlowView >> actionUpdateButtonIcon: anIcon tooltip: aTooltip [
 		action: [ :aButton :aTab | aTab viewContentElement phlow update ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionUpdateButtonTooltip: aTooltip [
 	self 
 		actionUpdateButtonIcon: BrGlamorousVectorIcons refresh 
 		tooltip: aTooltip
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowView >> actions [
 	<return: #OrderedCollection of: #GtPhlowAction>
 	^ phlowActions
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> actionsToolbarForElement: anElement [
 	| aToolbar |
 
@@ -289,18 +289,18 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 	 ^ aToolbar
 ]
 
-{ #category : #'adding - update definitions' }
+{ #category : 'adding - update definitions' }
 GtPhlowView >> addAutoUpdate: aGtPhlowUpdateDefinition [
 	self autoUpdates add: (aGtPhlowUpdateDefinition on: self)
 ]
 
-{ #category : #'adding - update definitions' }
+{ #category : 'adding - update definitions' }
 GtPhlowView >> addAutoUpdates: aCollectionOOfGtPhlowUpdateDefinition [
 	aCollectionOOfGtPhlowUpdateDefinition do: [ :eachDefinition | 
 		self addAutoUpdate: eachDefinition ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> addPhlowAction: aPhlowAction [
 	phlowActions add: aPhlowAction.
 	phlowActions sort: [ :a :b | 
@@ -309,13 +309,13 @@ GtPhlowView >> addPhlowAction: aPhlowAction [
 			do: [ :error | true ] ].
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> addPhlowActions: aCollectionOfPhlowActions [
 	aCollectionOfPhlowActions do: [ :eachPhlowAction | 
 		self addPhlowAction: eachPhlowAction ]
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> addUpdateButton [
 	self
 		deprecated: 'Please use actionUpdateButton method instead.'
@@ -325,7 +325,7 @@ GtPhlowView >> addUpdateButton [
 	^ self actionUpdateButton
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> addUpdateButtonIcon: anIcon tooltip: aTooltip [
 	self
 		deprecated: 'Please use actionUpdateButtonIcon:tooltip: method instead.'
@@ -335,7 +335,7 @@ GtPhlowView >> addUpdateButtonIcon: anIcon tooltip: aTooltip [
 	^ self actionUpdateButtonIcon: anIcon tooltip: aTooltip
 ]
 
-{ #category : #'adding - actions' }
+{ #category : 'adding - actions' }
 GtPhlowView >> addUpdateButtonTooltip: aTooltip [
 	self
 		deprecated: 'Please use actionUpdateButtonTooltip: method instead.'
@@ -345,7 +345,7 @@ GtPhlowView >> addUpdateButtonTooltip: aTooltip [
 	^ self actionUpdateButtonTooltip: aTooltip
 ]
 
-{ #category : #'accessing - computed' }
+{ #category : 'accessing - computed' }
 GtPhlowView >> allActions [
 	"I return all actions that belong to a view.
 	It may include actions of a other views in some cases"
@@ -353,7 +353,7 @@ GtPhlowView >> allActions [
 	^ self actions
 ]
 
-{ #category : #'accessing - computed' }
+{ #category : 'accessing - computed' }
 GtPhlowView >> allDefiningMethods [
 	"I return an object that understands #gtSourceFor:.
 	I return all methods that are involved in a view definition."
@@ -361,67 +361,67 @@ GtPhlowView >> allDefiningMethods [
 	^ self definingMethod
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtPhlowView >> asTaskItView [
 	^ asyncEnabled
 		ifTrue: [ super asTaskItView ]
 		ifFalse: [ self ]
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtPhlowView >> autoUpdates [
 	<return: #GtPhlowUpdateDefinitions>
 	^ autoUpdates
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtPhlowView >> basicReplaceOldElement: anOldElement by: aNewElement in: aParent [
 	anOldElement parent == aParent ifTrue: [
 		aParent replaceChild: anOldElement with: aNewElement ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowView >> buildContext [
 	<return: #GtPhlowBuildContext>
 	^ buildContext
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowView >> buildContext: aGtPhlowBuildContext [
 	buildContext := aGtPhlowBuildContext
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtPhlowView >> defaultAutoUpdates [
 	^ GtPhlowUpdateDefinitions new
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtPhlowView >> defaultBuildContext [
 	^ GtPhlowBuildContext null
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtPhlowView >> defaultTitle [
 	^ 'View'
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtPhlowView >> defaultUpdateDefinitions [
 	^ { GtPhlowUpdateViewOnDefiningMethodChange }
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowView >> definingMethod [
 	^ definingMethod
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowView >> definingMethod: anObject [
 	definingMethod := anObject
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 	| aNilOrClassName |
 	aNilOrClassName := anObject class whichClassIncludesSelector: aMessageSymbol.
@@ -434,26 +434,26 @@ GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
 ]
 
-{ #category : #'api - async ui building' }
+{ #category : 'api - async ui building' }
 GtPhlowView >> disableAsync [
 	"Disable element creation in background (while calling ${method:GtPhlowProtoView>>#asElementDo:}$)"
 	asyncEnabled := false.
 ]
 
-{ #category : #'api - async ui building' }
+{ #category : 'api - async ui building' }
 GtPhlowView >> enableAsync [
 	"Enable element creation in background (while calling ${method:GtPhlowProtoView>>#asElementDo:}$)"
 	asyncEnabled := true.
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtPhlowView >> enqueueAction: aBlock in: anElement [
 	BlUseAsyncFeatures 
 		ifEnabledDo: [ anElement enqueueTask: (BlTaskAction new action: aBlock) ] 
 		otherwise: aBlock
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowView >> gtActionsFor: aView [
 	<gtView>
 	self actions ifEmpty: [ ^ self ].
@@ -467,18 +467,18 @@ GtPhlowView >> gtActionsFor: aView [
 			text: [ :aMethodDefinition | aMethodDefinition selector ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowView >> hasExplicitTitle [
 	<return: #Boolean>
 	^ self title isNotNil and: [ self title ~= self defaultTitle ]
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtPhlowView >> ifItHasContent: aBlock [
 	^ aBlock value
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowView >> initialize [
 	super initialize.
 	phlowActions := OrderedCollection new.
@@ -491,29 +491,29 @@ GtPhlowView >> initialize [
 	self initializeDefaultUpdateDefinitions.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowView >> initializeDefaultUpdateDefinitions [
 	self addAutoUpdates: self defaultUpdateDefinitions
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowView >> isAsyncEnabled [
 	^ asyncEnabled
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowView >> methodSelector [
 	^ self definingMethod selector
 ]
 
-{ #category : #'message performing' }
+{ #category : 'message performing' }
 GtPhlowView >> on: anObject perform: aMessageSymbol [
 	<return: #GtPhlowView>
 	<gtCollector>
 	^ self on: anObject perform: aMessageSymbol withArguments: { self }
 ]
 
-{ #category : #'message performing' }
+{ #category : 'message performing' }
 GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOfArguments [
 	<return: #GtPhlowView>
 	<gtCollector>
@@ -544,14 +544,14 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOf
 				andSelector: aMessageSymbol ]
 ]
 
-{ #category : #'message performing' }
+{ #category : 'message performing' }
 GtPhlowView >> on: anObject perform: aMessageSymbol withContext: aContext [
 	<return: #GtPhlowView>
 	<gtCollector>
 	^ self on: anObject perform: aMessageSymbol withSomeArguments: { self. aContext }
 ]
 
-{ #category : #'message performing' }
+{ #category : 'message performing' }
 GtPhlowView >> on: anObject perform: aMessageSymbol withSomeArguments: aCollectionOfArguments [
 	<return: #GtPhlowView>
 	<gtCollector>
@@ -562,12 +562,12 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withSomeArguments: aCollecti
 	^ self on: anObject perform: aMessageSymbol withArguments: aNewCollectionOfArguments
 ]
 
-{ #category : #'accessing - computed' }
+{ #category : 'accessing - computed' }
 GtPhlowView >> originMethodsInto: aStream [
 	self definingMethod gtOriginMethodsInto: aStream
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 GtPhlowView >> performBlock: aBlock [
 	<return: #BlElement>
 	^ self 
@@ -575,12 +575,12 @@ GtPhlowView >> performBlock: aBlock [
 		onException: [ :anException | anException asDebuggableElement ].
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 GtPhlowView >> performBlock: aBlock onException: anExceptionBlock [
 	^ aBlock on: Error do: anExceptionBlock.
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 GtPhlowView >> performBlock: aPerformBlock onExceptionErrorElement: anExceptionBlock [
 	^ self 
 		performBlock: aPerformBlock 
@@ -591,7 +591,7 @@ GtPhlowView >> performBlock: aPerformBlock onExceptionErrorElement: anExceptionB
 			anExceptionBlock value: anElement ]
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 GtPhlowView >> phlowErrorViewWithException: anException [
 	| aTitle |
 	anException freeze.
@@ -604,7 +604,7 @@ GtPhlowView >> phlowErrorViewWithException: anException [
 		error: anException
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 GtPhlowView >> phlowErrorViewWithException: anException forBuildContext: aContext andSelector: aMessageSymbol [
 	| aDefiningMethod aPhlow | 
 	aDefiningMethod := self definingMethodForObject: aContext object andSelector: aMessageSymbol. 
@@ -614,17 +614,17 @@ GtPhlowView >> phlowErrorViewWithException: anException forBuildContext: aContex
 	^ aPhlow
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowView >> priority [
 	^ priority
 ]
 
-{ #category : #'api - scripting' }
+{ #category : 'api - scripting' }
 GtPhlowView >> priority: anObject [
 	priority := anObject
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtPhlowView >> replaceOldElement: anOldElement by: aNewElement in: aParent [
 	anOldElement phlow isViewContent ifTrue: [ 
 		aNewElement phlow beViewContent ].
@@ -633,12 +633,12 @@ GtPhlowView >> replaceOldElement: anOldElement by: aNewElement in: aParent [
 		in: aParent.
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtPhlowView >> subscribeAutoUpdatesOn: aGtPhlowElementContext [
 	self autoUpdates subscribeAutoUpdatesOn: aGtPhlowElementContext.
 ]
 
-{ #category : #'private - elements' }
+{ #category : 'private - elements' }
 GtPhlowView >> subscribeToElement: anElement [
 	super subscribeToElement: anElement.
 	anElement
@@ -648,22 +648,22 @@ GtPhlowView >> subscribeToElement: anElement [
 			do: [ :anEvent | self unsubscribeAutoUpdatesOn: anEvent currentTarget phlow ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowView >> title [
 	^ title
 ]
 
-{ #category : #'api - scripting' }
+{ #category : 'api - scripting' }
 GtPhlowView >> title: aString [ 
 	title := aString
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtPhlowView >> unsubscribeAutoUpdatesOn: aGtPhlowElementContext [
 	self autoUpdates unsubscribeAutoUpdatesOn: aGtPhlowElementContext.
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtPhlowView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 	
@@ -674,14 +674,14 @@ GtPhlowView >> updateContent: aCurrentElement [
 			self replaceOldElement: aCurrentElement by: aNewElement in: aParent. ] ].
 ]
 
-{ #category : #'adding - update definitions' }
+{ #category : 'adding - update definitions' }
 GtPhlowView >> updateWhen: anAnnouncement if: anIfCondition in: anAnnouncer [
 	"anIfCondition is an object (block) that understands the #cull:cull: message.
 	It is called as anIfCondition cull: aReceivedAnnouncement cull: aGtPhlowElementContext"
 	self autoUpdates asyncWhen: anAnnouncement if: anIfCondition in: anAnnouncer
 ]
 
-{ #category : #'adding - update definitions' }
+{ #category : 'adding - update definitions' }
 GtPhlowView >> updateWhen: anAnnouncement in: anAnnouncer [
 	self autoUpdates asyncWhen: anAnnouncement in: anAnnouncer
 ]

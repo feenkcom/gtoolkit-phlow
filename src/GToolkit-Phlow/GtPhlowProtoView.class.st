@@ -4,45 +4,45 @@ I define a common API that should be implemented by all Phlow views.
 
 "
 Class {
-	#name : #GtPhlowProtoView,
-	#superclass : #Object,
+	#name : 'GtPhlowProtoView',
+	#superclass : 'Object',
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
 	#classVars : [
 		'IsTaskItViewGloballyEnabled'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : #setup }
+{ #category : 'setup' }
 GtPhlowProtoView class >> disableTaskItViews [
 	<script>
 	IsTaskItViewGloballyEnabled := false.
 ]
 
-{ #category : #setup }
+{ #category : 'setup' }
 GtPhlowProtoView class >> enableTaskItViews [
 	<script>
 	IsTaskItViewGloballyEnabled := true.
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtPhlowProtoView class >> initialize [
 	IsTaskItViewGloballyEnabled := true.
 ]
 
-{ #category : #'api - converting' }
+{ #category : 'api - converting' }
 GtPhlowProtoView >> asElement [
 	^ self asElementDo: [ :anElement | anElement ]
 ]
 
-{ #category : #'api - converting' }
+{ #category : 'api - converting' }
 GtPhlowProtoView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 	self subclassResponsibility
 ]
 
-{ #category : #'api - converting' }
+{ #category : 'api - converting' }
 GtPhlowProtoView >> asTaskItView [
 	^ self isTaskItViewGloballyEnabled
 		ifTrue: [
@@ -52,12 +52,12 @@ GtPhlowProtoView >> asTaskItView [
 		ifFalse: [ self ]
 ]
 
-{ #category : #'private - elements' }
+{ #category : 'private - elements' }
 GtPhlowProtoView >> assignMeAsEntityFor: anElement [
 	anElement phlow entity: self.
 ]
 
-{ #category : #'private - elements' }
+{ #category : 'private - elements' }
 GtPhlowProtoView >> beViewElement: anElement [
 	"Set up a given element to play a role of the root element for a phlow view.
 	The given element is marked as a view and its phlow entity is set to me.
@@ -68,18 +68,18 @@ GtPhlowProtoView >> beViewElement: anElement [
 	self assignMeAsEntityFor: anElement.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowProtoView >> buildContext [
 	<return: #GtPhlowBuildContext>
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowProtoView >> buildContext: aGtPhlowBuildContext [
 	self subclassResponsibility
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowProtoView >> columnedList [
 	^ GtPhlowColumnedListView new
 		originalView: self;
@@ -88,7 +88,7 @@ GtPhlowProtoView >> columnedList [
 			collect)
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowProtoView >> columnedTree [
 	^ GtPhlowColumnedTreeView new
 		originalView: self;
@@ -97,7 +97,7 @@ GtPhlowProtoView >> columnedTree [
 			collect)
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowProtoView >> composite [
 	^ GtPhlowCompositeView new
 		originalView: self;
@@ -106,17 +106,17 @@ GtPhlowProtoView >> composite [
 			collect)
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 GtPhlowProtoView >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
 
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 GtPhlowProtoView >> copyTransformationFrom: aSendBlock [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowProtoView >> definingMethod [
 	"Get view defining method.
 	It is a method where a view is defined."
@@ -124,21 +124,21 @@ GtPhlowProtoView >> definingMethod [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowProtoView >> definingMethod: aRGMethodDefinition [
 	"Set view defining method.
 	It is a method where a view is defined."
 	^ self subclassResponsibility
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowProtoView >> empty [
 	^ GtPhlowEmptyView new
 		originalView: self;
 		definingMethod: thisContext stack second method asRingDefinition
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowProtoView >> explicit [
 	^ GtPhlowExplicitView new 
 		originalView: self;
@@ -147,7 +147,7 @@ GtPhlowProtoView >> explicit [
 			collect)
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowProtoView >> forward [
 	^ GtPhlowForwarderView new 
 		originalView: self;
@@ -156,7 +156,7 @@ GtPhlowProtoView >> forward [
 			collect)
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtPhlowProtoView >> gtDefiningMethodFor: aView [
 	<gtView>
 	self definingMethod ifNil: [ ^ aView empty ].
@@ -164,7 +164,7 @@ GtPhlowProtoView >> gtDefiningMethodFor: aView [
 			priority: 2
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtPhlowProtoView >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit
@@ -184,22 +184,22 @@ GtPhlowProtoView >> gtLiveFor: aView [
 			aContainer ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowProtoView >> hasBuildContext [
 	^ self buildContext isBuildContext
 ]
 
-{ #category : #'api - converting' }
+{ #category : 'api - converting' }
 GtPhlowProtoView >> ifItHasContent: aBlock [
 	^ self subclassResponsibility
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowProtoView >> isTaskItViewGloballyEnabled [
 	^ IsTaskItViewGloballyEnabled ifNil: [ true ]
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowProtoView >> labelled [
 	^ GtPhlowLabelledView new 
 		originalView: self;
@@ -208,7 +208,7 @@ GtPhlowProtoView >> labelled [
 			collect)
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowProtoView >> labelled: aStringOrText [
 	^ self labelled 
 		label: aStringOrText;
@@ -217,7 +217,16 @@ GtPhlowProtoView >> labelled: aStringOrText [
 			collect)
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
+GtPhlowProtoView >> lazyList [
+	^ GtPhlowRemoteListView new
+		originalView: self;
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
+]
+
+{ #category : 'decorating' }
 GtPhlowProtoView >> list [
 	^ GtPhlowListView new
 		originalView: self;
@@ -226,21 +235,21 @@ GtPhlowProtoView >> list [
 			collect)
 ]
 
-{ #category : #convenience }
+{ #category : 'convenience' }
 GtPhlowProtoView >> object: anObject argument: anArgument [
 	self buildContext: (GtPhlowBuildContext new
 		object: anObject;
 		argument: anArgument)
 ]
 
-{ #category : #convenience }
+{ #category : 'convenience' }
 GtPhlowProtoView >> object: anObject arguments: theExecutionArguments [
 	self buildContext: (GtPhlowBuildContext new
 		object: anObject;
 		arguments: theExecutionArguments)
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowProtoView >> pannable [
 	^ GtPhlowPannableView new 
 		originalView: self;
@@ -249,7 +258,7 @@ GtPhlowProtoView >> pannable [
 			collect)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowProtoView >> priority [
 	"Get view priority defining a view order.
 	Lower priority is supposed to be displayed to the left."
@@ -257,14 +266,14 @@ GtPhlowProtoView >> priority [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowProtoView >> priority: aNumber [
 	"Set view priority defining a view order.
 	Lower priority is supposed to be displayed to the left."
 	^ self subclassResponsibility
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowProtoView >> sparta [
 	^ GtPhlowSpartaView new
 		originalView: self;
@@ -273,12 +282,12 @@ GtPhlowProtoView >> sparta [
 			collect)
 ]
 
-{ #category : #'private - elements' }
+{ #category : 'private - elements' }
 GtPhlowProtoView >> subscribeToElement: anElement [
 	"subclasses can subscribe to an element events"
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowProtoView >> table [
 	^ GtPhlowTableView new
 		originalView: self;
@@ -287,7 +296,7 @@ GtPhlowProtoView >> table [
 			collect)
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowProtoView >> text [
 	^ GtPhlowTextView new 
 		originalView: self;
@@ -296,7 +305,7 @@ GtPhlowProtoView >> text [
 			collect)
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowProtoView >> textEditor [
 	^ GtPhlowTextEditorView new 
 		originalView: self;
@@ -305,21 +314,21 @@ GtPhlowProtoView >> textEditor [
 			collect)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowProtoView >> title [
 	"Return view title, a user friendly view name.
 	It is supposed to be a short name"
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowProtoView >> title: aString [
 	"Set view title, a user friendly view name.
 	It is supposed to be a short name"
 	^ self subclassResponsibility
 ]
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 GtPhlowProtoView >> tree [
 	^ GtPhlowTreeView new
 		originalView: self;
@@ -328,7 +337,7 @@ GtPhlowProtoView >> tree [
 			collect)
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtPhlowProtoView >> updateContent: anOldElement [
 	"anElement is previously computed content from asElementDo:"
 	self subclassResponsibility

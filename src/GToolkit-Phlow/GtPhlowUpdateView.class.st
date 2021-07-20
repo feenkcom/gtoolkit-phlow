@@ -16,12 +16,12 @@ is updated to a new definition with ten elements:
 
 "
 Class {
-	#name : #GtPhlowUpdateView,
-	#superclass : #GtPhlowUpdateCommand,
-	#category : #'GToolkit-Phlow-Updating'
+	#name : 'GtPhlowUpdateView',
+	#superclass : 'GtPhlowUpdateCommand',
+	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 GtPhlowUpdateView >> execute [
 	<return: #GtPhlowView>
 	| aNewPhlow anElement |
@@ -37,7 +37,7 @@ GtPhlowUpdateView >> execute [
 	^ aNewPhlow
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtPhlowUpdateView >> replaceElementBy: anElement [
 	| aParent |
 	aParent := self element parent.

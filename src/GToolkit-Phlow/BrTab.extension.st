@@ -1,6 +1,6 @@
-Extension { #name : #BrTab }
+Extension { #name : 'BrTab' }
 
-{ #category : #'*GToolkit-Phlow' }
+{ #category : '*GToolkit-Phlow' }
 BrTab >> viewContentElement [
 	"A tab that is marked as a isView can find
 	the related content element by going through the parentTabGroup"

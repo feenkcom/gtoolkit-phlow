@@ -8,16 +8,16 @@ For example, a view of an object can be a visualization with the title being Vis
 
 "
 Class {
-	#name : #GtPhlowExplicitView,
-	#superclass : #GtPhlowViewDecorator,
+	#name : 'GtPhlowExplicitView',
+	#superclass : 'GtPhlowViewDecorator',
 	#instVars : [
 		'stencilBuilder',
 		'phlowView'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowExplicitView >> asElementDo: aBlock [
 	| anElement |
 	
@@ -34,24 +34,24 @@ GtPhlowExplicitView >> asElementDo: aBlock [
 	^ aBlock value: anElement
 ]
 
-{ #category : #'private - elements' }
+{ #category : 'private - elements' }
 GtPhlowExplicitView >> assignMeAsEntityFor: anElement [
 	anElement phlow entity ifNotNil: [ :aPhlowView | 
 		phlowView := aPhlowView ].
 	anElement phlow updateEntity: self.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowExplicitView >> stencil: aStencilBuilder [
 	stencilBuilder := aStencilBuilder asStencilBuilder
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowExplicitView >> stencilBuilder [
 	^ stencilBuilder
 ]
 
-{ #category : #'api - accessing composite view' }
+{ #category : 'api - accessing composite view' }
 GtPhlowExplicitView >> views [
 	<return: #Array of: #GtPhlowView>
 	self 

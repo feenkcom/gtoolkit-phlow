@@ -4,12 +4,12 @@ I exemplify {{gtClass:GtPhlowUpdateLabelledViewTitle}}.
 
 "
 Class {
-	#name : #GtPhlowUpdateLabelledViewTitleExamples,
-	#superclass : #GtPhlowUpdateCommandExamples,
-	#category : #'GToolkit-Phlow-Examples'
+	#name : 'GtPhlowUpdateLabelledViewTitleExamples',
+	#superclass : 'GtPhlowUpdateCommandExamples',
+	#category : 'GToolkit-Phlow-Examples'
 }
 
-{ #category : #'examples - commands' }
+{ #category : 'examples - commands' }
 GtPhlowUpdateLabelledViewTitleExamples >> basicCommand [
 	<gtExample>
 	| aCommand anElement |
@@ -20,7 +20,7 @@ GtPhlowUpdateLabelledViewTitleExamples >> basicCommand [
 	^ aCommand
 ]
 
-{ #category : #'examples - comparison' }
+{ #category : 'examples - comparison' }
 GtPhlowUpdateLabelledViewTitleExamples >> differentEntryIdentifiers [
 	<gtExample>
 	| aCommandOne aCommandTwo |
@@ -30,7 +30,7 @@ GtPhlowUpdateLabelledViewTitleExamples >> differentEntryIdentifiers [
 	^ aCommandOne
 ]
 
-{ #category : #'examples - commands' }
+{ #category : 'examples - commands' }
 GtPhlowUpdateLabelledViewTitleExamples >> emptyCommand [
 	<gtExample>
 	| aCommand |
@@ -39,7 +39,7 @@ GtPhlowUpdateLabelledViewTitleExamples >> emptyCommand [
 	^ aCommand
 ]
 
-{ #category : #'examples - comparison' }
+{ #category : 'examples - comparison' }
 GtPhlowUpdateLabelledViewTitleExamples >> sameEntryIdentifiers [
 	<gtExample>
 	| aCommandOne aCommandTwo |

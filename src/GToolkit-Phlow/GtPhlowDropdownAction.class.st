@@ -1,6 +1,6 @@
 Class {
-	#name : #GtPhlowDropdownAction,
-	#superclass : #GtPhlowAction,
+	#name : 'GtPhlowDropdownAction',
+	#superclass : 'GtPhlowAction',
 	#instVars : [
 		'icon',
 		'label',
@@ -8,15 +8,15 @@ Class {
 		'name',
 		'contentStencilBuilder'
 	],
-	#category : #'GToolkit-Phlow-! Actions'
+	#category : 'GToolkit-Phlow-! Actions'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowDropdownAction >> action: aValuable [
 	action := aValuable
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 	<return: #BrButton>
 	| aDropdown |
@@ -32,22 +32,22 @@ GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 	^ aBlock value: aDropdown
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowDropdownAction >> content: aStencilBuilder [
 	contentStencilBuilder := aStencilBuilder asStencilBuilder: GtPhlowActionStencilBuilder
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowDropdownAction >> help: aString [
 	"Ignored for now. Suppose to be a tooltip explaining a button action"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowDropdownAction >> icon: anIcon [
 	icon := anIcon
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowDropdownAction >> initialize [
 	super initialize.
 	action := [ :aBrButton |  ].
@@ -55,22 +55,22 @@ GtPhlowDropdownAction >> initialize [
 	label := nil.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowDropdownAction >> label: aString [
 	label := aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowDropdownAction >> name [
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowDropdownAction >> name: anObject [
 	name := anObject
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowDropdownAction >> newButton [
 	<return: #BrButton>
 	| aButton |
@@ -81,14 +81,14 @@ GtPhlowDropdownAction >> newButton [
 	^ aButton
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowDropdownAction >> newButtonLook [
 	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ ^ BrGlamorousButtonWithIconAndLabelAptitude ].
 	(label notNil and: [ icon isNil ]) ifTrue: [ ^ BrGlamorousButtonWithLabelAptitude ].
 	^ BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowDropdownAction >> newContentForDropdown: aDropdown targetElement: aTargetElement [
 	contentStencilBuilder 
 		actionElement: aDropdown;
@@ -96,7 +96,7 @@ GtPhlowDropdownAction >> newContentForDropdown: aDropdown targetElement: aTarget
 	^ contentStencilBuilder asElement
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtPhlowDropdownAction >> newDropdownLookFor: aDropdown targetElement: aTargetElement [
 	^ BrGlamorousWithDropdownAptitude
 		handle: [ self newButton

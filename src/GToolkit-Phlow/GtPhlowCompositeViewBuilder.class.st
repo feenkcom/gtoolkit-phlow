@@ -1,10 +1,10 @@
 Class {
-	#name : #GtPhlowCompositeViewBuilder,
-	#superclass : #GtPhlowViewBuilder,
-	#category : #'GToolkit-Phlow-Collectors'
+	#name : 'GtPhlowCompositeViewBuilder',
+	#superclass : 'GtPhlowViewBuilder',
+	#category : 'GToolkit-Phlow-Collectors'
 }
 
-{ #category : #building }
+{ #category : 'building' }
 GtPhlowCompositeViewBuilder >> buildView [
 	<return: #GtPhlowCompositeView>
 	| aView |
@@ -13,7 +13,7 @@ GtPhlowCompositeViewBuilder >> buildView [
 	^ aView
 ]
 
-{ #category : #views }
+{ #category : 'views' }
 GtPhlowCompositeViewBuilder >> views [
 	<return: #Array of: #GtPhlowView>
 	^ self object gtViewsInContext: self context

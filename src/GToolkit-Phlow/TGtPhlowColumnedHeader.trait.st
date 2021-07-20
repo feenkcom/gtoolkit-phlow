@@ -2,11 +2,11 @@
 I add methods that creates column headers for columned views ${class:GtPhlowColumnedListView}$ and ${class:GtPhlowColumnedTreeView}$.
 "
 Trait {
-	#name : #TGtPhlowColumnedHeader,
-	#category : #'GToolkit-Phlow-Support'
+	#name : 'TGtPhlowColumnedHeader',
+	#category : 'GToolkit-Phlow-Support'
 }
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 TGtPhlowColumnedHeader >> buildHeaderForItems: theItems [
 	| aHeader |
 	aHeader := BlElement new.
@@ -20,25 +20,25 @@ TGtPhlowColumnedHeader >> buildHeaderForItems: theItems [
 	^ aHeader
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 TGtPhlowColumnedHeader >> buildHeaderItems: theItems inHeader: aHeader [
 
 	aHeader addChildren: (self columns collect: [ :eachColumn |
 		eachColumn buildHeaderElement ]).
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TGtPhlowColumnedHeader >> cellSpacing [
 	^ self explicitRequirement
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 TGtPhlowColumnedHeader >> columns [
 	<return: #Collection of: #GtPhlowColumn>
 	^ self explicitRequirement
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 TGtPhlowColumnedHeader >> gtColumnsFor: aView [
 	<gtView>
 	self columns ifNil: [ ^ aView empty ].

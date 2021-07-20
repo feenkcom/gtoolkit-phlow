@@ -1,10 +1,10 @@
 Class {
-	#name : #GtPhlowUtility,
-	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Utilities'
+	#name : 'GtPhlowUtility',
+	#superclass : 'Object',
+	#category : 'GToolkit-Phlow-Utilities'
 }
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtPhlowUtility class >> compositeViewElementIn: anElement [
 	"Return a composite view element that was constructed using GtPhlowCompositeView."
 	<return: #BrTabGroup or: nil>
@@ -13,7 +13,7 @@ GtPhlowUtility class >> compositeViewElementIn: anElement [
 	^ nil
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowUtility class >> createSafelyTabElementFor: aPhlowView andDo: aBlock [
 	aPhlowView autoUpdates removeOfClass: GtPhlowUpdateViewOnDefiningMethodChange.
 	[ self createTabElementFor: aPhlowView andDo: aBlock ]
@@ -22,7 +22,7 @@ GtPhlowUtility class >> createSafelyTabElementFor: aPhlowView andDo: aBlock [
 			self createTabErrorElementFor: aPhlowView withError: anException andDo: aBlock ] 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowUtility class >> createTabElementFor: aPhlowView andDo: aBlock [
 	"we explicitly traverse the collection because it is possible for
 	asElementDo: to not return anything when we deal with an EmptyView"
@@ -42,7 +42,7 @@ GtPhlowUtility class >> createTabElementFor: aPhlowView andDo: aBlock [
 		aBlock value: aTab ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowUtility class >> createTabErrorElementFor: aPhlowView withError: anException andDo: aBlock [
 	| aTab |
 	anException freeze.
@@ -61,7 +61,7 @@ GtPhlowUtility class >> createTabErrorElementFor: aPhlowView withError: anExcept
 	aBlock value: aTab.
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtPhlowUtility class >> findIndexFor: aNewPhlowView in: aGtPhlowViews [
 	<return: #Integer>
 	^ aGtPhlowViews 
@@ -70,14 +70,14 @@ GtPhlowUtility class >> findIndexFor: aNewPhlowView in: aGtPhlowViews [
 		ifNone: [ aGtPhlowViews size + 1 ].
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowUtility class >> hasHigherPriority: aViewOrActionOne than: aViewOrActionTwo [
 	^ [ aViewOrActionOne priority < aViewOrActionTwo priority ]
 			on: Error
 			do: [ :anException | anException return: true ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowUtility class >> isDefinitionRequested: anEvent [
 	"Return true, if a user wants to see an action definition"
 	<return: #Boolean>
@@ -87,7 +87,7 @@ GtPhlowUtility class >> isDefinitionRequested: anEvent [
 				anEvent modifiers isShift not ] ] ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowUtility class >> newElementForView: aPhlowView [
 		| aTaskItView |
 		aTaskItView := aPhlowView asTaskItView.
@@ -96,13 +96,13 @@ GtPhlowUtility class >> newElementForView: aPhlowView [
 			anElement asScrollableElement ] 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowUtility class >> newToolbarForTab: aTab view: aPhlowView [ 
 	<return: #BrToolbar>
 	^ aPhlowView actionsToolbarForElement: aTab
 ]
 
-{ #category : #subscriptions }
+{ #category : 'subscriptions' }
 GtPhlowUtility class >> registerShowDefinitionEventOn: aBrTab forView: aPhlowView [
 	aBrTab
 		when: BlMouseDownEvent
@@ -113,7 +113,7 @@ GtPhlowUtility class >> registerShowDefinitionEventOn: aBrTab forView: aPhlowVie
 					aBrTab phlow spawnObject: aPhlowView allDefiningMethods ] ]
 ]
 
-{ #category : #sorting }
+{ #category : 'sorting' }
 GtPhlowUtility class >> sortByPriority: aGtPhlowViews [
 	aGtPhlowViews sort: [ :a :b | 
 		self hasHigherPriority: a than: b ].

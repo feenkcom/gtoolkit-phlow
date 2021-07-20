@@ -1,10 +1,10 @@
 Class {
-	#name : #GtPhlowEmptyViewExamples,
-	#superclass : #GtPhlowViewExamples,
-	#category : #'GToolkit-Phlow-Examples - Views'
+	#name : 'GtPhlowEmptyViewExamples',
+	#superclass : 'GtPhlowViewExamples',
+	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowEmptyViewExamples >> element [
 	<gtExample>
 	| aView anElement |
@@ -14,7 +14,7 @@ GtPhlowEmptyViewExamples >> element [
 	^ anElement
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowEmptyViewExamples >> gtPhlowEmptyViewFor: aView [
 	<gtView>
 	^ aView empty
@@ -22,7 +22,7 @@ GtPhlowEmptyViewExamples >> gtPhlowEmptyViewFor: aView [
 		priority: 3
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowEmptyViewExamples >> gtPhlowViewFor: aView [
 	<gtView>
 	^ aView empty
@@ -30,7 +30,7 @@ GtPhlowEmptyViewExamples >> gtPhlowViewFor: aView [
 		priority: 3
 ]
 
-{ #category : #'examples - view' }
+{ #category : 'examples - view' }
 GtPhlowEmptyViewExamples >> phlowView [
 	<return: #GtPhlowView>
 	| aView |

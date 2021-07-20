@@ -1,15 +1,15 @@
 Class {
-	#name : #GtPhlowObjectToSpawn,
-	#superclass : #GtPhlowObjectEvent,
-	#category : #'GToolkit-Phlow-Events'
+	#name : 'GtPhlowObjectToSpawn',
+	#superclass : 'GtPhlowObjectEvent',
+	#category : 'GToolkit-Phlow-Events'
 }
 
-{ #category : #'accessing - utils' }
+{ #category : 'accessing - utils' }
 GtPhlowObjectToSpawn >> previousSpawnEvent [
 	^ self propertyAt: #previousSpawnEvent ifAbsent: [ nil ]
 ]
 
-{ #category : #'accessing - utils' }
+{ #category : 'accessing - utils' }
 GtPhlowObjectToSpawn >> previousSpawnEvent: aSpawnEvent [
 	self assert: [ aSpawnEvent notNil ].
 	
@@ -18,14 +18,14 @@ GtPhlowObjectToSpawn >> previousSpawnEvent: aSpawnEvent [
 		put: aSpawnEvent
 ]
 
-{ #category : #'accessing - utils' }
+{ #category : 'accessing - utils' }
 GtPhlowObjectToSpawn >> spawnDestination [
 	^ self 
 		propertyAt: #spawnDestination 
 		ifAbsent: [ GtPhlowSpawnDesiredDestination defaultDestination ]
 ]
 
-{ #category : #'accessing - utils' }
+{ #category : 'accessing - utils' }
 GtPhlowObjectToSpawn >> spawnDestination: aSpawnDestination [
 	self assert: [ aSpawnDestination notNil ].
 	

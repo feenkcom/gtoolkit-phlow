@@ -5,42 +5,42 @@ I am used by {{gtClass:GtPhlowTreeView}} and {{gtClass:GtPhlowColumnedTreeView}}
 
 "
 Class {
-	#name : #GtPhlowChildrenBuilderError,
-	#superclass : #Object,
+	#name : 'GtPhlowChildrenBuilderError',
+	#superclass : 'Object',
 	#instVars : [
 		'exception',
 		'parent',
 		'childrenBuilder'
 	],
-	#category : #'GToolkit-Phlow-Support'
+	#category : 'GToolkit-Phlow-Support'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowChildrenBuilderError >> childrenBuilder [
 	^ childrenBuilder
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowChildrenBuilderError >> childrenBuilder: anObject [
 	childrenBuilder := anObject
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 GtPhlowChildrenBuilderError >> doesNotUnderstand: aMessage [ 
 	self error: 'Cannot build children'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowChildrenBuilderError >> exception [
 	^ exception
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowChildrenBuilderError >> exception: anObject [
 	exception := anObject
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 GtPhlowChildrenBuilderError >> gtDebugActionFor: anAction [
 	<gtAction>
 	self parent ifNil: [ ^ anAction noAction ].
@@ -54,21 +54,21 @@ GtPhlowChildrenBuilderError >> gtDebugActionFor: anAction [
 			[ (self childrenBuilder value: self parent) debug ] fork ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtPhlowChildrenBuilderError >> gtDisplayString [
 	^ self exception
 		ifNotNil: #gtDisplayString 
 		ifNil: [ super gtDisplayString ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtPhlowChildrenBuilderError >> gtDisplayText [
 	^ super gtDisplayText
 		glamorousCodeFontAndSmallSize;
 		foreground: BrGlamorousColors linkWithErrorColor
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 GtPhlowChildrenBuilderError >> gtLiveFor: aView [
 	<gtView>
 	self exception ifNil: [ ^ aView empty ].
@@ -79,7 +79,7 @@ GtPhlowChildrenBuilderError >> gtLiveFor: aView [
 		view: #gtLiveFor:
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowChildrenBuilderError >> gtParentActionFor: anAction [
 	<gtAction>
 	self parent ifNil: [ ^ anAction noAction ].
@@ -92,7 +92,7 @@ GtPhlowChildrenBuilderError >> gtParentActionFor: anAction [
 			aButton phlow spawnObject: self parent ]
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 GtPhlowChildrenBuilderError >> gtSourceCodeFor: aView [
 	<gtView>
 	self childrenBuilder ifNil: [ ^ aView empty ].
@@ -107,17 +107,17 @@ GtPhlowChildrenBuilderError >> gtSourceCodeFor: aView [
 			action: [ :aButton | aButton phlow spawnObject: self childrenBuilder ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowChildrenBuilderError >> parent [
 	^ parent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowChildrenBuilderError >> parent: anObject [
 	parent := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtPhlowChildrenBuilderError >> printOn: aStream [
 	super printOn: aStream.
 	self exception ifNil: [ ^ self ].

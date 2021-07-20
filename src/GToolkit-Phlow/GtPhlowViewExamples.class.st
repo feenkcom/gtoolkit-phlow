@@ -1,15 +1,15 @@
 Class {
-	#name : #GtPhlowViewExamples,
-	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Examples - Views'
+	#name : 'GtPhlowViewExamples',
+	#superclass : 'Object',
+	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowViewExamples class >> isAbstract [
 	^ self name = #GtPhlowViewExamples
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 GtPhlowViewExamples >> assertCommonDefaultView: aView [
 	self assert: aView title isNotNil.
 	self assert: aView priority isNumber.
@@ -20,7 +20,7 @@ GtPhlowViewExamples >> assertCommonDefaultView: aView [
 	self assert: aView isAsyncEnabled.
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 GtPhlowViewExamples >> assertErrorElement: anElement inView: aView [
 	self assert: anElement class equals: BrFrame.
 	self assert: anElement childrenCount equals: 1.
@@ -28,14 +28,14 @@ GtPhlowViewExamples >> assertErrorElement: anElement inView: aView [
 	self assert: anElement phlow entity equals: aView.
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 GtPhlowViewExamples >> assertViewElement: anElement ofClass: aClass inView: aView [
 	self assert: anElement class equals: aClass.
 	self assert: anElement phlow isView.
 	self assert: anElement phlow entity equals: aView
 ]
 
-{ #category : #'examples - element' }
+{ #category : 'examples - element' }
 GtPhlowViewExamples >> container [
 	<gtExample>
 	^ BlElement new
@@ -46,7 +46,7 @@ GtPhlowViewExamples >> container [
 			c padding: (BlInsets all: 5) ]
 ]
 
-{ #category : #'examples - element' }
+{ #category : 'examples - element' }
 GtPhlowViewExamples >> element [
 	<gtExample>
 	| aView anElement |
@@ -60,12 +60,12 @@ GtPhlowViewExamples >> element [
 	^ anElement
 ]
 
-{ #category : #'examples - element' }
+{ #category : 'examples - element' }
 GtPhlowViewExamples >> expectedElementClass [
 	^ BlElement
 ]
 
-{ #category : #'examples - element' }
+{ #category : 'examples - element' }
 GtPhlowViewExamples >> modifiedElement [
 	<gtExample>
 	| aView anElement |
@@ -79,7 +79,7 @@ GtPhlowViewExamples >> modifiedElement [
 	^ anElement
 ]
 
-{ #category : #'examples - view' }
+{ #category : 'examples - view' }
 GtPhlowViewExamples >> modifiedPhlowView [
 	<gtExample>
 	| aView |
@@ -91,13 +91,13 @@ GtPhlowViewExamples >> modifiedPhlowView [
 	^ aView
 ]
 
-{ #category : #'examples - view' }
+{ #category : 'examples - view' }
 GtPhlowViewExamples >> phlowView [
 	<return: #GtPhlowView>
 	^ self subclassResponsibility
 ]
 
-{ #category : #'examples - updating' }
+{ #category : 'examples - updating' }
 GtPhlowViewExamples >> phlowViews [
 	<gtExample>
 	| theExampleClasses thePhlowViews |
@@ -109,7 +109,7 @@ GtPhlowViewExamples >> phlowViews [
 	^ thePhlowViews
 ]
 
-{ #category : #'examples - updating' }
+{ #category : 'examples - updating' }
 GtPhlowViewExamples >> updateAgainstAllViews [
 	<gtExample>
 	| aPhlowView thePhlowViews |
@@ -121,7 +121,7 @@ GtPhlowViewExamples >> updateAgainstAllViews [
 	^ aPhlowView
 ]
 
-{ #category : #'examples - updating' }
+{ #category : 'examples - updating' }
 GtPhlowViewExamples >> updateAllAgainstAllViews [
 	<gtExample>
 	| theCurrentPhlowViews theNewPhlowViews |
@@ -134,7 +134,7 @@ GtPhlowViewExamples >> updateAllAgainstAllViews [
 	^ theCurrentPhlowViews
 ]
 
-{ #category : #'examples - updating' }
+{ #category : 'examples - updating' }
 GtPhlowViewExamples >> updatePhlowView: aCurrentPhlowView to: aNewPhlowView [
 	<gtExample>
 	| aCurrentElement aContainer |

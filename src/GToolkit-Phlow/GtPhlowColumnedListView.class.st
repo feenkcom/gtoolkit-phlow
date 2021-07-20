@@ -9,18 +9,18 @@ The following object displays several examples. You can `ALT+CLICK` on tab names
 
 "
 Class {
-	#name : #GtPhlowColumnedListView,
-	#superclass : #GtPhlowViewDecorator,
+	#name : 'GtPhlowColumnedListView',
+	#superclass : 'GtPhlowViewDecorator',
 	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTransformable',
 	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTransformable classTrait',
 	#instVars : [
 		'columns',
 		'itemsBuilder'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : #'api - converting' }
+{ #category : 'api - converting' }
 GtPhlowColumnedListView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 
@@ -49,7 +49,7 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	^ aBlock value: aContainer
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 GtPhlowColumnedListView >> buildColumnsInList: aList [
 	columns do: [ :eachPhlowColumn |
 		eachPhlowColumn configureColumn: aList column ]
@@ -72,12 +72,12 @@ GtPhlowColumnedListView >> buildColumnsInList: aList [
 				aRowElement ] ]."
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowColumnedListView >> cellSpacing [
 	^ 10
 ]
 
-{ #category : #'api - scripting column' }
+{ #category : 'api - scripting column' }
 GtPhlowColumnedListView >> column [
 	<return: #GtPhlowColumn>
 	| aColumn |
@@ -87,24 +87,24 @@ GtPhlowColumnedListView >> column [
 	^ aColumn
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 GtPhlowColumnedListView >> columnedListClass [
 	^ BrColumnedList
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowColumnedListView >> columns [
 	<return: #Collection of: #GtPhlowColumn>
 	^ columns
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 GtPhlowColumnedListView >> copyTransformationFrom: aSendBlock [
 	aSendBlock ifNil: [ ^ self ].
 	self send: aSendBlock
 ]
 
-{ #category : #'scripting - deprecated' }
+{ #category : 'scripting - deprecated' }
 GtPhlowColumnedListView >> display: aBlock [
 	self 
 		deprecated: 'Please use #items: instead.'
@@ -112,12 +112,12 @@ GtPhlowColumnedListView >> display: aBlock [
 	self items: aBlock
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowColumnedListView >> elementClass [
 	^ BlElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowColumnedListView >> initialize [
 	super initialize.
 	
@@ -126,7 +126,7 @@ GtPhlowColumnedListView >> initialize [
 	self transformation: self defaultTransformation.
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 GtPhlowColumnedListView >> isExpectedElement: aCurrentElement [
 	aCurrentElement class = self elementClass ifFalse: [ ^ false ].
 	aCurrentElement childrenCount = 2 ifFalse: [ ^ false ].
@@ -134,17 +134,17 @@ GtPhlowColumnedListView >> isExpectedElement: aCurrentElement [
 	^ true
 ]
 
-{ #category : #'api - scripting' }
+{ #category : 'api - scripting' }
 GtPhlowColumnedListView >> items: aValuable [
 	itemsBuilder := aValuable
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowColumnedListView >> itemsBuilder [
 	^ itemsBuilder
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowColumnedListView >> itemsOnExceptionErrorElement: aBlock [
 	^ self 
 		performBlock: [ self itemsBuilder value ]
@@ -152,7 +152,7 @@ GtPhlowColumnedListView >> itemsOnExceptionErrorElement: aBlock [
 			aBlock value: anElement ].
 ]
 
-{ #category : #'api - updating' }
+{ #category : 'api - updating' }
 GtPhlowColumnedListView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 	

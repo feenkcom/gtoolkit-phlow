@@ -15,51 +15,51 @@ See a complete example in the {{gtClass:GtPhlowCompositeTool}} class comment.
 
 "
 Class {
-	#name : #GtPhlowToolObjectChangeHandler,
-	#superclass : #BlBasicEventHandler,
+	#name : 'GtPhlowToolObjectChangeHandler',
+	#superclass : 'BlBasicEventHandler',
 	#instVars : [
 		'element'
 	],
-	#category : #'GToolkit-Phlow-Tool - Object Changer'
+	#category : 'GToolkit-Phlow-Tool - Object Changer'
 }
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 GtPhlowToolObjectChangeHandler >> = anotherObject [
 	^ self species == anotherObject species and: [ 
 			self element = anotherObject element ]
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowToolObjectChangeHandler >> element [
 	<return: #BlElement>
 	^ element
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowToolObjectChangeHandler >> eventsToHandle [
 	^ Array 
 		with: GtPhlowToolObjectChangeWish
 		with: GtPhlowToolChangedObjectWish
 ]
 
-{ #category : #'api - event managing' }
+{ #category : 'api - event managing' }
 GtPhlowToolObjectChangeHandler >> handleEvent: anEvent [
 	anEvent acceptPhlowHandler: self.
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 GtPhlowToolObjectChangeHandler >> hash [
 	^ self species hash bitXor: self element hash
 ]
 
-{ #category : #'api - hooks' }
+{ #category : 'api - hooks' }
 GtPhlowToolObjectChangeHandler >> onInstalledIn: anElement [
 
 	element ifNotNil: [ element removeEventHandler: self ].
 	element := anElement.
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtPhlowToolObjectChangeHandler >> visitToolChangedObjectWish: aWish [
 	| aWeak anObject |
 	aWeak := self element userData 
@@ -72,7 +72,7 @@ GtPhlowToolObjectChangeHandler >> visitToolChangedObjectWish: aWish [
 	aWish object: anObject.
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtPhlowToolObjectChangeHandler >> visitToolObjectChangeWish: aWish [
 	| aWeak |
 	aWeak := (WeakArray new: 2)
@@ -84,7 +84,7 @@ GtPhlowToolObjectChangeHandler >> visitToolObjectChangeWish: aWish [
 		put: aWeak
 ]
 
-{ #category : #'api - event managing' }
+{ #category : 'api - event managing' }
 GtPhlowToolObjectChangeHandler >> wantsEvent: anEvent [
 	^ anEvent class == GtPhlowToolObjectChangeWish or: [ 
 			anEvent class == GtPhlowToolChangedObjectWish ]

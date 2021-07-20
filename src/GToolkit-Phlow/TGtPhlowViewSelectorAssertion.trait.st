@@ -1,9 +1,9 @@
 Trait {
-	#name : #TGtPhlowViewSelectorAssertion,
-	#category : #'GToolkit-Phlow-Collectors'
+	#name : 'TGtPhlowViewSelectorAssertion',
+	#category : 'GToolkit-Phlow-Collectors'
 }
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 TGtPhlowViewSelectorAssertion >> assertViewSelector: aSymbol [
 	self 
 		assert: [ aSymbol isSymbol ] 

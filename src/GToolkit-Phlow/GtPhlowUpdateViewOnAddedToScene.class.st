@@ -4,12 +4,12 @@ I update a view on every {{gtClass:BlElementAddedToSceneGraphEvent}} notificatio
 
 "
 Class {
-	#name : #GtPhlowUpdateViewOnAddedToScene,
-	#superclass : #GtPhlowSystemChangeUpdateDefinition,
-	#category : #'GToolkit-Phlow-Updating'
+	#name : 'GtPhlowUpdateViewOnAddedToScene',
+	#superclass : 'GtPhlowSystemChangeUpdateDefinition',
+	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : #subscriptions }
+{ #category : 'subscriptions' }
 GtPhlowUpdateViewOnAddedToScene >> subscribeOn: aGtPhlowElementContext [		
 	aGtPhlowElementContext asyncUpdate
 ]

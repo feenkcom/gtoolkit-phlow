@@ -4,12 +4,12 @@ I exemplify {{gtClass:GtPhlowNoTitleLabelBuilder}}.
 
 "
 Class {
-	#name : #GtPhlowNoTitleLabelBuilderExamples,
-	#superclass : #GtPhlowTitleLabelBuilderExamples,
-	#category : #'GToolkit-Phlow-Tool - Title Examples'
+	#name : 'GtPhlowNoTitleLabelBuilderExamples',
+	#superclass : 'GtPhlowTitleLabelBuilderExamples',
+	#category : 'GToolkit-Phlow-Tool - Title Examples'
 }
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 GtPhlowNoTitleLabelBuilderExamples >> basicBuilder [
 	<gtExample>
 	| aBuilder |

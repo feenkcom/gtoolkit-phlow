@@ -4,11 +4,11 @@ I am used by ${class:GtPhlowListView}$ and ${class:GtPhlowColumn}$.
 
 "
 Trait {
-	#name : #TGtPhlowErrorTolerantCell,
-	#category : #'GToolkit-Phlow-Support'
+	#name : 'TGtPhlowErrorTolerantCell',
+	#category : 'GToolkit-Phlow-Support'
 }
 
-{ #category : #'private - errors' }
+{ #category : 'private - errors' }
 TGtPhlowErrorTolerantCell >> errorTreatedCellDataBinderFor: aBlockOrSymbol [
 	 ^ [ :aContainer :anItemObject :anItemIndex |
 			self 
@@ -22,7 +22,7 @@ TGtPhlowErrorTolerantCell >> errorTreatedCellDataBinderFor: aBlockOrSymbol [
 			aContainer ]
 ]
 
-{ #category : #'private - errors' }
+{ #category : 'private - errors' }
 TGtPhlowErrorTolerantCell >> errorTreatedCellStencilFor: aBlockOrSymbol [
 	 ^ [ :anItemType |
 			| aContainer |
@@ -45,7 +45,7 @@ TGtPhlowErrorTolerantCell >> errorTreatedCellStencilFor: aBlockOrSymbol [
 			aContainer ]
 ]
 
-{ #category : #'private - errors' }
+{ #category : 'private - errors' }
 TGtPhlowErrorTolerantCell >> errorTreatedCellTypeFor: aBlockOrSymbol [
 	 ^ [ :anItemTypeFactory :anItemObject :anItemIndex |
 			self 
@@ -55,7 +55,7 @@ TGtPhlowErrorTolerantCell >> errorTreatedCellTypeFor: aBlockOrSymbol [
 					GtPhlowExceptionItemType exception: anException freezeOrWithoutContext ] ]
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 TGtPhlowErrorTolerantCell >> newCellContainer [
 	^ GtPhlowCellElement new
 		hMatchParent;
@@ -63,7 +63,7 @@ TGtPhlowErrorTolerantCell >> newCellContainer [
 		padding: self newCellPaddingInsets
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 TGtPhlowErrorTolerantCell >> newCellPaddingInsets [
 	^ BlInsets
 		top: 0
@@ -72,7 +72,7 @@ TGtPhlowErrorTolerantCell >> newCellPaddingInsets [
 		right: 0
 ]
 
-{ #category : #'private - errors' }
+{ #category : 'private - errors' }
 TGtPhlowErrorTolerantCell >> performBlock: aBlock onException: anExceptionBlock [
 	^ aBlock on: Error do: anExceptionBlock.
 ]

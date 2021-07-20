@@ -4,12 +4,12 @@ I exemplify {{gtClass:GtPhlowTitleIconAndLabelNotifier}}.
 
 "
 Class {
-	#name : #GtPhlowTitleIconAndLabelNotifierExamples,
-	#superclass : #GtPhlowTitleNotifierExamples,
-	#category : #'GToolkit-Phlow-Tool - Title Examples'
+	#name : 'GtPhlowTitleIconAndLabelNotifierExamples',
+	#superclass : 'GtPhlowTitleNotifierExamples',
+	#category : 'GToolkit-Phlow-Tool - Title Examples'
 }
 
-{ #category : #'examples - notifier' }
+{ #category : 'examples - notifier' }
 GtPhlowTitleIconAndLabelNotifierExamples >> basicNotifier [
 	<gtExample>
 	| aNotifier |
@@ -19,7 +19,7 @@ GtPhlowTitleIconAndLabelNotifierExamples >> basicNotifier [
 	^ aNotifier
 ]
 
-{ #category : #'examples - notifier' }
+{ #category : 'examples - notifier' }
 GtPhlowTitleIconAndLabelNotifierExamples >> notifier [
 	<gtExample>
 	| aNotifier |
@@ -29,7 +29,7 @@ GtPhlowTitleIconAndLabelNotifierExamples >> notifier [
 	^ aNotifier
 ]
 
-{ #category : #'examples - notifier' }
+{ #category : 'examples - notifier' }
 GtPhlowTitleIconAndLabelNotifierExamples >> notifierWithLongLabel [
 	<gtExample>
 	| aNotifier aLabel |
@@ -46,7 +46,7 @@ GtPhlowTitleIconAndLabelNotifierExamples >> notifierWithLongLabel [
 	^ aNotifier
 ]
 
-{ #category : #'examples - notifier' }
+{ #category : 'examples - notifier' }
 GtPhlowTitleIconAndLabelNotifierExamples >> notifierWithLongLabelAndIcon [
 	<gtExample>
 	| aNotifier aLabel |
@@ -64,7 +64,7 @@ GtPhlowTitleIconAndLabelNotifierExamples >> notifierWithLongLabelAndIcon [
 	^ aNotifier
 ]
 
-{ #category : #'examples - notifier' }
+{ #category : 'examples - notifier' }
 GtPhlowTitleIconAndLabelNotifierExamples >> notifierWithShortLabel [
 	<gtExample>
 	| aNotifier aLabel |
@@ -81,7 +81,7 @@ GtPhlowTitleIconAndLabelNotifierExamples >> notifierWithShortLabel [
 	^ aNotifier
 ]
 
-{ #category : #'examples - notifier' }
+{ #category : 'examples - notifier' }
 GtPhlowTitleIconAndLabelNotifierExamples >> notifierWithShortLabelAndIcon [
 	<gtExample>
 	| aNotifier aLabel |

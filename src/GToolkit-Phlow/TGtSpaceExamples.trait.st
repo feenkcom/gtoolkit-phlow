@@ -1,9 +1,9 @@
 Trait {
-	#name : #TGtSpaceExamples,
-	#category : #'GToolkit-Phlow-Examples - Views'
+	#name : 'TGtSpaceExamples',
+	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : #'examples - support' }
+{ #category : 'examples - support' }
 TGtSpaceExamples >> newSpace [
 	"By using ${class:BlMockedHost}$, we need to explicitly perform ${method:BlSpace>>pulse}$ 
 	whenever a enqueued task should be processed."
@@ -17,7 +17,7 @@ TGtSpaceExamples >> newSpace [
 	^ aSpace
 ]
 
-{ #category : #'examples - support' }
+{ #category : 'examples - support' }
 TGtSpaceExamples >> performUIAction: aBlock in: anElement [
 	self
 		assert: [ anElement isAttachedToSceneGraph ]
@@ -26,7 +26,7 @@ TGtSpaceExamples >> performUIAction: aBlock in: anElement [
 	anElement space pulse.
 ]
 
-{ #category : #'examples - support' }
+{ #category : 'examples - support' }
 TGtSpaceExamples >> putInSpace: aBlElement [
 	<gtExample>
 	| aSpace |

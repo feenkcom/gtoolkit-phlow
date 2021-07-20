@@ -14,17 +14,17 @@ The default destination is given by {{gtMethod:GtPhlowSpawnDesiredDestination cl
 
 "
 Class {
-	#name : #GtPhlowSpawnDesiredDestination,
-	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Direction'
+	#name : 'GtPhlowSpawnDesiredDestination',
+	#superclass : 'Object',
+	#category : 'GToolkit-Phlow-Direction'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowSpawnDesiredDestination class >> defaultDestination [
 	^ GtPhlowSpawnNextPaneDestination new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSpawnDesiredDestination >> followingDestination [
 	"The destination that comes after this one. It is used to when 
 	switching destinations to determine the next destination."
@@ -32,7 +32,7 @@ GtPhlowSpawnDesiredDestination >> followingDestination [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSpawnDesiredDestination >> icon [
 	"An icon that to visually indicate the destination. Used in tools to indicate
 	this direction to users."
@@ -40,12 +40,12 @@ GtPhlowSpawnDesiredDestination >> icon [
 	^ self subclassResponsibility 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowSpawnDesiredDestination >> isSpawnBelow [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowSpawnDesiredDestination >> isSpawnNextPane [
 	^ false
 ]

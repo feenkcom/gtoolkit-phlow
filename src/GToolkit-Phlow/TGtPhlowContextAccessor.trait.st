@@ -1,18 +1,18 @@
 Trait {
-	#name : #TGtPhlowContextAccessor,
+	#name : 'TGtPhlowContextAccessor',
 	#instVars : [
 		'context'
 	],
-	#category : #'GToolkit-Phlow-Context'
+	#category : 'GToolkit-Phlow-Context'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TGtPhlowContextAccessor >> context [
 	<return: #GtPhlowContext>
 	^ context
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TGtPhlowContextAccessor >> context: aGtPhlowContext [
 	self 
 		assert: [ aGtPhlowContext isNotNil ]
@@ -20,12 +20,12 @@ TGtPhlowContextAccessor >> context: aGtPhlowContext [
 	context := aGtPhlowContext
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 TGtPhlowContextAccessor >> defaultPhlowContext [
 	^ GtPhlowContext new
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 TGtPhlowContextAccessor >> initializePhlowContext [
 	context := self defaultPhlowContext.
 ]

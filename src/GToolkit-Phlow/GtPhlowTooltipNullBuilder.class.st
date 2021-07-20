@@ -4,19 +4,19 @@ I do not attach any tooltip.
 
 "
 Class {
-	#name : #GtPhlowTooltipNullBuilder,
-	#superclass : #GtPhlowTooltipBuilder,
+	#name : 'GtPhlowTooltipNullBuilder',
+	#superclass : 'GtPhlowTooltipBuilder',
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : #'GToolkit-Phlow-Support - Tooltip'
+	#category : 'GToolkit-Phlow-Support - Tooltip'
 }
 
-{ #category : #building }
+{ #category : 'building' }
 GtPhlowTooltipNullBuilder >> applyOn: anElement [
 	"ignore"
 ]
 
-{ #category : #building }
+{ #category : 'building' }
 GtPhlowTooltipNullBuilder >> applyOn: anElement hostElement: aTargetElement [
 	"ignore"
 ]

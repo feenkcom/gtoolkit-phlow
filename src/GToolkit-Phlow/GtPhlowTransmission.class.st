@@ -1,6 +1,6 @@
 Class {
-	#name : #GtPhlowTransmission,
-	#superclass : #Object,
+	#name : 'GtPhlowTransmission',
+	#superclass : 'Object',
 	#instVars : [
 		'root',
 		'from',
@@ -8,15 +8,15 @@ Class {
 		'announcementRegistration',
 		'strategy'
 	],
-	#category : #'GToolkit-Phlow-Transmission'
+	#category : 'GToolkit-Phlow-Transmission'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowTransmission class >> rootedIn: anElement [
 	^ self new root: anElement
 ]
 
-{ #category : #scripting }
+{ #category : 'scripting' }
 GtPhlowTransmission >> andShow: aBlock [
 	self strategy: GtPhlowTransmissionReplaceAndShowStrategy new.
 	self fromElement when: self announcementRegistration do: [ :ann | 
@@ -24,67 +24,67 @@ GtPhlowTransmission >> andShow: aBlock [
 		self toElement addChildren: (aBlock value: ann) asOrderedCollection ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTransmission >> announcementRegistration [
 	^ announcementRegistration
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTransmission >> announcementRegistration: anObject [
 	announcementRegistration := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTransmission >> from [
 	^ from
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTransmission >> from: anObject [
 	from := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTransmission >> fromElement [
 	^ root childNamed: self from
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTransmission >> root [
 	^ root
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTransmission >> root: anObject [
 	root := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTransmission >> strategy [
 	^ strategy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTransmission >> strategy: anObject [
 	strategy := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTransmission >> to [
 	^ to
 ]
 
-{ #category : #scripting }
+{ #category : 'scripting' }
 GtPhlowTransmission >> to: aChildName [
 	to := aChildName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTransmission >> toElement [
 	^ root childNamed: self to
 ]
 
-{ #category : #scripting }
+{ #category : 'scripting' }
 GtPhlowTransmission >> when: anAnnouncementRegistration from: aChildName [
 	self from: aChildName.
 	self announcementRegistration: anAnnouncementRegistration
