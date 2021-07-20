@@ -135,7 +135,9 @@ GtPhlowProtoView >> definingMethod: aRGMethodDefinition [
 GtPhlowProtoView >> empty [
 	^ GtPhlowEmptyView new
 		originalView: self;
-		definingMethod: thisContext stack second method asRingDefinition
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]
 
 { #category : 'decorating' }

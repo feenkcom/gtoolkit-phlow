@@ -19,7 +19,9 @@ GtPhlowAction class >> defaultPriority [
 { #category : 'accessing' }
 GtPhlowAction class >> noAction [
 	^ GtPhlowNoAction new
-		definingMethod: thisContext stack second method asRingDefinition
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]
 
 { #category : 'converting' }
@@ -142,7 +144,9 @@ GtPhlowAction >> isDefinitionRequested: anEvent [
 { #category : 'decorating' }
 GtPhlowAction >> noAction [
 	^ GtPhlowNoAction new
-		definingMethod: thisContext stack second method asRingDefinition
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]
 
 { #category : 'accessing' }
