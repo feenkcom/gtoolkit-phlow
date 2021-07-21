@@ -11,7 +11,7 @@ Class {
 	#classVars : [
 		'IsTaskItViewGloballyEnabled'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
 { #category : #setup }
@@ -214,6 +214,15 @@ GtPhlowProtoView >> labelled [
 GtPhlowProtoView >> labelled: aStringOrText [
 	^ self labelled 
 		label: aStringOrText;
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
+]
+
+{ #category : #decorating }
+GtPhlowProtoView >> lazyList [
+	^ GtPhlowRemoteListView new
+		originalView: self;
 		definingMethod: (GtPhlowDefiningMethodsCollector new 
 			stack: thisContext stack;
 			collect)
