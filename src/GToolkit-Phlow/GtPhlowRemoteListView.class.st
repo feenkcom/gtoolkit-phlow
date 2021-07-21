@@ -9,13 +9,11 @@ Class {
 
 { #category : #'api - converting' }
 GtPhlowRemoteListView >> asElementDo: aBlock [
-	| aList itemsProvider |
+	| aList |
 	"theItems := self
 		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ]."
-	itemsProvider := self itemsProvider.
 	aList := self elementClass new 
-		items: itemsProvider initialItems;
-		itemsProvider: itemsProvider.
+		itemsProvider: self itemsProvider.
 	aList
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation).
 	aList
