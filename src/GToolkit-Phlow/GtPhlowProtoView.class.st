@@ -220,6 +220,15 @@ GtPhlowProtoView >> labelled: aStringOrText [
 ]
 
 { #category : 'decorating' }
+GtPhlowProtoView >> lazyColumnedList [
+	^ GtPhlowColumnedLazyListView new
+		originalView: self;
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
+]
+
+{ #category : 'decorating' }
 GtPhlowProtoView >> lazyList [
 	^ GtPhlowLazyListView new
 		originalView: self;
