@@ -1,5 +1,5 @@
 Class {
-	#name : 'GtPhlowRemoteListView',
+	#name : 'GtPhlowLazyListView',
 	#superclass : 'GtPhlowListView',
 	#instVars : [
 		'itemsProviderComputation'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : 'api - converting' }
-GtPhlowRemoteListView >> asElementDo: aBlock [
+GtPhlowLazyListView >> asElementDo: aBlock [
 	| aList |
 	"theItems := self
 		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ]."
@@ -27,16 +27,16 @@ GtPhlowRemoteListView >> asElementDo: aBlock [
 ]
 
 { #category : 'defaults' }
-GtPhlowRemoteListView >> elementClass [
+GtPhlowLazyListView >> elementClass [
 	^ BrSimpleLazyList
 ]
 
 { #category : 'accessing' }
-GtPhlowRemoteListView >> itemsProvider [
+GtPhlowLazyListView >> itemsProvider [
 	^ itemsProviderComputation value
 ]
 
 { #category : 'accessing' }
-GtPhlowRemoteListView >> itemsProvider: aBlock [
+GtPhlowLazyListView >> itemsProvider: aBlock [
 	itemsProviderComputation := aBlock
 ]

@@ -221,7 +221,7 @@ GtPhlowProtoView >> labelled: aStringOrText [
 
 { #category : 'decorating' }
 GtPhlowProtoView >> lazyList [
-	^ GtPhlowRemoteListView new
+	^ GtPhlowLazyListView new
 		originalView: self;
 		definingMethod: (GtPhlowDefiningMethodsCollector new 
 			stack: thisContext stack;
