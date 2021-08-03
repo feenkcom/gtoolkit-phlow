@@ -134,6 +134,12 @@ GtPhlowColumn >> icon: aBlockOrSymbol [
 			addChild: anElement. ]
 ]
 
+{ #category : 'api - scripting cell content' }
+GtPhlowColumn >> iconName: anIconNameComputation [
+	self icon: [ :anItem | 
+		self iconNamed: (anIconNameComputation cull: anItem) ].
+]
+
 { #category : 'private - accessing' }
 GtPhlowColumn >> index [
 	^ index

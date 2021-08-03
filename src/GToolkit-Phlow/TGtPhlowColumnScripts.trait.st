@@ -73,6 +73,24 @@ TGtPhlowColumnScripts >> column: aTitleString icon: aFormatBlocOrSymbol width: a
 ]
 
 { #category : 'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString iconName: anIconNameComputation [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn iconName: anIconNameComputation.
+	aColumn width: 36.
+]
+
+{ #category : 'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString iconName: anIconNameComputation width: aNumber [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn iconName: anIconNameComputation.
+	aColumn width: aNumber.
+]
+
+{ #category : 'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString item: aBlock [
 	| aColumn |
 	aColumn := self column.
