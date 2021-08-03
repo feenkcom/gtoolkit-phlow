@@ -19,7 +19,7 @@ Class {
 		'dataBinder',
 		'width'
 	],
-	#category : #'GToolkit-Phlow-Support'
+	#category : 'GToolkit-Phlow-Support'
 }
 
 { #category : #'api - building' }
@@ -132,6 +132,12 @@ GtPhlowColumn >> icon: aBlockOrSymbol [
 		anIconContainer
 			removeChildren;
 			addChild: anElement. ]
+]
+
+{ #category : #'api - scripting cell content' }
+GtPhlowColumn >> iconName: anIconNameComputation [
+	self icon: [ :anItem | 
+		self iconNamed: (anIconNameComputation cull: anItem) ].
 ]
 
 { #category : #'private - accessing' }

@@ -3,7 +3,7 @@ I add scripting methods that simplify colum definitions for ${class:GtPhlowColum
 "
 Trait {
 	#name : #TGtPhlowColumnScripts,
-	#category : #'GToolkit-Phlow-Support'
+	#category : 'GToolkit-Phlow-Support'
 }
 
 { #category : #'api - scripting column' }
@@ -69,6 +69,24 @@ TGtPhlowColumnScripts >> column: aTitleString icon: aFormatBlocOrSymbol width: a
 	aColumn := self column.
 	aColumn title: aTitleString.
 	aColumn icon: aFormatBlocOrSymbol.
+	aColumn width: aNumber.
+]
+
+{ #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString iconName: anIconNameComputation [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn iconName: anIconNameComputation.
+	aColumn width: 36.
+]
+
+{ #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString iconName: anIconNameComputation width: aNumber [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn iconName: anIconNameComputation.
 	aColumn width: aNumber.
 ]
 
