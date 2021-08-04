@@ -15,6 +15,8 @@ Class {
 		'title',
 		'titleStencil',
 		'itemComputation',
+		'textComputation',
+		'iconComputation',
 		'cellStencil',
 		'dataBinder',
 		'width'
@@ -123,11 +125,12 @@ GtPhlowColumn >> fitContent [
 
 { #category : 'api - scripting cell content' }
 GtPhlowColumn >> icon: aBlockOrSymbol [
+	iconComputation := aBlockOrSymbol.
 	self cellStencil: [ self newIconContainer ].
 	self dataBinder: [ :anIconContainer :anItem :aRowIndex :aRowHolder :aColumnIndex |
 		| aValue anIcon anElement |
 		aValue := self itemComputation phlowValue: anItem withEnoughArguments: { anItem. aRowIndex. aColumnIndex. anIconContainer. self }.
-		anIcon := aBlockOrSymbol phlowValue: aValue withEnoughArguments: { aValue. aRowIndex. aColumnIndex. anIconContainer. self }.
+		anIcon := iconComputation phlowValue: aValue withEnoughArguments: { aValue. aRowIndex. aColumnIndex. anIconContainer. self }.
 		anElement := anIcon asElement labeled: 'Icon'.
 		anIconContainer
 			removeChildren;
@@ -160,6 +163,11 @@ GtPhlowColumn >> initialize [
 	itemComputation := self defaultItemComputation.
 	width := self defaultWidth.
 	self text: self defaultTextStencil
+]
+
+{ #category : 'testing' }
+GtPhlowColumn >> isWithIcon [
+	^ iconComputation notNil
 ]
 
 { #category : 'api - scripting cell content' }
@@ -271,11 +279,12 @@ GtPhlowColumn >> stencil: aBlock [
 
 { #category : 'api - scripting cell content' }
 GtPhlowColumn >> text: aBlockOrSymbol [
+	textComputation := aBlockOrSymbol.
 	self cellStencil: [ self newItemLabel ].
 	self dataBinder: [ :aLabel :anItem :aRowIndex :aRowHolder :aColumnIndex |
 		| aValue aText |
 		aValue := self itemComputation phlowValue: anItem withEnoughArguments: { anItem. aRowIndex. aColumnIndex. aLabel. self }.
-		aText := aBlockOrSymbol phlowValue: aValue withEnoughArguments: { aValue. aRowIndex. aColumnIndex. aLabel. self }.
+		aText := textComputation phlowValue: aValue withEnoughArguments: { aValue. aRowIndex. aColumnIndex. aLabel. self }.
 		aLabel text: aText gtDisplayText asRopedText. ]
 ]
 
