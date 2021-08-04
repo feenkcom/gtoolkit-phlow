@@ -58,6 +58,13 @@ GtPhlowColumn >> cellWidth [
 	^ width
 ]
 
+{ #category : 'accessing' }
+GtPhlowColumn >> columnDataType [
+	^ self isWithIcon
+		ifTrue: [ #icon ]
+		ifFalse: [ #text ]
+]
+
 { #category : 'api - building' }
 GtPhlowColumn >> configureColumn: aBrColumn [
 	aBrColumn 
