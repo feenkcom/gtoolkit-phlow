@@ -10,10 +10,12 @@ Class {
 { #category : 'api - converting' }
 GtPhlowColumnedLazyListView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
-
-	| aContainer header list |
+	| aContainer header itemsProvider list |
+	
 	"theItems := self
 		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ]."
+	itemsProvider := self itemsProviderOnExceptionErrorElement: [ :anElement | 
+		^ aBlock value: anElement ].
 	aContainer := self elementClass new.
 	aContainer
 		labeled: 'Columned List Container';
@@ -23,7 +25,7 @@ GtPhlowColumnedLazyListView >> asElementDo: aBlock [
 	aContainer layout: BlLinearLayout vertical.
 	header := self buildHeaderForItems: #() "theItems".
 	list := self columnedListClass new 
-		itemsProvider: self itemsProvider.
+		itemsProvider: itemsProvider.
 	list
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation).
 	list
@@ -43,11 +45,19 @@ GtPhlowColumnedLazyListView >> columnedListClass [
 ]
 
 { #category : 'accessing' }
-GtPhlowColumnedLazyListView >> itemsProvider [
-	^ itemsProviderComputation value
+GtPhlowColumnedLazyListView >> itemsProvider: aBlock [
+	itemsProviderComputation := aBlock
 ]
 
 { #category : 'accessing' }
-GtPhlowColumnedLazyListView >> itemsProvider: aBlock [
-	itemsProviderComputation := aBlock
+GtPhlowColumnedLazyListView >> itemsProviderComputation [
+	^ itemsProviderComputation
+]
+
+{ #category : 'private - accessing' }
+GtPhlowColumnedLazyListView >> itemsProviderOnExceptionErrorElement: aBlock [
+	^ self 
+		performBlock: [ self itemsProviderComputation value ]
+		onExceptionErrorElement: [ :anElement |
+			aBlock value: anElement ].
 ]
