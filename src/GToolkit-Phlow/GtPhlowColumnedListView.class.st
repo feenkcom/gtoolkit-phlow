@@ -152,6 +152,11 @@ GtPhlowColumnedListView >> itemsOnExceptionErrorElement: aBlock [
 			aBlock value: anElement ].
 ]
 
+{ #category : 'accessing' }
+GtPhlowColumnedListView >> itemsProviderBuilder [
+	^ self itemsBuilder value asGPhlowItemsIterator
+]
+
 { #category : 'api - updating' }
 GtPhlowColumnedListView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"

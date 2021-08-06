@@ -155,6 +155,11 @@ GtPhlowListView >> itemsOnExceptionErrorElement: aBlock [
 			aBlock value: anElement ].
 ]
 
+{ #category : 'accessing' }
+GtPhlowListView >> itemsProviderBuilder [
+	^ self itemsBuilder value asGPhlowItemsIterator
+]
+
 { #category : 'private - building' }
 GtPhlowListView >> newItemLabel [
 	^ BrLabel new
