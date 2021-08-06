@@ -295,6 +295,11 @@ GtPhlowColumn >> text: aBlockOrSymbol [
 		aLabel text: aText gtDisplayText asRopedText. ]
 ]
 
+{ #category : 'accessing' }
+GtPhlowColumn >> textComputation [
+	^ textComputation
+]
+
 { #category : 'private - accessing' }
 GtPhlowColumn >> title [
 	^ title
