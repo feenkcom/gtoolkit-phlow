@@ -17,7 +17,7 @@ Class {
 		'columns',
 		'itemsBuilder'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
 { #category : #'api - converting' }
@@ -150,6 +150,11 @@ GtPhlowColumnedListView >> itemsOnExceptionErrorElement: aBlock [
 		performBlock: [ self itemsBuilder value ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
+]
+
+{ #category : #accessing }
+GtPhlowColumnedListView >> itemsProviderBuilder [
+	^ self itemsBuilder value asGPhlowItemsIterator
 ]
 
 { #category : #'api - updating' }

@@ -19,7 +19,7 @@ Class {
 		'itemDataBinder',
 		'itemTypeStencil'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
 { #category : #'api - converting' }
@@ -153,6 +153,11 @@ GtPhlowListView >> itemsOnExceptionErrorElement: aBlock [
 		performBlock: [ self itemsBuilder value ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
+]
+
+{ #category : #accessing }
+GtPhlowListView >> itemsProviderBuilder [
+	^ self itemsBuilder value asGPhlowItemsIterator
 ]
 
 { #category : #'private - building' }

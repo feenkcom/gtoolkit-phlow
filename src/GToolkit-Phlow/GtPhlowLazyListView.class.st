@@ -9,11 +9,13 @@ Class {
 
 { #category : #'api - converting' }
 GtPhlowLazyListView >> asElementDo: aBlock [
-	| aList |
+	| aList itemsProvider |
 	"theItems := self
 		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ]."
+	itemsProvider := self itemsProviderOnExceptionErrorElement: [ :anElement | 
+		^ aBlock value: anElement ].
 	aList := self elementClass new 
-		itemsProvider: self itemsProvider.
+		itemsProvider: itemsProvider.
 	aList
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation).
 	aList
@@ -32,11 +34,19 @@ GtPhlowLazyListView >> elementClass [
 ]
 
 { #category : #accessing }
-GtPhlowLazyListView >> itemsProvider [
-	^ itemsProviderComputation value
+GtPhlowLazyListView >> itemsProvider: aBlock [
+	itemsProviderComputation := aBlock
 ]
 
 { #category : #accessing }
-GtPhlowLazyListView >> itemsProvider: aBlock [
-	itemsProviderComputation := aBlock
+GtPhlowLazyListView >> itemsProviderComputation [
+	^ itemsProviderComputation
+]
+
+{ #category : #'private - accessing' }
+GtPhlowLazyListView >> itemsProviderOnExceptionErrorElement: aBlock [
+	^ self 
+		performBlock: [ self itemsProviderComputation value ]
+		onExceptionErrorElement: [ :anElement |
+			aBlock value: anElement ].
 ]

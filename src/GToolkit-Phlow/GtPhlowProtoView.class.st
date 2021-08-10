@@ -131,6 +131,11 @@ GtPhlowProtoView >> definingMethod: aRGMethodDefinition [
 	^ self subclassResponsibility
 ]
 
+{ #category : #accessing }
+GtPhlowProtoView >> definingSelector [
+	^ self definingMethod selector
+]
+
 { #category : #decorating }
 GtPhlowProtoView >> empty [
 	^ GtPhlowEmptyView new
