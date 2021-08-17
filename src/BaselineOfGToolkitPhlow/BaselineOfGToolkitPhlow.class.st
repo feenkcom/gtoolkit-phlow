@@ -20,23 +20,26 @@ See {{gtClass:GtPhlowActionExamples}}
 
 "
 Class {
-	#name : #BaselineOfGToolkitPhlow,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfGToolkitPhlow
+	#name : 'BaselineOfGToolkitPhlow',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfGToolkitPhlow'
 }
 
-{ #category : #baseline }
+{ #category : 'baseline' }
 BaselineOfGToolkitPhlow >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
-		spec 
+		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.8.371/src' ];
+				spec repository: 'github://feenkcom/Brick:v0.8.372/src' ].
+		spec
 			baseline: 'GToolkitUtility' with: [
-				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.64/src' ];
+				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.64/src' ].
+		spec
 			baseline: 'GToolkitBasicUtility' with: [
 				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.64/src' ].
-		spec package: 'GToolkit-Phlow' with: [
-				spec requires: #('Brick' 'GToolkitUtility' 'GToolkitBasicUtility' ). ]. ].
 
+		spec package: 'GToolkit-Phlow' with: [
+			spec requires: #('Brick' 'GToolkitUtility' 'GToolkitBasicUtility') ].
+	]
 ]
