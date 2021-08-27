@@ -14,7 +14,7 @@ Class {
 	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:} + TGtPhlowItemText + TGtPhlowSendTransformable',
 	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait + TGtPhlowSendTransformable classTrait',
 	#instVars : [
-		'itemsBuilder',
+		'itemsProviderComputation',
 		'itemStencil',
 		'itemDataBinder',
 		'itemTypeStencil'
@@ -24,10 +24,13 @@ Class {
 
 { #category : 'api - converting' }
 GtPhlowListView >> asElementDo: aBlock [
-	| theItems aList |
-	theItems := self
-		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
-	aList := self elementClass new items: theItems.
+	| aList itemsProvider |
+
+	itemsProvider := self itemsProviderOnExceptionErrorElement: [ :anElement | 
+		^ aBlock value: anElement ].
+	
+	aList := self elementClass new 
+		itemsProvider: itemsProvider.
 	aList
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation).
 	aList
@@ -138,26 +141,21 @@ GtPhlowListView >> itemTypeStencil [
 ]
 
 { #category : 'api - scripting' }
-GtPhlowListView >> items: anObject [
-	itemsBuilder := anObject
-]
-
-{ #category : 'private - accessing' }
-GtPhlowListView >> itemsBuilder [
-	^ itemsBuilder
-]
-
-{ #category : 'private - accessing' }
-GtPhlowListView >> itemsOnExceptionErrorElement: aBlock [
-	^ self 
-		performBlock: [ self itemsBuilder value ]
-		onExceptionErrorElement: [ :anElement |
-			aBlock value: anElement ].
+GtPhlowListView >> items: aBlock [
+	itemsProviderComputation := aBlock
 ]
 
 { #category : 'accessing' }
-GtPhlowListView >> itemsProviderBuilder [
-	^ self itemsBuilder value asGPhlowItemsIterator
+GtPhlowListView >> itemsProviderComputation [
+	^ itemsProviderComputation
+]
+
+{ #category : 'private - accessing' }
+GtPhlowListView >> itemsProviderOnExceptionErrorElement: aBlock [
+	^ self 
+		performBlock: [ self itemsProviderComputation value asBrItemsProvider ]
+		onExceptionErrorElement: [ :anElement |
+			aBlock value: anElement ].
 ]
 
 { #category : 'private - building' }
@@ -205,7 +203,7 @@ GtPhlowListView >> updateContent: aCurrentElement [
 		ifFalse: [ ^ super updateContent: aCurrentElement ].
 	aParent := aCurrentElement parent.
 	aParent ifNotNil: [ | theItems |
-		theItems := self itemsOnExceptionErrorElement: [ :anErrorElement | 
+		theItems := self itemsProviderOnExceptionErrorElement: [ :anErrorElement | 
 			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
-		self enqueueAction: [ aCurrentElement items: theItems ] in: aCurrentElement ]
+		self enqueueAction: [ aCurrentElement itemsProvider: theItems ] in: aCurrentElement ]
 ]

@@ -47,7 +47,7 @@ GtPhlowUpdateCompositeSubViewTitleAndPosition >> basicRemoveTabModel: aTabModel 
 { #category : 'private - updating' }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> basicUpdateTabModel: aTabModel with: aNewSubView [
 	| aNewIndex aCurrentIndex |
-	self view views remove: self subView.
+	self view views remove: self subView ifAbsent: [ ].
 	aNewIndex := GtPhlowUtility
 		findIndexFor: aNewSubView
 		in: self view views.

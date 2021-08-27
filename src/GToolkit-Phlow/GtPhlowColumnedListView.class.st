@@ -14,8 +14,8 @@ Class {
 	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTransformable',
 	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTransformable classTrait',
 	#instVars : [
-		'columns',
-		'itemsBuilder'
+		'itemsProviderComputation',
+		'columns'
 	],
 	#category : 'GToolkit-Phlow-! Views'
 }
@@ -23,19 +23,22 @@ Class {
 { #category : 'api - converting' }
 GtPhlowColumnedListView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
+	| aContainer header itemsProvider list |
 
-	| aContainer header list theItems |
-	theItems := self
-		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
+	itemsProvider := self itemsProviderOnExceptionErrorElement: [ :anElement | 
+		^ aBlock value: anElement ].
+	
 	aContainer := self elementClass new.
 	aContainer
 		labeled: 'Columned List Container';
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
+		
 	aContainer layout: BlLinearLayout vertical.
-	header := self buildHeaderForItems: theItems.
-	list := self columnedListClass new items: theItems.
+	header := self buildHeaderForItems: #().
+	list := self columnedListClass new
+		itemsProvider: itemsProvider.
 	list
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation).
 	list
@@ -122,7 +125,7 @@ GtPhlowColumnedListView >> initialize [
 	super initialize.
 	
 	columns := OrderedCollection new.
-	itemsBuilder := [ { } ].
+	self items: [ { } ].
 	self transformation: self defaultTransformation.
 ]
 
@@ -135,26 +138,26 @@ GtPhlowColumnedListView >> isExpectedElement: aCurrentElement [
 ]
 
 { #category : 'api - scripting' }
-GtPhlowColumnedListView >> items: aValuable [
-	itemsBuilder := aValuable
-]
-
-{ #category : 'private - accessing' }
-GtPhlowColumnedListView >> itemsBuilder [
-	^ itemsBuilder
-]
-
-{ #category : 'private - accessing' }
-GtPhlowColumnedListView >> itemsOnExceptionErrorElement: aBlock [
-	^ self 
-		performBlock: [ self itemsBuilder value ]
-		onExceptionErrorElement: [ :anElement |
-			aBlock value: anElement ].
+GtPhlowColumnedListView >> items: aBlock [
+	itemsProviderComputation := aBlock
 ]
 
 { #category : 'accessing' }
-GtPhlowColumnedListView >> itemsProviderBuilder [
-	^ self itemsBuilder value asGPhlowItemsIterator
+GtPhlowColumnedListView >> itemsProvider: aBlock [
+	itemsProviderComputation := aBlock
+]
+
+{ #category : 'accessing' }
+GtPhlowColumnedListView >> itemsProviderComputation [
+	^ itemsProviderComputation
+]
+
+{ #category : 'private - accessing' }
+GtPhlowColumnedListView >> itemsProviderOnExceptionErrorElement: aBlock [
+	^ self 
+		performBlock: [ self itemsProviderComputation value asBrItemsProvider ]
+		onExceptionErrorElement: [ :anElement |
+			aBlock value: anElement ].
 ]
 
 { #category : 'api - updating' }
@@ -167,8 +170,8 @@ GtPhlowColumnedListView >> updateContent: aCurrentElement [
 	aParent := aCurrentElement parent.
 	aParent ifNotNil: [ 
 		| theItems aList |
-		theItems := self itemsOnExceptionErrorElement: [ :anErrorElement | 
+		theItems := self itemsProviderOnExceptionErrorElement: [ :anErrorElement | 
 			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
 		aList := aCurrentElement children second.
-		self enqueueAction: [ aList items: theItems ] in: aList ].
+		self enqueueAction: [ aList itemsProvider: theItems ] in: aList ].
 ]
