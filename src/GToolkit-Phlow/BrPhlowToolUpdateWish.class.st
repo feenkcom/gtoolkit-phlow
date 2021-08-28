@@ -4,7 +4,7 @@ I am {{gtMethod:BlElement>>#fireEvent:|label=fired}} when a user wish to update 
 
 "
 Class {
-	#name : #BrPhlowToolUpdateWish,
-	#superclass : #BrWish,
-	#category : #'GToolkit-Phlow-Updating'
+	#name : 'BrPhlowToolUpdateWish',
+	#superclass : 'BrWish',
+	#category : 'GToolkit-Phlow-Updating'
 }

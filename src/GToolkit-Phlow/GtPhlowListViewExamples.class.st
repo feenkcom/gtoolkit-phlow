@@ -4,14 +4,14 @@ I exemplify {{gtClass:GtPhlowListView}}.
 
 "
 Class {
-	#name : #GtPhlowListViewExamples,
-	#superclass : #GtPhlowViewExamples,
+	#name : 'GtPhlowListViewExamples',
+	#superclass : 'GtPhlowViewExamples',
 	#traits : 'TGtPhlowSendTransformationExamples',
 	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
-	#category : #'GToolkit-Phlow-Examples - Views'
+	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : #'examples - auto updates' }
+{ #category : 'examples - auto updates' }
 GtPhlowListViewExamples >> autoUpdatedView [
 	<gtExample>
 	| aView aListElement aCollection anAnnouncer |
@@ -36,7 +36,7 @@ GtPhlowListViewExamples >> autoUpdatedView [
 	^ aView
 ]
 
-{ #category : #'examples - auto updates' }
+{ #category : 'examples - auto updates' }
 GtPhlowListViewExamples >> autoUpdatedView_InSpace [
 	<gtExample>
 	| aView aParent aListElement aCollection anAnnouncer aSpace |
@@ -70,7 +70,7 @@ GtPhlowListViewExamples >> autoUpdatedView_InSpace [
 	^ aView
 ]
 
-{ #category : #'examples - auto updates' }
+{ #category : 'examples - auto updates' }
 GtPhlowListViewExamples >> autoUpdatedView_WithParent [
 	<gtExample>
 	| aView aParent aListElement aCollection anAnnouncer |
@@ -98,7 +98,7 @@ GtPhlowListViewExamples >> autoUpdatedView_WithParent [
 	^ aView
 ]
 
-{ #category : #'examples - element' }
+{ #category : 'examples - element' }
 GtPhlowListViewExamples >> element [
 	<gtExample>
 	| aView aList |
@@ -113,14 +113,14 @@ GtPhlowListViewExamples >> element [
 	^ aList
 ]
 
-{ #category : #'examples - support' }
+{ #category : 'examples - support' }
 GtPhlowListViewExamples >> elementItemsFor: anElement [
 	"Return element items"
 	<gtExample>
 	^ anElement items
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtPhlowListViewExamples >> emptyList [
 	<gtExample>
 	| aView anElement |
@@ -130,7 +130,7 @@ GtPhlowListViewExamples >> emptyList [
 	^ aView
 ]
 
-{ #category : #'examples - errors' }
+{ #category : 'examples - errors' }
 GtPhlowListViewExamples >> errorInItemDataBinder [
 	<gtExample> 
 	| aView anElement |
@@ -154,7 +154,7 @@ GtPhlowListViewExamples >> errorInItemDataBinder [
 	^ aView
 ]
 
-{ #category : #'examples - errors' }
+{ #category : 'examples - errors' }
 GtPhlowListViewExamples >> errorInItemStencil [
 	<gtExample> 
 	| aView anElement |
@@ -172,7 +172,7 @@ GtPhlowListViewExamples >> errorInItemStencil [
 	^ aView
 ]
 
-{ #category : #'examples - errors' }
+{ #category : 'examples - errors' }
 GtPhlowListViewExamples >> errorInItemText [
 	<gtExample>
 	| aView anElement |
@@ -202,7 +202,7 @@ GtPhlowListViewExamples >> errorInItemText [
 	^ aView
 ]
 
-{ #category : #'examples - errors' }
+{ #category : 'examples - errors' }
 GtPhlowListViewExamples >> errorInItemType [
 	<gtExample> 
 	| aView anElement |
@@ -225,7 +225,7 @@ GtPhlowListViewExamples >> errorInItemType [
 	^ aView
 ]
 
-{ #category : #'examples - errors' }
+{ #category : 'examples - errors' }
 GtPhlowListViewExamples >> errorInItemsWithDefaultItemTexts [
 	<gtExample> 
 	| aView anElement |
@@ -236,12 +236,12 @@ GtPhlowListViewExamples >> errorInItemsWithDefaultItemTexts [
 	^ aView
 ]
 
-{ #category : #'examples - element' }
+{ #category : 'examples - element' }
 GtPhlowListViewExamples >> expectedElementClass [
 	^ BrSimpleList
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowListViewExamples >> gtAutoUpdatingListFor: aView [
 	<gtView>
 	| aCollection anAnnouncer |
@@ -257,7 +257,7 @@ GtPhlowListViewExamples >> gtAutoUpdatingListFor: aView [
 		updateWhen: Announcement in: [ anAnnouncer ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowListViewExamples >> gtErrorInItemDataBinderFor: aView [
 	<gtView>
 	^ aView list 
@@ -278,7 +278,7 @@ GtPhlowListViewExamples >> gtErrorInItemDataBinderFor: aView [
 			anElement height: aNumber ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowListViewExamples >> gtErrorInItemStencilFor: aView [
 	<gtView>
 	^ aView list 
@@ -298,7 +298,7 @@ GtPhlowListViewExamples >> gtErrorInItemStencilFor: aView [
 			anElement height: aNumber ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowListViewExamples >> gtErrorInItemTextFor: aView [
 	<gtView>
 	^ aView list 
@@ -311,7 +311,7 @@ GtPhlowListViewExamples >> gtErrorInItemTextFor: aView [
 			'Item number ', aNumber asString ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowListViewExamples >> gtErrorInItemTypeFor: aView [
 	<gtView>
 	^ aView list 
@@ -334,7 +334,7 @@ GtPhlowListViewExamples >> gtErrorInItemTypeFor: aView [
 			anElement height: aNumber ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowListViewExamples >> gtErrorInItemsFor: aView [
 	<gtView>
 	^ aView list 
@@ -343,7 +343,7 @@ GtPhlowListViewExamples >> gtErrorInItemsFor: aView [
 		items: [ ZeroDivide signal: 'items: error'. (1 to: 1000) ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowListViewExamples >> gtTenItemsFor: aView [
 	<gtView>
 	^ aView list 
@@ -352,7 +352,7 @@ GtPhlowListViewExamples >> gtTenItemsFor: aView [
 		items: [ (1 to: 10) ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowListViewExamples >> gtTenLinesFor: aView [
 	<gtView>
 	^ aView list 
@@ -371,7 +371,7 @@ GtPhlowListViewExamples >> gtTenLinesFor: aView [
 			anElement height: aNumber ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowListViewExamples >> gtTextFor: aView [
 	<gtView>
 	^ aView list 
@@ -381,7 +381,7 @@ GtPhlowListViewExamples >> gtTextFor: aView [
 		itemText: [ :aNumber | 'Item number ', aNumber asString ]
 ]
 
-{ #category : #'examples - text' }
+{ #category : 'examples - text' }
 GtPhlowListViewExamples >> itemText [
 	<gtExample>
 	| aView anElement |
@@ -398,7 +398,7 @@ GtPhlowListViewExamples >> itemText [
 	^ aView
 ]
 
-{ #category : #'examples - text' }
+{ #category : 'examples - text' }
 GtPhlowListViewExamples >> itemsAsDefaultTexts [
 	<gtExample>
 	| aView anElement |
@@ -421,7 +421,7 @@ GtPhlowListViewExamples >> itemsAsDefaultTexts [
 	^ aView
 ]
 
-{ #category : #'examples - element' }
+{ #category : 'examples - element' }
 GtPhlowListViewExamples >> modifiedElement [
 	<gtExample>
 	| aList |
@@ -433,7 +433,7 @@ GtPhlowListViewExamples >> modifiedElement [
 	^ aList
 ]
 
-{ #category : #'examples - view' }
+{ #category : 'examples - view' }
 GtPhlowListViewExamples >> modifiedPhlowView [
 	<gtExample>
 	| aView |
@@ -442,13 +442,13 @@ GtPhlowListViewExamples >> modifiedPhlowView [
 	^ aView
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowListViewExamples >> myself [
 	<gtExample>
 	^ self
 ]
 
-{ #category : #'examples - view' }
+{ #category : 'examples - view' }
 GtPhlowListViewExamples >> phlowView [
 	<gtExample>
 	| aView |
@@ -457,14 +457,14 @@ GtPhlowListViewExamples >> phlowView [
 	^ aView
 ]
 
-{ #category : #'examples - support' }
+{ #category : 'examples - support' }
 GtPhlowListViewExamples >> selectItemAt: anIndex for: anElement [
 	<gtExample>
 	"Select an item at anIndex in anElement (list, tree)"
 	anElement selectOne: 1
 ]
 
-{ #category : #'examples - transformation' }
+{ #category : 'examples - transformation' }
 GtPhlowListViewExamples >> sendTool [
 	<gtExample>
 	| view element |
@@ -485,7 +485,7 @@ GtPhlowListViewExamples >> sendTool [
 	^ view
 ]
 
-{ #category : #'examples - updating' }
+{ #category : 'examples - updating' }
 GtPhlowListViewExamples >> updateOnDefiningMethodChange [
 	<gtExample>
 	| anElement aView anElementContext aCommand aContainer aNewElement |
@@ -515,7 +515,7 @@ GtPhlowListViewExamples >> updateOnDefiningMethodChange [
 	^ aContainer
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtPhlowListViewExamples >> viewWithItems [
 	<gtExample>
 	| view element |
@@ -525,7 +525,7 @@ GtPhlowListViewExamples >> viewWithItems [
 	^ view
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtPhlowListViewExamples >> viewWithItemsAndItemElement [
 	<gtExample>
 	| view element |
@@ -538,7 +538,7 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement [
 	^ view
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError [
 	<gtExample>
 	| aView anElement |
@@ -552,7 +552,7 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError [
 	^ aView
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError_InSpace [
 	<gtExample>
 	| aView anElement aSpace anException |
@@ -569,7 +569,7 @@ GtPhlowListViewExamples >> viewWithItemsAndItemElement_ProducingError_InSpace [
 	^ aView
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtPhlowListViewExamples >> viewWithItems_WithGetItemsError [
 	<gtExample>
 	| aView anElement |
@@ -579,7 +579,7 @@ GtPhlowListViewExamples >> viewWithItems_WithGetItemsError [
 	^ aView
 ]
 
-{ #category : #'examples - view' }
+{ #category : 'examples - view' }
 GtPhlowListViewExamples >> viewWithTenItems [
 	"Return an initialized view with 10 (root) items"
 	<gtExample>

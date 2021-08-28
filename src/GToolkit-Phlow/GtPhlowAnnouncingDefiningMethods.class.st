@@ -1,21 +1,21 @@
 Class {
-	#name : #GtPhlowAnnouncingDefiningMethods,
-	#superclass : #GtPhlowDefiningMethods,
+	#name : 'GtPhlowAnnouncingDefiningMethods',
+	#superclass : 'GtPhlowDefiningMethods',
 	#traits : 'TGtAnnouncer',
 	#classTraits : 'TGtAnnouncer classTrait',
 	#instVars : [
 		'announcer'
 	],
-	#category : #'GToolkit-Phlow-Collectors'
+	#category : 'GToolkit-Phlow-Collectors'
 }
 
-{ #category : #announcer }
+{ #category : 'announcer' }
 GtPhlowAnnouncingDefiningMethods >> announcer [
 	<return: #Announcer>
 	^ announcer
 ]
 
-{ #category : #'announcement handling' }
+{ #category : 'announcement handling' }
 GtPhlowAnnouncingDefiningMethods >> handleMethodModified: aMethodModified [ 
 	(self methods anySatisfy: [ :eachMethod | 
 		eachMethod isDefined not or: [ 
@@ -23,24 +23,24 @@ GtPhlowAnnouncingDefiningMethods >> handleMethodModified: aMethodModified [
 	self notifyDefinitionUpdated
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowAnnouncingDefiningMethods >> initialize [
 	super initialize.
 	announcer := Announcer new.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowAnnouncingDefiningMethods >> methods: anObject [
 	super methods: anObject.
 	self subscribeToSystem.
 ]
 
-{ #category : #notifying }
+{ #category : 'notifying' }
 GtPhlowAnnouncingDefiningMethods >> notifyDefinitionUpdated [
 	self announce: GtPhlowDefinitionUpdated
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowAnnouncingDefiningMethods >> subscribeToSystem [
 	SystemAnnouncer uniqueInstance weak
 		when: MethodModified

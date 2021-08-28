@@ -4,12 +4,12 @@ I exemplify {{gtClass:GtPhlowRemoveCompositeSubView}}.
 
 "
 Class {
-	#name : #GtPhlowRemoveCompositeSubViewExamples,
-	#superclass : #GtPhlowUpdateCommandExamples,
-	#category : #'GToolkit-Phlow-Examples'
+	#name : 'GtPhlowRemoveCompositeSubViewExamples',
+	#superclass : 'GtPhlowUpdateCommandExamples',
+	#category : 'GToolkit-Phlow-Examples'
 }
 
-{ #category : #'examples - commands' }
+{ #category : 'examples - commands' }
 GtPhlowRemoveCompositeSubViewExamples >> basicCommand [
 	<gtExample>
 	| aCommand anElement |
@@ -23,7 +23,7 @@ GtPhlowRemoveCompositeSubViewExamples >> basicCommand [
 	^ aCommand
 ]
 
-{ #category : #'examples - comparison' }
+{ #category : 'examples - comparison' }
 GtPhlowRemoveCompositeSubViewExamples >> differentEntryIdentifiers [
 	<gtExample>
 	| aCommandOne aCommandTwo |
@@ -33,7 +33,7 @@ GtPhlowRemoveCompositeSubViewExamples >> differentEntryIdentifiers [
 	^ aCommandOne
 ]
 
-{ #category : #'examples - comparison' }
+{ #category : 'examples - comparison' }
 GtPhlowRemoveCompositeSubViewExamples >> differentEntryIdentifiers_SameContext_DifferentMethods [
 	<gtExample>
 	| aCommandOne aCommandTwo |
@@ -45,7 +45,7 @@ GtPhlowRemoveCompositeSubViewExamples >> differentEntryIdentifiers_SameContext_D
 	^ aCommandOne
 ]
 
-{ #category : #'examples - commands' }
+{ #category : 'examples - commands' }
 GtPhlowRemoveCompositeSubViewExamples >> emptyCommand [
 	<gtExample>
 	| aCommand |
@@ -56,7 +56,7 @@ GtPhlowRemoveCompositeSubViewExamples >> emptyCommand [
 	^ aCommand
 ]
 
-{ #category : #'examples - comparison' }
+{ #category : 'examples - comparison' }
 GtPhlowRemoveCompositeSubViewExamples >> sameEntryIdentifiers [
 	<gtExample>
 	| aCommandOne aCommandTwo |

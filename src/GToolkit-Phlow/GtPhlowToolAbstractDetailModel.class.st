@@ -13,21 +13,21 @@ See my {{gtClass:GtPhlowToolAbstractDetailModel|expanded|show=#gtSubclassesFor:|
 
 "
 Class {
-	#name : #GtPhlowToolAbstractDetailModel,
-	#superclass : #BrStateModel,
+	#name : 'GtPhlowToolAbstractDetailModel',
+	#superclass : 'BrStateModel',
 	#instVars : [
 		'level'
 	],
-	#category : #'GToolkit-Phlow-Tool - Model'
+	#category : 'GToolkit-Phlow-Tool - Model'
 }
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 GtPhlowToolAbstractDetailModel >> beDetailedLevel [
 	"A ${class:BlElement}$ (a tool) should display all details."
 	self level: GtPhlowToolDetailState detailedName
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 GtPhlowToolAbstractDetailModel >> beDetailedTool [
 	self 
 		deprecated: 'Use #beDetailedLevel instead' 
@@ -35,13 +35,13 @@ GtPhlowToolAbstractDetailModel >> beDetailedTool [
 	self beDetailedLevel
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 GtPhlowToolAbstractDetailModel >> beNormalLevel [
 	"A ${class:BlElement}$ (a tool) should display a common information (hidding some details)."
 	self level: GtPhlowToolDetailState normalName
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 GtPhlowToolAbstractDetailModel >> beNormalTool [
 	self 
 		deprecated: 'Use #beNormalLevel instead' 
@@ -49,14 +49,14 @@ GtPhlowToolAbstractDetailModel >> beNormalTool [
 	self beNormalLevel
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 GtPhlowToolAbstractDetailModel >> beUndefinedLevel [
 	"Undefined level has a special meaning and is used internally.
 	See ${class:GtPhlowToolContainerDetailModel}$ for more details."
 	self level: GtPhlowToolDetailState undefinedName
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 GtPhlowToolAbstractDetailModel >> beUndefinedTool [
 	self 
 		deprecated: 'Use #beUndefinedLevel instead' 
@@ -64,12 +64,12 @@ GtPhlowToolAbstractDetailModel >> beUndefinedTool [
 	self beUndefinedLevel
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtPhlowToolAbstractDetailModel >> defaultLevel [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 GtPhlowToolAbstractDetailModel >> dimension [
 	<return: #Symbol>
 	self 
@@ -78,7 +78,7 @@ GtPhlowToolAbstractDetailModel >> dimension [
 	^ self level
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 GtPhlowToolAbstractDetailModel >> dimension: aSymbol [
 
 	self 
@@ -87,7 +87,7 @@ GtPhlowToolAbstractDetailModel >> dimension: aSymbol [
 	self level: aSymbol
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowToolAbstractDetailModel >> initialize [
 	super initialize.
 
@@ -95,7 +95,7 @@ GtPhlowToolAbstractDetailModel >> initialize [
 	level := self defaultLevel.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowToolAbstractDetailModel >> initializeListeners [
 	super initializeListeners.
 	self
@@ -106,23 +106,23 @@ GtPhlowToolAbstractDetailModel >> initializeListeners [
 		do: [ :aWish | self level: aWish level ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowToolAbstractDetailModel >> isDetailed [
 	^ self level = GtPhlowToolDetailState detailedName
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowToolAbstractDetailModel >> isUndefined [
 	^ self level = GtPhlowToolDetailState undefinedName
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 GtPhlowToolAbstractDetailModel >> level [
 	<return: #Symbol>
 	^ level
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 GtPhlowToolAbstractDetailModel >> level: aSymbol [
 	"A ${class:BlElement}$ (a tool) should display a user defined level of information."
 
@@ -133,7 +133,7 @@ GtPhlowToolAbstractDetailModel >> level: aSymbol [
 	self notifyStateChanged: level
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtPhlowToolAbstractDetailModel >> printOn: aStream [
 	aStream
 		nextPutAll: self modelName;
@@ -142,12 +142,12 @@ GtPhlowToolAbstractDetailModel >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
-{ #category : #'state - accessing' }
+{ #category : 'state - accessing' }
 GtPhlowToolAbstractDetailModel >> stateChangedEventClass [
 	^ GtPhlowToolDetailChanged
 ]
 
-{ #category : #'state - streaming' }
+{ #category : 'state - streaming' }
 GtPhlowToolAbstractDetailModel >> streamStateIn: aBrInteractionStatesMapping [
 	aBrInteractionStatesMapping
 		addState: (GtPhlowToolDetailState new level: self level)

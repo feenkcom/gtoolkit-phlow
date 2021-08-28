@@ -1,10 +1,10 @@
 Class {
-	#name : #GtPhlowTool,
-	#superclass : #GtPhlowAbstractTool,
-	#category : #'GToolkit-Phlow-Tool - Core'
+	#name : 'GtPhlowTool',
+	#superclass : 'GtPhlowAbstractTool',
+	#category : 'GToolkit-Phlow-Tool - Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTool class >> default [
 	"Default tools must handle #object: messages"
 	| aClassOrNil |
@@ -12,23 +12,23 @@ GtPhlowTool class >> default [
 	^ aClassOrNil ifNotNil: [ aClassOrNil new ] ifNil: [ self null ].
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowTool class >> isAbstract [
 	^ self name = #GtPhlowTool 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTool class >> null [
 	^ GtPhlowNullTool default
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTool class >> priority [
 	<return: #Number>
 	^ 50
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtPhlowTool >> asElement [
 	<return: #BlElement>
 	^ self asElementDo: [ :anElement | anElement ]

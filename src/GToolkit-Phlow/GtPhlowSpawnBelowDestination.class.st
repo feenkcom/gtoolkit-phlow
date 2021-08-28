@@ -8,22 +8,22 @@ determine where to place the event.
 
 "
 Class {
-	#name : #GtPhlowSpawnBelowDestination,
-	#superclass : #GtPhlowSpawnDesiredDestination,
-	#category : #'GToolkit-Phlow-Direction'
+	#name : 'GtPhlowSpawnBelowDestination',
+	#superclass : 'GtPhlowSpawnDesiredDestination',
+	#category : 'GToolkit-Phlow-Direction'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSpawnBelowDestination >> followingDestination [
 	^ GtPhlowSpawnNextPaneDestination new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSpawnBelowDestination >> icon [
 	^ BrGlamorousVectorIcons down 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowSpawnBelowDestination >> isSpawnBelow [
 	^ true
 ]

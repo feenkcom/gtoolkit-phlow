@@ -4,12 +4,12 @@ I exemplify {{gtClass:GtPhlowToolTitleLabelBuilder}}.
 
 "
 Class {
-	#name : #GtPhlowToolTitleLabelBuilderExamples,
-	#superclass : #GtPhlowTitleLabelBuilderExamples,
-	#category : #'GToolkit-Phlow-Tool - Title Examples'
+	#name : 'GtPhlowToolTitleLabelBuilderExamples',
+	#superclass : 'GtPhlowTitleLabelBuilderExamples',
+	#category : 'GToolkit-Phlow-Tool - Title Examples'
 }
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 GtPhlowToolTitleLabelBuilderExamples >> builder [
 	<gtExample>
 	| aBuilder |
@@ -21,7 +21,7 @@ GtPhlowToolTitleLabelBuilderExamples >> builder [
 	^ aBuilder
 ]
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 GtPhlowToolTitleLabelBuilderExamples >> emptySubjectName [
 	<gtExample>
 	| aBuilder aTitle |
@@ -33,7 +33,7 @@ GtPhlowToolTitleLabelBuilderExamples >> emptySubjectName [
 	^ aBuilder
 ]
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 GtPhlowToolTitleLabelBuilderExamples >> longTitle [
 	<gtExample>
 	| aBuilder aTitle |
@@ -45,7 +45,7 @@ GtPhlowToolTitleLabelBuilderExamples >> longTitle [
 	^ aBuilder
 ]
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 GtPhlowToolTitleLabelBuilderExamples >> longTitle_Block [
 	<gtExample>
 	| aBuilder aTitle |
@@ -57,7 +57,7 @@ GtPhlowToolTitleLabelBuilderExamples >> longTitle_Block [
 	^ aBuilder
 ]
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 GtPhlowToolTitleLabelBuilderExamples >> longTitle_RopedText [
 	<gtExample>
 	| aBuilder aTitle |
@@ -73,7 +73,7 @@ GtPhlowToolTitleLabelBuilderExamples >> longTitle_RopedText [
 	^ aBuilder
 ]
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 GtPhlowToolTitleLabelBuilderExamples >> noSubjectName [
 	<gtExample>
 	| aBuilder aTitle |
@@ -84,7 +84,7 @@ GtPhlowToolTitleLabelBuilderExamples >> noSubjectName [
 	^ aBuilder
 ]
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 GtPhlowToolTitleLabelBuilderExamples >> noToolName [
 	<gtExample>
 	| aBuilder aTitle |
@@ -95,7 +95,7 @@ GtPhlowToolTitleLabelBuilderExamples >> noToolName [
 	^ aBuilder
 ]
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 GtPhlowToolTitleLabelBuilderExamples >> shortTitle [
 	<gtExample>
 	| aBuilder aTitle |
@@ -107,7 +107,7 @@ GtPhlowToolTitleLabelBuilderExamples >> shortTitle [
 	^ aBuilder
 ]
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 GtPhlowToolTitleLabelBuilderExamples >> shortTitle_Block [
 	<gtExample>
 	| aBuilder aTitle |

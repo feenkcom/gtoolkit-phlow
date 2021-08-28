@@ -43,12 +43,12 @@ Dropdowns can also be defined.
 
 "
 Class {
-	#name : #GtPhlowActionExamples,
-	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Examples'
+	#name : 'GtPhlowActionExamples',
+	#superclass : 'Object',
+	#category : 'GToolkit-Phlow-Examples'
 }
 
-{ #category : #button }
+{ #category : 'button' }
 GtPhlowActionExamples >> buttonWithIcon [
 	<gtExample>
 	| anAction aButton |
@@ -62,7 +62,7 @@ GtPhlowActionExamples >> buttonWithIcon [
 	^ anAction
 ]
 
-{ #category : #button }
+{ #category : 'button' }
 GtPhlowActionExamples >> buttonWithIconAndLabel [
 	<gtExample>
 	| anAction aButton |
@@ -78,7 +78,7 @@ GtPhlowActionExamples >> buttonWithIconAndLabel [
 	^ anAction
 ]
 
-{ #category : #button }
+{ #category : 'button' }
 GtPhlowActionExamples >> buttonWithIconAndLabelAndTooltip [
 	<gtExample>
 	| anAction aButton |
@@ -90,7 +90,7 @@ GtPhlowActionExamples >> buttonWithIconAndLabelAndTooltip [
 	^ anAction
 ]
 
-{ #category : #button }
+{ #category : 'button' }
 GtPhlowActionExamples >> buttonWithIconAndTooltip [
 	<gtExample>
 	| anAction aButton |
@@ -102,7 +102,7 @@ GtPhlowActionExamples >> buttonWithIconAndTooltip [
 	^ anAction
 ]
 
-{ #category : #button }
+{ #category : 'button' }
 GtPhlowActionExamples >> buttonWithLabel [
 	<gtExample>
 	| aButton anAction |
@@ -116,7 +116,7 @@ GtPhlowActionExamples >> buttonWithLabel [
 	^ anAction
 ]
 
-{ #category : #button }
+{ #category : 'button' }
 GtPhlowActionExamples >> buttonWithLabelWithTooltip [
 	<gtExample>
 	| aButton anAction |
@@ -128,7 +128,7 @@ GtPhlowActionExamples >> buttonWithLabelWithTooltip [
 	^ anAction
 ]
 
-{ #category : #button }
+{ #category : 'button' }
 GtPhlowActionExamples >> buttonWithNoConfiguration [
 	<gtExample>
 	| aButton anAction |
@@ -141,7 +141,7 @@ GtPhlowActionExamples >> buttonWithNoConfiguration [
 	^ anAction 
 ]
 
-{ #category : #priority }
+{ #category : 'priority' }
 GtPhlowActionExamples >> comparePriority [
 	<gtExample>
 	| anAction |
@@ -150,7 +150,7 @@ GtPhlowActionExamples >> comparePriority [
 	^ anAction
 ]
 
-{ #category : #priority }
+{ #category : 'priority' }
 GtPhlowActionExamples >> defaultPriority [
 	<gtExample>
 	| anAction |
@@ -159,7 +159,7 @@ GtPhlowActionExamples >> defaultPriority [
 	^ anAction
 ]
 
-{ #category : #dropdown }
+{ #category : 'dropdown' }
 GtPhlowActionExamples >> dropdownWithIcon [
 	<gtExample>
 	| anAction aButton |
@@ -175,7 +175,7 @@ GtPhlowActionExamples >> dropdownWithIcon [
 	^ anAction
 ]
 
-{ #category : #dropdown }
+{ #category : 'dropdown' }
 GtPhlowActionExamples >> dropdownWithIconAndLabel [
 	<gtExample>
 	| anAction aButton |
@@ -194,7 +194,7 @@ GtPhlowActionExamples >> dropdownWithIconAndLabel [
 	^ aButton
 ]
 
-{ #category : #explicit }
+{ #category : 'explicit' }
 GtPhlowActionExamples >> explicitAction [
 	<gtExample>
 	| anAction |
@@ -207,7 +207,7 @@ GtPhlowActionExamples >> explicitAction [
 	^ anAction
 ]
 
-{ #category : #'reused actions' }
+{ #category : 'reused actions' }
 GtPhlowActionExamples >> levelOneAction [
 	<gtExample>
 	| anActions |
@@ -221,7 +221,7 @@ GtPhlowActionExamples >> levelOneAction [
 	^ anActions first
 ]
 
-{ #category : #'reused actions' }
+{ #category : 'reused actions' }
 GtPhlowActionExamples >> levelOneActionFor: anAction [
 	<gtAction>
 	<gtLevelOneAction>
@@ -229,7 +229,7 @@ GtPhlowActionExamples >> levelOneActionFor: anAction [
 		label: 'Level One'
 ]
 
-{ #category : #'reused actions' }
+{ #category : 'reused actions' }
 GtPhlowActionExamples >> levelTwoAction [
 	<gtExample>
 	| anActions |
@@ -245,7 +245,7 @@ GtPhlowActionExamples >> levelTwoAction [
 	^ anActions first
 ]
 
-{ #category : #'reused actions' }
+{ #category : 'reused actions' }
 GtPhlowActionExamples >> levelTwoActionFor: anAction [
 	<gtAction>
 	<gtLevelTwoAction>
@@ -253,13 +253,13 @@ GtPhlowActionExamples >> levelTwoActionFor: anAction [
 		label: 'Level Two'
 ]
 
-{ #category : #'reused actions' }
+{ #category : 'reused actions' }
 GtPhlowActionExamples >> myself [
 	<gtExample>
 	^ self
 ]
 
-{ #category : #priority }
+{ #category : 'priority' }
 GtPhlowActionExamples >> setPriority [
 	<gtExample>
 	| anAction |
@@ -269,7 +269,7 @@ GtPhlowActionExamples >> setPriority [
 	^ anAction
 ]
 
-{ #category : #toggle }
+{ #category : 'toggle' }
 GtPhlowActionExamples >> toggleWithIcon [
 	<gtExample>
 	| aButton anAction |
@@ -284,7 +284,7 @@ GtPhlowActionExamples >> toggleWithIcon [
 	^ anAction
 ]
 
-{ #category : #toggle }
+{ #category : 'toggle' }
 GtPhlowActionExamples >> toggleWithIconAndLabelActivated [
 	<gtExample>
 	| anAction aButton |
@@ -302,7 +302,7 @@ GtPhlowActionExamples >> toggleWithIconAndLabelActivated [
 	^ anAction
 ]
 
-{ #category : #toggle }
+{ #category : 'toggle' }
 GtPhlowActionExamples >> toggleWithIconAndLabelDeactivated [
 	<gtExample>
 	| anAction aButton |
@@ -320,7 +320,7 @@ GtPhlowActionExamples >> toggleWithIconAndLabelDeactivated [
 	^ anAction
 ]
 
-{ #category : #toggle }
+{ #category : 'toggle' }
 GtPhlowActionExamples >> toggleWithLabel [
 	<gtExample>
 	| anAction aButton |
@@ -335,7 +335,7 @@ GtPhlowActionExamples >> toggleWithLabel [
 	^ anAction
 ]
 
-{ #category : #toggle }
+{ #category : 'toggle' }
 GtPhlowActionExamples >> toggleWithNoConfiguration [
 	<gtExample>
 	| anAction aButton |

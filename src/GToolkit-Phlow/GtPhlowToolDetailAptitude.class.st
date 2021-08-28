@@ -11,33 +11,33 @@ The following example changes an element background color on information level c
 
 "
 Class {
-	#name : #GtPhlowToolDetailAptitude,
-	#superclass : #BrInteractiveAptitude,
-	#category : #'GToolkit-Phlow-Tool - Looks'
+	#name : 'GtPhlowToolDetailAptitude',
+	#superclass : 'BrInteractiveAptitude',
+	#category : 'GToolkit-Phlow-Tool - Looks'
 }
 
-{ #category : #'api - style' }
+{ #category : 'api - style' }
 GtPhlowToolDetailAptitude >> detailed: aStyleBlock [
 	self
 		when: self state detailed
 		style: aStyleBlock
 ]
 
-{ #category : #'api - style' }
+{ #category : 'api - style' }
 GtPhlowToolDetailAptitude >> level: aNamedVolume style: aStyleBlock [
 	self
 		when: (self state level: aNamedVolume)
 		style: aStyleBlock
 ]
 
-{ #category : #'api - style' }
+{ #category : 'api - style' }
 GtPhlowToolDetailAptitude >> normal: aStyleBlock [
 	self
 		when: self state normal
 		style: aStyleBlock
 ]
 
-{ #category : #'api - style' }
+{ #category : 'api - style' }
 GtPhlowToolDetailAptitude >> state [
 	^ GtPhlowToolDetailState
 ]

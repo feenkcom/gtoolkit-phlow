@@ -4,15 +4,15 @@ I wrap a view and add a title to it.
 
 "
 Class {
-	#name : #GtPhlowLabelledView,
-	#superclass : #GtPhlowViewDecorator,
+	#name : 'GtPhlowLabelledView',
+	#superclass : 'GtPhlowViewDecorator',
 	#instVars : [
 		'label'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowLabelledView >> asElementDo: aBlock [
 	| tab group |
 	group := BrTabGroup new.
@@ -37,22 +37,22 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 	^ aBlock value: group
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtPhlowLabelledView >> defaultUpdateDefinitions [
 	^ super defaultUpdateDefinitions copyWith: GtPhlowUpdateLabeledOnClassAndSuperClassChange
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowLabelledView >> label [
 	^ label
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowLabelledView >> label: anObject [
 	label := anObject
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowLabelledView >> newLabel [
 	<return: #BlRopedText or: #String>
 	^ self label value

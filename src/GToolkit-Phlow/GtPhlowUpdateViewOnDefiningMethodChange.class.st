@@ -6,12 +6,12 @@ See {{gtClass:GtPhlowUpdateView}} for more details.
 
 "
 Class {
-	#name : #GtPhlowUpdateViewOnDefiningMethodChange,
-	#superclass : #GtPhlowSystemChangeUpdateDefinition,
-	#category : #'GToolkit-Phlow-Updating'
+	#name : 'GtPhlowUpdateViewOnDefiningMethodChange',
+	#superclass : 'GtPhlowSystemChangeUpdateDefinition',
+	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : #'announcement handling' }
+{ #category : 'announcement handling' }
 GtPhlowUpdateViewOnDefiningMethodChange >> handleMethodModifiedAnnouncement: aMethodModified [ 
 	self hasContexts ifFalse: [ ^ self ].
 	self hasDefiningMethod ifFalse: [ ^ self ].
@@ -20,7 +20,7 @@ GtPhlowUpdateViewOnDefiningMethodChange >> handleMethodModifiedAnnouncement: aMe
 	self updatePhlowViews.
 ]
 
-{ #category : #subscriptions }
+{ #category : 'subscriptions' }
 GtPhlowUpdateViewOnDefiningMethodChange >> subscribeOn: aGtPhlowElementContext [
 	self hasDefiningMethod ifFalse: [ ^ self ].
 	self addContext: aGtPhlowElementContext.
@@ -31,13 +31,13 @@ GtPhlowUpdateViewOnDefiningMethodChange >> subscribeOn: aGtPhlowElementContext [
 		subscriber: self
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtPhlowUpdateViewOnDefiningMethodChange >> updatePhlowView: aGtPhlowElementContext [
 	self scheduleTask: (GtPhlowUpdateView new
 		elementContext: aGtPhlowElementContext)
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtPhlowUpdateViewOnDefiningMethodChange >> updatePhlowViews [
 	self contexts do: [ :eachContext | 
 		eachContext hasBuildContext ifTrue: [ 

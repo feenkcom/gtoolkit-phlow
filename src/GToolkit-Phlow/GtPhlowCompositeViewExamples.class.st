@@ -4,12 +4,12 @@ I exemplify {{gtClass:GtPhlowCompositeView}}.
 
 "
 Class {
-	#name : #GtPhlowCompositeViewExamples,
-	#superclass : #GtPhlowViewExamples,
-	#category : #'GToolkit-Phlow-Examples - Views'
+	#name : 'GtPhlowCompositeViewExamples',
+	#superclass : 'GtPhlowViewExamples',
+	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : #'examples - updating' }
+{ #category : 'examples - updating' }
 GtPhlowCompositeViewExamples >> addViewThreeDefinition [
 	<gtExample>
 	| aTabGroup aView aCommand aNewSubView aContainer anInitialTabs aFinalTabs |
@@ -40,7 +40,7 @@ GtPhlowCompositeViewExamples >> addViewThreeDefinition [
 	^ aContainer
 ]
 
-{ #category : #'examples - updating' }
+{ #category : 'examples - updating' }
 GtPhlowCompositeViewExamples >> addViewThreeDefinition_WithEmptyView [
 	<gtExample>
 	| aTabGroup aView aCommand aNewSubView aContainer anInitialTabs aFinalTabs |
@@ -69,7 +69,7 @@ GtPhlowCompositeViewExamples >> addViewThreeDefinition_WithEmptyView [
 	^ aContainer
 ]
 
-{ #category : #'examples - collector' }
+{ #category : 'examples - collector' }
 GtPhlowCompositeViewExamples >> collectorUsage [
 	<gtExample>
 	| aView |
@@ -83,7 +83,7 @@ GtPhlowCompositeViewExamples >> collectorUsage [
 	^ aView
 ]
 
-{ #category : #'examples - collector' }
+{ #category : 'examples - collector' }
 GtPhlowCompositeViewExamples >> collectorUsageElement [
 	<gtExample>
 	| aView anElement |
@@ -95,7 +95,7 @@ GtPhlowCompositeViewExamples >> collectorUsageElement [
 	^ anElement
 ]
 
-{ #category : #'examples - elements' }
+{ #category : 'examples - elements' }
 GtPhlowCompositeViewExamples >> element [
 	<gtExample>
 	| aView aTabGroup anInitialTabs |
@@ -112,24 +112,24 @@ GtPhlowCompositeViewExamples >> element [
 	^ aTabGroup
 ]
 
-{ #category : #'examples - element' }
+{ #category : 'examples - element' }
 GtPhlowCompositeViewExamples >> expectedElementClass [
 	^ BrTabGroup
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowCompositeViewExamples >> gtAutoUpdatingFor: aView [
 	<gtDemoView>
 	^ (GtPhlowTextEditorViewExamples new gtAutoUpdatingFor: aView)
 		priority: 2
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowCompositeViewExamples >> gtPhlowEmptyViewFor: aView [
 	^ GtPhlowEmptyViewExamples new gtPhlowViewFor: aView
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowCompositeViewExamples >> gtPhlowViewFor: aView [
 	<gtView>
 	^ aView composite
@@ -137,7 +137,7 @@ GtPhlowCompositeViewExamples >> gtPhlowViewFor: aView [
 		views: { self subViewOne. self subViewTwo } asOrderedCollection
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowCompositeViewExamples >> gtPhlowViewWithCollectorFor: aView [
 	<gtView>
 	^ aView composite
@@ -148,20 +148,20 @@ GtPhlowCompositeViewExamples >> gtPhlowViewWithCollectorFor: aView [
 				fromObject: self ]
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowCompositeViewExamples >> gtTenLinesFor: aView [
 	<gtDemoView>
 	^ (GtPhlowListViewExamples new gtTenLinesFor: aView)
 		priority: 1
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowCompositeViewExamples >> itself [
 	<gtExample>
 	^ self
 ]
 
-{ #category : #'examples - view' }
+{ #category : 'examples - view' }
 GtPhlowCompositeViewExamples >> phlowView [
 	<gtExample>
 	| aView theSubViews |
@@ -175,7 +175,7 @@ GtPhlowCompositeViewExamples >> phlowView [
 	^ aView
 ]
 
-{ #category : #'examples - updating' }
+{ #category : 'examples - updating' }
 GtPhlowCompositeViewExamples >> removeViewOneDefinition [
 	<gtExample>
 	| aTabGroup aView aSubView aCommand aContainer anInitialTabs aFinalTabs |
@@ -202,7 +202,7 @@ GtPhlowCompositeViewExamples >> removeViewOneDefinition [
 	^ aContainer
 ]
 
-{ #category : #'examples - sub-views' }
+{ #category : 'examples - sub-views' }
 GtPhlowCompositeViewExamples >> subViewEmpty [
 	<gtExample>
 	| aView |
@@ -212,7 +212,7 @@ GtPhlowCompositeViewExamples >> subViewEmpty [
 	^ aView
 ]
 
-{ #category : #'examples - sub-views' }
+{ #category : 'examples - sub-views' }
 GtPhlowCompositeViewExamples >> subViewOne [
 	<gtExample>
 	| aView |
@@ -222,7 +222,7 @@ GtPhlowCompositeViewExamples >> subViewOne [
 	^ aView
 ]
 
-{ #category : #'examples - sub-views' }
+{ #category : 'examples - sub-views' }
 GtPhlowCompositeViewExamples >> subViewThree [
 	<gtExample>
 	| aView |
@@ -232,7 +232,7 @@ GtPhlowCompositeViewExamples >> subViewThree [
 	^ aView
 ]
 
-{ #category : #'examples - sub-views' }
+{ #category : 'examples - sub-views' }
 GtPhlowCompositeViewExamples >> subViewTwo [
 	<gtExample>
 	| aView |
@@ -242,7 +242,7 @@ GtPhlowCompositeViewExamples >> subViewTwo [
 	^ aView
 ]
 
-{ #category : #'examples - updating' }
+{ #category : 'examples - updating' }
 GtPhlowCompositeViewExamples >> updateViewOneDefinition [
 	<gtExample>
 	| aTabGroup aView aSubView aCommand aNewSubView aContainer anInitialTabs aFinalTabs |
@@ -274,7 +274,7 @@ GtPhlowCompositeViewExamples >> updateViewOneDefinition [
 	^ aContainer
 ]
 
-{ #category : #'examples - updating' }
+{ #category : 'examples - updating' }
 GtPhlowCompositeViewExamples >> updateViewOneDefinition_ByEmptyView [
 	<gtExample>
 	| aTabGroup aView aSubView aCommand aNewSubView aContainer anInitialTabs aFinalTabs |

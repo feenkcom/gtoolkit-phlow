@@ -16,18 +16,18 @@ view asElementDo: #yourself
 
 "
 Class {
-	#name : #GtPhlowSpartaView,
-	#superclass : #GtPhlowViewDecorator,
+	#name : 'GtPhlowSpartaView',
+	#superclass : 'GtPhlowViewDecorator',
 	#instVars : [
 		'renderingStencilBuilder',
 		'embellisher',
 		'horizontalResizer',
 		'verticalResizer'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtPhlowSpartaView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 	| aSpartaElement |
@@ -46,28 +46,28 @@ GtPhlowSpartaView >> asElementDo: aBlock [
 	^ aBlock value: aSpartaElement
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSpartaView >> embellisher: aValuable [
 	embellisher := aValuable
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSpartaView >> extent: anExtent [
 	self width: anExtent x.
 	self height: anExtent y
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSpartaView >> hMatchParent [
 	horizontalResizer := BlLayoutResizer matchParent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSpartaView >> height: aNumber [
 	verticalResizer := BlLayoutResizer exact: aNumber asFloat
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowSpartaView >> initialize [
 	super initialize.
 	
@@ -76,22 +76,22 @@ GtPhlowSpartaView >> initialize [
 	self matchParent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSpartaView >> matchParent [
 	self hMatchParent; vMatchParent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSpartaView >> rendering: aValuable [
 	renderingStencilBuilder := aValuable
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSpartaView >> vMatchParent [
 	verticalResizer := BlLayoutResizer matchParent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSpartaView >> width: aNumber [
 	horizontalResizer := BlLayoutResizer exact: aNumber asFloat
 ]

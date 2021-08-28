@@ -28,12 +28,12 @@ The most fine grained view is the explicit one through which you can specify the
 
 "
 Class {
-	#name : #GtPhlowViewMixedExamples,
-	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Examples - Views'
+	#name : 'GtPhlowViewMixedExamples',
+	#superclass : 'Object',
+	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtPhlowViewMixedExamples >> announceDefiningMethodChange [
 	<gtExample>
 	| aMethods anAnnouncements aDemo |
@@ -48,7 +48,7 @@ GtPhlowViewMixedExamples >> announceDefiningMethodChange [
 	^ aMethods
 ]
 
-{ #category : #'examples - auto-updated views' }
+{ #category : 'examples - auto-updated views' }
 GtPhlowViewMixedExamples >> autoUpdatedForwardedView [
 	<gtExample>
 	<noTest>
@@ -71,7 +71,7 @@ GtPhlowViewMixedExamples >> autoUpdatedForwardedView [
 	^ aView
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtPhlowViewMixedExamples >> compositeView [
 	<gtExample>
 	| view element |
@@ -83,7 +83,7 @@ GtPhlowViewMixedExamples >> compositeView [
 	^ view
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtPhlowViewMixedExamples >> definingMethods [
 	<gtExample>
 	| aMethods aDemo |
@@ -94,7 +94,7 @@ GtPhlowViewMixedExamples >> definingMethods [
 	^ aMethods
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtPhlowViewMixedExamples >> emptyExplicitView [
 	<gtExample>
 	| view element |
@@ -104,7 +104,7 @@ GtPhlowViewMixedExamples >> emptyExplicitView [
 	^ view
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtPhlowViewMixedExamples >> explicitViewWithElementStencil [
 	<gtExample>
 	| view element |
@@ -117,7 +117,7 @@ GtPhlowViewMixedExamples >> explicitViewWithElementStencil [
 	^ view
 ]
 
-{ #category : #'extra actions' }
+{ #category : 'extra actions' }
 GtPhlowViewMixedExamples >> extraViewActions [
 	<gtExample>
 	| aView anExtendedViewCollection anExtendedView anActions anAction aLabeledViewActions |
@@ -138,7 +138,7 @@ GtPhlowViewMixedExamples >> extraViewActions [
 	^ aView
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowViewMixedExamples >> gtExtraObjectActionFor: anAction [
 	<gtAction>
 	^ anAction button
@@ -146,7 +146,7 @@ GtPhlowViewMixedExamples >> gtExtraObjectActionFor: anAction [
 		priority: 60
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowViewMixedExamples >> gtExtraViewActionFor: anAction [
 	<gtAction>
 	^ anAction button
@@ -155,7 +155,7 @@ GtPhlowViewMixedExamples >> gtExtraViewActionFor: anAction [
 		forViewDefinedIn: #gtViewWithExtraActionsFor:
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowViewMixedExamples >> gtViewWithExtraActionsFor: aView [
 	<gtView>
 	^ aView textEditor 
@@ -163,7 +163,7 @@ GtPhlowViewMixedExamples >> gtViewWithExtraActionsFor: aView [
 		text: 'Use <Alt + mouse click> on buttons to see their definitions' asRopedText
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtPhlowViewMixedExamples >> labelledCompositeViewElement [
 	<gtExample>
 	| view element childElementsWithView |
@@ -179,7 +179,7 @@ GtPhlowViewMixedExamples >> labelledCompositeViewElement [
 	^ view
 ]
 
-{ #category : #'extra actions' }
+{ #category : 'extra actions' }
 GtPhlowViewMixedExamples >> labelledCompositeViewShouldHaveActionsMarkedAsActions [
 	<gtExample>
 	| aView anElement |
@@ -192,7 +192,7 @@ GtPhlowViewMixedExamples >> labelledCompositeViewShouldHaveActionsMarkedAsAction
 	^ anElement
 ]
 
-{ #category : #'reused views' }
+{ #category : 'reused views' }
 GtPhlowViewMixedExamples >> levelOneView [
 	<gtExample>
 	| aViews |
@@ -206,7 +206,7 @@ GtPhlowViewMixedExamples >> levelOneView [
 	^ aViews first
 ]
 
-{ #category : #'reused views' }
+{ #category : 'reused views' }
 GtPhlowViewMixedExamples >> levelOneViewFor: aView [
 	<gtView>
 	<gtLevelOneView>
@@ -215,7 +215,7 @@ GtPhlowViewMixedExamples >> levelOneViewFor: aView [
 		text: [ 'Level One' ]
 ]
 
-{ #category : #'reused views' }
+{ #category : 'reused views' }
 GtPhlowViewMixedExamples >> levelTwoView [
 	<gtExample>
 	| aViews |
@@ -231,7 +231,7 @@ GtPhlowViewMixedExamples >> levelTwoView [
 	^ aViews first
 ]
 
-{ #category : #'reused views' }
+{ #category : 'reused views' }
 GtPhlowViewMixedExamples >> levelTwoViewFor: aView [
 	<gtView>
 	<gtLevelTwoView>
@@ -240,13 +240,13 @@ GtPhlowViewMixedExamples >> levelTwoViewFor: aView [
 		text: [ 'Level Two' ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowViewMixedExamples >> myself [
 	<gtExample>
 	^ self
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtPhlowViewMixedExamples >> updatingExtension [
 	<gtExample>
 	^ self

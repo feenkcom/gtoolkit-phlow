@@ -1,21 +1,21 @@
 Class {
-	#name : #GtPhlowButtonAction,
-	#superclass : #GtPhlowAction,
+	#name : 'GtPhlowButtonAction',
+	#superclass : 'GtPhlowAction',
 	#instVars : [
 		'icon',
 		'label',
 		'action',
 		'name'
 	],
-	#category : #'GToolkit-Phlow-! Actions'
+	#category : 'GToolkit-Phlow-! Actions'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowButtonAction >> action: aValuable [
 	action := aValuable
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	<return: #BrButton>
 	| aButton |
@@ -35,29 +35,29 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	^ aBlock value: aButton
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowButtonAction >> icon: anIcon [
 	icon := anIcon
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowButtonAction >> initialize [
 	super initialize.
 	action := [ :aButton :aTargetElement :aButtonModel :anEvent | "do nothing" ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowButtonAction >> label: aString [
 	label := aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowButtonAction >> name: aSymbol [
 	"Set a child name of the corresponding element"
 	name := aSymbol
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowButtonAction >> newButtonLook [
 	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ ^ BrGlamorousButtonWithIconAndLabelAptitude ].
 	(label notNil and: [ icon isNil ]) ifTrue: [ ^ BrGlamorousButtonWithLabelAptitude ].

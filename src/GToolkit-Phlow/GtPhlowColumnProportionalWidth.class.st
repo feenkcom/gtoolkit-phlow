@@ -4,12 +4,12 @@ I extend the {{gtClass:BrColumnProportionalWidth}} by adding a {{gtClass:BlLinea
 
 "
 Class {
-	#name : #GtPhlowColumnProportionalWidth,
-	#superclass : #BrColumnProportionalWidth,
-	#category : #'GToolkit-Phlow-Support'
+	#name : 'GtPhlowColumnProportionalWidth',
+	#superclass : 'BrColumnProportionalWidth',
+	#category : 'GToolkit-Phlow-Support'
 }
 
-{ #category : #hook }
+{ #category : 'hook' }
 GtPhlowColumnProportionalWidth >> applyOn: anElement [
 	| aShadow |
 	aShadow := BlElement new

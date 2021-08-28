@@ -4,12 +4,12 @@ I examplify {{gtClass:GtPhlowTitleLabelNotifier}}.
 
 "
 Class {
-	#name : #GtPhlowTitleLabelNotifierExamples,
-	#superclass : #GtPhlowTitleNotifierExamples,
-	#category : #'GToolkit-Phlow-Tool - Title Examples'
+	#name : 'GtPhlowTitleLabelNotifierExamples',
+	#superclass : 'GtPhlowTitleNotifierExamples',
+	#category : 'GToolkit-Phlow-Tool - Title Examples'
 }
 
-{ #category : #'examples - notifier' }
+{ #category : 'examples - notifier' }
 GtPhlowTitleLabelNotifierExamples >> basicNotifier [
 	<gtExample>
 	| aNotifier |
@@ -18,7 +18,7 @@ GtPhlowTitleLabelNotifierExamples >> basicNotifier [
 	^ aNotifier
 ]
 
-{ #category : #'examples - notifier' }
+{ #category : 'examples - notifier' }
 GtPhlowTitleLabelNotifierExamples >> notifierWithLongLabel [
 	<gtExample>
 	| aNotifier aLabel |
@@ -36,7 +36,7 @@ GtPhlowTitleLabelNotifierExamples >> notifierWithLongLabel [
 	^ aNotifier
 ]
 
-{ #category : #'examples - notifier' }
+{ #category : 'examples - notifier' }
 GtPhlowTitleLabelNotifierExamples >> notifierWithShortLabel [
 	<gtExample>
 	| aNotifier aLabel |

@@ -16,12 +16,12 @@ I use {{gtClass:GtPhlowTitleLabelBuilder}} to create labels.
 
 "
 Class {
-	#name : #GtPhlowTitleLabelNotifier,
-	#superclass : #GtPhlowTitleNotifier,
-	#category : #'GToolkit-Phlow-Tool - Title'
+	#name : 'GtPhlowTitleLabelNotifier',
+	#superclass : 'GtPhlowTitleNotifier',
+	#category : 'GToolkit-Phlow-Tool - Title'
 }
 
-{ #category : #'api - notifying' }
+{ #category : 'api - notifying' }
 GtPhlowTitleLabelNotifier >> notify [
 	| aLabel |
 	aLabel := self label ifEmpty: [ ^ self ].

@@ -1,10 +1,10 @@
 Class {
-	#name : #GtPhlowLabelledViewExamples,
-	#superclass : #GtPhlowViewExamples,
-	#category : #'GToolkit-Phlow-Examples - Views'
+	#name : 'GtPhlowLabelledViewExamples',
+	#superclass : 'GtPhlowViewExamples',
+	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : #'examples - element' }
+{ #category : 'examples - element' }
 GtPhlowLabelledViewExamples >> element [
 	<gtExample>
 	| aTabGroup aTab |
@@ -19,12 +19,12 @@ GtPhlowLabelledViewExamples >> element [
 	^ aTabGroup
 ]
 
-{ #category : #'examples - element' }
+{ #category : 'examples - element' }
 GtPhlowLabelledViewExamples >> expectedElementClass [
 	^ BrTabGroup
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowLabelledViewExamples >> gtLabelledFor: aView [
 	<gtView>
 	^ aView labelled
@@ -32,7 +32,7 @@ GtPhlowLabelledViewExamples >> gtLabelledFor: aView [
 		label: 'I am labelled view'
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowLabelledViewExamples >> gtLabelledWithComposedViewFor: aView [
 	<gtView>
 	^ ((GtPhlowCompositeViewExamples new gtPhlowViewFor: aView)
@@ -40,7 +40,7 @@ GtPhlowLabelledViewExamples >> gtLabelledWithComposedViewFor: aView [
 			title: 'Composite'
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowLabelledViewExamples >> gtLabelledWithRandomBackgroundFor: aView [
 	<gtView>
 	^ ((GtPhlowExplicitViewExamples new gtUpdatingFor: aView)	
@@ -48,7 +48,7 @@ GtPhlowLabelledViewExamples >> gtLabelledWithRandomBackgroundFor: aView [
 			title: 'Explicit'
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowLabelledViewExamples >> gtLabelledWithTextEditorViewFor: aView [
 	<gtView>
 	^ ((GtPhlowTextEditorViewExamples new gtAutoUpdatingFor: aView)
@@ -56,13 +56,13 @@ GtPhlowLabelledViewExamples >> gtLabelledWithTextEditorViewFor: aView [
 			title: 'Text Editor'
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowLabelledViewExamples >> itself [
 	<gtExample>
 	^ self
 ]
 
-{ #category : #'examples - view' }
+{ #category : 'examples - view' }
 GtPhlowLabelledViewExamples >> phlowView [
 	<gtExample>
 	| aView |
@@ -74,7 +74,7 @@ GtPhlowLabelledViewExamples >> phlowView [
 	^ aView
 ]
 
-{ #category : #'examples - updating' }
+{ #category : 'examples - updating' }
 GtPhlowLabelledViewExamples >> updateLabel [
 	<gtExample>
 	| aTabGroup aView aCommand aTab |

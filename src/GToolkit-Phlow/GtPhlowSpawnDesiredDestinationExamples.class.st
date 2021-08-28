@@ -1,10 +1,10 @@
 Class {
-	#name : #GtPhlowSpawnDesiredDestinationExamples,
-	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Examples'
+	#name : 'GtPhlowSpawnDesiredDestinationExamples',
+	#superclass : 'Object',
+	#category : 'GToolkit-Phlow-Examples'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtPhlowSpawnDesiredDestinationExamples >> belowDestination [
 	<gtExample>
 	| direction |
@@ -17,7 +17,7 @@ GtPhlowSpawnDesiredDestinationExamples >> belowDestination [
 	^ direction
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtPhlowSpawnDesiredDestinationExamples >> nextPaneDestination [
 	<gtExample>
 	| direction |

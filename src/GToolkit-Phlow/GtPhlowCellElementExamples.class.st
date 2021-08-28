@@ -4,12 +4,12 @@ I exemplify {{gtClass:GtPhlowCellElement}}.
 
 "
 Class {
-	#name : #GtPhlowCellElementExamples,
-	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Examples'
+	#name : 'GtPhlowCellElementExamples',
+	#superclass : 'Object',
+	#category : 'GToolkit-Phlow-Examples'
 }
 
-{ #category : #'examples - cell element' }
+{ #category : 'examples - cell element' }
 GtPhlowCellElementExamples >> basicCellElement [
 	<gtExample>
 	| aCell |
@@ -17,7 +17,7 @@ GtPhlowCellElementExamples >> basicCellElement [
 	^ aCell
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowCellElementExamples >> cellElementWithException [
 	<gtExample>
 	| aCell anException |
@@ -31,7 +31,7 @@ GtPhlowCellElementExamples >> cellElementWithException [
 	^ aCell
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowCellElementExamples >> cellElementWithExceptionAndThenLabel [
 	<gtExample>
 	| aCell aLabel |
@@ -45,7 +45,7 @@ GtPhlowCellElementExamples >> cellElementWithExceptionAndThenLabel [
 	^ aCell
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowCellElementExamples >> cellElementWithExceptionAndThenLabelAndThenException [
 	<gtExample>
 	| aCell anException |
@@ -60,7 +60,7 @@ GtPhlowCellElementExamples >> cellElementWithExceptionAndThenLabelAndThenExcepti
 	^ aCell
 ]
 
-{ #category : #'examples - cell element' }
+{ #category : 'examples - cell element' }
 GtPhlowCellElementExamples >> cellElementWithLabel [
 	<gtExample>
 	| aCell aLabel |
@@ -72,7 +72,7 @@ GtPhlowCellElementExamples >> cellElementWithLabel [
 	^ aCell
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowCellElementExamples >> cellElementWithLabelAndThenException [
 	<gtExample>
 	| aCell anException |
@@ -87,7 +87,7 @@ GtPhlowCellElementExamples >> cellElementWithLabelAndThenException [
 	^ aCell
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowCellElementExamples >> cellElementWithLabelAndThenExceptionThenLabel [
 	<gtExample>
 	| aCell aLabel |
@@ -101,7 +101,7 @@ GtPhlowCellElementExamples >> cellElementWithLabelAndThenExceptionThenLabel [
 	^ aCell
 ]
 
-{ #category : #'examples - content elements' }
+{ #category : 'examples - content elements' }
 GtPhlowCellElementExamples >> exceptionElement [
 	<gtExample>
 	| anElement |
@@ -110,7 +110,7 @@ GtPhlowCellElementExamples >> exceptionElement [
 	^ anElement
 ]
 
-{ #category : #'examples - content elements' }
+{ #category : 'examples - content elements' }
 GtPhlowCellElementExamples >> labelElement [
 	<gtExample>
 	^ BrLabel new

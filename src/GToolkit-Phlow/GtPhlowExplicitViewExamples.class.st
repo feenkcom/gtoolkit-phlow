@@ -1,10 +1,10 @@
 Class {
-	#name : #GtPhlowExplicitViewExamples,
-	#superclass : #GtPhlowViewExamples,
-	#category : #'GToolkit-Phlow-Examples - Views'
+	#name : 'GtPhlowExplicitViewExamples',
+	#superclass : 'GtPhlowViewExamples',
+	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtPhlowExplicitViewExamples >> explicitViewUpdate [
 	<gtExample>
 	| aView anElement aColor aParent |
@@ -30,7 +30,7 @@ GtPhlowExplicitViewExamples >> explicitViewUpdate [
 	^ aParent
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowExplicitViewExamples >> gtBasicFor: aView [ 
 	^ aView explicit 
 		title: 'Update on click';
@@ -43,7 +43,7 @@ GtPhlowExplicitViewExamples >> gtBasicFor: aView [
 					c margin: (BlInsets all: 40) ] ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowExplicitViewExamples >> gtCompositeFor: aView [
 	<gtView>
 	^ aView explicit
@@ -54,7 +54,7 @@ GtPhlowExplicitViewExamples >> gtCompositeFor: aView [
 		actionUpdateButton
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowExplicitViewExamples >> gtStencilWithPhlowFor: aView [ 
 	<gtView>
 	^ aView explicit 
@@ -65,7 +65,7 @@ GtPhlowExplicitViewExamples >> gtStencilWithPhlowFor: aView [
 		actionUpdateButton
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowExplicitViewExamples >> gtUpdatingDisabledOnSystemChangeFor: aView [ 
 	^ aView explicit 
 		title: 'Updating Disabled on System Change';
@@ -78,7 +78,7 @@ GtPhlowExplicitViewExamples >> gtUpdatingDisabledOnSystemChangeFor: aView [
 					c margin: (BlInsets all: 40) ]  ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowExplicitViewExamples >> gtUpdatingEnabledOnSystemChangeFor: aView [ 
 	^ aView explicit 
 		title: 'Updating Enabled on System Change';
@@ -91,7 +91,7 @@ GtPhlowExplicitViewExamples >> gtUpdatingEnabledOnSystemChangeFor: aView [
 					c margin: (BlInsets all: 40) ]  ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowExplicitViewExamples >> gtUpdatingFor: aView [ 
 	<gtView>
 	^ aView explicit 
@@ -106,14 +106,14 @@ GtPhlowExplicitViewExamples >> gtUpdatingFor: aView [
 		actionUpdateButton
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowExplicitViewExamples >> myself [
 	<gtExample>
 
 	^ self
 ]
 
-{ #category : #'examples - view' }
+{ #category : 'examples - view' }
 GtPhlowExplicitViewExamples >> phlowView [
 	<gtExample>
 	^ GtPhlowView empty explicit 
@@ -127,7 +127,7 @@ GtPhlowExplicitViewExamples >> phlowView [
 				c margin: (BlInsets all: 10) ] ]
 ]
 
-{ #category : #'examples - view' }
+{ #category : 'examples - view' }
 GtPhlowExplicitViewExamples >> stencilWithPhlow [
 	<gtExample>
 	| aView anElement |

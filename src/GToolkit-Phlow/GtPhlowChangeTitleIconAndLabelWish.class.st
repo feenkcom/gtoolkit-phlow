@@ -12,31 +12,31 @@ Browse {{gtClass:GtPhlowTitleIconAndLabelNotifier}} for examples.
 
 "
 Class {
-	#name : #GtPhlowChangeTitleIconAndLabelWish,
-	#superclass : #GtPhlowChangeTitleWish,
+	#name : 'GtPhlowChangeTitleIconAndLabelWish',
+	#superclass : 'GtPhlowChangeTitleWish',
 	#instVars : [
 		'icon',
 		'label'
 	],
-	#category : #'GToolkit-Phlow-Tool - Title'
+	#category : 'GToolkit-Phlow-Tool - Title'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowChangeTitleIconAndLabelWish >> icon [
 	^ icon
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowChangeTitleIconAndLabelWish >> icon: anObject [
 	icon := anObject
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowChangeTitleIconAndLabelWish >> label [
 	^ label
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowChangeTitleIconAndLabelWish >> label: anObject [
 	label := anObject
 ]

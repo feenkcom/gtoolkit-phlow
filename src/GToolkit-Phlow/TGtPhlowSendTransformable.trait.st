@@ -10,14 +10,14 @@ In the following example, when the list items are selected (double click), a ${c
 In this case, it is a  ${class:BlElement}$ widget that displays selected numbers in the middle. More elaborate and dedicated Phlow tools can be used, see ${class:GtPhlowTool|expanded|show=#gtSubclassesFor:}$ subclasses:
 "
 Trait {
-	#name : #TGtPhlowSendTransformable,
+	#name : 'TGtPhlowSendTransformable',
 	#instVars : [
 		'transformation'
 	],
-	#category : #'GToolkit-Phlow-Support - Transformation'
+	#category : 'GToolkit-Phlow-Support - Transformation'
 }
 
-{ #category : #'private - asserting' }
+{ #category : 'private - asserting' }
 TGtPhlowSendTransformable >> assertTransformation: aGtPhlowSendTransformation [
 	self 
 		assert: [ aGtPhlowSendTransformation respondsTo: #asPhlowSendTransformation ] 
@@ -25,18 +25,18 @@ TGtPhlowSendTransformable >> assertTransformation: aGtPhlowSendTransformation [
 			#asPhlowSendTransformation asString, ' method' ]
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 TGtPhlowSendTransformable >> defaultTransformation [
 	^ GtPhlowSendTransformation default
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 TGtPhlowSendTransformable >> hasTransformation [
 	<return: #Boolean>
 	^ transformation isNotNil
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 TGtPhlowSendTransformable >> send [
 	<return: #GtPhlowSendTransformation>
 	self 
@@ -45,7 +45,7 @@ TGtPhlowSendTransformable >> send [
 	^ self transformation
 ]
 
-{ #category : #'api - scripting' }
+{ #category : 'api - scripting' }
 TGtPhlowSendTransformable >> send: aBlock [
 	"Define what object should be displayed on selection and fire select or spawn item requests"
 	self
@@ -63,7 +63,7 @@ TGtPhlowSendTransformable >> send: aBlock [
 	self transformation: (GtPhlowSendTransformation object: aBlock)
 ]
 
-{ #category : #'api - scripting' }
+{ #category : 'api - scripting' }
 TGtPhlowSendTransformable >> sendTool: aBlock [
 	"Define what tool should be displayed on selection and send select or spawn tool requests"
 	self
@@ -81,13 +81,13 @@ TGtPhlowSendTransformable >> sendTool: aBlock [
 	self transformation: (GtPhlowSendTransformation tool: aBlock).
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 TGtPhlowSendTransformable >> transformation [
 	<return: #GtPhlowSendTransformation>
 	^ transformation ifNil: [ self defaultTransformation ]
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 TGtPhlowSendTransformable >> transformation: aGtPhlowSendTransformation [
 	self assertTransformation: aGtPhlowSendTransformation.
 	transformation := aGtPhlowSendTransformation asPhlowSendTransformation.

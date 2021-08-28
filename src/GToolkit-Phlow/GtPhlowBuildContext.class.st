@@ -1,45 +1,45 @@
 Class {
-	#name : #GtPhlowBuildContext,
-	#superclass : #GtPhlowAbstractBuildContext,
+	#name : 'GtPhlowBuildContext',
+	#superclass : 'GtPhlowAbstractBuildContext',
 	#instVars : [
 		'object',
 		'arguments'
 	],
-	#category : #'GToolkit-Phlow-Context'
+	#category : 'GToolkit-Phlow-Context'
 }
 
-{ #category : #factory }
+{ #category : 'factory' }
 GtPhlowBuildContext class >> null [
 	^ GtPhlowBuildNullContext default
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowBuildContext >> argument: anArgument [
 	self arguments: (Array with: anArgument)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowBuildContext >> arguments [
 	^ arguments
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowBuildContext >> arguments: anObject [
 	arguments := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowBuildContext >> initialize [
 	super initialize.
 	arguments := Array empty.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowBuildContext >> object [
 	^ object
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowBuildContext >> object: anObject [
 	object := anObject
 ]

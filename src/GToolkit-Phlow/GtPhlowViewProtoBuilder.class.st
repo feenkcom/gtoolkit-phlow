@@ -1,17 +1,17 @@
 Class {
-	#name : #GtPhlowViewProtoBuilder,
-	#superclass : #Object,
+	#name : 'GtPhlowViewProtoBuilder',
+	#superclass : 'Object',
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
-	#category : #'GToolkit-Phlow-Collectors'
+	#category : 'GToolkit-Phlow-Collectors'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowViewProtoBuilder class >> isAbstract [
 	^ self name = #GtPhlowViewProtoBuilder
 ]
 
-{ #category : #building }
+{ #category : 'building' }
 GtPhlowViewProtoBuilder >> build [
 	<return: #GtPhlowView>
 	^ self subclassResponsibility

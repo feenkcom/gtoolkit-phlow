@@ -1,28 +1,28 @@
 Trait {
-	#name : #TGtPhlowToolAccessors,
+	#name : 'TGtPhlowToolAccessors',
 	#instVars : [
 		'tool'
 	],
-	#category : #'GToolkit-Phlow-Tool - Support'
+	#category : 'GToolkit-Phlow-Tool - Support'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 TGtPhlowToolAccessors >> defaultTool [
 	^ GtPhlowTool default
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 TGtPhlowToolAccessors >> initializeTool [
 	tool := self defaultTool
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TGtPhlowToolAccessors >> tool [
 	<return: #GtPhlowTool>
 	^ tool
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TGtPhlowToolAccessors >> tool: aGtPhlowTool [
 	self 
 		assert: [ aGtPhlowTool isNotNil ]

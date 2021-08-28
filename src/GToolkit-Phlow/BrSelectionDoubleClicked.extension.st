@@ -1,6 +1,6 @@
-Extension { #name : #BrSelectionDoubleClicked }
+Extension { #name : 'BrSelectionDoubleClicked' }
 
-{ #category : #'*GToolkit-Phlow' }
+{ #category : '*GToolkit-Phlow' }
 BrSelectionDoubleClicked >> acceptPhlowHandler: aHandler [
 	^ aHandler selectionDoubleClickedEvent: self
 ]

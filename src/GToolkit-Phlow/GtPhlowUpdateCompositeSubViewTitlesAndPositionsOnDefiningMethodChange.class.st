@@ -6,21 +6,21 @@ See {{gtClass:GtPhlowUpdateCompositeSubViewTitleAndPosition}} for more details.
 
 "
 Class {
-	#name : #GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange,
-	#superclass : #GtPhlowSystemChangeUpdateDefinition,
+	#name : 'GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange',
+	#superclass : 'GtPhlowSystemChangeUpdateDefinition',
 	#traits : 'TGtPhlowCompositeViewAccessors',
 	#classTraits : 'TGtPhlowCompositeViewAccessors classTrait',
-	#category : #'GToolkit-Phlow-Updating'
+	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> assertContext: aGtPhlowElementContext [
 	self 
 		assert: [ aGtPhlowElementContext entity isKindOf: GtPhlowCompositeView ]
 		description: [ GtPhlowCompositeView name, ' instance is expected' ]
 ]
 
-{ #category : #'announcement handling' }
+{ #category : 'announcement handling' }
 GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> handleMethodModifiedAnnouncement: aMethodModified [ 
 	self hasContexts ifFalse: [ ^ self ].
 	self views do: [ :eachView | 
@@ -29,7 +29,7 @@ GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> handleM
 				^ self updateSubView: eachView ] ].
 ]
 
-{ #category : #subscriptions }
+{ #category : 'subscriptions' }
 GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> subscribeOn: aGtPhlowElementContext [
 	self addContext: aGtPhlowElementContext.
 	self setSubscribedIfAlreadySubscribedDo: [ ^ self ].
@@ -39,13 +39,13 @@ GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> subscri
 		subscriber: self
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> updateSubView: aGtPhlowView [
 	self contexts do: [ :eachContext | 
 		self updateSubView: aGtPhlowView inContext: eachContext ].
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> updateSubView: aGtPhlowView inContext: aGtPhlowElementContext [
 	self scheduleTask: (GtPhlowUpdateCompositeSubViewTitleAndPosition new
 		elementContext: aGtPhlowElementContext;

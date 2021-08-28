@@ -1,13 +1,13 @@
 Class {
-	#name : #GtPhlowListHandler,
-	#superclass : #BlBasicEventHandler,
+	#name : 'GtPhlowListHandler',
+	#superclass : 'BlBasicEventHandler',
 	#instVars : [
 		'transformation'
 	],
-	#category : #'GToolkit-Phlow-Events'
+	#category : 'GToolkit-Phlow-Events'
 }
 
-{ #category : #'private - asserting' }
+{ #category : 'private - asserting' }
 GtPhlowListHandler >> assertTransformation: aGtPhlowSendTransformation [
 	self 
 		assert: [ aGtPhlowSendTransformation respondsTo: #asPhlowSendTransformation ] 
@@ -15,24 +15,24 @@ GtPhlowListHandler >> assertTransformation: aGtPhlowSendTransformation [
 			#asPhlowSendTransformation asString, ' method' ]
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtPhlowListHandler >> defaultTransformation [
 	^ GtPhlowSendTransformation default
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowListHandler >> initialize [
 	super initialize.
 	transformation := self defaultTransformation
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowListHandler >> transformation [
 	<return: #GtPhlowSendTransformation>
 	^ transformation
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowListHandler >> transformation: aGtPhlowSendTransformation [	
 	self assertTransformation: aGtPhlowSendTransformation.
 	transformation := aGtPhlowSendTransformation asPhlowSendTransformation.

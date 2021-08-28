@@ -1,23 +1,23 @@
 Class {
-	#name : #GtPhlowAbstractTool,
-	#superclass : #Object,
+	#name : 'GtPhlowAbstractTool',
+	#superclass : 'Object',
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
-	#category : #'GToolkit-Phlow-Tool - Core'
+	#category : 'GToolkit-Phlow-Tool - Core'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowAbstractTool class >> isAbstract [
 	^ self name = #GtPhlowAbstractTool 
 ]
 
-{ #category : #'api - converting' }
+{ #category : 'api - converting' }
 GtPhlowAbstractTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block."
 	self subclassResponsibility
 ]
 
-{ #category : #'api - converting' }
+{ #category : 'api - converting' }
 GtPhlowAbstractTool >> asTabDo: aBlock [
 	| aTab |
 	aTab := BrTab new
@@ -28,14 +28,14 @@ GtPhlowAbstractTool >> asTabDo: aBlock [
 	aBlock cull: aTab cull: self.
 ]
 
-{ #category : #'private - converting' }
+{ #category : 'private - converting' }
 GtPhlowAbstractTool >> asTabElement [
 	"Return a tool element that is going to be used as a part of ${class:GtPhlowCompositeTool}$"
 	<return: #BlElement>
 	^ self asElementDo: [ :anElement | anElement ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtPhlowAbstractTool >> gtLiveFor: aView [
 	<gtView>
 	self class isAbstract ifTrue: [ ^ aView empty ].
@@ -52,32 +52,32 @@ GtPhlowAbstractTool >> gtLiveFor: aView [
 			aContainer ]
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowAbstractTool >> icon [
 	"Return a tool icon"
 	<return: #BlElement>
 	^ BrGlamorousVectorIcons inspect 
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowAbstractTool >> name [
 	"Return a tool name"
 	<return: #String or: #BlText>
 	^ self className
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowAbstractTool >> object [
 	"compatibility method for ${GLMBlocObjectToSelect}$"
 	^ self
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowAbstractTool >> object: anObject [
 	"defaults tools must implement this message"
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowAbstractTool >> tabLook [
 	"Return a look to display tab tool"
 	^ BrGlamorousTabSwitcherWithLabelAptitude

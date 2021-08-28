@@ -6,12 +6,12 @@ See {{gtClass:GtPhlowToolAbstractDetailModel}} for more details.
 
 "
 Class {
-	#name : #GtPhlowToolContainerDetailRequest,
-	#superclass : #BrRequest,
-	#category : #'GToolkit-Phlow-Tool - Events'
+	#name : 'GtPhlowToolContainerDetailRequest',
+	#superclass : 'BrRequest',
+	#category : 'GToolkit-Phlow-Tool - Events'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowToolContainerDetailRequest >> responseClass [
 	^ GtPhlowToolDetailChanged
 ]

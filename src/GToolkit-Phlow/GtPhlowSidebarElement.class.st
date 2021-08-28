@@ -6,8 +6,8 @@ For more details, see my {{gtClass:GtPhlowSidebarElement|show=#gtSubclassesFor:|
 
 "
 Class {
-	#name : #GtPhlowSidebarElement,
-	#superclass : #GtPhlowElement,
+	#name : 'GtPhlowSidebarElement',
+	#superclass : 'GtPhlowElement',
 	#instVars : [
 		'contentElement',
 		'contentStencil',
@@ -15,10 +15,10 @@ Class {
 		'resizerStrategy',
 		'contentOffset'
 	],
-	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
-{ #category : #'private - asserting' }
+{ #category : 'private - asserting' }
 GtPhlowSidebarElement >> assertContentStencil: aStencil [
 	self
 		assert: [ aStencil isNotNil ] 
@@ -29,39 +29,39 @@ GtPhlowSidebarElement >> assertContentStencil: aStencil [
 	
 ]
 
-{ #category : #'api - visibility' }
+{ #category : 'api - visibility' }
 GtPhlowSidebarElement >> beExact: aNumber [
 	resizerStrategy := BrResizerElementLength exact: aNumber
 ]
 
-{ #category : #'api - visibility' }
+{ #category : 'api - visibility' }
 GtPhlowSidebarElement >> collapse [
 	self subclassResponsibility
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowSidebarElement >> contentElement [
 	<return: #BlElement>
 	^ contentElement
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowSidebarElement >> contentElementDo: aBlock [
 	self contentElement ifNotNil: aBlock
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowSidebarElement >> contentElementName [
 	^ #content
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowSidebarElement >> contentOffset [
 	<return: #GtPhlowSidebarContentOffset>
 	^ contentOffset
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowSidebarElement >> contentOffset: aGtPhlowSidebarContentOffset [
 	self 
 		assert: [ aGtPhlowSidebarContentOffset isKindOf: GtPhlowSidebarContentOffset ] 
@@ -69,13 +69,13 @@ GtPhlowSidebarElement >> contentOffset: aGtPhlowSidebarContentOffset [
 	contentOffset := aGtPhlowSidebarContentOffset
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowSidebarElement >> contentStencil [
 	<return: #BrStencil>
 	^ contentStencil
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowSidebarElement >> contentStencil: aStencil [
 	| aNewStencil |
 	aNewStencil := aStencil asStencil.
@@ -84,42 +84,42 @@ GtPhlowSidebarElement >> contentStencil: aStencil [
 	self onContentStencilChanged.
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtPhlowSidebarElement >> defaultContentOffset [
 	^ self subclassResponsibility
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtPhlowSidebarElement >> defaultContentOffsetLength [
 	^ 4
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtPhlowSidebarElement >> defaultContentStencil [
 	^ GtPhlowSidebarEmptyContentStencil default
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtPhlowSidebarElement >> defaultResizerLook [
 	^ self subclassResponsibility
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtPhlowSidebarElement >> defaultResizerStrategy [
 	^ BrResizerElementLength weight: 0.5.
 ]
 
-{ #category : #'api - visibility' }
+{ #category : 'api - visibility' }
 GtPhlowSidebarElement >> expand [
 	self subclassResponsibility
 ]
 
-{ #category : #'api - visibility' }
+{ #category : 'api - visibility' }
 GtPhlowSidebarElement >> hide [
 	self visibility: BlVisibility gone
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowSidebarElement >> initialize [
 	super initialize.
 	contentOffset := self defaultContentOffset.
@@ -134,13 +134,13 @@ GtPhlowSidebarElement >> initialize [
 	self expand.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowSidebarElement >> initializeContentElement [
 	contentElement := self contentStencil asElement.
 	contentElement margin: contentElement margin + self contentOffset margin.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowSidebarElement >> initializeElement [
 	self
 		layout: BlFrameLayout new;
@@ -149,7 +149,7 @@ GtPhlowSidebarElement >> initializeElement [
 		background: BlBackground transparent.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowSidebarElement >> initializeResizerElement [
 	self
 		addAptitude: (self defaultResizerLook
@@ -162,13 +162,13 @@ GtPhlowSidebarElement >> initializeResizerElement [
 			do: [ :anEvent | self onResizerDoubleClick: anEvent ]
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 GtPhlowSidebarElement >> isCollapsed [
 	<return: #Boolean>
 	^ self subclassResponsibility
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowSidebarElement >> offset: anInteger [
 	"Set a distance between the sidebar border and the sidebar content.
 	The offset applies only on the side with the resizer handler.
@@ -179,17 +179,17 @@ GtPhlowSidebarElement >> offset: anInteger [
 	self onOffsetChangedFrom: anOldOffset to: anInteger.
 ]
 
-{ #category : #'private - hooks' }
+{ #category : 'private - hooks' }
 GtPhlowSidebarElement >> onContentStencilChanged [
 	self updateContentElement
 ]
 
-{ #category : #'private - hooks' }
+{ #category : 'private - hooks' }
 GtPhlowSidebarElement >> onOffsetChangedFrom: anOldOffset to: aNewOffset [
 	self updateContentElementOffsetWith: anOldOffset.
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 GtPhlowSidebarElement >> onResizerDoubleClick: anEvent [
 	anEvent consumed: true.
 	self isCollapsed
@@ -197,29 +197,29 @@ GtPhlowSidebarElement >> onResizerDoubleClick: anEvent [
 		ifFalse: [ self collapse ]
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 GtPhlowSidebarElement >> onResizerResized: anEvent [
 	self subclassResponsibility
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowSidebarElement >> resizerElement [
 	<return: #BrResizer>
 	^ resizerElement
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowSidebarElement >> resizerStrategy [
 	<return: #BrResizerElementLength>
 	^ resizerStrategy
 ]
 
-{ #category : #'api - visibility' }
+{ #category : 'api - visibility' }
 GtPhlowSidebarElement >> show [
 	self visibility: BlVisibility visible
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtPhlowSidebarElement >> updateContentElement [
 	| anOldContentElement |
 	anOldContentElement := self contentElement.
@@ -231,7 +231,7 @@ GtPhlowSidebarElement >> updateContentElement [
 		as: self contentElementName
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtPhlowSidebarElement >> updateContentElementOffsetWith: aPreviousLength [
 	| anInsets |
 	anInsets := self contentOffset marginExtra: aPreviousLength negated.

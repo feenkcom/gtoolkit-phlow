@@ -1,37 +1,37 @@
 Class {
-	#name : #GtPhlowDefiningMethods,
-	#superclass : #Object,
+	#name : 'GtPhlowDefiningMethods',
+	#superclass : 'Object',
 	#instVars : [
 		'methods'
 	],
-	#category : #'GToolkit-Phlow-Collectors'
+	#category : 'GToolkit-Phlow-Collectors'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowDefiningMethods >> compiledMethod [
 	<return: #CompiledMethod>
 	^ self methods first compiledMethod
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowDefiningMethods >> fullName [
 	"Return Class>>#selector name"
 	<return: #Symbol>
 	^ self methods first fullName
 ]
 
-{ #category : #stream }
+{ #category : 'stream' }
 GtPhlowDefiningMethods >> gtOriginMethodsInto: aWriteStream [ 
 	aWriteStream nextPutAll: self methods
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowDefiningMethods >> gtPhlowIncludesCompiledMethod: aCompiledMethod [
 	^ self methods anySatisfy: [ :eachMethod | 
 		eachMethod gtPhlowIncludesCompiledMethod: aCompiledMethod ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtPhlowDefiningMethods >> gtSourceFor: aView [
 	<gtView>
 	self methods ifNil: [ ^ aView empty ].
@@ -52,23 +52,23 @@ GtPhlowDefiningMethods >> gtSourceFor: aView [
 			aContainer asScrollableElement]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowDefiningMethods >> methodClass [
 	<return: #Class>
 	^ self methods first methodClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowDefiningMethods >> methods [
 	^ methods
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowDefiningMethods >> methods: anObject [
 	methods := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowDefiningMethods >> selector [
 	<return: #Symbol>
 	^ self methods first selector

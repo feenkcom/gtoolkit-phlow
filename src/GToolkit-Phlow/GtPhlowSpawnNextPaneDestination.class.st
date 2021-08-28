@@ -6,22 +6,22 @@ Tools using these event are responsible with managing extra informations for det
 
 "
 Class {
-	#name : #GtPhlowSpawnNextPaneDestination,
-	#superclass : #GtPhlowSpawnDesiredDestination,
-	#category : #'GToolkit-Phlow-Direction'
+	#name : 'GtPhlowSpawnNextPaneDestination',
+	#superclass : 'GtPhlowSpawnDesiredDestination',
+	#category : 'GToolkit-Phlow-Direction'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSpawnNextPaneDestination >> followingDestination [
 	^ GtPhlowSpawnBelowDestination new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSpawnNextPaneDestination >> icon [
 	^ BrGlamorousVectorIcons right 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtPhlowSpawnNextPaneDestination >> isSpawnNextPane [
 	^ true
 ]

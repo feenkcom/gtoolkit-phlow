@@ -1,39 +1,39 @@
 Class {
-	#name : #GtPhlowSyncUpdateDefinition,
-	#superclass : #GtPhlowUpdateDefinition,
+	#name : 'GtPhlowSyncUpdateDefinition',
+	#superclass : 'GtPhlowUpdateDefinition',
 	#instVars : [
 		'announcementValuable',
 		'announcerValuable'
 	],
-	#category : #'GToolkit-Phlow-Updating'
+	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSyncUpdateDefinition >> announcement [
 	^ announcementValuable value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSyncUpdateDefinition >> announcement: aValuable [
 	announcementValuable := aValuable
 ]
 
-{ #category : #subscriptions }
+{ #category : 'subscriptions' }
 GtPhlowSyncUpdateDefinition >> announcementHandlerFor: aGtPhlowElementContext [
 	^ [ aGtPhlowElementContext syncUpdate ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSyncUpdateDefinition >> announcer [
 	^ announcerValuable value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowSyncUpdateDefinition >> announcer: aValuable [
 	announcerValuable := aValuable
 ]
 
-{ #category : #subscriptions }
+{ #category : 'subscriptions' }
 GtPhlowSyncUpdateDefinition >> subscribeOn: aGtPhlowElementContext [
 	| aSubscription |
 	aSubscription := self announcer 
@@ -42,7 +42,7 @@ GtPhlowSyncUpdateDefinition >> subscribeOn: aGtPhlowElementContext [
 	aSubscription subscriber: aGtPhlowElementContext.
 ]
 
-{ #category : #subscriptions }
+{ #category : 'subscriptions' }
 GtPhlowSyncUpdateDefinition >> unsubscribeOn: aGtPhlowElementContext [
 	self announcer unsubscribe: aGtPhlowElementContext
 ]

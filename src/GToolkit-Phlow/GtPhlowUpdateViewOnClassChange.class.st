@@ -1,5 +1,5 @@
 Class {
-	#name : #GtPhlowUpdateViewOnClassChange,
-	#superclass : #GtPhlowSystemChangeUpdateDefinition,
-	#category : #'GToolkit-Phlow-Updating'
+	#name : 'GtPhlowUpdateViewOnClassChange',
+	#superclass : 'GtPhlowSystemChangeUpdateDefinition',
+	#category : 'GToolkit-Phlow-Updating'
 }

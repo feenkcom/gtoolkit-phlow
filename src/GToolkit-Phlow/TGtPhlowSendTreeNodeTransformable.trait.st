@@ -9,13 +9,13 @@ In the following example, when the list items are selected (double click), a ${c
 In this case, it is a  ${class:BlElement}$ widget that displays selected numbers in the middle. More elaborate and dedicated Phlow tools can be used, see ${class:GtPhlowTool|expanded|show=#gtSubclassesFor:}$ subclasses:
 "
 Trait {
-	#name : #TGtPhlowSendTreeNodeTransformable,
+	#name : 'TGtPhlowSendTreeNodeTransformable',
 	#traits : 'TGtPhlowSendTransformable',
 	#classTraits : 'TGtPhlowSendTransformable classTrait',
-	#category : #'GToolkit-Phlow-Support - Transformation'
+	#category : 'GToolkit-Phlow-Support - Transformation'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TGtPhlowSendTreeNodeTransformable >> transformation: aGtPhlowSendTransformation [
 	self assertTransformation: aGtPhlowSendTransformation.
 	transformation := aGtPhlowSendTransformation asPhlowSendTransformation asTreeNodeTransformation.

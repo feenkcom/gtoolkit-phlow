@@ -13,25 +13,25 @@ I attach a label tooltip to a given element.
 
 "
 Class {
-	#name : #GtPhlowTooltipLabelBuilder,
-	#superclass : #GtPhlowTooltipBuilder,
+	#name : 'GtPhlowTooltipLabelBuilder',
+	#superclass : 'GtPhlowTooltipBuilder',
 	#instVars : [
 		'text'
 	],
-	#category : #'GToolkit-Phlow-Support - Tooltip'
+	#category : 'GToolkit-Phlow-Support - Tooltip'
 }
 
-{ #category : #building }
+{ #category : 'building' }
 GtPhlowTooltipLabelBuilder >> applyOn: anElement [
 	anElement addAptitude: (GtPhlowLabelTooltipAptitude new text: self text)
 ]
 
-{ #category : #building }
+{ #category : 'building' }
 GtPhlowTooltipLabelBuilder >> applyOn: anElement hostElement: aTargetElement [
 	self applyOn: anElement
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 GtPhlowTooltipLabelBuilder >> assertText: aStringOrText [
 	self 
 		assert: [ aStringOrText isNotNil ]
@@ -45,18 +45,18 @@ GtPhlowTooltipLabelBuilder >> assertText: aStringOrText [
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowTooltipLabelBuilder >> initialize [
 	super initialize.
 	text := 'Tooltip'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTooltipLabelBuilder >> text [
 	^ text
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowTooltipLabelBuilder >> text: aStringOrText [
 	self assertText: aStringOrText.
 	text := aStringOrText

@@ -6,14 +6,14 @@ See {{gtClass:GtPhlowUpdateLabelledViewTitle}} for more details.
 
 "
 Class {
-	#name : #GtPhlowUpdateLabeledOnClassAndSuperClassChange,
-	#superclass : #GtPhlowSystemChangeUpdateDefinition,
+	#name : 'GtPhlowUpdateLabeledOnClassAndSuperClassChange',
+	#superclass : 'GtPhlowSystemChangeUpdateDefinition',
 	#traits : 'TGtPhlowObservedClassAccessors',
 	#classTraits : 'TGtPhlowObservedClassAccessors classTrait',
-	#category : #'GToolkit-Phlow-Updating'
+	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : #'announcement handling' }
+{ #category : 'announcement handling' }
 GtPhlowUpdateLabeledOnClassAndSuperClassChange >> handleAnnouncement: anAnnouncement [
 	self hasContexts ifFalse: [ ^ self ].
 	(GtSystemUtility 
@@ -22,7 +22,7 @@ GtPhlowUpdateLabeledOnClassAndSuperClassChange >> handleAnnouncement: anAnnounce
 	self updatePhlowViews
 ]
 
-{ #category : #subscriptions }
+{ #category : 'subscriptions' }
 GtPhlowUpdateLabeledOnClassAndSuperClassChange >> subscribeToSystemOn: aGtPhlowElementContext [
 	self
 		subscribeAnnouncement: MethodAnnouncement, ClassAnnouncement
@@ -30,13 +30,13 @@ GtPhlowUpdateLabeledOnClassAndSuperClassChange >> subscribeToSystemOn: aGtPhlowE
 		subscriber: self
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtPhlowUpdateLabeledOnClassAndSuperClassChange >> updatePhlowView: aGtPhlowElementContext [
 	self scheduleTask: (GtPhlowUpdateLabelledViewTitle new 
 		elementContext: aGtPhlowElementContext)
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtPhlowUpdateLabeledOnClassAndSuperClassChange >> updatePhlowViews [
 	self contexts do: [ :eachContext | 
 		eachContext hasBuildContext ifTrue: [ 

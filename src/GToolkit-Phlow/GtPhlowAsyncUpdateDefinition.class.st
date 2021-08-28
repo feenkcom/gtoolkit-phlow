@@ -1,10 +1,10 @@
 Class {
-	#name : #GtPhlowAsyncUpdateDefinition,
-	#superclass : #GtPhlowSyncUpdateDefinition,
-	#category : #'GToolkit-Phlow-Updating'
+	#name : 'GtPhlowAsyncUpdateDefinition',
+	#superclass : 'GtPhlowSyncUpdateDefinition',
+	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : #subscriptions }
+{ #category : 'subscriptions' }
 GtPhlowAsyncUpdateDefinition >> announcementHandlerFor: aGtPhlowElementContext [
 	^ [ :anAnnouncement | aGtPhlowElementContext asyncUpdate ]
 ]

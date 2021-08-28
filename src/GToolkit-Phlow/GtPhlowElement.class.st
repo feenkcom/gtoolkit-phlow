@@ -6,14 +6,14 @@ See my {{gtClass:GtPhlowElement|expanded|show=#gtSubclassesFor:}} for concrete i
 
 "
 Class {
-	#name : #GtPhlowElement,
-	#superclass : #BlElement,
+	#name : 'GtPhlowElement',
+	#superclass : 'BlElement',
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
-	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPhlowElement >> initialize [
 	super initialize.
 	

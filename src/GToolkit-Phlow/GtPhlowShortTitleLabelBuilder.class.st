@@ -12,30 +12,30 @@ I build {{gtClass:BlText}} and {{gtClass:String}} instances. I am used when a us
 
 "
 Class {
-	#name : #GtPhlowShortTitleLabelBuilder,
-	#superclass : #GtPhlowTitleLabelBuilder,
+	#name : 'GtPhlowShortTitleLabelBuilder',
+	#superclass : 'GtPhlowTitleLabelBuilder',
 	#instVars : [
 		'block'
 	],
-	#category : #'GToolkit-Phlow-Tool - Title'
+	#category : 'GToolkit-Phlow-Tool - Title'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowShortTitleLabelBuilder >> block [
 	^ block
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowShortTitleLabelBuilder >> block: anObject [
 	block := anObject
 ]
 
-{ #category : #'api - building' }
+{ #category : 'api - building' }
 GtPhlowShortTitleLabelBuilder >> build [
 	^ self block value ifNil: [ BlText empty ]
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowShortTitleLabelBuilder >> gtResultFor: aView [
 	<gtView>
 	^ aView textEditor

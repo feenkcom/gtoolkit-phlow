@@ -12,25 +12,25 @@ I build {{gtClass:BlText}} instances. I abbreviate long titles.
 
 "
 Class {
-	#name : #GtPhlowLongTitleLabelBuilder,
-	#superclass : #GtPhlowTitleLabelBuilder,
+	#name : 'GtPhlowLongTitleLabelBuilder',
+	#superclass : 'GtPhlowTitleLabelBuilder',
 	#instVars : [
 		'block'
 	],
-	#category : #'GToolkit-Phlow-Tool - Title'
+	#category : 'GToolkit-Phlow-Tool - Title'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowLongTitleLabelBuilder >> block [
 	^ block
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 GtPhlowLongTitleLabelBuilder >> block: aBlock [
 	block := aBlock
 ]
 
-{ #category : #building }
+{ #category : 'building' }
 GtPhlowLongTitleLabelBuilder >> build [
 	<return: #BlText>
 	| aShortTitle aLongLabel |
@@ -47,7 +47,7 @@ GtPhlowLongTitleLabelBuilder >> build [
 	^ aShortTitle
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtPhlowLongTitleLabelBuilder >> gtResultFor: aView [
 	<gtView>
 	^ aView textEditor
@@ -65,7 +65,7 @@ GtPhlowLongTitleLabelBuilder >> gtResultFor: aView [
 			action: [ :aButton | aButton phlow spawnObject: self build ]
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtPhlowLongTitleLabelBuilder >> longLabel [
 	^ self block value
 ]

@@ -1,5 +1,5 @@
 Class {
-	#name : #GtPhlowTransmissionReplaceAndShowStrategy,
-	#superclass : #GtPhlowTransmissionStrategy,
-	#category : #'GToolkit-Phlow-Transmission'
+	#name : 'GtPhlowTransmissionReplaceAndShowStrategy',
+	#superclass : 'GtPhlowTransmissionStrategy',
+	#category : 'GToolkit-Phlow-Transmission'
 }

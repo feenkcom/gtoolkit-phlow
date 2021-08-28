@@ -4,12 +4,12 @@ I exemplify {{gtClass:GtPhlowShortTitleLabelBuilder}}.
 
 "
 Class {
-	#name : #GtPhlowShortTitleLabelBuilderExamples,
-	#superclass : #GtPhlowTitleLabelBuilderExamples,
-	#category : #'GToolkit-Phlow-Tool - Title Examples'
+	#name : 'GtPhlowShortTitleLabelBuilderExamples',
+	#superclass : 'GtPhlowTitleLabelBuilderExamples',
+	#category : 'GToolkit-Phlow-Tool - Title Examples'
 }
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 GtPhlowShortTitleLabelBuilderExamples >> basicBuilder [
 	<gtExample>
 	| aBuilder |
@@ -20,7 +20,7 @@ GtPhlowShortTitleLabelBuilderExamples >> basicBuilder [
 	^ aBuilder
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowShortTitleLabelBuilderExamples >> longText [
 	<gtExample>
 	| aBuilder aText |
@@ -31,7 +31,7 @@ GtPhlowShortTitleLabelBuilderExamples >> longText [
 	^ aBuilder
 ]
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 GtPhlowShortTitleLabelBuilderExamples >> shortText [
 	<gtExample>
 	| aBuilder aText |
@@ -42,7 +42,7 @@ GtPhlowShortTitleLabelBuilderExamples >> shortText [
 	^ aBuilder
 ]
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 GtPhlowShortTitleLabelBuilderExamples >> shortText_Block [
 	<gtExample>
 	| aBuilder aText |
@@ -53,7 +53,7 @@ GtPhlowShortTitleLabelBuilderExamples >> shortText_Block [
 	^ aBuilder
 ]
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 GtPhlowShortTitleLabelBuilderExamples >> shortText_RopedText [
 	<gtExample>
 	| aBuilder aText |

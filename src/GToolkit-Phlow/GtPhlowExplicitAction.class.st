@@ -1,13 +1,13 @@
 Class {
-	#name : #GtPhlowExplicitAction,
-	#superclass : #GtPhlowAction,
+	#name : 'GtPhlowExplicitAction',
+	#superclass : 'GtPhlowAction',
 	#instVars : [
 		'stencilBuilder'
 	],
-	#category : #'GToolkit-Phlow-! Actions'
+	#category : 'GToolkit-Phlow-! Actions'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtPhlowExplicitAction >> asElement: aBlock withHostElement: aTargetElement [
 	| anElement |
 	anElement := [ 
@@ -21,7 +21,7 @@ GtPhlowExplicitAction >> asElement: aBlock withHostElement: aTargetElement [
 	^ aBlock value: anElement
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowExplicitAction >> newErrorElementFor: anError targetElement: aTargetElement [
 	anError freeze.
 	^ GtPhlowActionWithError new
@@ -31,7 +31,7 @@ GtPhlowExplicitAction >> newErrorElementFor: anError targetElement: aTargetEleme
 			withHostElement: aTargetElement
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPhlowExplicitAction >> newExplicitElementWithTargetElement: aTargetElement [
 	| anExplicitElement |
 	stencilBuilder targetElement: aTargetElement.
@@ -45,12 +45,12 @@ GtPhlowExplicitAction >> newExplicitElementWithTargetElement: aTargetElement [
 	^ anExplicitElement
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowExplicitAction >> stencil: aStencilBuilder [
 	stencilBuilder := aStencilBuilder asStencilBuilder: GtPhlowActionStencilBuilder  
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPhlowExplicitAction >> stencilBuilder [
 	^ stencilBuilder
 ]
