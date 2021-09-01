@@ -17,7 +17,8 @@ Class {
 		'itemsProviderComputation',
 		'itemStencil',
 		'itemDataBinder',
-		'itemTypeStencil'
+		'itemTypeStencil',
+		'itemContextMenuStencil'
 	],
 	#category : 'GToolkit-Phlow-! Views'
 }
@@ -36,7 +37,7 @@ GtPhlowListView >> asElementDo: aBlock [
 	aList
 		constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 	aList
-		itemStencil: self itemElementStencil;
+		itemStencil: self newDecoratedItemStencil;
 		itemDataBinder: self itemDataBinder;
 		itemType: self itemTypeStencil.
 	self beViewElement: aList.
@@ -77,11 +78,19 @@ GtPhlowListView >> initialize [
 	self itemType: [ :anItemTypeFactory :anItemObject :anItemIndex | anItemTypeFactory default ].
 	self itemText: [ :aValue | aValue ].
 	self transformation: self defaultTransformation.
+
+	"nil means that we should not create a context menu for each item"
+	itemContextMenuStencil := nil
 ]
 
 { #category : 'private - testing' }
 GtPhlowListView >> isExpectedElement: aCurrentElement [
 	^ aCurrentElement class = self elementClass
+]
+
+{ #category : 'api - scripting' }
+GtPhlowListView >> itemContextMenuStencil: aGtPhlowListContextMenuStencilBuilder [
+	itemContextMenuStencil := aGtPhlowListContextMenuStencilBuilder asStencilBuilder: GtPhlowListContextMenuStencilBuilder
 ]
 
 { #category : 'private - accessing' }
@@ -122,7 +131,7 @@ GtPhlowListView >> itemFormat: aBlockOrSymbol [
 GtPhlowListView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 	"An item element stencil can be a #value-able of the form [ :anItemType | ]"
 
-	itemStencil := self errorTreatedCellStencilFor: aBrListItemElementStencilBuilderOrBlock.
+	itemStencil := aBrListItemElementStencilBuilderOrBlock asStencilBuilder: BrListItemElementStencilBuilder
 ]
 
 { #category : 'api - scripting' }
@@ -156,6 +165,23 @@ GtPhlowListView >> itemsProviderOnExceptionErrorElement: aBlock [
 		performBlock: [ self itemsProviderComputation value asBrItemsProvider ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
+]
+
+{ #category : 'private - building' }
+GtPhlowListView >> newDecoratedItemStencil [
+	| anItemElementStencil |
+
+	anItemElementStencil := self itemElementStencil.
+
+	itemContextMenuStencil ifNotNil: [ :aContextMenuStencil |
+		anItemElementStencil := GtPhlowListItemElementWithContextMenuDecorator new
+			stencilBuilder: anItemElementStencil;
+			contextMenuStencil: aContextMenuStencil ].
+
+	anItemElementStencil := GtPhlowListItemElementWithErrorHandlingDecorator new
+		stencilBuilder: anItemElementStencil.
+		
+	^ anItemElementStencil
 ]
 
 { #category : 'private - building' }

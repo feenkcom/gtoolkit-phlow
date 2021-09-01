@@ -23,7 +23,7 @@ TGtPhlowErrorTolerantCell >> errorTreatedCellDataBinderFor: aBlockOrSymbol [
 ]
 
 { #category : 'private - errors' }
-TGtPhlowErrorTolerantCell >> errorTreatedCellStencilFor: aBlockOrSymbol [
+TGtPhlowErrorTolerantCell >> errorTreatedCellStencilFor: aBrListItemElementStencilBuilder [
 	 ^ [ :anItemType |
 			| aContainer |
 			aContainer := self newCellContainer.
@@ -36,7 +36,9 @@ TGtPhlowErrorTolerantCell >> errorTreatedCellStencilFor: aBlockOrSymbol [
 					self 
 						performBlock: [ 
 							| anElement |
-							anElement := aBlockOrSymbol glamourValueWithArgs: { anItemType. self }.
+							anElement := aBrListItemElementStencilBuilder
+								itemType: anItemType;
+								build.
 							aContainer content: anElement. ]
 						onException: [ :anException | 
 							| anElement |

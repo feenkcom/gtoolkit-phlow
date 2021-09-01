@@ -145,10 +145,10 @@ GtPhlowTreeView >> itemStencil [
 ]
 
 { #category : 'api - scripting' }
-GtPhlowTreeView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
+GtPhlowTreeView >> itemStencil: aBrTreeNodeElementStencilBuilder [
 	"A node element stencil can be a #value-able of the form [ :aNodeType | ]"
 
-	itemStencil := self errorTreatedCellStencilFor: aBrListItemElementStencilBuilderOrBlock
+	itemStencil := self errorTreatedCellStencilFor: (aBrTreeNodeElementStencilBuilder asStencilBuilder: BrTreeNodeElementStencilBuilder)
 ]
 
 { #category : 'api - scripting' }

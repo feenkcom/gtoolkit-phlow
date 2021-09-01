@@ -50,7 +50,7 @@ GtPhlowColumn >> cellStencil [
 
 { #category : 'api - scripting cell content' }
 GtPhlowColumn >> cellStencil: aBlockOrSymbol [
-	cellStencil := self errorTreatedCellStencilFor: aBlockOrSymbol
+	cellStencil := self errorTreatedCellStencilFor: (aBlockOrSymbol asStencilBuilder: BrListItemElementStencilBuilder)
 ]
 
 { #category : 'private - accessing' }
