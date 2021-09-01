@@ -276,6 +276,12 @@ GtPhlowColumn >> text: aBlockOrSymbol [
 	self dataBinder: (GtPhlowListTextDataBinder new textComputation: aBlockOrSymbol)
 ]
 
+{ #category : 'api - scripting cell content' }
+GtPhlowColumn >> text: aBlockOrSymbol spawn: aSpawnObjectComputation [
+	self cellStencil: (GtPhlowListTextualLinkBuilder new spawnObjectComputation: aSpawnObjectComputation).
+	self dataBinder: (GtPhlowListTextualLinkDataBinder new textComputation: aBlockOrSymbol)
+]
+
 { #category : 'private - accessing' }
 GtPhlowColumn >> title [
 	^ title
