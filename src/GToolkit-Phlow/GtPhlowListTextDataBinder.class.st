@@ -1,14 +1,14 @@
 Class {
-	#name : 'GtPhlowListTextItemDataBinder',
+	#name : 'GtPhlowListTextDataBinder',
 	#superclass : 'BrListItemDataBinder',
 	#instVars : [
 		'textComputation'
 	],
-	#category : 'GToolkit-Phlow-Support - Lists'
+	#category : 'GToolkit-Phlow-Support - List'
 }
 
 { #category : 'api - instantiation' }
-GtPhlowListTextItemDataBinder >> buildDefault [
+GtPhlowListTextDataBinder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
 	| aText |
 
@@ -22,13 +22,13 @@ GtPhlowListTextItemDataBinder >> buildDefault [
 ]
 
 { #category : 'accessing' }
-GtPhlowListTextItemDataBinder >> textComputation [
+GtPhlowListTextDataBinder >> textComputation [
 
 	^ textComputation
 ]
 
 { #category : 'accessing' }
-GtPhlowListTextItemDataBinder >> textComputation: anObject [
+GtPhlowListTextDataBinder >> textComputation: anObject [
 
 	textComputation := anObject
 ]

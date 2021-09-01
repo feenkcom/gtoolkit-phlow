@@ -7,16 +7,12 @@ I am used by {{gtClass:GtPhlowColumnedListView}} and {{gtClass:GtPhlowColumnedTr
 Class {
 	#name : 'GtPhlowColumn',
 	#superclass : 'Object',
-	#traits : 'TGtPhlowErrorTolerantCell - {#errorTreatedCellTypeFor:}',
-	#classTraits : 'TGtPhlowErrorTolerantCell classTrait',
 	#instVars : [
 		'index',
 		'rowStencil',
 		'title',
 		'titleStencil',
 		'itemComputation',
-		'textComputation',
-		'iconComputation',
 		'cellStencil',
 		'dataBinder',
 		'width'
@@ -50,7 +46,7 @@ GtPhlowColumn >> cellStencil [
 
 { #category : 'api - scripting cell content' }
 GtPhlowColumn >> cellStencil: aBlockOrSymbol [
-	cellStencil := self errorTreatedCellStencilFor: (aBlockOrSymbol asStencilBuilder: BrListItemElementStencilBuilder)
+	cellStencil := aBlockOrSymbol asStencilBuilder: BrColumnCellStencilBuilder
 ]
 
 { #category : 'private - accessing' }
@@ -58,20 +54,13 @@ GtPhlowColumn >> cellWidth [
 	^ width
 ]
 
-{ #category : 'accessing' }
-GtPhlowColumn >> columnDataType [
-	^ self isWithIcon
-		ifTrue: [ #icon ]
-		ifFalse: [ #text ]
-]
-
 { #category : 'api - building' }
 GtPhlowColumn >> configureColumn: aBrColumn [
 	aBrColumn 
 		title: self title;
-		cellStencil: self cellStencil;
-		dataBinder: self dataBinder;
-		cellWidth: self cellWidth.
+		cellStencil: self newDecoratedCellStencil;
+		dataBinder: self newDecoratedDataBinder;
+		cellWidth: self cellWidth
 ]
 
 { #category : 'private - accessing' }
@@ -81,7 +70,7 @@ GtPhlowColumn >> dataBinder [
 
 { #category : 'api - scripting cell content' }
 GtPhlowColumn >> dataBinder: aBlockOrSymbol [ 
-	dataBinder := self errorTreatedCellDataBinderFor: aBlockOrSymbol
+	dataBinder := aBlockOrSymbol asStencilBuilder: BrColumnCellDataBinder
 ]
 
 { #category : 'defaults' }
@@ -132,22 +121,14 @@ GtPhlowColumn >> fitContent [
 
 { #category : 'api - scripting cell content' }
 GtPhlowColumn >> icon: aBlockOrSymbol [
-	iconComputation := aBlockOrSymbol.
-	self cellStencil: [ self newIconContainer ].
-	self dataBinder: [ :anIconContainer :anItem :aRowIndex :aRowHolder :aColumnIndex |
-		| aValue anIcon anElement |
-		aValue := self itemComputation phlowValue: anItem withEnoughArguments: { anItem. aRowIndex. aColumnIndex. anIconContainer. self }.
-		anIcon := iconComputation phlowValue: aValue withEnoughArguments: { aValue. aRowIndex. aColumnIndex. anIconContainer. self }.
-		anElement := anIcon asElement labeled: 'Icon'.
-		anIconContainer
-			removeChildren;
-			addChild: anElement. ]
+	self cellStencil: GtPhlowListIconElementStencilBuilder new.
+	self dataBinder: (GtPhlowListIconDataBinder new iconComputation: aBlockOrSymbol)
 ]
 
 { #category : 'api - scripting cell content' }
 GtPhlowColumn >> iconName: anIconNameComputation [
-	self icon: [ :anItem | 
-		self iconNamed: (anIconNameComputation cull: anItem) ].
+	self cellStencil: GtPhlowListIconElementStencilBuilder new.
+	self dataBinder: (GtPhlowListIconNamedDataBinder new iconNameComputation: anIconNameComputation)
 ]
 
 { #category : 'private - accessing' }
@@ -170,11 +151,6 @@ GtPhlowColumn >> initialize [
 	itemComputation := self defaultItemComputation.
 	width := self defaultWidth.
 	self text: self defaultTextStencil
-]
-
-{ #category : 'testing' }
-GtPhlowColumn >> isWithIcon [
-	^ iconComputation notNil
 ]
 
 { #category : 'api - scripting cell content' }
@@ -217,22 +193,32 @@ GtPhlowColumn >> newCellPaddingInsets [
 ]
 
 { #category : 'private - building' }
-GtPhlowColumn >> newIconContainer [
-	| container |
-	container := BrHorizontalPane new.
-	width class = GtPhlowColumnProportionalWidth 
-		ifFalse: [ container fitContent ]
-		ifTrue: [container hMatchParent; vFitContent ].
-	^ container
+GtPhlowColumn >> newDecoratedCellStencil [
+	| aCellStencil |
+
+	aCellStencil := self cellStencil.
+
+	aCellStencil := GtPhlowColumnErrorHandlingCellStencilBuilder new
+		cellStencil: aCellStencil;
+		cellSpacing: self newCellPaddingInsets.
+
+	^ aCellStencil
 ]
 
 { #category : 'private - building' }
-GtPhlowColumn >> newItemLabel [
-	^ BrLabel new
-		aptitude: BrGlamorousListLabelAptitude;
-		alignCenterLeft;
-		hMatchParent;
-		vFitContent
+GtPhlowColumn >> newDecoratedDataBinder [
+	| aDataBinder |
+
+	aDataBinder := self dataBinder.
+	
+	aDataBinder := GtPhlowColumnCellItemComputationDataBinder new
+		dataBinder: aDataBinder;
+		itemComputation: itemComputation.
+
+	aDataBinder := GtPhlowColumnErrorHandlingDataBinder new
+		dataBinder: aDataBinder.
+
+	^ aDataBinder
 ]
 
 { #category : 'scripting - deprecated' }
@@ -286,18 +272,8 @@ GtPhlowColumn >> stencil: aBlock [
 
 { #category : 'api - scripting cell content' }
 GtPhlowColumn >> text: aBlockOrSymbol [
-	textComputation := aBlockOrSymbol.
-	self cellStencil: [ self newItemLabel ].
-	self dataBinder: [ :aLabel :anItem :aRowIndex :aRowHolder :aColumnIndex |
-		| aValue aText |
-		aValue := self itemComputation phlowValue: anItem withEnoughArguments: { anItem. aRowIndex. aColumnIndex. aLabel. self }.
-		aText := textComputation phlowValue: aValue withEnoughArguments: { aValue. aRowIndex. aColumnIndex. aLabel. self }.
-		aLabel text: aText gtDisplayText asRopedText. ]
-]
-
-{ #category : 'accessing' }
-GtPhlowColumn >> textComputation [
-	^ textComputation
+	self cellStencil: GtPhlowListTextElementStencilBuilder new.
+	self dataBinder: (GtPhlowListTextDataBinder new textComputation: aBlockOrSymbol)
 ]
 
 { #category : 'private - accessing' }

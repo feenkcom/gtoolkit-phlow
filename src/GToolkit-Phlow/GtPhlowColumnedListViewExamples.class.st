@@ -281,6 +281,29 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView_WithParent [
 	^ aView
 ]
 
+{ #category : 'examples - icon' }
+GtPhlowColumnedListViewExamples >> columnItemIconView [
+	<gtExample>
+	| aView anElement aColumnedList aCellElement |
+	aView := GtPhlowView empty on: self perform: #gtFourItemsWithColumnIconFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: self expectedElementClass inView: aView.
+
+	aColumnedList := anElement childAt: 2.
+	self assert: aColumnedList class equals: BrColumnedList.
+	self assert: aColumnedList items size equals: 4.
+	
+	anElement forceLayout.
+	self assert: aColumnedList aptitude listElement childrenCount equals: 4.
+	
+	aCellElement := (aColumnedList aptitude listElement childAt: 1) childAt: 1.
+	
+	self assert: aCellElement class equals: GtPhlowCellElement.
+	self assert: aCellElement content class equals: BrHorizontalPane.
+	^ aView
+]
+
 { #category : 'examples - text' }
 GtPhlowColumnedListViewExamples >> columnItemView [
 	<gtExample>
@@ -640,6 +663,22 @@ GtPhlowColumnedListViewExamples >> gtErrorInItemsFor: aView [
 		items: [ ZeroDivide signal: 'items: error'. (1 to: 1000) ];
 		column: 'x' text: [ :x | 'Base ', x asString ];
 		column: 'x * x' text: [ :x | 'Square ', (x * x) asString ]
+]
+
+{ #category : 'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtFourItemsWithColumnIconFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'column:icon: usage';
+		priority: 2;
+		items: [ {
+			#accept.
+			#add.
+			#browse.
+			#cancel.
+		} ];
+		column: 'icon' icon: [ :x | BrGlamorousVectorIcons perform: x ];
+		column: 'name' text: [ :x | x printString ]
 ]
 
 { #category : 'gt-extensions' }

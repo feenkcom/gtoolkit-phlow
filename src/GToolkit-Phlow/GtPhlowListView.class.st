@@ -139,8 +139,8 @@ GtPhlowListView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 GtPhlowListView >> itemText: aBlockOrSymbol [
 	"Display each list item as a text label whose text is computed based on the given text computation as a block or a symbol"
 
-	self itemStencil: GtPhlowListTextItemElementStencilBuilder new.
-	self itemDataBinder: (GtPhlowListTextItemDataBinder new textComputation: aBlockOrSymbol)
+	self itemStencil: GtPhlowListTextElementStencilBuilder new.
+	self itemDataBinder: (GtPhlowListTextDataBinder new textComputation: aBlockOrSymbol)
 ]
 
 { #category : 'api - scripting' }
@@ -171,7 +171,7 @@ GtPhlowListView >> itemsProviderComputation [
 { #category : 'private - accessing' }
 GtPhlowListView >> itemsProviderOnExceptionErrorElement: aBlock [
 	^ self 
-		performBlock: [ self itemsProviderComputation value asBrItemsProvider ]
+		performBlock: [ itemsProviderComputation value asBrItemsProvider ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
 ]
@@ -182,7 +182,7 @@ GtPhlowListView >> newDecoratedItemDataBinder [
 
 	anItemDataBinder := self itemDataBinder.
 
-	anItemDataBinder := GtPhlowListErrorHandlingItemDataBinder new
+	anItemDataBinder := GtPhlowSimpleListErrorHandlingItemDataBinder new
 		dataBinder: anItemDataBinder.
 
 	^ anItemDataBinder
@@ -199,7 +199,10 @@ GtPhlowListView >> newDecoratedItemStencil [
 			stencilBuilder: anItemElementStencil;
 			contextMenuStencil: aContextMenuStencil ].
 
-	anItemElementStencil := GtPhlowListErrorHandlingItemElementStencilBuilder new
+	anItemElementStencil := GtPhlowListItemElementWithSelectionDecorator new
+		stencilBuilder: anItemElementStencil.
+
+	anItemElementStencil := GtPhlowSimpleListErrorHandlingItemElementStencilBuilder new
 		stencilBuilder: anItemElementStencil;
 		cellSpacing: (BlInsets left: 10).
 

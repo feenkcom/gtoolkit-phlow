@@ -1,15 +1,15 @@
 Class {
-	#name : 'GtPhlowListErrorHandlingItemElementStencilBuilder',
+	#name : 'GtPhlowSimpleListErrorHandlingItemElementStencilBuilder',
 	#superclass : 'BrListItemElementStencilBuilder',
 	#instVars : [
 		'stencilBuilder',
 		'cellSpacing'
 	],
-	#category : 'GToolkit-Phlow-Support - Lists'
+	#category : 'GToolkit-Phlow-Support - List simple'
 }
 
 { #category : 'api - instantiation' }
-GtPhlowListErrorHandlingItemElementStencilBuilder >> buildDefault [
+GtPhlowSimpleListErrorHandlingItemElementStencilBuilder >> buildDefault [
 	| aContainer |
 
 	aContainer := self newCellContainer.
@@ -36,19 +36,19 @@ GtPhlowListErrorHandlingItemElementStencilBuilder >> buildDefault [
 ]
 
 { #category : 'accessing' }
-GtPhlowListErrorHandlingItemElementStencilBuilder >> cellSpacing [
+GtPhlowSimpleListErrorHandlingItemElementStencilBuilder >> cellSpacing [
 
 	^ cellSpacing
 ]
 
 { #category : 'accessing' }
-GtPhlowListErrorHandlingItemElementStencilBuilder >> cellSpacing: anObject [
+GtPhlowSimpleListErrorHandlingItemElementStencilBuilder >> cellSpacing: anObject [
 
 	cellSpacing := anObject
 ]
 
 { #category : 'instance creation' }
-GtPhlowListErrorHandlingItemElementStencilBuilder >> newCellContainer [
+GtPhlowSimpleListErrorHandlingItemElementStencilBuilder >> newCellContainer [
 	^ GtPhlowCellElement new
 		hMatchParent;
 		vFitContent;
@@ -56,13 +56,13 @@ GtPhlowListErrorHandlingItemElementStencilBuilder >> newCellContainer [
 ]
 
 { #category : 'accessing' }
-GtPhlowListErrorHandlingItemElementStencilBuilder >> stencilBuilder [
+GtPhlowSimpleListErrorHandlingItemElementStencilBuilder >> stencilBuilder [
 	<return: #BrListItemElementStencilBuilder>
 
 	^ stencilBuilder
 ]
 
 { #category : 'accessing' }
-GtPhlowListErrorHandlingItemElementStencilBuilder >> stencilBuilder: aBrListItemElementStencilBuilder [
+GtPhlowSimpleListErrorHandlingItemElementStencilBuilder >> stencilBuilder: aBrListItemElementStencilBuilder [
 	stencilBuilder := aBrListItemElementStencilBuilder asStencilBuilder: BrListItemElementStencilBuilder
 ]

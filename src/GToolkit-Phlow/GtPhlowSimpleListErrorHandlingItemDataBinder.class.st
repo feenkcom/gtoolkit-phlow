@@ -1,14 +1,14 @@
 Class {
-	#name : 'GtPhlowListErrorHandlingItemDataBinder',
+	#name : 'GtPhlowSimpleListErrorHandlingItemDataBinder',
 	#superclass : 'BrListItemDataBinder',
 	#instVars : [
 		'dataBinder'
 	],
-	#category : 'GToolkit-Phlow-Support - Lists'
+	#category : 'GToolkit-Phlow-Support - List simple'
 }
 
 { #category : 'accessing' }
-GtPhlowListErrorHandlingItemDataBinder >> buildDefault [	
+GtPhlowSimpleListErrorHandlingItemDataBinder >> buildDefault [	
 	[
 		dataBinder
 			itemElement: itemElement content;
@@ -28,6 +28,6 @@ GtPhlowListErrorHandlingItemDataBinder >> buildDefault [
 ]
 
 { #category : 'accessing' }
-GtPhlowListErrorHandlingItemDataBinder >> dataBinder: aBrListItemDataBinder [
+GtPhlowSimpleListErrorHandlingItemDataBinder >> dataBinder: aBrListItemDataBinder [
 	dataBinder := aBrListItemDataBinder asStencilBuilder: BrListItemDataBinder
 ]

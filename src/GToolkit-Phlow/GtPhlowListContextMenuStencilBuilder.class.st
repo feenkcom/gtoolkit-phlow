@@ -7,7 +7,7 @@ Class {
 		'itemObject',
 		'itemPosition'
 	],
-	#category : 'GToolkit-Phlow-Support - Lists'
+	#category : 'GToolkit-Phlow-Support - List utilities'
 }
 
 { #category : 'api - instantiation' }
