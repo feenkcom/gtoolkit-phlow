@@ -64,3 +64,12 @@ GtPhlowListContextMenuStencilBuilder >> itemType: anObject [
 
 	itemType := anObject
 ]
+
+{ #category : 'api - instantiation' }
+GtPhlowListContextMenuStencilBuilder >> paramsOn: aStencilExecutor [
+	aStencilExecutor
+		push: self itemElement;
+		push: self itemObject;
+		push: self itemPosition;
+		push: self itemType
+]

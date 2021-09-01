@@ -11,8 +11,8 @@ The following object displays several examples. You can `ALT+CLICK` on tab names
 Class {
 	#name : 'GtPhlowListView',
 	#superclass : 'GtPhlowViewDecorator',
-	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:} + TGtPhlowItemText + TGtPhlowSendTransformable',
-	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait + TGtPhlowSendTransformable classTrait',
+	#traits : 'TGtPhlowSendTransformable',
+	#classTraits : 'TGtPhlowSendTransformable classTrait',
 	#instVars : [
 		'itemsProviderComputation',
 		'itemStencil',
@@ -38,8 +38,8 @@ GtPhlowListView >> asElementDo: aBlock [
 		constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 	aList
 		itemStencil: self newDecoratedItemStencil;
-		itemDataBinder: self itemDataBinder;
-		itemType: self itemTypeStencil.
+		itemDataBinder: self newDecoratedItemDataBinder;
+		itemType: self newDecoratedItemTypeStencil.
 	self beViewElement: aList.
 	^ aBlock value: aList
 ]
@@ -103,7 +103,8 @@ GtPhlowListView >> itemDataBinder [
 { #category : 'api - scripting' }
 GtPhlowListView >> itemDataBinder: aBrListItemDataBinderOrBlock [
 	"An item type stencil can be a #value-able of the form [ :anItemElement :anItemObject :anItemIndex | ]"
-	itemDataBinder := self errorTreatedCellDataBinderFor: aBrListItemDataBinderOrBlock.
+
+	itemDataBinder := aBrListItemDataBinderOrBlock asStencilBuilder: BrListItemDataBinder
 ]
 
 { #category : 'scripting - deprecated' }
@@ -135,11 +136,19 @@ GtPhlowListView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 ]
 
 { #category : 'api - scripting' }
+GtPhlowListView >> itemText: aBlockOrSymbol [
+	"Display each list item as a text label whose text is computed based on the given text computation as a block or a symbol"
+
+	self itemStencil: GtPhlowListTextItemElementStencilBuilder new.
+	self itemDataBinder: (GtPhlowListTextItemDataBinder new textComputation: aBlockOrSymbol)
+]
+
+{ #category : 'api - scripting' }
 GtPhlowListView >> itemType: aBrListItemTypeStencilBuilderOrBlock [
 	"An item type stencil can be a #value-able of the form [ :anItemTypeFactory :anItemObject :anItemIndex | ].
 	==anItemTypeFactory== is a ${class:BrListItemType class}$"
 
-	itemTypeStencil := self errorTreatedCellTypeFor: aBrListItemTypeStencilBuilderOrBlock.
+	itemTypeStencil := aBrListItemTypeStencilBuilderOrBlock asStencilBuilder: BrListItemTypeStencilBuilder
 ]
 
 { #category : 'private - accessing' }
@@ -168,6 +177,18 @@ GtPhlowListView >> itemsProviderOnExceptionErrorElement: aBlock [
 ]
 
 { #category : 'private - building' }
+GtPhlowListView >> newDecoratedItemDataBinder [
+	| anItemDataBinder |
+
+	anItemDataBinder := self itemDataBinder.
+
+	anItemDataBinder := GtPhlowListErrorHandlingItemDataBinder new
+		dataBinder: anItemDataBinder.
+
+	^ anItemDataBinder
+]
+
+{ #category : 'private - building' }
 GtPhlowListView >> newDecoratedItemStencil [
 	| anItemElementStencil |
 
@@ -178,19 +199,23 @@ GtPhlowListView >> newDecoratedItemStencil [
 			stencilBuilder: anItemElementStencil;
 			contextMenuStencil: aContextMenuStencil ].
 
-	anItemElementStencil := GtPhlowListItemElementWithErrorHandlingDecorator new
-		stencilBuilder: anItemElementStencil.
-		
+	anItemElementStencil := GtPhlowListErrorHandlingItemElementStencilBuilder new
+		stencilBuilder: anItemElementStencil;
+		cellSpacing: (BlInsets left: 10).
+
 	^ anItemElementStencil
 ]
 
 { #category : 'private - building' }
-GtPhlowListView >> newItemLabel [
-	^ BrLabel new
-		aptitude: BrGlamorousListLabelAptitude + BrGlamorousListItemAptitude;
-		alignCenterLeft;
-		hMatchParent;
-		vFitContent
+GtPhlowListView >> newDecoratedItemTypeStencil [
+	| anItemTypeStencil |
+
+	anItemTypeStencil := self itemTypeStencil.
+
+	anItemTypeStencil := GtPhlowListErrorHandlingItemTypeStencilBuilder new
+		itemTypeStencilBuilder: anItemTypeStencil.
+
+	^ anItemTypeStencil
 ]
 
 { #category : 'api - scripting' }
@@ -214,8 +239,6 @@ GtPhlowListView >> stencil: aBrListRowStencilBuilder [
 			rowValue: anItemObject;
 			rowIndex: anItemPosition;
 			build.
-		
-		listRowStencil reset.
 		
 		aRowStencil ]
 ]

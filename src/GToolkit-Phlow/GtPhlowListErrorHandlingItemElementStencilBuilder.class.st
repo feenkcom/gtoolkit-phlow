@@ -1,14 +1,15 @@
 Class {
-	#name : 'GtPhlowListItemElementWithErrorHandlingDecorator',
+	#name : 'GtPhlowListErrorHandlingItemElementStencilBuilder',
 	#superclass : 'BrListItemElementStencilBuilder',
 	#instVars : [
-		'stencilBuilder'
+		'stencilBuilder',
+		'cellSpacing'
 	],
 	#category : 'GToolkit-Phlow-Support - Lists'
 }
 
 { #category : 'api - instantiation' }
-GtPhlowListItemElementWithErrorHandlingDecorator >> buildDefault [
+GtPhlowListErrorHandlingItemElementStencilBuilder >> buildDefault [
 	| aContainer |
 
 	aContainer := self newCellContainer.
@@ -34,21 +35,34 @@ GtPhlowListItemElementWithErrorHandlingDecorator >> buildDefault [
 	^ aContainer
 ]
 
-{ #category : 'instance creation' }
-GtPhlowListItemElementWithErrorHandlingDecorator >> newCellContainer [
-	^ GtPhlowCellElement new
-		hMatchParent;
-		vFitContent
+{ #category : 'accessing' }
+GtPhlowListErrorHandlingItemElementStencilBuilder >> cellSpacing [
+
+	^ cellSpacing
 ]
 
 { #category : 'accessing' }
-GtPhlowListItemElementWithErrorHandlingDecorator >> stencilBuilder [
+GtPhlowListErrorHandlingItemElementStencilBuilder >> cellSpacing: anObject [
+
+	cellSpacing := anObject
+]
+
+{ #category : 'instance creation' }
+GtPhlowListErrorHandlingItemElementStencilBuilder >> newCellContainer [
+	^ GtPhlowCellElement new
+		hMatchParent;
+		vFitContent;
+		padding: self cellSpacing
+]
+
+{ #category : 'accessing' }
+GtPhlowListErrorHandlingItemElementStencilBuilder >> stencilBuilder [
 	<return: #BrListItemElementStencilBuilder>
 
 	^ stencilBuilder
 ]
 
 { #category : 'accessing' }
-GtPhlowListItemElementWithErrorHandlingDecorator >> stencilBuilder: aBrListItemElementStencilBuilder [
+GtPhlowListErrorHandlingItemElementStencilBuilder >> stencilBuilder: aBrListItemElementStencilBuilder [
 	stencilBuilder := aBrListItemElementStencilBuilder asStencilBuilder: BrListItemElementStencilBuilder
 ]
