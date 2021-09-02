@@ -11,13 +11,14 @@ The following object displays several examples. You can `ALT+CLICK` on tab names
 Class {
 	#name : 'GtPhlowListView',
 	#superclass : 'GtPhlowViewDecorator',
-	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:} + TGtPhlowItemText + TGtPhlowSendTransformable',
-	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait + TGtPhlowSendTransformable classTrait',
+	#traits : 'TGtPhlowSendTransformable',
+	#classTraits : 'TGtPhlowSendTransformable classTrait',
 	#instVars : [
 		'itemsProviderComputation',
 		'itemStencil',
 		'itemDataBinder',
-		'itemTypeStencil'
+		'itemTypeStencil',
+		'itemContextMenuStencil'
 	],
 	#category : 'GToolkit-Phlow-! Views'
 }
@@ -36,9 +37,9 @@ GtPhlowListView >> asElementDo: aBlock [
 	aList
 		constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 	aList
-		itemStencil: self itemElementStencil;
-		itemDataBinder: self itemDataBinder;
-		itemType: self itemTypeStencil.
+		itemStencil: self newDecoratedItemStencil;
+		itemDataBinder: self newDecoratedItemDataBinder;
+		itemType: self newDecoratedItemTypeStencil.
 	self beViewElement: aList.
 	^ aBlock value: aList
 ]
@@ -77,11 +78,19 @@ GtPhlowListView >> initialize [
 	self itemType: [ :anItemTypeFactory :anItemObject :anItemIndex | anItemTypeFactory default ].
 	self itemText: [ :aValue | aValue ].
 	self transformation: self defaultTransformation.
+
+	"nil means that we should not create a context menu for each item"
+	itemContextMenuStencil := nil
 ]
 
 { #category : 'private - testing' }
 GtPhlowListView >> isExpectedElement: aCurrentElement [
 	^ aCurrentElement class = self elementClass
+]
+
+{ #category : 'api - scripting' }
+GtPhlowListView >> itemContextMenuStencil: aGtPhlowListContextMenuStencilBuilder [
+	itemContextMenuStencil := aGtPhlowListContextMenuStencilBuilder asStencilBuilder: GtPhlowListContextMenuStencilBuilder
 ]
 
 { #category : 'private - accessing' }
@@ -94,7 +103,8 @@ GtPhlowListView >> itemDataBinder [
 { #category : 'api - scripting' }
 GtPhlowListView >> itemDataBinder: aBrListItemDataBinderOrBlock [
 	"An item type stencil can be a #value-able of the form [ :anItemElement :anItemObject :anItemIndex | ]"
-	itemDataBinder := self errorTreatedCellDataBinderFor: aBrListItemDataBinderOrBlock.
+
+	itemDataBinder := aBrListItemDataBinderOrBlock asStencilBuilder: BrListItemDataBinder
 ]
 
 { #category : 'scripting - deprecated' }
@@ -122,7 +132,15 @@ GtPhlowListView >> itemFormat: aBlockOrSymbol [
 GtPhlowListView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 	"An item element stencil can be a #value-able of the form [ :anItemType | ]"
 
-	itemStencil := self errorTreatedCellStencilFor: aBrListItemElementStencilBuilderOrBlock.
+	itemStencil := aBrListItemElementStencilBuilderOrBlock asStencilBuilder: BrListItemElementStencilBuilder
+]
+
+{ #category : 'api - scripting' }
+GtPhlowListView >> itemText: aBlockOrSymbol [
+	"Display each list item as a text label whose text is computed based on the given text computation as a block or a symbol"
+
+	self itemStencil: GtPhlowListTextElementStencilBuilder new.
+	self itemDataBinder: (GtPhlowListTextDataBinder new textComputation: aBlockOrSymbol)
 ]
 
 { #category : 'api - scripting' }
@@ -130,7 +148,7 @@ GtPhlowListView >> itemType: aBrListItemTypeStencilBuilderOrBlock [
 	"An item type stencil can be a #value-able of the form [ :anItemTypeFactory :anItemObject :anItemIndex | ].
 	==anItemTypeFactory== is a ${class:BrListItemType class}$"
 
-	itemTypeStencil := self errorTreatedCellTypeFor: aBrListItemTypeStencilBuilderOrBlock.
+	itemTypeStencil := aBrListItemTypeStencilBuilderOrBlock asStencilBuilder: BrListItemTypeStencilBuilder
 ]
 
 { #category : 'private - accessing' }
@@ -153,18 +171,54 @@ GtPhlowListView >> itemsProviderComputation [
 { #category : 'private - accessing' }
 GtPhlowListView >> itemsProviderOnExceptionErrorElement: aBlock [
 	^ self 
-		performBlock: [ self itemsProviderComputation value asBrItemsProvider ]
+		performBlock: [ itemsProviderComputation value asBrItemsProvider ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
 ]
 
 { #category : 'private - building' }
-GtPhlowListView >> newItemLabel [
-	^ BrLabel new
-		aptitude: BrGlamorousListLabelAptitude + BrGlamorousListItemAptitude;
-		alignCenterLeft;
-		hMatchParent;
-		vFitContent
+GtPhlowListView >> newDecoratedItemDataBinder [
+	| anItemDataBinder |
+
+	anItemDataBinder := self itemDataBinder.
+
+	anItemDataBinder := GtPhlowSimpleListErrorHandlingItemDataBinder new
+		dataBinder: anItemDataBinder.
+
+	^ anItemDataBinder
+]
+
+{ #category : 'private - building' }
+GtPhlowListView >> newDecoratedItemStencil [
+	| anItemElementStencil |
+
+	anItemElementStencil := self itemElementStencil.
+
+	itemContextMenuStencil ifNotNil: [ :aContextMenuStencil |
+		anItemElementStencil := GtPhlowListItemElementWithContextMenuDecorator new
+			stencilBuilder: anItemElementStencil;
+			contextMenuStencil: aContextMenuStencil ].
+
+	anItemElementStencil := GtPhlowListItemElementWithSelectionDecorator new
+		stencilBuilder: anItemElementStencil.
+
+	anItemElementStencil := GtPhlowSimpleListErrorHandlingItemElementStencilBuilder new
+		stencilBuilder: anItemElementStencil;
+		cellSpacing: (BlInsets left: 10).
+
+	^ anItemElementStencil
+]
+
+{ #category : 'private - building' }
+GtPhlowListView >> newDecoratedItemTypeStencil [
+	| anItemTypeStencil |
+
+	anItemTypeStencil := self itemTypeStencil.
+
+	anItemTypeStencil := GtPhlowListErrorHandlingItemTypeStencilBuilder new
+		itemTypeStencilBuilder: anItemTypeStencil.
+
+	^ anItemTypeStencil
 ]
 
 { #category : 'api - scripting' }
@@ -188,8 +242,6 @@ GtPhlowListView >> stencil: aBrListRowStencilBuilder [
 			rowValue: anItemObject;
 			rowIndex: anItemPosition;
 			build.
-		
-		listRowStencil reset.
 		
 		aRowStencil ]
 ]

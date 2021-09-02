@@ -196,6 +196,23 @@ TGtPhlowColumnScripts >> column: aTitleString text: aBlock [
 ]
 
 { #category : 'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString text: aBlock spawn: aSpawnBlock [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn text: aBlock spawn: aSpawnBlock
+]
+
+{ #category : 'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString text: aBlock spawn: aSpawnBlock width: aNumber [
+	| aColumn |
+	aColumn := self column.
+	aColumn title: aTitleString.
+	aColumn text: aBlock spawn: aSpawnBlock.
+	aColumn width: aNumber.
+]
+
+{ #category : 'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString text: aBlock weight: aNumber [
 	| aColumn |
 	aColumn := self column.
