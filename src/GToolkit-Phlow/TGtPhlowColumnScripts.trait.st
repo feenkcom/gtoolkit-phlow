@@ -23,9 +23,9 @@ TGtPhlowColumnScripts >> column: aTitleString do: aBlock [
 { #category : 'scripting - deprecated' }
 TGtPhlowColumnScripts >> column: aTitleString evaluated: aBlock [
 	self 
-		deprecated: 'Please use #column:item: instead.'
-		transformWith: '`@receiver column: `@one evaluated: `@two' -> '`@receiver column: `@one item: `@two'.
-	^ self column: aTitleString item: aBlock
+		deprecated: 'Please use #column:text: instead.'
+		transformWith: '`@receiver column: `@one evaluated: `@two' -> '`@receiver column: `@one text: `@two'.
+	^ self column: aTitleString text: aBlock
 ]
 
 { #category : 'scripting - deprecated' }
@@ -92,24 +92,42 @@ TGtPhlowColumnScripts >> column: aTitleString iconName: anIconNameComputation wi
 
 { #category : 'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString item: aBlock [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: aBlock
+	self 
+		deprecated: 'Please use #column:text: instead.'
+		transformWith: '`@receiver column: `@one item: `@two' -> '`@receiver column: `@one text: `@two'.
+	self column: aTitleString text: aBlock
 ]
 
 { #category : 'scripting - deprecated' }
 TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation format: aFormatBlocOrSymbol [
-	self 
+
+	self
 		deprecated: 'Please use #column:item:text: instead.'
-		transformWith: '`@receiver column: `@one item: `@two format: `@three' -> '`@receiver column: `@one item: `@two text: `@three'.
-	self column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol
+		transformWith:
+			'`@receiver column: `@one item: `@two format: `@three'
+			-> '`@receiver column: `@one item: `@two text: `@three'.
+	self
+		column: aTitleString
+		text: [ :rowObject :rowIndex :columnIndex | 
+			| aComputedItem |
+			aComputedItem := anItemComputation
+				                 phlowValue: rowObject
+				                 withEnoughArguments: { 
+						                 rowObject.
+						                 rowIndex.
+						                 columnIndex }.
+			aFormatBlocOrSymbol
+				phlowValue: aComputedItem
+				withEnoughArguments: { 
+						aComputedItem.
+						rowIndex.
+						columnIndex } ]
 ]
 
 { #category : 'scripting - deprecated' }
 TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation format: aFormatBlocOrSymbol width: aNumber [
 	self 
-		deprecated: 'Please use #column:item:text:width. instead.'
+		deprecated: 'Please use #column:item:text:width:. instead.'
 		transformWith: '`@receiver column: `@one item: `@two format: `@three width: `@four'
 			-> '`@receiver column: `@one item: `@two text: `@three width: `@four'.
 	self column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol width: aNumber
@@ -126,50 +144,120 @@ TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation icon: aFor
 ]
 
 { #category : 'api - scripting column' }
-TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: anItemComputation.
-	aColumn text: aFormatBlocOrSymbol
+TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol [	
+	self 
+		deprecated: 'Please use #column:text:. instead.'
+		transformWith: '`@receiver column: `@one item: `@two text: `@three'
+			-> '`@receiver
+		column: `@one
+		text: [ :rowObject :rowIndex :columnIndex |
+			| aComputedItem |
+
+			aComputedItem := `@two
+				phlowValue: rowObject
+				withEnoughArguments: { rowObject . rowIndex . columnIndex }.
+			
+			`@three
+				phlowValue: aComputedItem
+				withEnoughArguments: { aComputedItem . rowIndex . columnIndex } ]'.
+
+	self
+		column: aTitleString
+		text: [ :rowObject :rowIndex :columnIndex |
+			| aComputedItem |
+			
+			aComputedItem := anItemComputation
+				phlowValue: rowObject
+				withEnoughArguments: { rowObject . rowIndex . columnIndex }.
+			
+			aFormatBlocOrSymbol
+				phlowValue: aComputedItem
+				withEnoughArguments: { aComputedItem . rowIndex . columnIndex } ]
 ]
 
 { #category : 'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol weight: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: anItemComputation.
-	aColumn text: aFormatBlocOrSymbol.
-	aColumn weight: aNumber.
+	self 
+		deprecated: 'Please use #column:text:weight:. instead.'
+		transformWith: '`@receiver column: `@one item: `@two text: `@three weight: `@four'
+			-> '`@receiver
+		column: `@one
+		text: [ :rowObject :rowIndex :columnIndex |
+			| aComputedItem |
+
+			aComputedItem := `@two
+				phlowValue: rowObject
+				withEnoughArguments: { rowObject . rowIndex . columnIndex }.
+			
+			`@three
+				phlowValue: aComputedItem
+				withEnoughArguments: { aComputedItem . rowIndex . columnIndex } ]
+		weight: `@four'.
+
+	self
+		column: aTitleString
+		text: [ :rowObject :rowIndex :columnIndex |
+			| aComputedItem |
+			
+			aComputedItem := anItemComputation
+				phlowValue: rowObject
+				withEnoughArguments: { rowObject . rowIndex . columnIndex }.
+			
+			aFormatBlocOrSymbol
+				phlowValue: aComputedItem
+				withEnoughArguments: { aComputedItem . rowIndex . columnIndex } ]
+		weight: aNumber
 ]
 
 { #category : 'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol width: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: anItemComputation.
-	aColumn text: aFormatBlocOrSymbol.
-	aColumn width: aNumber.
+	self 
+		deprecated: 'Please use #column:text:width:. instead.'
+		transformWith: '`@receiver column: `@one item: `@two text: `@three width: `@four'
+			-> '`@receiver
+		column: `@one
+		text: [ :rowObject :rowIndex :columnIndex |
+			| aComputedItem |
+
+			aComputedItem := `@two
+				phlowValue: rowObject
+				withEnoughArguments: { rowObject . rowIndex . columnIndex }.
+			
+			`@three
+				phlowValue: aComputedItem
+				withEnoughArguments: { aComputedItem . rowIndex . columnIndex } ]
+		width: `@four'.
+
+	self
+		column: aTitleString
+		text: [ :rowObject :rowIndex :columnIndex |
+			| aComputedItem |
+			
+			aComputedItem := anItemComputation
+				phlowValue: rowObject
+				withEnoughArguments: { rowObject . rowIndex . columnIndex }.
+			
+			aFormatBlocOrSymbol
+				phlowValue: aComputedItem
+				withEnoughArguments: { aComputedItem . rowIndex . columnIndex } ]
+		width: aNumber
 ]
 
 { #category : 'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString item: aBlock weight: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: aBlock.
-	aColumn weight: aNumber.
+	self 
+		deprecated: 'Please use #column:text:weight: instead.'
+		transformWith: '`@receiver column: `@one item: `@two weight: `@three' -> '`@receiver column: `@one text: `@two weight: `@three'.
+	self column: aTitleString text: aBlock weight: aNumber
 ]
 
 { #category : 'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString item: aBlock width: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn item: aBlock.
-	aColumn width: aNumber.
+	self 
+		deprecated: 'Please use #column:text:width: instead.'
+		transformWith: '`@receiver column: `@one item: `@two width: `@three' -> '`@receiver column: `@one text: `@two width: `@three'.
+
+	self column: aTitleString text: aBlock width: aNumber
 ]
 
 { #category : 'api - scripting column' }
