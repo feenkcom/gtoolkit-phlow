@@ -40,11 +40,12 @@ TGtPhlowColumnedHeader >> columns [
 
 { #category : 'gt - extensions' }
 TGtPhlowColumnedHeader >> gtColumnsFor: aView [
+
 	<gtView>
 	self columns ifNil: [ ^ aView empty ].
 	^ aView columnedList
-		title: 'Columns';
-		column: 'Title' item: #title;
-		column: 'Item' item: #itemComputation;
-		column: 'Stencil' item: #cellStencil
+		  title: 'Columns';
+		  column: 'Title' text: #title;
+		  column: 'Item' text: #itemComputation;
+		  column: 'Stencil' text: #cellStencil
 ]

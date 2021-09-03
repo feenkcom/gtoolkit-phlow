@@ -81,8 +81,8 @@ GtPhlowCompositeView >> gtContainedViewsFor: aView [
 	^ aView columnedList
 		title: 'Views' translated;
 		items: [ self views ];
-		column: 'View' format: [:each | each gtDisplayString];
-		column: 'Title' format: [:each | each title ]
+		column: 'View' text: [:each | each gtDisplayString];
+		column: 'Title' text: [:each | each title ]
 ]
 
 { #category : 'accessing' }

@@ -464,9 +464,7 @@ GtPhlowView >> gtActionsFor: aView [
 		priority: 5;
 		items: [ self actions ];
 		column: 'Action' text: [ :aPhlowAction | aPhlowAction className ];
-		column: 'Defining Method'
-			item: [ :aPhlowAction | aPhlowAction definingMethod ]
-			text: [ :aMethodDefinition | aMethodDefinition selector ]
+		column: 'Defining Method' text: [ :aPhlowAction | aPhlowAction definingMethod selector ]
 ]
 
 { #category : 'testing' }

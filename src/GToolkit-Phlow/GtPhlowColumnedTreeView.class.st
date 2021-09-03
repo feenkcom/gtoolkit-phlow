@@ -138,8 +138,8 @@ GtPhlowColumnedTreeView >> gtColumnsFor: aView [
 	^ aView columnedList
 		title: 'Columns';
 		items: [ self columns ];
-		column: 'Title' item: #title weight: 0.25;
-		column: 'Item' item: #itemComputation
+		column: 'Title' text: #title weight: 0.25;
+		column: 'Item' text: #itemComputation
 ]
 
 { #category : 'initialization' }

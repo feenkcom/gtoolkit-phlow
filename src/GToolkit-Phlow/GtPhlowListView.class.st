@@ -15,6 +15,7 @@ Class {
 	#classTraits : 'TGtPhlowSendTransformable classTrait',
 	#instVars : [
 		'itemsProviderComputation',
+		'itemComputation',
 		'itemStencil',
 		'itemDataBinder',
 		'itemTypeStencil',
@@ -50,6 +51,11 @@ GtPhlowListView >> copyTransformationFrom: aSendBlock [
 	self send: aSendBlock
 ]
 
+{ #category : 'defaults' }
+GtPhlowListView >> defaultItemComputation [
+	^ [ :eachItem :eachRowIndex | eachItem ]
+]
+
 { #category : 'scripting - deprecated' }
 GtPhlowListView >> display: aBlock [
 	self 
@@ -79,6 +85,7 @@ GtPhlowListView >> initialize [
 	self itemText: [ :aValue | aValue ].
 	self transformation: self defaultTransformation.
 
+	itemComputation := self defaultItemComputation.
 	"nil means that we should not create a context menu for each item"
 	itemContextMenuStencil := nil
 ]
@@ -88,7 +95,12 @@ GtPhlowListView >> isExpectedElement: aCurrentElement [
 	^ aCurrentElement class = self elementClass
 ]
 
-{ #category : 'api - scripting' }
+{ #category : 'private - accessing' }
+GtPhlowListView >> itemComputation [
+	^ itemComputation
+]
+
+{ #category : 'api - configuration' }
 GtPhlowListView >> itemContextMenuStencil: aGtPhlowListContextMenuStencilBuilder [
 	itemContextMenuStencil := aGtPhlowListContextMenuStencilBuilder asStencilBuilder: GtPhlowListContextMenuStencilBuilder
 ]
@@ -100,7 +112,7 @@ GtPhlowListView >> itemDataBinder [
 	^ itemDataBinder
 ]
 
-{ #category : 'api - scripting' }
+{ #category : 'api - configuration' }
 GtPhlowListView >> itemDataBinder: aBrListItemDataBinderOrBlock [
 	"An item type stencil can be a #value-able of the form [ :anItemElement :anItemObject :anItemIndex | ]"
 
@@ -128,7 +140,7 @@ GtPhlowListView >> itemFormat: aBlockOrSymbol [
 	self itemText: aBlockOrSymbol
 ]
 
-{ #category : 'api - scripting' }
+{ #category : 'api - configuration' }
 GtPhlowListView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 	"An item element stencil can be a #value-able of the form [ :anItemType | ]"
 
@@ -139,11 +151,12 @@ GtPhlowListView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 GtPhlowListView >> itemText: aBlockOrSymbol [
 	"Display each list item as a text label whose text is computed based on the given text computation as a block or a symbol"
 
+	itemComputation := aBlockOrSymbol.
 	self itemStencil: GtPhlowListTextElementStencilBuilder new.
-	self itemDataBinder: (GtPhlowListTextDataBinder new textComputation: aBlockOrSymbol)
+	self itemDataBinder: GtPhlowListTextDataBinder new
 ]
 
-{ #category : 'api - scripting' }
+{ #category : 'api - configuration' }
 GtPhlowListView >> itemType: aBrListItemTypeStencilBuilderOrBlock [
 	"An item type stencil can be a #value-able of the form [ :anItemTypeFactory :anItemObject :anItemIndex | ].
 	==anItemTypeFactory== is a ${class:BrListItemType class}$"
@@ -163,7 +176,7 @@ GtPhlowListView >> items: aBlock [
 	itemsProviderComputation := aBlock
 ]
 
-{ #category : 'accessing' }
+{ #category : 'private - accessing' }
 GtPhlowListView >> itemsProviderComputation [
 	^ itemsProviderComputation
 ]
@@ -181,6 +194,10 @@ GtPhlowListView >> newDecoratedItemDataBinder [
 	| anItemDataBinder |
 
 	anItemDataBinder := self itemDataBinder.
+	
+	anItemDataBinder := GtPhlowSimpleListItemComputationDataBinder new
+		dataBinder: anItemDataBinder;
+		itemComputation: itemComputation.
 
 	anItemDataBinder := GtPhlowSimpleListErrorHandlingItemDataBinder new
 		dataBinder: anItemDataBinder.
@@ -221,7 +238,7 @@ GtPhlowListView >> newDecoratedItemTypeStencil [
 	^ anItemTypeStencil
 ]
 
-{ #category : 'api - scripting' }
+{ #category : 'api - configuration' }
 GtPhlowListView >> stencil: aBrListRowStencilBuilder [
 	"I am a part of the `toy` api. It is inefficient to use me because I always create a new
 	element for each new row which may be expensive. It is much better to split it in two (or three)

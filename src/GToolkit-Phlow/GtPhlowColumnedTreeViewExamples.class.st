@@ -12,8 +12,8 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItems [
 	| aView anElement |
 	aView := self emptyColumnedTreeView.
 	aView items: [ 1 to: 10 ].
-	aView column: 'x' item: [ :aNumber | aNumber ].
-	aView column: 'x * x' item: [ :aNumber | aNumber * aNumber ].
+	aView column: 'x' text: [ :aNumber | aNumber ].
+	aView column: 'x * x' text: [ :aNumber | aNumber * aNumber ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: (anElement isKindOf: BlElement).
 	self
@@ -104,8 +104,8 @@ GtPhlowColumnedTreeViewExamples >> gtAutoUpdatingTreeFor: aView [
 		priority: 15;
 		items: [ aCollection ];
 		children: [ :aNumber | aNumber // 2 to: aNumber ];
-		column: 'x' item: [ :aNumber | aNumber ];
-		column: 'x * x' item: [ :aNumber | aNumber * aNumber ];
+		column: 'x' text: [ :aNumber | aNumber ];
+		column: 'x * x' text: [ :aNumber | aNumber * aNumber ];
 		actionButtonIcon: BrGlamorousVectorIcons add 
 			action: [ aCollection add: 100 atRandom. anAnnouncer announce: Announcement new ];
 		updateWhen: Announcement in: [ anAnnouncer ]
@@ -119,8 +119,8 @@ GtPhlowColumnedTreeViewExamples >> gtNumbersFor: aView [
 		priority: 1;
 		items: [ 1 to: 10 ];
 		children: [ :aNumber | aNumber // 2 to: aNumber ];
-		column: 'x' item: [ :aNumber | aNumber ];
-		column: 'x * x' item: [ :aNumber | aNumber * aNumber ]
+		column: 'x' text: [ :aNumber | aNumber ];
+		column: 'x * x' text: [ :aNumber | aNumber * aNumber ]
 ]
 
 { #category : 'examples - support' }

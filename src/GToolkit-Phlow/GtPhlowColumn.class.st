@@ -44,7 +44,7 @@ GtPhlowColumn >> cellStencil [
 	^ cellStencil
 ]
 
-{ #category : 'api - scripting cell content' }
+{ #category : 'api - configuration' }
 GtPhlowColumn >> cellStencil: aBlockOrSymbol [
 	cellStencil := aBlockOrSymbol asStencilBuilder: BrColumnCellStencilBuilder
 ]
@@ -68,7 +68,7 @@ GtPhlowColumn >> dataBinder [
 	^ dataBinder
 ]
 
-{ #category : 'api - scripting cell content' }
+{ #category : 'api - configuration' }
 GtPhlowColumn >> dataBinder: aBlockOrSymbol [ 
 	dataBinder := aBlockOrSymbol asStencilBuilder: BrColumnCellDataBinder
 ]
@@ -76,6 +76,11 @@ GtPhlowColumn >> dataBinder: aBlockOrSymbol [
 { #category : 'defaults' }
 GtPhlowColumn >> defaultColumnIndex [
 	^ 1
+]
+
+{ #category : 'defaults' }
+GtPhlowColumn >> defaultDataComputation [
+	^ [ :eachItem :eachRowIndex :eachColumnIndex | eachItem ]
 ]
 
 { #category : 'defaults' }
@@ -121,14 +126,16 @@ GtPhlowColumn >> fitContent [
 
 { #category : 'api - scripting cell content' }
 GtPhlowColumn >> icon: aBlockOrSymbol [
+	self item: aBlockOrSymbol.
 	self cellStencil: GtPhlowListIconElementStencilBuilder new.
-	self dataBinder: (GtPhlowListIconDataBinder new iconComputation: aBlockOrSymbol)
+	self dataBinder: GtPhlowListIconDataBinder new
 ]
 
 { #category : 'api - scripting cell content' }
 GtPhlowColumn >> iconName: anIconNameComputation [
+	self item: anIconNameComputation.
 	self cellStencil: GtPhlowListIconElementStencilBuilder new.
-	self dataBinder: (GtPhlowListIconNamedDataBinder new iconNameComputation: anIconNameComputation)
+	self dataBinder: GtPhlowListIconNamedDataBinder new
 ]
 
 { #category : 'private - accessing' }
@@ -153,7 +160,7 @@ GtPhlowColumn >> initialize [
 	self text: self defaultTextStencil
 ]
 
-{ #category : 'api - scripting cell content' }
+{ #category : 'api - configuration' }
 GtPhlowColumn >> item: aBlockOrSymbol [
 	itemComputation := aBlockOrSymbol
 ]
@@ -247,7 +254,7 @@ GtPhlowColumn >> rowStencil: aRowStencil [
 	self stencil: aRowStencil
 ]
 
-{ #category : 'api - scripting cell content' }
+{ #category : 'api - configuration' }
 GtPhlowColumn >> stencil: aBlock [
 	"I am a part of the `toy` api. It is inefficient to use me because I always create a new
 	element for each new cell which may be expensive. It is much better to split it in two (or three)
@@ -272,14 +279,16 @@ GtPhlowColumn >> stencil: aBlock [
 
 { #category : 'api - scripting cell content' }
 GtPhlowColumn >> text: aBlockOrSymbol [
+	self item: aBlockOrSymbol.
 	self cellStencil: GtPhlowListTextElementStencilBuilder new.
-	self dataBinder: (GtPhlowListTextDataBinder new textComputation: aBlockOrSymbol)
+	self dataBinder: GtPhlowListTextDataBinder new
 ]
 
 { #category : 'api - scripting cell content' }
 GtPhlowColumn >> text: aBlockOrSymbol spawn: aSpawnObjectComputation [
+	self item: aBlockOrSymbol.
 	self cellStencil: (GtPhlowListTextualLinkBuilder new spawnObjectComputation: aSpawnObjectComputation).
-	self dataBinder: (GtPhlowListTextualLinkDataBinder new textComputation: aBlockOrSymbol)
+	self dataBinder: GtPhlowListTextualLinkDataBinder new
 ]
 
 { #category : 'private - accessing' }

@@ -503,8 +503,8 @@ GtPhlowColumnedListViewExamples >> gtAutoUpdatingListFor: aView [
 		title: 'Auto Updating List';
 		priority: 15;
 		items: [ aCollection ];
-		column: 'x' item: [ :x | x ];
-		column: 'x * x' item: [ :x | x * x ];
+		column: 'x' text: [ :x | x ];
+		column: 'x * x' text: [ :x | x * x ];
 		actionButtonIcon: BrGlamorousVectorIcons add 
 			tooltip: 'Add an item'
 			action: [ aCollection add: 100 atRandom. anAnnouncer announce: Announcement new ];
@@ -529,7 +529,7 @@ GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconFor: aView [
 					constraintsDo: [ :c |
 						c horizontal fitContent.
 						c vertical fitContent ] ];
-		column: 'Name' item: #name
+		column: 'Name' text: #name
 ]
 
 { #category : 'gt-extensions' }
@@ -551,7 +551,7 @@ GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconWidthFor: aView [
 						c horizontal fitContent.
 						c vertical fitContent ] ] 
 			width: 36;
-		column: 'Name' item: #name
+		column: 'Name' text: #name
 ]
 
 { #category : 'gt-extensions' }
@@ -574,7 +574,7 @@ GtPhlowColumnedListViewExamples >> gtColorsWithColumnItemIconWidthFor: aView [
 						c horizontal fitContent.
 						c vertical fitContent ] ] 
 			width: 36;
-		column: 'Name' item: #name
+		column: 'Name' text: #name
 ]
 
 { #category : 'gt-extensions' }
@@ -638,7 +638,7 @@ GtPhlowColumnedListViewExamples >> gtErrorInColumnIcon: aView [
 					constraintsDo: [ :c |
 						c horizontal fitContent.
 						c vertical fitContent ] ];
-		column: 'Name' item: #name
+		column: 'Name' text: #name
 ]
 
 { #category : 'gt-extensions' }
@@ -682,25 +682,14 @@ GtPhlowColumnedListViewExamples >> gtFourItemsWithColumnIconFor: aView [
 ]
 
 { #category : 'gt-extensions' }
-GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnItemFormatFor: aView [
-	<gtView>
-	^ aView columnedList
-		title: 'column:item:text: usage';
-		priority: 3;
-		items: [ 1 to: 10 ];
-		column: 'x' item: [ :x | 2 * x ] text: [ :x | 'Base ', x asString ];
-		column: 'x * x' item: [ :x | 4 * x * x ] text: [ :squared | 'Square ', squared asString ]
-]
-
-{ #category : 'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnItemFormatWidthFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'column:item:text:width: usage';
+		title: 'column:text:width: usage';
 		priority: 4;
 		items: [ 1 to: 10 ];
-		column: 'x' item: [ :x | x ] text: [ :x | 'Base ', x asString ] width: 100;
-		column: 'x * x' item: [ :x | x * x ] text: [ :squared | 'Square ', squared asString ] width: 100
+		column: 'x' text: [ :x | 'Base ', x asString ] width: 100;
+		column: 'x * x' text: [ :x | 'Square ', (x * x) asString ] width: 100
 ]
 
 { #category : 'gt-extensions' }
@@ -710,8 +699,8 @@ GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnItemsFor: aView [
 		title: 'column:item: usage';
 		priority: 1;
 		items: [ 1 to: 10 ];
-		column: 'x' item: [ :x | x ];
-		column: 'x * x' item: [ :x | x * x ]
+		column: 'x' text: [ :x | x ];
+		column: 'x * x' text: [ :x | x * x ]
 ]
 
 { #category : 'gt-extensions' }
@@ -792,8 +781,8 @@ GtPhlowColumnedListViewExamples >> viewWithItems [
 	| view element |
 	view := self emptyList
 		items: [ 1 to: 100 ];
-		column: 'x' item: [ :number | number ];
-		column: 'x * 2' translated item: [ :number | number * 2 ].
+		column: 'x' text: [ :number | number ];
+		column: 'x * 2' translated text: [ :number | number * 2 ].
 	view asElementDo: [ :el | element := el ].
 	self assert: element children second items size = 100.
 	^ view
@@ -805,7 +794,7 @@ GtPhlowColumnedListViewExamples >> viewWithItemsWithColumnCreationError [
 	| view element |
 	view := self viewWithItems
 		column: 'Error' translated
-		item: [ :number | number * 4 / 0 ].
+		text: [ :number | number * 4 / 0 ].
 	view asElementDo: [ :el | element := el ].
 	self assert: element children second items size = 100.
 	^ view
