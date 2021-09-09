@@ -97,6 +97,16 @@ GtPhlowUtility class >> newElementForView: aPhlowView [
 ]
 
 { #category : 'instance creation' }
+GtPhlowUtility class >> newItemLabel [
+
+	^ BrLabel new
+		  aptitude: BrGlamorousListLabelAptitude;
+		  alignCenterLeft;
+		  hMatchParent;
+		  vFitContent
+]
+
+{ #category : 'instance creation' }
 GtPhlowUtility class >> newToolbarForTab: aTab view: aPhlowView [ 
 	<return: #BrToolbar>
 	^ aPhlowView actionsToolbarForElement: aTab

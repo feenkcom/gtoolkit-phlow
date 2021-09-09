@@ -193,15 +193,6 @@ GtPhlowTreeView >> newCellPaddingInsets [
 		right: 0
 ]
 
-{ #category : 'private - building' }
-GtPhlowTreeView >> newItemLabel [
-	^ BrLabel new
-		aptitude: BrGlamorousListLabelAptitude;
-		alignCenterLeft;
-		hMatchParent;
-		vFitContent
-]
-
 { #category : 'api - scripting' }
 GtPhlowTreeView >> stencil: aBlock [
 	"I am a part of the `toy` api. It is inefficient to use me because I always create a new
