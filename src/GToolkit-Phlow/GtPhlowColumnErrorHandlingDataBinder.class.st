@@ -12,6 +12,7 @@ GtPhlowColumnErrorHandlingDataBinder >> buildDefault [
 	[
 		dataBinder
 			cellElement: cellElement content;
+			itemObject: itemObject;
 			rowObject: rowObject;
 			rowIndex: rowIndex;
 			rowHolder: rowHolder;
