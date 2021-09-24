@@ -7,9 +7,9 @@ Class {
 { #category : 'api - instantiation' }
 GtPhlowListTextualLinkDataBinder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
-
+	
 	itemElement label: itemObject gtDisplayText.
-	itemElement model: (itemPosition -> itemObject).
+	itemElement model: (itemPosition -> rowObject).
 
 	^ itemElement
 ]

@@ -21,7 +21,7 @@ GtPhlowListTextualLinkBuilder >> buildDefault [
 			aCellObject := aButtonModel model.
 			
 			anObjectToSpawn := spawnObjectComputation
-				phlowValue: aCellObject
+				phlowValue: aCellObject value
 				withEnoughArguments: { aCellObject value . aCellObject key }.
 				
 		aButton phlow spawnObject: anObjectToSpawn ]

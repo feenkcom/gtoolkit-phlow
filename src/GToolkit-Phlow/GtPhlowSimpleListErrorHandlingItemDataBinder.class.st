@@ -13,6 +13,7 @@ GtPhlowSimpleListErrorHandlingItemDataBinder >> buildDefault [
 		dataBinder
 			itemElement: itemElement content;
 			itemObject: itemObject;
+			rowObject: rowObject;
 			itemPosition: itemPosition;
 			build.
 		itemElement

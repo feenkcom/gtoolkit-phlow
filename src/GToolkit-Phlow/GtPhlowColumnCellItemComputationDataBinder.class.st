@@ -12,11 +12,12 @@ Class {
 GtPhlowColumnCellItemComputationDataBinder >> buildDefault [
 	| aValue |
 	
-	aValue := itemComputation phlowValue: rowObject withEnoughArguments: { rowObject. rowIndex. rowHolder . columnIndex }.
+	aValue := itemComputation phlowValue: itemObject withEnoughArguments: { itemObject. rowIndex. rowHolder . columnIndex }.
 	
 	^ dataBinder
 		cellElement: cellElement;
-		rowObject: aValue;
+		itemObject: aValue;
+		rowObject: rowObject;
 		rowIndex: rowIndex;
 		rowHolder: rowHolder;
 		columnIndex: columnIndex;

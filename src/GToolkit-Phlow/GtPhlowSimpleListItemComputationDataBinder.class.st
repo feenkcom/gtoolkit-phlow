@@ -17,6 +17,7 @@ GtPhlowSimpleListItemComputationDataBinder >> buildDefault [
 	^ dataBinder
 		itemElement: itemElement;
 		itemObject: aValue;
+		rowObject: rowObject;
 		itemPosition: itemPosition;
 		build
 ]
