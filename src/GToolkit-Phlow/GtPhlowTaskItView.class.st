@@ -9,21 +9,42 @@ Class {
 
 { #category : 'converting' }
 GtPhlowTaskItView >> asElementDo: aBlock [
+	| aFutureElement |
 
-	| aLazyElement |
+	aFutureElement := BrFromFuture new
+		future: [ self originalElementDo: [ :anElement | anElement ] ] asFuture;
+		matchParent;
+		stencil: [
+			BlElement new
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent ] ];
+		dataBinder: [ :anElementContainer :aData |
+			anElementContainer removeChildren.
+			aData
+				ifSuccess: [ :aViewElement | anElementContainer addChild: aViewElement ]
+				ifError: [ :anError | anElementContainer addChild: anError asDebuggableElement ]
+				ifPending: [
+					| aPendingLabel |
+					
+					aPendingLabel := BrLabel new
+						aptitude: (BrGlamorousLabelAptitude new italic foreground: BrGlamorousColors disabledHeaderTextColor);
+						constraintsDo: [ :c | 
+							c ignoreByLayout.
+							c ignored horizontal alignCenter.
+							c ignored vertical alignCenter ];
+						text: ''.
 
-	aLazyElement := BlLazyElement new
-		layout: BlFrameLayout new;
-		background: BlBackground transparent;
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical matchParent ];
-		elementBuilder: [ self originalElementDo: [ :anElement | anElement ] ];
-		withGlamorousPreview.
+					aPendingLabel enqueueTask: (BlDelayedTaskAction new
+						delay: 1 second;
+						action: [ aPendingLabel text: 'Rendering...' ]). 
 
-	self assignMeAsEntityFor: aLazyElement.
+					anElementContainer addChild: aPendingLabel ] ];
+		yourself.
 	
-	^ aBlock value: aLazyElement
+	self assignMeAsEntityFor: aFutureElement.
+	
+	^ aBlock value: aFutureElement
 ]
 
 { #category : 'converting' }
@@ -121,11 +142,8 @@ GtPhlowTaskItView >> title: aString [
 { #category : 'updating' }
 GtPhlowTaskItView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
-	| aChildElement |
-	self
-		assert: [ aCurrentElement childrenCount <= 1 ]
-		description: [ 'TaskIt lazy element must have at most one child ' ].
-	aCurrentElement element ifNotNil: [ 
-		aChildElement := aCurrentElement children at: 1 ifAbsent: [ ^ self ].
-		self originalView updateContent: aChildElement ].
+
+	aCurrentElement phlow firstChildWithView ifNotNil: [ :anElementWithView |
+		anElementWithView phlow entity == self originalView
+			ifTrue: [ self originalView updateContent: anElementWithView ] ]
 ]
