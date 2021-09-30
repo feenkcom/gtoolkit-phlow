@@ -6,7 +6,7 @@ I define what level of information detail should be displayed by an {{gtClass:Bl
 I am attached to a {{gtClass:BlElement|label=tool}} using {{gtMethod:BlElement>>#addInteractiveModelState:}}. There can be a parent {{gtClass:BlElement}} that knows which level of details should be used. Such parent should have {{gtClass:GtPhlowToolContainerDetailModel}} attached. Each time I am added to a {{gtClass:BlSpace}}, I fire {{gtClass:GtPhlowToolContainerDetailRequest}} to figure out a current tool level of detail that should be used. Parents may or may not answer it. Notice, that I am not informed by element parents, when they change their states.
 1. # Cooperation
 
-I should be used together with {{gtClass:GtPhlowToolDetailLook}}.
+I should be used together with {{gtClass:GtPhlowToolDetailAptitude}}.
 1. # Switching Levels Example
 
 The following example changes an element background color on information level changes:   {{gtExample:GtPhlowToolDetailModelExamples>>#containerWithToolElementWithDetailLook_Showcase|codeExpanded=false|previewExpanded=true}}

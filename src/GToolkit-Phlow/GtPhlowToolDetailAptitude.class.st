@@ -1,9 +1,9 @@
 "
-I am a {{gtClass:BrInteractiveLook}}.
+I am a {{gtClass:BrInteractiveAptitude}}.
 I perform user defined actions on {{gtClass:GtPhlowToolDetailModel}} changes. Users may use the following methods to configure actions for different states:
-- {{gtMethod:GtPhlowToolDetailLook>>#normal:|label=#selector}},
-- {{gtMethod:GtPhlowToolDetailLook>>#detailed:|label=#selector}}, and
-- {{gtMethod:GtPhlowToolDetailLook>>#level:style:|label=#selector}}.
+- {{gtMethod:GtPhlowToolDetailAptitude>>#normal:|label=#selector}},
+- {{gtMethod:GtPhlowToolDetailAptitude>>#detailed:|label=#selector}}, and
+- {{gtMethod:GtPhlowToolDetailAptitude>>#level:style:|label=#selector}}.
 1. # Example
 
 The following example changes an element background color on information level changes: {{gtExample:GtPhlowToolDetailModelExamples>>#containerWithToolElementWithDetailLook_Showcase|codeExpanded=false|previewExpanded=true}} 
