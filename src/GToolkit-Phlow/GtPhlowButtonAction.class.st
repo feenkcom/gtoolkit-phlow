@@ -43,7 +43,13 @@ GtPhlowButtonAction >> icon: anIcon [
 { #category : 'initialization' }
 GtPhlowButtonAction >> initialize [
 	super initialize.
-	action := [ :aButton :aTargetElement :aButtonModel :anEvent | "do nothing" ].
+
+	action := [ :aButton ":aTargetElement :aButtonModel :anEvent " | "do nothing" ].
+]
+
+{ #category : 'api - action' }
+GtPhlowButtonAction >> label [
+	^ label ifNil: [ 'Action' ]
 ]
 
 { #category : 'accessing' }
@@ -62,4 +68,9 @@ GtPhlowButtonAction >> newButtonLook [
 	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ ^ BrGlamorousButtonWithIconAndLabelAptitude ].
 	(label notNil and: [ icon isNil ]) ifTrue: [ ^ BrGlamorousButtonWithLabelAptitude ].
 	^ BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
+]
+
+{ #category : 'api - action' }
+GtPhlowButtonAction >> performActionOn: anActionElement [
+	action cull: anActionElement
 ]

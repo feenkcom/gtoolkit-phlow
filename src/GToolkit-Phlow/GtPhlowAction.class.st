@@ -141,12 +141,22 @@ GtPhlowAction >> isDefinitionRequested: anEvent [
 	^ GtPhlowUtility isDefinitionRequested: anEvent
 ]
 
+{ #category : 'api - action' }
+GtPhlowAction >> label [
+	^ self subclassResponsibility
+]
+
 { #category : 'decorating' }
 GtPhlowAction >> noAction [
 	^ GtPhlowNoAction new
 		definingMethod: (GtPhlowDefiningMethodsCollector new 
 			stack: thisContext stack;
 			collect)
+]
+
+{ #category : 'api - action' }
+GtPhlowAction >> performActionOn: anActionElement [
+	self subclassResponsibility
 ]
 
 { #category : 'accessing' }
