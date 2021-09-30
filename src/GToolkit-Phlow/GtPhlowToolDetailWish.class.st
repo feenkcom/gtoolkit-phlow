@@ -11,35 +11,35 @@ The following example changes an element background color on information level c
 
 "
 Class {
-	#name : 'GtPhlowToolDetailWish',
-	#superclass : 'BrWish',
+	#name : #GtPhlowToolDetailWish,
+	#superclass : #BrWish,
 	#instVars : [
 		'level'
 	],
 	#category : 'GToolkit-Phlow-Tool - Events'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowToolDetailWish class >> beDetailedLevel [
 	^ self new level: GtPhlowToolDetailState detailedName
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowToolDetailWish class >> beLevel: aNamedVolume [
 	^ self new level: aNamedVolume
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowToolDetailWish class >> beNormalLevel [
 	^ self new level: GtPhlowToolDetailState normalName
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowToolDetailWish class >> beUndefinedLevel [
 	^ self new level: GtPhlowToolDetailState undefinedName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToolDetailWish >> dimension [
 	<return: #Symbol>
 	self 
@@ -48,7 +48,7 @@ GtPhlowToolDetailWish >> dimension [
 	^ self level
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToolDetailWish >> dimension: aSymbol [
 
 	self 
@@ -57,25 +57,25 @@ GtPhlowToolDetailWish >> dimension: aSymbol [
 	self level: aSymbol
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowToolDetailWish >> initialize [
 	super initialize.
 	
 	level := GtPhlowToolDetailState normalName.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToolDetailWish >> level [
 	<return: #Symbol>
 	^ level
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToolDetailWish >> level: aSymbol [
 	level := aSymbol.
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 GtPhlowToolDetailWish >> printOn: aStream [
 	aStream
 		nextPutAll: 'Tool Detail Wish: ';

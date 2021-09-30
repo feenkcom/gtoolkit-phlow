@@ -1,13 +1,13 @@
 Class {
-	#name : 'GtPhlowListItemElementWithSelectionDecorator',
-	#superclass : 'BrListItemElementStencilBuilder',
+	#name : #GtPhlowListItemElementWithSelectionDecorator,
+	#superclass : #BrListItemElementStencilBuilder,
 	#instVars : [
 		'stencilBuilder'
 	],
 	#category : 'GToolkit-Phlow-Support - List utilities'
 }
 
-{ #category : 'api - instantiation' }
+{ #category : #'api - instantiation' }
 GtPhlowListItemElementWithSelectionDecorator >> buildDefault [
 	| anElement |
 
@@ -20,13 +20,13 @@ GtPhlowListItemElementWithSelectionDecorator >> buildDefault [
 	^ anElement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowListItemElementWithSelectionDecorator >> stencilBuilder [
 
 	^ stencilBuilder
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowListItemElementWithSelectionDecorator >> stencilBuilder: anObject [
 
 	stencilBuilder := anObject

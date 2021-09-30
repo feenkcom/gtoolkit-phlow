@@ -6,29 +6,29 @@ I am used to override an existing view.
 
 "
 Class {
-	#name : 'GtPhlowEmptyView',
-	#superclass : 'GtPhlowViewDecorator',
+	#name : #GtPhlowEmptyView,
+	#superclass : #GtPhlowViewDecorator,
 	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowEmptyView >> asElementDo: aBlock [
 	"do nothing. return an empty element just in case someone mistankenly relies on the return"
 	^ aBlock value: self newEmptyElement 
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowEmptyView >> asTaskItView [
 	"We do not TaskIt empty view"
 	^ self
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowEmptyView >> ifItHasContent: aBlock [
 	"do nothing"
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowEmptyView >> newEmptyElement [
 	| anElement |
 	anElement := BlElement new
@@ -40,7 +40,7 @@ GtPhlowEmptyView >> newEmptyElement [
 	^ anElement.
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 GtPhlowEmptyView >> updateContent: aCurrentElement [
 	| aParent |
 	aParent := aCurrentElement parent.

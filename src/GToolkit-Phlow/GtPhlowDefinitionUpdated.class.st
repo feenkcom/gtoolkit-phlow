@@ -1,5 +1,5 @@
 Class {
-	#name : 'GtPhlowDefinitionUpdated',
-	#superclass : 'GtPhlowAnnouncement',
+	#name : #GtPhlowDefinitionUpdated,
+	#superclass : #GtPhlowAnnouncement,
 	#category : 'GToolkit-Phlow-Announcements'
 }

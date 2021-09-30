@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtPhlowToggleAction',
-	#superclass : 'GtPhlowAction',
+	#name : #GtPhlowToggleAction,
+	#superclass : #GtPhlowAction,
 	#instVars : [
 		'icon',
 		'label',
@@ -11,17 +11,17 @@ Class {
 	#category : 'GToolkit-Phlow-! Actions'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToggleAction >> action: aValuable [
 	activatedAction := aValuable
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToggleAction >> activatedAction: aValuable [
 	activatedAction := aValuable
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowToggleAction >> asElement: aBlock withHostElement: aTargetElement [
 	<return: #BrButton>
 	| aToggle |
@@ -45,17 +45,17 @@ GtPhlowToggleAction >> asElement: aBlock withHostElement: aTargetElement [
 	^ aBlock value: aToggle
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToggleAction >> deactivatedAction: aValuable [
 	deactivatedAction := aValuable
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToggleAction >> icon: anIcon [
 	icon := anIcon
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowToggleAction >> initialize [
 	super initialize.
 	isActivated := false.
@@ -65,17 +65,17 @@ GtPhlowToggleAction >> initialize [
 	label := nil.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToggleAction >> isActivated: anObject [
 	isActivated := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToggleAction >> label: aString [
 	label := aString
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowToggleAction >> newToggleLook [
 	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ 
 		^ BrGlamorousButtonWithLabelAndIconAptitude + BrGlamorousToggleBackgroundAptitude ].

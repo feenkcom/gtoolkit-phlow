@@ -1,12 +1,12 @@
 Class {
-	#name : 'GtPhlowColumnedTreeViewExamples',
-	#superclass : 'GtPhlowViewExamples',
+	#name : #GtPhlowColumnedTreeViewExamples,
+	#superclass : #GtPhlowViewExamples,
 	#traits : 'TGtPhlowSendTransformationExamples',
 	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
 	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : 'examples - columned tree view' }
+{ #category : #'examples - columned tree view' }
 GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItems [
 	<gtExample>
 	| aView anElement |
@@ -22,7 +22,7 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItems [
 	^ aView
 ]
 
-{ #category : 'examples - columned tree view' }
+{ #category : #'examples - columned tree view' }
 GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItemsAndChildren [
 	<gtExample>
 	| aView anElement |
@@ -41,7 +41,7 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItemsAndChildren [
 	^ aView
 ]
 
-{ #category : 'examples - columned tree view' }
+{ #category : #'examples - columned tree view' }
 GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItemsAndChildren_WithChildrenError [
 	<gtExample>
 	| aView anElement |
@@ -54,7 +54,7 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItemsAndChildren_WithChil
 	^ aView
 ]
 
-{ #category : 'examples - columned tree view' }
+{ #category : #'examples - columned tree view' }
 GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItems_WithItemsError [
 	<gtExample>
 	| aView anElement |
@@ -65,7 +65,7 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItems_WithItemsError [
 	^ aView
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowColumnedTreeViewExamples >> elementItemsFor: anElement [
 	"Return element items"
 
@@ -75,7 +75,7 @@ GtPhlowColumnedTreeViewExamples >> elementItemsFor: anElement [
 	^ aListElement viewModel root childrenValues
 ]
 
-{ #category : 'examples - columned tree view' }
+{ #category : #'examples - columned tree view' }
 GtPhlowColumnedTreeViewExamples >> emptyColumnedTreeView [
 	<gtExample>
 	| aView anElement |
@@ -87,12 +87,12 @@ GtPhlowColumnedTreeViewExamples >> emptyColumnedTreeView [
 	^ aView
 ]
 
-{ #category : 'examples - element' }
+{ #category : #'examples - element' }
 GtPhlowColumnedTreeViewExamples >> expectedElementClass [
 	^ BlElement
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtPhlowColumnedTreeViewExamples >> gtAutoUpdatingTreeFor: aView [
 	<gtView>
 	| aCollection anAnnouncer |
@@ -111,7 +111,7 @@ GtPhlowColumnedTreeViewExamples >> gtAutoUpdatingTreeFor: aView [
 		updateWhen: Announcement in: [ anAnnouncer ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtPhlowColumnedTreeViewExamples >> gtNumbersFor: aView [
 	<gtView>
 	^ aView columnedTree
@@ -123,7 +123,7 @@ GtPhlowColumnedTreeViewExamples >> gtNumbersFor: aView [
 		column: 'x * x' text: [ :aNumber | aNumber * aNumber ]
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowColumnedTreeViewExamples >> listElementFor: anElement [
 	| aListElement |
 	aListElement := anElement childAt: 2.
@@ -131,19 +131,19 @@ GtPhlowColumnedTreeViewExamples >> listElementFor: anElement [
 	^ aListElement
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtPhlowColumnedTreeViewExamples >> myself [
 	<gtExample>
 	^ self
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowColumnedTreeViewExamples >> phlowView [
 	<gtExample>
 	^ self columnedTreeViewWithItemsAndChildren
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowColumnedTreeViewExamples >> selectItemAt: anIndex for: anElement [
 	<gtExample>
 	"Select an item at anIndex in anElement (list, tree)"
@@ -153,7 +153,7 @@ GtPhlowColumnedTreeViewExamples >> selectItemAt: anIndex for: anElement [
 	self assert: (aListElement isSelectedAt: anIndex).
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 GtPhlowColumnedTreeViewExamples >> sendTool [
 	<gtExample>
 	| view element |
@@ -174,7 +174,7 @@ GtPhlowColumnedTreeViewExamples >> sendTool [
 	^ view
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowColumnedTreeViewExamples >> viewWithTenItems [
 	"Return an initialized view with 10 (root) items"
 	<gtExample>

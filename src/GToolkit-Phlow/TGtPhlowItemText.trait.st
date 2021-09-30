@@ -4,24 +4,24 @@ I am used by ${class:GtPhlowListView}$ and ${class:GtPhlowTreeView}$.
 
 "
 Trait {
-	#name : 'TGtPhlowItemText',
+	#name : #TGtPhlowItemText,
 	#instVars : [
 		'itemTextBlock'
 	],
 	#category : 'GToolkit-Phlow-Support'
 }
 
-{ #category : 'api - scripting' }
+{ #category : #'api - scripting' }
 TGtPhlowItemText >> itemDataBinder: aBrTreeNodeDataBinderOrBlock [
 	self explicitRequirement
 ]
 
-{ #category : 'api - scripting' }
+{ #category : #'api - scripting' }
 TGtPhlowItemText >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 	self explicitRequirement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TGtPhlowItemText >> itemText [ 
 	"Answer the BlockClosure / Symbol used to transform the item to the text to be displayed.
 	This is kept for purposes like the remote object inspection where the text is desired, not the BlElement displaying the text."
@@ -30,7 +30,7 @@ TGtPhlowItemText >> itemText [
 	^ itemTextBlock
 ]
 
-{ #category : 'api - scripting' }
+{ #category : #'api - scripting' }
 TGtPhlowItemText >> itemText: aBlockOrSymbol [
 
 	itemTextBlock := aBlockOrSymbol.
@@ -41,7 +41,7 @@ TGtPhlowItemText >> itemText: aBlockOrSymbol [
 		aLabel text: aText gtDisplayText asRopedText. ]
 ]
 
-{ #category : 'private - building' }
+{ #category : #'private - building' }
 TGtPhlowItemText >> newItemLabel [
 	^ GtPhlowUtility newItemLabel
 ]

@@ -1,13 +1,13 @@
 Class {
-	#name : 'GtPhlowTextView',
-	#superclass : 'GtPhlowViewDecorator',
+	#name : #GtPhlowTextView,
+	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
 		'textBuilder'
 	],
 	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowTextView >> asElementDo: aBlock [
 	| aBrickEditor aText |
 
@@ -31,32 +31,32 @@ GtPhlowTextView >> asElementDo: aBlock [
 	^ aBlock value: aBrickEditor
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowTextView >> elementClass [
 	^ BrEditor
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowTextView >> initialize [
 	super initialize.
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtPhlowTextView >> isExpectedElement: aCurrentElement [
 	^ aCurrentElement class = self elementClass
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTextView >> text: anObject [
 	textBuilder := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTextView >> textBuilder [
 	^ textBuilder
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 GtPhlowTextView >> textFor: aBrickEditor onExceptionErrorElement: aBlock [
 	^ self 
 		performBlock: [ (self textBuilder glamourValueWithArgs: { aBrickEditor }) asRopedText ]
@@ -64,7 +64,7 @@ GtPhlowTextView >> textFor: aBrickEditor onExceptionErrorElement: aBlock [
 			aBlock value: anElement ].
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 GtPhlowTextView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 	

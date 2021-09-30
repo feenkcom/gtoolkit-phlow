@@ -5,8 +5,8 @@ Decorates {{gtClass:BrListItemElementStencilBuilder}} and adds support for a con
 
 "
 Class {
-	#name : 'GtPhlowListItemElementWithContextMenuDecorator',
-	#superclass : 'BrListItemElementStencilBuilder',
+	#name : #GtPhlowListItemElementWithContextMenuDecorator,
+	#superclass : #BrListItemElementStencilBuilder,
 	#instVars : [
 		'stencilBuilder',
 		'contextMenuStencil'
@@ -14,7 +14,7 @@ Class {
 	#category : 'GToolkit-Phlow-Support - List utilities'
 }
 
-{ #category : 'api - instantiation' }
+{ #category : #'api - instantiation' }
 GtPhlowListItemElementWithContextMenuDecorator >> buildDefault [
 	| anElement aContextMenuAptitude |
 	<return: #BrStencil or: #BlElement>
@@ -60,26 +60,26 @@ GtPhlowListItemElementWithContextMenuDecorator >> buildDefault [
 	^ anElement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowListItemElementWithContextMenuDecorator >> contextMenuStencil [
 	<return: #GtPhlowListContextMenuStencilBuilder>
 
 	^ contextMenuStencil
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowListItemElementWithContextMenuDecorator >> contextMenuStencil: aGtPhlowListContextMenuStencilBuilder [
 	contextMenuStencil := aGtPhlowListContextMenuStencilBuilder asStencilBuilder: GtPhlowListContextMenuStencilBuilder
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowListItemElementWithContextMenuDecorator >> stencilBuilder [
 	<return: #BrListItemElementStencilBuilder>
 
 	^ stencilBuilder
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowListItemElementWithContextMenuDecorator >> stencilBuilder: aBrListItemElementStencilBuilder [
 	stencilBuilder := aBrListItemElementStencilBuilder asStencilBuilder: BrListItemElementStencilBuilder
 ]

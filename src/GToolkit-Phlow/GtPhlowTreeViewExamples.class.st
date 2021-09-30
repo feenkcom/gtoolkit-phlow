@@ -4,14 +4,14 @@ I exemplify {{gtClass:GtPhlowTreeView}}.
 
 "
 Class {
-	#name : 'GtPhlowTreeViewExamples',
-	#superclass : 'GtPhlowViewExamples',
+	#name : #GtPhlowTreeViewExamples,
+	#superclass : #GtPhlowViewExamples,
 	#traits : 'TGtPhlowSendTransformationExamples',
 	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
 	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : 'examples - auto updates' }
+{ #category : #'examples - auto updates' }
 GtPhlowTreeViewExamples >> autoUpdatedView_InSpace [
 	<gtExample>
 	| aView aParent anElement aCollection anAnnouncer aSpace |
@@ -50,7 +50,7 @@ GtPhlowTreeViewExamples >> autoUpdatedView_InSpace [
 	^ aView
 ]
 
-{ #category : 'examples - auto updates' }
+{ #category : #'examples - auto updates' }
 GtPhlowTreeViewExamples >> autoUpdatedView_InSpace_WithChildrenError [
 	<gtExample>
 	<noTest>
@@ -84,7 +84,7 @@ GtPhlowTreeViewExamples >> autoUpdatedView_InSpace_WithChildrenError [
 	^ aView
 ]
 
-{ #category : 'examples - auto updates' }
+{ #category : #'examples - auto updates' }
 GtPhlowTreeViewExamples >> autoUpdatedView_WithParent [
 	<gtExample>
 	| aView aParent anElement aCollection anAnnouncer |
@@ -114,7 +114,7 @@ GtPhlowTreeViewExamples >> autoUpdatedView_WithParent [
 	^ aView
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowTreeViewExamples >> elementItemsFor: anElement [
 	"Return element items"
 
@@ -122,7 +122,7 @@ GtPhlowTreeViewExamples >> elementItemsFor: anElement [
 	^ anElement viewModel root childrenValues
 ]
 
-{ #category : 'examples - tree view' }
+{ #category : #'examples - tree view' }
 GtPhlowTreeViewExamples >> emptyTree [
 	<gtExample>
 	| aView anElement |
@@ -132,12 +132,12 @@ GtPhlowTreeViewExamples >> emptyTree [
 	^ aView
 ]
 
-{ #category : 'examples - element' }
+{ #category : #'examples - element' }
 GtPhlowTreeViewExamples >> expectedElementClass [
 	^ BrSimpleTree
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtPhlowTreeViewExamples >> gtAutoUpdatingTreeFor: aView [
 	<gtView>
 	| aCollection anAnnouncer |
@@ -153,26 +153,26 @@ GtPhlowTreeViewExamples >> gtAutoUpdatingTreeFor: aView [
 		updateWhen: Announcement in: [ anAnnouncer ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtPhlowTreeViewExamples >> myself [
 	<gtExample>
 	^ self
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowTreeViewExamples >> phlowView [
 	<gtExample>
 	^ self treeViewWithItemsAndChildren
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowTreeViewExamples >> selectItemAt: anIndex for: anElement [
 	<gtExample>
 	"Select an item at anIndex in anElement (list, tree)"
 	anElement selectOne: 1
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 GtPhlowTreeViewExamples >> sendTool [
 	<gtExample>
 	| view element |
@@ -193,7 +193,7 @@ GtPhlowTreeViewExamples >> sendTool [
 	^ view
 ]
 
-{ #category : 'examples - tree view' }
+{ #category : #'examples - tree view' }
 GtPhlowTreeViewExamples >> treeViewWithItems [
 	<gtExample>
 	| aView anElement |
@@ -205,7 +205,7 @@ GtPhlowTreeViewExamples >> treeViewWithItems [
 	^ aView
 ]
 
-{ #category : 'examples - tree view' }
+{ #category : #'examples - tree view' }
 GtPhlowTreeViewExamples >> treeViewWithItemsAndChildren [
 	<gtExample>
 	| aView anElement |
@@ -217,7 +217,7 @@ GtPhlowTreeViewExamples >> treeViewWithItemsAndChildren [
 	^ aView
 ]
 
-{ #category : 'examples - tree view' }
+{ #category : #'examples - tree view' }
 GtPhlowTreeViewExamples >> treeViewWithItemsAndChildrenWithChildrenError [
 	<gtExample>
 	| aView anElement |
@@ -229,7 +229,7 @@ GtPhlowTreeViewExamples >> treeViewWithItemsAndChildrenWithChildrenError [
 	^ aView
 ]
 
-{ #category : 'examples - tree view' }
+{ #category : #'examples - tree view' }
 GtPhlowTreeViewExamples >> treeViewWithItemsWithItemsError [
 	<gtExample>
 	| aView anElement |
@@ -240,7 +240,7 @@ GtPhlowTreeViewExamples >> treeViewWithItemsWithItemsError [
 	^ aView
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowTreeViewExamples >> viewWithTenItems [
 	"Return an initialized view with 10 (root) items"
 	<gtExample>

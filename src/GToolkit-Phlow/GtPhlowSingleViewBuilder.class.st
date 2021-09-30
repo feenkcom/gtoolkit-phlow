@@ -1,18 +1,18 @@
 Class {
-	#name : 'GtPhlowSingleViewBuilder',
-	#superclass : 'GtPhlowViewBuilder',
+	#name : #GtPhlowSingleViewBuilder,
+	#superclass : #GtPhlowViewBuilder,
 	#traits : 'TGtPhlowViewSelectorAccessor',
 	#classTraits : 'TGtPhlowViewSelectorAccessor classTrait',
 	#category : 'GToolkit-Phlow-Collectors'
 }
 
-{ #category : 'building' }
+{ #category : #building }
 GtPhlowSingleViewBuilder >> buildView [
 	<return: #GtPhlowCompositeView>
 	^ self object perform: self selector with: self view
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowSingleViewBuilder >> initialize [
 	super initialize.
 	self initializeViewSelector.

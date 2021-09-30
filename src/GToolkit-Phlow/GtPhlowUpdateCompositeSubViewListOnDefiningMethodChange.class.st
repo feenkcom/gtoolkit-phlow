@@ -7,8 +7,8 @@ See {{gtClass:GtPhlowAddCompositeSubView}} and {{gtClass:name=GtPhlowRemoveCompo
 
 "
 Class {
-	#name : 'GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange',
-	#superclass : 'GtPhlowSystemChangeUpdateDefinition',
+	#name : #GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange,
+	#superclass : #GtPhlowSystemChangeUpdateDefinition,
 	#traits : 'TGtPhlowObservedClassAccessors + TGtPhlowCompositeViewAccessors',
 	#classTraits : 'TGtPhlowObservedClassAccessors classTrait + TGtPhlowCompositeViewAccessors classTrait',
 	#instVars : [
@@ -17,19 +17,19 @@ Class {
 	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> addSubView: aMethodAdded inContext: aGtPhlowElementContext [
 	self scheduleTask: (GtPhlowAddCompositeSubView new
 		elementContext: aGtPhlowElementContext;
 		compiledMethod: aMethodAdded)
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> defaultPragmas [
 	^ GtPhlowViewsCollector defaultViewPragmaNames
 ]
 
-{ #category : 'announcement handling' }
+{ #category : #'announcement handling' }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> handleMethodAddedAnnouncement: aMethodAdded [ 
 	self ifItDoesNotHaveContextsDo: [ ^ self ].
 	self ifItDoesNotHaveObservedClassDo: [ ^ self ]. 
@@ -42,7 +42,7 @@ GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> handleMethodAddedAnno
 		self addSubView: aMethodAdded methodAdded inContext: eachContext ].
 ]
 
-{ #category : 'announcement handling' }
+{ #category : #'announcement handling' }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> handleMethodRemovedAnnouncement: aMethodRemoved [ 
 	self hasContexts ifFalse: [ ^ self ].
 	(self pragmas anySatisfy: [ :eachSymbol |
@@ -54,35 +54,35 @@ GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> handleMethodRemovedAn
 		self removeSubView: aMethodRemoved methodRemoved inContext: eachContext ].
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> initialize [
 	super initialize.
 	pragmas := self defaultPragmas.
 ]
 
-{ #category : 'accessing - convenience' }
+{ #category : #'accessing - convenience' }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> pragma: aSymbol [
 	self pragmas: (Array with: aSymbol)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> pragmas [
 	^ pragmas
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> pragmas: anObject [
 	pragmas := anObject
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> removeSubView: aMethodRemoved inContext: aGtPhlowElementContext [
 	self scheduleTask: (GtPhlowRemoveCompositeSubView new
 		elementContext: aGtPhlowElementContext;
 		compiledMethod: aMethodRemoved)
 ]
 
-{ #category : 'subscriptions' }
+{ #category : #subscriptions }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> subscribeToSystemOn: aGtPhlowElementContext [
 	self
 		subscribeAnnouncement: MethodAdded
@@ -94,13 +94,13 @@ GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> subscribeToSystemOn: 
 		subscriber: self
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> updateSubView: aGtPhlowView [
 	self contexts do: [ :eachContext | 
 		self updateSubView: aGtPhlowView inContext: eachContext ].
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> updateSubView: aGtPhlowView inContext: aGtPhlowElementContext [
 	self scheduleTask: (GtPhlowUpdateCompositeSubViewTitleAndPosition new
 		elementContext: aGtPhlowElementContext;

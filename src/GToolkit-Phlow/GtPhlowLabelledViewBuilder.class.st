@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtPhlowLabelledViewBuilder',
-	#superclass : 'GtPhlowCompositeViewBuilder',
+	#name : #GtPhlowLabelledViewBuilder,
+	#superclass : #GtPhlowCompositeViewBuilder,
 	#category : 'GToolkit-Phlow-Collectors'
 }
 
-{ #category : 'building' }
+{ #category : #building }
 GtPhlowLabelledViewBuilder >> buildView [
 	<return: #GtPhlowLabelledView>
 	| aView |
@@ -14,7 +14,7 @@ GtPhlowLabelledViewBuilder >> buildView [
 	^ aView
 ]
 
-{ #category : 'label' }
+{ #category : #label }
 GtPhlowLabelledViewBuilder >> title [
 	<return: #GtPhlowLabelBuilder>
 	^ GtPhlowLabelBuilder new object: self object

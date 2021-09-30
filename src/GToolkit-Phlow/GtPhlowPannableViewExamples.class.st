@@ -1,15 +1,15 @@
 Class {
-	#name : 'GtPhlowPannableViewExamples',
-	#superclass : 'GtPhlowViewExamples',
+	#name : #GtPhlowPannableViewExamples,
+	#superclass : #GtPhlowViewExamples,
 	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : 'examples - element' }
+{ #category : #'examples - element' }
 GtPhlowPannableViewExamples >> expectedElementClass [
 	^ BlPannableElement
 ]
 
-{ #category : 'decorating' }
+{ #category : #decorating }
 GtPhlowPannableViewExamples >> pannable [
 	<gtExample>
 	| element pannableView |
@@ -23,7 +23,7 @@ GtPhlowPannableViewExamples >> pannable [
 	^ pannableView
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowPannableViewExamples >> phlowView [
 	<gtExample>
 	^ self pannable

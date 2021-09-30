@@ -5,20 +5,20 @@ I am used by {{gtClass:TGtPhlowSendTreeNodeTransformable}} where you can find mo
 
 "
 Class {
-	#name : 'GtPhlowSendTreeNodeTransformation',
-	#superclass : 'GtPhlowSendTransformation',
+	#name : #GtPhlowSendTreeNodeTransformation,
+	#superclass : #GtPhlowSendTransformation,
 	#instVars : [
 		'transformation'
 	],
 	#category : 'GToolkit-Phlow-Support - Transformation'
 }
 
-{ #category : 'api - converting' }
+{ #category : #'api - converting' }
 GtPhlowSendTreeNodeTransformation >> asTreeNodeTransformation [
 	^ self
 ]
 
-{ #category : 'api - events' }
+{ #category : #'api - events' }
 GtPhlowSendTreeNodeTransformation >> select: aSelectedNode indices: aSelectionIndices from: anElement [
 	self transformation 
 		select: aSelectedNode value
@@ -26,7 +26,7 @@ GtPhlowSendTreeNodeTransformation >> select: aSelectedNode indices: aSelectionIn
 		from: anElement
 ]
 
-{ #category : 'api - events' }
+{ #category : #'api - events' }
 GtPhlowSendTreeNodeTransformation >> spawn: aSelectedNode indices: aSelectionIndices from: anElement [
 	self transformation 
 		spawn: aSelectedNode value
@@ -34,13 +34,13 @@ GtPhlowSendTreeNodeTransformation >> spawn: aSelectedNode indices: aSelectionInd
 		from: anElement
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowSendTreeNodeTransformation >> transformation [
 	<return: #GtPhlowSendTransformation>
 	^ transformation
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowSendTreeNodeTransformation >> transformation: aGtPhlowSendTransformation [
 	transformation := aGtPhlowSendTransformation
 ]

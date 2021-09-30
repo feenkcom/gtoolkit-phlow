@@ -1,12 +1,12 @@
 Class {
-	#name : 'GtPhlowBuildNullContext',
-	#superclass : 'GtPhlowAbstractBuildContext',
+	#name : #GtPhlowBuildNullContext,
+	#superclass : #GtPhlowAbstractBuildContext,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#category : 'GToolkit-Phlow-Context'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtPhlowBuildNullContext >> isBuildContext [
 	^ false
 ]

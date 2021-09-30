@@ -1,13 +1,13 @@
 Class {
-	#name : 'GtPhlowListErrorHandlingItemTypeStencilBuilder',
-	#superclass : 'BrListItemTypeStencilBuilder',
+	#name : #GtPhlowListErrorHandlingItemTypeStencilBuilder,
+	#superclass : #BrListItemTypeStencilBuilder,
 	#instVars : [
 		'itemTypeStencilBuilder'
 	],
 	#category : 'GToolkit-Phlow-Support - List utilities'
 }
 
-{ #category : 'api - instantiation' }
+{ #category : #'api - instantiation' }
 GtPhlowListErrorHandlingItemTypeStencilBuilder >> buildDefault [
 	^ [ 
 		itemTypeStencilBuilder
@@ -19,13 +19,13 @@ GtPhlowListErrorHandlingItemTypeStencilBuilder >> buildDefault [
 		do: [ :anError | GtPhlowExceptionItemType exception: anError freezeOrWithoutContext ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowListErrorHandlingItemTypeStencilBuilder >> itemTypeStencilBuilder [
 
 	^ itemTypeStencilBuilder
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowListErrorHandlingItemTypeStencilBuilder >> itemTypeStencilBuilder: anObject [
 
 	itemTypeStencilBuilder := anObject

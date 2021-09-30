@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtPhlowCompositeToolExamples',
-	#superclass : 'GtPhlowToolExamples',
+	#name : #GtPhlowCompositeToolExamples,
+	#superclass : #GtPhlowToolExamples,
 	#category : 'GToolkit-Phlow-Tool - Examples'
 }
 
-{ #category : 'examples - tools' }
+{ #category : #'examples - tools' }
 GtPhlowCompositeToolExamples >> compositeTool [
 	<gtExample>
 	| aTool anElement |
@@ -18,7 +18,7 @@ GtPhlowCompositeToolExamples >> compositeTool [
 	^ aTool
 ]
 
-{ #category : 'examples - elements' }
+{ #category : #'examples - elements' }
 GtPhlowCompositeToolExamples >> compositeToolElement [
 	<gtExample>
 	| aTool anElement |
@@ -27,7 +27,7 @@ GtPhlowCompositeToolExamples >> compositeToolElement [
 	^ anElement
 ]
 
-{ #category : 'examples - elements' }
+{ #category : #'examples - elements' }
 GtPhlowCompositeToolExamples >> compositeToolElement_TabOne_ChangeLabel [
 	<gtExample>
 	| aTabGroup aContent aLabel aPlusButton aSpace |
@@ -69,7 +69,7 @@ GtPhlowCompositeToolExamples >> compositeToolElement_TabOne_ChangeLabel [
 	^ aTabGroup
 ]
 
-{ #category : 'examples - elements' }
+{ #category : #'examples - elements' }
 GtPhlowCompositeToolExamples >> compositeToolElement_TabOne_DefaultLabel [
 	<gtExample>
 	| aTabGroup aContent aLabel |
@@ -81,7 +81,7 @@ GtPhlowCompositeToolExamples >> compositeToolElement_TabOne_DefaultLabel [
 	^ aTabGroup
 ]
 
-{ #category : 'examples - elements' }
+{ #category : #'examples - elements' }
 GtPhlowCompositeToolExamples >> compositeToolElement_TabTwo_DefaultLabel [
 	<gtExample>
 	| aTabGroup aContent aLabel |
@@ -94,7 +94,7 @@ GtPhlowCompositeToolExamples >> compositeToolElement_TabTwo_DefaultLabel [
 	^ aTabGroup
 ]
 
-{ #category : 'examples - elements' }
+{ #category : #'examples - elements' }
 GtPhlowCompositeToolExamples >> plusElement: aTextChanger [
 	<gtExample>
 	| aValue |
@@ -117,7 +117,7 @@ GtPhlowCompositeToolExamples >> plusElement: aTextChanger [
 			aButton fireEvent: (GtPhlowToolObjectChangeWish new object: aValue) ]
 ]
 
-{ #category : 'examples - elements' }
+{ #category : #'examples - elements' }
 GtPhlowCompositeToolExamples >> toolElementWithLabel: aString [
 	| aLabel aTextChanger |
 	aLabel := self labelWithText: 'Label ', aString asString, ' with shared value: 1'.
@@ -133,19 +133,19 @@ GtPhlowCompositeToolExamples >> toolElementWithLabel: aString [
 		addChild: (self plusElement: aTextChanger)
 ]
 
-{ #category : 'examples - tools' }
+{ #category : #'examples - tools' }
 GtPhlowCompositeToolExamples >> toolOne [
 	<gtExample>
 	^ self toolWithLabel: 'One' color: (Color green alpha: 0.3)
 ]
 
-{ #category : 'examples - tools' }
+{ #category : #'examples - tools' }
 GtPhlowCompositeToolExamples >> toolTwo [
 	<gtExample>
 	^ self toolWithLabel: 'Two' color: (Color blue alpha: 0.3)
 ]
 
-{ #category : 'examples - tools' }
+{ #category : #'examples - tools' }
 GtPhlowCompositeToolExamples >> toolWithLabel: aString color: aColor [
 	<gtExample>
 	| aTool anElement |

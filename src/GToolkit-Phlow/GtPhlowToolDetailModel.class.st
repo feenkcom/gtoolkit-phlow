@@ -20,22 +20,22 @@ The following example shows that the tool obtains the level of information detai
 
 "
 Class {
-	#name : 'GtPhlowToolDetailModel',
-	#superclass : 'GtPhlowToolAbstractDetailModel',
+	#name : #GtPhlowToolDetailModel,
+	#superclass : #GtPhlowToolAbstractDetailModel,
 	#category : 'GToolkit-Phlow-Tool - Model'
 }
 
-{ #category : 'printing' }
+{ #category : #printing }
 GtPhlowToolDetailModel class >> modelName [
 	^ 'Tool Volume'
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowToolDetailModel >> defaultLevel [
 	^ GtPhlowToolDetailState normalName
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowToolDetailModel >> initializeListeners [
 	super initializeListeners.
 	
@@ -44,12 +44,12 @@ GtPhlowToolDetailModel >> initializeListeners [
 		do: [ :anEvent | self onAddedToSceneGraph ]
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 GtPhlowToolDetailModel >> onAddedToSceneGraph [
 	self updateVolumeFromToolContainer.
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 GtPhlowToolDetailModel >> updateVolumeFromToolContainer [
 	| aResponse |
 	aResponse := self request: GtPhlowToolContainerDetailRequest new.

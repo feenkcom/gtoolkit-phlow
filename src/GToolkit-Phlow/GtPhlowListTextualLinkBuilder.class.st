@@ -1,13 +1,13 @@
 Class {
-	#name : 'GtPhlowListTextualLinkBuilder',
-	#superclass : 'BrListItemElementStencilBuilder',
+	#name : #GtPhlowListTextualLinkBuilder,
+	#superclass : #BrListItemElementStencilBuilder,
 	#instVars : [
 		'spawnObjectComputation'
 	],
 	#category : 'GToolkit-Phlow-Support - List'
 }
 
-{ #category : 'api - instantiation' }
+{ #category : #'api - instantiation' }
 GtPhlowListTextualLinkBuilder >> buildDefault [
 	^ BrButton new
 		aptitude: (BrGlamorousLinkButtonWithLabelAptitude new);
@@ -27,20 +27,20 @@ GtPhlowListTextualLinkBuilder >> buildDefault [
 		aButton phlow spawnObject: anObjectToSpawn ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowListTextualLinkBuilder >> initialize [
 	super initialize.
 	
 	spawnObjectComputation := [ :aCellObject | aCellObject ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowListTextualLinkBuilder >> spawnObjectComputation [
 
 	^ spawnObjectComputation
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowListTextualLinkBuilder >> spawnObjectComputation: anObject [
 
 	spawnObjectComputation := anObject

@@ -2,17 +2,17 @@
 I add scripting methods that simplify colum definitions for ${class:GtPhlowColumnedListView}$ and ${class:GtPhlowColumnedTreeView}$.
 "
 Trait {
-	#name : 'TGtPhlowColumnScripts',
+	#name : #TGtPhlowColumnScripts,
 	#category : 'GToolkit-Phlow-Support'
 }
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column [
 	<return: #GtPhlowColumn>
 	^ self explicitRequirement
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString do: aBlock [
 	| aColumn |
 	aColumn := self column.
@@ -20,7 +20,7 @@ TGtPhlowColumnScripts >> column: aTitleString do: aBlock [
 	aBlock value: aColumn
 ]
 
-{ #category : 'scripting - deprecated' }
+{ #category : #'scripting - deprecated' }
 TGtPhlowColumnScripts >> column: aTitleString evaluated: aBlock [
 	self 
 		deprecated: 'Please use #column:text: instead.'
@@ -28,7 +28,7 @@ TGtPhlowColumnScripts >> column: aTitleString evaluated: aBlock [
 	^ self column: aTitleString text: aBlock
 ]
 
-{ #category : 'scripting - deprecated' }
+{ #category : #'scripting - deprecated' }
 TGtPhlowColumnScripts >> column: aTitleString format: aBlock [
 	self 
 		deprecated: 'Please use #column:text: instead.'
@@ -36,7 +36,7 @@ TGtPhlowColumnScripts >> column: aTitleString format: aBlock [
 	self column: aTitleString text: aBlock
 ]
 
-{ #category : 'scripting - deprecated' }
+{ #category : #'scripting - deprecated' }
 TGtPhlowColumnScripts >> column: aTitleString format: aBlock width: aNumber [
 	self 
 		deprecated: 'Please use #column:text:width: instead.'
@@ -45,7 +45,7 @@ TGtPhlowColumnScripts >> column: aTitleString format: aBlock width: aNumber [
 	self column: aTitleString text: aBlock width: aNumber
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString icon: aFormatBlocOrSymbol [
 	| aColumn |
 	aColumn := self column.
@@ -54,7 +54,7 @@ TGtPhlowColumnScripts >> column: aTitleString icon: aFormatBlocOrSymbol [
 	aColumn width: 36.
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString icon: aFormatBlocOrSymbol weight: aNumber [
 	| aColumn |
 	aColumn := self column.
@@ -63,7 +63,7 @@ TGtPhlowColumnScripts >> column: aTitleString icon: aFormatBlocOrSymbol weight: 
 	aColumn weight: aNumber.
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString icon: aFormatBlocOrSymbol width: aNumber [
 	| aColumn |
 	aColumn := self column.
@@ -72,7 +72,7 @@ TGtPhlowColumnScripts >> column: aTitleString icon: aFormatBlocOrSymbol width: a
 	aColumn width: aNumber.
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString iconName: anIconNameComputation [
 	| aColumn |
 	aColumn := self column.
@@ -81,7 +81,7 @@ TGtPhlowColumnScripts >> column: aTitleString iconName: anIconNameComputation [
 	aColumn width: 36.
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString iconName: anIconNameComputation width: aNumber [
 	| aColumn |
 	aColumn := self column.
@@ -90,7 +90,7 @@ TGtPhlowColumnScripts >> column: aTitleString iconName: anIconNameComputation wi
 	aColumn width: aNumber.
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString item: aBlock [
 	self 
 		deprecated: 'Please use #column:text: instead.'
@@ -98,7 +98,7 @@ TGtPhlowColumnScripts >> column: aTitleString item: aBlock [
 	self column: aTitleString text: aBlock
 ]
 
-{ #category : 'scripting - deprecated' }
+{ #category : #'scripting - deprecated' }
 TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation format: aFormatBlocOrSymbol [
 
 	self
@@ -124,7 +124,7 @@ TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation format: aF
 						columnIndex } ]
 ]
 
-{ #category : 'scripting - deprecated' }
+{ #category : #'scripting - deprecated' }
 TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation format: aFormatBlocOrSymbol width: aNumber [
 	self 
 		deprecated: 'Please use #column:item:text:width:. instead.'
@@ -133,7 +133,7 @@ TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation format: aF
 	self column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol width: aNumber
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation icon: aFormatBlocOrSymbol width: aNumber [
 	| aColumn |
 	aColumn := self column.
@@ -143,7 +143,7 @@ TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation icon: aFor
 	aColumn width: aNumber.
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol [	
 	self 
 		deprecated: 'Please use #column:text:. instead.'
@@ -175,7 +175,7 @@ TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aFor
 				withEnoughArguments: { aComputedItem . rowIndex . columnIndex } ]
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol weight: aNumber [
 	self 
 		deprecated: 'Please use #column:text:weight:. instead.'
@@ -209,7 +209,7 @@ TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aFor
 		weight: aNumber
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aFormatBlocOrSymbol width: aNumber [
 	self 
 		deprecated: 'Please use #column:text:width:. instead.'
@@ -243,7 +243,7 @@ TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aFor
 		width: aNumber
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString item: aBlock weight: aNumber [
 	self 
 		deprecated: 'Please use #column:text:weight: instead.'
@@ -251,7 +251,7 @@ TGtPhlowColumnScripts >> column: aTitleString item: aBlock weight: aNumber [
 	self column: aTitleString text: aBlock weight: aNumber
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString item: aBlock width: aNumber [
 	self 
 		deprecated: 'Please use #column:text:width: instead.'
@@ -260,22 +260,22 @@ TGtPhlowColumnScripts >> column: aTitleString item: aBlock width: aNumber [
 	self column: aTitleString text: aBlock width: aNumber
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString stencil: aFormatBlocOrSymbol [
 	self column: aTitleString icon: aFormatBlocOrSymbol weight: 1
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString stencil: aFormatBlocOrSymbol weight: aNumber [
 	self column: aTitleString icon: aFormatBlocOrSymbol weight: aNumber
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString stencil: aFormatBlocOrSymbol width: aNumber [
 	self column: aTitleString icon: aFormatBlocOrSymbol width: aNumber
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString text: aBlock [
 	| aColumn |
 	aColumn := self column.
@@ -283,7 +283,7 @@ TGtPhlowColumnScripts >> column: aTitleString text: aBlock [
 	aColumn text: aBlock
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString text: aBlock spawn: aSpawnBlock [
 	| aColumn |
 	aColumn := self column.
@@ -291,7 +291,7 @@ TGtPhlowColumnScripts >> column: aTitleString text: aBlock spawn: aSpawnBlock [
 	aColumn text: aBlock spawn: aSpawnBlock
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString text: aBlock spawn: aSpawnBlock width: aNumber [
 	| aColumn |
 	aColumn := self column.
@@ -300,7 +300,7 @@ TGtPhlowColumnScripts >> column: aTitleString text: aBlock spawn: aSpawnBlock wi
 	aColumn width: aNumber.
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString text: aBlock weight: aNumber [
 	| aColumn |
 	aColumn := self column.
@@ -309,7 +309,7 @@ TGtPhlowColumnScripts >> column: aTitleString text: aBlock weight: aNumber [
 	aColumn weight: aNumber.
 ]
 
-{ #category : 'api - scripting column' }
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString text: aBlock width: aNumber [
 	| aColumn |
 	aColumn := self column.

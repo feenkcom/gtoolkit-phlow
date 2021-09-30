@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtPhlowActionsCollector',
-	#superclass : 'GtPhlowCollector',
+	#name : #GtPhlowActionsCollector,
+	#superclass : #GtPhlowCollector,
 	#instVars : [
 		'sortedUsing',
 		'selectUsing'
@@ -8,7 +8,7 @@ Class {
 	#category : 'GToolkit-Phlow-Collectors'
 }
 
-{ #category : 'api - actions' }
+{ #category : #'api - actions' }
 GtPhlowActionsCollector >> collect [
 	<return: #Array of: #GtPhlowAction>
 	<gtCollector>
@@ -33,25 +33,25 @@ GtPhlowActionsCollector >> collect [
 	^ anActions
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowActionsCollector >> defaultPragmaNames [
 	^ #( #gtAction )
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowActionsCollector >> initialize [
 	super initialize.
 	sortedUsing := [ :aPragma :bPragma | aPragma selector < bPragma selector ].
 	selectUsing := [ :anAction | true ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowActionsCollector >> selectUsing [
 	<return: #BlockClosure>
 	^ selectUsing
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowActionsCollector >> selectUsing: anOneArgBlock [
 	self 
 		assert: [ anOneArgBlock notNil ]
@@ -62,19 +62,19 @@ GtPhlowActionsCollector >> selectUsing: anOneArgBlock [
 	selectUsing := anOneArgBlock
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtPhlowActionsCollector >> sortedPragmas [
 	<return: #Collection of: #Pragma>
 	^ self collectPragmas sort: self sortedUsing
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowActionsCollector >> sortedUsing [
 	<return: #BlockClosure>
 	^ sortedUsing
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowActionsCollector >> sortedUsing: aTwoArgBlock [
 	self 
 		assert: [ aTwoArgBlock notNil ]

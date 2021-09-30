@@ -13,14 +13,14 @@ If there is an exception, I hide the domain element and display the one that rep
 
 "
 Class {
-	#name : 'GtPhlowCellElement',
-	#superclass : 'BlElement',
+	#name : #GtPhlowCellElement,
+	#superclass : #BlElement,
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
 	#category : 'GToolkit-Phlow-Support'
 }
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowCellElement >> content [
 	<return: #BlElement or: nil>
 	^ self 
@@ -29,7 +29,7 @@ GtPhlowCellElement >> content [
 		ifNone: [ nil ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowCellElement >> content: aNewContentElement [
 	self 
 		assert: [ aNewContentElement isKindOf: BlElement ] 
@@ -47,17 +47,17 @@ GtPhlowCellElement >> content: aNewContentElement [
 			as: self defaultContentChildName ]
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowCellElement >> defaultContentChildName [
 	^ #content
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowCellElement >> defaultExceptionChildName [
 	^ #exception
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowCellElement >> exception [
 	<return: #BlElement or: nil>
 	^ self 
@@ -66,7 +66,7 @@ GtPhlowCellElement >> exception [
 		ifNone: [ nil ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowCellElement >> exception: aNewExceptionElement [
 	self 
 		assert: [ aNewExceptionElement isKindOf: BlElement ] 
@@ -83,12 +83,12 @@ GtPhlowCellElement >> exception: aNewExceptionElement [
 			as: self defaultExceptionChildName ]
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 GtPhlowCellElement >> hideContent [
 	self content ifNotNil: [ :anElement | anElement visibility: BlVisibility gone ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowCellElement >> initialize [
 	super initialize.
 
@@ -97,12 +97,12 @@ GtPhlowCellElement >> initialize [
 	self vFitContent.
 ]
 
-{ #category : 'api - visibility' }
+{ #category : #'api - visibility' }
 GtPhlowCellElement >> removeException [
 	self exception ifNotNil: [ :anElement | anElement removeFromParent ]
 ]
 
-{ #category : 'api - visibility' }
+{ #category : #'api - visibility' }
 GtPhlowCellElement >> showContent [
 	self content ifNotNil: [ :anElement | anElement visibility: BlVisibility visible ]
 ]

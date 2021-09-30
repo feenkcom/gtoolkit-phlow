@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtPhlowColumnErrorHandlingCellStencilBuilder',
-	#superclass : 'BrColumnCellStencilBuilder',
+	#name : #GtPhlowColumnErrorHandlingCellStencilBuilder,
+	#superclass : #BrColumnCellStencilBuilder,
 	#instVars : [
 		'cellSpacing',
 		'cellStencil'
@@ -8,7 +8,7 @@ Class {
 	#category : 'GToolkit-Phlow-Support - List columned'
 }
 
-{ #category : 'api - instantiation' }
+{ #category : #'api - instantiation' }
 GtPhlowColumnErrorHandlingCellStencilBuilder >> buildDefault [
 	| aContainer |
 
@@ -37,31 +37,31 @@ GtPhlowColumnErrorHandlingCellStencilBuilder >> buildDefault [
 	^ aContainer
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowColumnErrorHandlingCellStencilBuilder >> cellSpacing [
 
 	^ cellSpacing
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowColumnErrorHandlingCellStencilBuilder >> cellSpacing: anObject [
 
 	cellSpacing := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowColumnErrorHandlingCellStencilBuilder >> cellStencil: aBrColumnCellStencilBuilder [
 	cellStencil := aBrColumnCellStencilBuilder asStencilBuilder: BrColumnCellStencilBuilder
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowColumnErrorHandlingCellStencilBuilder >> initialize [
 	super initialize.
 	
 	cellSpacing := BlInsets empty
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowColumnErrorHandlingCellStencilBuilder >> newCellContainer [
 	^ GtPhlowCellElement new
 		hMatchParent;

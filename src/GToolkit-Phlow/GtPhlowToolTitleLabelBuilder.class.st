@@ -18,8 +18,8 @@ I build short labels, {{gtClass:BlText}} and {{gtClass:String}} instances, compo
 
 "
 Class {
-	#name : 'GtPhlowToolTitleLabelBuilder',
-	#superclass : 'GtPhlowTitleLabelBuilder',
+	#name : #GtPhlowToolTitleLabelBuilder,
+	#superclass : #GtPhlowTitleLabelBuilder,
 	#instVars : [
 		'toolName',
 		'subjectName'
@@ -27,7 +27,7 @@ Class {
 	#category : 'GToolkit-Phlow-Tool - Title'
 }
 
-{ #category : 'api - building' }
+{ #category : #'api - building' }
 GtPhlowToolTitleLabelBuilder >> build [
 	<return: #BlText>
 	| aTitle aSubject |
@@ -41,7 +41,7 @@ GtPhlowToolTitleLabelBuilder >> build [
 	^ aTitle
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowToolTitleLabelBuilder >> gtResultFor: aView [
 	<gtView>
 	^ aView textEditor
@@ -62,17 +62,17 @@ GtPhlowToolTitleLabelBuilder >> gtResultFor: aView [
 			action: [ :aButton | aButton phlow spawnObject: self build ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowToolTitleLabelBuilder >> subjectName [
 	^ subjectName
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowToolTitleLabelBuilder >> subjectName: anObject [
 	subjectName := anObject
 ]
 
-{ #category : 'private - building' }
+{ #category : #'private - building' }
 GtPhlowToolTitleLabelBuilder >> subjectShortName [
 	<return: #BlRopedText>
 	| aTitle aSubject |
@@ -89,12 +89,12 @@ GtPhlowToolTitleLabelBuilder >> subjectShortName [
 	^ aTitle
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowToolTitleLabelBuilder >> toolName [
 	^ toolName
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowToolTitleLabelBuilder >> toolName: anObject [
 	toolName := anObject
 ]

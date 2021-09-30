@@ -12,8 +12,8 @@ See a complete example in the {{gtClass:GtPhlowCompositeTool}} class comment.
 
 "
 Class {
-	#name : 'GtPhlowToolChangedObjectHandler',
-	#superclass : 'BlBasicEventHandler',
+	#name : #GtPhlowToolChangedObjectHandler,
+	#superclass : #BlBasicEventHandler,
 	#instVars : [
 		'element',
 		'action'
@@ -21,31 +21,31 @@ Class {
 	#category : 'GToolkit-Phlow-Tool - Object Changer'
 }
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GtPhlowToolChangedObjectHandler >> = anotherObject [
 	^ self species == anotherObject species and: [ 
 			self element = anotherObject element ]
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 GtPhlowToolChangedObjectHandler >> action [
 	<return: #MessageSend>
 	^ action
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 GtPhlowToolChangedObjectHandler >> element [
 	<return: #BlElement>
 	^ element
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowToolChangedObjectHandler >> eventsToHandle [
 	^ Array 
 		with: BlElementAddedToSceneGraphEvent
 ]
 
-{ #category : 'api - event managing' }
+{ #category : #'api - event managing' }
 GtPhlowToolChangedObjectHandler >> handleEvent: anEvent [
 	| aWish |
 	aWish := GtPhlowToolChangedObjectWish new.
@@ -54,31 +54,31 @@ GtPhlowToolChangedObjectHandler >> handleEvent: anEvent [
 	self action value: aWish object.
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GtPhlowToolChangedObjectHandler >> hash [
 	^ self species hash bitXor: self element hash
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowToolChangedObjectHandler >> initialize [
 	super initialize.
 	action := [ :anObject | "do nothing" ].
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowToolChangedObjectHandler >> onChangeSend: aSymbol to: aReceiver [
 	"Set the ${class:MessageSend}$ that is used to update ${class:GtPhlowTool}$ displayed object (domain model)."
 	action := MessageSend receiver: aReceiver selector: aSymbol
 ]
 
-{ #category : 'api - hooks' }
+{ #category : #'api - hooks' }
 GtPhlowToolChangedObjectHandler >> onInstalledIn: anElement [
 
 	element ifNotNil: [ element removeEventHandler: self ].
 	element := anElement.
 ]
 
-{ #category : 'api - event managing' }
+{ #category : #'api - event managing' }
 GtPhlowToolChangedObjectHandler >> wantsEvent: anEvent [
 	^ anEvent class == BlElementAddedToSceneGraphEvent
 ]

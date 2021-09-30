@@ -17,12 +17,12 @@ is updated to:
 
 "
 Class {
-	#name : 'GtPhlowUpdateLabelledViewTitle',
-	#superclass : 'GtPhlowUpdateCommand',
+	#name : #GtPhlowUpdateLabelledViewTitle,
+	#superclass : #GtPhlowUpdateCommand,
 	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : 'evaluating' }
+{ #category : #evaluating }
 GtPhlowUpdateLabelledViewTitle >> execute [
 	<return: #GtPhlowLabelledView>
 	self hasBuildContext ifFalse: [ ^ self ].
@@ -31,7 +31,7 @@ GtPhlowUpdateLabelledViewTitle >> execute [
 	^ self elementContext entity
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 GtPhlowUpdateLabelledViewTitle >> updateLabel [
 	| aTitle |
 	aTitle := self elementContext entity newLabel.

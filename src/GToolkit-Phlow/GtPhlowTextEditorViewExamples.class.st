@@ -4,17 +4,17 @@ I exemplify {{gtClass:GtPhlowTextEditorView}}.
 
 "
 Class {
-	#name : 'GtPhlowTextEditorViewExamples',
-	#superclass : 'GtPhlowViewExamples',
+	#name : #GtPhlowTextEditorViewExamples,
+	#superclass : #GtPhlowViewExamples,
 	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : 'examples - element' }
+{ #category : #'examples - element' }
 GtPhlowTextEditorViewExamples >> expectedElementClass [
 	^ BrEditor
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtPhlowTextEditorViewExamples >> gtAutoUpdatingFor: aView [
 	<gtView>
 	| aString anAnnouncer |
@@ -30,7 +30,7 @@ GtPhlowTextEditorViewExamples >> gtAutoUpdatingFor: aView [
 		updateWhen: Announcement in: [ anAnnouncer ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtPhlowTextEditorViewExamples >> gtBasicFor: aView [
 	<gtView>
 	^ aView textEditor
@@ -38,20 +38,20 @@ GtPhlowTextEditorViewExamples >> gtBasicFor: aView [
 		text: [ 'How do you feenk today?' ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtPhlowTextEditorViewExamples >> myself [
 	<gtExample>
 
 	^ self
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowTextEditorViewExamples >> phlowView [
 	<gtExample>
 	^ GtPhlowView empty textEditor text: 'abc' asRopedText
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowTextEditorViewExamples >> setFontSize [
 	<gtExample>
 	| aView anElement |
@@ -62,7 +62,7 @@ GtPhlowTextEditorViewExamples >> setFontSize [
 	^ aView
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 GtPhlowTextEditorViewExamples >> setFontSizeSecondAsElementDoCall [
 	<gtExample>
 	| view element |
@@ -75,7 +75,7 @@ GtPhlowTextEditorViewExamples >> setFontSizeSecondAsElementDoCall [
 	^ view
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 GtPhlowTextEditorViewExamples >> textView [
 	<gtExample>
 	| view element |
@@ -91,7 +91,7 @@ GtPhlowTextEditorViewExamples >> textView [
 	^ view
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 GtPhlowTextEditorViewExamples >> textViewSecondAsElementDoCall [
 	<gtExample>
 	| view element |

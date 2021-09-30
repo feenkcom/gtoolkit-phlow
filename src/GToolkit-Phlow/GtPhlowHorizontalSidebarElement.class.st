@@ -24,12 +24,12 @@ The following example shows the sidebar on the right side:
 
 "
 Class {
-	#name : 'GtPhlowHorizontalSidebarElement',
-	#superclass : 'GtPhlowSidebarElement',
+	#name : #GtPhlowHorizontalSidebarElement,
+	#superclass : #GtPhlowSidebarElement,
 	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
-{ #category : 'api - location' }
+{ #category : #'api - location' }
 GtPhlowHorizontalSidebarElement >> beLeft [
 	"We want the sidebar on the left side, 
 	therefore the rresizer on the right side."
@@ -37,7 +37,7 @@ GtPhlowHorizontalSidebarElement >> beLeft [
 	self contentOffset: (GtPhlowSidebarContentOffset right: self contentOffset length)
 ]
 
-{ #category : 'api - location' }
+{ #category : #'api - location' }
 GtPhlowHorizontalSidebarElement >> beRight [
 	"We want the sidebar on the right side, 
 	therefore the rresizer on the left side."
@@ -45,27 +45,27 @@ GtPhlowHorizontalSidebarElement >> beRight [
 	self contentOffset: (GtPhlowSidebarContentOffset left: self contentOffset length)
 ]
 
-{ #category : 'api - visibility' }
+{ #category : #'api - visibility' }
 GtPhlowHorizontalSidebarElement >> collapse [
 	self width: self contentOffset length
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowHorizontalSidebarElement >> defaultContentOffset [
 	^ GtPhlowSidebarContentOffset right: self defaultContentOffsetLength
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowHorizontalSidebarElement >> defaultResizerLook [
 	^ BrGlamorousWithHorizontalResizerAptitude new
 ]
 
-{ #category : 'api - visibility' }
+{ #category : #'api - visibility' }
 GtPhlowHorizontalSidebarElement >> expand [
 	self resizerStrategy adjustWidthFor: self.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowHorizontalSidebarElement >> initialize [
 	super initialize.
 
@@ -74,13 +74,13 @@ GtPhlowHorizontalSidebarElement >> initialize [
 		vInherit: [ :aBlock | self contentElementDo: aBlock ])
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 GtPhlowHorizontalSidebarElement >> isCollapsed [
 	<return: #Boolean>
 	^ self width <= self contentOffset length
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 GtPhlowHorizontalSidebarElement >> onResizerResized: anEvent [
 	self beExact: anEvent extent x
 ]

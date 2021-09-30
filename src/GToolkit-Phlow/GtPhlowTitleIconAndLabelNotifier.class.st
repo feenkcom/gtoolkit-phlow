@@ -22,25 +22,25 @@ I use {{gtClass:GtPhlowTitleLabelBuilder}} to create labels.
 
 "
 Class {
-	#name : 'GtPhlowTitleIconAndLabelNotifier',
-	#superclass : 'GtPhlowTitleNotifier',
+	#name : #GtPhlowTitleIconAndLabelNotifier,
+	#superclass : #GtPhlowTitleNotifier,
 	#instVars : [
 		'icon'
 	],
 	#category : 'GToolkit-Phlow-Tool - Title'
 }
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowTitleIconAndLabelNotifier >> icon [
 	^ icon
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowTitleIconAndLabelNotifier >> icon: anObject [
 	icon := anObject
 ]
 
-{ #category : 'api - notifying' }
+{ #category : #'api - notifying' }
 GtPhlowTitleIconAndLabelNotifier >> notify [
 	| aLabel anIcon |
 	aLabel := self label ifEmpty: [ nil ].

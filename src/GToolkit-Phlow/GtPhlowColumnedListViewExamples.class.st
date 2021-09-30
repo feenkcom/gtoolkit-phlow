@@ -4,14 +4,14 @@ I exemplify {{gtClass:GtPhlowColumnedListView}}.
 
 "
 Class {
-	#name : 'GtPhlowColumnedListViewExamples',
-	#superclass : 'GtPhlowViewExamples',
+	#name : #GtPhlowColumnedListViewExamples,
+	#superclass : #GtPhlowViewExamples,
 	#traits : 'TGtPhlowSendTransformationExamples',
 	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
 	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : 'examples - auto updates' }
+{ #category : #'examples - auto updates' }
 GtPhlowColumnedListViewExamples >> autoUpdatedView [
 	<gtExample>
 	| aView anElement aCollection anAnnouncer |
@@ -37,7 +37,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView [
 	^ aView
 ]
 
-{ #category : 'examples - auto updates with condition' }
+{ #category : #'examples - auto updates with condition' }
 GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_False [
 	<gtExample>
 	| aView anElement aCollection anAnnouncer |
@@ -63,7 +63,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_False [
 	^ aView
 ]
 
-{ #category : 'examples - auto updates with condition' }
+{ #category : #'examples - auto updates with condition' }
 GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_False_InSpace [
 	<gtExample>
 	| aView aParent anElement aCollection anAnnouncer aSpace |
@@ -97,7 +97,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_False_InSpace [
 	^ aView
 ]
 
-{ #category : 'examples - auto updates with condition' }
+{ #category : #'examples - auto updates with condition' }
 GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_False_WithParent [
 	<gtExample>
 	| aView aParent anElement aCollection anAnnouncer |
@@ -127,7 +127,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_False_WithParent
 	^ aView
 ]
 
-{ #category : 'examples - auto updates with condition' }
+{ #category : #'examples - auto updates with condition' }
 GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_True [
 	<gtExample>
 	| aView anElement aCollection anAnnouncer |
@@ -153,7 +153,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_True [
 	^ aView
 ]
 
-{ #category : 'examples - auto updates with condition' }
+{ #category : #'examples - auto updates with condition' }
 GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_True_InSpace [
 	<gtExample>
 	| aView aParent anElement aCollection anAnnouncer aSpace |
@@ -187,7 +187,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_True_InSpace [
 	^ aView
 ]
 
-{ #category : 'examples - auto updates with condition' }
+{ #category : #'examples - auto updates with condition' }
 GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_True_WithParent [
 	<gtExample>
 	| aView aParent anElement aCollection anAnnouncer |
@@ -217,7 +217,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_True_WithParent 
 	^ aView
 ]
 
-{ #category : 'examples - auto updates' }
+{ #category : #'examples - auto updates' }
 GtPhlowColumnedListViewExamples >> autoUpdatedView_InSpace [
 	<gtExample>
 	| aView aParent anElement aCollection anAnnouncer aSpace |
@@ -251,7 +251,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView_InSpace [
 	^ aView
 ]
 
-{ #category : 'examples - auto updates' }
+{ #category : #'examples - auto updates' }
 GtPhlowColumnedListViewExamples >> autoUpdatedView_WithParent [
 	<gtExample>
 	| aView aParent anElement aCollection anAnnouncer |
@@ -281,7 +281,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView_WithParent [
 	^ aView
 ]
 
-{ #category : 'examples - icon' }
+{ #category : #'examples - icon' }
 GtPhlowColumnedListViewExamples >> columnItemIconView [
 	<gtExample>
 	| aView anElement aColumnedList aCellElement |
@@ -304,7 +304,7 @@ GtPhlowColumnedListViewExamples >> columnItemIconView [
 	^ aView
 ]
 
-{ #category : 'examples - text' }
+{ #category : #'examples - text' }
 GtPhlowColumnedListViewExamples >> columnItemView [
 	<gtExample>
 	| aView anElement aColumnedList aCellElement |
@@ -328,7 +328,7 @@ GtPhlowColumnedListViewExamples >> columnItemView [
 	^ aView
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowColumnedListViewExamples >> elementItemsFor: anElement [
 	"Return element items"
 
@@ -338,7 +338,7 @@ GtPhlowColumnedListViewExamples >> elementItemsFor: anElement [
 	^ aListElement items
 ]
 
-{ #category : 'api-shortcuts' }
+{ #category : #'api-shortcuts' }
 GtPhlowColumnedListViewExamples >> emptyList [
 	<gtExample>
 	| view element |
@@ -352,7 +352,7 @@ GtPhlowColumnedListViewExamples >> emptyList [
 	^ view
 ]
 
-{ #category : 'examples - errors' }
+{ #category : #'examples - errors' }
 GtPhlowColumnedListViewExamples >> errorInColumnDoCellStencil [
 	<gtExample> 
 	| aView anElement aColumnedList aCellElement |
@@ -373,7 +373,7 @@ GtPhlowColumnedListViewExamples >> errorInColumnDoCellStencil [
 	^ aView
 ]
 
-{ #category : 'examples - errors' }
+{ #category : #'examples - errors' }
 GtPhlowColumnedListViewExamples >> errorInColumnDoDataBinder [
 	<gtExample> 
 	| aView anElement aColumnedList aCellElement |
@@ -402,7 +402,7 @@ GtPhlowColumnedListViewExamples >> errorInColumnDoDataBinder [
 	^ aView
 ]
 
-{ #category : 'examples - errors' }
+{ #category : #'examples - errors' }
 GtPhlowColumnedListViewExamples >> errorInColumnIcon [
 	<gtExample> 
 	| aView anElement aColumnedList aCellElement |
@@ -439,7 +439,7 @@ GtPhlowColumnedListViewExamples >> errorInColumnIcon [
 	^ aView
 ]
 
-{ #category : 'examples - errors' }
+{ #category : #'examples - errors' }
 GtPhlowColumnedListViewExamples >> errorInColumnText [
 	<gtExample> 
 	| aView anElement aColumnedList aCellElement |
@@ -476,7 +476,7 @@ GtPhlowColumnedListViewExamples >> errorInColumnText [
 	^ aView
 ]
 
-{ #category : 'examples - errors' }
+{ #category : #'examples - errors' }
 GtPhlowColumnedListViewExamples >> errorInItems [
 	<gtExample> 
 	| aView anElement |
@@ -487,12 +487,12 @@ GtPhlowColumnedListViewExamples >> errorInItems [
 	^ aView
 ]
 
-{ #category : 'examples - element' }
+{ #category : #'examples - element' }
 GtPhlowColumnedListViewExamples >> expectedElementClass [
 	^ BlElement
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtAutoUpdatingListFor: aView [
 	<gtView>
 	| aCollection anAnnouncer |
@@ -511,7 +511,7 @@ GtPhlowColumnedListViewExamples >> gtAutoUpdatingListFor: aView [
 		updateWhen: Announcement in: [ anAnnouncer ]
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -532,7 +532,7 @@ GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconFor: aView [
 		column: 'Name' text: #name
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconWidthFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -554,7 +554,7 @@ GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconWidthFor: aView [
 		column: 'Name' text: #name
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtColorsWithColumnItemIconWidthFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -577,7 +577,7 @@ GtPhlowColumnedListViewExamples >> gtColorsWithColumnItemIconWidthFor: aView [
 		column: 'Name' text: #name
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtErrorInColumnDoCellStencilFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -598,7 +598,7 @@ GtPhlowColumnedListViewExamples >> gtErrorInColumnDoCellStencilFor: aView [
 					anElement height: aNumber ] ]
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtErrorInColumnDoDataBinderFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -619,7 +619,7 @@ GtPhlowColumnedListViewExamples >> gtErrorInColumnDoDataBinderFor: aView [
 					anElement height: aNumber ] ]
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtErrorInColumnIcon: aView [
 	<gtView>
 	^ aView columnedList
@@ -641,7 +641,7 @@ GtPhlowColumnedListViewExamples >> gtErrorInColumnIcon: aView [
 		column: 'Name' text: #name
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtErrorInColumnTextFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -654,7 +654,7 @@ GtPhlowColumnedListViewExamples >> gtErrorInColumnTextFor: aView [
 		column: 'x * x' text: [ :x | 'Square ', (x * x) asString ]
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtErrorInItemsFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -665,7 +665,7 @@ GtPhlowColumnedListViewExamples >> gtErrorInItemsFor: aView [
 		column: 'x * x' text: [ :x | 'Square ', (x * x) asString ]
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtFourItemsWithColumnIconFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -681,7 +681,7 @@ GtPhlowColumnedListViewExamples >> gtFourItemsWithColumnIconFor: aView [
 		column: 'name' text: [ :x | x printString ]
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnItemFormatWidthFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -692,7 +692,7 @@ GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnItemFormatWidthFor: aView
 		column: 'x * x' text: [ :x | 'Square ', (x * x) asString ] width: 100
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnItemsFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -703,7 +703,7 @@ GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnItemsFor: aView [
 		column: 'x * x' text: [ :x | x * x ]
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnTextFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -714,7 +714,7 @@ GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnTextFor: aView [
 		column: 'x * x' text: [ :x | 'Square ', (x * x) asString ]
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowColumnedListViewExamples >> listElementFor: anElement [
 	| aListElement |
 	aListElement := anElement childAt: 2.
@@ -722,19 +722,19 @@ GtPhlowColumnedListViewExamples >> listElementFor: anElement [
 	^ aListElement
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> myself [
 	<gtExample>
 	^ self
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowColumnedListViewExamples >> phlowView [
 	<gtExample>
 	^ self viewWithItems
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowColumnedListViewExamples >> registeredColors [
 	<gtExample>
 	| aCollection |
@@ -744,7 +744,7 @@ GtPhlowColumnedListViewExamples >> registeredColors [
 	^ aCollection
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowColumnedListViewExamples >> selectItemAt: anIndex for: anElement [
 	<gtExample>
 	"Select an item at anIndex in anElement (list, tree)"
@@ -754,7 +754,7 @@ GtPhlowColumnedListViewExamples >> selectItemAt: anIndex for: anElement [
 	self assert: (aListElement isSelectedAt: anIndex).
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 GtPhlowColumnedListViewExamples >> sendTool [
 	<gtExample>
 	| view element |
@@ -775,7 +775,7 @@ GtPhlowColumnedListViewExamples >> sendTool [
 	^ view
 ]
 
-{ #category : 'api-shortcuts' }
+{ #category : #'api-shortcuts' }
 GtPhlowColumnedListViewExamples >> viewWithItems [
 	<gtExample>
 	| view element |
@@ -788,7 +788,7 @@ GtPhlowColumnedListViewExamples >> viewWithItems [
 	^ view
 ]
 
-{ #category : 'api-shortcuts' }
+{ #category : #'api-shortcuts' }
 GtPhlowColumnedListViewExamples >> viewWithItemsWithColumnCreationError [
 	<gtExample>
 	| view element |
@@ -800,7 +800,7 @@ GtPhlowColumnedListViewExamples >> viewWithItemsWithColumnCreationError [
 	^ view
 ]
 
-{ #category : 'api-shortcuts' }
+{ #category : #'api-shortcuts' }
 GtPhlowColumnedListViewExamples >> viewWithItemsWithItemsError [
 	<gtExample>
 	| view element |
@@ -811,7 +811,7 @@ GtPhlowColumnedListViewExamples >> viewWithItemsWithItemsError [
 	^ view
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowColumnedListViewExamples >> viewWithTenItems [
 	"Return an initialized view with 10 (root) items"
 	<gtExample>

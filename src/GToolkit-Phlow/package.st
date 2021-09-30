@@ -1,1 +1,1 @@
-Package { #name : 'GToolkit-Phlow' }
+Package { #name : #'GToolkit-Phlow' }

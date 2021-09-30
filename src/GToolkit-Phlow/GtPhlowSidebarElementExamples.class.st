@@ -4,12 +4,12 @@ I exemplify {{gtClass:GtPhlowSidebarElement}}.
 
 "
 Class {
-	#name : 'GtPhlowSidebarElementExamples',
-	#superclass : 'Object',
+	#name : #GtPhlowSidebarElementExamples,
+	#superclass : #Object,
 	#category : 'GToolkit-Phlow-Tool - Examples'
 }
 
-{ #category : 'examples - horizontal sidebar element' }
+{ #category : #'examples - horizontal sidebar element' }
 GtPhlowSidebarElementExamples >> basicHorizontalSidebarElement [
 	<gtExample>
 	| anElement |
@@ -22,7 +22,7 @@ GtPhlowSidebarElementExamples >> basicHorizontalSidebarElement [
 	^ anElement
 ]
 
-{ #category : 'examples - vertical sidebar element' }
+{ #category : #'examples - vertical sidebar element' }
 GtPhlowSidebarElementExamples >> basicVerticalSidebarElement [
 	<gtExample>
 	| anElement |
@@ -35,7 +35,7 @@ GtPhlowSidebarElementExamples >> basicVerticalSidebarElement [
 	^ anElement
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowSidebarElementExamples >> contentElement [
 	<gtExample>
 	^ BrFrame new
@@ -43,7 +43,7 @@ GtPhlowSidebarElementExamples >> contentElement [
 		matchParent
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 GtPhlowSidebarElementExamples >> contentStencil [
 	<gtExample>
 	^ [ BrFrame new
@@ -58,7 +58,7 @@ GtPhlowSidebarElementExamples >> contentStencil [
 					c frame vertical alignCenter ]) ] asStencil
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowSidebarElementExamples >> horizontalContainerElement [
 	<gtExample>
 	^ BrHorizontalPane new
@@ -66,7 +66,7 @@ GtPhlowSidebarElementExamples >> horizontalContainerElement [
 		matchParent
 ]
 
-{ #category : 'examples - horizontal sidebar element' }
+{ #category : #'examples - horizontal sidebar element' }
 GtPhlowSidebarElementExamples >> horizontalSidebarElement_Default [
 	<gtExample>
 	| anElement aStencil aContentElement aResizerElement |
@@ -89,7 +89,7 @@ GtPhlowSidebarElementExamples >> horizontalSidebarElement_Default [
 	^ anElement
 ]
 
-{ #category : 'examples - horizontal sidebar element' }
+{ #category : #'examples - horizontal sidebar element' }
 GtPhlowSidebarElementExamples >> horizontalSidebarElement_Default_InContainer [
 	<gtExample>
 	| anElement aContainer |
@@ -102,7 +102,7 @@ GtPhlowSidebarElementExamples >> horizontalSidebarElement_Default_InContainer [
 	^ aContainer
 ]
 
-{ #category : 'examples - horizontal sidebar element' }
+{ #category : #'examples - horizontal sidebar element' }
 GtPhlowSidebarElementExamples >> horizontalSidebarElement_LeftSide [
 	<gtExample>
 	| anElement aStencil aContentElement aResizerElement |
@@ -126,7 +126,7 @@ GtPhlowSidebarElementExamples >> horizontalSidebarElement_LeftSide [
 	^ anElement
 ]
 
-{ #category : 'examples - horizontal sidebar element' }
+{ #category : #'examples - horizontal sidebar element' }
 GtPhlowSidebarElementExamples >> horizontalSidebarElement_LeftSide_InContainer [
 	<gtExample>
 	| anElement aContainer |
@@ -139,7 +139,7 @@ GtPhlowSidebarElementExamples >> horizontalSidebarElement_LeftSide_InContainer [
 	^ aContainer
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> horizontalSidebarElement_LeftSide_Offset_Bigger [
 	<gtExample>
 	| anElement |
@@ -153,7 +153,7 @@ GtPhlowSidebarElementExamples >> horizontalSidebarElement_LeftSide_Offset_Bigger
 	^ anElement
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> horizontalSidebarElement_LeftSide_Offset_Bigger_InContainer [
 	<gtExample>
 	| anElement aContainer |
@@ -166,7 +166,7 @@ GtPhlowSidebarElementExamples >> horizontalSidebarElement_LeftSide_Offset_Bigger
 	^ aContainer
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> horizontalSidebarElement_LeftSide_Offset_Smaller [
 	<gtExample>
 	| anElement |
@@ -180,7 +180,7 @@ GtPhlowSidebarElementExamples >> horizontalSidebarElement_LeftSide_Offset_Smalle
 	^ anElement
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> horizontalSidebarElement_LeftSide_Offset_Smaller_InContainer [
 	<gtExample>
 	| anElement aContainer |
@@ -193,7 +193,7 @@ GtPhlowSidebarElementExamples >> horizontalSidebarElement_LeftSide_Offset_Smalle
 	^ aContainer
 ]
 
-{ #category : 'examples - horizontal sidebar element' }
+{ #category : #'examples - horizontal sidebar element' }
 GtPhlowSidebarElementExamples >> horizontalSidebarElement_RightSide [
 	<gtExample>
 	| anElement aStencil aContentElement aResizerElement |
@@ -217,7 +217,7 @@ GtPhlowSidebarElementExamples >> horizontalSidebarElement_RightSide [
 	^ anElement
 ]
 
-{ #category : 'examples - horizontal sidebar element' }
+{ #category : #'examples - horizontal sidebar element' }
 GtPhlowSidebarElementExamples >> horizontalSidebarElement_RightSide_InContainer [
 	<gtExample>
 	| anElement aContainer |
@@ -230,7 +230,7 @@ GtPhlowSidebarElementExamples >> horizontalSidebarElement_RightSide_InContainer 
 	^ aContainer
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> horizontalSidebarElement_RightSide_Offset_Bigger [
 	<gtExample>
 	| anElement |
@@ -244,7 +244,7 @@ GtPhlowSidebarElementExamples >> horizontalSidebarElement_RightSide_Offset_Bigge
 	^ anElement
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> horizontalSidebarElement_RightSide_Offset_Bigger_InContainer [
 	<gtExample>
 	| anElement aContainer |
@@ -257,7 +257,7 @@ GtPhlowSidebarElementExamples >> horizontalSidebarElement_RightSide_Offset_Bigge
 	^ aContainer
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> horizontalSidebarElement_RightSide_Offset_Smaller [
 	<gtExample>
 	| anElement |
@@ -271,7 +271,7 @@ GtPhlowSidebarElementExamples >> horizontalSidebarElement_RightSide_Offset_Small
 	^ anElement
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> horizontalSidebarElement_RightSide_Offset_Smaller_InContainer [
 	<gtExample>
 	| anElement aContainer |
@@ -284,7 +284,7 @@ GtPhlowSidebarElementExamples >> horizontalSidebarElement_RightSide_Offset_Small
 	^ aContainer
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowSidebarElementExamples >> verticalContainerElement [
 	<gtExample>
 	^ BrVerticalPane new
@@ -292,7 +292,7 @@ GtPhlowSidebarElementExamples >> verticalContainerElement [
 		matchParent
 ]
 
-{ #category : 'examples - vertical sidebar element' }
+{ #category : #'examples - vertical sidebar element' }
 GtPhlowSidebarElementExamples >> verticalSidebarElement_Bottom [
 	<gtExample>
 	| anElement aStencil aContentElement aResizerElement |
@@ -316,7 +316,7 @@ GtPhlowSidebarElementExamples >> verticalSidebarElement_Bottom [
 	^ anElement
 ]
 
-{ #category : 'examples - vertical sidebar element' }
+{ #category : #'examples - vertical sidebar element' }
 GtPhlowSidebarElementExamples >> verticalSidebarElement_Bottom_InContainer [
 	<gtExample>
 	| anElement aContainer |
@@ -329,7 +329,7 @@ GtPhlowSidebarElementExamples >> verticalSidebarElement_Bottom_InContainer [
 	^ aContainer
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> verticalSidebarElement_Bottom_Offset_Bigger [
 	<gtExample>
 	| anElement |
@@ -343,7 +343,7 @@ GtPhlowSidebarElementExamples >> verticalSidebarElement_Bottom_Offset_Bigger [
 	^ anElement
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> verticalSidebarElement_Bottom_Offset_Bigger_InContainer [
 	<gtExample>
 	| anElement aContainer |
@@ -356,7 +356,7 @@ GtPhlowSidebarElementExamples >> verticalSidebarElement_Bottom_Offset_Bigger_InC
 	^ aContainer
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> verticalSidebarElement_Bottom_Offset_Smaller [
 	<gtExample>
 	| anElement |
@@ -370,7 +370,7 @@ GtPhlowSidebarElementExamples >> verticalSidebarElement_Bottom_Offset_Smaller [
 	^ anElement
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> verticalSidebarElement_Bottom_Offset_Smaller_InContainer [
 	<gtExample>
 	| anElement aContainer |
@@ -383,7 +383,7 @@ GtPhlowSidebarElementExamples >> verticalSidebarElement_Bottom_Offset_Smaller_In
 	^ aContainer
 ]
 
-{ #category : 'examples - vertical sidebar element' }
+{ #category : #'examples - vertical sidebar element' }
 GtPhlowSidebarElementExamples >> verticalSidebarElement_Default [
 	<gtExample>
 	| anElement aStencil aContentElement aResizerElement |
@@ -406,7 +406,7 @@ GtPhlowSidebarElementExamples >> verticalSidebarElement_Default [
 	^ anElement
 ]
 
-{ #category : 'examples - vertical sidebar element' }
+{ #category : #'examples - vertical sidebar element' }
 GtPhlowSidebarElementExamples >> verticalSidebarElement_Default_InContainer [
 	<gtExample>
 	| anElement aContainer |
@@ -419,7 +419,7 @@ GtPhlowSidebarElementExamples >> verticalSidebarElement_Default_InContainer [
 	^ aContainer
 ]
 
-{ #category : 'examples - vertical sidebar element' }
+{ #category : #'examples - vertical sidebar element' }
 GtPhlowSidebarElementExamples >> verticalSidebarElement_Top [
 	<gtExample>
 	| anElement aStencil aContentElement aResizerElement |
@@ -443,7 +443,7 @@ GtPhlowSidebarElementExamples >> verticalSidebarElement_Top [
 	^ anElement
 ]
 
-{ #category : 'examples - vertical sidebar element' }
+{ #category : #'examples - vertical sidebar element' }
 GtPhlowSidebarElementExamples >> verticalSidebarElement_Top_InContainer [
 	<gtExample>
 	| anElement aContainer |
@@ -456,7 +456,7 @@ GtPhlowSidebarElementExamples >> verticalSidebarElement_Top_InContainer [
 	^ aContainer
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> verticalSidebarElement_Top_Offset_Bigger [
 	<gtExample>
 	| anElement |
@@ -470,7 +470,7 @@ GtPhlowSidebarElementExamples >> verticalSidebarElement_Top_Offset_Bigger [
 	^ anElement
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> verticalSidebarElement_Top_Offset_Bigger_InContainer [
 	<gtExample>
 	| anElement aContainer |
@@ -483,7 +483,7 @@ GtPhlowSidebarElementExamples >> verticalSidebarElement_Top_Offset_Bigger_InCont
 	^ aContainer
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> verticalSidebarElement_Top_Offset_Smaller [
 	<gtExample>
 	| anElement |
@@ -497,7 +497,7 @@ GtPhlowSidebarElementExamples >> verticalSidebarElement_Top_Offset_Smaller [
 	^ anElement
 ]
 
-{ #category : 'examples - offset' }
+{ #category : #'examples - offset' }
 GtPhlowSidebarElementExamples >> verticalSidebarElement_Top_Offset_Smaller_InContainer [
 	<gtExample>
 	| anElement aContainer |

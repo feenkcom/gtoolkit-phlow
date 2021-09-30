@@ -7,37 +7,37 @@ For more details, see {{gtClass:GtPhlowUpdateLabelledViewTitle}}.
 
 "
 Class {
-	#name : 'GtPhlowLabelBuilder',
-	#superclass : 'Object',
+	#name : #GtPhlowLabelBuilder,
+	#superclass : #Object,
 	#instVars : [
 		'object'
 	],
 	#category : 'GToolkit-Phlow-Collectors'
 }
 
-{ #category : 'api - label' }
+{ #category : #'api - label' }
 GtPhlowLabelBuilder >> articleFor: aString [
 	<return: #String>
 	^ aString first isVowel ifTrue: [ 'an ' ] ifFalse: [ 'a ' ]
 ]
 
-{ #category : 'api - building' }
+{ #category : #'api - building' }
 GtPhlowLabelBuilder >> build [
 	<return: #BlRopedText or: #String>
 	^ self titleOfObject: self object
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowLabelBuilder >> object [
 	^ object
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowLabelBuilder >> object: anObject [
 	object := anObject
 ]
 
-{ #category : 'api - label' }
+{ #category : #'api - label' }
 GtPhlowLabelBuilder >> textOf: anObject [
 	<return: #BlRopedText>
 	^ [ anObject gtDisplayString asRopedText ]
@@ -45,7 +45,7 @@ GtPhlowLabelBuilder >> textOf: anObject [
 			do: [ :e | 'Error printing' asRopedText foreground: Color red ]
 ]
 
-{ #category : 'api - label' }
+{ #category : #'api - label' }
 GtPhlowLabelBuilder >> titleOfObject: anObject [
 	<return: #BlRopedText or: #String>
 	| aClassName aHeader aDisplayText |
@@ -63,7 +63,7 @@ GtPhlowLabelBuilder >> titleOfObject: anObject [
 					nextPutAll: ')' ] ].
 ]
 
-{ #category : 'api - building' }
+{ #category : #'api - building' }
 GtPhlowLabelBuilder >> value [
 	<return: #BlRopedText or: #String>
 	^ self build
