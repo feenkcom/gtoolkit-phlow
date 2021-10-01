@@ -5,77 +5,77 @@ I provide a basic support {{gtClass:GtPhlowView}} updates.
 
 "
 Class {
-	#name : 'GtPhlowUpdateCommand',
-	#superclass : 'BlTktCommand',
+	#name : #GtPhlowUpdateCommand,
+	#superclass : #BlTktCommand,
 	#instVars : [
 		'elementContext'
 	],
 	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtPhlowUpdateCommand class >> isAbstract [
 	^ self name = #GtPhlowUpdateCommand 
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GtPhlowUpdateCommand >> = anObject [
 	^ self class = anObject class and: [ 
 		self elementContext = anObject elementContext ]
 ]
 
-{ #category : 'accessing - convenience' }
+{ #category : #'accessing - convenience' }
 GtPhlowUpdateCommand >> arguments [
 	^ self buildContext arguments
 ]
 
-{ #category : 'accessing - convenience' }
+{ #category : #'accessing - convenience' }
 GtPhlowUpdateCommand >> buildContext [
 	<return: #GtPhlowBuildContext>
 	^ self elementContext buildContext
 ]
 
-{ #category : 'accessing - convenience' }
+{ #category : #'accessing - convenience' }
 GtPhlowUpdateCommand >> element [
 	^ self elementContext element
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowUpdateCommand >> elementContext [
 	^ elementContext
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowUpdateCommand >> elementContext: anObject [
 	elementContext := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowUpdateCommand >> entryIdentifier [
 	^ self
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtPhlowUpdateCommand >> hasBuildContext [
 	^ self elementContext hasBuildContext
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GtPhlowUpdateCommand >> hash [
 	^ self class hash bitXor: self elementContext hash
 ]
 
-{ #category : 'accessing - convenience' }
+{ #category : #'accessing - convenience' }
 GtPhlowUpdateCommand >> methodSelector [
 	^ self elementContext methodSelector
 ]
 
-{ #category : 'accessing - convenience' }
+{ #category : #'accessing - convenience' }
 GtPhlowUpdateCommand >> object [
 	^ self buildContext object
 ]
 
-{ #category : 'private - scheduling' }
+{ #category : #'private - scheduling' }
 GtPhlowUpdateCommand >> scheduleValuable: aBlock [
 	BlUseAsyncFeatures 
 		ifEnabledDo: [ 
@@ -83,7 +83,7 @@ GtPhlowUpdateCommand >> scheduleValuable: aBlock [
 		otherwise: aBlock
 ]
 
-{ #category : 'accessing - convenience' }
+{ #category : #'accessing - convenience' }
 GtPhlowUpdateCommand >> view [
 	^ self elementContext entity
 ]

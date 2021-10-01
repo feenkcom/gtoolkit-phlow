@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtPhlowListTextDataBinder',
-	#superclass : 'BrListItemDataBinder',
+	#name : #GtPhlowListTextDataBinder,
+	#superclass : #BrListItemDataBinder,
 	#category : 'GToolkit-Phlow-Support - List'
 }
 
-{ #category : 'api - instantiation' }
+{ #category : #'api - instantiation' }
 GtPhlowListTextDataBinder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
 

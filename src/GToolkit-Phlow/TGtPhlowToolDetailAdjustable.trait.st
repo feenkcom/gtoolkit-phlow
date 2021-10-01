@@ -12,21 +12,21 @@ There are three predefined methods that can be used to define the level:
 See ${class:GtPhlowToolAbstractDetailModel}$ for more details.
 "
 Trait {
-	#name : 'TGtPhlowToolDetailAdjustable',
+	#name : #TGtPhlowToolDetailAdjustable,
 	#category : 'GToolkit-Phlow-Tool - Support'
 }
 
-{ #category : 'api - tool information detail level adjustable' }
+{ #category : #'api - tool information detail level adjustable' }
 TGtPhlowToolDetailAdjustable >> beCustomLevel: aSymbol [
 	self dispatchEvent: (GtPhlowToolDetailWish beLevel: aSymbol)
 ]
 
-{ #category : 'api - tool information detail level adjustable' }
+{ #category : #'api - tool information detail level adjustable' }
 TGtPhlowToolDetailAdjustable >> beDetailedLevel [
 	self dispatchEvent: GtPhlowToolDetailWish beDetailedLevel
 ]
 
-{ #category : 'api - tool information detail level adjustable' }
+{ #category : #'api - tool information detail level adjustable' }
 TGtPhlowToolDetailAdjustable >> beNormalLevel [
 	self dispatchEvent: GtPhlowToolDetailWish beNormalLevel
 ]

@@ -12,20 +12,20 @@ Browse {{gtClass:GtPhlowTitleLabelNotifier}} for examples.
 
 "
 Class {
-	#name : 'GtPhlowChangeTitleLabelWish',
-	#superclass : 'GtPhlowChangeTitleWish',
+	#name : #GtPhlowChangeTitleLabelWish,
+	#superclass : #GtPhlowChangeTitleWish,
 	#instVars : [
 		'label'
 	],
 	#category : 'GToolkit-Phlow-Tool - Title'
 }
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowChangeTitleLabelWish >> label [
 	^ label
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowChangeTitleLabelWish >> label: anObject [
 	label := anObject
 ]

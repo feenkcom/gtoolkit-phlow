@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtPhlowTextEditorView',
-	#superclass : 'GtPhlowViewDecorator',
+	#name : #GtPhlowTextEditorView,
+	#superclass : #GtPhlowViewDecorator,
 	#traits : 'TBlTextStyleable',
 	#classTraits : 'TBlTextStyleable classTrait',
 	#instVars : [
@@ -12,12 +12,12 @@ Class {
 	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTextEditorView >> aptitude [
 	^ look
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTextEditorView >> aptitude: aLook [
 	self
 		assert: [ (aLook isKindOf: BrAptitude) not ] 
@@ -25,7 +25,7 @@ GtPhlowTextEditorView >> aptitude: aLook [
 	look := aLook
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowTextEditorView >> asElementDo: aBlock [
 	| aBrickEditor aText aNewLook aNewStyler |
 
@@ -58,19 +58,19 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 	^ aBlock value: aBrickEditor
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTextEditorView >> attributesBuilder [
 	<return: #BlTextAttributesBuilder>
 	
 	^ attributesBuilder
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowTextEditorView >> elementClass [
 	^ BrEditor
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowTextEditorView >> initialize [
 	super initialize.
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
@@ -78,12 +78,12 @@ GtPhlowTextEditorView >> initialize [
 	styler := BlTextNullStyler new.
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtPhlowTextEditorView >> isExpectedElement: aCurrentElement [
 	^ aCurrentElement class = self elementClass
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowTextEditorView >> newLook [
 	| aNewLook |
 	aNewLook := look value asLook.
@@ -91,22 +91,22 @@ GtPhlowTextEditorView >> newLook [
 	^ aNewLook
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTextEditorView >> styler: aStyler [
 	styler := aStyler
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTextEditorView >> text: anObject [
 	textBuilder := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTextEditorView >> textBuilder [
 	^ textBuilder
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 GtPhlowTextEditorView >> textFor: aBrickEditor onExceptionErrorElement: aBlock [
 	^ self 
 		performBlock: [ (self textBuilder glamourValueWithArgs: { aBrickEditor }) asRopedText ]
@@ -114,7 +114,7 @@ GtPhlowTextEditorView >> textFor: aBrickEditor onExceptionErrorElement: aBlock [
 			aBlock value: anElement ].
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 GtPhlowTextEditorView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 	
@@ -131,7 +131,7 @@ GtPhlowTextEditorView >> updateContent: aCurrentElement [
 		self enqueueAction: [ aCurrentElement text: aText ] in: aCurrentElement ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTextEditorView >> withoutLook [
 	look := BrGlamorousEditorAptitude
 ]

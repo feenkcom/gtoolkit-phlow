@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtPhlowSimpleListItemComputationDataBinder',
-	#superclass : 'BrListItemDataBinder',
+	#name : #GtPhlowSimpleListItemComputationDataBinder,
+	#superclass : #BrListItemDataBinder,
 	#instVars : [
 		'dataBinder',
 		'itemComputation'
@@ -8,7 +8,7 @@ Class {
 	#category : 'GToolkit-Phlow-Support - List simple'
 }
 
-{ #category : 'api - instantiation' }
+{ #category : #'api - instantiation' }
 GtPhlowSimpleListItemComputationDataBinder >> buildDefault [
 	| aValue |
 
@@ -22,12 +22,12 @@ GtPhlowSimpleListItemComputationDataBinder >> buildDefault [
 		build
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowSimpleListItemComputationDataBinder >> dataBinder: aBrListItemDataBinder [
 	dataBinder := aBrListItemDataBinder asStencilBuilder: BrListItemDataBinder
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowSimpleListItemComputationDataBinder >> itemComputation: aBlock [
 	itemComputation := aBlock
 ]

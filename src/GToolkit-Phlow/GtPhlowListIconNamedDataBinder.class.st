@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtPhlowListIconNamedDataBinder',
-	#superclass : 'BrListItemDataBinder',
+	#name : #GtPhlowListIconNamedDataBinder,
+	#superclass : #BrListItemDataBinder,
 	#category : 'GToolkit-Phlow-Support - List'
 }
 
-{ #category : 'api - instantiation' }
+{ #category : #'api - instantiation' }
 GtPhlowListIconNamedDataBinder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
 	| anIcon |

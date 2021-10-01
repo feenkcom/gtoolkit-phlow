@@ -5,28 +5,28 @@ I am an abstract class.
 
 "
 Class {
-	#name : 'GtPhlowTooltipBuilder',
-	#superclass : 'Object',
+	#name : #GtPhlowTooltipBuilder,
+	#superclass : #Object,
 	#category : 'GToolkit-Phlow-Support - Tooltip'
 }
 
-{ #category : 'factory' }
+{ #category : #factory }
 GtPhlowTooltipBuilder class >> null [
 	^ GtPhlowTooltipNullBuilder default 
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 GtPhlowTooltipBuilder class >> text: aText [
 	^ GtPhlowTooltipLabelBuilder new text: aText
 ]
 
-{ #category : 'building' }
+{ #category : #building }
 GtPhlowTooltipBuilder >> applyOn: anElement [
 	"Attach a tooltip into anElement"
 	self subclassResponsibility
 ]
 
-{ #category : 'building' }
+{ #category : #building }
 GtPhlowTooltipBuilder >> applyOn: anElement hostElement: aTargetElement [
 	"Attach a tooltip into anElement"
 	self subclassResponsibility

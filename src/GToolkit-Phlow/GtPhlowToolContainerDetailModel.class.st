@@ -19,22 +19,22 @@ If my value is undefined, another parent has a change to answer the inforamtion 
 
 "
 Class {
-	#name : 'GtPhlowToolContainerDetailModel',
-	#superclass : 'GtPhlowToolAbstractDetailModel',
+	#name : #GtPhlowToolContainerDetailModel,
+	#superclass : #GtPhlowToolAbstractDetailModel,
 	#category : 'GToolkit-Phlow-Tool - Model'
 }
 
-{ #category : 'printing' }
+{ #category : #printing }
 GtPhlowToolContainerDetailModel class >> modelName [
 	^ 'Tool Container Volume'
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowToolContainerDetailModel >> defaultLevel [
 	^ GtPhlowToolDetailState undefinedName
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowToolContainerDetailModel >> initializeListeners [
 	super initializeListeners.
 	self
@@ -42,7 +42,7 @@ GtPhlowToolContainerDetailModel >> initializeListeners [
 		reply: [ :aResponse :aRequest | self volumeResponse: aResponse for: aRequest ]
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 GtPhlowToolContainerDetailModel >> volumeResponse: aResponse for: aRequest [
 	self isUndefined
 		ifTrue: [ aRequest consumed: false ]

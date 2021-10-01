@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtPhlowForwarderViewExamples',
-	#superclass : 'GtPhlowViewExamples',
+	#name : #GtPhlowForwarderViewExamples,
+	#superclass : #GtPhlowViewExamples,
 	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : 'examples - composite' }
+{ #category : #'examples - composite' }
 GtPhlowForwarderViewExamples >> forwardedCompositeView [
 	<gtExample>
 	| aView |
@@ -16,7 +16,7 @@ GtPhlowForwarderViewExamples >> forwardedCompositeView [
 	^ aView
 ]
 
-{ #category : 'examples - forwarded view' }
+{ #category : #'examples - forwarded view' }
 GtPhlowForwarderViewExamples >> forwardedIntegerView [
 	<gtExample>
 	| aView anElement |
@@ -32,7 +32,7 @@ GtPhlowForwarderViewExamples >> forwardedIntegerView [
 	^ aView
 ]
 
-{ #category : 'examples - forwarded view' }
+{ #category : #'examples - forwarded view' }
 GtPhlowForwarderViewExamples >> forwardedView [
 	<gtExample>
 	| aView |
@@ -63,7 +63,7 @@ GtPhlowForwarderViewExamples >> forwardedView [
 	^ aView
 ]
 
-{ #category : 'examples - forwarded view' }
+{ #category : #'examples - forwarded view' }
 GtPhlowForwarderViewExamples >> forwardedViewWithObjectCreationError [
 	<gtExample>
 	| aView |
@@ -89,7 +89,7 @@ GtPhlowForwarderViewExamples >> forwardedViewWithObjectCreationError [
 	^ aView
 ]
 
-{ #category : 'examples - forwarded view' }
+{ #category : #'examples - forwarded view' }
 GtPhlowForwarderViewExamples >> forwardedWithUndefinedViewMessage [
 	<gtExample>
 	| aView |
@@ -103,7 +103,7 @@ GtPhlowForwarderViewExamples >> forwardedWithUndefinedViewMessage [
 	^ aView
 ]
 
-{ #category : 'examples - update actions' }
+{ #category : #'examples - update actions' }
 GtPhlowForwarderViewExamples >> forwardedWithUpdateAction [
 	<gtExample>
 	| aView |
@@ -112,7 +112,7 @@ GtPhlowForwarderViewExamples >> forwardedWithUpdateAction [
 	^ aView
 ]
 
-{ #category : 'examples - update actions' }
+{ #category : #'examples - update actions' }
 GtPhlowForwarderViewExamples >> forwardedWithUpdateActionElement [
 	<gtExample>
 	| aView anElement aContainer aNewElement |
@@ -134,7 +134,7 @@ GtPhlowForwarderViewExamples >> forwardedWithUpdateActionElement [
 	^ anElement
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtPhlowForwarderViewExamples >> gtAutoUpdatingExplicitFor: aView [
 	<gtView>
 	| anAnnouncer |
@@ -148,7 +148,7 @@ GtPhlowForwarderViewExamples >> gtAutoUpdatingExplicitFor: aView [
 			action: [ BlUseAsyncFeatures disableDuring: [ anAnnouncer announce: Announcement new ] ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtPhlowForwarderViewExamples >> gtBasicFor: aView [
 	<gtView>
 	^ aView forward 
@@ -157,7 +157,7 @@ GtPhlowForwarderViewExamples >> gtBasicFor: aView [
 		view: #gtBasicFor:
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtPhlowForwarderViewExamples >> gtCompositeFor: aView [
 	<gtView>
 	^ aView forward 
@@ -167,13 +167,13 @@ GtPhlowForwarderViewExamples >> gtCompositeFor: aView [
 		actionUpdateButton
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtPhlowForwarderViewExamples >> myself [
 	<gtExample>
 	^ self
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowForwarderViewExamples >> phlowView [
 	<gtExample>
 	^ self forwardedView

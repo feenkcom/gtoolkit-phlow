@@ -1,13 +1,13 @@
 Class {
-	#name : 'GtPhlowActionWithError',
-	#superclass : 'GtPhlowAction',
+	#name : #GtPhlowActionWithError,
+	#superclass : #GtPhlowAction,
 	#instVars : [
 		'error'
 	],
 	#category : 'GToolkit-Phlow-! Actions'
 }
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowActionWithError >> asElement: aBlock withHostElement: aTargetElement [
 	| aDebugButton |
 	aDebugButton := BrButton new.
@@ -23,17 +23,17 @@ GtPhlowActionWithError >> asElement: aBlock withHostElement: aTargetElement [
 	^ aBlock value: aDebugButton
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowActionWithError >> defaultTooltipBuilder [
 	^ GtPhlowTooltipBuilder text: 'Display error'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowActionWithError >> error [
 	^ error
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowActionWithError >> error: anObject [
 	error := anObject
 ]

@@ -24,12 +24,12 @@ The following example shows the sidebar on the top:
 
 "
 Class {
-	#name : 'GtPhlowVerticalSidebarElement',
-	#superclass : 'GtPhlowSidebarElement',
+	#name : #GtPhlowVerticalSidebarElement,
+	#superclass : #GtPhlowSidebarElement,
 	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
-{ #category : 'location' }
+{ #category : #location }
 GtPhlowVerticalSidebarElement >> beBottom [
 	"We want the sidebar at the bottom, 
 	therefore the resizer at the top."
@@ -37,7 +37,7 @@ GtPhlowVerticalSidebarElement >> beBottom [
 	self contentOffset: (GtPhlowSidebarContentOffset top: self contentOffset length)
 ]
 
-{ #category : 'location' }
+{ #category : #location }
 GtPhlowVerticalSidebarElement >> beTop [
 	"We want the sidebar at the top, 
 	therefore the resizer at the bottom."
@@ -45,27 +45,27 @@ GtPhlowVerticalSidebarElement >> beTop [
 	self contentOffset: (GtPhlowSidebarContentOffset bottom: self contentOffset length)
 ]
 
-{ #category : 'api - visibility' }
+{ #category : #'api - visibility' }
 GtPhlowVerticalSidebarElement >> collapse [
 	self height: self contentOffset length
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowVerticalSidebarElement >> defaultContentOffset [
 	^ GtPhlowSidebarContentOffset top: self defaultContentOffsetLength
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowVerticalSidebarElement >> defaultResizerLook [
 	^ BrGlamorousWithVerticalResizerAptitude new beTop
 ]
 
-{ #category : 'api - visibility' }
+{ #category : #'api - visibility' }
 GtPhlowVerticalSidebarElement >> expand [
 	self resizerStrategy adjustHeightFor: self.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowVerticalSidebarElement >> initialize [
 	super initialize.
 	
@@ -74,13 +74,13 @@ GtPhlowVerticalSidebarElement >> initialize [
 		hInherit: [ :aBlock | self contentElementDo: aBlock ])
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 GtPhlowVerticalSidebarElement >> isCollapsed [
 	<return: #Boolean>
 	^ self height <= self contentOffset length
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 GtPhlowVerticalSidebarElement >> onResizerResized: anEvent [
 	self beExact: anEvent extent y
 ]

@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtPhlowNoAction',
-	#superclass : 'GtPhlowAction',
+	#name : #GtPhlowNoAction,
+	#superclass : #GtPhlowAction,
 	#category : 'GToolkit-Phlow-! Actions'
 }
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowNoAction >> asElement: aBlock withHostElement: aTargetElement [
 	"do nothing"
 ]

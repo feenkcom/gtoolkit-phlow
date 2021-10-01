@@ -1,25 +1,25 @@
 Class {
-	#name : 'GtPhlowAsyncUpdateWithConditionDefinition',
-	#superclass : 'GtPhlowAsyncUpdateDefinition',
+	#name : #GtPhlowAsyncUpdateWithConditionDefinition,
+	#superclass : #GtPhlowAsyncUpdateDefinition,
 	#instVars : [
 		'condition'
 	],
 	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : 'subscriptions' }
+{ #category : #subscriptions }
 GtPhlowAsyncUpdateWithConditionDefinition >> announcementHandlerFor: aGtPhlowElementContext [
 	^ [ :anAnnouncement | 
 			(self condition cull: anAnnouncement cull: aGtPhlowElementContext) 
 				ifTrue: [ (super announcementHandlerFor: aGtPhlowElementContext) cull: anAnnouncement ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowAsyncUpdateWithConditionDefinition >> condition [
 	^ condition
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowAsyncUpdateWithConditionDefinition >> condition: aBlock [
 	self 
 		assert: [ aBlock isNotNil ] 
@@ -27,7 +27,7 @@ GtPhlowAsyncUpdateWithConditionDefinition >> condition: aBlock [
 	condition := aBlock
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowAsyncUpdateWithConditionDefinition >> initialize [
 	super initialize.
 	condition := [ :anAnnouncement :aGtPhlowElementContext | true ].

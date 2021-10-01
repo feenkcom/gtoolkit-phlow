@@ -1,19 +1,19 @@
 Class {
-	#name : 'GtPhlowViewActionTarget',
-	#superclass : 'GtPhlowActionTarget',
+	#name : #GtPhlowViewActionTarget,
+	#superclass : #GtPhlowActionTarget,
 	#instVars : [
 		'definingMethodSelector'
 	],
 	#category : 'GToolkit-Phlow-Action Targets'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowViewActionTarget >> definingMethodSelector [
 	<return: #Symbol>
 	^ definingMethodSelector
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowViewActionTarget >> definingMethodSelector: aSymbol [
 	self 
 		assert: [ aSymbol isSymbol ]
@@ -21,7 +21,7 @@ GtPhlowViewActionTarget >> definingMethodSelector: aSymbol [
 	definingMethodSelector := aSymbol
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtPhlowViewActionTarget >> isForViewDefinedIn: aSymbol [
 	self 
 		assert: [ aSymbol isSymbol ]

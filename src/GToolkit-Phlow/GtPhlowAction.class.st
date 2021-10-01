@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtPhlowAction',
-	#superclass : 'Object',
+	#name : #GtPhlowAction,
+	#superclass : #Object,
 	#traits : 'TBlDebug + TGtPhlowActionTooltipBuilder',
 	#classTraits : 'TBlDebug classTrait + TGtPhlowActionTooltipBuilder classTrait',
 	#instVars : [
@@ -11,12 +11,12 @@ Class {
 	#category : 'GToolkit-Phlow-! Actions'
 }
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowAction class >> defaultPriority [
 	^ 50
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowAction class >> noAction [
 	^ GtPhlowNoAction new
 		definingMethod: (GtPhlowDefiningMethodsCollector new 
@@ -24,14 +24,14 @@ GtPhlowAction class >> noAction [
 			collect)
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowAction >> asElement: aBlock withHostElement: aTargetElement [
 	"Return an element that represents the action in Bloc space, e.g., a button"
 	<return: #BlElement>
 	^ self subclassResponsibility
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowAction >> attachShowDefinitionEventHandler: element [
 	self definingMethod
 		ifNotNil: [ element
@@ -42,7 +42,7 @@ GtPhlowAction >> attachShowDefinitionEventHandler: element [
 							element phlow spawnObject: self definingMethod ] ] ]
 ]
 
-{ #category : 'decorating' }
+{ #category : #decorating }
 GtPhlowAction >> button [
 	^ GtPhlowButtonAction new
 		definingMethod: (GtPhlowDefiningMethodsCollector new 
@@ -50,27 +50,27 @@ GtPhlowAction >> button [
 			collect)
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowAction >> defaultPriority [
 	^ self class defaultPriority
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowAction >> defaultTarget [
 	^ GtPhlowObjectActionCategory uniqueInstance
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowAction >> definingMethod [
 	^ definingMethod
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowAction >> definingMethod: anObject [
 	definingMethod := anObject
 ]
 
-{ #category : 'decorating' }
+{ #category : #decorating }
 GtPhlowAction >> dropdown [
 	^ GtPhlowDropdownAction new
 		definingMethod: (GtPhlowDefiningMethodsCollector new 
@@ -78,7 +78,7 @@ GtPhlowAction >> dropdown [
 			collect)
 ]
 
-{ #category : 'decorating' }
+{ #category : #decorating }
 GtPhlowAction >> explicit [
 	^ GtPhlowExplicitAction new
 		definingMethod: (GtPhlowDefiningMethodsCollector new 
@@ -86,7 +86,7 @@ GtPhlowAction >> explicit [
 			collect)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowAction >> forViewDefinedIn: aSymbol [
 	"Symbol is a method name where a view is defined.
 	Such Phlow action will be displayed in a given view."
@@ -96,7 +96,7 @@ GtPhlowAction >> forViewDefinedIn: aSymbol [
 	self target: (GtPhlowViewActionTarget new definingMethodSelector: aSymbol)
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtPhlowAction >> gtDefiningMethodFor: aView [
 	<gtView>
 	self definingMethod ifNil: [ ^ aView empty ].
@@ -104,7 +104,7 @@ GtPhlowAction >> gtDefiningMethodFor: aView [
 			priority: 2
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtPhlowAction >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit
@@ -116,12 +116,12 @@ GtPhlowAction >> gtLiveFor: aView [
 				spawnObject: (self asElement: [ :x | x ] withHostElement: nil) ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowAction >> help: aString [
 	"Ignored for now. Suppose to be a tooltip explaining a button action"
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowAction >> initialize [
 	super initialize.
 	target := self defaultTarget.
@@ -129,24 +129,24 @@ GtPhlowAction >> initialize [
 	self initializeTooltipBuilder
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtPhlowAction >> isDefaultTarget [
 	^ self target = self defaultTarget
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtPhlowAction >> isDefinitionRequested: anEvent [
 	"Return true, if a user wants to see an action definition"
 	<return: #Boolean>
 	^ GtPhlowUtility isDefinitionRequested: anEvent
 ]
 
-{ #category : 'api - action' }
+{ #category : #'api - action' }
 GtPhlowAction >> label [
 	^ self subclassResponsibility
 ]
 
-{ #category : 'decorating' }
+{ #category : #decorating }
 GtPhlowAction >> noAction [
 	^ GtPhlowNoAction new
 		definingMethod: (GtPhlowDefiningMethodsCollector new 
@@ -154,28 +154,28 @@ GtPhlowAction >> noAction [
 			collect)
 ]
 
-{ #category : 'api - action' }
+{ #category : #'api - action' }
 GtPhlowAction >> performActionOn: anActionElement [
 	self subclassResponsibility
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowAction >> priority [
 	^ priority
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowAction >> priority: aNumber [
 	priority := aNumber
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowAction >> target [
 	<return: #GtPhlowActionTarget>
 	^ target
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowAction >> target: aGtPhlowActionTarget [
 	self 
 		assert: [ aGtPhlowActionTarget notNil ]
@@ -183,7 +183,7 @@ GtPhlowAction >> target: aGtPhlowActionTarget [
 	target := aGtPhlowActionTarget
 ]
 
-{ #category : 'decorating' }
+{ #category : #decorating }
 GtPhlowAction >> toggle [
 	^ GtPhlowToggleAction new
 		definingMethod: (GtPhlowDefiningMethodsCollector new 

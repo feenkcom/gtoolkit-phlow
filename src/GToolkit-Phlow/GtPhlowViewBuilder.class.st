@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtPhlowViewBuilder',
-	#superclass : 'GtPhlowViewProtoBuilder',
+	#name : #GtPhlowViewBuilder,
+	#superclass : #GtPhlowViewProtoBuilder,
 	#traits : 'TGtPhlowViewAccessor + TGtPhlowContextAccessor',
 	#classTraits : 'TGtPhlowViewAccessor classTrait + TGtPhlowContextAccessor classTrait',
 	#instVars : [
@@ -9,18 +9,18 @@ Class {
 	#category : 'GToolkit-Phlow-Collectors'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtPhlowViewBuilder class >> isAbstract [
 	^ self name = #GtPhlowViewBuilder 
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 GtPhlowViewBuilder >> actions [ 
 	<return: #Array of: #GtPhlowAction>
 	^ self object gtActions
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 GtPhlowViewBuilder >> addActionsInto: aView [
 	self actions
 		do: [ :action | 
@@ -28,14 +28,14 @@ GtPhlowViewBuilder >> addActionsInto: aView [
 				ifTrue: [ aView addPhlowAction: action ] ]
 ]
 
-{ #category : 'context' }
+{ #category : #context }
 GtPhlowViewBuilder >> addBuildContext: aView [
 	aView buildContext: (GtPhlowBuildContext new
 		object: self object;
 		arguments: { self view. self context })
 ]
 
-{ #category : 'building' }
+{ #category : #building }
 GtPhlowViewBuilder >> build [
 	<return: #GtPhlowView>
 	| aView |
@@ -44,31 +44,31 @@ GtPhlowViewBuilder >> build [
 	^ aView
 ]
 
-{ #category : 'building' }
+{ #category : #building }
 GtPhlowViewBuilder >> buildView [
 	<return: #GtPhlowView>
 	^ self subclassResponsibility
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowViewBuilder >> initialize [
 	super initialize.
 	self initializePhlowContext.
 	self initializePhlowView.
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 GtPhlowViewBuilder >> labelled [
 	^ GtPhlowLabelledViewBuilder new
 		builder: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowViewBuilder >> object [
 	^ object
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowViewBuilder >> object: anObject [
 	"Set an object for which a view will be built"
 	object := anObject

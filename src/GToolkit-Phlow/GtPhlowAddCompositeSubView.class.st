@@ -16,8 +16,8 @@ a third is added:
 
 "
 Class {
-	#name : 'GtPhlowAddCompositeSubView',
-	#superclass : 'GtPhlowUpdateCommand',
+	#name : #GtPhlowAddCompositeSubView,
+	#superclass : #GtPhlowUpdateCommand,
 	#instVars : [
 		'compiledMethod',
 		'ringDefinition'
@@ -25,18 +25,18 @@ Class {
 	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GtPhlowAddCompositeSubView >> = anObject [
 	^ super = anObject and: [ 
 		self ringDefinition = anObject ringDefinition ]
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 GtPhlowAddCompositeSubView >> addTab: aTab ofView: aPhlowView [
 	self scheduleValuable: [ self basicAddTab: aTab ofView: aPhlowView ]
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 GtPhlowAddCompositeSubView >> basicAddTab: aTab ofView: aPhlowView [
 	| anIndex |
 	anIndex := GtPhlowUtility
@@ -46,18 +46,18 @@ GtPhlowAddCompositeSubView >> basicAddTab: aTab ofView: aPhlowView [
 	self view views add: aPhlowView beforeIndex: anIndex.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowAddCompositeSubView >> compiledMethod [
 	^ compiledMethod
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowAddCompositeSubView >> compiledMethod: aCompiledMethod [
 	compiledMethod := aCompiledMethod.
 	ringDefinition := aCompiledMethod asRingDefinition.
 ]
 
-{ #category : 'evaluating' }
+{ #category : #evaluating }
 GtPhlowAddCompositeSubView >> execute [
 	<return: #GtPhlowView>
 	| aNewView |
@@ -69,7 +69,7 @@ GtPhlowAddCompositeSubView >> execute [
 	^ aNewView
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowAddCompositeSubView >> newPhlowSubView [
 	^ GtPhlowView empty
 		on: self object
@@ -77,7 +77,7 @@ GtPhlowAddCompositeSubView >> newPhlowSubView [
 		withSomeArguments: self arguments
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowAddCompositeSubView >> ringDefinition [
 	^ ringDefinition
 ]

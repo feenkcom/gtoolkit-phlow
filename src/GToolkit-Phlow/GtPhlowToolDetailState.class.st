@@ -6,50 +6,50 @@ See {{gtClass:GtPhlowToolAbstractDetailModel}} for more details.
 
 "
 Class {
-	#name : 'GtPhlowToolDetailState',
-	#superclass : 'BrInteractionState',
+	#name : #GtPhlowToolDetailState,
+	#superclass : #BrInteractionState,
 	#instVars : [
 		'level'
 	],
 	#category : 'GToolkit-Phlow-Tool - State'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowToolDetailState class >> detailed [
 	^ self new level: self detailedName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToolDetailState class >> detailedName [
 	^ #detailed
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowToolDetailState class >> level: aNamedLevel [
 	^ self new level: aNamedLevel
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowToolDetailState class >> normal [
 	^ self new level: self normalName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToolDetailState class >> normalName [
 	^ #normal
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowToolDetailState class >> undefined [
 	^ self new dimension: self undefinedName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToolDetailState class >> undefinedName [
 	^ #undefined
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowToolDetailState class >> volume: aNamedLevel [
 	self 
 		deprecated: 'Use #level: instead' 
@@ -57,13 +57,13 @@ GtPhlowToolDetailState class >> volume: aNamedLevel [
 	^ self level: aNamedLevel
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GtPhlowToolDetailState >> = anotherState [
 	^ anotherState class = self class
 		and: [ anotherState level = self level ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToolDetailState >> dimension [
 	<return: #Symbol>
 	self 
@@ -72,7 +72,7 @@ GtPhlowToolDetailState >> dimension [
 	^ self level
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToolDetailState >> dimension: aSymbol [
 
 	self 
@@ -81,35 +81,35 @@ GtPhlowToolDetailState >> dimension: aSymbol [
 	self level: aSymbol
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GtPhlowToolDetailState >> hash [
 	^ self class hash bitXor: self level hash
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowToolDetailState >> initialize [
 	super initialize.
 
 	level := self class normalName
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtPhlowToolDetailState >> isUndefined [
 	^ self level = self class undefinedName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToolDetailState >> level [
 	<return: #Symbol>
 	^ level
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowToolDetailState >> level: aSymbol [
 	level := aSymbol.
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 GtPhlowToolDetailState >> printOn: aStream [
 	aStream
 		nextPutAll: 'Tool Level State: ';

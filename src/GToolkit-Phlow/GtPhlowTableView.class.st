@@ -23,8 +23,8 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : 'GtPhlowTableView',
-	#superclass : 'GtPhlowViewDecorator',
+	#name : #GtPhlowTableView,
+	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
 		'itemsBuilder',
 		'dataObject',
@@ -36,39 +36,39 @@ Class {
 	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowTableView >> asElementDo: aBlock [ 
 
 	^ self columnedListView asElementDo: aBlock
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTableView >> at: rowNumber [
 
 	^ self rowAccessorBlock value: rowNumber
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTableView >> cellAccessorBlock [
 	^ cellAccessorBlock
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTableView >> cellAccessorBlock: anObject [
 	cellAccessorBlock := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTableView >> columnCountBlock [
 	^ columnCountBlock
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTableView >> columnCountBlock: anObject [
 	columnCountBlock := anObject
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtPhlowTableView >> columnedListView [
 	"Answer a GtPhlowColumnedList configured to display the receiver's dataObject"
 	| columnCount view |
@@ -92,12 +92,12 @@ GtPhlowTableView >> columnedListView [
 	^ view
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTableView >> dataObject [
 	^ itemsBuilder value
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 GtPhlowTableView >> forArray2D [
 
 	rowCountBlock := [ self dataObject numberOfRows ].
@@ -106,7 +106,7 @@ GtPhlowTableView >> forArray2D [
 	cellAccessorBlock := [ :row :index | row at: index ].
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 GtPhlowTableView >> forCollectionOfCollection [
 
 	rowCountBlock := [ self dataObject size ].
@@ -118,7 +118,7 @@ GtPhlowTableView >> forCollectionOfCollection [
 			ifFalse: [ row at: index ] ].
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtPhlowTableView >> ifNotEmpty: aBlock [
 
 	self numberOfRows > 0
@@ -126,45 +126,45 @@ GtPhlowTableView >> ifNotEmpty: aBlock [
 		ifFalse: [ self ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTableView >> items: aValuable [
 
 	itemsBuilder := aValuable 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTableView >> numberOfColumns [ 
 
 	^ self columnCountBlock value.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTableView >> numberOfRows [ 
 
 	^ self rowCountBlock value.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTableView >> rowAccessorBlock [
 	^ rowAccessorBlock
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTableView >> rowAccessorBlock: anObject [
 	rowAccessorBlock := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTableView >> rowCountBlock [
 	^ rowCountBlock
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTableView >> rowCountBlock: anObject [
 	rowCountBlock := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTableView >> size [
 
 	^ self numberOfRows

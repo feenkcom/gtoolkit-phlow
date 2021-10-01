@@ -1,11 +1,11 @@
 Trait {
-	#name : 'TGtPhlowViewTooltipBuilder',
+	#name : #TGtPhlowViewTooltipBuilder,
 	#traits : 'TGtPhlowTooltipBuilder',
 	#classTraits : 'TGtPhlowTooltipBuilder classTrait',
 	#category : 'GToolkit-Phlow-Support - Tooltip'
 }
 
-{ #category : 'building tooltip' }
+{ #category : #'building tooltip' }
 TGtPhlowViewTooltipBuilder >> attachTooltipFor: anElement [
 	self tooltipBuilder applyOn: anElement
 ]

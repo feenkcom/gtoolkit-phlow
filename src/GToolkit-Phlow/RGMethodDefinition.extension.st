@@ -1,11 +1,11 @@
-Extension { #name : 'RGMethodDefinition' }
+Extension { #name : #RGMethodDefinition }
 
-{ #category : '*GToolkit-Phlow' }
+{ #category : #'*GToolkit-Phlow' }
 RGMethodDefinition >> gtOriginMethodsInto: aWriteStream [ 
 	aWriteStream nextPut: self
 ]
 
-{ #category : '*GToolkit-Phlow' }
+{ #category : #'*GToolkit-Phlow' }
 RGMethodDefinition >> gtPhlowIncludesCompiledMethod: aCompiledMethod [
 	^ self = aCompiledMethod asRingDefinition
 ]

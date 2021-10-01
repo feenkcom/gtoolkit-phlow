@@ -8,25 +8,25 @@ See a complete example in the {{gtClass:GtPhlowCompositeTool}} class comment.
 
 "
 Class {
-	#name : 'GtPhlowToolObjectChangeWish',
-	#superclass : 'BrWish',
+	#name : #GtPhlowToolObjectChangeWish,
+	#superclass : #BrWish,
 	#instVars : [
 		'object'
 	],
 	#category : 'GToolkit-Phlow-Tool - Object Changer'
 }
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 GtPhlowToolObjectChangeWish >> acceptPhlowHandler: aHandler [
 	^ aHandler visitToolObjectChangeWish: self
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowToolObjectChangeWish >> object [
 	^ object
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowToolObjectChangeWish >> object: anObject [
 	object := anObject
 ]

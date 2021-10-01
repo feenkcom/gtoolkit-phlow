@@ -16,8 +16,8 @@ is removed:
 
 "
 Class {
-	#name : 'GtPhlowRemoveCompositeSubView',
-	#superclass : 'GtPhlowUpdateCommand',
+	#name : #GtPhlowRemoveCompositeSubView,
+	#superclass : #GtPhlowUpdateCommand,
 	#instVars : [
 		'ringDefinition',
 		'compiledMethod'
@@ -25,13 +25,13 @@ Class {
 	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GtPhlowRemoveCompositeSubView >> = anObject [
 	^ super = anObject and: [ 
 		self ringDefinition = anObject ringDefinition ]
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 GtPhlowRemoveCompositeSubView >> basicRemove [
 	self element viewModel tabs 
 		detect: [ :eachTabModel | eachTabModel widget 
@@ -46,25 +46,25 @@ GtPhlowRemoveCompositeSubView >> basicRemove [
 		ifNone: [ "do nothing" ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowRemoveCompositeSubView >> compiledMethod [
 	^ compiledMethod
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowRemoveCompositeSubView >> compiledMethod: aCompiledMethod [
 	compiledMethod := aCompiledMethod.
 	ringDefinition := aCompiledMethod asRingDefinition.
 ]
 
-{ #category : 'evaluating' }
+{ #category : #evaluating }
 GtPhlowRemoveCompositeSubView >> execute [
 	<return: #CompiledMethod>
 	self scheduleValuable: [ self basicRemove ].
 	^ self compiledMethod
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowRemoveCompositeSubView >> ringDefinition [
 	^ self compiledMethod asRingDefinition
 ]

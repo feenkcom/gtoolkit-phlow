@@ -11,15 +11,15 @@ In the following example, you can increase the displayed value by clicking on th
 
 "
 Class {
-	#name : 'GtPhlowCompositeTool',
-	#superclass : 'GtPhlowTool',
+	#name : #GtPhlowCompositeTool,
+	#superclass : #GtPhlowTool,
 	#instVars : [
 		'tools'
 	],
 	#category : 'GToolkit-Phlow-Tool - Core'
 }
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowCompositeTool >> addTool: aGtPhlowTool [
 	self 
 		assert: [ aGtPhlowTool isNotNil ] 
@@ -27,7 +27,7 @@ GtPhlowCompositeTool >> addTool: aGtPhlowTool [
 	self tools: (self tools copyWith: aGtPhlowTool)
 ]
 
-{ #category : 'api - converting' }
+{ #category : #'api - converting' }
 GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block."
 	| aTabGroup |
@@ -39,12 +39,12 @@ GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 	^ aOneArgBlock cull: aTabGroup
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowCompositeTool >> defaultTools [
 	^ Array empty
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowCompositeTool >> gtToolsFor: aView [
 	<gtView>
 	self tools ifNil: [ ^ aView empty ].
@@ -54,24 +54,24 @@ GtPhlowCompositeTool >> gtToolsFor: aView [
 		items: [ self tools ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowCompositeTool >> initialize [
 	super initialize.
 	tools := self defaultTools.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowCompositeTool >> name [
 	^ 'composite'
 ]
 
-{ #category : 'private - instance creation' }
+{ #category : #'private - instance creation' }
 GtPhlowCompositeTool >> toolTab: aGtPhlowTool into: aStream [
 	aGtPhlowTool asTabDo: [ :aTab | 
 		aStream nextPut: aTab ]
 ]
 
-{ #category : 'private - instance creation' }
+{ #category : #'private - instance creation' }
 GtPhlowCompositeTool >> toolTabs [
 	<return: #Array of: #BrTab>
 	^ Array 
@@ -80,19 +80,19 @@ GtPhlowCompositeTool >> toolTabs [
 			self toolTabsInto: aStream ]
 ]
 
-{ #category : 'private - instance creation' }
+{ #category : #'private - instance creation' }
 GtPhlowCompositeTool >> toolTabsInto: aStream [
 	self tools do: [ :eachTool | 
 		self toolTab: eachTool into: aStream ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowCompositeTool >> tools [
 	<return: #Array of: #GtPhlowTool>
 	^ tools
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowCompositeTool >> tools: aGtPhlowTool [
 	self 
 		assert: [ aGtPhlowTool isNotNil ] 

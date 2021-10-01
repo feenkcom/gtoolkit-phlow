@@ -3,13 +3,13 @@ I exemplify ${class:TGtPhlowSendTransformable}$ and ${class:TGtPhlowSendTreeNode
 
 "
 Trait {
-	#name : 'TGtPhlowSendTransformationExamples',
+	#name : #TGtPhlowSendTransformationExamples,
 	#traits : 'TGtSpaceExamples',
 	#classTraits : 'TGtSpaceExamples classTrait',
 	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 TGtPhlowSendTransformationExamples >> doubleClickItemAt: anIndex for: anElement [
 	<gtExample>
 	"Double click on an item at anIndex in anElement (list, tree)"
@@ -29,14 +29,14 @@ TGtPhlowSendTransformationExamples >> doubleClickItemAt: anIndex for: anElement 
 	BlSpace simulateDoubleClickOn: anItemElement.
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 TGtPhlowSendTransformationExamples >> elementItemsFor: anElement [
 	"Return element items"
 	<gtExample>
 	^ self explicitRequirement
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 TGtPhlowSendTransformationExamples >> itemsFor: anElement ofSize: anAmount [
 	<gtExample>
 	| theItems |
@@ -45,20 +45,20 @@ TGtPhlowSendTransformationExamples >> itemsFor: anElement ofSize: anAmount [
 	^ theItems
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 TGtPhlowSendTransformationExamples >> selectItemAt: anIndex for: anElement [
 	<gtExample>
 	"Select an item at anIndex in anElement (list, tree)"
 	self explicitRequirement
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 TGtPhlowSendTransformationExamples >> sendNumberAddition [
 	<gtExample>
 	^ 200
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 TGtPhlowSendTransformationExamples >> sendObject_Block [
 	<gtExample>
 	| view element |
@@ -70,7 +70,7 @@ TGtPhlowSendTransformationExamples >> sendObject_Block [
 	^ view
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 TGtPhlowSendTransformationExamples >> sendObject_Block_Element [
 	<gtExample>
 	| view element |
@@ -80,7 +80,7 @@ TGtPhlowSendTransformationExamples >> sendObject_Block_Element [
 	^ element
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 TGtPhlowSendTransformationExamples >> sendObject_Block_Element_DoubleClickEvent [
 	<gtExample>
 	| anElement aCollection |
@@ -104,7 +104,7 @@ TGtPhlowSendTransformationExamples >> sendObject_Block_Element_DoubleClickEvent 
 	^ anElement
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 TGtPhlowSendTransformationExamples >> sendObject_Block_Element_SelectEvent [
 	<gtExample>
 	| anElement aCollection |
@@ -120,7 +120,7 @@ TGtPhlowSendTransformationExamples >> sendObject_Block_Element_SelectEvent [
 	^ anElement
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 TGtPhlowSendTransformationExamples >> sendObject_Symbol [
 	<gtExample>
 	| view element |
@@ -131,7 +131,7 @@ TGtPhlowSendTransformationExamples >> sendObject_Symbol [
 	^ view
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 TGtPhlowSendTransformationExamples >> sendObject_Symbol_Element [
 	<gtExample>
 	| view element |
@@ -141,7 +141,7 @@ TGtPhlowSendTransformationExamples >> sendObject_Symbol_Element [
 	^ element
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 TGtPhlowSendTransformationExamples >> sendObject_Symbol_Element_SelectEvent [
 	<gtExample>
 	| anElement aCollection |
@@ -157,7 +157,7 @@ TGtPhlowSendTransformationExamples >> sendObject_Symbol_Element_SelectEvent [
 	^ anElement
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 TGtPhlowSendTransformationExamples >> sendTool [
 	<gtExample>
 	| view element |
@@ -178,7 +178,7 @@ TGtPhlowSendTransformationExamples >> sendTool [
 	^ view
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 TGtPhlowSendTransformationExamples >> sendTool_Element [
 	<gtExample>
 	| view element |
@@ -188,7 +188,7 @@ TGtPhlowSendTransformationExamples >> sendTool_Element [
 	^ element
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 TGtPhlowSendTransformationExamples >> sendTool_Element_SelectEvent [
 	<gtExample>
 	| anElement aCollection |
@@ -205,7 +205,7 @@ TGtPhlowSendTransformationExamples >> sendTool_Element_SelectEvent [
 	^ anElement
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 TGtPhlowSendTransformationExamples >> sendTool_Element_SelectEvent_Tool [
 	<gtExample>
 	| anElement aCollection |
@@ -222,7 +222,7 @@ TGtPhlowSendTransformationExamples >> sendTool_Element_SelectEvent_Tool [
 	^ aCollection first tool.
 ]
 
-{ #category : 'examples - transformation' }
+{ #category : #'examples - transformation' }
 TGtPhlowSendTransformationExamples >> sendTool_Element_SelectEvent_ToolElement [
 	<gtExample>
 	| aTool anElement aLabel |
@@ -239,7 +239,7 @@ TGtPhlowSendTransformationExamples >> sendTool_Element_SelectEvent_ToolElement [
 	^ anElement
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 TGtPhlowSendTransformationExamples >> viewWithTenItems [
 	"Return an initialized view with 10 (root) items"
 	<gtExample>

@@ -5,30 +5,30 @@ I provide basic support to exemplify {{gtClass:GtPhlowUpdateCommand}} subclasses
 
 "
 Class {
-	#name : 'GtPhlowUpdateCommandExamples',
-	#superclass : 'Object',
+	#name : #GtPhlowUpdateCommandExamples,
+	#superclass : #Object,
 	#category : 'GToolkit-Phlow-Examples'
 }
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowUpdateCommandExamples >> compositeElement [
 	<gtExample>
 	^ GtPhlowCompositeViewExamples new element
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowUpdateCommandExamples >> compositeView [
 	<gtExample>
 	^ GtPhlowCompositeViewExamples new phlowView 
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowUpdateCommandExamples >> explicitElement [
 	<gtExample>
 	^ GtPhlowExplicitViewExamples new element 
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowUpdateCommandExamples >> explicitView [
 	<gtExample>
 	^ GtPhlowExplicitViewExamples new phlowView 

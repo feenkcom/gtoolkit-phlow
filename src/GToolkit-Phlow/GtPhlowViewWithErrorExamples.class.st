@@ -1,22 +1,22 @@
 Class {
-	#name : 'GtPhlowViewWithErrorExamples',
-	#superclass : 'GtPhlowViewExamples',
+	#name : #GtPhlowViewWithErrorExamples,
+	#superclass : #GtPhlowViewExamples,
 	#category : 'GToolkit-Phlow-Examples - Views'
 }
 
-{ #category : 'examples - element' }
+{ #category : #'examples - element' }
 GtPhlowViewWithErrorExamples >> expectedElementClass [
 	^ BrFrame
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowViewWithErrorExamples >> gtViewWithExceptionAtCreationFor: aView [
 	<gtView>
 	1/0.
 	^ aView title: 'With error during view creation'
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowViewWithErrorExamples >> onPerformWithErrorAtCreation [
 	<gtExample>
 	| aView |
@@ -28,7 +28,7 @@ GtPhlowViewWithErrorExamples >> onPerformWithErrorAtCreation [
 	^ aView
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowViewWithErrorExamples >> onPerformWithNonExistingMethodError [
 	<gtExample>
 	| aView |
@@ -37,7 +37,7 @@ GtPhlowViewWithErrorExamples >> onPerformWithNonExistingMethodError [
 	^ aView
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowViewWithErrorExamples >> onPerformWithNonExistingMethodErrorBlocElement [
 	<gtExample>
 	| aView anElement |
@@ -47,7 +47,7 @@ GtPhlowViewWithErrorExamples >> onPerformWithNonExistingMethodErrorBlocElement [
 	^ anElement
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowViewWithErrorExamples >> onPerformWithoutError [
 	<gtExample>
 	| aView |
@@ -57,7 +57,7 @@ GtPhlowViewWithErrorExamples >> onPerformWithoutError [
 	^ aView
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowViewWithErrorExamples >> onPerformWithoutErrorBlocElement [
 	<gtExample>
 	| aView anElement |
@@ -67,7 +67,7 @@ GtPhlowViewWithErrorExamples >> onPerformWithoutErrorBlocElement [
 	^ anElement
 ]
 
-{ #category : 'examples - view' }
+{ #category : #'examples - view' }
 GtPhlowViewWithErrorExamples >> phlowView [
 	<return: #GtPhlowView>
 	^ self onPerformWithErrorAtCreation

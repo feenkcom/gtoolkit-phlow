@@ -25,15 +25,15 @@ Is represented in tools as in following example:
 
 "
 Class {
-	#name : 'GtPhlowCompositeView',
-	#superclass : 'GtPhlowViewDecorator',
+	#name : #GtPhlowCompositeView,
+	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
 		'views'
 	],
 	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : 'private' }
+{ #category : #private }
 GtPhlowCompositeView >> addNewTabTo: aCollectionOfTabs forView: aPhlowView [
 	"we explicitly traverse the collection because it is possible for
 	asElementDo: to not return anything when we deal with an EmptyView"
@@ -42,7 +42,7 @@ GtPhlowCompositeView >> addNewTabTo: aCollectionOfTabs forView: aPhlowView [
 		andDo: [ :aTab | aCollectionOfTabs add: aTab ]
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowCompositeView >> asElementDo: aBlock [
 	| tabs group |
 	tabs := OrderedCollection new.
@@ -57,7 +57,7 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 	^ aBlock value: group
 ]
 
-{ #category : 'api - building' }
+{ #category : #'api - building' }
 GtPhlowCompositeView >> collectorDo: aBlock [
 	"configure ${class:GtPhlowViewsCollector}$ to collect views"
 	| aCollector |
@@ -66,7 +66,7 @@ GtPhlowCompositeView >> collectorDo: aBlock [
 	self views: aCollector collect.
 ]
 
-{ #category : 'adding - update definitions' }
+{ #category : #'adding - update definitions' }
 GtPhlowCompositeView >> defaultUpdateDefinitions [
 	^ Array new: 3 streamContents: [ :aStream |
 		aStream 
@@ -75,7 +75,7 @@ GtPhlowCompositeView >> defaultUpdateDefinitions [
 			nextPut: GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange ]
 ]
 
-{ #category : 'ui' }
+{ #category : #ui }
 GtPhlowCompositeView >> gtContainedViewsFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -85,13 +85,13 @@ GtPhlowCompositeView >> gtContainedViewsFor: aView [
 		column: 'Title' text: [:each | each title ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowCompositeView >> views [
 	<return: #Array of: #GtPhlowView>
 	^ views
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowCompositeView >> views: aCollection [
 	views := aCollection asOrderedCollection
 ]
