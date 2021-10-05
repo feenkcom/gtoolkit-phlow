@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowLabelledViewBuilder,
 	#superclass : #GtPhlowCompositeViewBuilder,
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #building }
@@ -16,6 +16,5 @@ GtPhlowLabelledViewBuilder >> buildView [
 
 { #category : #label }
 GtPhlowLabelledViewBuilder >> title [
-	<return: #GtPhlowLabelBuilder>
-	^ GtPhlowLabelBuilder new object: self object
+	^ self object gtInspectorTitleString
 ]
