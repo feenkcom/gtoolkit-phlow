@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtPhlowActionStencilBuilder',
-	#superclass : 'BrStencilBuilder',
+	#name : #GtPhlowActionStencilBuilder,
+	#superclass : #BrStencilBuilder,
 	#instVars : [
 		'stencilBuilder',
 		'actionElement',
@@ -9,23 +9,23 @@ Class {
 	#category : 'GToolkit-Phlow-UI'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowActionStencilBuilder >> actionElement [
 	^ actionElement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowActionStencilBuilder >> actionElement: anElement [
 	actionElement := anElement
 ]
 
-{ #category : 'api - instantiation' }
+{ #category : #'api - instantiation' }
 GtPhlowActionStencilBuilder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
 	^ self asElement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowActionStencilBuilder >> paramsOn: aStencilExecutor [
 
 	self actionElement ifNotNil: [ 
@@ -33,12 +33,12 @@ GtPhlowActionStencilBuilder >> paramsOn: aStencilExecutor [
 	aStencilExecutor push: self targetElement.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowActionStencilBuilder >> targetElement [
 	^ targetElement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowActionStencilBuilder >> targetElement: anElement [
 	targetElement := anElement 
 ]

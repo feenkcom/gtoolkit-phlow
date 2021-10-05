@@ -7,26 +7,26 @@ See {{gtClass:GtPhlowSendValuableTransformation|label=my subclasses|expanded|sho
 
 "
 Class {
-	#name : 'GtPhlowSendValuableTransformation',
-	#superclass : 'GtPhlowSendTransformation',
+	#name : #GtPhlowSendValuableTransformation,
+	#superclass : #GtPhlowSendTransformation,
 	#instVars : [
 		'valuable'
 	],
 	#category : 'GToolkit-Phlow-Support - Transformation'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtPhlowSendValuableTransformation class >> isAbstract [
 	^ self name = #GtPhlowSendValuableTransformation 
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowSendValuableTransformation >> asTreeNodeTransformation [
 	^ GtPhlowSendTreeNodeTransformation new
 		transformation: self
 ]
 
-{ #category : 'private - asserting' }
+{ #category : #'private - asserting' }
 GtPhlowSendValuableTransformation >> assertValuable: aBlock [
 	self
 		assert: [ aBlock isNotNil ]
@@ -36,32 +36,32 @@ GtPhlowSendValuableTransformation >> assertValuable: aBlock [
 		description: [ 'Send transformation block must have two or less arguments'  ].
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowSendValuableTransformation >> defaultValuable [
 	^ self subclassResponsibility
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowSendValuableTransformation >> initialize [
 	super initialize.
 	valuable := self defaultValuable.
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 GtPhlowSendValuableTransformation >> transformedValueFrom: anObject selection: aSelectionIndices [
 	"Given object is passed to the ${method:GtPhlowSendValuableTransformation>>#valuable|label=#selector}$
 	and the valuable result is used to display an information (instead of the anObject)."
 	^ self valuable cull: anObject cull: aSelectionIndices
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowSendValuableTransformation >> valuable [
 	"A valuable object that understands ${method:BlockClosure>>#cull:cull:|label=#selecttor}$.
 	See ${method:GtPhlowSendValuableTransformation>>#transformedValueFrom:selection:}$"
 	^ valuable
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowSendValuableTransformation >> valuable: aBlock [
 	self assertValuable: aBlock.
 	valuable := aBlock

@@ -1,6 +1,6 @@
-Extension { #name : 'BlockClosure' }
+Extension { #name : #BlockClosure }
 
-{ #category : '*GToolkit-Phlow' }
+{ #category : #'*GToolkit-Phlow' }
 BlockClosure >> asPhlowSendTransformation [
 	^ GtPhlowSendToolTransformation object: self
 ]

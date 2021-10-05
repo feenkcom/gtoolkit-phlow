@@ -1,15 +1,15 @@
 Class {
-	#name : 'GtPhlowListToSpawnHandler',
-	#superclass : 'GtPhlowListHandler',
+	#name : #GtPhlowListToSpawnHandler,
+	#superclass : #GtPhlowListHandler,
 	#category : 'GToolkit-Phlow-Events'
 }
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 GtPhlowListToSpawnHandler >> eventClass [
 	^ BrSelectionChanged
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowListToSpawnHandler >> eventsToHandle [
 	"I return a collection of element types I may be interested in"
 	<return: #Collection of: #'BlEvent class'>	
@@ -17,7 +17,7 @@ GtPhlowListToSpawnHandler >> eventsToHandle [
 	^ Array with: self eventClass
 ]
 
-{ #category : 'api - event managing' }
+{ #category : #'api - event managing' }
 GtPhlowListToSpawnHandler >> handleEvent: anEvent [
 	| aWidgetElement |
 	
@@ -32,7 +32,7 @@ GtPhlowListToSpawnHandler >> handleEvent: anEvent [
 			from: aWidgetElement. ]
 ]
 
-{ #category : 'api - event managing' }
+{ #category : #'api - event managing' }
 GtPhlowListToSpawnHandler >> wantsEvent: anEvent [
 	^ self eventClass = anEvent class
 ]

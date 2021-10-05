@@ -1,9 +1,9 @@
 Trait {
-	#name : 'TGtPhlowViewAsyncEnabledDisabledExamples',
+	#name : #TGtPhlowViewAsyncEnabledDisabledExamples,
 	#category : 'GToolkit-Phlow-Examples'
 }
 
-{ #category : 'examples - async enablement' }
+{ #category : #'examples - async enablement' }
 TGtPhlowViewAsyncEnabledDisabledExamples >> asyncDisabled [
 	<gtExample>
 	| aView anAsyncView |
@@ -15,7 +15,7 @@ TGtPhlowViewAsyncEnabledDisabledExamples >> asyncDisabled [
 	^ anAsyncView
 ]
 
-{ #category : 'examples - async enablement' }
+{ #category : #'examples - async enablement' }
 TGtPhlowViewAsyncEnabledDisabledExamples >> asyncEnabled [
 	<gtExample>
 	| aView anAsyncView |

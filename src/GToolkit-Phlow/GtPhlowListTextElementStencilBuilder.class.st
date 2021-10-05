@@ -4,12 +4,12 @@
 
 "
 Class {
-	#name : 'GtPhlowListTextElementStencilBuilder',
-	#superclass : 'BrListItemElementStencilBuilder',
+	#name : #GtPhlowListTextElementStencilBuilder,
+	#superclass : #BrListItemElementStencilBuilder,
 	#category : 'GToolkit-Phlow-Support - List'
 }
 
-{ #category : 'api - instantiation' }
+{ #category : #'api - instantiation' }
 GtPhlowListTextElementStencilBuilder >> buildDefault [
 	^ BrLabel new
 		aptitude: BrGlamorousListLabelAptitude;

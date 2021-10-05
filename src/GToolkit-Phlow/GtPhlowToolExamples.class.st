@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtPhlowToolExamples',
-	#superclass : 'Object',
+	#name : #GtPhlowToolExamples,
+	#superclass : #Object,
 	#category : 'GToolkit-Phlow-Tool - Examples'
 }
 
-{ #category : 'examples - tools' }
+{ #category : #'examples - tools' }
 GtPhlowToolExamples >> basicCompositeTool [
 	<gtExample>
 	| aTool anElement |
@@ -15,7 +15,7 @@ GtPhlowToolExamples >> basicCompositeTool [
 	^ aTool
 ]
 
-{ #category : 'examples - tools' }
+{ #category : #'examples - tools' }
 GtPhlowToolExamples >> basicValuableTool [
 	<gtExample>
 	| aTool anElement |
@@ -26,7 +26,7 @@ GtPhlowToolExamples >> basicValuableTool [
 	^ aTool
 ]
 
-{ #category : 'examples - spaces' }
+{ #category : #'examples - spaces' }
 GtPhlowToolExamples >> closeSpace: aSpace with: anElement [
 	<gtExample>
 	"Remove an element from the space and close the space"
@@ -34,13 +34,13 @@ GtPhlowToolExamples >> closeSpace: aSpace with: anElement [
 	aSpace close.
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowToolExamples >> defaultBackgroundColor [
 	<gtExample>
 	^ Color yellow alpha: 0.3
 ]
 
-{ #category : 'examples - elements' }
+{ #category : #'examples - elements' }
 GtPhlowToolExamples >> labelWithText: aString [
 	<gtExample>
 	^ BrLabel new
@@ -53,7 +53,7 @@ GtPhlowToolExamples >> labelWithText: aString [
 		text: aString asString
 ]
 
-{ #category : 'examples - spaces' }
+{ #category : #'examples - spaces' }
 GtPhlowToolExamples >> newSpace [
 	<gtExample>
 	| aSpace |
@@ -65,7 +65,7 @@ GtPhlowToolExamples >> newSpace [
 	^ aSpace
 ]
 
-{ #category : 'examples - spaces' }
+{ #category : #'examples - spaces' }
 GtPhlowToolExamples >> putInSpace: aBlElement [
 	<gtExample>
 	| aSpace |

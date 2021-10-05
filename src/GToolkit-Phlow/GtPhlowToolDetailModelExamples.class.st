@@ -4,12 +4,12 @@ I exemplify {{gtClass:GtPhlowToolAbstractDetailModel}}.
 
 "
 Class {
-	#name : 'GtPhlowToolDetailModelExamples',
-	#superclass : 'GtPhlowToolExamples',
+	#name : #GtPhlowToolDetailModelExamples,
+	#superclass : #GtPhlowToolExamples,
 	#category : 'GToolkit-Phlow-Tool - Examples'
 }
 
-{ #category : 'examples - models' }
+{ #category : #'examples - models' }
 GtPhlowToolDetailModelExamples >> basicContainerDetailModel [
 	<gtExample>
 	| aModel |
@@ -21,7 +21,7 @@ GtPhlowToolDetailModelExamples >> basicContainerDetailModel [
 	^ aModel
 ]
 
-{ #category : 'examples - looks' }
+{ #category : #'examples - looks' }
 GtPhlowToolDetailModelExamples >> basicToolDetailLook [
 	<gtExample>
 	| aLook |
@@ -29,7 +29,7 @@ GtPhlowToolDetailModelExamples >> basicToolDetailLook [
 	^ aLook
 ]
 
-{ #category : 'examples - models' }
+{ #category : #'examples - models' }
 GtPhlowToolDetailModelExamples >> basicToolDetailModel [
 	<gtExample>
 	| aModel |
@@ -39,7 +39,7 @@ GtPhlowToolDetailModelExamples >> basicToolDetailModel [
 	^ aModel
 ]
 
-{ #category : 'examples - tools' }
+{ #category : #'examples - tools' }
 GtPhlowToolDetailModelExamples >> compositeTool [
 	<gtExample>
 	| aTool anElement |
@@ -53,7 +53,7 @@ GtPhlowToolDetailModelExamples >> compositeTool [
 	^ aTool
 ]
 
-{ #category : 'examples - events' }
+{ #category : #'examples - events' }
 GtPhlowToolDetailModelExamples >> containerContainerToolDetailedLevel [
 	<gtExample>
 	| aContainerOne aTool aContainerOneLevel aContainerTwo aContainerTwoLevel aToolLevel |
@@ -74,7 +74,7 @@ GtPhlowToolDetailModelExamples >> containerContainerToolDetailedLevel [
 	^ aContainerOne
 ]
 
-{ #category : 'examples - events' }
+{ #category : #'examples - events' }
 GtPhlowToolDetailModelExamples >> containerContainerToolDetailedLevel_ContainerLevelReponse [
 	<gtExample>
 	| aContainerOne aTool aContainerOneDimension aContainerTwo aContainerTwoDimension aToolDimension aReceivedDimension |
@@ -97,7 +97,7 @@ GtPhlowToolDetailModelExamples >> containerContainerToolDetailedLevel_ContainerL
 	^ aContainerOne
 ]
 
-{ #category : 'examples - events' }
+{ #category : #'examples - events' }
 GtPhlowToolDetailModelExamples >> containerContainerToolDetailedLevel_InSpace [
 	<gtExample>
 	| aContainerOne aTool aSpace aContainerTwo aContainerOneDimension aContainerTwoDimension aToolDimension |
@@ -119,7 +119,7 @@ GtPhlowToolDetailModelExamples >> containerContainerToolDetailedLevel_InSpace [
 	^ aContainerOne
 ]
 
-{ #category : 'examples - events' }
+{ #category : #'examples - events' }
 GtPhlowToolDetailModelExamples >> containerContainerToolDetailedResponse [
 	<gtExample>
 	| aContainerOne aTool aPreviousDimension aNewDimension aContainerDimension aSpace aContainerTwo |
@@ -138,7 +138,7 @@ GtPhlowToolDetailModelExamples >> containerContainerToolDetailedResponse [
 	^ aContainerOne
 ]
 
-{ #category : 'examples - elements' }
+{ #category : #'examples - elements' }
 GtPhlowToolDetailModelExamples >> containerContainerToolElement [
 	<gtExample>
 	| aContainerOne aContainerTwo |
@@ -149,7 +149,7 @@ GtPhlowToolDetailModelExamples >> containerContainerToolElement [
 	^ aContainerOne
 ]
 
-{ #category : 'examples - elements' }
+{ #category : #'examples - elements' }
 GtPhlowToolDetailModelExamples >> containerElement [
 	<gtExample>
 	| anElement aDimension |
@@ -166,7 +166,7 @@ GtPhlowToolDetailModelExamples >> containerElement [
 	^ anElement
 ]
 
-{ #category : 'examples - events' }
+{ #category : #'examples - events' }
 GtPhlowToolDetailModelExamples >> containerElementDetailedResponse [
 	<gtExample>
 	| aContainer aTool aPreviousToolLevel aNewToolLevel aContainerLevel aSpace |
@@ -192,7 +192,7 @@ GtPhlowToolDetailModelExamples >> containerElementDetailedResponse [
 	^ aContainer
 ]
 
-{ #category : 'examples - events' }
+{ #category : #'examples - events' }
 GtPhlowToolDetailModelExamples >> containerElementUndefinedResponse [
 	<gtExample>
 	| aContainer aTool aPreviousDimension aNewDimension aSpace |
@@ -207,7 +207,7 @@ GtPhlowToolDetailModelExamples >> containerElementUndefinedResponse [
 	^ aContainer
 ]
 
-{ #category : 'examples - elements' }
+{ #category : #'examples - elements' }
 GtPhlowToolDetailModelExamples >> containerWithToolElement [
 	<gtExample>
 	| aContainer aTool |
@@ -217,7 +217,7 @@ GtPhlowToolDetailModelExamples >> containerWithToolElement [
 	^ aContainer
 ]
 
-{ #category : 'examples - looks' }
+{ #category : #'examples - looks' }
 GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook [
 	<gtExample>
 	|  aTool aContainer |
@@ -227,7 +227,7 @@ GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook [
 	^ aContainer
 ]
 
-{ #category : 'examples - looks' }
+{ #category : #'examples - looks' }
 GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Custom [
 	<gtExample>
 	|  aContainer aTool |
@@ -238,7 +238,7 @@ GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Custom 
 	^ aContainer
 ]
 
-{ #category : 'examples - looks' }
+{ #category : #'examples - looks' }
 GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Detailed [
 	<gtExample>
 	|  aContainer aTool |
@@ -249,7 +249,7 @@ GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Detaile
 	^ aContainer
 ]
 
-{ #category : 'examples - looks' }
+{ #category : #'examples - looks' }
 GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Normal [
 	<gtExample>
 	|  aContainer aTool |
@@ -260,7 +260,7 @@ GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Normal 
 	^ aContainer
 ]
 
-{ #category : 'examples - looks' }
+{ #category : #'examples - looks' }
 GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Showcase [
 	<gtExample>
 	|  aContainer aTool |
@@ -270,19 +270,19 @@ GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Showcas
 	^ aContainer
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowToolDetailModelExamples >> customBackgroundColor [
 	<gtExample>
 	^ Color red alpha: 0.3
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowToolDetailModelExamples >> detailedBackgroundColor [
 	<gtExample>
 	^ Color green alpha: 0.3
 ]
 
-{ #category : 'examples - elements' }
+{ #category : #'examples - elements' }
 GtPhlowToolDetailModelExamples >> element [
 	<gtExample>
 	^ BlElement new
@@ -291,7 +291,7 @@ GtPhlowToolDetailModelExamples >> element [
 			c horizontal matchParent ].
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowToolDetailModelExamples >> lookShowcaseButtonFor: aSymbol element: aTool [
 	"aSymbol defines what information level should be used by clicking on a button"
 	<gtExample>
@@ -302,7 +302,7 @@ GtPhlowToolDetailModelExamples >> lookShowcaseButtonFor: aSymbol element: aTool 
 			aTool dispatchEvent: (GtPhlowToolDetailWish beLevel: aSymbol) ]
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowToolDetailModelExamples >> lookShowcaseButtonsFor: aTool [
 	<gtExample>
 	| aToolbar |
@@ -321,7 +321,7 @@ GtPhlowToolDetailModelExamples >> lookShowcaseButtonsFor: aTool [
 	^ aTool
 ]
 
-{ #category : 'examples - looks' }
+{ #category : #'examples - looks' }
 GtPhlowToolDetailModelExamples >> lookWithBackgroundChanges [
 	<gtExample>
 	| aLook |
@@ -334,13 +334,13 @@ GtPhlowToolDetailModelExamples >> lookWithBackgroundChanges [
 	^ aLook
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowToolDetailModelExamples >> normalBackgroundColor [
 	<gtExample>
 	^ Color blue alpha: 0.3
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowToolDetailModelExamples >> requestContainerDetailLevel: anElement [
 	<gtExample>
 	| aRequest |
@@ -349,7 +349,7 @@ GtPhlowToolDetailModelExamples >> requestContainerDetailLevel: anElement [
 	^ aRequest response level
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowToolDetailModelExamples >> requestToolDetailLevel: anElement [
 	<gtExample>
 	| aRequest |
@@ -360,7 +360,7 @@ GtPhlowToolDetailModelExamples >> requestToolDetailLevel: anElement [
 	^ aRequest response states anyOne level
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowToolDetailModelExamples >> showcaseContainerElementConfiguration: anElement [
 	<gtExample>
 	| aLevel aLabel |
@@ -384,7 +384,7 @@ GtPhlowToolDetailModelExamples >> showcaseContainerElementConfiguration: anEleme
 	^ anElement
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 GtPhlowToolDetailModelExamples >> showcaseToolElementConfiguration: anElement [
 	<gtExample>
 	| aLevel aLabel |
@@ -408,7 +408,7 @@ GtPhlowToolDetailModelExamples >> showcaseToolElementConfiguration: anElement [
 	^ anElement
 ]
 
-{ #category : 'examples - elements' }
+{ #category : #'examples - elements' }
 GtPhlowToolDetailModelExamples >> toolElement [
 	<gtExample>
 	| anElement aLevel |
@@ -426,7 +426,7 @@ GtPhlowToolDetailModelExamples >> toolElement [
 	^ anElement
 ]
 
-{ #category : 'examples - elements' }
+{ #category : #'examples - elements' }
 GtPhlowToolDetailModelExamples >> toolElementInSpace [
 	<gtExample>
 	| aContainer aSpace aTool aContainerDimension aToolDimension |
@@ -444,7 +444,7 @@ GtPhlowToolDetailModelExamples >> toolElementInSpace [
 	^ aSpace
 ]
 
-{ #category : 'examples - tools' }
+{ #category : #'examples - tools' }
 GtPhlowToolDetailModelExamples >> toolOne [
 	<gtExample>
 	| aTool anElement |
@@ -467,7 +467,7 @@ GtPhlowToolDetailModelExamples >> toolOne [
 	^ aTool
 ]
 
-{ #category : 'examples - tools' }
+{ #category : #'examples - tools' }
 GtPhlowToolDetailModelExamples >> toolTwo [
 	<gtExample>
 	| aTool anElement |

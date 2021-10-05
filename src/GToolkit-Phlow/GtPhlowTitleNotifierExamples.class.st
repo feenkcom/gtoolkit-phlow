@@ -4,12 +4,12 @@ I exemplify {{gtClass:GtPhlowTitleNotifier|expanded=true|show=#gtSubclassesFor:|
 
 "
 Class {
-	#name : 'GtPhlowTitleNotifierExamples',
-	#superclass : 'Object',
+	#name : #GtPhlowTitleNotifierExamples,
+	#superclass : #Object,
 	#category : 'GToolkit-Phlow-Tool - Title Examples'
 }
 
-{ #category : 'examples - element' }
+{ #category : #'examples - element' }
 GtPhlowTitleNotifierExamples >> element [
 	<gtExample>
 	^ BrButton new

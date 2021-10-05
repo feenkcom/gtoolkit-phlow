@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtPhlowValuableTool',
-	#superclass : 'GtPhlowTool',
+	#name : #GtPhlowValuableTool,
+	#superclass : #GtPhlowTool,
 	#instVars : [
 		'name',
 		'valuable'
@@ -8,7 +8,7 @@ Class {
 	#category : 'GToolkit-Phlow-Tool - Core'
 }
 
-{ #category : 'api - converting' }
+{ #category : #'api - converting' }
 GtPhlowValuableTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block."
 	| anElement |
@@ -19,29 +19,29 @@ GtPhlowValuableTool >> asElementDo: aOneArgBlock [
 	^ aOneArgBlock cull: anElement cull: self
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowValuableTool >> initialize [
 	super initialize.
 	valuable := [ BrFrame new matchParent ].
 	name := 'Valuable'.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowValuableTool >> name [
 	^ name
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowValuableTool >> name: anObject [
 	name := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowValuableTool >> valuable [
 	^ valuable
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowValuableTool >> valuable: anObject [
 	valuable := anObject
 ]

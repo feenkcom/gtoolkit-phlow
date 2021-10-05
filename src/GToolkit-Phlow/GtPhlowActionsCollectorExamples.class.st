@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtPhlowActionsCollectorExamples',
-	#superclass : 'Object',
+	#name : #GtPhlowActionsCollectorExamples,
+	#superclass : #Object,
 	#category : 'GToolkit-Phlow-Examples'
 }
 
-{ #category : 'button' }
+{ #category : #button }
 GtPhlowActionsCollectorExamples >> buttonWithIcon [
 	<gtExample>
 	| anAction aButton |
@@ -16,7 +16,7 @@ GtPhlowActionsCollectorExamples >> buttonWithIcon [
 	^ anAction 
 ]
 
-{ #category : 'button' }
+{ #category : #button }
 GtPhlowActionsCollectorExamples >> buttonWithIconActionFor: anAction [
 	<gtButtonWithIconAction>
 	^ anAction button
@@ -24,7 +24,7 @@ GtPhlowActionsCollectorExamples >> buttonWithIconActionFor: anAction [
 		action: [ :aBrButton | self inform: 'Click!' ]
 ]
 
-{ #category : 'utility' }
+{ #category : #utility }
 GtPhlowActionsCollectorExamples >> collectActions: aSymbol [
 	^ GtPhlowActionsCollector new
 		pragmaName: aSymbol;
@@ -32,7 +32,7 @@ GtPhlowActionsCollectorExamples >> collectActions: aSymbol [
 		collect
 ]
 
-{ #category : 'utility' }
+{ #category : #utility }
 GtPhlowActionsCollectorExamples >> collectOneActionForPragma: aSymbol [
 	| actions |
 	actions := self collectActions: aSymbol.
@@ -40,14 +40,14 @@ GtPhlowActionsCollectorExamples >> collectOneActionForPragma: aSymbol [
 	^ actions anyOne
 ]
 
-{ #category : 'error' }
+{ #category : #error }
 GtPhlowActionsCollectorExamples >> errorActionFor: anAction [
 	<gtAction>
 	<gtErrorAction>
 	1 / 0
 ]
 
-{ #category : 'error' }
+{ #category : #error }
 GtPhlowActionsCollectorExamples >> errorExample [
 	<gtExample>
 	| anAction aDebugButton |

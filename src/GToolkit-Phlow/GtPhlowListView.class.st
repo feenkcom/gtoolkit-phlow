@@ -9,8 +9,8 @@ The following object displays several examples. You can `ALT+CLICK` on tab names
 
 "
 Class {
-	#name : 'GtPhlowListView',
-	#superclass : 'GtPhlowViewDecorator',
+	#name : #GtPhlowListView,
+	#superclass : #GtPhlowViewDecorator,
 	#traits : 'TGtPhlowSendTransformable',
 	#classTraits : 'TGtPhlowSendTransformable classTrait',
 	#instVars : [
@@ -24,7 +24,7 @@ Class {
 	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : 'api - converting' }
+{ #category : #'api - converting' }
 GtPhlowListView >> asElementDo: aBlock [
 	| aList itemsProvider |
 
@@ -45,18 +45,18 @@ GtPhlowListView >> asElementDo: aBlock [
 	^ aBlock value: aList
 ]
 
-{ #category : 'copying' }
+{ #category : #copying }
 GtPhlowListView >> copyTransformationFrom: aSendBlock [
 	aSendBlock ifNil: [ ^ self ].
 	self send: aSendBlock
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowListView >> defaultItemComputation [
 	^ [ :eachItem :eachRowIndex | eachItem ]
 ]
 
-{ #category : 'scripting - deprecated' }
+{ #category : #'scripting - deprecated' }
 GtPhlowListView >> display: aBlock [
 	self 
 		deprecated: 'Please use #items: instead.'
@@ -64,12 +64,12 @@ GtPhlowListView >> display: aBlock [
 	self items: aBlock
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowListView >> elementClass [
 	^ BrSimpleList
 ]
 
-{ #category : 'scripting - deprecated' }
+{ #category : #'scripting - deprecated' }
 GtPhlowListView >> format: aBlockOrSymbol [
 	self 
 		deprecated: 'Please use #itemFormat: instead.'
@@ -77,7 +77,7 @@ GtPhlowListView >> format: aBlockOrSymbol [
 	self itemFormat: aBlockOrSymbol
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowListView >> initialize [
 	super initialize.
 	self items: [ { } ].
@@ -90,36 +90,36 @@ GtPhlowListView >> initialize [
 	itemContextMenuStencil := nil
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 GtPhlowListView >> isExpectedElement: aCurrentElement [
 	^ aCurrentElement class = self elementClass
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 GtPhlowListView >> itemComputation [
 	^ itemComputation
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 GtPhlowListView >> itemContextMenuStencil: aGtPhlowListContextMenuStencilBuilder [
 	itemContextMenuStencil := aGtPhlowListContextMenuStencilBuilder asStencilBuilder: GtPhlowListContextMenuStencilBuilder
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 GtPhlowListView >> itemDataBinder [
 	"Return a stencil that is used to bind data to a given item element"
 
 	^ itemDataBinder
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 GtPhlowListView >> itemDataBinder: aBrListItemDataBinderOrBlock [
 	"An item type stencil can be a #value-able of the form [ :anItemElement :anItemObject :anItemIndex | ]"
 
 	itemDataBinder := aBrListItemDataBinderOrBlock asStencilBuilder: BrListItemDataBinder
 ]
 
-{ #category : 'scripting - deprecated' }
+{ #category : #'scripting - deprecated' }
 GtPhlowListView >> itemElement: anObject [
 	self 
 		deprecated: 'Please use #itemStencil: instead.'
@@ -127,12 +127,12 @@ GtPhlowListView >> itemElement: anObject [
 	itemStencil := anObject
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 GtPhlowListView >> itemElementStencil [
 	^ itemStencil
 ]
 
-{ #category : 'scripting - deprecated' }
+{ #category : #'scripting - deprecated' }
 GtPhlowListView >> itemFormat: aBlockOrSymbol [
 	self 
 		deprecated: 'Please use #itemText: instead.'
@@ -140,14 +140,14 @@ GtPhlowListView >> itemFormat: aBlockOrSymbol [
 	self itemText: aBlockOrSymbol
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 GtPhlowListView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 	"An item element stencil can be a #value-able of the form [ :anItemType | ]"
 
 	itemStencil := aBrListItemElementStencilBuilderOrBlock asStencilBuilder: BrListItemElementStencilBuilder
 ]
 
-{ #category : 'api - scripting' }
+{ #category : #'api - scripting' }
 GtPhlowListView >> itemText: aBlockOrSymbol [
 	"Display each list item as a text label whose text is computed based on the given text computation as a block or a symbol"
 
@@ -156,7 +156,7 @@ GtPhlowListView >> itemText: aBlockOrSymbol [
 	self itemDataBinder: GtPhlowListTextDataBinder new
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 GtPhlowListView >> itemType: aBrListItemTypeStencilBuilderOrBlock [
 	"An item type stencil can be a #value-able of the form [ :anItemTypeFactory :anItemObject :anItemIndex | ].
 	==anItemTypeFactory== is a ${class:BrListItemType class}$"
@@ -164,24 +164,24 @@ GtPhlowListView >> itemType: aBrListItemTypeStencilBuilderOrBlock [
 	itemTypeStencil := aBrListItemTypeStencilBuilderOrBlock asStencilBuilder: BrListItemTypeStencilBuilder
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 GtPhlowListView >> itemTypeStencil [
 	"Return a stencil that is used to create an item type of a given item object"
 
 	^ itemTypeStencil
 ]
 
-{ #category : 'api - scripting' }
+{ #category : #'api - scripting' }
 GtPhlowListView >> items: aBlock [
 	itemsProviderComputation := aBlock
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 GtPhlowListView >> itemsProviderComputation [
 	^ itemsProviderComputation
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 GtPhlowListView >> itemsProviderOnExceptionErrorElement: aBlock [
 	^ self 
 		performBlock: [ itemsProviderComputation value asBrItemsProvider ]
@@ -189,7 +189,7 @@ GtPhlowListView >> itemsProviderOnExceptionErrorElement: aBlock [
 			aBlock value: anElement ].
 ]
 
-{ #category : 'private - building' }
+{ #category : #'private - building' }
 GtPhlowListView >> newDecoratedItemDataBinder [
 	| anItemDataBinder |
 
@@ -205,7 +205,7 @@ GtPhlowListView >> newDecoratedItemDataBinder [
 	^ anItemDataBinder
 ]
 
-{ #category : 'private - building' }
+{ #category : #'private - building' }
 GtPhlowListView >> newDecoratedItemStencil [
 	| anItemElementStencil |
 
@@ -226,7 +226,7 @@ GtPhlowListView >> newDecoratedItemStencil [
 	^ anItemElementStencil
 ]
 
-{ #category : 'private - building' }
+{ #category : #'private - building' }
 GtPhlowListView >> newDecoratedItemTypeStencil [
 	| anItemTypeStencil |
 
@@ -238,7 +238,7 @@ GtPhlowListView >> newDecoratedItemTypeStencil [
 	^ anItemTypeStencil
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 GtPhlowListView >> stencil: aBrListRowStencilBuilder [
 	"I am a part of the `toy` api. It is inefficient to use me because I always create a new
 	element for each new row which may be expensive. It is much better to split it in two (or three)
@@ -263,7 +263,7 @@ GtPhlowListView >> stencil: aBrListRowStencilBuilder [
 		aRowStencil ]
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 GtPhlowListView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 

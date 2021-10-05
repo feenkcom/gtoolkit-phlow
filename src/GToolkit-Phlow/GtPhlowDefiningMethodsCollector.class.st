@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtPhlowDefiningMethodsCollector',
-	#superclass : 'Object',
+	#name : #GtPhlowDefiningMethodsCollector,
+	#superclass : #Object,
 	#instVars : [
 		'stack',
 		'methods'
@@ -8,7 +8,7 @@ Class {
 	#category : 'GToolkit-Phlow-Collectors'
 }
 
-{ #category : 'actions' }
+{ #category : #actions }
 GtPhlowDefiningMethodsCollector >> collect [
 	| aMethods |
 	aMethods := OrderedCollection new.
@@ -21,25 +21,25 @@ GtPhlowDefiningMethodsCollector >> collect [
 	^ self definingMethodsFrom: aMethods
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 GtPhlowDefiningMethodsCollector >> definingMethodsFrom: aMethods [
 	aMethods size = 1 ifTrue: [ ^ aMethods first ].
 	^ GtPhlowDefiningMethods new methods: aMethods
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowDefiningMethodsCollector >> initialize [
 	super initialize.
 	methods := OrderedCollection new.
 	stack := nil.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowDefiningMethodsCollector >> stack [
 	^ stack
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowDefiningMethodsCollector >> stack: anObject [
 	stack := anObject
 ]

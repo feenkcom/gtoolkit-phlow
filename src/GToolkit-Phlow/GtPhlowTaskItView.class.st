@@ -1,18 +1,18 @@
 Class {
-	#name : 'GtPhlowTaskItView',
-	#superclass : 'GtPhlowProtoView',
+	#name : #GtPhlowTaskItView,
+	#superclass : #GtPhlowProtoView,
 	#instVars : [
 		'originalView'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowTaskItView >> asElementDo: aBlock [
 	| aFutureElement |
 
 	aFutureElement := BrFromFuture new
-		future: [ self originalElementDo: [ :anElement | anElement ] ] asFuture;
+		future: [ self originalElementDo: [ :anElement | anElement ] ] asAsyncFuture;
 		matchParent;
 		stencil: [
 			BlElement new
@@ -47,23 +47,23 @@ GtPhlowTaskItView >> asElementDo: aBlock [
 	^ aBlock value: aFutureElement
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowTaskItView >> asTaskItView [
 	^ self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTaskItView >> buildContext [
 	<return: #GtPhlowBuildContext>
 	^ self originalView buildContext
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTaskItView >> buildContext: aGtPhlowBuildContext [
 	self originalView buildContext: aGtPhlowBuildContext
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTaskItView >> definingMethod [
 	"Get view defining method.
 	It is a method where a view is defined."
@@ -71,38 +71,38 @@ GtPhlowTaskItView >> definingMethod [
 	^ self originalView definingMethod
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTaskItView >> definingMethod: aRGMethodDefinition [
 	"Set view defining method.
 	It is a method where a view is defined."
 	^ self originalView definingMethod: aRGMethodDefinition
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowTaskItView >> ifItHasContent: aBlock [
 	self originalView ifItHasContent: aBlock
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowTaskItView >> initialize [
 	super initialize.
 	self originalView: self empty.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtPhlowTaskItView >> originalElementDo: anAsElementBlock [
 
 	^ self originalView asElementDo: anAsElementBlock.
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTaskItView >> originalView [
 	<return: #GtPhlowView>
 	^ originalView
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTaskItView >> originalView: aView [
 	self 
 		assert: [ aView notNil ]
@@ -110,7 +110,7 @@ GtPhlowTaskItView >> originalView: aView [
 	originalView := aView
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTaskItView >> priority [
 	"Get view priority defining a view order.
 	Lower priority is supposed to be displayed to the left."
@@ -118,28 +118,28 @@ GtPhlowTaskItView >> priority [
 	^ self originalView priority
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTaskItView >> priority: aNumber [
 	"Set view priority defining a view order.
 	Lower priority is supposed to be displayed to the left."
 	^ self originalView priority: aNumber
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTaskItView >> title [
 	"Return view title, a user friendly view name.
 	It is supposed to be a short name"
 	^ self originalView title
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowTaskItView >> title: aString [
 	"Set view title, a user friendly view name.
 	It is supposed to be a short name"
 	^ self originalView title: aString
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 GtPhlowTaskItView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 

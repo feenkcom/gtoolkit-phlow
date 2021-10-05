@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtPhlowObjectWithOverridingViewMethod',
-	#superclass : 'GtPhlowObjectWithOverridenViewMethod',
+	#name : #GtPhlowObjectWithOverridingViewMethod,
+	#superclass : #GtPhlowObjectWithOverridenViewMethod,
 	#category : 'GToolkit-Phlow-Examples - Support'
 }
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 GtPhlowObjectWithOverridingViewMethod >> methodOneFor: aView [
 	<gtView>
 	^ aView list

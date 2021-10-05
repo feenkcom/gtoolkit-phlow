@@ -4,8 +4,8 @@ I offer the Phlow navigation API over the Bloc element tree starting with the sp
 
 "
 Class {
-	#name : 'GtPhlowElementContext',
-	#superclass : 'Object',
+	#name : #GtPhlowElementContext,
+	#superclass : #Object,
 	#instVars : [
 		'entity',
 		'element',
@@ -18,18 +18,18 @@ Class {
 	#category : 'GToolkit-Phlow-Context'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowElementContext class >> on: anElement [
 	^ self new element: anElement
 ]
 
-{ #category : 'api - search' }
+{ #category : #'api - search' }
 GtPhlowElementContext >> allChildrenWithAction [
 	^ self element 
 		allChildrenBreadthFirstSelect: [ :child | child phlow isAction ]
 ]
 
-{ #category : 'api - search' }
+{ #category : #'api - search' }
 GtPhlowElementContext >> allChildrenWithView [
 	<return: #Array of: #BrTab>
 	| aTab |
@@ -38,52 +38,52 @@ GtPhlowElementContext >> allChildrenWithView [
 	^ aTab parent children select: [ :child | child phlow isView ]
 ]
 
-{ #category : 'asserting' }
+{ #category : #asserting }
 GtPhlowElementContext >> assertIncomingView: aGtPhlowView [
 	self
 		assert: [ aGtPhlowView isNotNil ]
 		description: [ 'Phlow view must be non-nil' ]
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 GtPhlowElementContext >> asyncUpdate [
 	BlUseAsyncFeatures
 		ifEnabledDo: [ self postponeUpdate ]
 		otherwise: [ self syncUpdate ]
 ]
 
-{ #category : 'api - initialization' }
+{ #category : #'api - initialization' }
 GtPhlowElementContext >> beAction [
 	isAction := true
 ]
 
-{ #category : 'api - initialization' }
+{ #category : #'api - initialization' }
 GtPhlowElementContext >> beException [
 	isException := true
 ]
 
-{ #category : 'api - initialization' }
+{ #category : #'api - initialization' }
 GtPhlowElementContext >> bePopupContainer [
 	isPopupContainer := true
 ]
 
-{ #category : 'api - initialization' }
+{ #category : #'api - initialization' }
 GtPhlowElementContext >> beView [
 	isView := true
 ]
 
-{ #category : 'api - initialization' }
+{ #category : #'api - initialization' }
 GtPhlowElementContext >> beViewContent [
 	isViewContent := true
 ]
 
-{ #category : 'api - convenience' }
+{ #category : #'api - convenience' }
 GtPhlowElementContext >> buildContext [
 	<return: #GtPhlowBuildContext>
 	^ self entity buildContext
 ]
 
-{ #category : 'api - events' }
+{ #category : #'api - events' }
 GtPhlowElementContext >> composite [
 	self
 		deprecated: 'Please use compositeTool method instead.'
@@ -93,23 +93,23 @@ GtPhlowElementContext >> composite [
 	^ self compositeTool
 ]
 
-{ #category : 'api - events' }
+{ #category : #'api - events' }
 GtPhlowElementContext >> compositeTool [
 	^ GtPhlowCompositeToolBuilder new context: self
 ]
 
-{ #category : 'api - convenience' }
+{ #category : #'api - convenience' }
 GtPhlowElementContext >> definingMethod [
 	<return: #RGMethodDefinition>
 	^ self entity definingMethod
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowElementContext >> element [
 	^ element
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowElementContext >> element: anElement [
 	self 
 		assert: [ anElement isNotNil ] 
@@ -120,12 +120,12 @@ GtPhlowElementContext >> element: anElement [
 	element := anElement
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowElementContext >> entity [
 	^ entity
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtPhlowElementContext >> entity: aGtPhlowView [
 	self assertIncomingView: aGtPhlowView.
 	self
@@ -134,25 +134,25 @@ GtPhlowElementContext >> entity: aGtPhlowView [
 	entity := aGtPhlowView
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 GtPhlowElementContext >> fireUpdateWish [
 	"I fire an update wish to inform a whole tool, e.g., Inspector, that it should update its widgets"
 	self element fireEvent: BrPhlowToolUpdateWish new.
 ]
 
-{ #category : 'api - search' }
+{ #category : #'api - search' }
 GtPhlowElementContext >> firstChildWithAction [
 	^ self element 
 		allChildrenBreadthFirstDetect: [ :child | child phlow isAction ] 
 		ifFound: [ :child | child ]
 ]
 
-{ #category : 'api - search' }
+{ #category : #'api - search' }
 GtPhlowElementContext >> firstChildWithCompositeView [
 	^ self firstChildWithCompositeViewDo: [ :child | child ]
 ]
 
-{ #category : 'api - search' }
+{ #category : #'api - search' }
 GtPhlowElementContext >> firstChildWithCompositeViewDo: aBlock [
 	^ self element 
 		allChildrenBreadthFirstDetect: [ :child | 
@@ -160,14 +160,14 @@ GtPhlowElementContext >> firstChildWithCompositeViewDo: aBlock [
 		ifFound: aBlock
 ]
 
-{ #category : 'api - search' }
+{ #category : #'api - search' }
 GtPhlowElementContext >> firstChildWithView [
 	^ self element 
 		allChildrenBreadthFirstDetect: [ :child | child phlow isView ] 
 		ifFound: [ :child | child ]
 ]
 
-{ #category : 'api - search' }
+{ #category : #'api - search' }
 GtPhlowElementContext >> firstParentWithView [
 	^ self element 
 		allParentsDetect: [ :parent | parent phlow isView ] 
@@ -175,7 +175,7 @@ GtPhlowElementContext >> firstParentWithView [
 		ifNone: [ "nothing" ]
 ]
 
-{ #category : 'api - search' }
+{ #category : #'api - search' }
 GtPhlowElementContext >> firstPopupContainerParentDo: aBlock ifNone: aNoneBlock [
 	self element withAllParentsDo: [ :aParentElement |
 			aParentElement phlow isPopupContainer ifTrue: [ ^ aBlock value: aParentElement ] ].
@@ -183,12 +183,12 @@ GtPhlowElementContext >> firstPopupContainerParentDo: aBlock ifNone: aNoneBlock 
 	^ aNoneBlock value
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 GtPhlowElementContext >> hasBuildContext [
 	^ self entity hasBuildContext
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowElementContext >> initialize [
 	super initialize.
 	
@@ -199,38 +199,38 @@ GtPhlowElementContext >> initialize [
 	isException := false.
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 GtPhlowElementContext >> isAction [
 	^ isAction
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 GtPhlowElementContext >> isException [
 	^ isException
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 GtPhlowElementContext >> isPopupContainer [
 	^ isPopupContainer
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 GtPhlowElementContext >> isView [
 	^ isView
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 GtPhlowElementContext >> isViewContent [
 	^ isViewContent
 ]
 
-{ #category : 'api - convenience' }
+{ #category : #'api - convenience' }
 GtPhlowElementContext >> methodSelector [
 	<return: #Symbol>
 	^ self entity methodSelector
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 GtPhlowElementContext >> postponeUpdate [
 	"self entity updateContent: self element."
 	| aCommand |
@@ -241,7 +241,7 @@ GtPhlowElementContext >> postponeUpdate [
 	BlTaskAtQueue default schedule: aCommand
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 GtPhlowElementContext >> replaceEntity: aNewPhlow [
 	self assertIncomingView: aNewPhlow.
 	self 
@@ -250,44 +250,44 @@ GtPhlowElementContext >> replaceEntity: aNewPhlow [
 	entity := aNewPhlow.
 ]
 
-{ #category : 'api - events' }
+{ #category : #'api - events' }
 GtPhlowElementContext >> selectObject: anObject [
 	self selectTool: (GtPhlowTool default object: anObject)
 ]
 
-{ #category : 'api - events' }
+{ #category : #'api - events' }
 GtPhlowElementContext >> selectTool: aTool [
 	self element fireEvent: (GtPhlowObjectToSelect new
 		tool: aTool;
 		sourceElement: self element) 
 ]
 
-{ #category : 'api - events' }
+{ #category : #'api - events' }
 GtPhlowElementContext >> spawnDefiningMethod [
 	self entity definingMethod ifNotNil: [ :aMethod | 
 		self spawnObject: aMethod ]
 ]
 
-{ #category : 'api - events' }
+{ #category : #'api - events' }
 GtPhlowElementContext >> spawnObject: anObject [
 	self spawnTool: (GtPhlowTool default object: anObject)
 ]
 
-{ #category : 'api - events' }
+{ #category : #'api - events' }
 GtPhlowElementContext >> spawnObject: anObject withDestination: aPhlowDestination [
 	self 
 		spawnTool: (GtPhlowTool default object: anObject)
 		withDestination: aPhlowDestination
 ]
 
-{ #category : 'api - events' }
+{ #category : #'api - events' }
 GtPhlowElementContext >> spawnTool: aTool [
 	self 
 		spawnTool: aTool 
 		withDestination: GtPhlowSpawnDesiredDestination defaultDestination
 ]
 
-{ #category : 'api - events' }
+{ #category : #'api - events' }
 GtPhlowElementContext >> spawnTool: aTool withDestination: aPhlowDestination [
 	self element fireEvent: (GtPhlowObjectToSpawn new
 		tool: aTool;
@@ -295,12 +295,12 @@ GtPhlowElementContext >> spawnTool: aTool withDestination: aPhlowDestination [
 		sourceElement: self element)
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 GtPhlowElementContext >> syncUpdate [
 	self entity updateContent: self element.
 ]
 
-{ #category : 'api - search' }
+{ #category : #'api - search' }
 GtPhlowElementContext >> textViewContent [
 	self assert: [ self isAction ].
 	^ self viewContent
@@ -308,18 +308,18 @@ GtPhlowElementContext >> textViewContent [
 		ifFound: [:editorElement | editorElement editor text ]
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 GtPhlowElementContext >> update [
 	self asyncUpdate
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 GtPhlowElementContext >> updateCommand [
 	^ [ self syncUpdate ] asBlTktTerminableCommand 
 		asBlTktSingleCommand identifier: self
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 GtPhlowElementContext >> updateEntity: aNewPhlow [
 	self assertIncomingView: aNewPhlow.
 	self entity 
@@ -327,7 +327,7 @@ GtPhlowElementContext >> updateEntity: aNewPhlow [
 		ifNotNil: [ self replaceEntity: aNewPhlow ].
 ]
 
-{ #category : 'api - search' }
+{ #category : #'api - search' }
 GtPhlowElementContext >> viewContent [
 	self assert: [ self isAction ].
 	^ self firstParentWithView phlow firstChildWithView parentTabGroup content

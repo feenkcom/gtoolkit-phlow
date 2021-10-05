@@ -18,8 +18,8 @@ You can define me as follow: {{gtMethod:GtPhlowForwarderViewExamples>>#gtBasicFo
 
 "
 Class {
-	#name : 'GtPhlowForwarderView',
-	#superclass : 'GtPhlowViewDecorator',
+	#name : #GtPhlowForwarderView,
+	#superclass : #GtPhlowViewDecorator,
 	#traits : 'TGtPhlowSendTransformable',
 	#classTraits : 'TGtPhlowSendTransformable classTrait',
 	#instVars : [
@@ -32,12 +32,12 @@ Class {
 	#category : 'GToolkit-Phlow-! Views'
 }
 
-{ #category : 'private' }
+{ #category : #private }
 GtPhlowForwarderView >> addForwardedActions [
 	self addPhlowActions: self phlowView allActions.
 ]
 
-{ #category : 'accessing - computed' }
+{ #category : #'accessing - computed' }
 GtPhlowForwarderView >> allActions [
 	"I return all actions that belong to a view.
 	It may include actions of a other views in some cases"
@@ -48,14 +48,14 @@ GtPhlowForwarderView >> allActions [
 	^ self actions
 ]
 
-{ #category : 'accessing - computed' }
+{ #category : #'accessing - computed' }
 GtPhlowForwarderView >> allDefiningMethods [
 	^ GtPhlowDefiningMethods new 
 		 methods: (Array streamContents: [ :aStream | 
 			self originMethodsInto: aStream ])
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GtPhlowForwarderView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 	^ self phlowView asElementDo: [ :anElement |
@@ -67,12 +67,12 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 				asElementDo: [ :anErrorElement | anErrorElement ] ] ]
 ]
 
-{ #category : 'private - elements' }
+{ #category : #'private - elements' }
 GtPhlowForwarderView >> assignMeAsEntityFor: anElement [
 	anElement phlow replaceEntity: self.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtPhlowForwarderView >> createPhlowView [
 	<return: #GtPhlowView>
 	| aView |
@@ -82,53 +82,53 @@ GtPhlowForwarderView >> createPhlowView [
 	^ aView
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowForwarderView >> defaultTitle [
 	^ 'Forwarded'
 ]
 
-{ #category : 'accessing - computed' }
+{ #category : #'accessing - computed' }
 GtPhlowForwarderView >> forwardedActions [
 	<return: #OrderedCollection of: #GtPhlowAction>
 	^ self phlowView actions
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowForwarderView >> initialize [
 	super initialize.
 	alreadyIncludesForwardedActions := false.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowForwarderView >> object [
 	^ object
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowForwarderView >> object: anObject [
 	object := anObject
 ]
 
-{ #category : 'accessing - computed' }
+{ #category : #'accessing - computed' }
 GtPhlowForwarderView >> originMethodsInto: aStream [
 	super originMethodsInto: aStream.
 	self phlowView originMethodsInto: aStream
 ]
 
-{ #category : 'accessing - computed' }
+{ #category : #'accessing - computed' }
 GtPhlowForwarderView >> phlowView [
 	<return: #GtPhlowView>
 	^ phlowView ifNil: [ phlowView := self createPhlowView ]
 ]
 
-{ #category : 'private - elements' }
+{ #category : #'private - elements' }
 GtPhlowForwarderView >> resubscribeFrom: aCurrentElement to: aNewChild [
 	aNewChild = aCurrentElement ifTrue: [ ^ self ].
 	aNewChild isAttachedToSceneGraph ifFalse: [ ^ self ].
 	self subscribeAutoUpdatesOn: aNewChild phlow
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtPhlowForwarderView >> secureObjectExecution [
 	^ [ self object value ]
 		on: Error do: [ :anException | 
@@ -136,7 +136,7 @@ GtPhlowForwarderView >> secureObjectExecution [
 			anException ]
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 GtPhlowForwarderView >> updateContent: aCurrentElement [
 	| aParent anIndex aNewChild |
 	aParent := aCurrentElement parent.
@@ -151,22 +151,22 @@ GtPhlowForwarderView >> updateContent: aCurrentElement [
 		in: aParent
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowForwarderView >> view: anObject [
 	view := anObject
 ]
 
-{ #category : 'accessing - computed' }
+{ #category : #'accessing - computed' }
 GtPhlowForwarderView >> viewObject [
 	^ viewObject ifNil: [ viewObject := self secureObjectExecution ]
 ]
 
-{ #category : 'accessing - computed' }
+{ #category : #'accessing - computed' }
 GtPhlowForwarderView >> viewSymbol [
 	^ view ifNil: [ #gtLiveFor: ]
 ]
 
-{ #category : 'api - accessing composite view' }
+{ #category : #'api - accessing composite view' }
 GtPhlowForwarderView >> views [
 	<return: #Array of: #GtPhlowView>
 	^ self phlowView views

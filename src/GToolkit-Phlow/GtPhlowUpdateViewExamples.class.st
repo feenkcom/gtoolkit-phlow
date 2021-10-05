@@ -4,12 +4,12 @@ I exemplify {{gtClass:GtPhlowUpdateView}}.
 
 "
 Class {
-	#name : 'GtPhlowUpdateViewExamples',
-	#superclass : 'GtPhlowUpdateCommandExamples',
+	#name : #GtPhlowUpdateViewExamples,
+	#superclass : #GtPhlowUpdateCommandExamples,
 	#category : 'GToolkit-Phlow-Examples'
 }
 
-{ #category : 'examples - commands' }
+{ #category : #'examples - commands' }
 GtPhlowUpdateViewExamples >> basicCommand [
 	<gtExample>
 	| aCommand anElement |
@@ -20,7 +20,7 @@ GtPhlowUpdateViewExamples >> basicCommand [
 	^ aCommand
 ]
 
-{ #category : 'examples - comparison' }
+{ #category : #'examples - comparison' }
 GtPhlowUpdateViewExamples >> differentEntryIdentifiers [
 	<gtExample>
 	| aCommandOne aCommandTwo |
@@ -30,7 +30,7 @@ GtPhlowUpdateViewExamples >> differentEntryIdentifiers [
 	^ aCommandOne
 ]
 
-{ #category : 'examples - commands' }
+{ #category : #'examples - commands' }
 GtPhlowUpdateViewExamples >> emptyCommand [
 	<gtExample>
 	| aCommand |
@@ -39,7 +39,7 @@ GtPhlowUpdateViewExamples >> emptyCommand [
 	^ aCommand
 ]
 
-{ #category : 'examples - comparison' }
+{ #category : #'examples - comparison' }
 GtPhlowUpdateViewExamples >> sameEntryIdentifiers [
 	<gtExample>
 	| aCommandOne aCommandTwo |

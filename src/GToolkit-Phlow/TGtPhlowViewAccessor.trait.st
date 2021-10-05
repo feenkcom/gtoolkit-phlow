@@ -1,28 +1,28 @@
 Trait {
-	#name : 'TGtPhlowViewAccessor',
+	#name : #TGtPhlowViewAccessor,
 	#instVars : [
 		'view'
 	],
 	#category : 'GToolkit-Phlow-Utilities'
 }
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 TGtPhlowViewAccessor >> defaultPhlowView [
 	^ GtPhlowView empty 
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 TGtPhlowViewAccessor >> initializePhlowView [
 	view := self defaultPhlowView
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TGtPhlowViewAccessor >> view [
 	<return: #GtPhlowView>
 	^ view
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TGtPhlowViewAccessor >> view: aGtPhlowView [
 	self 
 		assert: [ aGtPhlowView isNotNil ]

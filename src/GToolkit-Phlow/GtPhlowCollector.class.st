@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtPhlowCollector',
-	#superclass : 'Object',
+	#name : #GtPhlowCollector,
+	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
 	#instVars : [
@@ -12,19 +12,19 @@ Class {
 	#category : 'GToolkit-Phlow-Collectors'
 }
 
-{ #category : 'sorting' }
+{ #category : #sorting }
 GtPhlowCollector class >> sortByPriority: aCollection [
 	GtPhlowUtility sortByPriority: aCollection
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 GtPhlowCollector >> collect [
 	"Collect objects according to given configuration"
 	<return: #Array>
 	^ self subclassResponsibility
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtPhlowCollector >> collectAllPragmas [
 	"I collect all pragmas, including overriden methods."
 	<return: #Collection of: #Pragma>
@@ -37,7 +37,7 @@ GtPhlowCollector >> collectAllPragmas [
 		as: OrderedCollection.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtPhlowCollector >> collectPragmas [
 	"I exclude overriden methods"
 	<return: #Collection of: #Pragma>
@@ -51,19 +51,19 @@ GtPhlowCollector >> collectPragmas [
 	^ allPragmas
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowCollector >> defaultPragmaNames [
 	"Subclasses may define their own default pragma names"
 	^ #()
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowCollector >> from [
 	<return: #Class>
 	^ from
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowCollector >> from: aClass [
 	self 
 		assert: [ aClass notNil ]
@@ -71,26 +71,26 @@ GtPhlowCollector >> from: aClass [
 	from := aClass
 ]
 
-{ #category : 'convenient' }
+{ #category : #convenient }
 GtPhlowCollector >> fromObject: anObject [
 	self object: anObject.
 	self from: anObject class.
 	self to: ProtoObject
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowCollector >> initialize [
 	super initialize.
 	self initializePragmaNames.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowCollector >> initializePragmaNames [
 	"Subclasses may define their own default pragma names"
 	pragmaNames := self defaultPragmaNames
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtPhlowCollector >> initializeSearchRange [
 	"Define which object and what classes in an hierarchy to consider while searching pragmas"
 	object := nil.
@@ -98,7 +98,7 @@ GtPhlowCollector >> initializeSearchRange [
 	to := ProtoObject
 ]
 
-{ #category : 'convenient' }
+{ #category : #convenient }
 GtPhlowCollector >> justBelowTheObject [
 	| theSuperClasses anIndex |
 	theSuperClasses := self from allSuperclasses.
@@ -107,18 +107,18 @@ GtPhlowCollector >> justBelowTheObject [
 	self to: (theSuperClasses at: anIndex - 1)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowCollector >> object [
 	<return: #Object>
 	^ object
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowCollector >> object: anObject [
 	object := anObject.
 ]
 
-{ #category : 'convenient' }
+{ #category : #convenient }
 GtPhlowCollector >> pragmaName: aSymbol [
 	self 
 		assert: [ aSymbol notNil ]
@@ -126,13 +126,13 @@ GtPhlowCollector >> pragmaName: aSymbol [
 	self pragmaNames: (Array with: aSymbol)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowCollector >> pragmaNames [
 	<return: #Collection of: #Symbol>
 	^ pragmaNames
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowCollector >> pragmaNames: aCollectionOfSymbols [
 	self 
 		assert: [ aCollectionOfSymbols notNil ]
@@ -140,7 +140,7 @@ GtPhlowCollector >> pragmaNames: aCollectionOfSymbols [
 	pragmaNames := aCollectionOfSymbols
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtPhlowCollector >> removeOverridenPragmas: pragmasWithSameSelector from: allPragmas [
 	| overridenPragmas |
 	overridenPragmas := pragmasWithSameSelector select: [ :aPragma | 
@@ -154,18 +154,18 @@ GtPhlowCollector >> removeOverridenPragmas: pragmasWithSameSelector from: allPra
 		allPragmas remove: eachOverridenPragma ].
 ]
 
-{ #category : 'sorting' }
+{ #category : #sorting }
 GtPhlowCollector >> sortByPriority: aCollection [
 	self class sortByPriority: aCollection
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowCollector >> to [
 	<return: #Class>
 	^ to
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowCollector >> to: aClass [
 	self 
 		assert: [ aClass notNil ]

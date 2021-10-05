@@ -24,27 +24,27 @@ If a new view is in instance of {{gtClass:GtPhlowEmptyView}}, the tab is removed
 
 "
 Class {
-	#name : 'GtPhlowUpdateCompositeSubViewTitleAndPosition',
-	#superclass : 'GtPhlowUpdateCommand',
+	#name : #GtPhlowUpdateCompositeSubViewTitleAndPosition,
+	#superclass : #GtPhlowUpdateCommand,
 	#instVars : [
 		'subView'
 	],
 	#category : 'GToolkit-Phlow-Updating'
 }
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> = anObject [
 	^ super = anObject and: [ 
 		self subViewDefiningMethod = anObject subViewDefiningMethod ]
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> basicRemoveTabModel: aTabModel [
 	self element viewModel removeTab: aTabModel.
 	self view views remove: self subView ifAbsent: [ "ignore" ].
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> basicUpdateTabModel: aTabModel with: aNewSubView [
 	| aNewIndex aCurrentIndex |
 	self view views remove: self subView ifAbsent: [ ].
@@ -59,7 +59,7 @@ GtPhlowUpdateCompositeSubViewTitleAndPosition >> basicUpdateTabModel: aTabModel 
 	self view views add: aNewSubView beforeIndex: aNewIndex.
 ]
 
-{ #category : 'accessing - ui' }
+{ #category : #'accessing - ui' }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> detectTab [
 	^ self element viewModel tabs 
 		detect: [ :eachTabModel | (eachTabModel widget phlow entity = self subView)
@@ -68,7 +68,7 @@ GtPhlowUpdateCompositeSubViewTitleAndPosition >> detectTab [
 		ifNone: [ nil "Trying to find a tab that does not exist" ].
 ]
 
-{ #category : 'evaluating' }
+{ #category : #evaluating }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> execute [
 	<return: #GtPhlowView>
 	| aTabModel aNewSubView |
@@ -82,12 +82,12 @@ GtPhlowUpdateCompositeSubViewTitleAndPosition >> execute [
 	^ aNewSubView
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> hash [
 	^ super hash bitXor: self subView hash
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> newPhlowSubView [
 	^ GtPhlowView empty
 		on: self subViewObject
@@ -95,48 +95,48 @@ GtPhlowUpdateCompositeSubViewTitleAndPosition >> newPhlowSubView [
 		withSomeArguments: self subViewArguments
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> removeTabModel: aTabModel [
 	self scheduleValuable: [
 		self basicRemoveTabModel: aTabModel ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> subView [
 	^ subView
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> subView: anObject [
 	subView := anObject
 ]
 
-{ #category : 'accessing - convenience' }
+{ #category : #'accessing - convenience' }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> subViewArguments [
 	^ self subViewBuildContext arguments
 ]
 
-{ #category : 'accessing - convenience' }
+{ #category : #'accessing - convenience' }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> subViewBuildContext [
 	^ self subView buildContext
 ]
 
-{ #category : 'accessing - convenience' }
+{ #category : #'accessing - convenience' }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> subViewDefiningMethod [
 	^ self subView definingMethod
 ]
 
-{ #category : 'accessing - convenience' }
+{ #category : #'accessing - convenience' }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> subViewMethodSelector [
 	^ self subView methodSelector
 ]
 
-{ #category : 'accessing - convenience' }
+{ #category : #'accessing - convenience' }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> subViewObject [
 	^ self subViewBuildContext object
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 GtPhlowUpdateCompositeSubViewTitleAndPosition >> updateTabModel: aTabModel with: aNewSubView [
 	self scheduleValuable: [ self basicUpdateTabModel: aTabModel with: aNewSubView ]
 ]

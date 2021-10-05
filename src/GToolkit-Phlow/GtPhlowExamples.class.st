@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtPhlowExamples',
-	#superclass : 'Object',
+	#name : #GtPhlowExamples,
+	#superclass : #Object,
 	#category : 'GToolkit-Phlow-Examples'
 }
 
-{ #category : 'public' }
+{ #category : #public }
 GtPhlowExamples >> simple [
 	<gtExample>
 	| pane1 picker root pane2 |

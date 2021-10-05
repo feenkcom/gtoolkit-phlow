@@ -1,13 +1,13 @@
 Class {
-	#name : 'GtPhlowColumnErrorHandlingDataBinder',
-	#superclass : 'BrColumnCellDataBinder',
+	#name : #GtPhlowColumnErrorHandlingDataBinder,
+	#superclass : #BrColumnCellDataBinder,
 	#instVars : [
 		'dataBinder'
 	],
 	#category : 'GToolkit-Phlow-Support - List columned'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowColumnErrorHandlingDataBinder >> buildDefault [	
 	[
 		dataBinder
@@ -32,7 +32,7 @@ GtPhlowColumnErrorHandlingDataBinder >> buildDefault [
 	^ cellElement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowColumnErrorHandlingDataBinder >> dataBinder: aBrColumnCellDataBinder [
 	dataBinder := aBrColumnCellDataBinder asStencilBuilder: BrColumnCellDataBinder
 ]

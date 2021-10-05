@@ -1,6 +1,6 @@
-Extension { #name : 'BrSelectionChanged' }
+Extension { #name : #BrSelectionChanged }
 
-{ #category : '*GToolkit-Phlow' }
+{ #category : #'*GToolkit-Phlow' }
 BrSelectionChanged >> acceptPhlowHandler: aHandler [
 	^ aHandler selectionChangedEvent: self
 ]

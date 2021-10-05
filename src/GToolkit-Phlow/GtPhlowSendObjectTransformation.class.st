@@ -6,18 +6,18 @@ See {{gtClass:TGtPhlowSendTransformable}} for more details and examples.
 
 "
 Class {
-	#name : 'GtPhlowSendObjectTransformation',
-	#superclass : 'GtPhlowSendValuableTransformation',
+	#name : #GtPhlowSendObjectTransformation,
+	#superclass : #GtPhlowSendValuableTransformation,
 	#category : 'GToolkit-Phlow-Support - Transformation'
 }
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 GtPhlowSendObjectTransformation >> defaultValuable [
 	"There is not trransformation by default"
 	^ [ :anObject | anObject ]
 ]
 
-{ #category : 'api - events' }
+{ #category : #'api - events' }
 GtPhlowSendObjectTransformation >> select: aSelectedObject indices: aSelectionIndices from: anElement [
 	| aTransformedValue |
 	aTransformedValue := self transformedValueFrom: aSelectedObject selection: aSelectionIndices.
@@ -25,7 +25,7 @@ GtPhlowSendObjectTransformation >> select: aSelectedObject indices: aSelectionIn
 	anElement fireEvent: (GLMBlocObjectToSelect new toSelect: aTransformedValue)
 ]
 
-{ #category : 'api - events' }
+{ #category : #'api - events' }
 GtPhlowSendObjectTransformation >> spawn: aSelectedObject indices: aSelectionIndices from: anElement [
 	| aTransformedValue |
 	aTransformedValue := self transformedValueFrom: aSelectedObject selection: aSelectionIndices.

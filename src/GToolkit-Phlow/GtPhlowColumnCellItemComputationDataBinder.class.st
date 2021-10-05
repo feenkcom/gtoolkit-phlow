@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtPhlowColumnCellItemComputationDataBinder',
-	#superclass : 'BrColumnCellDataBinder',
+	#name : #GtPhlowColumnCellItemComputationDataBinder,
+	#superclass : #BrColumnCellDataBinder,
 	#instVars : [
 		'dataBinder',
 		'itemComputation'
@@ -8,7 +8,7 @@ Class {
 	#category : 'GToolkit-Phlow-Support - List columned'
 }
 
-{ #category : 'api - instantiation' }
+{ #category : #'api - instantiation' }
 GtPhlowColumnCellItemComputationDataBinder >> buildDefault [
 	| aValue |
 	
@@ -24,13 +24,13 @@ GtPhlowColumnCellItemComputationDataBinder >> buildDefault [
 		build
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowColumnCellItemComputationDataBinder >> dataBinder: anObject [
 
 	dataBinder := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtPhlowColumnCellItemComputationDataBinder >> itemComputation: anObject [
 
 	itemComputation := anObject
