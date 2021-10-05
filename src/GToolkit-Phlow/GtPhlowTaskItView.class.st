@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'originalView'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #converting }
@@ -12,7 +12,7 @@ GtPhlowTaskItView >> asElementDo: aBlock [
 	| aFutureElement |
 
 	aFutureElement := BrFromFuture new
-		future: [ self originalElementDo: [ :anElement | anElement ] ] asFuture;
+		future: [ self originalElementDo: [ :anElement | anElement ] ] asAsyncFuture;
 		matchParent;
 		stencil: [
 			BlElement new
