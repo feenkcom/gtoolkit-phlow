@@ -15,7 +15,7 @@ Class {
 		'isPopupContainer',
 		'isException'
 	],
-	#category : 'GToolkit-Phlow-Context'
+	#category : #'GToolkit-Phlow-Context'
 }
 
 { #category : #'instance creation' }
@@ -270,13 +270,13 @@ GtPhlowElementContext >> spawnDefiningMethod [
 
 { #category : #'api - events' }
 GtPhlowElementContext >> spawnObject: anObject [
-	self spawnTool: (GtPhlowTool default object: anObject)
+	self spawnTool: anObject gtDefaultInspectorTool
 ]
 
 { #category : #'api - events' }
 GtPhlowElementContext >> spawnObject: anObject withDestination: aPhlowDestination [
 	self 
-		spawnTool: (GtPhlowTool default object: anObject)
+		spawnTool: anObject gtDefaultInspectorTool
 		withDestination: aPhlowDestination
 ]
 
