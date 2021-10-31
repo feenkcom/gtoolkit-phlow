@@ -8,7 +8,7 @@ Class {
 	#superclass : #GtPhlowViewExamples,
 	#traits : 'TGtPhlowSendTransformationExamples',
 	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
-	#category : 'GToolkit-Phlow-Examples - Views'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #'examples - auto updates' }
@@ -524,7 +524,7 @@ GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconFor: aView [
 					padding: (BlInsets all: 6);
 					margin: (BlInsets top: 3 left: 0 bottom: 3 right: 0);
 					background: aColor;
-					geometry: BlCircle new;
+					geometry: BlCircleGeometry new;
 					layout: BlLinearLayout horizontal alignCenter;
 					constraintsDo: [ :c |
 						c horizontal fitContent.
@@ -545,7 +545,7 @@ GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconWidthFor: aView [
 					padding: (BlInsets all: 6);
 					margin: (BlInsets top: 3 left: 0 bottom: 3 right: 0);
 					background: aColor;
-					geometry: BlCircle new;
+					geometry: BlCircleGeometry new;
 					layout: BlLinearLayout horizontal alignCenter;
 					constraintsDo: [ :c |
 						c horizontal fitContent.
@@ -568,7 +568,7 @@ GtPhlowColumnedListViewExamples >> gtColorsWithColumnItemIconWidthFor: aView [
 					padding: (BlInsets all: 6);
 					margin: (BlInsets top: 3 left: 0 bottom: 3 right: 0);
 					background: aColor;
-					geometry: BlCircle new;
+					geometry: BlCircleGeometry new;
 					layout: BlLinearLayout horizontal alignCenter;
 					constraintsDo: [ :c |
 						c horizontal fitContent.
@@ -633,7 +633,7 @@ GtPhlowColumnedListViewExamples >> gtErrorInColumnIcon: aView [
 					padding: (BlInsets all: 6);
 					margin: (BlInsets top: 3 left: 0 bottom: 3 right: 0);
 					background: aColor;
-					geometry: BlCircle new;
+					geometry: BlCircleGeometry new;
 					layout: BlLinearLayout horizontal alignCenter;
 					constraintsDo: [ :c |
 						c horizontal fitContent.
