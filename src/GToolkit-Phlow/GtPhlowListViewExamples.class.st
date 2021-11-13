@@ -8,7 +8,7 @@ Class {
 	#superclass : #GtPhlowViewExamples,
 	#traits : 'TGtPhlowSendTransformationExamples',
 	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
-	#category : 'GToolkit-Phlow-Examples - Views'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #'examples - auto updates' }
@@ -368,7 +368,7 @@ GtPhlowListViewExamples >> gtTenLinesFor: aView [
 					c margin: (BlInsets all: 10) ]
 				 ];
 		itemDataBinder: [ :anElement :aNumber :anIndex |
-			anElement height: aNumber ]
+			anElement height: aNumber * 5 ]
 ]
 
 { #category : #'gt-extension' }

@@ -5,17 +5,11 @@ I am also useful in situtions, when the object is created only for the purpose o
 
 I create the object only if someone clicks on my tab (view).
 
-1. # Important
-
-
+#Important
 {{gtMethod:GtPhlowView>>#title}} and {{gtMethod:GtPhlowView>>#priority}} are not taken from the original view. If that were the case, the advantage of the solution would be lost since the title and priority are necessary to build the view tab using the title and priority.
 
-1. # Example
-
-
+#Example
 You can define me as follow: {{gtMethod:GtPhlowForwarderViewExamples>>#gtBasicFor:|expanded=true}}
-
-
 "
 Class {
 	#name : #GtPhlowForwarderView,
@@ -26,15 +20,34 @@ Class {
 		'view',
 		'phlowView',
 		'viewObject',
-		'alreadyIncludesForwardedActions',
 		'object'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
-{ #category : #private }
-GtPhlowForwarderView >> addForwardedActions [
-	self addPhlowActions: self phlowView allActions.
+{ #category : #accessing }
+GtPhlowForwarderView class >> contentId [
+	^ #'phlow--forwarder-content' asBlocElementId
+]
+
+{ #category : #'adding - actions' }
+GtPhlowForwarderView >> actionsToolbarForElement: anElement [
+
+	^ BrFromPromise new
+		fitContent;
+		promise: self allActionsPromise;
+		stencil: [ BrToolbar new aptitude: BrGlamorousToolbarAptitude ];
+		dataBinder: [ :aToolbar :aData | 
+			aToolbar removeAllItems.
+			aData
+				ifSuccess: [ :theActions | 
+					theActions do: [ :phlowAction | 
+						phlowAction
+							asElement: [ :actionElement | aToolbar addItem: actionElement ]
+							withHostElement: anElement ] ]
+				ifError: [ :anError | 
+					aToolbar addItem: (BrDebugglableElementStencil new freeze: anError) createDebugButton ]
+				ifPending: [  ] ]
 ]
 
 { #category : #'accessing - computed' }
@@ -42,10 +55,16 @@ GtPhlowForwarderView >> allActions [
 	"I return all actions that belong to a view.
 	It may include actions of a other views in some cases"
 	<return: #OrderedCollection>
-	alreadyIncludesForwardedActions ifFalse: [ 
-		self addForwardedActions.
-		alreadyIncludesForwardedActions := true ].
-	^ self actions
+
+	^ self allActionsPromise wait
+]
+
+{ #category : #'accessing - computed' }
+GtPhlowForwarderView >> allActionsPromise [
+	"I return all actions that belong to a view.
+	It may include actions of a other views in some cases"
+
+	^ self phlowView then: [ :aPhlowView | aPhlowView allActions, self actions ]
 ]
 
 { #category : #'accessing - computed' }
@@ -58,28 +77,56 @@ GtPhlowForwarderView >> allDefiningMethods [
 { #category : #converting }
 GtPhlowForwarderView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
-	^ self phlowView asElementDo: [ :anElement |
-		[ 
-			self beViewElement: anElement.
-			aBlock value: anElement.
-		] on: Error do: [ :anException | 
-			(self phlowErrorViewWithException: anException)
-				asElementDo: [ :anErrorElement | anErrorElement ] ] ]
-]
+	| aPromiseElement |
+	
+	aPromiseElement := BrFromPromise new.
+	aPromiseElement phlow entity: self.
 
-{ #category : #'private - elements' }
-GtPhlowForwarderView >> assignMeAsEntityFor: anElement [
-	anElement phlow replaceEntity: self.
+	aPromiseElement
+		matchParent;
+		promise: self phlowView;
+		stencil: [ BlElement new constraintsDo: [ :c | c horizontal matchParent . c vertical matchParent ] ];
+		dataBinder: [ :aContainer :aData |
+			aContainer removeChildren.
+			aData
+				ifSuccess: [ :aPhlowView |
+					aPhlowView asElementDo: [ :anElement |
+						[ aContainer addChild: anElement as: self class contentId ]
+							on: Error
+							do: [ :anException |
+								(self phlowErrorViewWithException: anException)
+									asElementDo: [ :anErrorElement | aContainer addChild: anErrorElement ] ] ] ]
+				ifError: [ :anError | (self phlowErrorViewWithException: anError) asElementDo: [ :anErrorElement | aContainer addChild: anErrorElement as: self class contentId ] ]
+				ifPending: [
+					| aPendingLabel |
+					
+					aPendingLabel := BrLabel new
+						aptitude: (BrGlamorousLabelAptitude new italic foreground: BrGlamorousColors disabledHeaderTextColor);
+						constraintsDo: [ :c | 
+							c ignoreByLayout.
+							c ignored horizontal alignCenter.
+							c ignored vertical alignCenter ];
+						text: ''.
+
+					aPendingLabel enqueueTask: (BlDelayedTaskAction new
+						delay: 1 second;
+						action: [ aPendingLabel text: 'Rendering...' ]). 
+
+					aContainer addChild: aPendingLabel ] ].
+
+	^ aBlock value: aPromiseElement
 ]
 
 { #category : #private }
 GtPhlowForwarderView >> createPhlowView [
-	<return: #GtPhlowView>
-	| aView |
-	aView := self on: self viewObject perform: self viewSymbol.
-	self hasTransformation ifTrue: [ 
-		aView copyTransformationFrom: self transformation ].
-	^ aView
+	<return: #TAsyncPromise of: #GtPhlowView>
+
+	^ self viewObject then: [ :anActualObject |
+		| aView |
+		aView := self on: anActualObject perform: self viewSymbol.
+		self hasTransformation ifTrue: [ 
+			aView copyTransformationFrom: self transformation ].
+		aView ]
 ]
 
 { #category : #initialization }
@@ -87,16 +134,11 @@ GtPhlowForwarderView >> defaultTitle [
 	^ 'Forwarded'
 ]
 
-{ #category : #'accessing - computed' }
-GtPhlowForwarderView >> forwardedActions [
-	<return: #OrderedCollection of: #GtPhlowAction>
-	^ self phlowView actions
-]
-
 { #category : #initialization }
 GtPhlowForwarderView >> initialize [
 	super initialize.
-	alreadyIncludesForwardedActions := false.
+
+	asyncEnabled := false
 ]
 
 { #category : #accessing }
@@ -112,12 +154,13 @@ GtPhlowForwarderView >> object: anObject [
 { #category : #'accessing - computed' }
 GtPhlowForwarderView >> originMethodsInto: aStream [
 	super originMethodsInto: aStream.
-	self phlowView originMethodsInto: aStream
+	self phlowView wait originMethodsInto: aStream
 ]
 
 { #category : #'accessing - computed' }
 GtPhlowForwarderView >> phlowView [
-	<return: #GtPhlowView>
+	<return: #TAsyncPromise of: #GtPhlowView>
+
 	^ phlowView ifNil: [ phlowView := self createPhlowView ]
 ]
 
@@ -130,25 +173,17 @@ GtPhlowForwarderView >> resubscribeFrom: aCurrentElement to: aNewChild [
 
 { #category : #private }
 GtPhlowForwarderView >> secureObjectExecution [
-	^ [ self object value ]
+	<return: #TAsyncPromise>
+
+	^ [ self object value asAsyncPromise ]
 		on: Error do: [ :anException | 
-			phlowView := self phlowErrorViewWithException: anException.
-			anException ]
+			phlowView := (self phlowErrorViewWithException: anException) asAsyncPromise.
+			anException asAsyncPromise ]
 ]
 
 { #category : #updating }
 GtPhlowForwarderView >> updateContent: aCurrentElement [
-	| aParent anIndex aNewChild |
-	aParent := aCurrentElement parent.
-	aParent ifNil: [ ^ self ].
-	anIndex := aParent childIndexOf: aCurrentElement.
-	self phlowView updateContent: aCurrentElement.
-	self
-		enqueueAction: [ 
-			aNewChild := aParent childAt: anIndex.
-			self beViewElement: aNewChild.
-			self resubscribeFrom: aCurrentElement to: aNewChild ]
-		in: aParent
+	self phlowView wait updateContent: aCurrentElement
 ]
 
 { #category : #accessing }
@@ -158,6 +193,8 @@ GtPhlowForwarderView >> view: anObject [
 
 { #category : #'accessing - computed' }
 GtPhlowForwarderView >> viewObject [
+	<return: #AsyncPromise of: #Object>
+
 	^ viewObject ifNil: [ viewObject := self secureObjectExecution ]
 ]
 
@@ -169,5 +206,6 @@ GtPhlowForwarderView >> viewSymbol [
 { #category : #'api - accessing composite view' }
 GtPhlowForwarderView >> views [
 	<return: #Array of: #GtPhlowView>
-	^ self phlowView views
+
+	^ (self phlowView then: [ :aView | aView views ]) wait
 ]
