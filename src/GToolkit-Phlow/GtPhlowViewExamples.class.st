@@ -62,7 +62,7 @@ GtPhlowViewExamples >> element [
 
 { #category : #'examples - element' }
 GtPhlowViewExamples >> expectedElementClass [
-	^ BrFromPromise
+	^ BlElement
 ]
 
 { #category : #'examples - element' }

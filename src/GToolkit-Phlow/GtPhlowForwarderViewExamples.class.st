@@ -4,6 +4,11 @@ Class {
 	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
+{ #category : #accessing }
+GtPhlowForwarderViewExamples >> expectedElementClass [
+	^ BrFromPromise
+]
+
 { #category : #'examples - composite' }
 GtPhlowForwarderViewExamples >> forwardedCompositeView [
 	<gtExample>
