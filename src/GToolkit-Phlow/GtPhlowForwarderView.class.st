@@ -35,7 +35,6 @@ GtPhlowForwarderView >> actionsToolbarForElement: anElement [
 
 	^ BrFromPromise new
 		fitContent;
-		promise: self allActionsPromise;
 		stencil: [ BrToolbar new aptitude: BrGlamorousToolbarAptitude ];
 		dataBinder: [ :aToolbar :aData | 
 			aToolbar removeAllItems.
@@ -47,7 +46,8 @@ GtPhlowForwarderView >> actionsToolbarForElement: anElement [
 							withHostElement: anElement ] ]
 				ifError: [ :anError | 
 					aToolbar addItem: (BrDebugglableElementStencil new freeze: anError) createDebugButton ]
-				ifPending: [  ] ]
+				ifPending: [  ] ];
+		promise: self allActionsPromise
 ]
 
 { #category : #'accessing - computed' }
@@ -84,7 +84,6 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 
 	aPromiseElement
 		matchParent;
-		promise: self phlowView;
 		stencil: [ BlElement new constraintsDo: [ :c | c horizontal matchParent . c vertical matchParent ] ];
 		dataBinder: [ :aContainer :aData |
 			aContainer removeChildren.
@@ -113,7 +112,9 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 						action: [ aPendingLabel text: 'Rendering...' ]). 
 
 					aContainer addChild: aPendingLabel ] ].
-
+	
+	aPromiseElement promise: self phlowView.
+	
 	^ aBlock value: aPromiseElement
 ]
 
