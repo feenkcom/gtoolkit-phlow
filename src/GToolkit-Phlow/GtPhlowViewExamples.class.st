@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowViewExamples,
 	#superclass : #Object,
-	#category : 'GToolkit-Phlow-Examples - Views'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #testing }
@@ -62,7 +62,7 @@ GtPhlowViewExamples >> element [
 
 { #category : #'examples - element' }
 GtPhlowViewExamples >> expectedElementClass [
-	^ BlElement
+	^ BrFromPromise
 ]
 
 { #category : #'examples - element' }

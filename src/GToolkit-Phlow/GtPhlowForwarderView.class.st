@@ -80,7 +80,7 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 	| aPromiseElement |
 	
 	aPromiseElement := BrFromPromise new.
-	aPromiseElement phlow entity: self.
+	self beViewElement: aPromiseElement.
 
 	aPromiseElement
 		matchParent;
