@@ -11,8 +11,7 @@ Class {
 GtPhlowTaskItView >> asElementDo: aBlock [
 	| aFutureElement |
 
-	aFutureElement := BrFromFuture new
-		future: [ self originalElementDo: [ :anElement | anElement ] ] asAsyncFuture;
+	aFutureElement := BrFromPromise new
 		matchParent;
 		stencil: [
 			BlElement new
@@ -40,6 +39,7 @@ GtPhlowTaskItView >> asElementDo: aBlock [
 						action: [ aPendingLabel text: 'Rendering...' ]). 
 
 					anElementContainer addChild: aPendingLabel ] ];
+		promise: [ self originalElementDo: [ :anElement | anElement ] ] asAsyncPromise;
 		yourself.
 	
 	self assignMeAsEntityFor: aFutureElement.
