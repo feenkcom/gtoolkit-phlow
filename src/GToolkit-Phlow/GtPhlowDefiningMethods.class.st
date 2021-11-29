@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'methods'
 	],
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #accessing }
@@ -47,8 +47,10 @@ GtPhlowDefiningMethods >> gtSourceFor: aView [
 					c horizontal matchParent ].
 			self methods do: [ :eachMethod | 
 				aContainer addChild: (
-					(GtPharoMethodCoder forMethod: eachMethod) withHeader asCoderUIModel
-						expanded: true; asElement) ].
+					(GtPharoMethodCoder forMethod: eachMethod) asCoderUIModel
+						withHeader;
+						expanded: true;
+						asElement) ].
 			aContainer asScrollableElement]
 ]
 
