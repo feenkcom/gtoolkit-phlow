@@ -5,7 +5,7 @@ Class {
 		'object',
 		'arguments'
 	],
-	#category : 'GToolkit-Phlow-Context'
+	#category : #'GToolkit-Phlow-Context'
 }
 
 { #category : #factory }
@@ -26,6 +26,19 @@ GtPhlowBuildContext >> arguments [
 { #category : #accessing }
 GtPhlowBuildContext >> arguments: anObject [
 	arguments := anObject
+]
+
+{ #category : #accessing }
+GtPhlowBuildContext >> context [
+	<return: #GtPhlowContext>
+
+	^ self arguments second
+]
+
+{ #category : #testing }
+GtPhlowBuildContext >> hasContext [
+
+	^ self arguments size = 2
 ]
 
 { #category : #initialization }
