@@ -8,13 +8,8 @@ Class {
 	#superclass : #GtPhlowExecutionContext,
 	#traits : 'TGtOptions',
 	#classTraits : 'TGtOptions classTrait',
-	#category : 'GToolkit-Phlow-Context'
+	#category : #'GToolkit-Phlow-Context'
 }
-
-{ #category : #factory }
-GtPhlowContext class >> null [
-	^ GtPhlowNullContext default
-]
 
 { #category : #accessing }
 GtPhlowContext >> at: aKey [
@@ -22,8 +17,29 @@ GtPhlowContext >> at: aKey [
 ]
 
 { #category : #accessing }
+GtPhlowContext >> at: aKey ifAbsent: aValuable [
+
+	^ self optionAt: aKey ifAbsent: aValuable
+]
+
+{ #category : #accessing }
 GtPhlowContext >> at: aKey ifAbsentPut: aValuable [
 	^ self optionAt: aKey ifAbsentPut: aValuable
+]
+
+{ #category : #accessing }
+GtPhlowContext >> at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock [
+
+	^ self
+		  optionAt: aKey
+		  ifPresent: aPresentBlock
+		  ifAbsent: anAbsentBlock
+]
+
+{ #category : #accessing }
+GtPhlowContext >> at: aKey ifPresent: aPresentBlock ifAbsentPut: anAbsentBlock [
+
+	^ self optionAt: aKey ifPresent: aPresentBlock ifAbsentPut: anAbsentBlock
 ]
 
 { #category : #accessing }
