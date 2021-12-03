@@ -120,14 +120,25 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 
 { #category : #private }
 GtPhlowForwarderView >> createPhlowView [
-	<return: #TAsyncPromise of: #GtPhlowView>
 
-	^ self viewObject then: [ :anActualObject |
-		| aView |
-		aView := self on: anActualObject perform: self viewSymbol.
-		self hasTransformation ifTrue: [ 
-			aView copyTransformationFrom: self transformation ].
-		aView ]
+	<return: #TAsyncPromise of: #GtPhlowView>
+	^ self viewObject then: [ :anActualObject | 
+		  | aView |
+		  (self buildContext isBuildContext and: [ 
+			   self buildContext hasContext ])
+			  ifTrue: [ 
+				  aView := self
+					           on: anActualObject
+					           perform: self viewSymbol
+					           withSomeArguments: { 
+							           self.
+							           self buildContext context } ]
+			  ifFalse: [ 
+			 	 aView := self on: anActualObject perform: self viewSymbol ].
+
+		  self hasTransformation ifTrue: [ 
+			  aView copyTransformationFrom: self transformation ].
+		  aView ]
 ]
 
 { #category : #initialization }

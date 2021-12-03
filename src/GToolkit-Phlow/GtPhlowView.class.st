@@ -21,7 +21,7 @@ Class {
 		'asyncEnabled',
 		'buildContext'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #decorating }
@@ -508,9 +508,12 @@ GtPhlowView >> methodSelector [
 
 { #category : #'message performing' }
 GtPhlowView >> on: anObject perform: aMessageSymbol [
+
 	<return: #GtPhlowView>
 	<gtCollector>
-	^ self on: anObject perform: aMessageSymbol withArguments: { self }
+	^ self on: anObject perform: aMessageSymbol withSomeArguments: { 
+			  self.
+			  GtPhlowContext new }
 ]
 
 { #category : #'message performing' }
