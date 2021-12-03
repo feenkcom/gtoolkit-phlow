@@ -455,6 +455,16 @@ GtPhlowView >> enqueueAction: aBlock in: anElement [
 		otherwise: aBlock
 ]
 
+{ #category : #'private - message performing' }
+GtPhlowView >> ensureContext [
+
+	(self buildContext isBuildContext and: [ 
+		 self buildContext hasContext ]) ifTrue: [ 
+		^ self buildContext context ].
+
+	^ GtPhlowContext new
+]
+
 { #category : #'gt-extension' }
 GtPhlowView >> gtActionsFor: aView [
 	<gtView>
@@ -513,7 +523,7 @@ GtPhlowView >> on: anObject perform: aMessageSymbol [
 	<gtCollector>
 	^ self on: anObject perform: aMessageSymbol withSomeArguments: { 
 			  self.
-			  GtPhlowContext new }
+			  self ensureContext }
 ]
 
 { #category : #'message performing' }
@@ -615,6 +625,19 @@ GtPhlowView >> phlowErrorViewWithException: anException forBuildContext: aContex
 	aPhlow definingMethod: aDefiningMethod.
 	aPhlow buildContext: aContext.
 	^ aPhlow
+]
+
+{ #category : #accessing }
+GtPhlowView >> printOn: aStream [
+
+	super printOn: aStream.
+
+	self title ifNil: [ ^ self ].
+
+	aStream
+		nextPut: $(;
+		nextPutAll: self title asString;
+		nextPut: $)
 ]
 
 { #category : #accessing }

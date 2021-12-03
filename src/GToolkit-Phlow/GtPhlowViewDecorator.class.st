@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'originalView'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #testing }
@@ -33,6 +33,22 @@ GtPhlowViewDecorator >> decoratorsChain [
 	self allParentDecoratorsDo: [ :aDecorator |
 			decorators add: aDecorator ].
 	^ decorators
+]
+
+{ #category : #'private - message performing' }
+GtPhlowViewDecorator >> ensureContext [
+
+	(self buildContext isBuildContext and: [ 
+		 self buildContext hasContext ]) ifTrue: [ 
+		^ self buildContext context ].
+
+	self originalView ifNil: [ ^ GtPhlowContext new ].
+
+	(self originalView buildContext isBuildContext and: [ 
+		 self originalView buildContext hasContext ]) ifTrue: [ 
+		^ self originalView buildContext context ].
+
+	^ GtPhlowContext new
 ]
 
 { #category : #ui }
