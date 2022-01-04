@@ -15,9 +15,10 @@ Class {
 	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTransformable classTrait',
 	#instVars : [
 		'itemsProviderComputation',
-		'columns'
+		'columns',
+		'itemContextMenuStencil'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #'api - converting' }
@@ -30,7 +31,7 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	
 	aContainer := self elementClass new.
 	aContainer
-		labeled: 'Columned List Container';
+		id: GtColumnedListContainerId;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
@@ -42,7 +43,7 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	list
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation).
 	list
-		rowStencil: (BrGlamorousColumnedListSelectableRowElementStencilBuilder new cellSpacing: self cellSpacing).
+		rowStencil: self newDecoratedItemStencil.
 	self buildColumnsInList: list.
 	aContainer
 		addChildren:
@@ -127,6 +128,9 @@ GtPhlowColumnedListView >> initialize [
 	columns := OrderedCollection new.
 	self items: [ { } ].
 	self transformation: self defaultTransformation.
+	
+	"nil means that we should not create a context menu for each item"
+	itemContextMenuStencil := nil
 ]
 
 { #category : #'private - testing' }
@@ -135,6 +139,14 @@ GtPhlowColumnedListView >> isExpectedElement: aCurrentElement [
 	aCurrentElement childrenCount = 2 ifFalse: [ ^ false ].
 	(aCurrentElement childAt: 2) class = self columnedListClass ifFalse: [ ^ false ].
 	^ true
+]
+
+{ #category : #accessing }
+GtPhlowColumnedListView >> itemContextMenuStencil: aGtPhlowListContextMenuStencilBuilder [
+
+	itemContextMenuStencil := aGtPhlowListContextMenuStencilBuilder 
+		                          asStencilBuilder:
+		                          GtPhlowListContextMenuStencilBuilder
 ]
 
 { #category : #'api - scripting' }
@@ -158,6 +170,19 @@ GtPhlowColumnedListView >> itemsProviderOnExceptionErrorElement: aBlock [
 		performBlock: [ itemsProviderComputation value asBrItemsProvider ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
+]
+
+{ #category : #accessing }
+GtPhlowColumnedListView >> newDecoratedItemStencil [
+| anItemElementStencil |
+
+	anItemElementStencil := BrGlamorousColumnedListSelectableRowElementStencilBuilder new cellSpacing: self cellSpacing. 
+	itemContextMenuStencil ifNotNil: [ :aContextMenuStencil |
+		anItemElementStencil := GtPhlowColumnedListItemElementWithContextMenuDecorator new
+			stencilBuilder: anItemElementStencil;
+			contextMenuStencil: aContextMenuStencil ].
+
+	^ anItemElementStencil
 ]
 
 { #category : #'api - updating' }
