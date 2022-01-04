@@ -3,7 +3,7 @@ I add methods that creates column headers for columned views ${class:GtPhlowColu
 "
 Trait {
 	#name : #TGtPhlowColumnedHeader,
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #'private - building' }
@@ -12,7 +12,7 @@ TGtPhlowColumnedHeader >> buildHeaderForItems: theItems [
 	aHeader := BlElement new.
 	aHeader layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: self cellSpacing).
 	aHeader padding: (BlInsets top: 5 bottom: 5).
-	aHeader labeled: 'Columned Header'.
+	aHeader id: GtColumnedListHeaderId.
 	aHeader constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical fitContent ].
