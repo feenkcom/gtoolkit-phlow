@@ -6,19 +6,5 @@ I extend the {{gtClass:BrColumnProportionalWidth}} by adding a {{gtClass:BlLinea
 Class {
 	#name : #GtPhlowColumnProportionalWidth,
 	#superclass : #BrColumnProportionalWidth,
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
-
-{ #category : #hook }
-GtPhlowColumnProportionalWidth >> applyOn: anElement [
-	| aShadow |
-	aShadow := BlElement new
-		background: (BlLinearGradientPaint horizontal from: (Color white alpha: 0) to: Color white);
-		constraintsDo: [ :c |
-			c ignoreByLayout.
-			c ignored horizontal alignRight.
-			c vertical matchParent.
-			c horizontal exact: 30 ].
-	anElement addChild: aShadow.
-	super applyOn: anElement.
-]
