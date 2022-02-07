@@ -37,6 +37,28 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView [
 	^ aView
 ]
 
+{ #category : #'examples - auto updates' }
+GtPhlowColumnedListViewExamples >> autoUpdatedViewUpdatesItems [
+	<gtExample>
+	| aView anElement aCollection anAnnouncer |
+
+	aCollection := OrderedCollection withAll: (1 to: 10).
+
+	anAnnouncer := Announcer new.
+	aView := self viewWithItems items: aCollection.
+	aView updateWhen: Announcement in: [ anAnnouncer ].
+	
+	aView asElementDo: [ :theElement | anElement := theElement ].
+	self assert: anElement children second items size equals: 10.
+	
+	aCollection add: 11.
+	anAnnouncer announce: Announcement new.
+	
+	self assert: anElement children second items size equals: 11.
+
+	^ aView
+]
+
 { #category : #'examples - auto updates with condition' }
 GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_False [
 	<gtExample>
