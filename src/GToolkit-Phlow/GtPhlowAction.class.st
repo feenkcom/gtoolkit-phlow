@@ -8,7 +8,7 @@ Class {
 		'priority',
 		'target'
 	],
-	#category : 'GToolkit-Phlow-! Actions'
+	#category : #'GToolkit-Phlow-! Actions'
 }
 
 { #category : #defaults }
@@ -57,7 +57,7 @@ GtPhlowAction >> defaultPriority [
 
 { #category : #initialization }
 GtPhlowAction >> defaultTarget [
-	^ GtPhlowObjectActionCategory uniqueInstance
+	^ GtPhlowObjectActionTarget uniqueInstance
 ]
 
 { #category : #accessing }
@@ -131,7 +131,11 @@ GtPhlowAction >> initialize [
 
 { #category : #testing }
 GtPhlowAction >> isDefaultTarget [
-	^ self target = self defaultTarget
+
+	self target targetsDo: [ :eachTarget | 
+		eachTarget = self defaultTarget ifTrue: [ ^ true ] ].
+
+	^ false
 ]
 
 { #category : #testing }
