@@ -84,7 +84,9 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 
 	aPromiseElement
 		matchParent;
-		stencil: [ BlElement new constraintsDo: [ :c | c horizontal matchParent . c vertical matchParent ] ];
+		stencil: [ 
+			BrFrame new
+				matchParent ];
 		dataBinder: [ :aContainer :aData |
 			aContainer removeChildren.
 			aData
