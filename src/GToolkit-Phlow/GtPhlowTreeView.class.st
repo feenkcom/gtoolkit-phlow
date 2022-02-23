@@ -10,7 +10,7 @@ Class {
 		'itemTypeStencil',
 		'itemDataBinder'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #'api - converting' }
@@ -27,6 +27,7 @@ GtPhlowTreeView >> asElementDo: aBlock [
 			(GtPhlowListToSelectHandler new
 				transformation: self transformation asTreeNodeTransformation).
 	aTree
+		matchParent;
 		constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
 		
 	aTree rowStencil: (BrGlamorousSimpleTreeSelectableRowElementStencilBuilder new padding: (BlInsets left: 10 right: 10)).
