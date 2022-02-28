@@ -9,41 +9,21 @@ Class {
 
 { #category : #converting }
 GtPhlowTaskItView >> asElementDo: aBlock [
+
 	| aFutureElement |
+	aFutureElement := BrAsyncWidget new
+		                  matchParent;
+		                  successBlock: [ :anElementContainer :aViewElement | 
+			                  anElementContainer addChild: aViewElement ].
 
-	aFutureElement := BrFromPromise new
-		matchParent;
-		stencil: [
-			BlElement new
-				constraintsDo: [ :c | 
-					c horizontal matchParent.
-					c vertical matchParent ] ];
-		dataBinder: [ :anElementContainer :aData |
-			anElementContainer removeChildren.
-			aData
-				ifSuccess: [ :aViewElement | anElementContainer addChild: aViewElement ]
-				ifError: [ :anError | anElementContainer addChild: anError asDebuggableElement ]
-				ifPending: [
-					| aPendingLabel |
-					
-					aPendingLabel := BrLabel new
-						aptitude: (BrGlamorousLabelAptitude new italic foreground: BrGlamorousColors disabledHeaderTextColor);
-						constraintsDo: [ :c | 
-							c ignoreByLayout.
-							c ignored horizontal alignCenter.
-							c ignored vertical alignCenter ];
-						text: ''.
+	aFutureElement asyncFuture future: (AsyncCachedFuture
+			 forFuture:
+			 [ self originalElementDo: [ :anElement | anElement ] ]
+				 asAsyncFuture
+			 cache: AsyncFutureCache new).
 
-					aPendingLabel enqueueTask: (BlDelayedTaskAction new
-						delay: 1 second;
-						action: [ aPendingLabel text: 'Rendering...' ]). 
-
-					anElementContainer addChild: aPendingLabel ] ];
-		promise: [ self originalElementDo: [ :anElement | anElement ] ] asAsyncPromise;
-		yourself.
-	
 	self assignMeAsEntityFor: aFutureElement.
-	
+
 	^ aBlock value: aFutureElement
 ]
 
