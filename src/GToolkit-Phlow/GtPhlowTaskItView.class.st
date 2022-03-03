@@ -13,14 +13,8 @@ GtPhlowTaskItView >> asElementDo: aBlock [
 	| aFutureElement |
 	aFutureElement := BrAsyncWidget new
 		                  matchParent;
-		                  successBlock: [ :anElementContainer :aViewElement | 
-			                  anElementContainer addChild: aViewElement ].
-
-	aFutureElement asyncFuture future: (AsyncCachedFuture
-			 forFuture:
-			 [ self originalElementDo: [ :anElement | anElement ] ]
-				 asAsyncFuture
-			 cache: AsyncFutureCache new).
+		                  stencil: [ 
+			                  self originalElementDo: [ :anElement | anElement ] ].
 
 	self assignMeAsEntityFor: aFutureElement.
 
