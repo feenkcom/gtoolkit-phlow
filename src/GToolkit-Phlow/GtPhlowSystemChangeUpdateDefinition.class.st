@@ -14,7 +14,7 @@ Class {
 		'isSubscribedToSystem',
 		'view'
 	],
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #testing }
@@ -88,14 +88,12 @@ GtPhlowSystemChangeUpdateDefinition >> removeContext: aGtPhlowElementContext [
 ]
 
 { #category : #schedulling }
-GtPhlowSystemChangeUpdateDefinition >> scheduleTask: aTask [
-	| aCommand |
-	aCommand := BlTaskAtPostponedTerminableTask new
-		command: aTask;
-		pool: BlTktWorkerProvider highUICPUBoundPool;
-		beShiftingNotScheduledHandler;
-		scheduledTime: BlTime real now + 200 milliSeconds.
-	BlTaskAtQueue default schedule: aCommand
+GtPhlowSystemChangeUpdateDefinition >> scheduleTask: aFuture [
+
+	(aFuture delayed: 200 milliseconds) await:
+		(AsyncFutureExecutionConfiguration new
+			 customGroup: #Phlow;
+			 highPriority)
 ]
 
 { #category : #subscriptions }

@@ -8,7 +8,7 @@ See {{gtClass:GtPhlowUpdateView}} for more details.
 Class {
 	#name : #GtPhlowUpdateViewOnDefiningMethodChange,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #'announcement handling' }
@@ -33,8 +33,10 @@ GtPhlowUpdateViewOnDefiningMethodChange >> subscribeOn: aGtPhlowElementContext [
 
 { #category : #updating }
 GtPhlowUpdateViewOnDefiningMethodChange >> updatePhlowView: aGtPhlowElementContext [
-	self scheduleTask: (GtPhlowUpdateView new
-		elementContext: aGtPhlowElementContext)
+
+	self scheduleTask: [ 
+		(GtPhlowUpdateView new elementContext: aGtPhlowElementContext)
+			execute ] asAsyncFuture
 ]
 
 { #category : #updating }

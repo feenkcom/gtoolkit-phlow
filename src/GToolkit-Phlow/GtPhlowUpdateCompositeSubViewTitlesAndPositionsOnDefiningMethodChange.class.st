@@ -10,7 +10,7 @@ Class {
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
 	#traits : 'TGtPhlowCompositeViewAccessors',
 	#classTraits : 'TGtPhlowCompositeViewAccessors classTrait',
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #accessing }
@@ -47,7 +47,9 @@ GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> updateS
 
 { #category : #updating }
 GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> updateSubView: aGtPhlowView inContext: aGtPhlowElementContext [
-	self scheduleTask: (GtPhlowUpdateCompositeSubViewTitleAndPosition new
-		elementContext: aGtPhlowElementContext;
-		subView: aGtPhlowView)
+
+	self scheduleTask: [ 
+		(GtPhlowUpdateCompositeSubViewTitleAndPosition new
+			 elementContext: aGtPhlowElementContext;
+			 subView: aGtPhlowView) execute ] asAsyncFuture
 ]
