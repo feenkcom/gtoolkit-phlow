@@ -233,12 +233,7 @@ GtPhlowElementContext >> methodSelector [
 { #category : #updating }
 GtPhlowElementContext >> postponeUpdate [
 	"self entity updateContent: self element."
-	| aCommand |
-	aCommand := BlTaskAtPostponedTerminableTask new
-		command: (self updateCommand);
-		pool: BlTktWorkerProvider highUICPUBoundPool;
-		scheduledTime: BlTime real now + 300 milliSeconds.
-	BlTaskAtQueue default schedule: aCommand
+	([ self updateCommand ] asAsyncFuture delayed: 300 milliSeconds) await
 ]
 
 { #category : #'api - updating' }

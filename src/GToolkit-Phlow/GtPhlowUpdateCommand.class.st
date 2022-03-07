@@ -6,11 +6,11 @@ I provide a basic support {{gtClass:GtPhlowView}} updates.
 "
 Class {
 	#name : #GtPhlowUpdateCommand,
-	#superclass : #BlTktCommand,
+	#superclass : #Object,
 	#instVars : [
 		'elementContext'
 	],
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #testing }

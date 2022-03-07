@@ -10,7 +10,7 @@ Class {
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
 	#traits : 'TGtPhlowObservedClassAccessors',
 	#classTraits : 'TGtPhlowObservedClassAccessors classTrait',
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #'announcement handling' }
@@ -32,8 +32,10 @@ GtPhlowUpdateLabeledOnClassAndSuperClassChange >> subscribeToSystemOn: aGtPhlowE
 
 { #category : #updating }
 GtPhlowUpdateLabeledOnClassAndSuperClassChange >> updatePhlowView: aGtPhlowElementContext [
-	self scheduleTask: (GtPhlowUpdateLabelledViewTitle new 
-		elementContext: aGtPhlowElementContext)
+
+	self scheduleTask: [ 
+		(GtPhlowUpdateLabelledViewTitle new elementContext:
+			 aGtPhlowElementContext) execute ] asAsyncFuture
 ]
 
 { #category : #updating }

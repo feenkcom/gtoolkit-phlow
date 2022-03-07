@@ -14,14 +14,16 @@ Class {
 	#instVars : [
 		'pragmas'
 	],
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #'private - updating' }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> addSubView: aMethodAdded inContext: aGtPhlowElementContext [
-	self scheduleTask: (GtPhlowAddCompositeSubView new
-		elementContext: aGtPhlowElementContext;
-		compiledMethod: aMethodAdded)
+
+	self scheduleTask: [ 
+		(GtPhlowAddCompositeSubView new
+			 elementContext: aGtPhlowElementContext;
+			 compiledMethod: aMethodAdded) execute ] asAsyncFuture
 ]
 
 { #category : #defaults }
@@ -77,9 +79,11 @@ GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> pragmas: anObject [
 
 { #category : #'private - updating' }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> removeSubView: aMethodRemoved inContext: aGtPhlowElementContext [
-	self scheduleTask: (GtPhlowRemoveCompositeSubView new
-		elementContext: aGtPhlowElementContext;
-		compiledMethod: aMethodRemoved)
+
+	self scheduleTask: [ 
+		(GtPhlowRemoveCompositeSubView new
+			 elementContext: aGtPhlowElementContext;
+			 compiledMethod: aMethodRemoved) execute ] asAsyncFuture
 ]
 
 { #category : #subscriptions }
@@ -102,7 +106,9 @@ GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> updateSubView: aGtPhl
 
 { #category : #updating }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> updateSubView: aGtPhlowView inContext: aGtPhlowElementContext [
-	self scheduleTask: (GtPhlowUpdateCompositeSubViewTitleAndPosition new
-		elementContext: aGtPhlowElementContext;
-		subView: aGtPhlowView)
+
+	self scheduleTask: [ 
+		(GtPhlowUpdateCompositeSubViewTitleAndPosition new
+			 elementContext: aGtPhlowElementContext;
+			 subView: aGtPhlowView) execute ] asAsyncFuture
 ]
