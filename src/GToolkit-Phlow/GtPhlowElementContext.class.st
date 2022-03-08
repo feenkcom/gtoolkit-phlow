@@ -232,8 +232,8 @@ GtPhlowElementContext >> methodSelector [
 
 { #category : #updating }
 GtPhlowElementContext >> postponeUpdate [
-	"self entity updateContent: self element."
-	([ self updateCommand ] asAsyncFuture delayed: 300 milliSeconds) await
+
+	([ self syncUpdate ] asAsyncFuture delayed: 300 milliSeconds) await
 ]
 
 { #category : #'api - updating' }
@@ -306,12 +306,6 @@ GtPhlowElementContext >> textViewContent [
 { #category : #'api - updating' }
 GtPhlowElementContext >> update [
 	self asyncUpdate
-]
-
-{ #category : #updating }
-GtPhlowElementContext >> updateCommand [
-	^ [ self syncUpdate ] asBlTktTerminableCommand 
-		asBlTktSingleCommand identifier: self
 ]
 
 { #category : #'api - updating' }
