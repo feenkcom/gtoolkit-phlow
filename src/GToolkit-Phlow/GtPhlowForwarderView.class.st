@@ -124,9 +124,9 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 GtPhlowForwarderView >> createPhlowView [
 
 	<return: #TAsyncPromise of: #GtPhlowView>
-	^ self viewObject then: [ :anActualObject | 
+	^ self viewObject then: [ :aForwardedObject | 
 		  | aView |
-		  aView := self on: anActualObject perform: self viewSymbol.
+		  aView := self on: aForwardedObject object perform: self viewSymbol.
 
 		  self hasTransformation ifTrue: [ 
 			  aView copyTransformationFrom: self transformation ].
@@ -180,10 +180,12 @@ GtPhlowForwarderView >> resubscribeFrom: aCurrentElement to: aNewChild [
 GtPhlowForwarderView >> secureObjectExecution [
 	<return: #TAsyncPromise>
 
-	^ [ self object value asAsyncPromise ]
-		on: Error do: [ :anException | 
-			phlowView := (self phlowErrorViewWithException: anException) asAsyncPromise.
-			anException asAsyncPromise ]
+	^ (self object asAsyncFuture map: [ :anObject | GtPhlowForwardedObject new object: anObject ])
+		asAsyncPromise
+			then: [ :anObject | anObject ]
+			otherwise: [ :anException |
+				phlowView := (self phlowErrorViewWithException: anException) asAsyncPromise.
+				anException asAsyncPromise ]
 ]
 
 { #category : #updating }

@@ -32,7 +32,7 @@ GtPhlowForwarderViewExamples >> forwardedIntegerView [
 		object: [ 2 ];
 		view: #gtPreviewFor:.
 
-	self assert: aView viewObject wait equals: 2.
+	self assert: aView viewObject wait object equals: 2.
 	
 	anElement := aView asElementDo: [ :theElement | theElement ].
 	self assert: (anElement isKindOf: BlElement).
@@ -54,7 +54,7 @@ GtPhlowForwarderViewExamples >> forwardedView [
 	self assert: aView object isNotNil.
 	self assert: aView object class equals: [ nil ] class.
 	self assert: aView viewSymbol equals: #gtUpdatingFor:.
-	self assert: aView viewObject wait class equals: GtPhlowExplicitViewExamples.
+	self assert: aView viewObject wait object class equals: GtPhlowExplicitViewExamples.
 	self assert: aView actions size equals: 0.
 
 	aPhlowView := aView phlowView wait.
@@ -109,7 +109,7 @@ GtPhlowForwarderViewExamples >> forwardedWithUndefinedViewMessage [
 		object: [ self ];
 		view: #gtUndefinedViewMessageFor:.
 
-	self assert: aView viewObject wait equals: self.
+	self assert: aView viewObject wait object equals: self.
 	self assert: aView phlowView wait class equals: GtPhlowViewWithError.
 	self assert: (aView asElementDo: [ :anElement | anElement ]) class equals: BrFromPromise.
 	^ aView
