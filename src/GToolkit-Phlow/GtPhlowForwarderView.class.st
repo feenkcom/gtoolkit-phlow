@@ -124,14 +124,16 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 GtPhlowForwarderView >> createPhlowView [
 
 	<return: #TAsyncPromise of: #GtPhlowView>
-	^ self viewObject then: [ :aForwardedObject | 
+	^ self viewObject
+		then: [ :aForwardedObject | 
 		  | aView |
 		  aView := self on: aForwardedObject object perform: self viewSymbol.
-
 		  self hasTransformation ifTrue: [ 
 			  aView copyTransformationFrom: self transformation ].
-		
-		  aView ]
+		  aView ] 
+		otherwise: [ :anException |
+			phlowView := (self phlowErrorViewWithException: anException) asAsyncPromise.
+			phlowView ]
 ]
 
 { #category : #initialization }

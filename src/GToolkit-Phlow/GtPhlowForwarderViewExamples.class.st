@@ -87,7 +87,7 @@ GtPhlowForwarderViewExamples >> forwardedViewWithObjectCreationError [
 	self assert: aView object isNotNil.
 	self assert: aView object class equals: [ nil ] class.
 	self assert: aView viewSymbol equals: #gtUpdatingFor:.
-	self assert: aView viewObject class equals: AsyncRejectedPromise.
+	self assert: aView viewObject isAsyncPromise.
 	self assert: aView actions size equals: 0.
 
 	aPhlowView := aView phlowView wait.
