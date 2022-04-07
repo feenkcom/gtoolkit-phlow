@@ -46,9 +46,9 @@ GtPhlowContextExamples >> rootListFor: aView context: aContext [
 
 { #category : #accessing }
 GtPhlowContextExamples >> sameContextFromCompositeView [
-
 	<gtExample>
-	| aContext aView anObject anElement allContexts |
+	| aContext aView anObject anElement allContexts aScripter |
+	
 	anObject := GtPhlowObjectWithTopViewMethod new.
 	aContext := GtPhlowContext new.
 	aView := GtPhlowView empty
@@ -62,8 +62,8 @@ GtPhlowContextExamples >> sameContextFromCompositeView [
 	self assert: allContexts first key class equals: GtPhlowForwarderView.
 	self assert: allContexts first value equals: aContext.
 
-	BlUseAsyncFeatures disableDuring: [ 
-		aView asElementDo: [ :theElement | anElement := theElement ] ].
+	aScripter := BlDevScripter new.
+	aView asElementDo: [ :theElement | aScripter element: (anElement := theElement) ].
 
 	self assert: allContexts size equals: 2.
 
@@ -84,9 +84,9 @@ GtPhlowContextExamples >> sameContextFromCompositeView [
 
 { #category : #examples }
 GtPhlowContextExamples >> sameContextFromRootToBottomList [
-
 	<gtExample>
-	| aContext aView anObject anElement allContexts |
+	| aContext aView anObject anElement allContexts aScripter |
+
 	anObject := GtPhlowObjectWithTopViewMethod new.
 	aContext := GtPhlowContext new.
 	aView := GtPhlowView empty
@@ -99,8 +99,8 @@ GtPhlowContextExamples >> sameContextFromRootToBottomList [
 	self assert: allContexts size equals: 1.
 	self assert: allContexts first equals: aView -> aContext.
 
-	BlUseAsyncFeatures disableDuring: [ 
-		aView asElementDo: [ :theElement | anElement := theElement ] ].
+	aScripter := BlDevScripter new.
+	aView asElementDo: [ :theElement | aScripter element: (anElement := theElement) ].
 
 	self assert: allContexts size equals: 2.
 
