@@ -7,9 +7,10 @@ Class {
 		'columns',
 		'transformation',
 		'itemsBuilder',
-		'childrenBuilder'
+		'childrenBuilder',
+		'itemContextMenuStencil'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #'api - converting' }
@@ -37,7 +38,7 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 	aTree
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation asTreeNodeTransformation).
 	aTree
-		rowStencil: (BrGlamorousColumnedTreeSelectableRowElementStencilBuilder new cellSpacing: self cellSpacing).				
+		rowStencil: self newDecoratedItemStencil.				
 
 	self buildColumnsInTree: aTree.
 	
@@ -160,6 +161,14 @@ GtPhlowColumnedTreeView >> isExpectedElement: aCurrentElement [
 	^ true
 ]
 
+{ #category : #accessing }
+GtPhlowColumnedTreeView >> itemContextMenuStencil: aGtPhlowListContextMenuStencilBuilder [
+
+	itemContextMenuStencil := aGtPhlowListContextMenuStencilBuilder 
+		                          asStencilBuilder:
+		                          GtPhlowListContextMenuStencilBuilder
+]
+
 { #category : #'api - scripting' }
 GtPhlowColumnedTreeView >> items: aValuable [
 	itemsBuilder := aValuable
@@ -176,6 +185,19 @@ GtPhlowColumnedTreeView >> itemsOnExceptionErrorElement: aBlock [
 		performBlock: [ self itemsBuilder value ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
+]
+
+{ #category : #'api - converting' }
+GtPhlowColumnedTreeView >> newDecoratedItemStencil [
+| anItemElementStencil |
+
+	anItemElementStencil := BrGlamorousColumnedTreeSelectableRowElementStencilBuilder new cellSpacing: self cellSpacing. 
+	itemContextMenuStencil ifNotNil: [ :aContextMenuStencil |
+		anItemElementStencil := GtPhlowColumnedListItemElementWithContextMenuDecorator new
+			stencilBuilder: anItemElementStencil;
+			contextMenuStencil: aContextMenuStencil ].
+
+	^ anItemElementStencil
 ]
 
 { #category : #'instance creation' }
