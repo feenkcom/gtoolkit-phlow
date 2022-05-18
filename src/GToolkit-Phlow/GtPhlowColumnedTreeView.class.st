@@ -193,7 +193,7 @@ GtPhlowColumnedTreeView >> newDecoratedItemStencil [
 
 	anItemElementStencil := BrGlamorousColumnedTreeSelectableRowElementStencilBuilder new cellSpacing: self cellSpacing. 
 	itemContextMenuStencil ifNotNil: [ :aContextMenuStencil |
-		anItemElementStencil := GtPhlowColumnedListItemElementWithContextMenuDecorator new
+		anItemElementStencil := GtPhlowColumnedTreeItemElementWithContextMenuDecorator new
 			stencilBuilder: anItemElementStencil;
 			contextMenuStencil: aContextMenuStencil ].
 
