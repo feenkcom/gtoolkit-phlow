@@ -100,11 +100,11 @@ GtPhlowSystemChangeUpdateDefinition >> scheduleTask: aFuture [
 GtPhlowSystemChangeUpdateDefinition >> setSubscribedIfAlreadySubscribedDo: aBlock [
 	| wantEvaluateBlock |
 	wantEvaluateBlock := false.
-	mutexSubscription critical: [ 
-		isSubscribedToSystem 
-			ifTrue: [ wantEvaluateBlock := true ]
-			ifFalse: [ isSubscribedToSystem := true ] ].
-	wantEvaluateBlock ifTrue: [ aBlock ]
+	mutexSubscription
+		critical: [ isSubscribedToSystem
+				ifTrue: [ wantEvaluateBlock := true ]
+				ifFalse: [ isSubscribedToSystem := true ] ].
+	wantEvaluateBlock ifTrue: aBlock
 ]
 
 { #category : #private }
