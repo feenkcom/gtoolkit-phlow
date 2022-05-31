@@ -4,16 +4,8 @@ Class {
 	#instVars : [
 		'transformation'
 	],
-	#category : 'GToolkit-Phlow-Events'
+	#category : #'GToolkit-Phlow-Events'
 }
-
-{ #category : #'private - asserting' }
-GtPhlowListHandler >> assertTransformation: aGtPhlowSendTransformation [
-	self 
-		assert: [ aGtPhlowSendTransformation respondsTo: #asPhlowSendTransformation ] 
-		description: [ self className, '''s transformation must understand the ', 
-			#asPhlowSendTransformation asString, ' method' ]
-]
 
 { #category : #defaults }
 GtPhlowListHandler >> defaultTransformation [
@@ -34,6 +26,5 @@ GtPhlowListHandler >> transformation [
 
 { #category : #accessing }
 GtPhlowListHandler >> transformation: aGtPhlowSendTransformation [	
-	self assertTransformation: aGtPhlowSendTransformation.
 	transformation := aGtPhlowSendTransformation asPhlowSendTransformation.
 ]
