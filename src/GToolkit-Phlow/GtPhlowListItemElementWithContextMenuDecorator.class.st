@@ -14,6 +14,11 @@ Class {
 	#category : 'GToolkit-Phlow-Support - List utilities'
 }
 
+{ #category : #accessing }
+GtPhlowListItemElementWithContextMenuDecorator class >> stencilProperties [
+	^ #(contextMenuStencil stencilBuilder)
+]
+
 { #category : #'api - instantiation' }
 GtPhlowListItemElementWithContextMenuDecorator >> buildDefault [
 	| anElement aContextMenuAptitude |

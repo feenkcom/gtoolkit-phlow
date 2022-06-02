@@ -7,6 +7,11 @@ Class {
 	#category : 'GToolkit-Phlow-Support - List utilities'
 }
 
+{ #category : #accessing }
+GtPhlowListItemElementWithSelectionDecorator class >> stencilProperties [
+	^ #(stencilBuilder)
+]
+
 { #category : #'api - instantiation' }
 GtPhlowListItemElementWithSelectionDecorator >> buildDefault [
 	| anElement |

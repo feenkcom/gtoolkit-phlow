@@ -8,6 +8,11 @@ Class {
 	#category : 'GToolkit-Phlow-Support - List columned'
 }
 
+{ #category : #accessing }
+GtPhlowColumnErrorHandlingCellStencilBuilder class >> stencilProperties [
+	^ #(cellStencil cellSpacing)
+]
+
 { #category : #'api - instantiation' }
 GtPhlowColumnErrorHandlingCellStencilBuilder >> buildDefault [
 	| aContainer |

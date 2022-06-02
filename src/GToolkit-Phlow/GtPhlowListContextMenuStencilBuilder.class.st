@@ -7,7 +7,7 @@ Class {
 		'itemObject',
 		'itemPosition'
 	],
-	#category : 'GToolkit-Phlow-Support - List utilities'
+	#category : #'GToolkit-Phlow-Support - List utilities'
 }
 
 { #category : #'api - instantiation' }
@@ -72,4 +72,12 @@ GtPhlowListContextMenuStencilBuilder >> paramsOn: aStencilExecutor [
 		push: self itemObject;
 		push: self itemPosition;
 		push: self itemType
+]
+
+{ #category : #accessing }
+GtPhlowListContextMenuStencilBuilder >> reset [
+	itemType := nil.
+	itemElement := nil.
+	itemObject := nil.
+	itemPosition := nil
 ]

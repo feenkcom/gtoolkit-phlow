@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #accessing }
+GtPhlowSimpleListErrorHandlingItemDataBinder class >> stencilProperties [
+	^ #(dataBinder)
+]
+
+{ #category : #accessing }
 GtPhlowSimpleListErrorHandlingItemDataBinder >> buildDefault [	
 	[
 		dataBinder

@@ -66,3 +66,11 @@ GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> columnElements: aListO
 GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> columns: aListOfColumns [
 	columns := aListOfColumns
 ]
+
+{ #category : #accessing }
+GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> reset [
+	super reset.
+	
+	columnElements := nil.
+	columns := nil
+]
