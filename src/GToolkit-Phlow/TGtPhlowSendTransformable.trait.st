@@ -14,16 +14,8 @@ Trait {
 	#instVars : [
 		'transformation'
 	],
-	#category : 'GToolkit-Phlow-Support - Transformation'
+	#category : #'GToolkit-Phlow-Support - Transformation'
 }
-
-{ #category : #'private - asserting' }
-TGtPhlowSendTransformable >> assertTransformation: aGtPhlowSendTransformation [
-	self 
-		assert: [ aGtPhlowSendTransformation respondsTo: #asPhlowSendTransformation ] 
-		description: [ self className, '''s transformation must understand the ', 
-			#asPhlowSendTransformation asString, ' method' ]
-]
 
 { #category : #defaults }
 TGtPhlowSendTransformable >> defaultTransformation [
@@ -89,6 +81,5 @@ TGtPhlowSendTransformable >> transformation [
 
 { #category : #'private - accessing' }
 TGtPhlowSendTransformable >> transformation: aGtPhlowSendTransformation [
-	self assertTransformation: aGtPhlowSendTransformation.
 	transformation := aGtPhlowSendTransformation asPhlowSendTransformation.
 ]
