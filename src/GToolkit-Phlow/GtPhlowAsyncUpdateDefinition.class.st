@@ -1,10 +1,13 @@
 Class {
 	#name : #GtPhlowAsyncUpdateDefinition,
 	#superclass : #GtPhlowSyncUpdateDefinition,
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #subscriptions }
-GtPhlowAsyncUpdateDefinition >> announcementHandlerFor: aGtPhlowElementContext [
-	^ [ :anAnnouncement | aGtPhlowElementContext asyncUpdate ]
+GtPhlowAsyncUpdateDefinition >> subscribeOn: aGtPhlowElementContext [
+	self announcerDo: [ :anAnnouncer |
+		anAnnouncer weak
+			when: self announcement
+			do: (WeakMessageSend receiver: aGtPhlowElementContext selector: #asyncUpdate) ]
 ]

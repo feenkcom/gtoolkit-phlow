@@ -5,7 +5,7 @@ Class {
 		'announcementValuable',
 		'announcerValuable'
 	],
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #accessing }
@@ -18,31 +18,25 @@ GtPhlowSyncUpdateDefinition >> announcement: aValuable [
 	announcementValuable := aValuable
 ]
 
-{ #category : #subscriptions }
-GtPhlowSyncUpdateDefinition >> announcementHandlerFor: aGtPhlowElementContext [
-	^ [ aGtPhlowElementContext syncUpdate ]
+{ #category : #accessing }
+GtPhlowSyncUpdateDefinition >> announcer: anAnnouncer [
+	announcerValuable := anAnnouncer
 ]
 
 { #category : #accessing }
-GtPhlowSyncUpdateDefinition >> announcer [
-	^ announcerValuable value
-]
-
-{ #category : #accessing }
-GtPhlowSyncUpdateDefinition >> announcer: aValuable [
-	announcerValuable := aValuable
+GtPhlowSyncUpdateDefinition >> announcerDo: aBlock [
+	^ aBlock value: announcerValuable value
 ]
 
 { #category : #subscriptions }
 GtPhlowSyncUpdateDefinition >> subscribeOn: aGtPhlowElementContext [
-	| aSubscription |
-	aSubscription := self announcer 
-		when: self announcement 
-		do: (self announcementHandlerFor: aGtPhlowElementContext).
-	aSubscription subscriber: aGtPhlowElementContext.
+	self announcerDo: [ :anAnnouncer |
+		anAnnouncer weak
+			when: self announcement
+			do: (WeakMessageSend receiver: aGtPhlowElementContext selector: #syncUpdate) ]
 ]
 
 { #category : #subscriptions }
 GtPhlowSyncUpdateDefinition >> unsubscribeOn: aGtPhlowElementContext [
-	self announcer unsubscribe: aGtPhlowElementContext
+	self announcerDo: [ :anAnnouncer | anAnnouncer unsubscribe: aGtPhlowElementContext ]
 ]

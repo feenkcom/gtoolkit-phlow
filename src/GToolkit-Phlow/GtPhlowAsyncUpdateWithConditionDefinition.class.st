@@ -4,15 +4,8 @@ Class {
 	#instVars : [
 		'condition'
 	],
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
-
-{ #category : #subscriptions }
-GtPhlowAsyncUpdateWithConditionDefinition >> announcementHandlerFor: aGtPhlowElementContext [
-	^ [ :anAnnouncement | 
-			(self condition cull: anAnnouncement cull: aGtPhlowElementContext) 
-				ifTrue: [ (super announcementHandlerFor: aGtPhlowElementContext) cull: anAnnouncement ] ]
-]
 
 { #category : #accessing }
 GtPhlowAsyncUpdateWithConditionDefinition >> condition [
@@ -30,5 +23,14 @@ GtPhlowAsyncUpdateWithConditionDefinition >> condition: aBlock [
 { #category : #initialization }
 GtPhlowAsyncUpdateWithConditionDefinition >> initialize [
 	super initialize.
-	condition := [ :anAnnouncement :aGtPhlowElementContext | true ].
+
+	condition := [ :anAnnouncement | true ].
+]
+
+{ #category : #subscriptions }
+GtPhlowAsyncUpdateWithConditionDefinition >> subscribeOn: aGtPhlowElementContext [
+	self announcerDo: [ :anAnnouncer |
+		anAnnouncer weak
+			when: (self announcement where: self condition)
+			do: (WeakMessageSend receiver: aGtPhlowElementContext selector: #asyncUpdate) ]
 ]

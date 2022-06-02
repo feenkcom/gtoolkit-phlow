@@ -68,7 +68,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_False [
 
 	anAnnouncer := Announcer new.
 	aView := self viewWithItems items: aCollection.
-	aView updateWhen: Announcement if: [ false ] in: [ anAnnouncer ].
+	aView updateWhen: Announcement if: [ :anAnnouncement | false ] in: [ anAnnouncer ].
 
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
@@ -96,7 +96,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_False_InSpace [
 	aParent := BrHorizontalPane new matchParent.
 	aSpace addChild: aParent.
 	aView := self viewWithItems items: [ aCollection ].
-	aView updateWhen: Announcement if: [ false ] in: [ anAnnouncer ].
+	aView updateWhen: Announcement if: [ :anAnnouncement | false ] in: [ anAnnouncer ].
 
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
@@ -128,7 +128,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_False_WithParent
 	anAnnouncer := Announcer new.
 	aParent := BrHorizontalPane new matchParent.
 	aView := self viewWithItems items: aCollection.
-	aView updateWhen: Announcement if: [ false ] in: [ anAnnouncer ].
+	aView updateWhen: Announcement if: [ :anAnnouncement | false ] in: [ anAnnouncer ].
 
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
@@ -158,7 +158,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_True [
 
 	anAnnouncer := Announcer new.
 	aView := self viewWithItems items: aCollection.
-	aView updateWhen: Announcement if: [ true ] in: [ anAnnouncer ].
+	aView updateWhen: Announcement if: [ :anAnnouncement | true ] in: [ anAnnouncer ].
 
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
@@ -186,7 +186,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_True_InSpace [
 	aParent := BrHorizontalPane new matchParent.
 	aSpace addChild: aParent.
 	aView := self viewWithItems items: [ aCollection ].
-	aView updateWhen: Announcement if: [ true ] in: [ anAnnouncer ].
+	aView updateWhen: Announcement if: [ :anAnnouncement | true ] in: [ anAnnouncer ].
 
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
@@ -218,7 +218,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_True_WithParent 
 	anAnnouncer := Announcer new.
 	aParent := BrHorizontalPane new matchParent.
 	aView := self viewWithItems items: aCollection.
-	aView updateWhen: Announcement if: [ true ] in: [ anAnnouncer ].
+	aView updateWhen: Announcement if: [ :anAnnouncement | true ] in: [ anAnnouncer ].
 
 	self assert: anAnnouncer numberOfSubscriptions equals: 0.
 	
