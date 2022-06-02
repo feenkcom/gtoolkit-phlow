@@ -32,5 +32,6 @@ GtPhlowAsyncUpdateWithConditionDefinition >> subscribeOn: aGtPhlowElementContext
 	self announcerDo: [ :anAnnouncer |
 		anAnnouncer weak
 			when: (self announcement where: self condition)
-			do: (WeakMessageSend receiver: aGtPhlowElementContext selector: #asyncUpdate) ]
+			send: #asyncUpdate
+			to: aGtPhlowElementContext ]
 ]

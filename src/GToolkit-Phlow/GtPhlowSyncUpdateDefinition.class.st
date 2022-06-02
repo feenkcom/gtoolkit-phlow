@@ -33,7 +33,8 @@ GtPhlowSyncUpdateDefinition >> subscribeOn: aGtPhlowElementContext [
 	self announcerDo: [ :anAnnouncer |
 		anAnnouncer weak
 			when: self announcement
-			do: (WeakMessageSend receiver: aGtPhlowElementContext selector: #syncUpdate) ]
+			send: #syncUpdate
+			to: aGtPhlowElementContext ]
 ]
 
 { #category : #subscriptions }
