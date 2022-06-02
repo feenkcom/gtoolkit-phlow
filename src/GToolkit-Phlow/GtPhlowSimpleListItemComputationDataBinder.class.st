@@ -8,6 +8,11 @@ Class {
 	#category : 'GToolkit-Phlow-Support - List simple'
 }
 
+{ #category : #accessing }
+GtPhlowSimpleListItemComputationDataBinder class >> stencilProperties [
+	^ #(dataBinder itemComputation)
+]
+
 { #category : #'api - instantiation' }
 GtPhlowSimpleListItemComputationDataBinder >> buildDefault [
 	| aValue |

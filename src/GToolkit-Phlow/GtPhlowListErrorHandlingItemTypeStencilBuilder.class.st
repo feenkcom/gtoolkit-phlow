@@ -7,6 +7,11 @@ Class {
 	#category : 'GToolkit-Phlow-Support - List utilities'
 }
 
+{ #category : #accessing }
+GtPhlowListErrorHandlingItemTypeStencilBuilder class >> stencilProperties [
+	^ #(itemTypeStencilBuilder)
+]
+
 { #category : #'api - instantiation' }
 GtPhlowListErrorHandlingItemTypeStencilBuilder >> buildDefault [
 	^ [ 

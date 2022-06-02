@@ -7,6 +7,11 @@ Class {
 	#category : 'GToolkit-Phlow-Support - List'
 }
 
+{ #category : #accessing }
+GtPhlowListTextualLinkBuilder class >> stencilProperties [
+	^ #(spawnObjectComputation)
+]
+
 { #category : #'api - instantiation' }
 GtPhlowListTextualLinkBuilder >> buildDefault [
 	^ BrButton new

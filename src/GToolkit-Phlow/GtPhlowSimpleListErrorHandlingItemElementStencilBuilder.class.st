@@ -8,6 +8,11 @@ Class {
 	#category : 'GToolkit-Phlow-Support - List simple'
 }
 
+{ #category : #accessing }
+GtPhlowSimpleListErrorHandlingItemElementStencilBuilder class >> stencilProperties [
+	^ #(stencilBuilder cellSpacing)
+]
+
 { #category : #'api - instantiation' }
 GtPhlowSimpleListErrorHandlingItemElementStencilBuilder >> buildDefault [
 	| aContainer |

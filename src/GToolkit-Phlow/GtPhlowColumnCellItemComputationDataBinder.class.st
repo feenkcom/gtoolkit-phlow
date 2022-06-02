@@ -8,6 +8,11 @@ Class {
 	#category : 'GToolkit-Phlow-Support - List columned'
 }
 
+{ #category : #accessing }
+GtPhlowColumnCellItemComputationDataBinder class >> stencilProperties [
+	^ #(dataBinder itemComputation)
+]
+
 { #category : #'api - instantiation' }
 GtPhlowColumnCellItemComputationDataBinder >> buildDefault [
 	| aValue |
