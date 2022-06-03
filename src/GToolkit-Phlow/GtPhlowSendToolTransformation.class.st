@@ -8,7 +8,7 @@ See {{gtClass:TGtPhlowSendTransformable}} for more details and examples.
 Class {
 	#name : #GtPhlowSendToolTransformation,
 	#superclass : #GtPhlowSendValuableTransformation,
-	#category : 'GToolkit-Phlow-Support - Transformation'
+	#category : #'GToolkit-Phlow-Support - Transformation'
 }
 
 { #category : #defaults }
@@ -21,14 +21,12 @@ GtPhlowSendToolTransformation >> defaultValuable [
 GtPhlowSendToolTransformation >> select: aSelectedObject indices: aSelectionIndices from: anElement [
 	| aTransformedTool |
 	aTransformedTool := self transformedValueFrom: aSelectedObject selection: aSelectionIndices.
-	anElement phlow selectTool: aTransformedTool.
-	anElement fireEvent: (GLMBlocObjectToSelect new toSelect: aTransformedTool)
+	anElement phlow selectTool: aTransformedTool
 ]
 
 { #category : #'api - events' }
 GtPhlowSendToolTransformation >> spawn: aSelectedObject indices: aSelectionIndices from: anElement [
 	| aTransformedTool |
 	aTransformedTool := self transformedValueFrom: aSelectedObject selection: aSelectionIndices.
-	anElement phlow spawnTool: aTransformedTool.
-	anElement fireEvent: (GLMBlocObjectToSelect new toSelect: aTransformedTool)
+	anElement phlow spawnTool: aTransformedTool
 ]
