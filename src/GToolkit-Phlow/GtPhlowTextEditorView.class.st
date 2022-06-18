@@ -9,7 +9,7 @@ Class {
 		'styler',
 		'attributesBuilder'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #accessing }
@@ -18,11 +18,12 @@ GtPhlowTextEditorView >> aptitude [
 ]
 
 { #category : #accessing }
-GtPhlowTextEditorView >> aptitude: aLook [
+GtPhlowTextEditorView >> aptitude: aBlock [
 	self
-		assert: [ (aLook isKindOf: BrAptitude) not ] 
+		assert: [ (aBlock isKindOf: BrAptitude) not ] 
 		description: [ 'Look must be a valuable or just a look class, not a look instance' ].
-	look := aLook
+
+	look := aBlock
 ]
 
 { #category : #converting }
