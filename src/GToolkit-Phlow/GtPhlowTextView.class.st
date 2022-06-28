@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'textBuilder'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #converting }
@@ -59,7 +59,7 @@ GtPhlowTextView >> textBuilder [
 { #category : #updating }
 GtPhlowTextView >> textFor: aBrickEditor onExceptionErrorElement: aBlock [
 	^ self 
-		performBlock: [ (self textBuilder glamourValueWithArgs: { aBrickEditor }) asRopedText ]
+		performBlock: [ (self textBuilder gtValueWithArgs: { aBrickEditor }) asRopedText ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
 ]

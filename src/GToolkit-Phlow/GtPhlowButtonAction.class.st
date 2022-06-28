@@ -7,7 +7,7 @@ Class {
 		'action',
 		'name'
 	],
-	#category : 'GToolkit-Phlow-! Actions'
+	#category : #'GToolkit-Phlow-! Actions'
 }
 
 { #category : #accessing }
@@ -28,7 +28,7 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	icon ifNotNil: [ aButton icon: icon asElement ].
 	action ifNotNil: [ aButton action: [ :theButton :aButtonModel :anEvent | 
 			(self isDefinitionRequested: anEvent) ifFalse: [ 
-				action glamourValueWithArgs: { theButton. aTargetElement. aButtonModel. anEvent } ] ] ].
+				action gtValueWithArgs: { theButton. aTargetElement. aButtonModel. anEvent } ] ] ].
 	name ifNotNil: [ :aName | aButton id: aName ].
 	self attachTooltipFor: aButton hostElement: aTargetElement.
 	self attachShowDefinitionEventHandler: aButton.

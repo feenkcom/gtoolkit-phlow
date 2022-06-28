@@ -213,7 +213,7 @@ GtPhlowTreeView >> stencil: aBlock [
 
 	self itemDataBinder: [ :aWrapperElement :anItemObject :aTreeNode |
 		| aNodeStencil |
-		aNodeStencil := aBlock glamourValueWithArgs: { anItemObject. aTreeNode indexInTree }.
+		aNodeStencil := aBlock gtValueWithArgs: { anItemObject. aTreeNode indexInTree }.
 		aWrapperElement
 			removeChildren;
 			addChild: aNodeStencil asElement ]
