@@ -5,7 +5,7 @@ I am used by ${class:GtPhlowListView}$ and ${class:GtPhlowColumn}$.
 "
 Trait {
 	#name : #TGtPhlowErrorTolerantCell,
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #'private - errors' }
@@ -13,7 +13,7 @@ TGtPhlowErrorTolerantCell >> errorTreatedCellDataBinderFor: aBlockOrSymbol [
 	 ^ [ :aContainer :anItemObject :anItemIndex |
 			self 
 				performBlock: [ 
-					aBlockOrSymbol glamourValueWithArgs: { aContainer content. anItemObject. anItemIndex. self }.
+					aBlockOrSymbol gtValueWithArgs: { aContainer content. anItemObject. anItemIndex. self }.
 					aContainer removeException; showContent. ]
 				onException: [ :anException | 
 					| anElement |
@@ -52,7 +52,7 @@ TGtPhlowErrorTolerantCell >> errorTreatedCellTypeFor: aBlockOrSymbol [
 	 ^ [ :anItemTypeFactory :anItemObject :anItemIndex |
 			self 
 				performBlock: [ 
-					aBlockOrSymbol glamourValueWithArgs: { anItemTypeFactory. anItemObject. anItemIndex. self } ]
+					aBlockOrSymbol gtValueWithArgs: { anItemTypeFactory. anItemObject. anItemIndex. self } ]
 				onException: [ :anException |
 					GtPhlowExceptionItemType exception: anException freezeOrWithoutContext ] ]
 ]

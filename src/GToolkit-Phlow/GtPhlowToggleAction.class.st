@@ -8,7 +8,7 @@ Class {
 		'activatedAction',
 		'deactivatedAction'
 	],
-	#category : 'GToolkit-Phlow-! Actions'
+	#category : #'GToolkit-Phlow-! Actions'
 }
 
 { #category : #accessing }
@@ -36,10 +36,10 @@ GtPhlowToggleAction >> asElement: aBlock withHostElement: aTargetElement [
 	aToggle 
 		when: BrToggleActivatedEvent do: [ :anEvent | 
 			(self isDefinitionRequested: anEvent) ifFalse: [ 
-				activatedAction glamourValueWithArgs: { aToggle. aTargetElement. anEvent } ] ];
+				activatedAction gtValueWithArgs: { aToggle. aTargetElement. anEvent } ] ];
 		when: BrToggleDeactivatedEvent do: [ :anEvent | 
 			(self isDefinitionRequested: anEvent) ifFalse: [ 
-				deactivatedAction glamourValueWithArgs: { aToggle. aTargetElement. anEvent } ] ].
+				deactivatedAction gtValueWithArgs: { aToggle. aTargetElement. anEvent } ] ].
 	self attachShowDefinitionEventHandler: aToggle.
 	self attachTooltipFor: aToggle hostElement: aTargetElement.
 	^ aBlock value: aToggle
