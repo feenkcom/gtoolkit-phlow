@@ -90,7 +90,7 @@ GtPhlowSystemChangeUpdateDefinition >> removeContext: aGtPhlowElementContext [
 { #category : #schedulling }
 GtPhlowSystemChangeUpdateDefinition >> scheduleTask: aFuture [
 
-	(aFuture delayed: 200 milliseconds) await:
+	(aFuture delayed: 200 milliSeconds) await:
 		(AsyncFutureExecutionConfiguration new
 			 customGroup: #Phlow;
 			 highPriority)
