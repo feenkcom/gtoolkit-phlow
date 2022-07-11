@@ -21,7 +21,7 @@ Class {
 		'itemTypeStencil',
 		'itemContextMenuStencil'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #'api - converting' }
@@ -215,13 +215,13 @@ GtPhlowListView >> newDecoratedItemStencil [
 		anItemElementStencil := GtPhlowListItemElementWithContextMenuDecorator new
 			stencilBuilder: anItemElementStencil;
 			contextMenuStencil: aContextMenuStencil ].
-
-	anItemElementStencil := GtPhlowListItemElementWithSelectionDecorator new
-		stencilBuilder: anItemElementStencil.
-
+		
 	anItemElementStencil := GtPhlowSimpleListErrorHandlingItemElementStencilBuilder new
 		stencilBuilder: anItemElementStencil;
 		cellSpacing: (BlInsets left: 10).
+		
+	anItemElementStencil := GtPhlowListItemElementWithSelectionDecorator new
+		stencilBuilder: anItemElementStencil.
 
 	^ anItemElementStencil
 ]
