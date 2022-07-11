@@ -5,7 +5,7 @@ Class {
 		'stencilBuilder',
 		'cellSpacing'
 	],
-	#category : 'GToolkit-Phlow-Support - List simple'
+	#category : #'GToolkit-Phlow-Support - List simple'
 }
 
 { #category : #accessing }
@@ -15,29 +15,35 @@ GtPhlowSimpleListErrorHandlingItemElementStencilBuilder class >> stencilProperti
 
 { #category : #'api - instantiation' }
 GtPhlowSimpleListErrorHandlingItemElementStencilBuilder >> buildDefault [
-	| aContainer |
+	| cellContainer |
 
-	aContainer := self newCellContainer.
+	cellContainer := self newCellContainer.
 	
 	(self itemType class = GtPhlowExceptionItemType) 
 		ifTrue: [ 
 			| anElement |
-			anElement := self itemType exception asDebuggableElement vFitContent; hMatchParent.
-			aContainer exception: anElement ]
-		ifFalse: [ 
-			[
-				| anElement |
-				anElement := self stencilBuilder
-					itemType: self itemType;
-					build.
+			anElement := self itemType exception asDebuggableElement 
+				vFitContent; 
+				hMatchParent.
+			cellContainer exception: anElement.
+			^ cellContainer ].
+		
+	[
+		| anElement |
+		anElement := self stencilBuilder
+			itemType: self itemType;
+			build.
 
-				aContainer content: anElement. ]
-					on: Error
-					do: [ :anException |
-						| anElement |
-					anElement := anException asDebuggableElement vFitContent; hMatchParent.
-					aContainer exception: anElement ]  ].
-	^ aContainer
+		cellContainer content: anElement
+	]
+		on: Error
+		do: [ :anException |
+			| anElement |
+			anElement := anException asDebuggableElement 
+				vFitContent; 
+				hMatchParent.
+			cellContainer exception: anElement ].
+	^ cellContainer
 ]
 
 { #category : #accessing }
