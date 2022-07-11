@@ -5,7 +5,7 @@ Class {
 		'dataBinder',
 		'itemComputation'
 	],
-	#category : 'GToolkit-Phlow-Support - List simple'
+	#category : #'GToolkit-Phlow-Support - List simple'
 }
 
 { #category : #accessing }
@@ -17,7 +17,9 @@ GtPhlowSimpleListItemComputationDataBinder class >> stencilProperties [
 GtPhlowSimpleListItemComputationDataBinder >> buildDefault [
 	| aValue |
 
-	aValue := itemComputation phlowValue: itemObject withEnoughArguments: { itemObject. itemPosition }.
+	aValue := itemComputation 
+		phlowValue: itemObject 
+		withEnoughArguments: { itemObject. itemPosition }.
 
 	^ dataBinder
 		itemElement: itemElement;

@@ -17,7 +17,7 @@ Class {
 	#superclass : #BlElement,
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #'api - accessing' }
@@ -88,7 +88,7 @@ GtPhlowCellElement >> hideContent [
 	self content ifNotNil: [ :anElement | anElement visibility: BlVisibility gone ]
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 GtPhlowCellElement >> initialize [
 	super initialize.
 
