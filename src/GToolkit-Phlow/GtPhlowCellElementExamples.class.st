@@ -6,7 +6,7 @@ I exemplify {{gtClass:GtPhlowCellElement}}.
 Class {
 	#name : #GtPhlowCellElementExamples,
 	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Examples'
+	#category : 'GToolkit-Phlow-Examples'
 }
 
 { #category : #'examples - cell element' }
@@ -114,6 +114,7 @@ GtPhlowCellElementExamples >> exceptionElement [
 GtPhlowCellElementExamples >> labelElement [
 	<gtExample>
 	^ BrLabel new
+		aptitude: BrGlamorousLabelAptitude;
 		text: 'item one';
 		fitContent
 ]
