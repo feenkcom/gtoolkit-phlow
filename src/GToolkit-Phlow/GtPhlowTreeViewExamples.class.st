@@ -8,7 +8,7 @@ Class {
 	#superclass : #GtPhlowViewExamples,
 	#traits : 'TGtPhlowSendTransformationExamples',
 	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
-	#category : 'GToolkit-Phlow-Examples - Views'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #'examples - auto updates' }
@@ -177,17 +177,18 @@ GtPhlowTreeViewExamples >> sendTool [
 	<gtExample>
 	| view element |
 	view := self viewWithTenItems.
-	view sendTool: [ :aNumber | GtPhlowValuableTool new
-		valuable: [ BrFrame new
-			labeled: 'tool';
-			matchParent;
-			alignCenter;
-			addChild: (BrLabel new
-				aptitude: BrGlamorousLabelAptitude;
-				text: aNumber;
-				constraintsDo: [ :c | 
-					c frame horizontal alignCenter.
-					c frame vertical alignCenter ]) ] ].
+	view
+		sendTool: [ :aNumber | 
+			GtPhlowValuableTool new
+				valuable: [ BrFrame new
+						labeled: 'tool';
+						matchParent;
+						alignCenter;
+						addChild: (BrLabel new
+								text: aNumber;
+								constraintsDo: [ :c | 
+									c frame horizontal alignCenter.
+									c frame vertical alignCenter ]) ] ].
 	view asElementDo: [ :el | element := el ].
 	self itemsFor: element ofSize: 10.
 	^ view
