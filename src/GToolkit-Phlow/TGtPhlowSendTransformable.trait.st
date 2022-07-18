@@ -38,21 +38,12 @@ TGtPhlowSendTransformable >> send [
 ]
 
 { #category : #'api - scripting' }
-TGtPhlowSendTransformable >> send: aBlock [
+TGtPhlowSendTransformable >> send: aBlockOrSymbolOrTransformation [
 	"Define what object should be displayed on selection and fire select or spawn item requests"
 	self
-		assert: [ aBlock isNotNil ]
+		assert: [ aBlockOrSymbolOrTransformation isNotNil ]
 		description: [ 'Send transformation block must be non-nil'  ].
-	aBlock isSymbol ifTrue: [ 
-		self 
-			assert: [ aBlock isUnary ]
-			description: [ 'Send transformation symbol must be unary' ].
-		self transformation: (GtPhlowSendTransformation object: [ :obj | aBlock value: obj ]).
-		^ self ].
-	self
-		assert: [ aBlock numArgs <= 2 ]
-		description: [ 'Send transformation block must have two or less arguments'  ].
-	self transformation: (GtPhlowSendTransformation object: aBlock)
+	self transformation: aBlockOrSymbolOrTransformation asPhlowSendTransformation
 ]
 
 { #category : #'api - scripting' }
