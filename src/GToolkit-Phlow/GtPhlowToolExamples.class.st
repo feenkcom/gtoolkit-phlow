@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowToolExamples,
 	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Tool - Examples'
+	#category : 'GToolkit-Phlow-Tool - Examples'
 }
 
 { #category : #'examples - tools' }
@@ -44,6 +44,7 @@ GtPhlowToolExamples >> defaultBackgroundColor [
 GtPhlowToolExamples >> labelWithText: aString [
 	<gtExample>
 	^ BrLabel new
+		aptitude: BrGlamorousLabelAptitude;
 		fitContent;
 		alignCenter;
 		constraintsDo: [ :c | 

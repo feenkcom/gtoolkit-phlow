@@ -17,7 +17,7 @@ Class {
 		'dataBinder',
 		'width'
 	],
-	#category : #'GToolkit-Phlow-Support'
+	#category : 'GToolkit-Phlow-Support'
 }
 
 { #category : #'api - building' }
@@ -32,9 +32,10 @@ GtPhlowColumn >> buildHeaderElement [
 GtPhlowColumn >> buildHeaderElementFor: aText [
 	| aLabel |
 	aLabel := BrLabel new
-			alignCenterLeft;
-			padding: self newCellPaddingInsets;
-			text: (aText asRopedText foreground: BrGlamorousColors defaultButtonTextColor).
+		aptitude: BrGlamorousLabelAptitude;
+		alignCenterLeft;
+		padding: self newCellPaddingInsets;
+		text: (aText asRopedText foreground: BrGlamorousColors defaultButtonTextColor).
 	^ aLabel
 ]
 
