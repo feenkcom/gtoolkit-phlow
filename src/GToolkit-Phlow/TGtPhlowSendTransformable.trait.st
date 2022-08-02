@@ -1,13 +1,14 @@
 "
-I am used by some concrete ${class:GtPhlowView}$ subclasses, see ${class:TGtPhlowSendTransformable|label=my users|show=#gtUsersFor:|height=150|expanded}$:
+I am used by some concrete {{gtClass:GtPhlowView}} subclasses, see {{gtClass:TGtPhlowSendTransformable|label=my users|show=#gtUsersFor:|height=150|expanded}}:
 I extend those classes with:
-- ${method:TGtPhlowSendTransformable>>#send:|label=#selector}$, and
-- ${method:TGtPhlowSendTransformable>>#sendTool:|label=#selector}$.
-!! Send Example
-In the following example, when the list items are selected (double click), ${example:GtPhlowListViewExamples>>#sendNumberAddition|label}$ is added to selected items that are displayed in the next pane: ${example:GtPhlowListViewExamples>>#sendObject_Block|codeExpanded=false|previewExpanded=true}$
-!! Send Tool Example
-In the following example, when the list items are selected (double click), a ${class:GtPhlowTool|label=Phlow tool}$ is used to display selected items in the next pane: ${example:GtPhlowListViewExamples>>#sendTool|codeExpanded=false|previewExpanded=true}$
-In this case, it is a  ${class:BlElement}$ widget that displays selected numbers in the middle. More elaborate and dedicated Phlow tools can be used, see ${class:GtPhlowTool|expanded|show=#gtSubclassesFor:}$ subclasses:
+- {{gtMethod:TGtPhlowSendTransformable>>#send:|label=#selector}}, and
+- {{gtMethod:TGtPhlowSendTransformable>>#sendTool:|label=#selector}}.
+## Send Example
+In the following example, when the list items are selected (double click), {{gtExample:GtPhlowListViewExamples>>#sendNumberAddition|label}} is added to selected items that are displayed in the next pane: {{gtExample:GtPhlowListViewExamples>>#sendObject_Block|codeExpanded=false|previewExpanded=true}}
+## Send Tool Example
+In the following example, when the list items are selected (double click), a {{gtClass:GtPhlowTool|label=Phlow tool}} is used to display selected items in the next pane: {{gtExample:GtPhlowListViewExamples>>#sendTool|codeExpanded=false|previewExpanded=true}}
+In this case, it is a  {{gtClass:BlElement}} widget that displays selected numbers in the middle. More elaborate and dedicated Phlow tools can be used, see {{gtClass:GtPhlowTool|expanded|show=#gtSubclassesFor:}} subclasses:
+
 "
 Trait {
 	#name : #TGtPhlowSendTransformable,

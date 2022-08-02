@@ -1,9 +1,10 @@
 "
-I add scripting methods that simplify colum definitions for ${class:GtPhlowColumnedListView}$ and ${class:GtPhlowColumnedTreeView}$.
+I add scripting methods that simplify colum definitions for {{gtClass:GtPhlowColumnedListView}} and {{gtClass:GtPhlowColumnedTreeView}}.
+
 "
 Trait {
 	#name : #TGtPhlowColumnScripts,
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #'api - scripting column' }

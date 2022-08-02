@@ -1,12 +1,13 @@
 "
-I provide expanding API for ${class:GtPhlowTreeView}$ and ${class:GtPhlowColumnedTreeView}$.
+I provide expanding API for {{gtClass:GtPhlowTreeView}} and {{gtClass:GtPhlowColumnedTreeView}}.
+
 "
 Trait {
 	#name : #TGtPhlowTreeNodeExpansion,
 	#instVars : [
 		'expander'
 	],
-	#category : 'GToolkit-Phlow-Support - Tree Expansion'
+	#category : #'GToolkit-Phlow-Support - Tree Expansion'
 }
 
 { #category : #'api - expansion' }

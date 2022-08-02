@@ -1,6 +1,7 @@
 "
 I add a scripting method to display items as a text.
-I am used by ${class:GtPhlowListView}$ and ${class:GtPhlowTreeView}$.
+I am used by {{gtClass:GtPhlowListView}} and {{gtClass:GtPhlowTreeView}}.
+
 
 "
 Trait {
@@ -8,7 +9,7 @@ Trait {
 	#instVars : [
 		'itemTextBlock'
 	],
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #'api - scripting' }

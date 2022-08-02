@@ -1,12 +1,13 @@
 "
-I add a tooltip option to a ${class:GtPhlowAction}$.
+I add a tooltip option to a {{gtClass:GtPhlowAction}}.
+
 "
 Trait {
 	#name : #TGtPhlowTooltipBuilder,
 	#instVars : [
 		'tooltipBuilder'
 	],
-	#category : 'GToolkit-Phlow-Support - Tooltip'
+	#category : #'GToolkit-Phlow-Support - Tooltip'
 }
 
 { #category : #defaults }
