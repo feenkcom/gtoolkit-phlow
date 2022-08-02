@@ -1,5 +1,6 @@
 "
-I add methods that creates column headers for columned views ${class:GtPhlowColumnedListView}$ and ${class:GtPhlowColumnedTreeView}$.
+I add methods that creates column headers for columned views {{gtClass:GtPhlowColumnedListView}} and {{gtClass:GtPhlowColumnedTreeView}}.
+
 "
 Trait {
 	#name : #TGtPhlowColumnedHeader,

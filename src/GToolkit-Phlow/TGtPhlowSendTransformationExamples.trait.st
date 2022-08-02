@@ -1,12 +1,13 @@
 "
-I exemplify ${class:TGtPhlowSendTransformable}$ and ${class:TGtPhlowSendTreeNodeTransformable}$.
+I exemplify {{gtClass:TGtPhlowSendTransformable}} and {{gtClass:TGtPhlowSendTreeNodeTransformable}}.
+
 
 "
 Trait {
 	#name : #TGtPhlowSendTransformationExamples,
 	#traits : 'TGtSpaceExamples',
 	#classTraits : 'TGtSpaceExamples classTrait',
-	#category : 'GToolkit-Phlow-Examples - Views'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #'examples - support' }

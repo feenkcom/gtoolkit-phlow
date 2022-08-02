@@ -1,6 +1,7 @@
 "
 I add error handling for user inputs.
-I am used by ${class:GtPhlowListView}$ and ${class:GtPhlowColumn}$.
+I am used by {{gtClass:GtPhlowListView}} and {{gtClass:GtPhlowColumn}}.
+
 
 "
 Trait {

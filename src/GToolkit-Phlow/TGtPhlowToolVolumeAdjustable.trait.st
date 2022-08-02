@@ -1,9 +1,10 @@
 "
-Use ${class:TGtPhlowToolDetailAdjustable}$ instead.
+Use {{gtClass:TGtPhlowToolDetailAdjustable}} instead.
+
 "
 Trait {
 	#name : #TGtPhlowToolVolumeAdjustable,
-	#category : 'GToolkit-Phlow-Tool - Support'
+	#category : #'GToolkit-Phlow-Tool - Support'
 }
 
 { #category : #testing }
