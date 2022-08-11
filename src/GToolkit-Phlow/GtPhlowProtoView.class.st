@@ -11,7 +11,7 @@ Class {
 	#classVars : [
 		'IsTaskItViewGloballyEnabled'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #setup }
@@ -77,6 +77,15 @@ GtPhlowProtoView >> buildContext [
 { #category : #accessing }
 GtPhlowProtoView >> buildContext: aGtPhlowBuildContext [
 	self subclassResponsibility
+]
+
+{ #category : #decorating }
+GtPhlowProtoView >> canvassable [
+	^ GtPhlowCanvassableView new 
+		originalView: self;
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
 ]
 
 { #category : #decorating }
