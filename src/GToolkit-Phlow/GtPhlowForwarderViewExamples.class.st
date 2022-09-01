@@ -95,7 +95,7 @@ GtPhlowForwarderViewExamples >> forwardedViewWithObjectCreationError [
 	"Assertions after the forwarded view initialization"
 	self assert: aPhlowView notNil.
 	self assert: aPhlowView class equals: GtPhlowViewWithError.
-	self assert: aPhlowView error signalerContext method selector equals: #forwardedViewWithObjectCreationError.
+	self assert: aPhlowView error signalerContext notNil.
 	
 	self assert: ((aView asElementDo: [ :anElement | anElement ]) isKindOf: BlElement).
 	^ aView
