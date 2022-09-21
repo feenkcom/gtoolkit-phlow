@@ -29,12 +29,13 @@ GtPhlowUtility class >> createTabElementFor: aPhlowView andDo: aBlock [
 	aPhlowView ifItHasContent: [ 
 		| aTab |
 		 aTab := BrTab new.
-		self registerShowDefinitionEventOn: aTab forView: aPhlowView.
 		aTab phlow
 			beView;
 			entity: aPhlowView.
 		aTab
-			aptitude: BrGlamorousTabAptitude;
+			aptitude: BrGlamorousTabAptitude +
+				(GtPhlowBrowseDefinitionAptitude new
+					definition: [ aPhlowView allDefiningMethods ]);
 			label: aPhlowView title;
 			stencil: [ self newElementForView: aPhlowView ];
 			toolbarStencil: [ self newToolbarForTab: aTab view: aPhlowView ].
@@ -110,17 +111,6 @@ GtPhlowUtility class >> newItemLabel [
 GtPhlowUtility class >> newToolbarForTab: aTab view: aPhlowView [ 
 	<return: #BrToolbar>
 	^ aPhlowView actionsToolbarForElement: aTab
-]
-
-{ #category : #subscriptions }
-GtPhlowUtility class >> registerShowDefinitionEventOn: aBrTab forView: aPhlowView [
-	aBrTab
-		when: BlMouseDownEvent
-		do: [ :anEvent | 
-			(self isDefinitionRequested: anEvent)
-				ifTrue: [ 
-					anEvent consumed: true.
-					aBrTab phlow spawnObject: aPhlowView allDefiningMethods ] ]
 ]
 
 { #category : #sorting }

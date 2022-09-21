@@ -33,13 +33,8 @@ GtPhlowAction >> asElement: aBlock withHostElement: aTargetElement [
 
 { #category : #converting }
 GtPhlowAction >> attachShowDefinitionEventHandler: element [
-	self definingMethod
-		ifNotNil: [ element
-				when: BlMouseDownEvent
-				do: [ :event | 
-					(self isDefinitionRequested: event)
-						ifTrue: [ event consumed: true.
-							element phlow spawnObject: self definingMethod ] ] ]
+	element addAptitude: (GtPhlowBrowseDefinitionAptitude new
+		definition: [ self definingMethod ]).
 ]
 
 { #category : #decorating }
