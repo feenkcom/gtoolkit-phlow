@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'label'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #accessing }
@@ -54,6 +54,6 @@ GtPhlowLabelledView >> label: anObject [
 
 { #category : #'instance creation' }
 GtPhlowLabelledView >> newLabel [
-	<return: #BlRopedText or: #String>
+	<return: #BlRunRopedText or: #String>
 	^ self label value
 ]
