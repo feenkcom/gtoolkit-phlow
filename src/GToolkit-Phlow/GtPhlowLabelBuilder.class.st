@@ -12,7 +12,7 @@ Class {
 	#instVars : [
 		'object'
 	],
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #'api - label' }
@@ -23,7 +23,7 @@ GtPhlowLabelBuilder >> articleFor: aString [
 
 { #category : #'api - building' }
 GtPhlowLabelBuilder >> build [
-	<return: #BlRopedText or: #String>
+	<return: #BlRunRopedText or: #String>
 	^ self titleOfObject: self object
 ]
 
@@ -39,7 +39,7 @@ GtPhlowLabelBuilder >> object: anObject [
 
 { #category : #'api - label' }
 GtPhlowLabelBuilder >> textOf: anObject [
-	<return: #BlRopedText>
+	<return: #BlRunRopedText>
 	^ [ anObject gtDisplayString asRopedText ]
 			on: Error 
 			do: [ :e | 'Error printing' asRopedText foreground: Color red ]
@@ -47,7 +47,7 @@ GtPhlowLabelBuilder >> textOf: anObject [
 
 { #category : #'api - label' }
 GtPhlowLabelBuilder >> titleOfObject: anObject [
-	<return: #BlRopedText or: #String>
+	<return: #BlRunRopedText or: #String>
 	| aClassName aHeader aDisplayText |
 	aClassName := anObject class name.
 	aHeader := (self articleFor: aClassName), aClassName.
@@ -65,6 +65,6 @@ GtPhlowLabelBuilder >> titleOfObject: anObject [
 
 { #category : #'api - building' }
 GtPhlowLabelBuilder >> value [
-	<return: #BlRopedText or: #String>
+	<return: #BlRunRopedText or: #String>
 	^ self build
 ]

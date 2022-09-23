@@ -24,7 +24,7 @@ Class {
 		'toolName',
 		'subjectName'
 	],
-	#category : 'GToolkit-Phlow-Tool - Title'
+	#category : #'GToolkit-Phlow-Tool - Title'
 }
 
 { #category : #'api - building' }
@@ -74,7 +74,7 @@ GtPhlowToolTitleLabelBuilder >> subjectName: anObject [
 
 { #category : #'private - building' }
 GtPhlowToolTitleLabelBuilder >> subjectShortName [
-	<return: #BlRopedText>
+	<return: #BlRunRopedText>
 	| aTitle aSubject |
 	aSubject := self subjectName value.
 	aSubject ifNil: [ ^ BlText empty ].

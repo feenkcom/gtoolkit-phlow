@@ -4,12 +4,12 @@ Class {
 	#instVars : [
 		'fullLabel'
 	],
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #'api - building' }
 GtPhlowShortLabelBuilder >> build [
-	<return: #BlRopedText or: #String>
+	<return: #BlRunRopedText or: #String>
 	^ self fullLabel size < 42
 		ifTrue: [ self fullLabel ]
 		ifFalse: [ 
