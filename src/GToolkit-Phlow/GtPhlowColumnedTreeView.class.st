@@ -31,6 +31,7 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 		ifNotEmpty: [ aHeader children first padding: (BlInsets left: 20) ].
 
 	aTree := self columnedTreeClass new.
+	aTree matchParent.
 	self
 		performBlock: [ aTree items: theItems lazy: self errorCatchingChildrenBuilder ]
 		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
