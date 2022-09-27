@@ -62,7 +62,7 @@ GtPhlowContextExamples >> sameContextFromCompositeView [
 	self assert: allContexts first key class equals: GtPhlowForwarderView.
 	self assert: allContexts first value equals: aContext.
 
-	aScripter := BlDevScripter new.
+	aScripter := BlScripter new.
 	aView asElementDo: [ :theElement | aScripter element: (anElement := theElement) ].
 
 	self assert: allContexts size equals: 2.
@@ -99,7 +99,7 @@ GtPhlowContextExamples >> sameContextFromRootToBottomList [
 	self assert: allContexts size equals: 1.
 	self assert: allContexts first equals: aView -> aContext.
 
-	aScripter := BlDevScripter new.
+	aScripter := BlScripter new.
 	aView asElementDo: [ :theElement | aScripter element: (anElement := theElement) ].
 
 	self assert: allContexts size equals: 2.
