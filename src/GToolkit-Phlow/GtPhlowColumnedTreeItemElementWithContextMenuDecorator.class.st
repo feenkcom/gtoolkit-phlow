@@ -30,7 +30,7 @@ GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> buildDefault [
 							ifFound:
 								[ :aContainerElement | 
 								aContainerElement
-									allChildrenBreadthFirstDetect: [ :eachChild | eachChild isKindOf: BrColumnedList ]
+									allChildrenBreadthFirstDetect: [ :eachChild | eachChild isKindOf: BrColumnedTree ]
 									ifFound:
 										[ :aListElement | 
 										| anItemHolder anItemPosition anItemObject anItemType |
@@ -38,9 +38,9 @@ GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> buildDefault [
 										anItemPosition := anItemHolder dataSourcePosition.
 										anItemObject := aListElement viewModel itemAt: anItemPosition.
 
-										anItemType := aListElement viewModel itemTypeStencil
+										anItemType := aListElement viewModel nodeTypeStencil
 												itemPosition: anItemPosition;
-												itemObject: anItemObject;
+												itemNode: anItemObject;
 												build.
 
 										contextMenuStencil
@@ -50,7 +50,8 @@ GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> buildDefault [
 											itemElement: anElement;
 											build ]
 									ifNone: [ BlElement new ] ]
-							ifNone: [ BlElement new ] ]
+							ifNone: [ 
+						BlElement new ] ]
 					ifNone: [ BlElement new ] ].
 
 	anElement addAptitude: aContextMenuAptitude.
