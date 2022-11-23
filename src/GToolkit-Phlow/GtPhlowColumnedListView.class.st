@@ -1,12 +1,5 @@
 "
-I represent a columned list view.
-I create {{gtClass:BrColumnedList}} to display items. 
-1. # Examples 
-
-The following object displays several examples. You can `ALT+CLICK` on tab names to display their definitions: {{gtExample:GtPhlowColumnedListViewExamples>>#myself|noCode=true}}  
- 
-
-
+nil
 "
 Class {
 	#name : #GtPhlowColumnedListView,
@@ -16,7 +9,8 @@ Class {
 	#instVars : [
 		'itemsProviderComputation',
 		'columns',
-		'itemContextMenuStencil'
+		'itemContextMenuStencil',
+		'rowDataBinder'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -44,6 +38,10 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 		itemsProvider: itemsProvider;
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation);
 		rowStencil: self newDecoratedItemStencil.
+		
+	rowDataBinder ifNotNil: [
+		list rowDataBinder: rowDataBinder
+	].
 
 	self buildColumnsInList: list.
 	aContainer addChildren: { header. list }.
@@ -182,6 +180,16 @@ GtPhlowColumnedListView >> newDecoratedItemStencil [
 			contextMenuStencil: aContextMenuStencil ].
 
 	^ anItemElementStencil
+]
+
+{ #category : #'api - converting' }
+GtPhlowColumnedListView >> rowDataBinder [
+	^ rowDataBinder
+]
+
+{ #category : #'api - converting' }
+GtPhlowColumnedListView >> rowDataBinder: aBlock [
+	rowDataBinder := aBlock
 ]
 
 { #category : #'api - updating' }
