@@ -5,7 +5,7 @@ Class {
 		'columns',
 		'columnElements'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-Support - List columned'
 }
 
 { #category : #accessing }

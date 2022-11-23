@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowColumnedListItemElementWithContextMenuDecorator,
 	#superclass : #GtPhlowListItemElementWithContextMenuDecorator,
-	#category : #'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-Support - List columned'
 }
 
 { #category : #accessing }

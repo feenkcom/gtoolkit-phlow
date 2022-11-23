@@ -31,25 +31,24 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	
 	aContainer := self elementClass new.
 	aContainer
-		id: GtColumnedListContainerId;
+		id: GtPhlowColumnedListContainerId;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
 		
 	aContainer layout: BlLinearLayout vertical.
 	header := self buildHeaderForItems: #().
+
 	list := self columnedListClass new
-		itemsProvider: itemsProvider.
-	list
-		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation).
-	list
+		id: GtPhlowColumnedListId;
+		itemsProvider: itemsProvider;
+		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation);
 		rowStencil: self newDecoratedItemStencil.
+
 	self buildColumnsInList: list.
-	aContainer
-		addChildren:
-			{header.
-			list}.
+	aContainer addChildren: { header. list }.
 	self beViewElement: aContainer.
+
 	^ aBlock value: aContainer
 ]
 

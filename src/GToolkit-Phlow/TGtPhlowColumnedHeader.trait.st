@@ -13,7 +13,7 @@ TGtPhlowColumnedHeader >> buildHeaderForItems: theItems [
 	aHeader := BlElement new.
 	aHeader layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: self cellSpacing).
 	aHeader padding: (BlInsets top: 5 bottom: 5).
-	aHeader id: GtColumnedListHeaderId.
+	aHeader id: GtPhlowColumnedListHeaderId.
 	aHeader constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical fitContent ].
