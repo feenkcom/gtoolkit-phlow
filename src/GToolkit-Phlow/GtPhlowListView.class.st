@@ -19,7 +19,8 @@ Class {
 		'itemStencil',
 		'itemDataBinder',
 		'itemTypeStencil',
-		'itemContextMenuStencil'
+		'itemContextMenuStencil',
+		'itemId'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -41,6 +42,9 @@ GtPhlowListView >> asElementDo: aBlock [
 		itemStencil: self newDecoratedItemStencil;
 		itemDataBinder: self newDecoratedItemDataBinder;
 		itemType: self newDecoratedItemTypeStencil.
+	itemId ifNotNil: [
+		aList itemId: itemId ].
+		
 	self beViewElement: aList.
 	^ aBlock value: aList
 ]
@@ -138,6 +142,13 @@ GtPhlowListView >> itemFormat: aBlockOrSymbol [
 		deprecated: 'Please use #itemText: instead.'
 		transformWith: '`@receiver itemFormat: `@statements' -> '`@receiver itemText: `@statements'.
 	self itemText: aBlockOrSymbol
+]
+
+{ #category : #'api - configuration' }
+GtPhlowListView >> itemId: aBrListItemIdStencilBuilderOrBlock [
+		"An item type stencil can be a #value-able of the form [ :anItemObject :anItemIndex | ]"
+
+	itemId := aBrListItemIdStencilBuilderOrBlock 
 ]
 
 { #category : #'api - configuration' }
