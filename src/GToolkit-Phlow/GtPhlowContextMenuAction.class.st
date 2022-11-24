@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'name',
 		'action',
-		'filter'
+		'filter',
+		'enabled'
 	],
 	#category : #'GToolkit-Phlow-Support - Context Menu'
 }
@@ -60,7 +61,7 @@ GtPhlowContextMenuAction >> gtViewFilterFor: aView [
 		ifTrue: [ ^ aView textEditor
 				title: 'Filter';
 				priority: 2;
-				text: [ self action ] ].
+				text: [ self enabled ] ].
 
 	^ aView forward
 		title: 'Filter';
