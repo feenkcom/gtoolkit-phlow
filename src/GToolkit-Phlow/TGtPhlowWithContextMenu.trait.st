@@ -24,5 +24,5 @@ TGtPhlowWithContextMenu >> contextMenuStencilFromActions [
 		items: (self contextMenuActions
 				collect: [ :aContextMenuAction | 
 					aContextMenuAction name
-						-> [ :anElement | aContextMenuAction action cull: item cull: anElement ] ]) ]
+						-> [ :anElement | aContextMenuAction action cull: anElement cull: item ] ]) ]
 ]
