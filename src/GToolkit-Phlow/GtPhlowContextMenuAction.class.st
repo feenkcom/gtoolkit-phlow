@@ -31,6 +31,19 @@ GtPhlowContextMenuAction >> asAssociation [
 ]
 
 { #category : #accessing }
+GtPhlowContextMenuAction >> gtViewSourceFor: aView [
+	<gtView>
+	(self action isKindOf: Symbol)
+		ifTrue: [ ^ aView textEditor
+				title: 'Action';
+				text: [ self action ] ].
+	^ aView forward
+		title: 'Source Code';
+		object: [ self action ];
+		view: #gtSourceCodeFor:
+]
+
+{ #category : #accessing }
 GtPhlowContextMenuAction >> name [
 	^ name
 ]
