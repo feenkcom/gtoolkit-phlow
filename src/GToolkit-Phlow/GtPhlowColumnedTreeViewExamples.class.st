@@ -3,7 +3,7 @@ Class {
 	#superclass : #GtPhlowViewExamples,
 	#traits : 'TGtPhlowSendTransformationExamples',
 	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
-	#category : 'GToolkit-Phlow-Examples - Views'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #'examples - columned tree view' }
@@ -121,6 +121,19 @@ GtPhlowColumnedTreeViewExamples >> gtNumbersFor: aView [
 		children: [ :aNumber | aNumber // 2 to: aNumber ];
 		column: 'x' text: [ :aNumber | aNumber ];
 		column: 'x * x' text: [ :aNumber | aNumber * aNumber ]
+]
+
+{ #category : #'gt-extension' }
+GtPhlowColumnedTreeViewExamples >> gtNumbersWithContextMenuFor: aView [
+	<gtView>
+	^ aView columnedTree
+		title: 'Numbers weith Context Menu';
+		priority: 1;
+		items: [ 1 to: 10 ];
+		children: [ :aNumber | aNumber // 2 to: aNumber ];
+		column: 'x' text: [ :aNumber | aNumber ];
+		column: 'x * x' text: [ :aNumber | aNumber * aNumber ];
+		contextItemLabel: 'Context Menu Action' action: [ :anElement | anElement halt ]
 ]
 
 { #category : #'examples - support' }

@@ -353,6 +353,17 @@ GtPhlowListViewExamples >> gtTenItemsFor: aView [
 ]
 
 { #category : #'gt-extension' }
+GtPhlowListViewExamples >> gtTenItemsWithContextMenuFor: aView [
+	<gtView>
+	^ aView list
+		title: '10 Items with context menu';
+		priority: 1;
+		items: [ 1 to: 10 ];
+		contextItemLabel: 'Context Menu Action'
+			action: [ :anElement | anElement halt ]
+]
+
+{ #category : #'gt-extension' }
 GtPhlowListViewExamples >> gtTenLinesFor: aView [
 	<gtView>
 	^ aView list 

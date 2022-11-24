@@ -4,12 +4,11 @@ nil
 Class {
 	#name : #GtPhlowColumnedListView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTransformable',
-	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTransformable classTrait',
+	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTransformable + TGtPhlowWithContextMenu',
+	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTransformable classTrait + TGtPhlowWithContextMenu classTrait',
 	#instVars : [
 		'itemsProviderComputation',
 		'columns',
-		'itemContextMenuStencil',
 		'rowDataBinder'
 	],
 	#category : #'GToolkit-Phlow-! Views'
@@ -138,14 +137,6 @@ GtPhlowColumnedListView >> isExpectedElement: aCurrentElement [
 	^ true
 ]
 
-{ #category : #accessing }
-GtPhlowColumnedListView >> itemContextMenuStencil: aGtPhlowListContextMenuStencilBuilder [
-
-	itemContextMenuStencil := aGtPhlowListContextMenuStencilBuilder 
-		                          asStencilBuilder:
-		                          GtPhlowListContextMenuStencilBuilder
-]
-
 { #category : #'api - scripting' }
 GtPhlowColumnedListView >> items: aBlock [
 	itemsProviderComputation := aBlock
@@ -171,13 +162,15 @@ GtPhlowColumnedListView >> itemsProviderOnExceptionErrorElement: aBlock [
 
 { #category : #accessing }
 GtPhlowColumnedListView >> newDecoratedItemStencil [
-| anItemElementStencil |
-
-	anItemElementStencil := BrGlamorousColumnedListSelectableRowElementStencilBuilder new cellSpacing: self cellSpacing. 
-	itemContextMenuStencil ifNotNil: [ :aContextMenuStencil |
-		anItemElementStencil := GtPhlowColumnedListItemElementWithContextMenuDecorator new
-			stencilBuilder: anItemElementStencil;
-			contextMenuStencil: aContextMenuStencil ].
+	| anItemElementStencil |
+	anItemElementStencil := BrGlamorousColumnedListSelectableRowElementStencilBuilder
+			new cellSpacing: self cellSpacing.
+	self contextMenuActions
+		ifNotEmpty: [ :contextMenuActionsList | 
+			anItemElementStencil := GtPhlowColumnedListItemElementWithContextMenuDecorator
+					new
+					stencilBuilder: anItemElementStencil;
+					contextMenuStencil: self contextMenuStencilFromActions ].
 
 	^ anItemElementStencil
 ]

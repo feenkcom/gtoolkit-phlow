@@ -688,6 +688,21 @@ GtPhlowColumnedListViewExamples >> gtErrorInItemsFor: aView [
 ]
 
 { #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtFourItemsWithColumnIconAndContextMenuFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'contextItemLabel:stencil: usage';
+		priority: 2;
+		items: [ {#accept.
+				#add.
+				#browse.
+				#cancel} ];
+		column: 'icon' icon: [ :x | BrGlamorousVectorIcons perform: x ];
+		column: 'name' text: [ :x | x printString ];
+		contextItemLabel: 'Context Menu Action' action: [ :anElement | anElement halt ]
+]
+
+{ #category : #'gt-extensions' }
 GtPhlowColumnedListViewExamples >> gtFourItemsWithColumnIconFor: aView [
 	<gtView>
 	^ aView columnedList

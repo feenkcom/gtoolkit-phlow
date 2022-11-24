@@ -11,15 +11,14 @@ The following object displays several examples. You can `ALT+CLICK` on tab names
 Class {
 	#name : #GtPhlowListView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowSendTransformable',
-	#classTraits : 'TGtPhlowSendTransformable classTrait',
+	#traits : 'TGtPhlowSendTransformable + TGtPhlowWithContextMenu',
+	#classTraits : 'TGtPhlowSendTransformable classTrait + TGtPhlowWithContextMenu classTrait',
 	#instVars : [
 		'itemsProviderComputation',
 		'itemComputation',
 		'itemStencil',
 		'itemDataBinder',
 		'itemTypeStencil',
-		'itemContextMenuStencil',
 		'itemId'
 	],
 	#category : #'GToolkit-Phlow-! Views'
@@ -102,11 +101,6 @@ GtPhlowListView >> isExpectedElement: aCurrentElement [
 { #category : #'private - accessing' }
 GtPhlowListView >> itemComputation [
 	^ itemComputation
-]
-
-{ #category : #'api - configuration' }
-GtPhlowListView >> itemContextMenuStencil: aGtPhlowListContextMenuStencilBuilder [
-	itemContextMenuStencil := aGtPhlowListContextMenuStencilBuilder asStencilBuilder: GtPhlowListContextMenuStencilBuilder
 ]
 
 { #category : #'private - accessing' }
@@ -219,20 +213,22 @@ GtPhlowListView >> newDecoratedItemDataBinder [
 { #category : #'private - building' }
 GtPhlowListView >> newDecoratedItemStencil [
 	| anItemElementStencil |
-
 	anItemElementStencil := self itemElementStencil.
 
-	itemContextMenuStencil ifNotNil: [ :aContextMenuStencil |
-		anItemElementStencil := GtPhlowListItemElementWithContextMenuDecorator new
+	self contextMenuActions
+		ifNotEmpty: [ :contextMenuActionsList | 
+			anItemElementStencil := GtPhlowListItemElementWithContextMenuDecorator new
+					stencilBuilder: anItemElementStencil;
+					contextMenuStencil: self contextMenuStencilFromActions ].
+
+
+	anItemElementStencil := GtPhlowSimpleListErrorHandlingItemElementStencilBuilder
+			new
 			stencilBuilder: anItemElementStencil;
-			contextMenuStencil: aContextMenuStencil ].
-		
-	anItemElementStencil := GtPhlowSimpleListErrorHandlingItemElementStencilBuilder new
-		stencilBuilder: anItemElementStencil;
-		cellSpacing: (BlInsets left: 10).
-		
+			cellSpacing: (BlInsets left: 10).
+
 	anItemElementStencil := GtPhlowListItemElementWithSelectionDecorator new
-		stencilBuilder: anItemElementStencil.
+			stencilBuilder: anItemElementStencil.
 
 	^ anItemElementStencil
 ]
