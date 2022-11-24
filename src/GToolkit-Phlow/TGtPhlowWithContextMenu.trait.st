@@ -13,6 +13,12 @@ TGtPhlowWithContextMenu >> contextItemLabel: aString action: aBlock [
 ]
 
 { #category : #accessing }
+TGtPhlowWithContextMenu >> contextItemLabel: aString action: aBlock if: aFilterBlock [
+	self contextMenuActions
+		add: (GtPhlowContextMenuAction named: aString action: aBlock if: aFilterBlock)
+]
+
+{ #category : #accessing }
 TGtPhlowWithContextMenu >> contextMenuActions [
 	^ contextMenuActions ifNil: [ contextMenuActions := OrderedCollection new ]
 ]
@@ -22,9 +28,8 @@ TGtPhlowWithContextMenu >> contextMenuStencilFromActions [
 	^ [ :element :item | 
 	BrGlamorousSimpleContextMenuContent new
 		items: (self contextMenuActions
-				collect: [ :aContextMenuAction | 
-					aContextMenuAction name
-						-> [ :anElement | aContextMenuAction action cull: anElement cull: item ] ]) ]
+				select: [ :anAction | anAction respondsTo: item ]
+				thenCollect: [ :anAction | anAction toActionOn: item ]) ]
 ]
 
 { #category : #accessing }
@@ -34,5 +39,6 @@ TGtPhlowWithContextMenu >> gtViewContextMenuActionsFor: aView [
 		title: 'Context Menu Actions';
 		items: [ self contextMenuActions ];
 		column: 'Name' text: #name;
-		column: 'Action' text: #action
+		column: 'Action' text: #action;
+		column: 'Filter' text: [ :anAction | anAction filter ifNil: [ '' ] ]
 ]
