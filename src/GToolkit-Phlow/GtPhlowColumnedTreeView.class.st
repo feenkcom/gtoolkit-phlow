@@ -1,14 +1,13 @@
 Class {
 	#name : #GtPhlowColumnedTreeView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTreeNodeTransformable + TGtPhlowTreeNodeExpansion',
-	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTreeNodeTransformable classTrait + TGtPhlowTreeNodeExpansion classTrait',
+	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTreeNodeTransformable + TGtPhlowTreeNodeExpansion + TGtPhlowWithContextMenu',
+	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTreeNodeTransformable classTrait + TGtPhlowTreeNodeExpansion classTrait + TGtPhlowWithContextMenu classTrait',
 	#instVars : [
 		'columns',
 		'transformation',
 		'itemsBuilder',
-		'childrenBuilder',
-		'itemContextMenuStencil'
+		'childrenBuilder'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -162,14 +161,6 @@ GtPhlowColumnedTreeView >> isExpectedElement: aCurrentElement [
 	^ true
 ]
 
-{ #category : #accessing }
-GtPhlowColumnedTreeView >> itemContextMenuStencil: aGtPhlowListContextMenuStencilBuilder [
-
-	itemContextMenuStencil := aGtPhlowListContextMenuStencilBuilder 
-		                          asStencilBuilder:
-		                          GtPhlowListContextMenuStencilBuilder
-]
-
 { #category : #'api - scripting' }
 GtPhlowColumnedTreeView >> items: aValuable [
 	itemsBuilder := aValuable
@@ -190,13 +181,15 @@ GtPhlowColumnedTreeView >> itemsOnExceptionErrorElement: aBlock [
 
 { #category : #'api - converting' }
 GtPhlowColumnedTreeView >> newDecoratedItemStencil [
-| anItemElementStencil |
-
-	anItemElementStencil := BrGlamorousColumnedTreeSelectableRowElementStencilBuilder new cellSpacing: self cellSpacing. 
-	itemContextMenuStencil ifNotNil: [ :aContextMenuStencil |
-		anItemElementStencil := GtPhlowColumnedTreeItemElementWithContextMenuDecorator new
-			stencilBuilder: anItemElementStencil;
-			contextMenuStencil: aContextMenuStencil ].
+	| anItemElementStencil |
+	anItemElementStencil := BrGlamorousColumnedTreeSelectableRowElementStencilBuilder
+			new cellSpacing: self cellSpacing.
+	self contextMenuActions
+		ifNotEmpty: [ :contextMenuActionsList | 
+			anItemElementStencil := GtPhlowColumnedTreeItemElementWithContextMenuDecorator
+					new
+					stencilBuilder: anItemElementStencil;
+					contextMenuStencil: self contextMenuStencilFromActions ].
 
 	^ anItemElementStencil
 ]
