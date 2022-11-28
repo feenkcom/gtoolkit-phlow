@@ -189,6 +189,18 @@ GtPhlowElementContext >> gtActionSourceFor: aView [
 	self isAction ifFalse: [ ^ aView empty ].
 	^ aView forward 
 		title: 'Source';
+		priority: 20;
+		object: [ self entity ];
+		view: #gtDefiningMethodFor:
+]
+
+{ #category : #accessing }
+GtPhlowElementContext >> gtViewSourceFor: aView [
+	<gtView>
+	self isView ifFalse: [ ^ aView empty ].
+	^ aView forward 
+		title: 'Source';
+		priority: 20;
 		object: [ self entity ];
 		view: #gtDefiningMethodFor:
 ]
