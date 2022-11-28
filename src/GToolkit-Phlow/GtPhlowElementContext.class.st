@@ -183,6 +183,16 @@ GtPhlowElementContext >> firstPopupContainerParentDo: aBlock ifNone: aNoneBlock 
 	^ aNoneBlock value
 ]
 
+{ #category : #accessing }
+GtPhlowElementContext >> gtActionSourceFor: aView [
+	<gtView>
+	self isAction ifFalse: [ ^ aView empty ].
+	^ aView forward 
+		title: 'Source';
+		object: [ self entity ];
+		view: #gtDefiningMethodFor:
+]
+
 { #category : #'api - testing' }
 GtPhlowElementContext >> hasBuildContext [
 	^ self entity hasBuildContext
