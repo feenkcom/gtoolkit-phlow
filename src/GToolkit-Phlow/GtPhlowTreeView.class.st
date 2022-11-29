@@ -1,8 +1,8 @@
 Class {
 	#name : #GtPhlowTreeView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowErrorTolerantCell - {#performBlock:onException:} + TGtPhlowItemText + TGtPhlowSendTreeNodeTransformable + TGtPhlowTreeNodeExpansion',
-	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait + TGtPhlowSendTreeNodeTransformable classTrait + TGtPhlowTreeNodeExpansion classTrait',
+	#traits : 'TGtPhlowErrorTolerantCell + TGtPhlowItemText + TGtPhlowSendTreeNodeTransformable + TGtPhlowTreeNodeExpansion + TGtPhlowWithContextMenu',
+	#classTraits : 'TGtPhlowErrorTolerantCell classTrait + TGtPhlowItemText classTrait + TGtPhlowSendTreeNodeTransformable classTrait + TGtPhlowTreeNodeExpansion classTrait + TGtPhlowWithContextMenu classTrait',
 	#instVars : [
 		'itemsBuilder',
 		'itemStencil',
@@ -33,7 +33,7 @@ GtPhlowTreeView >> asElementDo: aBlock [
 	aTree rowStencil: (BrGlamorousSimpleTreeSelectableRowElementStencilBuilder new padding: (BlInsets left: 10 right: 10)).
 	aTree
 		nodeType: self itemTypeStencil;
-		nodeStencil: self itemStencil;
+		nodeStencil: self newDecoratedItemStencil;
 		nodeDataBinder: self itemDataBinder.
 
 	self
@@ -192,6 +192,20 @@ GtPhlowTreeView >> newCellPaddingInsets [
 		left: 0
 		bottom: 0
 		right: 0
+]
+
+{ #category : #'api - converting' }
+GtPhlowTreeView >> newDecoratedItemStencil [
+	| anItemStencil |
+	anItemStencil := self itemStencil.
+
+	self contextMenuActions
+		ifNotEmpty: [ :contextMenuActionsList | 
+			anItemStencil := GtPhlowTreeItemElementWithContextMenuDecorator new
+					stencilBuilder: anItemStencil;
+					contextMenuStencil: self contextMenuStencilFromActions ].
+
+	^ anItemStencil
 ]
 
 { #category : #'api - scripting' }

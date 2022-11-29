@@ -8,7 +8,7 @@ Class {
 	#superclass : #GtPhlowViewExamples,
 	#traits : 'TGtPhlowSendTransformationExamples',
 	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
-	#category : 'GToolkit-Phlow-Examples - Views'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #'examples - auto updates' }
@@ -226,6 +226,19 @@ GtPhlowTreeViewExamples >> treeViewWithItemsAndChildrenWithChildrenError [
 	aView children: [ :aNumber | 3/0. aNumber // 2 to: aNumber ].
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement class equals: BrSimpleTree.
+	^ aView
+]
+
+{ #category : #'examples - tree view' }
+GtPhlowTreeViewExamples >> treeViewWithItemsChildrenAndContextMenu [
+	<gtExample>
+	| aView |
+	aView := self treeViewWithItemsAndChildren.
+	aView contextItemLabel: 'Action' action: #halt.
+	self assert: aView contextMenuActions size equals: 1.
+	self
+		assert: aView contextMenuActions first asAssociation
+		equals: 'Action' -> #halt.
 	^ aView
 ]
 
