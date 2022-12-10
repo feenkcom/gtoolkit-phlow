@@ -6,7 +6,8 @@ Class {
 	#instVars : [
 		'definingMethod',
 		'priority',
-		'target'
+		'target',
+		'id'
 	],
 	#category : #'GToolkit-Phlow-! Actions'
 }
@@ -114,6 +115,18 @@ GtPhlowAction >> gtLiveFor: aView [
 { #category : #accessing }
 GtPhlowAction >> help: aString [
 	"Ignored for now. Suppose to be a tooltip explaining a button action"
+]
+
+{ #category : #accessing }
+GtPhlowAction >> id [
+
+	^ id
+]
+
+{ #category : #accessing }
+GtPhlowAction >> id: anElementId [
+
+	id := anElementId
 ]
 
 { #category : #initialization }

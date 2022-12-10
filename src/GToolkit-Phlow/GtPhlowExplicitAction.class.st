@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'stencilBuilder'
 	],
-	#category : 'GToolkit-Phlow-! Actions'
+	#category : #'GToolkit-Phlow-! Actions'
 }
 
 { #category : #converting }
@@ -17,6 +17,7 @@ GtPhlowExplicitAction >> asElement: aBlock withHostElement: aTargetElement [
 			self 
 				newErrorElementFor: anError 
 				targetElement: aTargetElement ].
+	id ifNotNil: [ anElement id: self id ].
 	self attachShowDefinitionEventHandler: anElement.
 	^ aBlock value: anElement
 ]

@@ -26,6 +26,7 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 		entity: self.
 	label ifNotNil: [ aButton label: label asRopedText ].
 	icon ifNotNil: [ aButton icon: icon asElement ].
+	id ifNotNil: [ aButton id: self id ].
 	action ifNotNil: [ aButton action: [ :theButton :aButtonModel :anEvent | 
 			(self isDefinitionRequested: anEvent) ifFalse: [ 
 				action gtValueWithArgs: { theButton. aTargetElement. aButtonModel. anEvent } ] ] ].
