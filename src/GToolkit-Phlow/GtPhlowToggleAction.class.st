@@ -32,6 +32,7 @@ GtPhlowToggleAction >> asElement: aBlock withHostElement: aTargetElement [
 	aToggle aptitude: self newToggleLook.
 	label ifNotNil: [ aToggle label: label asRopedText ].
 	icon ifNotNil: [ aToggle icon: icon asElement ].
+	id ifNotNil: [ aToggle id: self id ].
 	aToggle activated: isActivated value.
 	aToggle 
 		when: BrToggleActivatedEvent do: [ :anEvent | 
