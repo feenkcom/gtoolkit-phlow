@@ -30,7 +30,7 @@ Class {
 	#instVars : [
 		'views'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #private }
@@ -82,7 +82,8 @@ GtPhlowCompositeView >> gtContainedViewsFor: aView [
 		title: 'Views' translated;
 		items: [ self views ];
 		column: 'View' text: [:each | each gtDisplayString];
-		column: 'Title' text: [:each | each title ]
+		column: 'Title' text: [:each | each title ];
+		column: 'Priority' text: [:each | each priority ]
 ]
 
 { #category : #accessing }
