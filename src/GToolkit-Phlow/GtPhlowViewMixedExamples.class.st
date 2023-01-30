@@ -30,7 +30,7 @@ The most fine grained view is the explicit one through which you can specify the
 Class {
 	#name : #GtPhlowViewMixedExamples,
 	#superclass : #Object,
-	#category : 'GToolkit-Phlow-Examples - Views'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #updating }
@@ -171,11 +171,17 @@ GtPhlowViewMixedExamples >> labelledCompositeViewElement [
 	view asElementDo: [ :el | element := el ].
 	self assert: element notNil.
 	self assert: (element isKindOf: BrTabGroup).
-	self assert: (element phlow firstChildWithView isKindOf: BrTab).
-	self assert: (element phlow firstChildWithView phlow entity = view).
-	self assert: (element phlow firstChildWithView viewContentElement phlow isView).
-	childElementsWithView := element allChildrenBreadthFirstSelect: [:each | each phlow isView ].
+	
+	"Original test was written with a faulty breadth first search"
+	"The properties of the second child are the ones being tested"
+	
+	childElementsWithView := element
+			allChildrenBreadthFirstSelect: [ :each | each phlow isView ].
 	self assert: childElementsWithView size = 3.
+	self assert: (childElementsWithView second isKindOf: BrTab).
+	self assert: childElementsWithView second phlow entity = view.
+	self assert: childElementsWithView second viewContentElement phlow isView.
+
 	^ view
 ]
 
