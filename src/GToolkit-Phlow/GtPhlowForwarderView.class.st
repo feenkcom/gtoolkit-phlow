@@ -45,7 +45,7 @@ GtPhlowForwarderView >> actionsToolbarForElement: anElement [
 							asElement: [ :actionElement | aToolbar addItem: actionElement ]
 							withHostElement: anElement ] ]
 				ifError: [ :anError | 
-					aToolbar addItem: (BrDebugglableElementStencil new freeze: anError) createDebugButton ]
+					aToolbar addItem: (BrDebuggableElementStencil new freeze: anError) createDebugButton ]
 				ifPending: [  ] ];
 		promise: self allActionsPromise
 ]
