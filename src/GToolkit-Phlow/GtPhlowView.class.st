@@ -148,6 +148,16 @@ GtPhlowView >> actionDropdownButtonIcon: anIcon tooltip: aTooltipText content: a
 ]
 
 { #category : #'adding - actions' }
+GtPhlowView >> actionDropdownButtonIcon: anIcon tooltip: aTooltipText content: aValuable id: anId [
+	self actionDropdownButtonDo: [ :aDrodownAction | 
+		aDrodownAction dropdown 
+			icon: anIcon;
+			tooltip: aTooltipText;
+			content: aValuable;
+			id: anId ]
+]
+
+{ #category : #'adding - actions' }
 GtPhlowView >> actionDropdownButtonLabel: aStringOrRope content: aValuable [
 	self actionDropdownButtonDo: [ :aDrodownAction | 
 		aDrodownAction dropdown 
