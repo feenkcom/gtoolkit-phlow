@@ -350,7 +350,7 @@ GtPhlowGroupedListView >> updateContent: aCurrentElement [
 		ifFalse: [ ^ super updateContent: aCurrentElement ].
 	aParent := aCurrentElement parent.
 	aParent ifNotNil: [ | theItems |
-		theItems := self itemsProviderOnExceptionErrorElement: [ :anErrorElement | 
+		theItems := self groupsProviderOnExceptionErrorElement: [ :anErrorElement | 
 			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
-		self enqueueAction: [ aCurrentElement itemsProvider: theItems ] in: aCurrentElement ]
+		self enqueueAction: [ aCurrentElement groupsProvider: theItems ] in: aCurrentElement ]
 ]
