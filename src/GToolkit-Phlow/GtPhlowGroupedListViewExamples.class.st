@@ -99,7 +99,10 @@ GtPhlowGroupedListViewExamples >> updateOnDefiningMethodChange [
 GtPhlowGroupedListViewExamples >> viewWithItems [
 	<gtExample>
 	| view element |
-	view := self emptyList items: [ (1 to: 10) ]; groups: [ {'Even' -> #even . 'Odd' -> #odd} ].
+	view := self emptyList
+			items: [ 1 to: 10 ];
+			groups: [ {'Even' -> #even.
+					'Odd' -> #odd} ].
 	view asElementDo: [ :el | element := el ].
 	^ view
 ]
