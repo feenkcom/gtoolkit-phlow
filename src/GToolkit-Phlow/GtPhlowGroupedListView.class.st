@@ -14,8 +14,8 @@ Class {
 		'headerElementStencil',
 		'itemsProvider',
 		'groupStencil',
-		'groupLabelStencil',
-		'groupLabelDataBinder'
+		'groupHeaderStencil',
+		'groupHeaderDataBinder'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -30,8 +30,8 @@ GtPhlowGroupedListView >> asElementDo: aBlock [
 	aList
 		addEventHandler: (GtPhlowGroupedListToSelectHandler new transformation: self transformation).
 	aList constraintsDo: [ :c | c padding: (BlInsets top: 10 bottom: 10) ].
-	aList headerElementStencil: self groupLabelStencil;
-		headerDataBinder: self groupLabelDataBinder.
+	aList headerElementStencil: self groupHeaderStencil;
+		headerDataBinder: self groupHeaderDataBinder.
 	itemId ifNotNil: [ aList itemId: itemId ].
 
 	self beViewElement: aList.
@@ -103,23 +103,23 @@ GtPhlowGroupedListView >> format: aBlockOrSymbol [
 ]
 
 { #category : #accessing }
-GtPhlowGroupedListView >> groupLabelDataBinder [
-	^ groupLabelDataBinder
+GtPhlowGroupedListView >> groupHeaderDataBinder [
+	^ groupHeaderDataBinder
 ]
 
 { #category : #accessing }
-GtPhlowGroupedListView >> groupLabelDataBinder: anObject [
-	groupLabelDataBinder := anObject
+GtPhlowGroupedListView >> groupHeaderDataBinder: anObject [
+	groupHeaderDataBinder := anObject
 ]
 
 { #category : #accessing }
-GtPhlowGroupedListView >> groupLabelStencil [
-	^ groupLabelStencil
+GtPhlowGroupedListView >> groupHeaderStencil [
+	^ groupHeaderStencil
 ]
 
 { #category : #accessing }
-GtPhlowGroupedListView >> groupLabelStencil: anObject [
-	groupLabelStencil := anObject
+GtPhlowGroupedListView >> groupHeaderStencil: anObject [
+	groupHeaderStencil := anObject
 ]
 
 { #category : #accessing }
@@ -169,8 +169,8 @@ GtPhlowGroupedListView >> initialize [
 	self itemText: [ :aValue | aValue ].
 	self transformation: self defaultTransformation.
 	self groupStencil: self defaultGroupStencil.
-	self groupLabelStencil: self defaultGroupLabelStencil.
-	self groupLabelDataBinder: self defaultGroupLabelDataBinder.
+	self groupHeaderStencil: self defaultGroupLabelStencil.
+	self groupHeaderDataBinder: self defaultGroupLabelDataBinder.
 
 	itemComputation := self defaultItemComputation.
 	"nil means that we should not create a context menu for each item"
