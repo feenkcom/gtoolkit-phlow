@@ -15,7 +15,8 @@ Class {
 		'itemsProvider',
 		'groupStencil',
 		'groupHeaderStencil',
-		'groupHeaderDataBinder'
+		'groupHeaderDataBinder',
+		'groupedItemProviderComputation'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -41,6 +42,13 @@ GtPhlowGroupedListView >> asElementDo: aBlock [
 { #category : #'private - accessing' }
 GtPhlowGroupedListView >> buildGroups [
 	| itemStream |
+	groupedItemProviderComputation
+		ifNotNil: [ ^ groupedItemProviderComputation value asAsyncStream
+				map: [ :aPair | 
+					self groupStencil
+						value: aPair key
+						value: aPair value asAsyncStream ] ].
+
 	itemStream := itemsProvider value asAsyncStream cached.
 	^ groupsProviderComputation value asAsyncStream
 		map: [ :aPair | 
@@ -130,6 +138,11 @@ GtPhlowGroupedListView >> groupStencil [
 { #category : #accessing }
 GtPhlowGroupedListView >> groupStencil: anObject [
 	groupStencil := anObject
+]
+
+{ #category : #accessing }
+GtPhlowGroupedListView >> groupedItems: aBlock [
+	groupedItemProviderComputation := aBlock
 ]
 
 { #category : #accessing }
