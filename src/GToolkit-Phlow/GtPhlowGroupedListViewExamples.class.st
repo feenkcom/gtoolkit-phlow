@@ -1,8 +1,6 @@
 Class {
 	#name : #GtPhlowGroupedListViewExamples,
 	#superclass : #GtPhlowViewExamples,
-	#traits : 'TGtPhlowSendTransformationExamples',
-	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
 	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
