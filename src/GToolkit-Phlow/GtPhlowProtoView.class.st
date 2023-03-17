@@ -172,6 +172,15 @@ GtPhlowProtoView >> forward [
 			collect)
 ]
 
+{ #category : #decorating }
+GtPhlowProtoView >> groupedList [
+	^ GtPhlowGroupedListView new
+		originalView: self;
+		definingMethod: (GtPhlowDefiningMethodsCollector new 
+			stack: thisContext stack;
+			collect)
+]
+
 { #category : #ui }
 GtPhlowProtoView >> gtDefiningMethodFor: aView [
 	<gtView>
