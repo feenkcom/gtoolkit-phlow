@@ -6,5 +6,5 @@ Class {
 
 { #category : #accessing }
 GtPhlowColumnedListId >> asSymbol [
-	^ #'columned-list--list'
+	^ #'phlow-columned-list--list'
 ]

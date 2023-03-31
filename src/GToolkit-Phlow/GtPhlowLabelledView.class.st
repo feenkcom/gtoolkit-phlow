@@ -16,6 +16,7 @@ Class {
 GtPhlowLabelledView >> asElementDo: aBlock [
 	| tab group |
 	group := BrTabGroup new.
+	group id: GtPhlowLabelledViewElementId.
 	self originalView asElementDo: [ :originalElement | 
 		tab := BrTab new.
 		tab phlow beView; entity: self.
