@@ -13,7 +13,7 @@ Class {
 
 { #category : #defaults }
 GtPhlowSendObjectTransformation >> defaultValuable [
-	"There is not trransformation by default"
+	"There is not transformation by default"
 	^ [ :anObject | anObject ]
 ]
 

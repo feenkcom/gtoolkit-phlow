@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowListToSelectHandler,
 	#superclass : #GtPhlowListHandler,
-	#category : 'GToolkit-Phlow-Events'
+	#category : #'GToolkit-Phlow-Events'
 }
 
 { #category : #'private - accessing' }
@@ -24,17 +24,16 @@ GtPhlowListToSelectHandler >> handleEvent: anEvent [
 
 { #category : #'api - event managing' }
 GtPhlowListToSelectHandler >> selectionChangedEvent: anEvent [
+	anEvent
+		selectedDo: [ :theIndices | 
+			| aWidgetElement aSelectedObject |
+			aWidgetElement := anEvent currentTarget.
+			aSelectedObject := aWidgetElement selectionCallback value: theIndices.
 
-	anEvent selectedDo: [ :theIndices |
-		| aWidgetElement aSelectedObject |
-
-		aWidgetElement := anEvent currentTarget.
-		aSelectedObject := aWidgetElement viewModel itemAt: theIndices first.
-		
-		self transformation 
-			select: aSelectedObject
-			indices: theIndices
-			from: aWidgetElement ]
+			self transformation
+				select: aSelectedObject
+				indices: theIndices
+				from: aWidgetElement ]
 ]
 
 { #category : #'api - event managing' }
