@@ -44,7 +44,8 @@ GtPhlowListToSelectHandler >> selectionDoubleClickedEvent: anEvent [
 	
 		aWidgetElement := anEvent currentTarget.
 			
-		aSelectedObject := aWidgetElement viewModel itemAt: anInterval first.
+		aSelectedObject := aWidgetElement selectionCallback value: anInterval.
+		
 		self transformation 
 			spawn: aSelectedObject
 			indices: anInterval
