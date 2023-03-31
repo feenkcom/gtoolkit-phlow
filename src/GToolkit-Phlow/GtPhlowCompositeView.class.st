@@ -50,6 +50,7 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 		currentViews do: [ :view | 
 			self addNewTabTo: tabs forView: view ] ].
 	group := BrTabGroup new.
+	group id: GtPhlowCompositeViewElementId.
 	self beViewElement: group.
 	group
 		aptitude: BrGlamorousTabGroupAptitude;
