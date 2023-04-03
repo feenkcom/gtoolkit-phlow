@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'level'
 	],
-	#category : 'GToolkit-Phlow-Tool - Events'
+	#category : #'GToolkit-Phlow-Tool - Events'
 }
 
 { #category : #accessing }
@@ -59,7 +59,7 @@ GtPhlowToolDetailChanged >> level: aSymbol [
 GtPhlowToolDetailChanged >> printOn: aStream [
 	aStream
 		nextPutAll: 'Tool Volume Changed: ';
-		print: self dimension
+		print: self level
 ]
 
 { #category : #accessing }
