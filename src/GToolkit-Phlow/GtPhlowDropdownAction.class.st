@@ -6,7 +6,8 @@ Class {
 		'label',
 		'action',
 		'name',
-		'contentStencilBuilder'
+		'contentStencilBuilder',
+		'preferredExtent'
 	],
 	#category : #'GToolkit-Phlow-! Actions'
 }
@@ -19,18 +20,18 @@ GtPhlowDropdownAction >> action: aValuable [
 { #category : #converting }
 GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 	<return: #BrButton>
-	| aDropdown |
-	aDropdown := self newButton.
-	aDropdown phlow
+	| aButton |
+	aButton := self newButton.
+	aButton phlow
 		beAction;
 		entity: self.
-	aDropdown aptitude: self newButtonLook
-		+ (self newDropdownLookFor: aDropdown targetElement: aTargetElement).
-	name ifNotNil: [ :aName | aDropdown id: aName ].
-	id ifNotNil: [ aDropdown id: self id ].
-	self attachShowDefinitionEventHandler: aDropdown.
-	self attachTooltipFor: aDropdown hostElement: aTargetElement.
-	^ aBlock value: aDropdown
+	aButton aptitude: self newButtonLook
+		+ (self newDropdownLookFor: aButton targetElement: aTargetElement).
+	name ifNotNil: [ :aName | aButton id: aName ].
+	id ifNotNil: [ aButton id: self id ].
+	self attachShowDefinitionEventHandler: aButton.
+	self attachTooltipFor: aButton hostElement: aTargetElement.
+	^ aBlock value: aButton
 ]
 
 { #category : #accessing }
@@ -84,9 +85,14 @@ GtPhlowDropdownAction >> newButton [
 
 { #category : #'instance creation' }
 GtPhlowDropdownAction >> newButtonLook [
-	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ ^ BrGlamorousButtonWithIconAndLabelAptitude ].
-	(label notNil and: [ icon isNil ]) ifTrue: [ ^ BrGlamorousButtonWithLabelAptitude ].
-	^ BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
+	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ 
+		^ BrGlamorousButtonWithIconAndLabelAptitude ].
+	
+	(label notNil and: [ icon isNil ]) ifTrue: [ 
+		^ BrGlamorousButtonWithLabelAptitude ].
+	
+	^ BrGlamorousButtonWithIconAptitude 
+		- BrGlamorousButtonWithLabelTooltipAptitude
 ]
 
 { #category : #'instance creation' }
@@ -99,12 +105,34 @@ GtPhlowDropdownAction >> newContentForDropdown: aDropdown targetElement: aTarget
 
 { #category : #converting }
 GtPhlowDropdownAction >> newDropdownLookFor: aDropdown targetElement: aTargetElement [
-	^ BrGlamorousWithDropdownAptitude
-		handle: [ self newButton
-				aptitude:
-					self newButtonLook - BrGlamorousButtonWithLabelTooltipAptitude
-						- BrGlamorousButtonExteriorAptitude;
-				yourself ]
-		content:
-			[ self newContentForDropdown: aDropdown targetElement: aTargetElement ]
+	| anAptitude |
+	anAptitude := BrGlamorousWithDropdownAptitude
+			handle: [ self newButton
+					aptitude: self newButtonLook - BrGlamorousButtonWithLabelTooltipAptitude
+							- BrGlamorousButtonExteriorAptitude;
+					yourself ]
+			content: [ self
+					newContentForDropdown: aDropdown
+					targetElement: aTargetElement ].
+					
+	preferredExtent ifNotNil: [ :anExtent |
+		anAptitude preferredExtent: anExtent ].
+					
+	^ anAptitude
+]
+
+{ #category : #accessing }
+GtPhlowDropdownAction >> preferredExtent [
+	<return: #Point or: nil>
+	^ preferredExtent
+]
+
+{ #category : #accessing }
+GtPhlowDropdownAction >> preferredExtent: aPoint [
+	"Currently the dropdown position is determined by 
+	{{gtMethod: BrWithAnchoredAptitude >> #preferredExtent:}}.
+	For that reason users can set explicitly the preferred extent
+	to place the dropdown contents inside of the space bounds."
+
+	preferredExtent := aPoint
 ]
