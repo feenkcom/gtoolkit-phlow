@@ -167,7 +167,6 @@ TGtPhlowSendTransformationExamples >> sendTool [
 		valuable: [ BrFrame new
 			labeled: 'tool';
 			matchParent;
-			alignCenter;
 			addChild: (BrLabel new
 				aptitude: BrGlamorousLabelAptitude;
 				text: aNumber;
