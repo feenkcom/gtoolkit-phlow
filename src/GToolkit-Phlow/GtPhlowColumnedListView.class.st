@@ -9,7 +9,8 @@ Class {
 	#instVars : [
 		'itemsProviderComputation',
 		'columns',
-		'rowDataBinder'
+		'rowDataBinder',
+		'multipleSelectionEnabled'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -17,33 +18,39 @@ Class {
 { #category : #'api - converting' }
 GtPhlowColumnedListView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
-	| aContainer header itemsProvider list |
 
-	itemsProvider := self itemsProviderOnExceptionErrorElement: [ :anElement | 
-		^ aBlock value: anElement ].
-	
+	| aContainer header itemsProvider list |
+	itemsProvider := self
+			itemsProviderOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
+
 	aContainer := self elementClass new.
 	aContainer
 		id: GtPhlowColumnedListContainerId;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
-		
+
 	aContainer layout: BlLinearLayout vertical.
 	header := self buildHeaderForItems: #().
 
-	list := self columnedListClass new
+	list := self columnedListClass new.
+
+	self hasMultipleSelection
+		ifTrue: [ list aptitude: BrColumnedMultiListAptitude ].
+
+	list
 		id: GtPhlowColumnedListId;
 		itemsProvider: itemsProvider;
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation);
 		rowStencil: self newDecoratedItemStencil.
-		
-	rowDataBinder ifNotNil: [
-		list rowDataBinder: rowDataBinder
-	].
+
+
+	rowDataBinder ifNotNil: [ list rowDataBinder: rowDataBinder ].
 
 	self buildColumnsInList: list.
-	aContainer addChildren: { header. list }.
+	aContainer
+		addChildren: {header.
+				list}.
 	self beViewElement: aContainer.
 
 	^ aBlock value: aContainer
@@ -117,6 +124,11 @@ GtPhlowColumnedListView >> elementClass [
 	^ BlElement
 ]
 
+{ #category : #'api - converting' }
+GtPhlowColumnedListView >> hasMultipleSelection [
+	^ multipleSelectionEnabled
+]
+
 { #category : #initialization }
 GtPhlowColumnedListView >> initialize [
 	super initialize.
@@ -124,9 +136,8 @@ GtPhlowColumnedListView >> initialize [
 	columns := OrderedCollection new.
 	self items: [ { } ].
 	self transformation: self defaultTransformation.
-	
-	"nil means that we should not create a context menu for each item"
-	itemContextMenuStencil := nil
+
+	multipleSelectionEnabled := false
 ]
 
 { #category : #'private - testing' }
@@ -199,4 +210,14 @@ GtPhlowColumnedListView >> updateContent: aCurrentElement [
 			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
 		aList := aCurrentElement children second.
 		self enqueueAction: [ aList itemsProvider: theItems ] in: aList ].
+]
+
+{ #category : #'api - converting' }
+GtPhlowColumnedListView >> withMultipleSelection [
+	multipleSelectionEnabled := true
+]
+
+{ #category : #'api - converting' }
+GtPhlowColumnedListView >> withoutMultipleSelection [
+	multipleSelectionEnabled := false
 ]
