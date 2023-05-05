@@ -7,7 +7,8 @@ Class {
 		'columns',
 		'transformation',
 		'itemsBuilder',
-		'childrenBuilder'
+		'childrenBuilder',
+		'multipleSelectionEnabled'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -39,6 +40,10 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation asTreeNodeTransformation).
 	aTree
 		rowStencil: self newDecoratedItemStencil.				
+		
+	self hasMultipleSelection ifTrue: [
+		aTree aptitude: BrColumnedMultiTreeAptitude
+	].
 
 	self buildColumnsInTree: aTree.
 	
@@ -143,6 +148,11 @@ GtPhlowColumnedTreeView >> gtColumnsFor: aView [
 		column: 'Item' text: #itemComputation
 ]
 
+{ #category : #accessing }
+GtPhlowColumnedTreeView >> hasMultipleSelection [
+	^ multipleSelectionEnabled
+]
+
 { #category : #initialization }
 GtPhlowColumnedTreeView >> initialize [
 	super initialize.
@@ -151,6 +161,7 @@ GtPhlowColumnedTreeView >> initialize [
 	itemsBuilder := [ { } ].
 	childrenBuilder := [ :each | { } ].
 	self transformation: self defaultTransformation.
+	multipleSelectionEnabled := false
 ]
 
 { #category : #testing }
@@ -234,4 +245,14 @@ GtPhlowColumnedTreeView >> updateContent: aCurrentElement [
 				aTree items: theItems lazy: self errorCatchingChildrenBuilder.
 				self expandTree: aTree ] 
 			in: aTree ].
+]
+
+{ #category : #accessing }
+GtPhlowColumnedTreeView >> withMultipleSelection [
+	multipleSelectionEnabled := true
+]
+
+{ #category : #accessing }
+GtPhlowColumnedTreeView >> withoutMultipleSelection [
+	multipleSelectionEnabled := false
 ]

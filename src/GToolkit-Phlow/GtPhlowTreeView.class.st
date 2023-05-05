@@ -8,7 +8,8 @@ Class {
 		'itemStencil',
 		'childrenBuilder',
 		'itemTypeStencil',
-		'itemDataBinder'
+		'itemDataBinder',
+		'multipleSelectionEnabled'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -35,6 +36,10 @@ GtPhlowTreeView >> asElementDo: aBlock [
 		nodeType: self itemTypeStencil;
 		nodeStencil: self newDecoratedItemStencil;
 		nodeDataBinder: self itemDataBinder.
+		
+	self hasMultipleSelection ifTrue: [
+		aTree aptitude: BrMultiTreeAptitude
+	].
 
 	self
 		performBlock: [ self expandTree: aTree ]
@@ -97,6 +102,11 @@ GtPhlowTreeView >> format: aBlockOrSymbol [
 	self itemFormat: aBlockOrSymbol
 ]
 
+{ #category : #'api - converting' }
+GtPhlowTreeView >> hasMultipleSelection [
+	^ multipleSelectionEnabled
+]
+
 { #category : #initialization }
 GtPhlowTreeView >> initialize [
 	super initialize.
@@ -105,6 +115,7 @@ GtPhlowTreeView >> initialize [
 	self transformation: self defaultTransformation.
 	self itemType: [ :anItemTypeFactory :anItemObject :anItemIndex | anItemTypeFactory default ].
 	self itemText: [ :anObject | anObject gtDisplayText ].
+	multipleSelectionEnabled := false
 ]
 
 { #category : #'private - testing' }
@@ -253,4 +264,14 @@ GtPhlowTreeView >> updateContent: aCurrentElement [
 				enqueueAction: [ aCurrentElement items: theItems lazy: self errorCatchingChildrenBuilder.
 					self expandTree: aCurrentElement ]
 				in: aCurrentElement ]
+]
+
+{ #category : #'api - converting' }
+GtPhlowTreeView >> withMultipleSelection [
+	multipleSelectionEnabled := true
+]
+
+{ #category : #'api - converting' }
+GtPhlowTreeView >> withoutMultipleSelection [
+	multipleSelectionEnabled := false
 ]

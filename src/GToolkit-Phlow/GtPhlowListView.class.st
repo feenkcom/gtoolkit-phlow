@@ -19,7 +19,8 @@ Class {
 		'itemStencil',
 		'itemDataBinder',
 		'itemTypeStencil',
-		'itemId'
+		'itemId',
+		'multipleSelectionEnabled'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -43,6 +44,10 @@ GtPhlowListView >> asElementDo: aBlock [
 		itemType: self newDecoratedItemTypeStencil.
 	itemId ifNotNil: [
 		aList itemId: itemId ].
+		
+	self hasMultipleSelection ifTrue: [
+		aList aptitude: BrMultiListAptitude
+	].
 		
 	self beViewElement: aList.
 	^ aBlock value: aList
@@ -80,6 +85,11 @@ GtPhlowListView >> format: aBlockOrSymbol [
 	self itemFormat: aBlockOrSymbol
 ]
 
+{ #category : #'api - converting' }
+GtPhlowListView >> hasMultipleSelection [
+	^ multipleSelectionEnabled
+]
+
 { #category : #initialization }
 GtPhlowListView >> initialize [
 	super initialize.
@@ -89,8 +99,8 @@ GtPhlowListView >> initialize [
 	self transformation: self defaultTransformation.
 
 	itemComputation := self defaultItemComputation.
-	"nil means that we should not create a context menu for each item"
-	itemContextMenuStencil := nil
+
+	multipleSelectionEnabled := false
 ]
 
 { #category : #'private - testing' }
@@ -282,4 +292,14 @@ GtPhlowListView >> updateContent: aCurrentElement [
 		theItems := self itemsProviderOnExceptionErrorElement: [ :anErrorElement | 
 			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
 		self enqueueAction: [ aCurrentElement itemsProvider: theItems ] in: aCurrentElement ]
+]
+
+{ #category : #'api - converting' }
+GtPhlowListView >> withMultipleSelection [
+	multipleSelectionEnabled := true
+]
+
+{ #category : #'api - converting' }
+GtPhlowListView >> withoutMultipleSelection [
+	multipleSelectionEnabled := false
 ]
