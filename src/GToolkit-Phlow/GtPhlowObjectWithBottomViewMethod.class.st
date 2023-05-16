@@ -20,7 +20,7 @@ GtPhlowObjectWithBottomViewMethod >> bottomListFor: aView context: aContext [
 
 	"View definition"
 	aNewView := aView list
-		            title: 'Bottom List';
+		            title: 'Bottom list';
 		            priority: 1;
 		            items: [ Collection allSubclasses ];
 		            itemText: aFormater.

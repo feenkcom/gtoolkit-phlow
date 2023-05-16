@@ -36,7 +36,7 @@ TGtPhlowWithContextMenu >> contextMenuStencilFromActions [
 TGtPhlowWithContextMenu >> gtViewContextMenuActionsFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'Context Menu Actions';
+		title: 'Context menu actions';
 		items: [ self contextMenuActions ];
 		column: 'Name' text: #name;
 		column: 'Action' text: #action;

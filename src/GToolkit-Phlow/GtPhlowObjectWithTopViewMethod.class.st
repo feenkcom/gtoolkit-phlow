@@ -34,7 +34,7 @@ GtPhlowObjectWithTopViewMethod >> rootListFor: aView context: aContext [
 
 	"View definition"
 	aNewView := aView forward
-		            title: 'Root List';
+		            title: 'Root list';
 		            priority: 1;
 		            object: [ self middleObject ];
 		            view: #middleListFor:.

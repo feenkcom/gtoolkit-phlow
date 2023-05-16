@@ -27,7 +27,7 @@ GtPhlowWithViewActionTarget >> gtMyDemoFor: aView [
 
 	<gtView>
 	^ aView list
-		  title: 'My Demo';
+		  title: 'My demo';
 		  priority: 1;
 		  items: [ 1 to: 21 ]
 ]

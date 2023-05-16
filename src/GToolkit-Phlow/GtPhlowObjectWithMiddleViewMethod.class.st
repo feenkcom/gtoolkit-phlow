@@ -19,7 +19,7 @@ GtPhlowObjectWithMiddleViewMethod >> middleListFor: aView [
 
 	<gtView>
 	^ aView forward
-		            title: 'Middle List';
+		            title: 'Middle list';
 		            priority: 2;
 		            object: [ self bottomObject ];
 		            view: #bottomListFor:context:.

@@ -217,7 +217,7 @@ GtPhlowViewMixedExamples >> levelOneViewFor: aView [
 	<gtView>
 	<gtLevelOneView>
 	^ aView textEditor
-		title: 'Level One';
+		title: 'Level one';
 		text: [ 'Level One' ]
 ]
 
@@ -242,7 +242,7 @@ GtPhlowViewMixedExamples >> levelTwoViewFor: aView [
 	<gtView>
 	<gtLevelTwoView>
 	^ (self levelOneViewFor: aView)
-		title: 'Level Two';
+		title: 'Level two';
 		text: [ 'Level Two' ]
 ]
 

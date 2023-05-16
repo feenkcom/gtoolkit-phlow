@@ -100,7 +100,7 @@ GtPhlowColumnedTreeViewExamples >> gtAutoUpdatingTreeFor: aView [
 	aCollection addAll: (1 to: 10).
 	anAnnouncer := Announcer new.
 	^ aView columnedTree
-		title: 'Auto Updating Tree';
+		title: 'Auto updating tree';
 		priority: 15;
 		items: [ aCollection ];
 		children: [ :aNumber | aNumber // 2 to: aNumber ];
@@ -127,7 +127,7 @@ GtPhlowColumnedTreeViewExamples >> gtNumbersFor: aView [
 GtPhlowColumnedTreeViewExamples >> gtNumbersWithContextMenuFor: aView [
 	<gtView>
 	^ aView columnedTree
-		title: 'Numbers weith Context Menu';
+		title: 'Numbers weith context menu';
 		priority: 1;
 		items: [ 1 to: 10 ];
 		children: [ :aNumber | aNumber // 2 to: aNumber ];

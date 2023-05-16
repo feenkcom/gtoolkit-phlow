@@ -522,7 +522,7 @@ GtPhlowColumnedListViewExamples >> gtAutoUpdatingListFor: aView [
 	aCollection addAll: (1 to: 10).
 	anAnnouncer := Announcer new.
 	^ aView columnedList
-		title: 'Auto Updating List';
+		title: 'Auto updating list';
 		priority: 15;
 		items: [ aCollection ];
 		column: 'x' text: [ :x | x ];

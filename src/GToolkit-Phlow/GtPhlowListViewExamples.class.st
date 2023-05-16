@@ -249,7 +249,7 @@ GtPhlowListViewExamples >> gtAutoUpdatingListFor: aView [
 	aCollection addAll: (1 to: 10).
 	anAnnouncer := Announcer new.
 	^ aView list
-		title: 'Auto Updating List';
+		title: 'Auto updating list';
 		priority: 4;
 		items: [ aCollection ];
 		actionButtonIcon: BrGlamorousVectorIcons add 
@@ -347,7 +347,7 @@ GtPhlowListViewExamples >> gtErrorInItemsFor: aView [
 GtPhlowListViewExamples >> gtTenItemsFor: aView [
 	<gtView>
 	^ aView list 
-		title: '10 Items';
+		title: '10 items';
 		priority: 1;
 		items: [ (1 to: 10) ]
 ]
@@ -356,7 +356,7 @@ GtPhlowListViewExamples >> gtTenItemsFor: aView [
 GtPhlowListViewExamples >> gtTenItemsWithContextMenuFor: aView [
 	<gtView>
 	^ aView list
-		title: '10 Items with context menu';
+		title: '10 items with context menu';
 		priority: 1;
 		items: [ 1 to: 10 ];
 		contextItemLabel: 'Context Menu Action'
@@ -367,7 +367,7 @@ GtPhlowListViewExamples >> gtTenItemsWithContextMenuFor: aView [
 GtPhlowListViewExamples >> gtTenLinesFor: aView [
 	<gtView>
 	^ aView list 
-		title: '10 Lines';
+		title: '10 lines';
 		priority: 3;
 		items: [ (1 to: 10) ];
 		itemStencil: [ 
@@ -386,7 +386,7 @@ GtPhlowListViewExamples >> gtTenLinesFor: aView [
 GtPhlowListViewExamples >> gtTextFor: aView [
 	<gtView>
 	^ aView list 
-		title: 'Text Items';
+		title: 'Text items';
 		priority: 2;
 		items: [ (1 to: 10) ];
 		itemText: [ :aNumber | 'Item number ', aNumber asString ]

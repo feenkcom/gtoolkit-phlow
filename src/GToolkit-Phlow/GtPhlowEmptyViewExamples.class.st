@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowEmptyViewExamples,
 	#superclass : #GtPhlowViewExamples,
-	#category : 'GToolkit-Phlow-Examples - Views'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #accessing }
@@ -18,7 +18,7 @@ GtPhlowEmptyViewExamples >> element [
 GtPhlowEmptyViewExamples >> gtPhlowEmptyViewFor: aView [
 	<gtView>
 	^ aView empty
-		title: 'Empty View';
+		title: 'Empty view';
 		priority: 3
 ]
 
@@ -26,7 +26,7 @@ GtPhlowEmptyViewExamples >> gtPhlowEmptyViewFor: aView [
 GtPhlowEmptyViewExamples >> gtPhlowViewFor: aView [
 	<gtView>
 	^ aView empty
-		title: 'Empty View';
+		title: 'Empty view';
 		priority: 3
 ]
 

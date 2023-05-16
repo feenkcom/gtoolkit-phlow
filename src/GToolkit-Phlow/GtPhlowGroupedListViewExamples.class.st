@@ -23,7 +23,7 @@ GtPhlowGroupedListViewExamples >> expectedElementClass [
 GtPhlowGroupedListViewExamples >> gtTenLinesFor: aView [
 	<gtView>
 	^ aView groupedList
-		title: '10 Lines';
+		title: '10 lines';
 		priority: 3;
 		items: [ 1 to: 10 ];
 		groups: [ {'Even' -> #even.

@@ -152,7 +152,7 @@ GtPhlowForwarderViewExamples >> gtAutoUpdatingExplicitFor: aView [
 	| anAnnouncer |
 	anAnnouncer := Announcer new.
 	^ aView forward 
-		title: 'Auto-Updated Explicit View';
+		title: 'Auto-Updated explicit view';
 		object: [ GtPhlowExplicitViewExamples new ];
 		view: #gtBasicFor:;
 		updateWhen: Announcement in: [ anAnnouncer ];
@@ -164,7 +164,7 @@ GtPhlowForwarderViewExamples >> gtAutoUpdatingExplicitFor: aView [
 GtPhlowForwarderViewExamples >> gtBasicFor: aView [
 	<gtView>
 	^ aView forward 
-		title: 'Forwarded Explicit View';
+		title: 'Forwarded explicit view';
 		object: [ GtPhlowExplicitViewExamples new ];
 		view: #gtBasicFor:
 ]
