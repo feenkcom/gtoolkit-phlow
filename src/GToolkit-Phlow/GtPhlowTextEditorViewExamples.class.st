@@ -6,7 +6,7 @@ I exemplify {{gtClass:GtPhlowTextEditorView}}.
 Class {
 	#name : #GtPhlowTextEditorViewExamples,
 	#superclass : #GtPhlowViewExamples,
-	#category : 'GToolkit-Phlow-Examples - Views'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #'examples - element' }
@@ -21,7 +21,7 @@ GtPhlowTextEditorViewExamples >> gtAutoUpdatingFor: aView [
 	aString := 'How do you feenk today?'.
 	anAnnouncer := Announcer new.
 	^ aView textEditor
-		title: 'Auto Updating Text';
+		title: 'Auto updating text';
 		text: [ aString ];
 		actionButtonIcon: BrGlamorousVectorIcons add 
 			action: [ aString := aString, String cr,  

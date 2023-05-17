@@ -34,7 +34,7 @@ GtPhlowContextExamples >> rootListFor: aView context: aContext [
 			             foreground: aColor ] ].
 
 	aNewView := aView forward
-		            title: 'Root List';
+		            title: 'Root list';
 		            priority: 3;
 		            object: [ self ];
 		            view: #middleListFor:.

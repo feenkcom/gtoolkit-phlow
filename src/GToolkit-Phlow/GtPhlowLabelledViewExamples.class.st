@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowLabelledViewExamples,
 	#superclass : #GtPhlowViewExamples,
-	#category : 'GToolkit-Phlow-Examples - Views'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #'examples - element' }
@@ -53,7 +53,7 @@ GtPhlowLabelledViewExamples >> gtLabelledWithTextEditorViewFor: aView [
 	<gtView>
 	^ ((GtPhlowTextEditorViewExamples new gtAutoUpdatingFor: aView)
 		labelled: 'I am labelled view')
-			title: 'Text Editor'
+			title: 'Text editor'
 ]
 
 { #category : #'gt-extensions' }

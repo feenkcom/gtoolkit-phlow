@@ -85,6 +85,17 @@ GtPhlowListView >> format: aBlockOrSymbol [
 	self itemFormat: aBlockOrSymbol
 ]
 
+{ #category : #accessing }
+GtPhlowListView >> gtViewContextMenuActionsFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Context menu actions';
+		items: [ self contextMenuActions ];
+		column: 'Name' text: #name;
+		column: 'Action' text: #action;
+		column: 'Filter' text: [ :anAction | anAction filter ifNil: [ '' ] ]
+]
+
 { #category : #'api - converting' }
 GtPhlowListView >> hasMultipleSelection [
 	^ multipleSelectionEnabled

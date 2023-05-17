@@ -23,7 +23,7 @@ GtPhlowGroupedListViewExamples >> expectedElementClass [
 GtPhlowGroupedListViewExamples >> gtTenLinesFor: aView [
 	<gtView>
 	^ aView groupedList
-		title: '10 Lines';
+		title: '10 lines';
 		priority: 3;
 		items: [ 1 to: 10 ];
 		groups: [ {'Even' -> #even.
@@ -68,7 +68,7 @@ GtPhlowGroupedListViewExamples >> updateOnDefiningMethodChange [
 
 
 	self assert: aNewElement ~= anElement.
-	self assert: aNewElement phlow entity title equals: '10 Lines'.
+	self assert: aNewElement phlow entity title equals: '10 lines'.
 
 	^ aContainer
 ]

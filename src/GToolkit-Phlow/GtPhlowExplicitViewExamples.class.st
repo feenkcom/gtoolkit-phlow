@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowExplicitViewExamples,
 	#superclass : #GtPhlowViewExamples,
-	#category : 'GToolkit-Phlow-Examples - Views'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #updating }
@@ -58,7 +58,7 @@ GtPhlowExplicitViewExamples >> gtCompositeFor: aView [
 GtPhlowExplicitViewExamples >> gtStencilWithPhlowFor: aView [ 
 	<gtView>
 	^ aView explicit 
-		title: 'Stencil with Phlow';
+		title: 'Stencil with phlow';
 		stencil: [ 
 			(GtPhlowView empty on: GtPhlowCompositeViewExamples new perform: #gtPhlowViewFor:)
 				asElementDo: [ :anElement | anElement ] ];
