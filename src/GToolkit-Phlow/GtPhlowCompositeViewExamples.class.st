@@ -6,7 +6,7 @@ I exemplify {{gtClass:GtPhlowCompositeView}}.
 Class {
 	#name : #GtPhlowCompositeViewExamples,
 	#superclass : #GtPhlowViewExamples,
-	#category : 'GToolkit-Phlow-Examples - Views'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #'examples - updating' }
@@ -32,10 +32,10 @@ GtPhlowCompositeViewExamples >> addViewThreeDefinition [
 	self assert: aFinalTabs size equals: 3.
 	self assert: aFinalTabs first equals: anInitialTabs first.
 	self assert: aFinalTabs second equals: anInitialTabs second.
-	self assert: aFinalTabs third widget label asString equals: 'Auto Updating Text'.
+	self assert: aFinalTabs third widget label asString equals: 'Auto updating text'.
 
 	self assert: aView views size equals: 3.
-	self assert: aView views third title asString equals: 'Auto Updating Text'.
+	self assert: aView views third title asString equals: 'Auto updating text'.
 
 	^ aContainer
 ]
@@ -269,7 +269,7 @@ GtPhlowCompositeViewExamples >> updateViewOneDefinition [
 	self assert: aFinalTabs first equals: anInitialTabs second.
 	self assert: aFinalTabs second equals: anInitialTabs first.
 	self assert: aFinalTabs first widget label asString equals: 'View Two'.
-	self assert: aFinalTabs second widget label asString equals: 'Auto Updating Text'.
+	self assert: aFinalTabs second widget label asString equals: 'Auto updating text'.
 
 	^ aContainer
 ]

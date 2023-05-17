@@ -500,7 +500,7 @@ GtPhlowListViewExamples >> updateOnDefiningMethodChange [
 
 	self assert: aNewElement ~= anElement.	
 	self assert: aNewElement items size equals: 10.
-	self assert: aNewElement phlow entity title equals: '10 Lines'.
+	self assert: aNewElement phlow entity title equals: '10 lines'.
 	
 	^ aContainer
 ]

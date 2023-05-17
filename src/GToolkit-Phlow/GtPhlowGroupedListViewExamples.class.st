@@ -68,7 +68,7 @@ GtPhlowGroupedListViewExamples >> updateOnDefiningMethodChange [
 
 
 	self assert: aNewElement ~= anElement.
-	self assert: aNewElement phlow entity title equals: '10 Lines'.
+	self assert: aNewElement phlow entity title equals: '10 lines'.
 
 	^ aContainer
 ]
