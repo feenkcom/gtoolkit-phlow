@@ -3,9 +3,10 @@ Class {
 	#superclass : #BrColumnCellDataBinder,
 	#instVars : [
 		'dataBinder',
-		'itemComputation'
+		'itemComputation',
+		'backgroundComputation'
 	],
-	#category : 'GToolkit-Phlow-Support - List columned'
+	#category : #'GToolkit-Phlow-Support - List columned'
 }
 
 { #category : #accessing }
@@ -13,12 +14,33 @@ GtPhlowColumnCellItemComputationDataBinder class >> stencilProperties [
 	^ #(dataBinder itemComputation)
 ]
 
+{ #category : #accessing }
+GtPhlowColumnCellItemComputationDataBinder >> backgroundComputation: anObject [
+	backgroundComputation := anObject
+]
+
 { #category : #'api - instantiation' }
 GtPhlowColumnCellItemComputationDataBinder >> buildDefault [
-	| aValue |
-	
-	aValue := itemComputation phlowValue: itemObject withEnoughArguments: { itemObject. rowIndex. rowHolder . columnIndex }.
-	
+	| aValue aBackground |
+	aValue := itemComputation
+			phlowValue: itemObject
+			withEnoughArguments: {
+				itemObject.
+				rowIndex.
+				rowHolder.
+				columnIndex }.
+
+	aBackground := backgroundComputation
+			phlowValue: aValue
+			withEnoughArguments: {
+				aValue.
+				itemObject.
+				rowIndex.
+				rowHolder.
+				columnIndex }.
+
+	cellElement background: aBackground.
+
 	^ dataBinder
 		cellElement: cellElement;
 		itemObject: aValue;
@@ -37,6 +59,5 @@ GtPhlowColumnCellItemComputationDataBinder >> dataBinder: anObject [
 
 { #category : #accessing }
 GtPhlowColumnCellItemComputationDataBinder >> itemComputation: anObject [
-
 	itemComputation := anObject
 ]
