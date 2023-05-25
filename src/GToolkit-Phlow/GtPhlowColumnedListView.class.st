@@ -10,7 +10,8 @@ Class {
 		'itemsProviderComputation',
 		'columns',
 		'rowDataBinder',
-		'multipleSelectionEnabled'
+		'multipleSelectionEnabled',
+		'horizontalScrollingEnabled'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -143,12 +144,13 @@ GtPhlowColumnedListView >> hasMultipleSelection [
 { #category : #initialization }
 GtPhlowColumnedListView >> initialize [
 	super initialize.
-	
+
 	columns := OrderedCollection new.
 	self items: [ { } ].
 	self transformation: self defaultTransformation.
 
-	multipleSelectionEnabled := false
+	multipleSelectionEnabled := false.
+	horizontalScrollingEnabled := false
 ]
 
 { #category : #'private - testing' }
@@ -224,8 +226,18 @@ GtPhlowColumnedListView >> updateContent: aCurrentElement [
 ]
 
 { #category : #'api - converting' }
+GtPhlowColumnedListView >> withHorizontalScrolling [
+	horizontalScrollingEnabled := true
+]
+
+{ #category : #'api - converting' }
 GtPhlowColumnedListView >> withMultipleSelection [
 	multipleSelectionEnabled := true
+]
+
+{ #category : #'api - converting' }
+GtPhlowColumnedListView >> withoutHorizontalScrolling [
+	horizontalScrollingEnabled := false
 ]
 
 { #category : #'api - converting' }

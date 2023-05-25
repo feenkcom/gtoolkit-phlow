@@ -15,10 +15,20 @@ Class {
 		'itemComputation',
 		'cellStencil',
 		'dataBinder',
-		'width'
+		'width',
+		'backgroundComputation'
 	],
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
+
+{ #category : #'api - configuration' }
+GtPhlowColumn >> background: aBlock [
+	"Configure the background of a cell based on the cell or row value.
+	aBlock may accept the following arguments:
+		[ :eachCellValue :eachRowValue :eachRowIndex :eachColumnIndex | a color ]"
+
+	backgroundComputation := aBlock
+]
 
 { #category : #'api - building' }
 GtPhlowColumn >> buildHeaderElement [
@@ -71,6 +81,11 @@ GtPhlowColumn >> dataBinder [
 { #category : #'api - configuration' }
 GtPhlowColumn >> dataBinder: aBlockOrSymbol [ 
 	dataBinder := aBlockOrSymbol asStencilBuilder: BrColumnCellDataBinder
+]
+
+{ #category : #defaults }
+GtPhlowColumn >> defaultBackgroundComputation [
+	^ [ :eachCellValue :eachRowValue :eachRowIndex :eachColumnIndex | Color transparent]
 ]
 
 { #category : #defaults }
@@ -157,6 +172,7 @@ GtPhlowColumn >> initialize [
 	titleStencil := self defaultHeaderElementBuilder.
 	itemComputation := self defaultItemComputation.
 	width := self defaultWidth.
+	backgroundComputation := self defaultBackgroundComputation.
 	self text: self defaultTextStencil
 ]
 
@@ -220,7 +236,8 @@ GtPhlowColumn >> newDecoratedDataBinder [
 	
 	aDataBinder := GtPhlowColumnCellItemComputationDataBinder new
 		dataBinder: aDataBinder;
-		itemComputation: itemComputation.
+		itemComputation: itemComputation;
+		backgroundComputation: backgroundComputation.
 
 	aDataBinder := GtPhlowColumnErrorHandlingDataBinder new
 		dataBinder: aDataBinder.
