@@ -11,7 +11,7 @@ Class {
 
 { #category : #accessing }
 GtPhlowColumnCellItemComputationDataBinder class >> stencilProperties [
-	^ #(dataBinder itemComputation)
+	^ #(dataBinder itemComputation backgroundComputation)
 ]
 
 { #category : #accessing }
