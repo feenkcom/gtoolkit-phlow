@@ -30,6 +30,12 @@ GtPhlowColumn >> background: aBlock [
 	backgroundComputation := aBlock
 ]
 
+{ #category : #testing }
+GtPhlowColumn >> backgroundComputation [
+	^ backgroundComputation ifNil: [
+		backgroundComputation := self defaultBackgroundComputation ]
+]
+
 { #category : #'api - building' }
 GtPhlowColumn >> buildHeaderElement [
 	| aLabel |
@@ -139,6 +145,11 @@ GtPhlowColumn >> fitContent [
 	self width: 50
 ]
 
+{ #category : #testing }
+GtPhlowColumn >> hasBackgroundComputation [
+	^ backgroundComputation notNil
+]
+
 { #category : #'api - scripting cell content' }
 GtPhlowColumn >> icon: aBlockOrSymbol [
 	self item: aBlockOrSymbol.
@@ -172,7 +183,6 @@ GtPhlowColumn >> initialize [
 	titleStencil := self defaultHeaderElementBuilder.
 	itemComputation := self defaultItemComputation.
 	width := self defaultWidth.
-	backgroundComputation := self defaultBackgroundComputation.
 	self text: self defaultTextStencil
 ]
 
@@ -237,7 +247,7 @@ GtPhlowColumn >> newDecoratedDataBinder [
 	aDataBinder := GtPhlowColumnCellItemComputationDataBinder new
 		dataBinder: aDataBinder;
 		itemComputation: itemComputation;
-		backgroundComputation: backgroundComputation.
+		backgroundComputation: self backgroundComputation.
 
 	aDataBinder := GtPhlowColumnErrorHandlingDataBinder new
 		dataBinder: aDataBinder.
