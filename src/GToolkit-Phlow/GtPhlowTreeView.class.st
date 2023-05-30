@@ -207,6 +207,11 @@ GtPhlowTreeView >> itemsOnExceptionErrorElement: aBlock [
 			aBlock value: anElement ].
 ]
 
+{ #category : #'private - accessing' }
+GtPhlowTreeView >> itemsProviderComputation [
+	^ self itemsBuilder
+]
+
 { #category : #'private - building' }
 GtPhlowTreeView >> newCellPaddingInsets [
 	^ BlInsets
