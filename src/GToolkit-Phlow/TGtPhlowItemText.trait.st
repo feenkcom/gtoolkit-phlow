@@ -12,6 +12,11 @@ Trait {
 	#category : #'GToolkit-Phlow-Support'
 }
 
+{ #category : #accessing }
+TGtPhlowItemText >> itemComputation [
+	^ self itemText
+]
+
 { #category : #'api - scripting' }
 TGtPhlowItemText >> itemDataBinder: aBrTreeNodeDataBinderOrBlock [
 	self explicitRequirement
