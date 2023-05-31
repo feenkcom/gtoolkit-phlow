@@ -4,8 +4,8 @@ nil
 Class {
 	#name : #GtPhlowColumnedListView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTransformable + TGtPhlowWithContextMenu',
-	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTransformable classTrait + TGtPhlowWithContextMenu classTrait',
+	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTransformable + TGtPhlowWithContextMenu + TGtPhlowColumnedRemoteSpecification',
+	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTransformable classTrait + TGtPhlowWithContextMenu classTrait + TGtPhlowColumnedRemoteSpecification classTrait',
 	#instVars : [
 		'itemsProviderComputation',
 		'columns',
