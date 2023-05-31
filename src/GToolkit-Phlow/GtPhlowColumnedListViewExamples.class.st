@@ -350,6 +350,30 @@ GtPhlowColumnedListViewExamples >> columnItemView [
 	^ aView
 ]
 
+{ #category : #'examples - text' }
+GtPhlowColumnedListViewExamples >> columnedListWithHorizontalScrolling [
+	<gtExample>
+	| aView anElement aColumnedList aCellElement |
+	aView := GtPhlowView empty on: self perform: #gtItemsWithHorizontalScrollingFor:.
+	BlUseAsyncFeatures disableDuring: [ 
+		anElement := aView asElementDo: [ :theElement | theElement ] ].
+	self assertViewElement: anElement ofClass: BrScrollPane inView: aView.
+
+	aColumnedList := ((anElement childWithId: #scrollable) childAt: 1) childAt: 2.
+	self assert: aColumnedList class equals: BrColumnedList.
+	self assert: aColumnedList items size equals: 5.
+	
+	anElement forceLayout.
+	self assert: aColumnedList aptitude listElement childrenCount equals: 5.
+	
+	aCellElement := (aColumnedList aptitude listElement childAt: 1) childAt: 1.
+	
+	self assert: aCellElement class equals: GtPhlowCellElement.
+	self assert: aCellElement content class equals: BrLabel.
+	self assert: aCellElement content text asString equals: 'Bob'.
+	^ aView
+]
+
 { #category : #'examples - support' }
 GtPhlowColumnedListViewExamples >> elementItemsFor: anElement [
 	"Return element items"
@@ -741,6 +765,24 @@ GtPhlowColumnedListViewExamples >> gtItemsWithBackgroundFor: aView [
 						ifFalse: [ v < 0
 							ifTrue: [ Color red alpha: 0.3 ]
 							ifFalse: [ Color gray alpha: 0.3 ] ] ] ]
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtItemsWithHorizontalScrollingFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'withHorizontalScrolling usage';
+		priority: 20;
+		withHorizontalScrolling;
+		items: [ {
+			'Bob' -> -43.
+			'Alice' -> 27.
+			'Mike' -> 0.
+			'Jane' -> -32.
+			'Ben' -> 12
+		} ];
+		column: 'name' text: [ :x | x key ] width: 500;
+		column: 'value' text: [ :x | x value ] width: 500
 ]
 
 { #category : #'gt-extensions' }

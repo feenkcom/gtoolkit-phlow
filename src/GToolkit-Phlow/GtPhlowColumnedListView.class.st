@@ -45,13 +45,28 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation);
 		rowStencil: self newDecoratedItemStencil.
 
-
 	rowDataBinder ifNotNil: [ list rowDataBinder: rowDataBinder ].
 
 	self buildColumnsInList: list.
 	aContainer
-		addChildren: {header.
-				list}.
+		addChildren: { header. list }.
+
+	horizontalScrollingEnabled
+		ifTrue: [
+			| aScrollableElement |
+			
+			aContainer constraintsDo: [ :c | c horizontal fitContent ].
+			list hFitContent.
+			header constraintsDo: [ :c | c horizontal fitContent ].
+			
+			aScrollableElement := BrScrollPane new
+				aptitude: BrScrollPaneAptitude + BrGlamorousWithHorizontalScrollbarAptitude;
+				matchParent;
+				content: aContainer;
+				margin: (BlInsets bottom: 2).
+			
+			aContainer := aScrollableElement ].
+	
 	self beViewElement: aContainer.
 
 	^ aBlock value: aContainer
