@@ -440,7 +440,7 @@ GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 	^ aNilOrClassName 
 		ifNil: [	RGMethodDefinition new 
 			name: aMessageSymbol;
-			parentName: anObject className;
+			parentName: anObject class name;
 			isMetaSide: anObject class isMeta;
 			asActive ] 
 		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
@@ -483,7 +483,7 @@ GtPhlowView >> gtActionsFor: aView [
 		title: 'Actions';
 		priority: 5;
 		items: [ self actions ];
-		column: 'Action' text: [ :aPhlowAction | aPhlowAction className ];
+		column: 'Action' text: [ :aPhlowAction | aPhlowAction class name ];
 		column: 'Defining Method' text: [ :aPhlowAction | aPhlowAction definingMethod selector ]
 ]
 

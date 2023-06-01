@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
-	#category : 'GToolkit-Phlow-Tool - Core'
+	#category : #'GToolkit-Phlow-Tool - Core'
 }
 
 { #category : #testing }
@@ -63,7 +63,7 @@ GtPhlowAbstractTool >> icon [
 GtPhlowAbstractTool >> name [
 	"Return a tool name"
 	<return: #String or: #BlText>
-	^ self className
+	^ self class name
 ]
 
 { #category : #'api - accessing' }
