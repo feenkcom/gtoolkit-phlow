@@ -386,6 +386,26 @@ GtPhlowView >> autoUpdates [
 	^ autoUpdates
 ]
 
+{ #category : #'message performing' }
+GtPhlowView >> basicOn: anObject perform: aMessageSymbol withArguments: aCollectionOfArguments [
+	<return: #GtPhlowView>
+	<gtCollector>
+	| aPhlowView |
+	aPhlowView := thisContext
+		object: anObject
+		perform: aMessageSymbol
+		withArguments: aCollectionOfArguments
+		inClass: anObject class.
+		
+	self 
+		assert: [ aPhlowView ~= self ] 
+		description: [ 'Phlow view definition cannot return same view that is passed as an argument. Use `aView empty` instead in: ',
+			anObject printString, '>>#', aMessageSymbol asString ].
+			
+	aPhlowView object: anObject arguments: aCollectionOfArguments.
+	^ aPhlowView
+]
+
 { #category : #'private - updating' }
 GtPhlowView >> basicReplaceOldElement: anOldElement by: aNewElement in: aParent [
 	anOldElement parent == aParent ifTrue: [
@@ -541,18 +561,9 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOf
 	<return: #GtPhlowView>
 	<gtCollector>
 	^ [ 
-			| aPhlowView |
-			aPhlowView := thisContext
-				object: anObject
-				perform: aMessageSymbol
-				withArguments: aCollectionOfArguments
-				inClass: anObject class.
-			self 
-				assert: [ aPhlowView ~= self ] 
-				description: [ 'Phlow view definition cannot return same view that is passed as an argument. Use `aView empty` instead in: ',
-					anObject printString, '>>#', aMessageSymbol asString ].
-			aPhlowView object: anObject arguments: aCollectionOfArguments.
-		] on: Error do: [ :anException |
+			self basicOn: anObject perform: aMessageSymbol withArguments: aCollectionOfArguments
+	] on: Error do: [ :anException |
+		
 			NonInteractiveTranscript stdout
 				nextPut: $[;
 				nextPutAll: self class name;
@@ -563,7 +574,9 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOf
 			
 			self 
 				phlowErrorViewWithException: anException 
-				forBuildContext: (GtPhlowBuildContext new object: anObject; arguments: aCollectionOfArguments) 
+				forBuildContext: (GtPhlowBuildContext new 
+					object: anObject; 
+					arguments: aCollectionOfArguments) 
 				andSelector: aMessageSymbol ]
 ]
 
@@ -628,7 +641,7 @@ GtPhlowView >> phlowErrorViewWithException: anException [
 ]
 
 { #category : #'error handling' }
-GtPhlowView >> phlowErrorViewWithException: anException forBuildContext: aContext andSelector: aMessageSymbol [
+GtPhlowView >> phlowErrorViewWithException: anException  forBuildContext: aContext andSelector: aMessageSymbol [
 	| aDefiningMethod aPhlow | 
 	aDefiningMethod := self definingMethodForObject: aContext object andSelector: aMessageSymbol. 
 	aPhlow := self phlowErrorViewWithException: anException.
