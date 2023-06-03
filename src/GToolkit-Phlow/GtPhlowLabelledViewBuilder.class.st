@@ -1,6 +1,9 @@
 Class {
 	#name : #GtPhlowLabelledViewBuilder,
 	#superclass : #GtPhlowCompositeViewBuilder,
+	#instVars : [
+		'titleComputation'
+	],
 	#category : #'GToolkit-Phlow-Collectors'
 }
 
@@ -16,5 +19,12 @@ GtPhlowLabelledViewBuilder >> buildView [
 
 { #category : #label }
 GtPhlowLabelledViewBuilder >> title [
-	^ self object gtInspectorTitleString
+	^ titleComputation 
+		ifNil: [ self object gtInspectorTitleString ] 
+		ifNotNil: [ :aComputation | aComputation value ]
+]
+
+{ #category : #accessing }
+GtPhlowLabelledViewBuilder >> titleComputation: aBlock [
+	titleComputation := aBlock
 ]
