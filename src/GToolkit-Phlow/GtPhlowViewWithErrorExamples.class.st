@@ -1,12 +1,12 @@
 Class {
 	#name : #GtPhlowViewWithErrorExamples,
 	#superclass : #GtPhlowViewExamples,
-	#category : 'GToolkit-Phlow-Examples - Views'
+	#category : #'GToolkit-Phlow-Examples - Views'
 }
 
 { #category : #'examples - element' }
 GtPhlowViewWithErrorExamples >> expectedElementClass [
-	^ BrFrame
+	^ BrHorizontalPane
 ]
 
 { #category : #'gt-extensions' }

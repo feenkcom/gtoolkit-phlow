@@ -1,7 +1,10 @@
 Class {
 	#name : #GtPhlowCompositeViewBuilder,
 	#superclass : #GtPhlowViewBuilder,
-	#category : 'GToolkit-Phlow-Collectors'
+	#instVars : [
+		'viewsSelector'
+	],
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #building }
@@ -13,8 +16,34 @@ GtPhlowCompositeViewBuilder >> buildView [
 	^ aView
 ]
 
+{ #category : #accessing }
+GtPhlowCompositeViewBuilder >> defaultViewsSelector [
+	^ #gtViewsInContext:
+]
+
 { #category : #views }
 GtPhlowCompositeViewBuilder >> views [
 	<return: #Array of: #GtPhlowView>
-	^ self object gtViewsInContext: self context
+	^ thisContext
+		object: self object 
+		perform: self viewsSelector
+		withArguments: {self context}
+		inClass: self object  class
+
+	"^ self object gtViewsInContext: self context"
+]
+
+{ #category : #accessing }
+GtPhlowCompositeViewBuilder >> viewsSelector [
+	^ viewsSelector ifNil: [
+		self defaultViewsSelector ]
+]
+
+{ #category : #accessing }
+GtPhlowCompositeViewBuilder >> viewsSelector: aSelector [
+	self assert: [
+		viewsSelector isNil and: [
+			aSelector notNil ] ].
+	
+	viewsSelector := aSelector
 ]

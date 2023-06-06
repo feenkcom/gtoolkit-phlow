@@ -1,8 +1,8 @@
 Class {
 	#name : #GtPhlowColumnedTreeView,
 	#superclass : #GtPhlowViewDecorator,
-	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTreeNodeTransformable + TGtPhlowTreeNodeExpansion + TGtPhlowWithContextMenu',
-	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTreeNodeTransformable classTrait + TGtPhlowTreeNodeExpansion classTrait + TGtPhlowWithContextMenu classTrait',
+	#traits : 'TGtPhlowColumnedHeader + TGtPhlowColumnScripts + TGtPhlowSendTreeNodeTransformable + TGtPhlowTreeNodeExpansion + TGtPhlowWithContextMenu + TGtPhlowColumnedRemoteSpecification',
+	#classTraits : 'TGtPhlowColumnedHeader classTrait + TGtPhlowColumnScripts classTrait + TGtPhlowSendTreeNodeTransformable classTrait + TGtPhlowTreeNodeExpansion classTrait + TGtPhlowWithContextMenu classTrait + TGtPhlowColumnedRemoteSpecification classTrait',
 	#instVars : [
 		'columns',
 		'transformation',
@@ -199,6 +199,11 @@ GtPhlowColumnedTreeView >> itemsOnExceptionErrorElement: aBlock [
 		performBlock: [ self itemsBuilder value ]
 		onExceptionErrorElement: [ :anElement |
 			aBlock value: anElement ].
+]
+
+{ #category : #'private - accessing' }
+GtPhlowColumnedTreeView >> itemsProviderComputation [
+	^ self itemsBuilder
 ]
 
 { #category : #'api - converting' }
