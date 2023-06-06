@@ -604,11 +604,10 @@ GtPhlowColumnedListViewExamples >> gtColorsWithColumnIconWidthFor: aView [
 GtPhlowColumnedListViewExamples >> gtColorsWithColumnItemIconWidthFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'column:item:icon:width: usage';
+		title: 'column:icon:width: usage';
 		priority: 6;
 		items: [ self registeredColors ];
 		column: 'Icon' 
-			item: [ :aColor | aColor ] 
 			icon: [ :aColor |
 				BlElement new
 					padding: (BlInsets all: 6);
@@ -783,6 +782,18 @@ GtPhlowColumnedListViewExamples >> gtItemsWithHorizontalScrollingFor: aView [
 		} ];
 		column: 'name' text: [ :x | x key ] width: 500;
 		column: 'value' text: [ :x | x value ] width: 500
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtNumberColumnDoFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'numberColumn';
+		priority: 3;
+		items: [ 1 to: 100 ];
+		column: 'x*x' number: [ :x | x * x ];
+		column: 'hex' number: [ :x | x ] format: [ :x | x printStringHex ];
+		column: 'x' numberDo: [ :aColumn | aColumn width: 100 ]
 ]
 
 { #category : #'gt-extensions' }

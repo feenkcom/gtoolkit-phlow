@@ -43,7 +43,7 @@ TGtPhlowItemText >> itemText: aBlockOrSymbol [
 	self itemStencil: [ self newItemLabel ].
 	self itemDataBinder: [ :aLabel :anItem :anItemNode |
 		| aText |
-		aText := aBlockOrSymbol phlowValue: anItem withEnoughArguments: { anItem. anItemNode. aLabel. self }.
+		aText := aBlockOrSymbol phlowValue: anItem withEnoughArguments: { anItemNode. aLabel. self }.
 		aLabel text: aText gtDisplayText asRopedText. ]
 ]
 

@@ -22,21 +22,18 @@ GtPhlowColumnCellItemComputationDataBinder >> backgroundComputation: anObject [
 { #category : #'api - instantiation' }
 GtPhlowColumnCellItemComputationDataBinder >> buildDefault [
 	| aValue aBackground |
+
 	aValue := itemComputation
 			phlowValue: itemObject
 			withEnoughArguments: {
-				itemObject.
 				rowIndex.
-				rowHolder.
 				columnIndex }.
 
 	aBackground := backgroundComputation
 			phlowValue: aValue
 			withEnoughArguments: {
-				aValue.
 				itemObject.
 				rowIndex.
-				rowHolder.
 				columnIndex }.
 
 	cellElement background: aBackground.
@@ -52,9 +49,8 @@ GtPhlowColumnCellItemComputationDataBinder >> buildDefault [
 ]
 
 { #category : #accessing }
-GtPhlowColumnCellItemComputationDataBinder >> dataBinder: anObject [
-
-	dataBinder := anObject
+GtPhlowColumnCellItemComputationDataBinder >> dataBinder: aStencilBuilder [
+	dataBinder := aStencilBuilder asStencilBuilder: BrColumnCellDataBinder
 ]
 
 { #category : #accessing }

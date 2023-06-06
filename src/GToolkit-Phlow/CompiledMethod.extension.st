@@ -1,7 +1,6 @@
 Extension { #name : #CompiledMethod }
 
 { #category : #'*GToolkit-Phlow' }
-CompiledMethod >> phlowValue: anObject withEnoughArguments: aCollection [
-
-	^ anObject withArgs: aCollection executeMethod: self
+CompiledMethod >> phlowValue: aReceiver withEnoughArguments: aCollection [
+	^ aReceiver withArgs: aCollection executeMethod: self
 ]

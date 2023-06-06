@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'spawnObjectComputation'
 	],
-	#category : 'GToolkit-Phlow-Support - List'
+	#category : #'GToolkit-Phlow-Support - List'
 }
 
 { #category : #accessing }
@@ -27,7 +27,7 @@ GtPhlowListTextualLinkBuilder >> buildDefault [
 			
 			anObjectToSpawn := spawnObjectComputation
 				phlowValue: aCellObject value
-				withEnoughArguments: { aCellObject value . aCellObject key }.
+				withEnoughArguments: { aCellObject key }.
 				
 		aButton phlow spawnObject: anObjectToSpawn ]
 ]

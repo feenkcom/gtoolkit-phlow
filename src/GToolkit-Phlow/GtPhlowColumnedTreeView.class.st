@@ -82,11 +82,11 @@ GtPhlowColumnedTreeView >> childrenBuilder [
 ]
 
 { #category : #'api - scripting column' }
-GtPhlowColumnedTreeView >> column [
-	<return: #GtPhlowColumn>
+GtPhlowColumnedTreeView >> columnOfType: aColumnClass [
+	<return: #GtPhlowTextColumn>
 	| aColumn |
 	
-	aColumn := GtPhlowColumn new index: columns size + 1.
+	aColumn := aColumnClass new index: columns size + 1.
 	columns add: aColumn.
 	^ aColumn
 ]
@@ -98,7 +98,7 @@ GtPhlowColumnedTreeView >> columnedTreeClass [
 
 { #category : #'private - accessing' }
 GtPhlowColumnedTreeView >> columns [
-	<return: #Collection of: #GtPhlowColumn>
+	<return: #Collection of: #GtPhlowExplicitColumn>
 	^ columns
 ]
 

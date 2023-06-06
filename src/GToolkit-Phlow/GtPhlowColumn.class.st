@@ -1,21 +1,12 @@
-"
-I keep information to configure {{gtClass:BrColumn}} instances.
-I am used by {{gtClass:GtPhlowColumnedListView}} and {{gtClass:GtPhlowColumnedTreeView}}.
-
-
-"
 Class {
 	#name : #GtPhlowColumn,
 	#superclass : #Object,
 	#instVars : [
 		'index',
-		'rowStencil',
 		'title',
 		'titleStencil',
-		'itemComputation',
-		'cellStencil',
-		'dataBinder',
 		'width',
+		'itemComputation',
 		'backgroundComputation'
 	],
 	#category : #'GToolkit-Phlow-Support'
@@ -30,13 +21,13 @@ GtPhlowColumn >> background: aBlock [
 	backgroundComputation := aBlock
 ]
 
-{ #category : #testing }
+{ #category : #'private - accessing' }
 GtPhlowColumn >> backgroundComputation [
 	^ backgroundComputation ifNil: [
 		backgroundComputation := self defaultBackgroundComputation ]
 ]
 
-{ #category : #'api - building' }
+{ #category : #'private - building' }
 GtPhlowColumn >> buildHeaderElement [
 	| aLabel |
 	aLabel := (titleStencil valueWithEnoughArguments: {self title. self}) asElement.
@@ -56,52 +47,49 @@ GtPhlowColumn >> buildHeaderElementFor: aText [
 ]
 
 { #category : #'private - accessing' }
-GtPhlowColumn >> cellStencil [
-	^ cellStencil
-]
-
-{ #category : #'api - configuration' }
-GtPhlowColumn >> cellStencil: aBlockOrSymbol [
-	cellStencil := aBlockOrSymbol asStencilBuilder: BrColumnCellStencilBuilder
-]
-
-{ #category : #'private - accessing' }
 GtPhlowColumn >> cellWidth [
 	^ width
 ]
 
+{ #category : #'private - building' }
+GtPhlowColumn >> computeDecoratedCellStencil: aCellStencil [
+	^ GtPhlowColumnErrorHandlingCellStencilBuilder new
+		cellStencil: aCellStencil;
+		cellSpacing: self newCellPaddingInsets
+]
+
+{ #category : #'private - building' }
+GtPhlowColumn >> computeDecoratedDataBinder: aSourceDataBinder [
+	| aDataBinder |
+
+	aDataBinder := aSourceDataBinder.
+
+	aDataBinder := GtPhlowColumnCellItemComputationDataBinder new
+		dataBinder: aDataBinder;
+		itemComputation: itemComputation;
+		backgroundComputation: self backgroundComputation.
+
+	aDataBinder := GtPhlowColumnErrorHandlingDataBinder new
+		dataBinder: aDataBinder.
+
+	^ aDataBinder
+]
+
 { #category : #'api - building' }
 GtPhlowColumn >> configureColumn: aBrColumn [
-	aBrColumn 
+	aBrColumn
 		title: self title;
-		cellStencil: self newDecoratedCellStencil;
-		dataBinder: self newDecoratedDataBinder;
 		cellWidth: self cellWidth
-]
-
-{ #category : #'private - accessing' }
-GtPhlowColumn >> dataBinder [
-	^ dataBinder
-]
-
-{ #category : #'api - configuration' }
-GtPhlowColumn >> dataBinder: aBlockOrSymbol [ 
-	dataBinder := aBlockOrSymbol asStencilBuilder: BrColumnCellDataBinder
 ]
 
 { #category : #defaults }
 GtPhlowColumn >> defaultBackgroundComputation [
-	^ [ :eachCellValue :eachRowValue :eachRowIndex :eachColumnIndex | Color transparent]
+	^ [ :eachCellValue :eachRowValue :eachRowIndex :eachColumnIndex | Color transparent ]
 ]
 
 { #category : #defaults }
 GtPhlowColumn >> defaultColumnIndex [
 	^ 1
-]
-
-{ #category : #defaults }
-GtPhlowColumn >> defaultDataComputation [
-	^ [ :eachItem :eachRowIndex :eachColumnIndex | eachItem ]
 ]
 
 { #category : #defaults }
@@ -111,12 +99,9 @@ GtPhlowColumn >> defaultHeaderElementBuilder [
 
 { #category : #defaults }
 GtPhlowColumn >> defaultItemComputation [
-	^ [ :eachItem :eachRowIndex :eachColumnIndex | eachItem ]
-]
+	"^ [ :rowItem :rowIndex :columnIndex | rowItem ]"
 
-{ #category : #defaults }
-GtPhlowColumn >> defaultTextStencil [
-	^ [ :anItem :aRowIndex :aColumnIndex :aBrLabel :aGtPhlowColumn | anItem ]
+	^ GtPhlowIdentityFunction uniqueInstance
 ]
 
 { #category : #defaults }
@@ -129,39 +114,9 @@ GtPhlowColumn >> defaultWidth [
 	^ GtPhlowColumnProportionalWidth new
 ]
 
-{ #category : #'scripting - deprecated' }
-GtPhlowColumn >> evaluated: aBlock [
-	self 
-		deprecated: 'Please use #item: instead.'
-		transformWith: '`@receiver display: `@statements' -> '`@receiver item: `@statements'.
-	self item: aBlock
-]
-
-{ #category : #'scripting - deprecated' }
-GtPhlowColumn >> fitContent [
-	self 
-		deprecated: 'Please use #width: instead.'
-		transformWith: '`@receiver fitContent' -> '`@receiver width: 50'.
-	self width: 50
-]
-
-{ #category : #testing }
+{ #category : #'private - accessing' }
 GtPhlowColumn >> hasBackgroundComputation [
 	^ backgroundComputation notNil
-]
-
-{ #category : #'api - scripting cell content' }
-GtPhlowColumn >> icon: aBlockOrSymbol [
-	self item: aBlockOrSymbol.
-	self cellStencil: GtPhlowListIconElementStencilBuilder new.
-	self dataBinder: GtPhlowListIconDataBinder new
-]
-
-{ #category : #'api - scripting cell content' }
-GtPhlowColumn >> iconName: anIconNameComputation [
-	self item: anIconNameComputation.
-	self cellStencil: GtPhlowListIconElementStencilBuilder new.
-	self dataBinder: GtPhlowListIconNamedDataBinder new
 ]
 
 { #category : #'private - accessing' }
@@ -181,13 +136,19 @@ GtPhlowColumn >> initialize [
 	index := self defaultColumnIndex.
 	title := self defaultTitle.
 	titleStencil := self defaultHeaderElementBuilder.
-	itemComputation := self defaultItemComputation.
 	width := self defaultWidth.
-	self text: self defaultTextStencil
+	itemComputation := self defaultItemComputation.
 ]
 
 { #category : #'api - configuration' }
 GtPhlowColumn >> item: aBlockOrSymbol [
+	"Assign a computation to be used to compute the value of a domain cell object from a row object.
+	The computation object must understand #phlowValue:withEnoughArguments:
+	and accept up to 3 arguments: row object, row index, column index.
+	By default, the item computation is an identity function.
+	The return value of the computation can be any domain Object, without any type constraint.
+	Based on a type of the column, the cell object will be passed to the corresponding rendering logic."
+
 	itemComputation := aBlockOrSymbol
 ]
 
@@ -196,126 +157,14 @@ GtPhlowColumn >> itemComputation [
 	^ itemComputation
 ]
 
-{ #category : #'scripting - deprecated' }
-GtPhlowColumn >> itemFormat: aBlockOrSymbol [
-	self 
-		deprecated: 'Please use #text: instead.'
-		transformWith: '`@receiver itemFormat: `@argument' -> '`@receiver text: `@argument'.
-	self text: aBlockOrSymbol
-]
-
-{ #category : #'scripting - deprecated' }
-GtPhlowColumn >> itemStencil: aRowStencil [
-	self 
-		deprecated: 'Please use #stencil: instead.'
-		transformWith: '`@receiver itemStencil: `@statements' -> '`@receiver stencil: `@statements'.
-	self stencil: aRowStencil
-]
-
-{ #category : #'scripting - deprecated' }
-GtPhlowColumn >> matchParent [
-	self 
-		deprecated: 'Please use #weight: instead.'
-		transformWith: '`@receiver matchParent' -> '`@receiver weight: 1'.
-	self weight: 1.
-]
-
 { #category : #'private - building' }
 GtPhlowColumn >> newCellPaddingInsets [
 	^ BlInsets empty
 ]
 
-{ #category : #'private - building' }
-GtPhlowColumn >> newDecoratedCellStencil [
-	| aCellStencil |
-
-	aCellStencil := self cellStencil.
-
-	aCellStencil := GtPhlowColumnErrorHandlingCellStencilBuilder new
-		cellStencil: aCellStencil;
-		cellSpacing: self newCellPaddingInsets.
-
-	^ aCellStencil
-]
-
-{ #category : #'private - building' }
-GtPhlowColumn >> newDecoratedDataBinder [
-	| aDataBinder |
-
-	aDataBinder := self dataBinder.
-	
-	aDataBinder := GtPhlowColumnCellItemComputationDataBinder new
-		dataBinder: aDataBinder;
-		itemComputation: itemComputation;
-		backgroundComputation: self backgroundComputation.
-
-	aDataBinder := GtPhlowColumnErrorHandlingDataBinder new
-		dataBinder: aDataBinder.
-
-	^ aDataBinder
-]
-
-{ #category : #'scripting - deprecated' }
-GtPhlowColumn >> noResize [
-	self 
-		deprecated: 'Please use #noWidth instead.'
-		transformWith: '`@receiver noResize' -> '`@receiver noWidth'.
-	self noWidth
-]
-
-{ #category : #'api - scripting cell width' }
+{ #category : #'api - cell width' }
 GtPhlowColumn >> noWidth [
 	width := BrColumnUndefinedWidth new.
-]
-
-{ #category : #'private - accessing' }
-GtPhlowColumn >> rowStencil [
-	^ rowStencil
-]
-
-{ #category : #'scripting - deprecated' }
-GtPhlowColumn >> rowStencil: aRowStencil [
-	self 
-		deprecated: 'Please use #stencil: instead.'
-		transformWith: '`@receiver rowStencil: `@statements' -> '`@receiver stencil: `@statements'.
-	self stencil: aRowStencil
-]
-
-{ #category : #'api - configuration' }
-GtPhlowColumn >> stencil: aBlock [
-	"I am a part of the `toy` api. It is inefficient to use me because I always create a new
-	element for each new cell which may be expensive. It is much better to split it in two (or three)
-	steps:
-		- cell element creation using #cellStencil: (the items are reused when they go out of the viewport)
-		- data binding using #dataBinder: (to update just a part of the reused item element).
-	aStencil is a BlockClosure of type [ :aRowObject :aRowIndex :aCellIndex ]"
-
-	self cellStencil: [
-		| aCellWrapper |
-		aCellWrapper := BlElement new
-			layout: BlFrameLayout new;
-			constraintsDo: [ :c |
-				c vertical fitContent.
-				c horizontal matchParent ].
-		aCellWrapper ].
-	self dataBinder: [ :aCellWrapper :aRowObject :aRowIndex :aRowHolder :aColumnIndex |
-		aCellWrapper
-			removeChildren
-			addChild: (aBlock cull: aRowObject cull: aRowIndex cull: aColumnIndex) asElement ]
-]
-
-{ #category : #'api - scripting cell content' }
-GtPhlowColumn >> text: aBlockOrSymbol [
-	self item: aBlockOrSymbol.
-	self cellStencil: GtPhlowListTextElementStencilBuilder new.
-	self dataBinder: GtPhlowListTextDataBinder new
-]
-
-{ #category : #'api - scripting cell content' }
-GtPhlowColumn >> text: aBlockOrSymbol spawn: aSpawnObjectComputation [
-	self item: aBlockOrSymbol.
-	self cellStencil: (GtPhlowListTextualLinkBuilder new spawnObjectComputation: aSpawnObjectComputation).
-	self dataBinder: GtPhlowListTextualLinkDataBinder new
 ]
 
 { #category : #'private - accessing' }
@@ -323,24 +172,24 @@ GtPhlowColumn >> title [
 	^ title
 ]
 
-{ #category : #'api - scripting' }
+{ #category : #'api - configuration' }
 GtPhlowColumn >> title: anObject [
 	title := anObject
 ]
 
-{ #category : #'api - scripting cell content' }
+{ #category : #'api - configuration' }
 GtPhlowColumn >> titleStencil: aStencil [
 	titleStencil := aStencil
 ]
 
-{ #category : #'api - scripting cell width' }
+{ #category : #'api - cell width' }
 GtPhlowColumn >> weight: aNumber [
 	"Make a column match parent with a given proportion as a number (usually between 0 and 1)"
 
 	width := GtPhlowColumnProportionalWidth new weight: aNumber
 ]
 
-{ #category : #'api - scripting cell width' }
+{ #category : #'api - cell width' }
 GtPhlowColumn >> width: aNumber [
 	"Make column occupy a fixed space defined by aNumber"
 
