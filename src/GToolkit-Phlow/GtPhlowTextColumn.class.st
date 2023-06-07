@@ -34,3 +34,8 @@ GtPhlowTextColumn >> createCellElement [
 GtPhlowTextColumn >> format: aBlock [
 	formatComputation := aBlock
 ]
+
+{ #category : #accessing }
+GtPhlowTextColumn >> formatComputation [
+	^ formatComputation
+]

@@ -17,7 +17,7 @@ GtPhlowIdentityFunction class >> uniqueInstance [
 	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
 ]
 
-{ #category : #evaluation }
+{ #category : #evaluating }
 GtPhlowIdentityFunction >> phlowValue: aReceiver withEnoughArguments: anArray [
 	^ aReceiver
 ]
