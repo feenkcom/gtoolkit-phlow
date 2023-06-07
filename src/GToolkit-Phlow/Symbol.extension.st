@@ -6,7 +6,6 @@ Symbol >> asPhlowSendTransformation [
 ]
 
 { #category : #'*GToolkit-Phlow' }
-Symbol >> phlowValue: anObject withEnoughArguments: aCollection [
-
-	^ anObject perform: self withEnoughArguments: aCollection
+Symbol >> phlowValue: aReceiver withEnoughArguments: aCollection [
+	^ aReceiver perform: self withEnoughArguments: aCollection
 ]

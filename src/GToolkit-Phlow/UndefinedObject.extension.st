@@ -1,7 +1,6 @@
 Extension { #name : #UndefinedObject }
 
 { #category : #'*GToolkit-Phlow' }
-UndefinedObject >> phlowValue: anObject withEnoughArguments: aCollection [
-
-	^ aCollection first
+UndefinedObject >> phlowValue: aReceiver withEnoughArguments: aCollection [
+	^ aReceiver
 ]

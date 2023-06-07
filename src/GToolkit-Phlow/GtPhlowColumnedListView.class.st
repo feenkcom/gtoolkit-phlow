@@ -76,23 +76,6 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 GtPhlowColumnedListView >> buildColumnsInList: aList [
 	columns do: [ :eachPhlowColumn |
 		eachPhlowColumn configureColumn: aList column ]
-		"aList column
-			title: eachPhlowColumn title;
-			cellStencil: eachPhlowColumn cellStencil;
-			dataBinder: eachPhlowColumn dataBinder;
-			stencil: [ :eachItem :eachIndex |
-				| aRowElement |
-
-				aRowElement := self performBlock: [ 
-					eachPhlowColumn createRowElementFor: eachItem atIndex: eachIndex ].
-				
-				eachPhlowColumn resizer ifNotNil: [ :aLayoutResizer |
-					aRowElement constraintsDo: [ :c |
-						c horizontal resizer: aLayoutResizer.
-						c vertical fitContent ].
-					aRowElement dispatchEvent: (BrLayoutHorizontalResizerWish resizer: aLayoutResizer).
-					aRowElement dispatchEvent: (BrLayoutVerticalResizerWish fitContent) ].
-				aRowElement ] ]."
 ]
 
 { #category : #accessing }
@@ -101,11 +84,11 @@ GtPhlowColumnedListView >> cellSpacing [
 ]
 
 { #category : #'api - scripting column' }
-GtPhlowColumnedListView >> column [
-	<return: #GtPhlowColumn>
+GtPhlowColumnedListView >> columnOfType: aColumnClass [
+	<return: #GtPhlowTextColumn>
 	| aColumn |
 	
-	aColumn := GtPhlowColumn new index: columns size + 1.
+	aColumn := aColumnClass new index: columns size + 1.
 	columns add: aColumn.
 	^ aColumn
 ]
@@ -117,7 +100,7 @@ GtPhlowColumnedListView >> columnedListClass [
 
 { #category : #'private - accessing' }
 GtPhlowColumnedListView >> columns [
-	<return: #Collection of: #GtPhlowColumn>
+	<return: #Collection of: #GtPhlowExplicitColumn>
 	^ columns
 ]
 

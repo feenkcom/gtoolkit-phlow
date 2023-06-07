@@ -19,7 +19,7 @@ GtPhlowSimpleListItemComputationDataBinder >> buildDefault [
 
 	aValue := itemComputation 
 		phlowValue: itemObject 
-		withEnoughArguments: { itemObject. itemPosition }.
+		withEnoughArguments: { itemPosition }.
 
 	^ dataBinder
 		itemElement: itemElement;

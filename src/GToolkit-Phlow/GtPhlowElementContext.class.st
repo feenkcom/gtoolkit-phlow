@@ -269,7 +269,7 @@ GtPhlowElementContext >> replaceEntity: aNewPhlow [
 
 { #category : #'api - events' }
 GtPhlowElementContext >> selectObject: anObject [
-	self selectTool: (GtPhlowTool default object: anObject)
+	self selectTool: anObject gtDefaultInspectorTool
 ]
 
 { #category : #'api - events' }
