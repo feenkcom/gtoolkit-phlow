@@ -14,7 +14,7 @@ Class {
 { #category : #defaults }
 GtPhlowSendToolTransformation >> defaultValuable [
 	"There is not trransformation by default"
-	^ [ :anObject | GtPhlowTool default object: anObject ]
+	^ [ :anObject | anObject gtDefaultInspectorTool ]
 ]
 
 { #category : #'api - events' }
