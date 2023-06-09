@@ -22,10 +22,19 @@ TGtPhlowColumnedHeader >> buildHeaderForItems: theItems [
 ]
 
 { #category : #'private - building' }
-TGtPhlowColumnedHeader >> buildHeaderItems: theItems inHeader: aHeader [
-
-	aHeader addChildren: (self columns collect: [ :eachColumn |
-		eachColumn buildHeaderElement ]).
+TGtPhlowColumnedHeader >> buildHeaderItems: theBrickColumns inHeader: aHeader [	
+	aHeader addChildren: (self columns with: theBrickColumns collect: [ :eachColumn :eachBrickColumn |
+		| eachHeaderElement eachResizer |
+		eachHeaderElement := eachColumn buildHeaderElement.
+		eachResizer := BrResizer new
+			aptitude: BrGlamorousThinBarResizerAptitude;
+			beRight;
+			target: eachHeaderElement;
+			constraintsDo: [ :c | c ignoreByLayout ];
+			when: BlResizerResizedEvent
+				do: [ :anEvent | eachBrickColumn width: anEvent extent x ].
+		eachHeaderElement addChild: eachResizer.
+		eachHeaderElement ])
 ]
 
 { #category : #accessing }

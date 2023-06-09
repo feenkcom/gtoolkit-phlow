@@ -26,9 +26,6 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 			c horizontal matchParent.
 			c vertical matchParent ].
 	aContainer layout: BlLinearLayout vertical.
-	aHeader := self buildHeaderForItems: theItems.
-	aHeader children
-		ifNotEmpty: [ aHeader children first padding: (BlInsets left: 20) ].
 
 	aTree := self columnedTreeClass new.
 	aTree matchParent.
@@ -46,6 +43,9 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 	].
 
 	self buildColumnsInTree: aTree.
+	aHeader := self buildHeaderForItems: aTree columns.
+	aHeader children
+		ifNotEmpty: [ aHeader children first padding: (BlInsets left: 20) ].
 	
 	self
 		performBlock: [ self expandTree: aTree ]
