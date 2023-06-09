@@ -32,7 +32,6 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 			c vertical matchParent ].
 
 	aContainer layout: BlLinearLayout vertical.
-	header := self buildHeaderForItems: #().
 
 	list := self columnedListClass new.
 
@@ -48,6 +47,8 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 	rowDataBinder ifNotNil: [ list rowDataBinder: rowDataBinder ].
 
 	self buildColumnsInList: list.
+	header := self buildHeaderForItems: list columns.
+	
 	aContainer
 		addChildren: { header. list }.
 
