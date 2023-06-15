@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowUtility,
 	#superclass : #Object,
-	#category : 'GToolkit-Phlow-Utilities'
+	#category : #'GToolkit-Phlow-Utilities'
 }
 
 { #category : #enumerating }
@@ -62,6 +62,11 @@ GtPhlowUtility class >> createTabErrorElementFor: aPhlowView withError: anExcept
 	aBlock value: aTab.
 ]
 
+{ #category : #testing }
+GtPhlowUtility class >> defaultPriority [
+	^ 75
+]
+
 { #category : #enumerating }
 GtPhlowUtility class >> findIndexFor: aNewPhlowView in: aGtPhlowViews [
 	<return: #Integer>
@@ -73,9 +78,8 @@ GtPhlowUtility class >> findIndexFor: aNewPhlowView in: aGtPhlowViews [
 
 { #category : #testing }
 GtPhlowUtility class >> hasHigherPriority: aViewOrActionOne than: aViewOrActionTwo [
-	^ [ aViewOrActionOne priority < aViewOrActionTwo priority ]
-			on: Error
-			do: [ :anException | anException return: true ]
+	^ (aViewOrActionOne priority ifNil: [ self defaultPriority ])
+		< (aViewOrActionTwo priority ifNil: [ self defaultPriority ])
 ]
 
 { #category : #testing }
