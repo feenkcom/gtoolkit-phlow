@@ -40,7 +40,7 @@ GtPhlowLabelBuilder >> object: anObject [
 { #category : #'api - label' }
 GtPhlowLabelBuilder >> textOf: anObject [
 	<return: #BlRunRopedText>
-	^ [ anObject gtDisplayString asRopedText ]
+	^ [ anObject gtDisplayText ]
 			on: Error 
 			do: [ :e | 'Error printing' asRopedText foreground: Color red ]
 ]
