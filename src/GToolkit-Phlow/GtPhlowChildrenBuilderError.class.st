@@ -12,7 +12,7 @@ Class {
 		'parent',
 		'childrenBuilder'
 	],
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #accessing }
@@ -55,10 +55,12 @@ GtPhlowChildrenBuilderError >> gtDebugActionFor: anAction [
 ]
 
 { #category : #printing }
-GtPhlowChildrenBuilderError >> gtDisplayString [
-	^ self exception
-		ifNotNil: #gtDisplayString 
-		ifNil: [ super gtDisplayString ]
+GtPhlowChildrenBuilderError >> gtDisplayOn: aStream [
+	self exception ifNotNil: [ :anException |
+		anException gtDisplayOn: aStream.
+		^ self ].
+		
+	super gtDisplayOn: aStream
 ]
 
 { #category : #printing }
