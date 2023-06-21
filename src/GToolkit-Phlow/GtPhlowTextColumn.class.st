@@ -18,7 +18,7 @@ GtPhlowTextColumn >> bindToCellElement: aCellElement cellObject: aCellObject atP
 				phlowValue: aCellObject
 				withEnoughArguments: { aRowIndex . index } ].
 
-	aCellElement text: aText
+	aCellElement text: aText gtDisplayText
 ]
 
 { #category : #'api - building' }
