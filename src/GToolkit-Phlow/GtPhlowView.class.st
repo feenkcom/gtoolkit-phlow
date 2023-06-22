@@ -288,17 +288,21 @@ GtPhlowView >> actions [
 { #category : #'adding - actions' }
 GtPhlowView >> actionsToolbarForElement: anElement [
 	| aToolbar |
-
 	aToolbar := BrToolbar new.
 	aToolbar aptitude: BrGlamorousToolbarAptitude.
 
-	self allActions do: [ :phlowAction |
-		phlowAction 
-			asElement: [ :actionElement | 
-				aToolbar addItem: actionElement ] 
-			withHostElement: anElement ].
+	aToolbar
+		withAsyncPromiseDo: [ :anElementPromise | 
+			anElementPromise
+				whenSuccess: [ :aToolbarElement :theActions | 
+					theActions
+						do: [ :phlowAction | 
+							phlowAction
+								asElement: [ :actionElement | aToolbar addItem: actionElement ]
+								withHostElement: anElement ] ].
+			anElementPromise promise: self allActionsPromise ].
 
-	 ^ aToolbar
+	^ aToolbar
 ]
 
 { #category : #'adding - update definitions' }
@@ -358,11 +362,12 @@ GtPhlowView >> addUpdateButtonTooltip: aTooltip [
 ]
 
 { #category : #'accessing - computed' }
-GtPhlowView >> allActions [
+GtPhlowView >> allActionsPromise [
 	"I return all actions that belong to a view.
 	It may include actions of a other views in some cases"
-	<return: #OrderedCollection>
-	^ self actions
+	<return: #AsyncPromise of: #OrderedCollection>
+
+	^ [ self actions ] asAsyncPromise
 ]
 
 { #category : #'accessing - computed' }
