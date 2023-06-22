@@ -51,20 +51,11 @@ GtPhlowForwarderView >> actionsToolbarForElement: anElement [
 ]
 
 { #category : #'accessing - computed' }
-GtPhlowForwarderView >> allActions [
-	"I return all actions that belong to a view.
-	It may include actions of a other views in some cases"
-	<return: #OrderedCollection>
-
-	^ self allActionsPromise wait
-]
-
-{ #category : #'accessing - computed' }
 GtPhlowForwarderView >> allActionsPromise [
 	"I return all actions that belong to a view.
 	It may include actions of a other views in some cases"
 
-	^ self phlowView then: [ :aPhlowView | aPhlowView allActions, self actions ]
+	^ self phlowView then: [ :aPhlowView | aPhlowView allActionsPromise then: [ :allActions | allActions, self actions ] ]
 ]
 
 { #category : #'accessing - computed' }

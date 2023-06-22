@@ -190,7 +190,10 @@ GtPhlowViewMixedExamples >> labelledCompositeViewShouldHaveActionsMarkedAsAction
 	<gtExample>
 	| aView anElement |
 	aView := self gtViewsFor: GtPhlowView empty.
-	aView asElementDo: [:e | anElement := e. e forceLayout ].
+	aView asElementDo: [:e | anElement := e ].
+	
+	BlScripter new element: anElement; elementWithoutParent.
+	
 	self assert: anElement notNil.
 	self assert: anElement phlow allChildrenWithAction notEmpty.
 	"Removed the next assert because on Jenkins it is either 3 or 4, randomly"
