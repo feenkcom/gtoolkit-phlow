@@ -12,7 +12,7 @@ Class {
 	#instVars : [
 		'valuable'
 	],
-	#category : 'GToolkit-Phlow-Support - Transformation'
+	#category : #'GToolkit-Phlow-Support - Transformation'
 }
 
 { #category : #testing }
@@ -47,7 +47,7 @@ GtPhlowSendValuableTransformation >> initialize [
 	valuable := self defaultValuable.
 ]
 
-{ #category : #'private - accessing' }
+{ #category : #'api - transformation' }
 GtPhlowSendValuableTransformation >> transformedValueFrom: anObject selection: aSelectionIndices [
 	"Given object is passed to the ${method:GtPhlowSendValuableTransformation>>#valuable|label=#selector}$
 	and the valuable result is used to display an information (instead of the anObject)."
