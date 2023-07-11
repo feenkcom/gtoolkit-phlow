@@ -87,13 +87,20 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 							on: Error
 							do: [ :anException |
 								(self phlowErrorViewWithException: anException)
-									asElementDo: [ :anErrorElement | aContainer addChild: anErrorElement ] ] ] ]
-				ifError: [ :anError | (self phlowErrorViewWithException: anError) asElementDo: [ :anErrorElement | aContainer addChild: anErrorElement as: self class contentId ] ]
+									asElementDo: [ :anErrorElement | 
+										aContainer addChild: anErrorElement ] ] ] ]
+				ifError: [ :anError | 
+					(self phlowErrorViewWithException: anError) 
+						asElementDo: [ :anErrorElement | 
+							aContainer 
+								addChild: anErrorElement 
+								as: self class contentId ] ]
 				ifPending: [
 					| aPendingLabel |
 					
 					aPendingLabel := BrLabel new
-						aptitude: (BrGlamorousLabelAptitude new italic foreground: BrGlamorousColors disabledHeaderTextColor);
+						aptitude: (BrGlamorousLabelAptitude new italic 
+							foreground: BrGlamorousColors disabledHeaderTextColor);
 						constraintsDo: [ :c | 
 							c ignoreByLayout.
 							c ignored horizontal alignCenter.
@@ -112,17 +119,20 @@ GtPhlowForwarderView >> asElementDo: aBlock [
 ]
 
 { #category : #private }
-GtPhlowForwarderView >> createPhlowView [
+GtPhlowForwarderView >> computeTargetViewForObject: aForwardedObject [
+	| aView |
+	aView := self on: aForwardedObject object perform: self viewSymbol.
+	self hasTransformation
+		ifTrue: [ aView copyTransformationFrom: self transformation ].
+	^ aView
+]
 
+{ #category : #private }
+GtPhlowForwarderView >> createPhlowView [
 	<return: #TAsyncPromise of: #GtPhlowView>
 	^ self viewObject
-		then: [ :aForwardedObject | 
-		  | aView |
-		  aView := self on: aForwardedObject object perform: self viewSymbol.
-		  self hasTransformation ifTrue: [ 
-			  aView copyTransformationFrom: self transformation ].
-		  aView ] 
-		otherwise: [ :anException |
+		then: [ :aForwardedObject | self computeTargetViewForObject: aForwardedObject ]
+		otherwise: [ :anException | 
 			phlowView := (self phlowErrorViewWithException: anException) asAsyncPromise.
 			phlowView ]
 ]
@@ -145,8 +155,8 @@ GtPhlowForwarderView >> object [
 ]
 
 { #category : #accessing }
-GtPhlowForwarderView >> object: anObject [
-	object := anObject
+GtPhlowForwarderView >> object: aComputation [
+	object := aComputation
 ]
 
 { #category : #'accessing - computed' }
