@@ -11,7 +11,7 @@ See {{gtClass:GtPhlowSendTransformation|label=my subclasses|expanded|show=#gtSub
 Class {
 	#name : #GtPhlowSendTransformation,
 	#superclass : #Object,
-	#category : 'GToolkit-Phlow-Support - Transformation'
+	#category : #'GToolkit-Phlow-Support - Transformation'
 }
 
 { #category : #'api - factory' }
@@ -48,4 +48,12 @@ GtPhlowSendTransformation >> spawn: aSelectedObject indices: aSelectionIndices f
 	The ${class:GtPhlowObjectToSpawn}$ event must be instantiated with a ${class:GtPhlowTool}$ instance
 	that displayes the selected object (aSelectedObject)."
 	self subclassResponsibility
+]
+
+{ #category : #'api - transformation' }
+GtPhlowSendTransformation >> transformedValueFrom: aSelectedNode selection: aSelectionIndices [
+	"Provide only the transformed value, in cases when we need to use it in other context.
+	This is used when transforming values in remote views."
+	
+	^ self subclassResponsibility
 ]

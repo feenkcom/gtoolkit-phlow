@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'transformation'
 	],
-	#category : 'GToolkit-Phlow-Support - Transformation'
+	#category : #'GToolkit-Phlow-Support - Transformation'
 }
 
 { #category : #'api - converting' }
@@ -43,4 +43,11 @@ GtPhlowSendTreeNodeTransformation >> transformation [
 { #category : #'api - accessing' }
 GtPhlowSendTreeNodeTransformation >> transformation: aGtPhlowSendTransformation [
 	transformation := aGtPhlowSendTransformation
+]
+
+{ #category : #'api - transformation' }
+GtPhlowSendTreeNodeTransformation >> transformedValueFrom: aSelectedNode selection: aSelectionIndices [
+	^ self transformation 
+		transformedValueFrom: aSelectedNode value 
+		selection: aSelectionIndices
 ]
