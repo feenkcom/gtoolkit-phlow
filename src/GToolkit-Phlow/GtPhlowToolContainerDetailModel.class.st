@@ -21,7 +21,7 @@ If my value is undefined, another parent has a change to answer the inforamtion 
 Class {
 	#name : #GtPhlowToolContainerDetailModel,
 	#superclass : #GtPhlowToolAbstractDetailModel,
-	#category : 'GToolkit-Phlow-Tool - Model'
+	#category : #'GToolkit-Phlow-Tool - Model'
 }
 
 { #category : #printing }
@@ -45,7 +45,7 @@ GtPhlowToolContainerDetailModel >> initializeListeners [
 { #category : #'private - event handling' }
 GtPhlowToolContainerDetailModel >> volumeResponse: aResponse for: aRequest [
 	self isUndefined
-		ifTrue: [ aRequest consumed: false ]
+		ifTrue: [ aRequest beNotConsumed ]
 		ifFalse: [ aResponse level: self level ].
 	^ aResponse
 ]
