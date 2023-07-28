@@ -31,13 +31,13 @@ BaselineOfGToolkitPhlow >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.8.997/src' ].
+				spec repository: 'github://feenkcom/Brick:v0.8.998/src' ].
 		spec
 			baseline: 'GToolkitUtility' with: [
-				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.211/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.212/src' ].
 		spec
 			baseline: 'GToolkitBasicUtility' with: [
-				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.211/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.212/src' ].
 
 		spec package: 'GToolkit-Phlow' with: [
 			spec requires: #('Brick' 'GToolkitUtility' 'GToolkitBasicUtility') ].
