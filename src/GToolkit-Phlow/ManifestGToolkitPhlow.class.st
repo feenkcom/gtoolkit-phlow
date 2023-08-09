@@ -18,3 +18,8 @@ ManifestGToolkitPhlow class >> ruleRBBadMessageRuleV1FalsePositive [
 ManifestGToolkitPhlow class >> ruleRBMissingTranslationsInMenusRuleV1FalsePositive [
 	^ #(#(#(#RGPackage #(#'GToolkit-Phlow')) #'2018-11-20T15:59:19.040176-03:00') )
 ]
+
+{ #category : #testing }
+ManifestGToolkitPhlow class >> shouldValidateBaseline [
+	^ true
+]
