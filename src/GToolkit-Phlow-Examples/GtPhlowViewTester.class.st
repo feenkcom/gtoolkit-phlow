@@ -6,7 +6,7 @@ Class {
 
 { #category : #asserting }
 GtPhlowViewTester >> assertEmpty: aTesterResult [
-	self assertResult: aTesterResult equals: GtPhlowViewTesterNoElementFailure new
+	self assertResult: aTesterResult equals: GtPhlowViewTesterNoElementFailureResult new
 ]
 
 { #category : #testing }
@@ -17,22 +17,22 @@ GtPhlowViewTester >> assertObject: anObject [
 	(theResults allSatisfy: [ :eachResult | eachResult isOk or: [ eachResult isEmpty ] ])
 		ifTrue: [ ^ self ].
 	
-	(GtPhlowViewTesterObjectValidationError new
+	(GtPhlowViewTesterObjectValidationFailure new
 		object: anObject;
 		results: theResults) signal
 ]
 
 { #category : #asserting }
 GtPhlowViewTester >> assertOk: aTesterResult [
-	self assertResult: aTesterResult equals: GtPhlowViewTesterOk new
+	self assertResult: aTesterResult equals: GtPhlowViewTesterOkResult new
 ]
 
 { #category : #asserting }
 GtPhlowViewTester >> assertResult: anActualTesterResult equals: anExpectedResult [
-	anActualTesterResult = GtPhlowViewTesterNoElementFailure new
+	anActualTesterResult = GtPhlowViewTesterNoElementFailureResult new
 		ifTrue: [ ^ self ].
 
-	^ (GtPhlowViewTesterValidationError new
+	^ (GtPhlowViewTesterViewValidationFailure new
 		actualResult: anActualTesterResult;
 		expectedResult: anExpectedResult) signal
 ]
@@ -63,7 +63,7 @@ GtPhlowViewTester >> testView: aPhlowView [
 	<return: #GtPhlowViewTesterResult>
 	| result |
 	
-	result := GtPhlowViewTesterNoElementFailure new
+	result := GtPhlowViewTesterNoElementFailureResult new
 		phlowView: aPhlowView;
 		phlowElement: nil.
 
@@ -83,19 +83,19 @@ GtPhlowViewTester >> testView: aPhlowView andElement: aPhlowViewElement [
 	
 	(aPhlowViewElement id  = GtPhlowExceptionId asBlocElementId)
 		ifTrue: [
-			^ GtPhlowViewTesterExceptionFailure new
+			^ GtPhlowViewTesterExceptionFailureResult new
 				phlowView: aPhlowView;
 				phlowElement: aPhlowViewElement;
 				exceptionElements: { aPhlowViewElement }].
 	
 	(aPhlowViewElement query // GtPhlowExceptionId) all
 		ifNotEmpty: [ :theExceptionElements |
-			^ GtPhlowViewTesterExceptionFailure new
+			^ GtPhlowViewTesterExceptionFailureResult new
 				phlowView: aPhlowView;
 				phlowElement: aPhlowViewElement;
 				exceptionElements: theExceptionElements ].
 	
-	^ GtPhlowViewTesterOk new
+	^ GtPhlowViewTesterOkResult new
 		phlowView: aPhlowView;
 		phlowElement: aPhlowViewElement
 ]

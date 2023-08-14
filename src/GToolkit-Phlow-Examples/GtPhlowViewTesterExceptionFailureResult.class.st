@@ -1,6 +1,6 @@
 Class {
-	#name : #GtPhlowViewTesterExceptionFailure,
-	#superclass : #GtPhlowViewTesterFailure,
+	#name : #GtPhlowViewTesterExceptionFailureResult,
+	#superclass : #GtPhlowViewTesterFailureResult,
 	#instVars : [
 		'exceptionElements'
 	],
@@ -8,17 +8,27 @@ Class {
 }
 
 { #category : #accessing }
-GtPhlowViewTesterExceptionFailure >> exceptionElements [
+GtPhlowViewTesterExceptionFailureResult >> exceptionElements [
 	^ exceptionElements
 ]
 
 { #category : #accessing }
-GtPhlowViewTesterExceptionFailure >> exceptionElements: anObject [
+GtPhlowViewTesterExceptionFailureResult >> exceptionElements: anObject [
 	exceptionElements := anObject
 ]
 
 { #category : #accessing }
-GtPhlowViewTesterExceptionFailure >> gtLiveFor: aView [
+GtPhlowViewTesterExceptionFailureResult >> gtExceptionsFor: aView [
+	<gtView>
+	
+	^ aView list
+		title: 'Exceptions';
+		priority: 6;
+		items: [ exceptionElements collect: [ :each | each userData at: #exception ] ]
+]
+
+{ #category : #accessing }
+GtPhlowViewTesterExceptionFailureResult >> gtLiveFor: aView [
 	<gtView>
 	
 	^ aView explicit
