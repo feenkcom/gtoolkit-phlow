@@ -1,10 +1,10 @@
 Class {
-	#name : #GtPhlowViewTesterOk,
+	#name : #GtPhlowViewTesterOkResult,
 	#superclass : #GtPhlowViewTesterResult,
 	#category : #'GToolkit-Phlow-Examples-Tester'
 }
 
 { #category : #testing }
-GtPhlowViewTesterOk >> isOk [
+GtPhlowViewTesterOkResult >> isOk [
 	^ true
 ]

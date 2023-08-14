@@ -1,5 +1,5 @@
 Class {
 	#name : #GtPhlowViewTesterFailure,
-	#superclass : #GtPhlowViewTesterResult,
+	#superclass : #AssertionFailure,
 	#category : #'GToolkit-Phlow-Examples-Tester'
 }

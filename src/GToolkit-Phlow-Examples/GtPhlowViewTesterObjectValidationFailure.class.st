@@ -1,6 +1,6 @@
 Class {
-	#name : #GtPhlowViewTesterObjectValidationError,
-	#superclass : #AssertionFailure,
+	#name : #GtPhlowViewTesterObjectValidationFailure,
+	#superclass : #GtPhlowViewTesterFailure,
 	#instVars : [
 		'object',
 		'results'
@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : #accessing }
-GtPhlowViewTesterObjectValidationError >> gtResultsFor: aView [
+GtPhlowViewTesterObjectValidationFailure >> gtResultsFor: aView [
 	<gtView>
 	<gtExceptionDebuggingView>
 	
@@ -27,21 +27,21 @@ GtPhlowViewTesterObjectValidationError >> gtResultsFor: aView [
 ]
 
 { #category : #accessing }
-GtPhlowViewTesterObjectValidationError >> object [
+GtPhlowViewTesterObjectValidationFailure >> object [
 	^ object
 ]
 
 { #category : #accessing }
-GtPhlowViewTesterObjectValidationError >> object: anObject [
+GtPhlowViewTesterObjectValidationFailure >> object: anObject [
 	object := anObject
 ]
 
 { #category : #accessing }
-GtPhlowViewTesterObjectValidationError >> results [
+GtPhlowViewTesterObjectValidationFailure >> results [
 	^ results
 ]
 
 { #category : #accessing }
-GtPhlowViewTesterObjectValidationError >> results: anObject [
+GtPhlowViewTesterObjectValidationFailure >> results: anObject [
 	results := anObject
 ]
