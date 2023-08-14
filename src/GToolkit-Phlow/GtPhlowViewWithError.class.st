@@ -11,6 +11,7 @@ Class {
 GtPhlowViewWithError >> asElementDo: aBlock [
 	| anElement |
 	anElement := error asDebuggableElement.
+	anElement id: GtPhlowExceptionId.
 	anElement := self wrapWithFailedComputation: anElement.
 	self beViewElement: anElement.
 	^ aBlock value: anElement
