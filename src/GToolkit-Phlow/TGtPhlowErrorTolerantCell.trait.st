@@ -32,6 +32,7 @@ TGtPhlowErrorTolerantCell >> errorTreatedCellStencilFor: aBrListItemElementStenc
 				ifTrue: [ 
 					| anElement |
 					anElement := anItemType exception asDebuggableElement vFitContent; hMatchParent.
+					anElement id: GtPhlowExceptionId.
 					aContainer exception: anElement ]
 				ifFalse: [ 
 					self 
@@ -44,6 +45,7 @@ TGtPhlowErrorTolerantCell >> errorTreatedCellStencilFor: aBrListItemElementStenc
 						onException: [ :anException | 
 							| anElement |
 							anElement := anException asDebuggableElement vFitContent; hMatchParent.
+							anElement id: GtPhlowExceptionId.
 							aContainer exception: anElement. ] ].
 			aContainer ]
 ]
