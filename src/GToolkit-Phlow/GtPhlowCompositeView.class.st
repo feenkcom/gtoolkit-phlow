@@ -42,6 +42,15 @@ GtPhlowCompositeView >> addNewTabTo: aCollectionOfTabs forView: aPhlowView [
 		andDo: [ :aTab | aCollectionOfTabs add: aTab ]
 ]
 
+{ #category : #accessing }
+GtPhlowCompositeView >> appendViews: aCollection [
+	views ifNil: [
+		self views: aCollection.
+		^ self ].
+	
+	views addAll: aCollection asOrderedCollection.
+]
+
 { #category : #converting }
 GtPhlowCompositeView >> asElementDo: aBlock [
 	| tabs group |
@@ -56,6 +65,15 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 		aptitude: BrGlamorousTabGroupAptitude;
 		addTabs: tabs.
 	^ aBlock value: group
+]
+
+{ #category : #'api - building' }
+GtPhlowCompositeView >> collectorAppend: aBlock [
+	"configure ${class:GtPhlowViewsCollector}$ to collect views"
+	| aCollector |
+	aCollector := GtPhlowViewsCollector new.
+	aBlock value: aCollector.
+	self appendViews: aCollector collect.
 ]
 
 { #category : #'api - building' }
