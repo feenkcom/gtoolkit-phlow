@@ -53,15 +53,15 @@ GtPhlowCellElement >> defaultContentChildName [
 ]
 
 { #category : #defaults }
-GtPhlowCellElement >> defaultExceptionChildName [
-	^ #exception
+GtPhlowCellElement >> defaultExceptionId [
+	^ GtPhlowExceptionId
 ]
 
 { #category : #accessing }
 GtPhlowCellElement >> exception [
 	<return: #BlElement or: nil>
 	^ self 
-		childNamed: self defaultExceptionChildName
+		childWithId: self defaultExceptionId
 		ifFound: [ :aCurrentElement | aCurrentElement ]
 		ifNone: [ nil ]
 ]
@@ -73,14 +73,14 @@ GtPhlowCellElement >> exception: aNewExceptionElement [
 		description: [ 'Cell exception must be an element' ].
 	self hideContent.
 	self 
-		childNamed: self defaultExceptionChildName
+		childWithId: self defaultExceptionId
 		ifFound: [ :aCurrentElement | self 
 			replaceChild: aCurrentElement
 			with: aCurrentElement
-			as: self defaultExceptionChildName ]
+			as: self defaultExceptionId ]
 		ifNone: [ self 
 			addChild: aNewExceptionElement
-			as: self defaultExceptionChildName ]
+			as: self defaultExceptionId ]
 ]
 
 { #category : #'private - hooks' }
