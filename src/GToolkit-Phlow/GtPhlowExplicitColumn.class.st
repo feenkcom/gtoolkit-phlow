@@ -102,6 +102,7 @@ GtPhlowExplicitColumn >> text: aBlockOrSymbol [
 { #category : #'api - cell content' }
 GtPhlowExplicitColumn >> text: aBlockOrSymbol spawn: aSpawnObjectComputation [
 	self item: aBlockOrSymbol.
-	self cellStencil: (GtPhlowListTextualLinkBuilder new spawnObjectComputation: aSpawnObjectComputation).
+	self cellStencil: (GtPhlowListTextualLinkBuilder new 
+		spawnObjectComputation: aSpawnObjectComputation).
 	self dataBinder: GtPhlowListTextualLinkDataBinder new
 ]

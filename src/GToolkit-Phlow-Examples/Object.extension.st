@@ -1,6 +1,6 @@
 Extension { #name : #Object }
 
 { #category : #'*GToolkit-Phlow-Examples' }
-Object >> assertPhlowViews: anObject [
+Object >> assertObjectPhlowViewsFor: anObject [
 	GtPhlowViewTester new assertObject: anObject
 ]
