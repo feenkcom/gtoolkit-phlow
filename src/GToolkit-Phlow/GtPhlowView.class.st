@@ -402,10 +402,10 @@ GtPhlowView >> basicOn: anObject perform: aMessageSymbol withArguments: aCollect
 		withArguments: aCollectionOfArguments
 		inClass: anObject class.
 		
-	self 
-		assert: [ aPhlowView ~= self ] 
-		description: [ 'Phlow view definition cannot return same view that is passed as an argument. Use `aView empty` instead in: ',
-			anObject printString, '>>#', aMessageSymbol asString ].
+	aPhlowView = self ifTrue: [
+		GtPhlowViewsCollectorSameViewError 
+			signalForViewSelector: aMessageSymbol
+			fromObject: anObject ].
 			
 	aPhlowView object: anObject arguments: aCollectionOfArguments.
 	^ aPhlowView

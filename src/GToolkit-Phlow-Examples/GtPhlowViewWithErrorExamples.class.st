@@ -16,6 +16,21 @@ GtPhlowViewWithErrorExamples >> gtViewWithExceptionAtCreationFor: aView [
 	^ aView title: 'With error during view creation'
 ]
 
+{ #category : #'gt-extensions' }
+GtPhlowViewWithErrorExamples >> gtViewWithReturningSameViewFor: aView [
+	<gtView>
+	self hasData ifFalse: [ ^ aView ].
+	
+	^ aView list
+		title: 'View Data';
+		items: [ 1 to: 100 ]
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowViewWithErrorExamples >> hasData [
+	^ false
+]
+
 { #category : #'examples - view' }
 GtPhlowViewWithErrorExamples >> onPerformWithErrorAtCreation [
 	<gtExample>
