@@ -17,9 +17,27 @@ GtPhlowViewWithErrorExamples >> gtViewWithExceptionAtCreationFor: aView [
 ]
 
 { #category : #'gt-extensions' }
+GtPhlowViewWithErrorExamples >> gtViewWithFailureInColumnedListFor: aView [
+	<gtView>
+
+	^ aView columnedTree
+		title: 'Collection Subclasses';
+		items: [ {Collection}];
+		expandUpTo: 2;
+		children: [ :aClass | aClass subclasses ];
+		column: 'Name' text: [ :aClass | aClass name];
+		column: 'Number of methods' text: [ :aClass | 
+			aClass name = #LinkedList ifTrue: [ 1/0 ].
+			aClass name = #Set ifTrue: [ 1/0 ].
+			aClass methods size]
+]
+
+{ #category : #'gt-extensions' }
 GtPhlowViewWithErrorExamples >> gtViewWithReturningSameViewFor: aView [
 	<gtView>
 	self hasData ifFalse: [ ^ aView ].
+	
+	self hasMoreData ifFalse: [ ^ aView ].
 	
 	^ aView list
 		title: 'View Data';
@@ -29,6 +47,11 @@ GtPhlowViewWithErrorExamples >> gtViewWithReturningSameViewFor: aView [
 { #category : #'gt-extensions' }
 GtPhlowViewWithErrorExamples >> hasData [
 	^ false
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowViewWithErrorExamples >> hasMoreData [
+	^ true
 ]
 
 { #category : #'examples - view' }
