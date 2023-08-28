@@ -47,12 +47,20 @@ GtPhlowViewsCollectorSameViewError >> gtViewViewCodeFor: aView [
 	<gtView>
 	<gtExceptionDebuggingView>
 	
-	^ aView forward
+	^ aView explicit
 		title: 'View Code';
 		priority: 0;
-		object: [ 
-			targetObject class lookupSelector: viewSelector ];
-		view: #gtSourceFor:
+		actionButtonIcon: BrGlamorousVectorIcons browse
+			tooltip: 'Browse method'
+			action: [ self gtBrowse ];
+		stencil: [ 
+			((GtPharoMethodCoder forMethod: self viewMethod asRingDefinition) 
+				highlighter: (GtRBPatternHighlighter new
+		 			 ast: (RBParser 
+		 			 	parseRewriteExpression: self parameterReturnString);
+					  yourself)
+				yourself)
+				asExpandedOnlyElement vFitContentLimited ]
 ]
 
 { #category : #initialization }
@@ -61,4 +69,14 @@ GtPhlowViewsCollectorSameViewError >> initializeWithViewSelector: aMessageSymbol
 	targetObject := anObject.
 	
 	messageText := self createMessageText
+]
+
+{ #category : #accessing }
+GtPhlowViewsCollectorSameViewError >> parameterReturnString [
+	^ '^ aView'
+]
+
+{ #category : #accessing }
+GtPhlowViewsCollectorSameViewError >> viewMethod [
+	^ targetObject class lookupSelector: viewSelector
 ]
