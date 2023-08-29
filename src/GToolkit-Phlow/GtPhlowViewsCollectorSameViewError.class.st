@@ -32,6 +32,12 @@ GtPhlowViewsCollectorSameViewError >> fullDescription [
 	^ 'The Phlow view created by the method ', self createMessageText, ' and run on the object "', targetObject printString, '" returned the same view that was passed as an argument. This is not allowed. Return `aView empty` instead'
 ]
 
+{ #category : #'gt - extensions' }
+GtPhlowViewsCollectorSameViewError >> gtDebuggingExtensionConfiguration [
+	^ super gtDebuggingExtensionConfiguration
+		globalDebuggingActionPragmas: #(gtPhlowSaveViewReturnFixDebugAction)
+]
+
 { #category : #accessing }
 GtPhlowViewsCollectorSameViewError >> gtViewDescriptionFor: aView [
 	<gtView>
@@ -74,6 +80,24 @@ GtPhlowViewsCollectorSameViewError >> initializeWithViewSelector: aMessageSymbol
 { #category : #accessing }
 GtPhlowViewsCollectorSameViewError >> parameterReturnString [
 	^ '^ aView'
+]
+
+{ #category : #accessing }
+GtPhlowViewsCollectorSameViewError >> refactoringModel [
+	| model rewriter targetMethod |
+	
+	model := RBNamespace new.
+	rewriter := RBParseTreeRewriter new.
+	rewriter 
+		replace: self parameterReturnString 
+		with: self parameterReturnString, ' empty'.
+	targetMethod := self viewMethod.
+
+	(rewriter executeTree: targetMethod ast copy)
+		ifTrue: [ 
+			(model classFor: targetMethod methodClass) compileTree: rewriter tree ] .
+
+	^ model
 ]
 
 { #category : #accessing }
