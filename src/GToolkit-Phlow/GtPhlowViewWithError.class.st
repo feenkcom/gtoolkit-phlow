@@ -35,10 +35,13 @@ GtPhlowViewWithError >> error: anObject [
 
 { #category : #accessing }
 GtPhlowViewWithError >> runViewCreationComputation [
-	GtPhlowView empty 
+	| newArguments |
+	newArguments := {self buildContext arguments first class empty}
+		, self buildContext arguments allButFirst.
+	newArguments first
 		basicOn: self buildContext object 
 		perform: self methodSelector 
-		withArguments: self buildContext arguments
+		withArguments: newArguments
 ]
 
 { #category : #accessing }

@@ -1,18 +1,18 @@
 Class {
-	#name : #GtPhlowViewsCollectorSameViewFixReturnDebugAction,
+	#name : #GtPhlowViewsCollectorSameViewRefactorReturnDebugAction,
 	#superclass : #DebugAction,
 	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #initialization }
-GtPhlowViewsCollectorSameViewFixReturnDebugAction class >> fixReturnDebugActionFor: aDebugger [
+GtPhlowViewsCollectorSameViewRefactorReturnDebugAction class >> refactorReturnDebugActionFor: aDebugger [
 	<gtPhlowSaveViewReturnFixDebugAction>
 	
 	^ self forDebugger: aDebugger
 ]
 
 { #category : #accessing }
-GtPhlowViewsCollectorSameViewFixReturnDebugAction >> asBrickButton [
+GtPhlowViewsCollectorSameViewRefactorReturnDebugAction >> asBrickButton [
 	| withDropdownLook |
 	
 	withDropdownLook := BrGlamorousWithDropdownAptitude
@@ -26,21 +26,22 @@ GtPhlowViewsCollectorSameViewFixReturnDebugAction >> asBrickButton [
 	^ BrButton new
 		aptitude: BrGlamorousButtonWithIconAptitude + withDropdownLook;
 		icon: self icon;
+		label: self label;
 		yourself
 ]
 
 { #category : #accessing }
-GtPhlowViewsCollectorSameViewFixReturnDebugAction >> defaultIcon [
-	^  BrGlamorousVectorIcons repair
+GtPhlowViewsCollectorSameViewRefactorReturnDebugAction >> defaultIcon [
+	^  BrGlamorousVectorIcons driller
 ]
 
 { #category : #accessing }
-GtPhlowViewsCollectorSameViewFixReturnDebugAction >> defaultLabel [
-	^ 'Fix return'
+GtPhlowViewsCollectorSameViewRefactorReturnDebugAction >> defaultLabel [
+	^ 'Refactor view return'
 ]
 
 { #category : #initialization }
-GtPhlowViewsCollectorSameViewFixReturnDebugAction >> initialize [
+GtPhlowViewsCollectorSameViewRefactorReturnDebugAction >> initialize [
 	super initialize.
 	
 	"No need to update the debgger as it will anyway be closed."
@@ -48,7 +49,7 @@ GtPhlowViewsCollectorSameViewFixReturnDebugAction >> initialize [
 ]
 
 { #category : #accessing }
-GtPhlowViewsCollectorSameViewFixReturnDebugAction >> refactoringContent [
+GtPhlowViewsCollectorSameViewRefactorReturnDebugAction >> refactoringContent [
 	| container|
 	
 	container := BrFrame new
