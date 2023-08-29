@@ -6,7 +6,7 @@ Class {
 
 { #category : #initialization }
 GtPhlowViewsCollectorSameViewRefactorReturnDebugAction class >> refactorReturnDebugActionFor: aDebugger [
-	<gtPhlowSaveViewReturnFixDebugAction>
+	"<gtPhlowSaveViewReturnFixDebugAction>"
 	
 	^ self forDebugger: aDebugger
 ]

@@ -36,9 +36,9 @@ GtPhlowViewWithErrorExamples >> gtViewWithFailureInColumnedListFor: aView [
 GtPhlowViewWithErrorExamples >> gtViewWithReturningSameViewFor: aView [
 	<gtView>
 	self hasData ifFalse: [ ^ aView ].
-	
+
 	self hasMoreData ifFalse: [ ^ aView ].
-	
+
 	^ aView list
 		title: 'View Data';
 		items: [ 1 to: 100 ]

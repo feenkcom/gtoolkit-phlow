@@ -56,6 +56,9 @@ GtPhlowViewsCollectorSameViewError >> gtViewViewCodeFor: aView [
 	^ aView explicit
 		title: 'View Code';
 		priority: 0;
+		actionDropdownButtonIcon: BrGlamorousVectorIcons driller 
+			tooltip: 'Refactor view return' 
+			content: [ self refactoringContentElement];
 		actionButtonIcon: BrGlamorousVectorIcons browse
 			tooltip: 'Browse method'
 			action: [ self gtBrowse ];
@@ -80,6 +83,20 @@ GtPhlowViewsCollectorSameViewError >> initializeWithViewSelector: aMessageSymbol
 { #category : #accessing }
 GtPhlowViewsCollectorSameViewError >> parameterReturnString [
 	^ '^ aView'
+]
+
+{ #category : #'gt - extensions' }
+GtPhlowViewsCollectorSameViewError >> refactoringContentElement [
+	| container|
+	
+	container := BrFrame new
+		hExact: 650;
+		vExact: 300.
+	container addChild: ((self refactoringModel
+		gtApplyingChangesFor:  GtPhlowView empty) 
+			asElementDo: [:e | e]).
+	
+	^ container
 ]
 
 { #category : #accessing }
