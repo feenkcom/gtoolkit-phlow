@@ -12,6 +12,12 @@ GtPhlowViewsCollectorSameViewFixItDebugAction class >> fixItReturnDebugActionFor
 ]
 
 { #category : #accessing }
+GtPhlowViewsCollectorSameViewFixItDebugAction >> appliesToDebugger: aDebugger [
+
+	^ aDebugger session isInterruptedContextPostMortem not
+]
+
+{ #category : #accessing }
 GtPhlowViewsCollectorSameViewFixItDebugAction >> defaultIcon [
 	^  BrGlamorousVectorIcons repair
 ]
