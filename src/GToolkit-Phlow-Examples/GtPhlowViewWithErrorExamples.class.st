@@ -33,6 +33,19 @@ GtPhlowViewWithErrorExamples >> gtViewWithFailureInColumnedListFor: aView [
 ]
 
 { #category : #'gt-extensions' }
+GtPhlowViewWithErrorExamples >> gtViewWithReturningIndirectlySameViewFor: aView [
+	<gtView>
+	| currentView |
+	currentView := aView.
+
+	self hasData ifFalse: [ ^ currentView ].
+
+	^ aView list
+		title: 'View Data';
+		items: [ 1 to: 15 ]
+]
+
+{ #category : #'gt-extensions' }
 GtPhlowViewWithErrorExamples >> gtViewWithReturningSameViewFor: aView [
 	<gtView>
 	self hasData ifFalse: [ ^ aView ].

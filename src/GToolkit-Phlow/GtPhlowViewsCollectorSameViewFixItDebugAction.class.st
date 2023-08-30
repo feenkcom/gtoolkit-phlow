@@ -14,17 +14,14 @@ GtPhlowViewsCollectorSameViewFixItDebugAction class >> fixItReturnDebugActionFor
 { #category : #accessing }
 GtPhlowViewsCollectorSameViewFixItDebugAction >> appliesToDebugger: aDebugger [
 
-	^ aDebugger session isInterruptedContextPostMortem not
-]
-
-{ #category : #accessing }
-GtPhlowViewsCollectorSameViewFixItDebugAction >> defaultIcon [
-	^  BrGlamorousVectorIcons repair
+	^ aDebugger session isInterruptedContextPostMortem not and: [
+		aDebugger session exception notNil and: [
+			aDebugger session exception hasExplicitParameterReturn ] ]
 ]
 
 { #category : #accessing }
 GtPhlowViewsCollectorSameViewFixItDebugAction >> defaultLabel [
-	^ 'Fix it and re-run'
+	^ 'Fix it'
 ]
 
 { #category : #accessing }
