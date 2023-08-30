@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowViewsCollectorSameViewProceedDebugAction,
 	#superclass : #DebugAction,
-	#category : #'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors-Debugging'
 }
 
 { #category : #accessing }
