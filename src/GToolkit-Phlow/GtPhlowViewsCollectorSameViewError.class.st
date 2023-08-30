@@ -32,7 +32,7 @@ GtPhlowViewsCollectorSameViewError >> createAnnotatedCoderElement [
 					  yourself)
 				yourself).
 				
-	returnsStyler := GtDirectParameterExplanationLinkStyler new
+	returnsStyler := GtPhlowDirectParameterExplanationLinkStyler new
 		parameterName: self parameterName withIdentifier: #viewParameter.
 	advicesStyler := GtMethodAdviceStyler new 
 		advices: { GtPhlowSameViewReturnMethodAdvice new 
