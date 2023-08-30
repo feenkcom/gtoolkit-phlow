@@ -11,7 +11,7 @@ Class {
 		'viewSelector',
 		'targetObject'
 	],
-	#category : #'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors-Debugging'
 }
 
 { #category : #'instance creation' }
@@ -24,21 +24,27 @@ GtPhlowViewsCollectorSameViewError class >> signalForViewSelector: aMessageSymbo
 
 { #category : #'ui - building' }
 GtPhlowViewsCollectorSameViewError >> createAnnotatedCoderElement [
-	| coder returnsStyler coderViewModel coderElement |
+	| coder returnsStyler advicesStyler coderViewModel coderElement |
 	coder := ((GtPharoMethodCoder forMethod: self viewMethod asRingDefinition) 
 		highlighter: (GtRBPatternHighlighter new
 		 			 ast: (RBParser 
 		 			 	parseRewriteExpression: self parameterReturnString);
 					  yourself)
 				yourself).
-	returnsStyler := GtDirectParameterExplanationLinkStyler new
+				
+	returnsStyler := GtPhlowDirectParameterExplanationLinkStyler new
 		parameterName: self parameterName withIdentifier: #viewParameter.
+	advicesStyler := GtMethodAdviceStyler new 
+		advices: { GtPhlowSameViewReturnMethodAdvice new 
+			argumentName: self parameterName }.
+	
+	coder addOns addStyler: returnsStyler.
+	coder addOns addStyler: advicesStyler.
 	
 	coderViewModel := coder asCoderViewModel.
-	coderViewModel addStylers: { returnsStyler }.
 	coderViewModel expanded: true.
 
-	coderElement := coderViewModel asExpandedOnlyElement vFitContentLimited.
+	coderElement := coderViewModel asElement "asExpandedOnlyElement vFitContentLimited".
 	coderElement margin: (BlInsets all: 10).
 
 	^ coderElement
@@ -115,7 +121,7 @@ GtPhlowViewsCollectorSameViewError >> gtViewViewCodeWithExplanationFor: aView [
 			currentView
 				actionButtonIcon: BrGlamorousVectorIcons browse
 					tooltip: 'Browse method'
-					action: [ self gtBrowse ];
+					action: [ self viewMethod gtBrowse ];
 				yourself]
 ]
 
