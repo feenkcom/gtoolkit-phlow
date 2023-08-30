@@ -22,7 +22,7 @@ GtPhlowViewsCollectorSameViewError class >> signalForViewSelector: aMessageSymbo
 			signal
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : #'ui - building' }
 GtPhlowViewsCollectorSameViewError >> createAnnotatedCoderElement [
 	| coder returnsStyler coderViewModel coderElement |
 	coder := ((GtPharoMethodCoder forMethod: self viewMethod asRingDefinition) 
@@ -44,18 +44,18 @@ GtPhlowViewsCollectorSameViewError >> createAnnotatedCoderElement [
 	^ coderElement
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : #'ui - building' }
 GtPhlowViewsCollectorSameViewError >> createExplanationText [
 	^ 'The Phlow view created by the method ' asRopedText
 			,(self viewMethod printString asRopedText italic)
-			,' returned directly the' asRopedText
+			,' returned the' asRopedText
 			, (self parameterName asRopedText glamorousExplanationFor: #viewParameter)
 			, ' argument. This is not allowed. Return  'asRopedText 
 			, (self parameterName, ' empty') asRopedText italic,
 			' instead.' asRopedText
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : #'ui - building' }
 GtPhlowViewsCollectorSameViewError >> createExplanationWithCoderElement [
 	| container |
 	container := BrVerticalPane new
@@ -79,49 +79,21 @@ GtPhlowViewsCollectorSameViewError >> createMessageText [
 	^ targetObject class name, '>>#', viewSelector asString
 ]
 
-{ #category : #accessing }
-GtPhlowViewsCollectorSameViewError >> fullDescription [
-	^ 'The Phlow view created by the method ', self createMessageText, ' and run on the object "', targetObject printString, '" returned the same view that was passed as an argument. This is not allowed. Return `aView empty` instead'
-]
-
 { #category : #'gt - extensions' }
 GtPhlowViewsCollectorSameViewError >> gtDebuggingExtensionConfiguration [
 	^ super gtDebuggingExtensionConfiguration
 		globalDebuggingActionPragmas: #(gtPhlowSaveViewReturnFixDebugAction)
 ]
 
-{ #category : #accessing }
+{ #category : #'gt - extensions' }
 GtPhlowViewsCollectorSameViewError >> gtViewDescriptionFor: aView [
 	<gtView>
 	
 	^ aView textEditor
 		title: 'Description';
 		priority: 5;
-		text: [ self fullDescription ]
-]
-
-{ #category : #'gt - extensions' }
-GtPhlowViewsCollectorSameViewError >> gtViewViewCodeFor: aView [
-	"<gtView>
-	<gtExceptionDebuggingView>"
-	
-	^ aView explicit
-		title: 'View Code';
-		priority: 0;
-		actionDropdownButtonIcon: BrGlamorousVectorIcons driller 
-			tooltip: 'Refactor view return' 
-			content: [ self refactoringContentElement];
-		actionButtonIcon: BrGlamorousVectorIcons browse
-			tooltip: 'Browse method'
-			action: [ self gtBrowse ];
-		stencil: [ 
-			((GtPharoMethodCoder forMethod: self viewMethod asRingDefinition) 
-				highlighter: (GtRBPatternHighlighter new
-		 			 ast: (RBParser 
-		 			 	parseRewriteExpression: self parameterReturnString);
-					  yourself)
-				yourself)
-				asExpandedOnlyElement vFitContentLimited ]
+		text: [ 
+			self createExplanationText asString ]
 ]
 
 { #category : #'gt - extensions' }
@@ -132,14 +104,31 @@ GtPhlowViewsCollectorSameViewError >> gtViewViewCodeWithExplanationFor: aView [
 	^ aView explicit
 		title: 'View Code';
 		priority: 0;
-		actionDropdownButtonIcon: BrGlamorousVectorIcons driller 
-			tooltip: 'Refactor view return' 
-			content: [ self refactoringContentElement];
-		actionButtonIcon: BrGlamorousVectorIcons browse
-			tooltip: 'Browse method'
-			action: [ self gtBrowse ];
 		stencil: [ 
-			self createExplanationWithCoderElement ]
+			self createExplanationWithCoderElement ];
+		in: [ :currentView |
+			self hasExplicitParameterReturn ifTrue: [.
+				currentView
+					actionDropdownButtonIcon: BrGlamorousVectorIcons repair 
+						tooltip: 'Refactor view return' 
+						content: [ self refactoringContentElement ] ].
+			currentView
+				actionButtonIcon: BrGlamorousVectorIcons browse
+					tooltip: 'Browse method'
+					action: [ self gtBrowse ];
+				yourself]
+]
+
+{ #category : #testing }
+GtPhlowViewsCollectorSameViewError >> hasExplicitParameterReturn [
+	| methodAst ast |
+	ast := RBParser parseRewriteExpression: self parameterReturnString.
+	methodAst := self viewMethod ast.
+	methodAst
+		nodesDo: [ :each | 
+			(ast match: each inContext: Dictionary new)
+				ifTrue: [ ^ true ] ].
+	^ false
 ]
 
 { #category : #initialization }
@@ -160,7 +149,7 @@ GtPhlowViewsCollectorSameViewError >> parameterReturnString [
 	^ '^ ', self parameterName
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : #'ui - building' }
 GtPhlowViewsCollectorSameViewError >> refactoringContentElement [
 	| container|
 	
@@ -174,7 +163,7 @@ GtPhlowViewsCollectorSameViewError >> refactoringContentElement [
 	^ container
 ]
 
-{ #category : #accessing }
+{ #category : #refactoring }
 GtPhlowViewsCollectorSameViewError >> refactoringModel [
 	| model rewriter targetMethod |
 	
