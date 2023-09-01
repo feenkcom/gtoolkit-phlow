@@ -43,6 +43,5 @@ GtPhlowViewsCollectorSameViewFixItDebugAction >> initialize [
 
 { #category : #accessing }
 GtPhlowViewsCollectorSameViewFixItDebugAction >> refactorContent [
-	self debugger session exception refactoringModel changes 
-		executeNotifying: []
+	self debugger session exception transform
 ]
