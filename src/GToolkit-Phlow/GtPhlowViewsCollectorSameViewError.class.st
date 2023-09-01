@@ -188,6 +188,12 @@ GtPhlowViewsCollectorSameViewError >> refactoringModel [
 ]
 
 { #category : #accessing }
+GtPhlowViewsCollectorSameViewError >> transform [
+	^ self refactoringModel changes 
+		executeNotifying: []
+]
+
+{ #category : #accessing }
 GtPhlowViewsCollectorSameViewError >> viewMethod [
 	^ targetObject class lookupSelector: viewSelector
 ]
