@@ -67,7 +67,8 @@ GtPhlowViewTester >> testView: aPhlowView [
 		phlowView: aPhlowView;
 		phlowElement: nil.
 
-	aPhlowView asElementDo: [ :anElement | result := self testView: aPhlowView andElement: anElement ].
+	aPhlowView asElementDo: [ :anElement | 
+		result := self testView: aPhlowView andElement: anElement ].
 
 	^ result
 ]
@@ -81,16 +82,16 @@ GtPhlowViewTester >> testView: aPhlowView andElement: aPhlowViewElement [
 	scripter element: aPhlowViewElement.
 	scripter elementWithoutParent.
 	
-	(aPhlowViewElement id  = GtPhlowExceptionId asBlocElementId)
+	(aPhlowViewElement id = GtPhlowExceptionId asBlocElementId)
 		ifTrue: [
-			^ GtPhlowViewTesterExceptionFailureResult new
+			^ GtPhlowViewTesterViewCreationExceptionFailureResult new
 				phlowView: aPhlowView;
 				phlowElement: aPhlowViewElement;
-				exceptionElements: { aPhlowViewElement }].
+				exceptionElement: aPhlowViewElement ].
 	
 	(aPhlowViewElement query // GtPhlowExceptionId) all
 		ifNotEmpty: [ :theExceptionElements |
-			^ GtPhlowViewTesterExceptionFailureResult new
+			^ GtPhlowViewTesterViewContentExceptionFailureResult new
 				phlowView: aPhlowView;
 				phlowElement: aPhlowViewElement;
 				exceptionElements: theExceptionElements ].

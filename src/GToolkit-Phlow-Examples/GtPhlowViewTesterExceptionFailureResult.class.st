@@ -1,33 +1,25 @@
 Class {
 	#name : #GtPhlowViewTesterExceptionFailureResult,
 	#superclass : #GtPhlowViewTesterFailureResult,
-	#instVars : [
-		'exceptionElements'
-	],
 	#category : #'GToolkit-Phlow-Examples-Tester'
 }
 
 { #category : #accessing }
 GtPhlowViewTesterExceptionFailureResult >> exceptionElements [
-	^ exceptionElements
+	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
-GtPhlowViewTesterExceptionFailureResult >> exceptionElements: anObject [
-	exceptionElements := anObject
-]
-
-{ #category : #accessing }
+{ #category : #'gt - extensions' }
 GtPhlowViewTesterExceptionFailureResult >> gtExceptionsFor: aView [
 	<gtView>
 	
 	^ aView list
 		title: 'Exceptions';
 		priority: 6;
-		items: [ exceptionElements collect: [ :each | each userData at: #exception ] ]
+		items: [ self exceptionElements collect: [ :each | each userData at: #exception ] ]
 ]
 
-{ #category : #accessing }
+{ #category : #'gt - extensions' }
 GtPhlowViewTesterExceptionFailureResult >> gtLiveFor: aView [
 	<gtView>
 	
