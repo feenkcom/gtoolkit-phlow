@@ -18,12 +18,14 @@ GtPhlowViewTesterObjectValidationFailure >> gtResultsFor: aView [
 		priority: 5;
 		items: [ results ];
 		column: 'View' text: [ :each | each phlowView definingMethod printString ];
-		column: 'Result' text: [ :each |
-			each isOk
-				ifTrue: [ 'Ok' ]
-				ifFalse: [ each isEmpty
-					ifTrue: [ 'Empty' ]
-					ifFalse: [ 'Error' ] ] ]
+		column: 'Result' 
+			text: [ :each |
+				each isOk
+					ifTrue: [ 'Ok' ]
+					ifFalse: [ each isEmpty
+						ifTrue: [ 'Empty' ]
+						ifFalse: [ 'Error' ] ] ]
+			width: 100 
 ]
 
 { #category : #accessing }
