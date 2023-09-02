@@ -7,6 +7,8 @@ An example of a wrong view signaling this error is: {{gtMethod:GtPhlowViewWithEr
 Class {
 	#name : #GtPhlowViewsCollectorSameViewError,
 	#superclass : #GtPhlowViewsCollectorError,
+	#traits : 'TGtMoldableExceptionSignalWithTransformation',
+	#classTraits : 'TGtMoldableExceptionSignalWithTransformation classTrait',
 	#instVars : [
 		'viewSelector',
 		'targetObject'
@@ -110,10 +112,9 @@ GtPhlowViewsCollectorSameViewError >> gtViewViewCodeWithExplanationFor: aView [
 	^ aView explicit
 		title: 'View Code';
 		priority: 0;
-		stencil: [ 
-			self createExplanationWithCoderElement ];
+		stencil: [ self createExplanationWithCoderElement ];
 		in: [ :currentView |
-			self hasExplicitParameterReturn ifTrue: [.
+			self shouldTransform ifTrue: [.
 				currentView
 					actionDropdownButtonIcon: BrGlamorousVectorIcons repair 
 						tooltip: 'Refactor view return' 
@@ -122,7 +123,7 @@ GtPhlowViewsCollectorSameViewError >> gtViewViewCodeWithExplanationFor: aView [
 				actionButtonIcon: BrGlamorousVectorIcons browse
 					tooltip: 'Browse method'
 					action: [ self viewMethod gtBrowse ];
-				yourself]
+				yourself ]
 ]
 
 { #category : #testing }
@@ -162,15 +163,21 @@ GtPhlowViewsCollectorSameViewError >> refactoringContentElement [
 	container := BrFrame new
 		hExact: 650;
 		vExact: 300.
-	container addChild: ((self refactoringModel
+	container addChild: ((self transformationNamespace
 		gtApplyingChangesFor:  GtPhlowView empty) 
 			asElementDo: [:e | e]).
 	
 	^ container
 ]
 
-{ #category : #refactoring }
-GtPhlowViewsCollectorSameViewError >> refactoringModel [
+{ #category : #transformation }
+GtPhlowViewsCollectorSameViewError >> shouldTransform [
+	^ self viewMethod isDoIt not and: [ 
+		self hasExplicitParameterReturn ]
+]
+
+{ #category : #transformation }
+GtPhlowViewsCollectorSameViewError >> transformationNamespace [
 	| model rewriter targetMethod |
 	
 	model := RBNamespace new.
@@ -185,12 +192,6 @@ GtPhlowViewsCollectorSameViewError >> refactoringModel [
 			(model classFor: targetMethod methodClass) compileTree: rewriter tree ] .
 
 	^ model
-]
-
-{ #category : #accessing }
-GtPhlowViewsCollectorSameViewError >> transform [
-	^ self refactoringModel changes 
-		executeNotifying: []
 ]
 
 { #category : #accessing }

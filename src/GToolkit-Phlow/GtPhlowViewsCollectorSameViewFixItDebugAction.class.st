@@ -15,8 +15,10 @@ GtPhlowViewsCollectorSameViewFixItDebugAction class >> fixItReturnDebugActionFor
 GtPhlowViewsCollectorSameViewFixItDebugAction >> appliesToDebugger: aDebugger [
 
 	^ aDebugger session isInterruptedContextPostMortem not and: [
-		aDebugger session exception notNil and: [
-			aDebugger session exception hasExplicitParameterReturn ] ]
+		| targetException |
+		targetException := aDebugger session exception.
+		targetException notNil and: [
+			targetException shouldTransform ] ]
 ]
 
 { #category : #accessing }
