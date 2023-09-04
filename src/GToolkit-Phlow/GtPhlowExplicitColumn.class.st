@@ -9,7 +9,8 @@ Class {
 	#superclass : #GtPhlowColumn,
 	#instVars : [
 		'cellStencil',
-		'dataBinder'
+		'dataBinder',
+		'spawnObjectComputation'
 	],
 	#category : #'GToolkit-Phlow-Support'
 }
@@ -69,6 +70,16 @@ GtPhlowExplicitColumn >> initialize [
 	self text: self defaultTextStencil
 ]
 
+{ #category : #testing }
+GtPhlowExplicitColumn >> isSpawningObject [
+	^ self asGtDeclarativeColumnDataType isTextLinkListingType
+]
+
+{ #category : #accessing }
+GtPhlowExplicitColumn >> spawnObjectComputation [
+	^ spawnObjectComputation
+]
+
 { #category : #'api - configuration' }
 GtPhlowExplicitColumn >> stencil: aBlock [
 	"I am a part of the `toy` api. It is inefficient to use me because I always create a new
@@ -102,6 +113,7 @@ GtPhlowExplicitColumn >> text: aBlockOrSymbol [
 { #category : #'api - cell content' }
 GtPhlowExplicitColumn >> text: aBlockOrSymbol spawn: aSpawnObjectComputation [
 	self item: aBlockOrSymbol.
+	spawnObjectComputation := aSpawnObjectComputation.
 	self cellStencil: (GtPhlowListTextualLinkBuilder new 
 		spawnObjectComputation: aSpawnObjectComputation).
 	self dataBinder: GtPhlowListTextualLinkDataBinder new

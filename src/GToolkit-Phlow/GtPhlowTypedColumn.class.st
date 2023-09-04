@@ -4,6 +4,11 @@ Class {
 	#category : #'GToolkit-Phlow-Support'
 }
 
+{ #category : #testing }
+GtPhlowTypedColumn class >> isAbstract [
+	^ self name = #GtPhlowTypedColumn
+]
+
 { #category : #'api - building' }
 GtPhlowTypedColumn >> bindToCellElement: aCellElement cellObject: aCellObject atPosition: aRowIndex [
 	self subclassResponsibility

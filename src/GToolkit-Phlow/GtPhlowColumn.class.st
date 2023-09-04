@@ -12,6 +12,11 @@ Class {
 	#category : #'GToolkit-Phlow-Support'
 }
 
+{ #category : #testing }
+GtPhlowColumn class >> isAbstract [
+	^ self name = #GtPhlowColumn
+]
+
 { #category : #'api - configuration' }
 GtPhlowColumn >> background: aBlock [
 	"Configure the background of a cell based on the cell or row value.
@@ -138,6 +143,11 @@ GtPhlowColumn >> initialize [
 	titleStencil := self defaultHeaderElementBuilder.
 	width := self defaultWidth.
 	itemComputation := self defaultItemComputation.
+]
+
+{ #category : #testing }
+GtPhlowColumn >> isSpawningObject [
+	^ false
 ]
 
 { #category : #'api - configuration' }

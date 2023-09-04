@@ -51,20 +51,24 @@ TGtPhlowColumnScripts >> column: aTitleString icon: aFormatBlocOrSymbol width: a
 
 { #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString iconName: anIconNameComputation [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn iconName: anIconNameComputation.
-	aColumn width: 36.
+	self column: aTitleString iconNameDo: [ :aColumn |
+		aColumn
+			item: GtPhlowIdentityFunction uniqueInstance;
+			iconName: anIconNameComputation ]
 ]
 
 { #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString iconName: anIconNameComputation width: aNumber [
-	| aColumn |
-	aColumn := self column.
-	aColumn title: aTitleString.
-	aColumn iconName: anIconNameComputation.
-	aColumn width: aNumber.
+	self column: aTitleString iconNameDo: [ :aColumn |
+		aColumn
+			item: GtPhlowIdentityFunction uniqueInstance;
+			iconName: anIconNameComputation;
+			width: aNumber ]
+]
+
+{ #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitle iconNameDo: aBlock [
+	aBlock value: (self iconNameColumn title: aTitle)
 ]
 
 { #category : #'api - scripting column' }
@@ -168,6 +172,13 @@ TGtPhlowColumnScripts >> explicitColumn [
 	<return: #GtPhlowExplicitColumn>
 
 	^ self columnOfType: GtPhlowExplicitColumn
+]
+
+{ #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> iconNameColumn [
+	<return: #GtPhlowThemeIconNameColumn>
+
+	^ self columnOfType: GtPhlowThemeIconNameColumn
 ]
 
 { #category : #'api - scripting column' }
