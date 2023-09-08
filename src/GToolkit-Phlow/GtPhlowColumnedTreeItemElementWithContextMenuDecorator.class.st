@@ -22,7 +22,7 @@ GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> buildDefault [
 	aContextMenuAptitude := BrGlamorousWithContextMenuAptitude
 			content:
 				[ anElement
-					allParentsDetect: [ :eachParent | eachParent constraints infinite holder infiniteElement notNil ]
+					withAllParentsDetect: [ :eachParent | eachParent constraints infinite holder infiniteElement notNil ]
 					ifFound:
 						[ :aListItemElement | 
 						anElement
