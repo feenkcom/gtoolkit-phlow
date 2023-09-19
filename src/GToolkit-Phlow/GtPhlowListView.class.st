@@ -105,7 +105,8 @@ GtPhlowListView >> hasMultipleSelection [
 GtPhlowListView >> initialize [
 	super initialize.
 	self items: [ { } ].
-	self itemType: [ :anItemTypeFactory :anItemObject :anItemIndex | anItemTypeFactory default ].
+	self itemType: [ :anItemTypeFactory :anItemObject :anItemIndex | 
+		anItemTypeFactory default ].
 	self itemText: [ :aValue | aValue ].
 	self transformation: self defaultTransformation.
 
