@@ -5,7 +5,7 @@ Class {
 		'cellSpacing',
 		'cellStencil'
 	],
-	#category : 'GToolkit-Phlow-Support - List columned'
+	#category : #'GToolkit-Phlow-Support - List columned'
 }
 
 { #category : #accessing }
@@ -22,7 +22,9 @@ GtPhlowColumnErrorHandlingCellStencilBuilder >> buildDefault [
 	(self itemType class = GtPhlowExceptionItemType) 
 		ifTrue: [ 
 			| anElement |
-			anElement := self itemType exception asDebuggableElement vFitContent; hMatchParent.
+			anElement := self itemType exception asDebuggableElement 
+				vFitContent; 
+				hMatchParent.
 			aContainer exception: anElement ]
 		ifFalse: [ 
 			[
@@ -33,12 +35,15 @@ GtPhlowColumnErrorHandlingCellStencilBuilder >> buildDefault [
 					columnIndex: columnIndex;
 					build.
 
-				aContainer content: anElement. ]
-					on: Error
-					do: [ :anException |
-						| anElement |
-					anElement := anException asDebuggableElement vFitContent; hMatchParent.
-					aContainer exception: anElement ]  ].
+				aContainer content: anElement 
+			]
+				on: Error
+				do: [ :anException |
+					| anElement |
+					anElement := anException asDebuggableElement 
+						vFitContent; 
+						hMatchParent.
+					aContainer exception: anElement ] ].
 	^ aContainer
 ]
 
