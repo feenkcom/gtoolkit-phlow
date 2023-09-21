@@ -52,7 +52,7 @@ GtPhlowForwarderViewExamples >> forwardedView [
 	self assert: aView title equals: 'Forwarded'.
 	self assert: aView priority isNumber.
 	self assert: aView object isNotNil.
-	self assert: aView object class equals: [ nil ] class.
+	self assert: aView object class equals: [ aView ] class.
 	self assert: aView viewSymbol equals: #gtUpdatingFor:.
 	self assert: aView viewObject wait object class equals: GtPhlowExplicitViewExamples.
 	self assert: aView actions size equals: 0.
@@ -85,7 +85,7 @@ GtPhlowForwarderViewExamples >> forwardedViewWithObjectCreationError [
 	self assert: aView title equals: 'Forwarded'.
 	self assert: aView priority isNumber.
 	self assert: aView object isNotNil.
-	self assert: aView object class equals: [ nil ] class.
+	self assert: aView object class equals: [ aView ] class.
 	self assert: aView viewSymbol equals: #gtUpdatingFor:.
 	self assert: aView viewObject isAsyncPromise.
 	self assert: aView actions size equals: 0.
