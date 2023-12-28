@@ -16,7 +16,8 @@ Class {
 		'groupStencil',
 		'groupHeaderStencil',
 		'groupHeaderDataBinder',
-		'groupedItemProviderComputation'
+		'groupedItemProviderComputation',
+		'headerDataBinder'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
