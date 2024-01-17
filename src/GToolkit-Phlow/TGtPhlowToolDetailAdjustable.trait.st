@@ -14,20 +14,30 @@ See {{gtClass:GtPhlowToolAbstractDetailModel}} for more details.
 "
 Trait {
 	#name : #TGtPhlowToolDetailAdjustable,
-	#category : #'GToolkit-Phlow-Tool - Support'
+	#category : #'GToolkit-Phlow-Tool - Looks'
 }
 
 { #category : #'api - tool information detail level adjustable' }
 TGtPhlowToolDetailAdjustable >> beCustomLevel: aSymbol [
-	self dispatchEvent: (GtPhlowToolDetailWish beLevel: aSymbol)
+	self beLevelState: (GtPhlowToolDetailState level: aSymbol)
 ]
 
 { #category : #'api - tool information detail level adjustable' }
 TGtPhlowToolDetailAdjustable >> beDetailedLevel [
-	self dispatchEvent: GtPhlowToolDetailWish beDetailedLevel
+	self beLevelState: GtPhlowToolDetailState detailed
+]
+
+{ #category : #'api - tool information detail level adjustable' }
+TGtPhlowToolDetailAdjustable >> beLevelState: aGtPhlowToolDetailState [
+	self states addState: aGtPhlowToolDetailState
 ]
 
 { #category : #'api - tool information detail level adjustable' }
 TGtPhlowToolDetailAdjustable >> beNormalLevel [
-	self dispatchEvent: GtPhlowToolDetailWish beNormalLevel
+	self beLevelState: GtPhlowToolDetailState normal
+]
+
+{ #category : #'api - tool information detail level adjustable' }
+TGtPhlowToolDetailAdjustable >> isDetailedLevel [
+	^ (GtPhlowToolDetailState getLevelOf: self) = GtPhlowToolDetailState detailed
 ]

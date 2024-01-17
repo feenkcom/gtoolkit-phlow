@@ -9,36 +9,6 @@ Class {
 	#category : #'GToolkit-Phlow-Examples-Tool'
 }
 
-{ #category : #'examples - models' }
-GtPhlowToolDetailModelExamples >> basicContainerDetailModel [
-	<gtExample>
-	| aModel |
-	aModel := GtPhlowToolContainerDetailModel new.
-	self assert: aModel level isNotNil.
-	self
-		assert: aModel level
-		equals: GtPhlowToolDetailState undefinedName.
-	^ aModel
-]
-
-{ #category : #'examples - looks' }
-GtPhlowToolDetailModelExamples >> basicToolDetailLook [
-	<gtExample>
-	| aLook |
-	aLook := GtPhlowToolDetailAptitude new.
-	^ aLook
-]
-
-{ #category : #'examples - models' }
-GtPhlowToolDetailModelExamples >> basicToolDetailModel [
-	<gtExample>
-	| aModel |
-	aModel := GtPhlowToolDetailModel new.
-	self assert: aModel level isNotNil.
-	self assert: aModel level equals: GtPhlowToolDetailState normalName.
-	^ aModel
-]
-
 { #category : #'examples - tools' }
 GtPhlowToolDetailModelExamples >> compositeTool [
 	<gtExample>
@@ -57,8 +27,9 @@ GtPhlowToolDetailModelExamples >> compositeTool [
 GtPhlowToolDetailModelExamples >> containerContainerToolDetailedLevel [
 	<gtExample>
 	| aContainerOne aTool aContainerOneLevel aContainerTwo aContainerTwoLevel aToolLevel |
+	
 	aContainerOne := self containerContainerToolElement.
-	aContainerOne dispatchEvent: GtPhlowToolDetailWish beDetailedLevel.
+	self setToolDetailLevel: aContainerOne to: GtPhlowToolDetailState detailed.
 
 	aContainerTwo := aContainerOne childAt: 1.
 	aTool := aContainerTwo childAt: 1.
@@ -67,9 +38,9 @@ GtPhlowToolDetailModelExamples >> containerContainerToolDetailedLevel [
 	aContainerTwoLevel := self requestToolDetailLevel: aContainerTwo.
 	aToolLevel := self requestToolDetailLevel: aTool.
 
-	self assert: aContainerOneLevel equals: GtPhlowToolDetailState detailedName.
-	self assert: aContainerTwoLevel equals: GtPhlowToolDetailState undefinedName.
-	self assert: aToolLevel equals: GtPhlowToolDetailState normalName.
+	self assert: aContainerOneLevel equals: GtPhlowToolDetailState detailed.
+	self assert: aContainerTwoLevel equals: GtPhlowToolDetailState normal.
+	self assert: aToolLevel equals: GtPhlowToolDetailState normal.
 
 	^ aContainerOne
 ]
@@ -84,15 +55,15 @@ GtPhlowToolDetailModelExamples >> containerContainerToolDetailedLevel_ContainerL
 	aTool := aContainerTwo childAt: 1.
 
 	aReceivedDimension := self requestContainerDetailLevel: aTool.
-	self assert: aReceivedDimension equals: GtPhlowToolDetailState detailedName.
+	self assert: aReceivedDimension equals: GtPhlowToolDetailState normal.
 
 	aContainerOneDimension := self requestToolDetailLevel: aContainerOne.
 	aContainerTwoDimension := self requestToolDetailLevel: aContainerTwo.
 	aToolDimension := self requestToolDetailLevel: aTool.
 
-	self assert: aContainerOneDimension equals: GtPhlowToolDetailState detailedName.
-	self assert: aContainerTwoDimension equals: GtPhlowToolDetailState undefinedName.
-	self assert: aToolDimension equals: GtPhlowToolDetailState normalName.
+	self assert: aContainerOneDimension equals: GtPhlowToolDetailState detailed.
+	self assert: aContainerTwoDimension equals: GtPhlowToolDetailState normal.
+	self assert: aToolDimension equals: GtPhlowToolDetailState normal.
 
 	^ aContainerOne
 ]
@@ -111,29 +82,10 @@ GtPhlowToolDetailModelExamples >> containerContainerToolDetailedLevel_InSpace [
 	aContainerTwoDimension := self requestToolDetailLevel: aContainerTwo.
 	aToolDimension := self requestToolDetailLevel: aTool.
 
-	self assert: aContainerOneDimension equals: GtPhlowToolDetailState detailedName.
-	self assert: aContainerTwoDimension equals: GtPhlowToolDetailState undefinedName.
-	self assert: aToolDimension equals: GtPhlowToolDetailState detailedName.
+	self assert: aContainerOneDimension equals: GtPhlowToolDetailState detailed.
+	self assert: aContainerTwoDimension equals: GtPhlowToolDetailState normal.
+	self assert: aToolDimension equals: GtPhlowToolDetailState normal.
 
-	self closeSpace: aSpace with: aContainerOne.
-	^ aContainerOne
-]
-
-{ #category : #'examples - events' }
-GtPhlowToolDetailModelExamples >> containerContainerToolDetailedResponse [
-	<gtExample>
-	| aContainerOne aTool aPreviousDimension aNewDimension aContainerDimension aSpace aContainerTwo |
-	aContainerOne := self containerContainerToolElement.
-	aContainerOne dispatchEvent: GtPhlowToolDetailWish beDetailedLevel.
-	aContainerDimension := self requestToolDetailLevel: aContainerOne.
-	aContainerTwo := aContainerOne childAt: 1.
-	aTool := aContainerTwo childAt: 1.
-	aPreviousDimension := self requestToolDetailLevel: aTool.
-	self assert: aPreviousDimension ~= aContainerDimension.
-	aSpace := self putInSpace: aContainerOne.
-	aNewDimension := self requestToolDetailLevel: aTool.
-	self assert: aNewDimension ~= aPreviousDimension.
-	self assert: aNewDimension equals: aContainerDimension.
 	self closeSpace: aSpace with: aContainerOne.
 	^ aContainerOne
 ]
@@ -152,44 +104,13 @@ GtPhlowToolDetailModelExamples >> containerContainerToolElement [
 { #category : #'examples - elements' }
 GtPhlowToolDetailModelExamples >> containerElement [
 	<gtExample>
-	| anElement aDimension |
+	| anElement |
 	anElement := self element.
 	anElement labeled: 'Container'.
-	anElement addInteractiveModelState: self basicContainerDetailModel.
-	aDimension := self requestToolDetailLevel: anElement.
-	self 
-		assert: aDimension
-		equals: self basicContainerDetailModel defaultLevel.
 
 	self showcaseContainerElementConfiguration: anElement.
 	
 	^ anElement
-]
-
-{ #category : #'examples - events' }
-GtPhlowToolDetailModelExamples >> containerElementDetailedResponse [
-	<gtExample>
-	| aContainer aTool aPreviousToolLevel aNewToolLevel aContainerLevel aSpace |
-
-	"Define a tool with a detailed level."
-	aContainer := self containerWithToolElement.
-	aContainer dispatchEvent: GtPhlowToolDetailWish beDetailedLevel.
-	aContainerLevel := self requestToolDetailLevel: aContainer.
-	
-	"Request a current tool level."
-	aTool := aContainer childAt: 1.
-	aPreviousToolLevel := self requestToolDetailLevel: aTool.
-	self assert: aPreviousToolLevel ~= aContainerLevel.
-
-	"By attaching the widget into a space, 
-	the tool will ask its parents for a level of detail that should be used."
-	aSpace := self putInSpace: aContainer.
-	aNewToolLevel := self requestToolDetailLevel: aTool.
-	self assert: aNewToolLevel ~= aPreviousToolLevel.
-	self assert: aNewToolLevel equals: aContainerLevel.
-
-	self closeSpace: aSpace with: aContainer.
-	^ aContainer
 ]
 
 { #category : #'examples - events' }
@@ -218,7 +139,7 @@ GtPhlowToolDetailModelExamples >> containerWithToolElement [
 ]
 
 { #category : #'examples - looks' }
-GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook [
+GtPhlowToolDetailModelExamples >> containerWithToolElementAndAptitude [
 	<gtExample>
 	|  aTool aContainer |
 	aContainer := self containerWithToolElement.
@@ -230,43 +151,58 @@ GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook [
 { #category : #'examples - looks' }
 GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Custom [
 	<gtExample>
-	|  aContainer aTool |
-	aContainer := self containerWithToolElementWithDetailLook.
+	|  aContainer aTool aScripter |
+	
+	aContainer := self containerWithToolElementAndAptitude.
 	aTool := aContainer childAt: 1.
-	aTool dispatchEvent: (GtPhlowToolDetailWish beLevel: #custom).
+	
+	aScripter := BlScripter new element: aContainer.
+	self setToolDetailLevel: aTool to: (GtPhlowToolDetailState level: #custom).
+	aScripter play.
+
 	self assert: aTool background paint color equals: self customBackgroundColor.
-	^ aContainer
+	
+	^ aScripter elementWithoutParent
 ]
 
 { #category : #'examples - looks' }
 GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Detailed [
 	<gtExample>
-	|  aContainer aTool |
-	aContainer := self containerWithToolElementWithDetailLook.
+	|  aContainer aTool aScripter |
+	aContainer := self containerWithToolElementAndAptitude.
 	aTool := aContainer childAt: 1.
-	aTool dispatchEvent: GtPhlowToolDetailWish beDetailedLevel.
+	
+	aScripter := BlScripter new element: aContainer.
+	self setToolDetailLevel: aTool to: (GtPhlowToolDetailState detailed).
+	aScripter play.
+	
 	self assert: aTool background paint color equals: self detailedBackgroundColor.
-	^ aContainer
+	^ aScripter elementWithoutParent
 ]
 
 { #category : #'examples - looks' }
 GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Normal [
 	<gtExample>
-	|  aContainer aTool |
-	aContainer := self containerWithToolElementWithDetailLook.
+	|  aContainer aTool aScripter |
+	aContainer := self containerWithToolElementAndAptitude.
 	aTool := aContainer childAt: 1.
-	aTool dispatchEvent: GtPhlowToolDetailWish beNormalLevel.
+	
+	aScripter := BlScripter new element: aContainer.
+	self setToolDetailLevel: aTool to: (GtPhlowToolDetailState normal).
+	aScripter play.
+	
 	self assert: aTool background paint color equals: self normalBackgroundColor.
-	^ aContainer
+	
+	^ aScripter elementWithoutParent
 ]
 
 { #category : #'examples - looks' }
 GtPhlowToolDetailModelExamples >> containerWithToolElementWithDetailLook_Showcase [
 	<gtExample>
 	|  aContainer aTool |
-	aContainer := self containerWithToolElementWithDetailLook.
+	aContainer := self containerWithToolElementAndAptitude.
 	aTool := aContainer childAt: 1.
-	self lookShowcaseButtonsFor: aTool.
+	self lookShowcaseButtonsFor: aContainer in: aTool.
 	^ aContainer
 ]
 
@@ -292,31 +228,30 @@ GtPhlowToolDetailModelExamples >> element [
 ]
 
 { #category : #'examples - support' }
-GtPhlowToolDetailModelExamples >> lookShowcaseButtonFor: aSymbol element: aTool [
+GtPhlowToolDetailModelExamples >> lookShowcaseButtonFor: aLevelState element: anElement [
 	"aSymbol defines what information level should be used by clicking on a button"
 	<gtExample>
 	^ BrButton new
 		aptitude: BrGlamorousButtonWithLabelAptitude;
-		label: aSymbol asString;
-		action: [ :aButton | 
-			aTool dispatchEvent: (GtPhlowToolDetailWish beLevel: aSymbol) ]
+		label: aLevelState printString;
+		action: [ :aButton | anElement states addState: aLevelState ]
 ]
 
 { #category : #'examples - support' }
-GtPhlowToolDetailModelExamples >> lookShowcaseButtonsFor: aTool [
+GtPhlowToolDetailModelExamples >> lookShowcaseButtonsFor: aContainer in: aTool [
 	<gtExample>
 	| aToolbar |
 	aToolbar := BrToolbar new
 		aptitude: BrGlamorousToolbarAptitude new;
-		constraintsDo: [ :c | 
+		constraintsDo: [ :c |
 			c frame horizontal alignCenter.
 			c frame vertical alignCenter ];
 		addItem: (self 
-			lookShowcaseButtonFor: #normal element: aTool);
+			lookShowcaseButtonFor: GtPhlowToolDetailState normal element: aContainer);
 		addItem: (self
-			lookShowcaseButtonFor: #detailed element: aTool);
+			lookShowcaseButtonFor: GtPhlowToolDetailState detailed element: aContainer);
 		addItem: (self
-			lookShowcaseButtonFor: #custom element: aTool).
+			lookShowcaseButtonFor: (GtPhlowToolDetailState level: #custom) element: aContainer).
 	aTool addChild: aToolbar as: #toolbar.
 	^ aTool
 ]
@@ -324,14 +259,10 @@ GtPhlowToolDetailModelExamples >> lookShowcaseButtonsFor: aTool [
 { #category : #'examples - looks' }
 GtPhlowToolDetailModelExamples >> lookWithBackgroundChanges [
 	<gtExample>
-	| aLook |
-	aLook := self basicToolDetailLook.
-	aLook 
-		normal: [ :aWidget | 
-			aWidget background: self normalBackgroundColor ];
-		detailed: [ :aWidget | aWidget background: self detailedBackgroundColor ];
-		level: #custom style: [ :aWidget | aWidget background: self customBackgroundColor ].
-	^ aLook
+	^ GtPhlowToolDetailAptitude new
+		normal: [ :aStyle | aStyle background: self normalBackgroundColor ];
+		detailed: [ :aStyle | aStyle background: self detailedBackgroundColor ];
+		level: #custom style: [ :aStyle | aStyle background: self customBackgroundColor ]
 ]
 
 { #category : #'examples - support' }
@@ -343,28 +274,25 @@ GtPhlowToolDetailModelExamples >> normalBackgroundColor [
 { #category : #'examples - support' }
 GtPhlowToolDetailModelExamples >> requestContainerDetailLevel: anElement [
 	<gtExample>
-	| aRequest |
-	aRequest := GtPhlowToolContainerDetailRequest new.
-	anElement fireEvent: aRequest.
-	^ aRequest response level
+	^ GtPhlowToolDetailState getLevelOf: anElement
 ]
 
 { #category : #'examples - support' }
 GtPhlowToolDetailModelExamples >> requestToolDetailLevel: anElement [
 	<gtExample>
-	| aRequest |
-	aRequest := BrInteractionRequest new.
-	aRequest canBePropagated: false.
-	anElement dispatchEvent: aRequest.
-	self assert: aRequest response states size equals: 1.
-	^ aRequest response states anyOne level
+	^ GtPhlowToolDetailState getLevelOf: anElement
+]
+
+{ #category : #'examples - support' }
+GtPhlowToolDetailModelExamples >> setToolDetailLevel: anElement to: aLevelState [
+	anElement states addState: aLevelState
 ]
 
 { #category : #'examples - support' }
 GtPhlowToolDetailModelExamples >> showcaseContainerElementConfiguration: anElement [
 	<gtExample>
 	| aLevel aLabel |
-	aLevel := self requestToolDetailLevel: anElement.
+	aLevel := GtPhlowToolDetailState getLevelOf: anElement.
 	aLabel := BrLabel new
 			aptitude: (BrGlamorousLabelAptitude new
 				foreground: Color white);
@@ -388,7 +316,9 @@ GtPhlowToolDetailModelExamples >> showcaseContainerElementConfiguration: anEleme
 GtPhlowToolDetailModelExamples >> showcaseToolElementConfiguration: anElement [
 	<gtExample>
 	| aLevel aLabel |
-	aLevel := self requestToolDetailLevel: anElement.
+
+	aLevel := GtPhlowToolDetailState getLevelOf: anElement.
+	
 	aLabel := BrLabel new
 			aptitude: (BrGlamorousLabelAptitude new
 				foreground: Color white);
@@ -411,14 +341,10 @@ GtPhlowToolDetailModelExamples >> showcaseToolElementConfiguration: anElement [
 { #category : #'examples - elements' }
 GtPhlowToolDetailModelExamples >> toolElement [
 	<gtExample>
-	| anElement aLevel |
+	| anElement |
+	
 	anElement := self element.
 	anElement labeled: 'Tool'.
-	anElement addInteractiveModelState: self basicToolDetailModel.
-	aLevel := self requestToolDetailLevel: anElement.
-	self 
-		assert: aLevel
-		equals: self basicToolDetailModel defaultLevel.
 	
 	"Some configuration for a showcase"
 	self showcaseToolElementConfiguration: anElement.
@@ -435,12 +361,6 @@ GtPhlowToolDetailModelExamples >> toolElementInSpace [
 	aSpace := self putInSpace: aContainer.
 	aContainerDimension := self requestToolDetailLevel: aContainer.
 	aToolDimension := self requestToolDetailLevel: aTool.
-	self 
-		assert: aContainerDimension
-		equals: self basicContainerDetailModel defaultLevel.
-	self 
-		assert: aToolDimension 
-		equals: self basicToolDetailModel defaultLevel.
 	^ aSpace
 ]
 
@@ -456,7 +376,6 @@ GtPhlowToolDetailModelExamples >> toolOne [
 				c horizontal matchParent.
 				c vertical matchParent ];
 			background: self defaultBackgroundColor;
-			addInteractiveModelState: self basicToolDetailModel;
 			addAptitude: self lookWithBackgroundChanges;
 			addChild: (self labelWithText: 'One') ].
 	aTool name: 'One'.
@@ -479,7 +398,6 @@ GtPhlowToolDetailModelExamples >> toolTwo [
 				c horizontal matchParent.
 				c vertical matchParent ];
 			background: self defaultBackgroundColor;
-			addInteractiveModelState: self basicToolDetailModel;
 			addAptitude: self lookWithBackgroundChanges;
 			addChild: (self labelWithText: 'Two') ].
 	aTool name: 'Two'.

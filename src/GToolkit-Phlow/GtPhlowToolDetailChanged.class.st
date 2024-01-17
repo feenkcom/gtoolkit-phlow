@@ -7,42 +7,12 @@ See {{gtClass:GtPhlowToolAbstractDetailModel}} for more details.
 "
 Class {
 	#name : #GtPhlowToolDetailChanged,
-	#superclass : #BrStateChangedEvent,
+	#superclass : #BlElementStateEvent,
 	#instVars : [
 		'level'
 	],
-	#category : #'GToolkit-Phlow-Tool - Events'
+	#category : #'GToolkit-Phlow-Tool - Looks'
 }
-
-{ #category : #accessing }
-GtPhlowToolDetailChanged >> dimension [
-	<return: #Symbol>
-	self 
-		deprecated: 'Use #level instead' 
-		transformWith: '`@receiver dimension' -> '`@receiver level'.
-	^ self level
-]
-
-{ #category : #accessing }
-GtPhlowToolDetailChanged >> dimension: aSymbol [
-
-	self 
-		deprecated: 'Use #level: instead' 
-		transformWith: '`@receiver dimension: `@arg' -> '`@receiver level: `@arg'.
-	self level: aSymbol
-]
-
-{ #category : #initialization }
-GtPhlowToolDetailChanged >> initialize [
-	super initialize.
-	
-	level := GtPhlowToolDetailState undefinedName.
-]
-
-{ #category : #testing }
-GtPhlowToolDetailChanged >> isUndefined [
-	^ self level = GtPhlowToolDetailState undefinedName
-]
 
 { #category : #accessing }
 GtPhlowToolDetailChanged >> level [
