@@ -1,6 +1,6 @@
 "
 I am a {{gtClass:Trait}}.
-I implement a common code to set a {{gtMethod:GtPhlowToolAbstractDetailModel>>#level|label=#selector}}  of information detail which is:
+I implement a common code to set a {{gtMethod:GtPhlowToolDetailState>>#level|label=#selector}}  of information detail which is:
 - a {{gtClass:GtPhlowToolDetailState}}'s {{gtMethod:GtPhlowToolDetailState>>#level|label=#selector}} value,
 - a value that defines how a {{gtClass:BlElement}} (a tool) should be displayed, e.g., showing all information, and minimum information.
 # Common Methods
@@ -10,7 +10,7 @@ There are three predefined methods that can be used to define the level:
 - {{gtMethod:TGtPhlowToolDetailAdjustable>>#beCustomLevel:|label=#selector}}.
 
 # Details
-See {{gtClass:GtPhlowToolAbstractDetailModel}} for more details.
+See {{gtClass:GtPhlowToolDetailState}} for more details.
 "
 Trait {
 	#name : #TGtPhlowToolDetailAdjustable,

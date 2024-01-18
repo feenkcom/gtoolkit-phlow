@@ -1,7 +1,6 @@
 "
-I am a {{gtClass:BrStateChangedEvent}}.
-I am used to inform about a level of information detail value.
-See {{gtClass:GtPhlowToolAbstractDetailModel}} for more details.
+I am used to inform an element about a level of information detail level changes.
+See {{gtClass:GtPhlowToolDetailState}} for more details.
 
 
 "

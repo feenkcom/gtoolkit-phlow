@@ -1,5 +1,5 @@
 "
-I exemplify {{gtClass:GtPhlowToolAbstractDetailModel}}.
+I exemplify {{gtClass:GtPhlowToolDetailState}}.
 
 
 "

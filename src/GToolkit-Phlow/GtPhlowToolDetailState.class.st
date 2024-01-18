@@ -1,7 +1,5 @@
 "
-I am a {{gtClass:BrInteractionState}}.
 I define a level of information detail that says how {{gtClass:BlElement}} (tool) should be displayed, e.g., displaying a little or more information to users.
-See {{gtClass:GtPhlowToolAbstractDetailModel}} for more details.
 
 
 "

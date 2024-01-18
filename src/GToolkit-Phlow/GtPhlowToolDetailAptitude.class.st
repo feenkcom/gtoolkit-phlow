@@ -1,6 +1,5 @@
 "
-I am a {{gtClass:BrInteractiveAptitude}}.
-I perform user defined actions on {{gtClass:GtPhlowToolDetailModel}} changes. Users may use the following methods to configure actions for different states:
+I allow users to style an element based on {{gtClass:GtPhlowToolDetailState}} . Users may use the following methods to configure styles for different states:
 - {{gtMethod:GtPhlowToolDetailAptitude>>#normal:|label=#selector}},
 - {{gtMethod:GtPhlowToolDetailAptitude>>#detailed:|label=#selector}}, and
 - {{gtMethod:GtPhlowToolDetailAptitude>>#level:style:|label=#selector}}.
