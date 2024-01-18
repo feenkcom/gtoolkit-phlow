@@ -1,6 +1,5 @@
 "
-I am a {{gtClass:BrInteractiveAptitude}}.
-I perform user defined actions on {{gtClass:GtPhlowToolDetailModel}} changes. Users may use the following methods to configure actions for different states:
+I allow users to style an element based on {{gtClass:GtPhlowToolDetailState}} . Users may use the following methods to configure styles for different states:
 - {{gtMethod:GtPhlowToolDetailAptitude>>#normal:|label=#selector}},
 - {{gtMethod:GtPhlowToolDetailAptitude>>#detailed:|label=#selector}}, and
 - {{gtMethod:GtPhlowToolDetailAptitude>>#level:style:|label=#selector}}.
@@ -12,29 +11,29 @@ The following example changes an element background color on information level c
 "
 Class {
 	#name : #GtPhlowToolDetailAptitude,
-	#superclass : #BrInteractiveAptitude,
-	#category : 'GToolkit-Phlow-Tool - Looks'
+	#superclass : #BrLazyStyleAptitude,
+	#category : #'GToolkit-Phlow-Tool - Looks'
 }
 
 { #category : #'api - style' }
-GtPhlowToolDetailAptitude >> detailed: aStyleBlock [
+GtPhlowToolDetailAptitude >> detailed: aBlock [
 	self
 		when: self state detailed
-		style: aStyleBlock
+		style: aBlock
 ]
 
 { #category : #'api - style' }
-GtPhlowToolDetailAptitude >> level: aNamedVolume style: aStyleBlock [
+GtPhlowToolDetailAptitude >> level: aNamedLevel style: aBlock [
 	self
-		when: (self state level: aNamedVolume)
-		style: aStyleBlock
+		when: (self state level: aNamedLevel)
+		style: aBlock
 ]
 
 { #category : #'api - style' }
-GtPhlowToolDetailAptitude >> normal: aStyleBlock [
+GtPhlowToolDetailAptitude >> normal: aBlock [
 	self
-		when: self state normal
-		style: aStyleBlock
+		when: (self state normal or: (BlElementAbsentState ofType: self state))
+		style: aBlock
 ]
 
 { #category : #'api - style' }

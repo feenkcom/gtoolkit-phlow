@@ -1,17 +1,15 @@
 "
-I am a {{gtClass:BrInteractionState}}.
 I define a level of information detail that says how {{gtClass:BlElement}} (tool) should be displayed, e.g., displaying a little or more information to users.
-See {{gtClass:GtPhlowToolAbstractDetailModel}} for more details.
 
 
 "
 Class {
 	#name : #GtPhlowToolDetailState,
-	#superclass : #BrInteractionState,
+	#superclass : #BlElementUniqueState,
 	#instVars : [
 		'level'
 	],
-	#category : 'GToolkit-Phlow-Tool - State'
+	#category : #'GToolkit-Phlow-Tool - Looks'
 }
 
 { #category : #'instance creation' }
@@ -22,6 +20,14 @@ GtPhlowToolDetailState class >> detailed [
 { #category : #accessing }
 GtPhlowToolDetailState class >> detailedName [
 	^ #detailed
+]
+
+{ #category : #accessing }
+GtPhlowToolDetailState class >> getLevelOf: anElement [
+	^ anElement states
+		stateLike: self normal
+		ifFound: [ :aLevelState | aLevelState ]
+		ifNone: [ self normal ]
 ]
 
 { #category : #'instance creation' }
@@ -39,51 +45,20 @@ GtPhlowToolDetailState class >> normalName [
 	^ #normal
 ]
 
-{ #category : #'instance creation' }
-GtPhlowToolDetailState class >> undefined [
-	^ self new dimension: self undefinedName
-]
-
-{ #category : #accessing }
-GtPhlowToolDetailState class >> undefinedName [
-	^ #undefined
-]
-
-{ #category : #'instance creation' }
-GtPhlowToolDetailState class >> volume: aNamedLevel [
-	self 
-		deprecated: 'Use #level: instead' 
-		transformWith: '`@receiver volume: `@arg' -> '`@receiver level: `@arg'.
-	^ self level: aNamedLevel
-]
-
 { #category : #comparing }
-GtPhlowToolDetailState >> = anotherState [
-	^ anotherState class = self class
-		and: [ anotherState level = self level ]
-]
+GtPhlowToolDetailState >> = anObject [
+	"Answer whether the receiver and anObject represent the same object."
 
-{ #category : #accessing }
-GtPhlowToolDetailState >> dimension [
-	<return: #Symbol>
-	self 
-		deprecated: 'Use #level instead' 
-		transformWith: '`@receiver dimension' -> '`@receiver level'.
-	^ self level
-]
-
-{ #category : #accessing }
-GtPhlowToolDetailState >> dimension: aSymbol [
-
-	self 
-		deprecated: 'Use #level: instead' 
-		transformWith: '`@receiver dimension: `@arg' -> '`@receiver level: `@arg'.
-	self level: aSymbol
+	self == anObject ifTrue: [ ^ true ].
+	self class = anObject class ifFalse: [ ^ false ].
+	^ level = anObject level
 ]
 
 { #category : #comparing }
 GtPhlowToolDetailState >> hash [
-	^ self class hash bitXor: self level hash
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ level hash
 ]
 
 { #category : #initialization }
@@ -91,11 +66,6 @@ GtPhlowToolDetailState >> initialize [
 	super initialize.
 
 	level := self class normalName
-]
-
-{ #category : #testing }
-GtPhlowToolDetailState >> isUndefined [
-	^ self level = self class undefinedName
 ]
 
 { #category : #accessing }
@@ -109,9 +79,27 @@ GtPhlowToolDetailState >> level: aSymbol [
 	level := aSymbol.
 ]
 
+{ #category : #enumerating }
+GtPhlowToolDetailState >> optionalOnAddedTo: anElement [
+	anElement dispatchEvent: (GtPhlowToolDetailChanged new element: anElement; level: self)
+]
+
+{ #category : #enumerating }
+GtPhlowToolDetailState >> optionalOnRemovedFrom: anElement [
+	anElement dispatchEvent: (GtPhlowToolDetailChanged new element: anElement; level: self class normal)
+]
+
 { #category : #printing }
 GtPhlowToolDetailState >> printOn: aStream [
-	aStream
-		nextPutAll: 'Tool Level State: ';
-		print: self level
+	aStream nextPutAll: self level
+]
+
+{ #category : #accessing }
+GtPhlowToolDetailState >> priority [
+	^ UserPriority
+]
+
+{ #category : #accessing }
+GtPhlowToolDetailState >> shouldPropagateToChildren [
+	^ true
 ]
