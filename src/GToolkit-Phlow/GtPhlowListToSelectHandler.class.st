@@ -25,31 +25,34 @@ GtPhlowListToSelectHandler >> handleEvent: anEvent [
 { #category : #'api - event managing' }
 GtPhlowListToSelectHandler >> selectionChangedEvent: anEvent [
 	anEvent
-		selectedDo: [ :theIndices | 
-			| aWidgetElement aSelectedObject |
-			aWidgetElement := anEvent currentTarget.
-			aSelectedObject := aWidgetElement selectionCallback value: theIndices.
-
-			self transformation
-				select: aSelectedObject
-				indices: theIndices
-				from: aWidgetElement ]
+		selectionDo: [ :aSelection | 
+			| currentWidgetElement selectedObject |
+		 
+			aSelection isNotEmpty ifTrue: [
+				currentWidgetElement := anEvent currentTarget.
+				selectedObject := currentWidgetElement selectionCallback 
+					value: aSelection indices.
+  
+				self transformation
+					select: selectedObject
+					indices: aSelection indices
+					from: currentWidgetElement ] ]
 ]
 
 { #category : #'api - event managing' }
 GtPhlowListToSelectHandler >> selectionDoubleClickedEvent: anEvent [
 	
 	anEvent selection ifNotEmpty: [ :anInterval |
-		| aWidgetElement aSelectedObject |
-	
-		aWidgetElement := anEvent currentTarget.
-			
-		aSelectedObject := aWidgetElement selectionCallback value: anInterval.
+		| currentWidgetElement selectedObject |
+		
+		currentWidgetElement := anEvent currentTarget.
+		selectedObject := currentWidgetElement selectionCallback 
+			value: anInterval.
 		
 		self transformation 
-			spawn: aSelectedObject
+			spawn: selectedObject
 			indices: anInterval
-			from: aWidgetElement ]
+			from: currentWidgetElement ]
 ]
 
 { #category : #'api - event managing' }
