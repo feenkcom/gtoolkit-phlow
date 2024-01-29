@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowTool,
 	#superclass : #GtPhlowAbstractTool,
-	#category : 'GToolkit-Phlow-Tool - Core'
+	#category : #'GToolkit-Phlow-Tool - Core'
 }
 
 { #category : #accessing }
@@ -32,4 +32,18 @@ GtPhlowTool class >> priority [
 GtPhlowTool >> asElement [
 	<return: #BlElement>
 	^ self asElementDo: [ :anElement | anElement ]
+]
+
+{ #category : #converting }
+GtPhlowTool >> asPagerPageElementDo: aOneArgBlock [
+	^ self asElementDo: [ :anElement |
+		"This logic should be updated later on to wrap the content element 
+		within a dedicated tool element. That element will be the tool, and
+		anElement will become the tool content. Right now we can however mark
+		the return element as both the tool and the tool content."
+		anElement phlow 
+			beTool;
+			beToolContent;
+			entity: self.
+		aOneArgBlock cull: anElement ]
 ]
