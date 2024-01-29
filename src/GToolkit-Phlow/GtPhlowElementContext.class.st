@@ -13,7 +13,9 @@ Class {
 		'isAction',
 		'isViewContent',
 		'isPopupContainer',
-		'isException'
+		'isException',
+		'isTool',
+		'isToolContent'
 	],
 	#category : #'GToolkit-Phlow-Context'
 }
@@ -21,6 +23,28 @@ Class {
 { #category : #'instance creation' }
 GtPhlowElementContext class >> on: anElement [
 	^ self new element: anElement
+]
+
+{ #category : #accessing }
+GtPhlowElementContext >> activePhlowContexts [
+	^ {
+	#view -> self isView.
+	#viewContent -> self isViewContent.
+	#action -> self isAction.
+	#exception -> self isException.
+	#popupContainer -> self isPopupContainer.
+	#tool -> self isTool.
+	#toolContent -> self isToolContent}
+		select: [ :assoc | assoc value ]
+		thenCollect: [ :assoc | assoc key ]
+]
+
+{ #category : #accessing }
+GtPhlowElementContext >> activePhlowContextsDescription [
+	^ String streamContents: [ :aStream | 
+		self activePhlowContexts
+			do: [:elem | aStream nextPutAll: elem printString]
+			separatedBy: [aStream nextPutAll: ', '] ]
 ]
 
 { #category : #'api - search' }
@@ -65,6 +89,16 @@ GtPhlowElementContext >> beException [
 { #category : #'api - initialization' }
 GtPhlowElementContext >> bePopupContainer [
 	isPopupContainer := true
+]
+
+{ #category : #'api - initialization' }
+GtPhlowElementContext >> beTool [
+	isTool := true
+]
+
+{ #category : #'api - initialization' }
+GtPhlowElementContext >> beToolContent [
+	isToolContent := true
 ]
 
 { #category : #'api - initialization' }
@@ -205,6 +239,11 @@ GtPhlowElementContext >> gtViewSourceFor: aView [
 		view: #gtDefiningMethodFor:
 ]
 
+{ #category : #testing }
+GtPhlowElementContext >> hasActivePhlowContexts [
+	^ self activePhlowContexts size > 0
+]
+
 { #category : #'api - testing' }
 GtPhlowElementContext >> hasBuildContext [
 	^ self entity hasBuildContext
@@ -219,6 +258,8 @@ GtPhlowElementContext >> initialize [
 	isViewContent := false.
 	isPopupContainer := false.
 	isException := false.
+	isTool := false.
+	isToolContent := false.
 ]
 
 { #category : #'api - testing' }
@@ -234,6 +275,16 @@ GtPhlowElementContext >> isException [
 { #category : #'api - testing' }
 GtPhlowElementContext >> isPopupContainer [
 	^ isPopupContainer
+]
+
+{ #category : #'api - testing' }
+GtPhlowElementContext >> isTool [
+	^ isTool
+]
+
+{ #category : #'api - testing' }
+GtPhlowElementContext >> isToolContent [
+	^ isToolContent
 ]
 
 { #category : #'api - testing' }
@@ -256,6 +307,14 @@ GtPhlowElementContext >> methodSelector [
 GtPhlowElementContext >> postponeUpdate [
 
 	([ self syncUpdate ] asAsyncFuture delayed: 300 milliSeconds) await
+]
+
+{ #category : #accessing }
+GtPhlowElementContext >> printOn: aStream [
+	super printOn: aStream.
+	
+	aStream parenthesize: [ 
+		aStream << self activePhlowContextsDescription]
 ]
 
 { #category : #'api - updating' }
