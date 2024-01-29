@@ -28,7 +28,7 @@ GtPhlowUtility class >> createTabElementFor: aPhlowView andDo: aBlock [
 	asElementDo: to not return anything when we deal with an EmptyView"
 	aPhlowView ifItHasContent: [ 
 		| aTab |
-		 aTab := BrTab new.
+		aTab := BrTab new.
 		aTab phlow
 			beView;
 			entity: aPhlowView.

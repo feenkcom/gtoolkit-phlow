@@ -16,7 +16,7 @@ Class {
 	#instVars : [
 		'tools'
 	],
-	#category : 'GToolkit-Phlow-Tool - Core'
+	#category : #'GToolkit-Phlow-Tool - Core'
 }
 
 { #category : #'api - accessing' }
@@ -37,6 +37,15 @@ GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 		addTabs: self toolTabs.
 	aTabGroup addEventHandler: GtPhlowToolObjectChangeHandler new.
 	^ aOneArgBlock cull: aTabGroup
+]
+
+{ #category : #'api - converting' }
+GtPhlowCompositeTool >> asPagerPageElementDo: aOneArgBlock [
+	^ self asElementDo: [ :anElement |
+		anElement phlow 
+			beTool;
+			entity: self.
+		aOneArgBlock cull: anElement ]
 ]
 
 { #category : #defaults }

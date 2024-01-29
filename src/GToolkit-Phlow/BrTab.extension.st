@@ -7,6 +7,7 @@ BrTab >> viewContentElement [
 	self 
 		assert: [ self phlow isView ]
 		description: [ 'Phlow context must be a view' ].
+	
 	^ self parentTabGroup
 		allChildrenBreadthFirstDetect: [ :each | each phlow isViewContent ] 
 		ifFound: [ :viewContentElement | viewContentElement ]

@@ -18,6 +18,12 @@ GtPhlowAbstractTool >> asElementDo: aOneArgBlock [
 ]
 
 { #category : #'api - converting' }
+GtPhlowAbstractTool >> asPagerPageElementDo: aOneArgBlock [
+	"Create the element that will be used as a page in a pager."
+	self subclassResponsibility
+]
+
+{ #category : #'api - converting' }
 GtPhlowAbstractTool >> asTabDo: aBlock [
 	| aTab |
 	aTab := BrTab new
