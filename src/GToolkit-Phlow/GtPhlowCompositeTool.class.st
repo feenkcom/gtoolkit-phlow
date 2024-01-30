@@ -31,11 +31,13 @@ GtPhlowCompositeTool >> addTool: aGtPhlowTool [
 GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block."
 	| aTabGroup |
+	
 	aTabGroup := BrTabGroup new
 		labeled: 'Composite Tool';
-		aptitude: BrGlamorousTabGroupSwitcherWithHiddenSelectedTabAptitude;
+		aptitude: BrGlamorousTabGroupSwitcherAptitude;
 		addTabs: self toolTabs.
 	aTabGroup addEventHandler: GtPhlowToolObjectChangeHandler new.
+	
 	^ aOneArgBlock cull: aTabGroup
 ]
 
