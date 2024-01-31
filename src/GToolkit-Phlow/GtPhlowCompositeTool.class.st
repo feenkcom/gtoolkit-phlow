@@ -42,12 +42,28 @@ GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 ]
 
 { #category : #'api - converting' }
-GtPhlowCompositeTool >> asPagerPageElementDo: aOneArgBlock [
+GtPhlowCompositeTool >> asToolElementDo: aOneArgBlock [
 	^ self asElementDo: [ :anElement |
 		anElement phlow 
 			beTool;
 			entity: self.
 		aOneArgBlock cull: anElement ]
+]
+
+{ #category : #selection }
+GtPhlowCompositeTool >> basicExtractSelectionStateFromElement: aTabGroupElement [
+	| selectedToolTabIdentifier containedToolElement containedToolContext |
+	
+	selectedToolTabIdentifier := (GtPhlowCompositeToolSelectedTabExtractor new 
+		tabGroupElement: aTabGroupElement) extractTabIdentifier.
+	
+	containedToolElement := aTabGroupElement content children first.
+	containedToolContext := containedToolElement phlow.
+
+	^ GtPhlowCompositeToolSelectionState new
+		selectedToolTabIdentifier: selectedToolTabIdentifier;
+		selectedToolSelectionState: (containedToolContext entity
+			extractSelectionStateFromElement: containedToolElement)
 ]
 
 { #category : #defaults }
@@ -74,6 +90,12 @@ GtPhlowCompositeTool >> initialize [
 { #category : #'api - accessing' }
 GtPhlowCompositeTool >> name [
 	^ 'composite'
+]
+
+{ #category : #'testing ' }
+GtPhlowCompositeTool >> supportsSelectionHandling [
+	"Composite tools know how to extract and restore the selected tool"
+	^ true
 ]
 
 { #category : #'private - instance creation' }

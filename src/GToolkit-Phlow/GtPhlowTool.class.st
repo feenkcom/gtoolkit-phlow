@@ -35,15 +35,10 @@ GtPhlowTool >> asElement [
 ]
 
 { #category : #converting }
-GtPhlowTool >> asPagerPageElementDo: aOneArgBlock [
+GtPhlowTool >> asToolElementDo: aOneArgBlock [
 	^ self asElementDo: [ :anElement |
-		"This logic should be updated later on to wrap the content element 
-		within a dedicated tool element. That element will be the tool, and
-		anElement will become the tool content. Right now we can however mark
-		the return element as both the tool and the tool content."
 		anElement phlow 
 			beTool;
-			beToolContent;
 			entity: self.
 		aOneArgBlock cull: anElement ]
 ]

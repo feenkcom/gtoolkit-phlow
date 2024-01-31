@@ -11,6 +11,14 @@ GtPhlowAbstractTool class >> isAbstract [
 	^ self name = #GtPhlowAbstractTool 
 ]
 
+{ #category : #selection }
+GtPhlowAbstractTool >> applySelectionState: aSelectionState toElement: aToolElement [
+	self supportsSelectionHandling ifFalse: [ ^ self ].
+
+	(aSelectionState appliesToTool: self) ifFalse: [ ^ self ].
+	self basicApplySelectionState: aSelectionState toElement: aToolElement
+]
+
 { #category : #'api - converting' }
 GtPhlowAbstractTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block."
@@ -18,27 +26,68 @@ GtPhlowAbstractTool >> asElementDo: aOneArgBlock [
 ]
 
 { #category : #'api - converting' }
-GtPhlowAbstractTool >> asPagerPageElementDo: aOneArgBlock [
-	"Create the element that will be used as a page in a pager."
-	self subclassResponsibility
-]
-
-{ #category : #'api - converting' }
 GtPhlowAbstractTool >> asTabDo: aBlock [
-	| aTab |
-	aTab := BrTab new
+	| toolTab |
+	toolTab := BrTab new
 		aptitude: self tabLook;
 		label: self name;
 		icon: self icon;
-		stencil: [ self asTabElement ].
-	aBlock cull: aTab cull: self.
+		stencil: [ 
+			self asTabElement ].
+	
+	toolTab phlow 
+		beToolLabel; 
+		entity: self.
+	
+	aBlock cull: toolTab cull: self.
 ]
 
 { #category : #'private - converting' }
 GtPhlowAbstractTool >> asTabElement [
 	"Return a tool element that is going to be used as a part of ${class:GtPhlowCompositeTool}$"
 	<return: #BlElement>
-	^ self asElementDo: [ :anElement | anElement ]
+	^ self asToolElementDo: [ :anElement | 
+		anElement ]
+]
+
+{ #category : #'api - converting' }
+GtPhlowAbstractTool >> asToolElementDo: aOneArgBlock [
+	"Create a properly initialized tool element"
+	self subclassResponsibility
+]
+
+{ #category : #selection }
+GtPhlowAbstractTool >> basicApplySelectionState: aSelectionState toElement: aToolElement [
+	"Default way to apply the selection to a tool element."
+	aSelectionState applySelectionStateToElement: aToolElement
+]
+
+{ #category : #selection }
+GtPhlowAbstractTool >> basicExtractSelectionStateFromElement: aToolElement [
+	"Subclasses should override this method to change how the current selection state is extracted from the given element. This should just be called if #supportsSelectionHandling returns true."
+	
+	self assert: [ self supportsSelectionHandling ].
+	
+	^ aToolElement extractToolSelectionState
+]
+
+{ #category : #configuring }
+GtPhlowAbstractTool >> beToolContentElement: anElement [
+	"Set up a given element to play a role of a tool element."
+
+	"anElement phlow 
+		beToolContent;
+		entity: self."
+]
+
+{ #category : #selection }
+GtPhlowAbstractTool >> extractSelectionStateFromElement: aToolElement [
+	self supportsSelectionHandling ifFalse: [ 
+		^ GtPhlowToolNullSelectionState uniqueInstance  ].
+	
+	^ (self basicExtractSelectionStateFromElement: aToolElement)
+		targetToolIdentifier: self toolTabIdentifier;
+		yourself
 ]
 
 { #category : #'gt-extension' }
@@ -83,8 +132,19 @@ GtPhlowAbstractTool >> object: anObject [
 	"defaults tools must implement this message"
 ]
 
+{ #category : #'testing ' }
+GtPhlowAbstractTool >> supportsSelectionHandling [
+	"Indicates whether or not this tool can extract and restore its selection"
+	^ false
+]
+
 { #category : #'private - accessing' }
 GtPhlowAbstractTool >> tabLook [
 	"Return a look to display tab tool"
 	^ BrGlamorousTabSwitcherWithLabelAptitude
+]
+
+{ #category : #accessing }
+GtPhlowAbstractTool >> toolTabIdentifier [
+	^ GtPhlowToolTabIdentifier forTool: self
 ]
