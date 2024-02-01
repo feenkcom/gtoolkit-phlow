@@ -75,6 +75,13 @@ GtPhlowAction >> dropdown [
 ]
 
 { #category : #decorating }
+GtPhlowAction >> empty [
+	"Convenience --by analogy with views"
+
+	^ self noAction
+]
+
+{ #category : #decorating }
 GtPhlowAction >> explicit [
 	^ GtPhlowExplicitAction new
 		definingMethod: (GtPhlowDefiningMethodsCollector new 
