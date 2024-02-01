@@ -15,7 +15,7 @@ Class {
 		'isPopupContainer',
 		'isException',
 		'isTool',
-		'isToolContent'
+		'isToolLabel'
 	],
 	#category : #'GToolkit-Phlow-Context'
 }
@@ -34,7 +34,7 @@ GtPhlowElementContext >> activePhlowContexts [
 	#exception -> self isException.
 	#popupContainer -> self isPopupContainer.
 	#tool -> self isTool.
-	#toolContent -> self isToolContent}
+	#toolLabel -> self isToolLabel}
 		select: [ :assoc | assoc value ]
 		thenCollect: [ :assoc | assoc key ]
 ]
@@ -97,8 +97,8 @@ GtPhlowElementContext >> beTool [
 ]
 
 { #category : #'api - initialization' }
-GtPhlowElementContext >> beToolContent [
-	isToolContent := true
+GtPhlowElementContext >> beToolLabel [
+	isToolLabel := true
 ]
 
 { #category : #'api - initialization' }
@@ -259,7 +259,7 @@ GtPhlowElementContext >> initialize [
 	isPopupContainer := false.
 	isException := false.
 	isTool := false.
-	isToolContent := false.
+	isToolLabel := false.
 ]
 
 { #category : #'api - testing' }
@@ -283,8 +283,8 @@ GtPhlowElementContext >> isTool [
 ]
 
 { #category : #'api - testing' }
-GtPhlowElementContext >> isToolContent [
-	^ isToolContent
+GtPhlowElementContext >> isToolLabel [
+	^ isToolLabel
 ]
 
 { #category : #'api - testing' }

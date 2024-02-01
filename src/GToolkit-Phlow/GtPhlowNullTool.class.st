@@ -12,13 +12,13 @@ GtPhlowNullTool >> asElementDo: aOneArgBlock [
 ]
 
 { #category : #'api - converting' }
-GtPhlowNullTool >> asPagerPageElementDo: aOneArgBlock [
-	"Do nothing"
+GtPhlowNullTool >> asTabDo: aBlock [
+	"do nothing"
 ]
 
 { #category : #'api - converting' }
-GtPhlowNullTool >> asTabDo: aBlock [
-	"do nothing"
+GtPhlowNullTool >> asToolElementDo: aOneArgBlock [
+	"Do nothing"
 ]
 
 { #category : #'api - accessing' }
