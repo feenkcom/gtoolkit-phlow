@@ -12,6 +12,14 @@ GtPhlowTabbedToolSelectionState >> applySelectionStateToElement: aToolElement [
 	aToolElement selectTabWithIdentifier: self tabIdentifier
 ]
 
+{ #category : #printing }
+GtPhlowTabbedToolSelectionState >> printOn: aStream [
+	super printOn: aStream.
+	
+	aStream parenthesize: [
+		 self tabIdentifier descriptionOn: aStream ]
+]
+
 { #category : #accessing }
 GtPhlowTabbedToolSelectionState >> tabIdentifier [
 	^ tabIdentifier
