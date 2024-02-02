@@ -4,5 +4,6 @@ Extension { #name : #WrapperSignal }
 WrapperSignal >> gtDefaultInspectorTool [
 	^ GtPhlowCompositeTool new
 		addTool: (super gtDefaultInspectorTool);
-		addTool: (self target gtDefaultInspectorTool)
+		addTool: (self target gtDefaultInspectorTool
+			name: 'Target')
 ]
