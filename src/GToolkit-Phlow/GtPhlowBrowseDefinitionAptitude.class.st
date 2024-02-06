@@ -17,12 +17,19 @@ GtPhlowBrowseDefinitionAptitude >> definition: aBlock [
 
 { #category : #'private - event handling' }
 GtPhlowBrowseDefinitionAptitude >> handleMouseDown: anEvent [
-	(self isDefinitionRequested: anEvent)
-		ifFalse: [ ^ self ].
-	
-	self widgetDo: [ :aWidget |
-		anEvent consumed: true.
-		aWidget phlow spawnObject: definitionComputation value ]
+	"If I'm not within a Pager, spawn a new one."
+
+	(self isDefinitionRequested: anEvent) ifFalse: [ ^ self ].
+	self widget
+		allParentsDetect: [ :aParent | aParent isKindOf: GtPager ]
+		ifFound: [ :aParent | 
+			self
+				widgetDo: [ :aWidget | 
+					anEvent consumed: true.
+					aWidget phlow spawnObject: definitionComputation value ] ]
+		ifNone: [ self
+				spawnPagerFor: (GtInspector newOn: definitionComputation value)
+				withTitle: definitionComputation value method name ]
 ]
 
 { #category : #initialization }
@@ -47,4 +54,16 @@ GtPhlowBrowseDefinitionAptitude >> isDefinitionRequested: anEvent [
 		anEvent modifiers isCmd not and: [ 
 			anEvent modifiers isCtrl not and: [ 
 				anEvent modifiers isShift not ] ] ]
+]
+
+{ #category : #accessing }
+GtPhlowBrowseDefinitionAptitude >> spawnPagerFor: anElement withTitle: aString [
+	| aPager aSpace |
+	aPager := GtPager createWrappedOn: anElement.
+	aPager maximized.
+	aSpace := BlSpace new.
+	aSpace title: aString.
+	aSpace extent: 1200 @ 600.
+	aSpace addChild: aPager.
+	self widget showSpace: aSpace
 ]
