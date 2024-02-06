@@ -5,19 +5,30 @@ Class {
 		'stack',
 		'methods'
 	],
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #actions }
 GtPhlowDefiningMethodsCollector >> collect [
 	| aMethods |
 	aMethods := OrderedCollection new.
-	2 to: (self stack size min: 5) do: [ :anIndex | 
-		| aCompiledMethod |
-		aCompiledMethod := (self stack at: anIndex) blocDefiningMethod.
-		(aCompiledMethod hasPragmaNamed: #gtCollector)
-			ifTrue: [ ^ self definingMethodsFrom: aMethods ].
-		aMethods addFirst: aCompiledMethod asRingDefinition ].
+	2
+		to: (self stack size min: 5)
+		do: [ :anIndex | 
+			| aCompiledMethod |
+			aCompiledMethod := (self stack at: anIndex) blocDefiningMethod.
+			(aCompiledMethod hasPragmaNamed: #gtCollector)
+				ifTrue: [ ^ self definingMethodsFrom: aMethods ].
+			aMethods addFirst: aCompiledMethod asRingDefinition ].
+
+	2
+		to: (self stack size min: 5)
+		do: [ :anIndex | 
+			| aCompiledMethod |
+			aCompiledMethod := (self stack at: anIndex) blocDefiningMethod.
+			aCompiledMethod isDoIt ifTrue: [ ^ aCompiledMethod ] ].
+
+
 	^ self definingMethodsFrom: aMethods
 ]
 
