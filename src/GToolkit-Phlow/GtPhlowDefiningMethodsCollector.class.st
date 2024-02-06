@@ -1,3 +1,8 @@
+"
+I search for defining methods on the stack, stopping when I find a method with the `<gtCollector>` pragma. 
+
+For example, I am used in {{gtMethod:name=GtPhlowProtoView>>#empty}}, and the pragma is used in {{gtMethod:name=GtPhlowView>>#on:perform:}}, which performs the view methods. This way the collector starts where the factory method is called, and stops where the view method is performed.
+"
 Class {
 	#name : #GtPhlowDefiningMethodsCollector,
 	#superclass : #Object,
