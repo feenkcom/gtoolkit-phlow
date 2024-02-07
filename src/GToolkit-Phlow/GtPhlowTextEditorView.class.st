@@ -7,7 +7,7 @@ Class {
 		'textBuilder',
 		'look',
 		'attributesBuilder',
-		'stylerComputation'
+		'stylerSpecification'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -41,7 +41,7 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
 		
 	aNewStyler := self 
-		performBlock: [ stylerComputation value ] 
+		performBlock: [ stylerSpecification createBlStyler ] 
 		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
 
 	aBrickEditor 
@@ -76,7 +76,7 @@ GtPhlowTextEditorView >> initialize [
 	super initialize.
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
 	look := BrGlamorousRegularEditorAptitude.
-	stylerComputation := BlTextNullStyler new.
+	stylerSpecification := GtPhlowTextNullStylerSpecification new.
 ]
 
 { #category : #testing }
@@ -93,13 +93,26 @@ GtPhlowTextEditorView >> newLook [
 ]
 
 { #category : #accessing }
-GtPhlowTextEditorView >> styler: aStyler [
-	stylerComputation := aStyler
+GtPhlowTextEditorView >> styler: aComputation [
+	stylerSpecification := GtRemoteTextStylerComputableSpecification new 
+		stylerComputation: aComputation
 ]
 
 { #category : #accessing }
-GtPhlowTextEditorView >> stylerComputation [
-	^ stylerComputation
+GtPhlowTextEditorView >> stylerClassName: aStylerClassName [
+	stylerSpecification := GtPhlowTextClassStylerSpecification new 
+		stylerClassName: aStylerClassName
+]
+
+{ #category : #accessing }
+GtPhlowTextEditorView >> stylerParserClassName: aParserClassName [
+	stylerSpecification := GtPhlowTextParserStylerSpecification new 
+		parserClassName: aParserClassName
+]
+
+{ #category : #accessing }
+GtPhlowTextEditorView >> stylerSpecification [
+	^ stylerSpecification
 ]
 
 { #category : #accessing }
