@@ -6,8 +6,8 @@ Class {
 	#instVars : [
 		'textBuilder',
 		'look',
-		'styler',
-		'attributesBuilder'
+		'attributesBuilder',
+		'stylerComputation'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -41,7 +41,7 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
 		
 	aNewStyler := self 
-		performBlock: [ styler value ] 
+		performBlock: [ stylerComputation value ] 
 		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
 
 	aBrickEditor 
@@ -76,7 +76,7 @@ GtPhlowTextEditorView >> initialize [
 	super initialize.
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
 	look := BrGlamorousRegularEditorAptitude.
-	styler := BlTextNullStyler new.
+	stylerComputation := BlTextNullStyler new.
 ]
 
 { #category : #testing }
@@ -94,7 +94,12 @@ GtPhlowTextEditorView >> newLook [
 
 { #category : #accessing }
 GtPhlowTextEditorView >> styler: aStyler [
-	styler := aStyler
+	stylerComputation := aStyler
+]
+
+{ #category : #accessing }
+GtPhlowTextEditorView >> stylerComputation [
+	^ stylerComputation
 ]
 
 { #category : #accessing }
