@@ -31,8 +31,12 @@ GtPhlowDefiningMethodsCollector >> collect [
 		do: [ :anIndex | 
 			| aCompiledMethod |
 			aCompiledMethod := (self stack at: anIndex) blocDefiningMethod.
-			aCompiledMethod isDoIt ifTrue: [ ^ aCompiledMethod ].
-			(aCompiledMethod hasPragmaNamed: 'gtExample') ifTrue: [ ^ aCompiledMethod ] ].
+			aCompiledMethod isDoIt ifTrue: [ 
+				"For doits right now we return the compiled method, 
+				as wrapping doits in a Ring definition does work ok"
+				^ aCompiledMethod ].
+			(aCompiledMethod hasPragmaNamed: 'gtExample') ifTrue: [ 
+				^ aCompiledMethod asRingDefinition ] ].
 
 
 	^ self definingMethodsFrom: aMethods
