@@ -47,6 +47,11 @@ GtPhlowTextView >> isExpectedElement: aCurrentElement [
 ]
 
 { #category : #accessing }
+GtPhlowTextView >> stylerSpecification [
+	^ nil
+]
+
+{ #category : #accessing }
 GtPhlowTextView >> text: anObject [
 	textBuilder := anObject
 ]
