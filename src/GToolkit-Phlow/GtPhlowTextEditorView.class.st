@@ -5,25 +5,25 @@ Class {
 	#classTraits : 'TBlTextStyleable classTrait',
 	#instVars : [
 		'textBuilder',
-		'look',
 		'attributesBuilder',
-		'stylerSpecification'
+		'stylerSpecification',
+		'aptitude'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #accessing }
 GtPhlowTextEditorView >> aptitude [
-	^ look
+	^ aptitude
 ]
 
 { #category : #accessing }
-GtPhlowTextEditorView >> aptitude: aBlock [
+GtPhlowTextEditorView >> aptitude: aBlockOrAptitudeClass [
 	self
-		assert: [ (aBlock isKindOf: BrAptitude) not ] 
-		description: [ 'Look must be a valuable or just a look class, not a look instance' ].
+		assert: [ (aBlockOrAptitudeClass isKindOf: BrAptitude) not ] 
+		description: [ 'Aptitude must be a valuable or just an aptitude class, but not an aptitude instance' ].
 
-	look := aBlock
+	aptitude := aBlockOrAptitudeClass
 ]
 
 { #category : #converting }
@@ -37,7 +37,7 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
 	
 	aNewLook := self 
-		performBlock: [ self newLook ] 
+		performBlock: [ self newAptitude ] 
 		onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
 		
 	aNewStyler := self 
@@ -75,7 +75,7 @@ GtPhlowTextEditorView >> elementClass [
 GtPhlowTextEditorView >> initialize [
 	super initialize.
 	attributesBuilder := BlTextDelegatedAttributesBuilder new.
-	look := BrGlamorousRegularEditorAptitude.
+	aptitude := BrGlamorousRegularEditorAptitude.
 	stylerSpecification := GtPhlowTextNullStylerSpecification new.
 ]
 
@@ -85,11 +85,11 @@ GtPhlowTextEditorView >> isExpectedElement: aCurrentElement [
 ]
 
 { #category : #'instance creation' }
-GtPhlowTextEditorView >> newLook [
-	| aNewLook |
-	aNewLook := look value asLook.
-	self attributesBuilder applyOn: aNewLook attributesBuilder.
-	^ aNewLook
+GtPhlowTextEditorView >> newAptitude [
+	| aNewAptitude |
+	aNewAptitude := aptitude value asLook.
+	self attributesBuilder applyOn: aNewAptitude attributesBuilder.
+	^ aNewAptitude
 ]
 
 { #category : #accessing }
@@ -151,6 +151,17 @@ GtPhlowTextEditorView >> updateContent: aCurrentElement [
 ]
 
 { #category : #accessing }
+GtPhlowTextEditorView >> withoutAptitude [
+	self
+		deprecated: 'Use #withoutAptitude instead.'
+		transformWith: '`@receiver withoutLook' -> '`@receiver withoutAptitude'.
+	aptitude := BrGlamorousEditorAptitude
+]
+
+{ #category : #accessing }
 GtPhlowTextEditorView >> withoutLook [
-	look := BrGlamorousEditorAptitude
+	self
+		deprecated: 'Use #withoutAptitude instead.'
+		transformWith: '`@receiver withoutLook' -> '`@receiver withoutAptitude'.
+	self withoutAptitude
 ]
