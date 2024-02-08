@@ -23,10 +23,13 @@ GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> assertC
 { #category : #'announcement handling' }
 GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> handleMethodModifiedAnnouncement: aMethodModified [ 
 	self hasContexts ifFalse: [ ^ self ].
-	self views do: [ :eachView | 
-		(eachView definingMethod isNotNil and: [ 
-			eachView definingMethod gtPhlowIncludesCompiledMethod: aMethodModified methodAffected ]) ifTrue: [ 
-				^ self updateSubView: eachView ] ].
+	
+	self views ifNotNil: [ :currentViews |
+		currentViews do: [ :eachView | 
+			(eachView definingMethod isNotNil and: [ 
+				eachView definingMethod 
+					gtPhlowIncludesCompiledMethod: aMethodModified methodAffected ]) ifTrue: [ 
+						^ self updateSubView: eachView ] ] ].
 ]
 
 { #category : #subscriptions }
