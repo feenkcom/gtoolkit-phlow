@@ -137,17 +137,6 @@ GtPhlowColumnedTreeView >> errorCatchingChildrenBuilder [
 								childrenBuilder: self childrenBuilder) ] ] ]
 ]
 
-{ #category : #'gt - extensions' }
-GtPhlowColumnedTreeView >> gtColumnsFor: aView [
-	<gtView>
-	self columns ifNil: [ ^ aView empty ].
-	^ aView columnedList
-		title: 'Columns';
-		items: [ self columns ];
-		column: 'Title' text: #title weight: 0.25;
-		column: 'Item' text: #itemComputation
-]
-
 { #category : #accessing }
 GtPhlowColumnedTreeView >> gtViewContextMenuActionsFor: aView [
 	<gtView>
