@@ -55,7 +55,7 @@ TGtPhlowColumnedHeader >> gtColumnsFor: aView [
 	self columns ifNil: [ ^ aView empty ].
 	^ aView columnedList
 		  title: 'Columns';
-		  column: 'Title' text: #title;
-		  column: 'Item' text: #itemComputation;
-		  column: 'Stencil' text: #cellStencil
+		  items: [ self columns ];
+		  column: 'Title' text: #title weight: 0.25;
+		  column: 'Item' text: #itemComputation
 ]
