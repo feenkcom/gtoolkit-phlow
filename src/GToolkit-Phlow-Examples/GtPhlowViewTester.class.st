@@ -11,15 +11,38 @@ GtPhlowViewTester >> assertEmpty: aTesterResult [
 
 { #category : #testing }
 GtPhlowViewTester >> assertObject: anObject [
+	^ self 
+		assertObject: anObject 
+		withViewsSelector: #gtViewsInContext:
+]
+
+{ #category : #testing }
+GtPhlowViewTester >> assertObject: anObject withViews: aCollectionOfViews [
 	| theResults |
 
-	theResults := self testObject: anObject.
+	theResults := self testViews: aCollectionOfViews.
 	(theResults allSatisfy: [ :eachResult | eachResult isOk or: [ eachResult isEmpty ] ])
 		ifTrue: [ ^ self ].
 	
 	(GtPhlowViewTesterObjectValidationFailure new
 		object: anObject;
 		results: theResults) signal
+]
+
+{ #category : #testing }
+GtPhlowViewTester >> assertObject: anObject withViewsSelector: aViewsSelector [
+	^ self 
+		assertObject: anObject 
+		withViews: (thisContext 
+			object: anObject
+			perform: aViewsSelector
+			withArguments: {GtPhlowContext new}
+			inClass: anObject class)
+		
+		
+		"(anObject 
+			perform: aViewsSelector
+			with: GtPhlowContext new)"
 ]
 
 { #category : #asserting }
@@ -45,17 +68,6 @@ GtPhlowViewTester >> assertViewEmpty: aPhlowView [
 { #category : #testing }
 GtPhlowViewTester >> assertViewOk: aPhlowView [
 	self assertOk: (self testView: aPhlowView)
-]
-
-{ #category : #testing }
-GtPhlowViewTester >> testObject: anObject [
-	<return: #GtPhlowViewTesterResult>
-	| theViews theResults |
-
-	theViews := anObject gtViewsInContext: GtPhlowContext new.
-	theResults := theViews collect: [ :eachView | self testView: eachView ].
-
-	^ theResults
 ]
 
 { #category : #testing }
@@ -99,4 +111,15 @@ GtPhlowViewTester >> testView: aPhlowView andElement: aPhlowViewElement [
 	^ GtPhlowViewTesterOkResult new
 		phlowView: aPhlowView;
 		phlowElement: aPhlowViewElement
+]
+
+{ #category : #testing }
+GtPhlowViewTester >> testViews: aCollectionOfViews [
+	<return: #GtPhlowViewTesterResult>
+	| theResults |
+
+	theResults := aCollectionOfViews collect: [ :eachView | 
+		self testView: eachView ].
+
+	^ theResults
 ]
