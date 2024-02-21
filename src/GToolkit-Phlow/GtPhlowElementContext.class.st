@@ -171,7 +171,9 @@ GtPhlowElementContext >> entity: aGtPhlowView [
 { #category : #'api - updating' }
 GtPhlowElementContext >> fireUpdateWish [
 	"I fire an update wish to inform a whole tool, e.g., Inspector, that it should update its widgets"
-	self element inUIProcessDo: [ self element fireEvent: BrPhlowToolUpdateWish new ].
+
+	self element
+		enqueueTask: (BlTaskAction new action: [ self element fireEvent: BrPhlowToolUpdateWish new ])
 ]
 
 { #category : #'api - search' }
