@@ -20,9 +20,7 @@ GtPhlowAction class >> defaultPriority [
 { #category : #accessing }
 GtPhlowAction class >> noAction [
 	^ GtPhlowNoAction new
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #converting }
@@ -41,9 +39,7 @@ GtPhlowAction >> attachShowDefinitionEventHandler: element [
 { #category : #decorating }
 GtPhlowAction >> button [
 	^ GtPhlowButtonAction new
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #initialization }
@@ -69,9 +65,7 @@ GtPhlowAction >> definingMethod: anObject [
 { #category : #decorating }
 GtPhlowAction >> dropdown [
 	^ GtPhlowDropdownAction new
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #decorating }
@@ -84,9 +78,7 @@ GtPhlowAction >> empty [
 { #category : #decorating }
 GtPhlowAction >> explicit [
 	^ GtPhlowExplicitAction new
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #accessing }
@@ -168,9 +160,7 @@ GtPhlowAction >> label [
 { #category : #decorating }
 GtPhlowAction >> noAction [
 	^ GtPhlowNoAction new
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #'api - action' }
@@ -205,7 +195,5 @@ GtPhlowAction >> target: aGtPhlowActionTarget [
 { #category : #decorating }
 GtPhlowAction >> toggle [
 	^ GtPhlowToggleAction new
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]

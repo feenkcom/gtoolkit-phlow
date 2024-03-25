@@ -13,12 +13,22 @@ Class {
 	#category : #'GToolkit-Phlow-Collectors'
 }
 
+{ #category : #accessing }
+GtPhlowDefiningMethodsCollector class >> forContext: aContext [
+	^self new stack: (aContext stackOfSize: self stackLimit)
+]
+
+{ #category : #accessing }
+GtPhlowDefiningMethodsCollector class >> stackLimit [
+	^5
+]
+
 { #category : #actions }
 GtPhlowDefiningMethodsCollector >> collect [
 	| aMethods |
 	aMethods := OrderedCollection new.
 	2
-		to: (self stack size min: 5)
+		to: self stack size
 		do: [ :anIndex | 
 			| aCompiledMethod |
 			aCompiledMethod := (self stack at: anIndex) blocDefiningMethod.
@@ -27,17 +37,15 @@ GtPhlowDefiningMethodsCollector >> collect [
 			aMethods addFirst: aCompiledMethod asRingDefinition ].
 
 	2
-		to: (self stack size min: 5)
+		to: self stack size
 		do: [ :anIndex | 
 			| aCompiledMethod |
 			aCompiledMethod := (self stack at: anIndex) blocDefiningMethod.
-			aCompiledMethod isDoIt ifTrue: [ 
-				"For doits right now we return the compiled method, 
-				as wrapping doits in a Ring definition does work ok"
-				^ aCompiledMethod ].
-			(aCompiledMethod hasPragmaNamed: 'gtExample') ifTrue: [ 
-				^ aCompiledMethod asRingDefinition ] ].
-
+			aCompiledMethod isDoIt
+				ifTrue: [  "For doits right now we return the compiled method, 
+				as wrapping doits in a Ring definition does work ok"^ aCompiledMethod ].
+			(aCompiledMethod hasPragmaNamed: 'gtExample')
+				ifTrue: [ ^ aCompiledMethod asRingDefinition ] ].
 
 	^ self definingMethodsFrom: aMethods
 ]

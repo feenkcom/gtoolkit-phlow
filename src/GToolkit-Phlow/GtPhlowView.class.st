@@ -27,9 +27,7 @@ Class {
 { #category : #decorating }
 GtPhlowView class >> empty [
 	^ GtPhlowEmptyView new
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #testing }
