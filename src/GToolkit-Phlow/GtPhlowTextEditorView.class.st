@@ -7,7 +7,8 @@ Class {
 		'textBuilder',
 		'attributesBuilder',
 		'stylerSpecification',
-		'aptitude'
+		'aptitude',
+		'highlighterSpecification'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -48,7 +49,8 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 		aptitude: aNewLook;
 		styler: aNewStyler;
 		enqueueTask: (BlTaskAction new action: [
-			aBrickEditor text: aText ]).
+			aBrickEditor text: aText.
+			self highlightAndScrollIn: aBrickEditor ]).
 			
 	aBrickEditor
 		matchParent;
@@ -71,6 +73,25 @@ GtPhlowTextEditorView >> elementClass [
 	^ BrEditor
 ]
 
+{ #category : #private }
+GtPhlowTextEditorView >> highlightAndScrollIn: aBrickEditor [
+	| highlight |
+	highlighterSpecification ifNil: [ ^ self ].
+	highlight := highlighterSpecification value.
+	highlight color
+		ifNotNil: [ :color | 
+			(aBrickEditor text from: highlight startPosition to: highlight endPosition)
+				attribute: (BlTextHighlightAttribute paint: color) beNotOverwritableByStyler ].
+	aBrickEditor
+		scrollToPosition: (aBrickEditor text asString
+				lineNumberCorrespondingToIndex: highlight startPosition)
+]
+
+{ #category : #accessing }
+GtPhlowTextEditorView >> highlighterSpecification [
+	^ highlighterSpecification
+]
+
 { #category : #initialization }
 GtPhlowTextEditorView >> initialize [
 	super initialize.
@@ -90,6 +111,11 @@ GtPhlowTextEditorView >> newAptitude [
 	aNewAptitude := aptitude value asLook.
 	self attributesBuilder applyOn: aNewAptitude attributesBuilder.
 	^ aNewAptitude
+]
+
+{ #category : #accessing }
+GtPhlowTextEditorView >> scrollAndHighlight: aComputation [
+	highlighterSpecification := aComputation
 ]
 
 { #category : #accessing }
