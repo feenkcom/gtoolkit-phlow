@@ -36,6 +36,11 @@ GtPhlowTextView >> elementClass [
 	^ BrEditor
 ]
 
+{ #category : #accessing }
+GtPhlowTextView >> highlighterSpecification [
+	^ nil
+]
+
 { #category : #initialization }
 GtPhlowTextView >> initialize [
 	super initialize.

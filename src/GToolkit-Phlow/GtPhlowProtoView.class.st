@@ -81,38 +81,30 @@ GtPhlowProtoView >> buildContext: aGtPhlowBuildContext [
 
 { #category : #decorating }
 GtPhlowProtoView >> canvassable [
-	^ GtPhlowCanvassableView new 
+	^ GtPhlowCanvassableView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #decorating }
 GtPhlowProtoView >> columnedList [
 	^ GtPhlowColumnedListView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #decorating }
 GtPhlowProtoView >> columnedTree [
 	^ GtPhlowColumnedTreeView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #decorating }
 GtPhlowProtoView >> composite [
 	^ GtPhlowCompositeView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #copying }
@@ -149,36 +141,28 @@ GtPhlowProtoView >> definingSelector [
 GtPhlowProtoView >> empty [
 	^ GtPhlowEmptyView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #decorating }
 GtPhlowProtoView >> explicit [
-	^ GtPhlowExplicitView new 
+	^ GtPhlowExplicitView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #decorating }
 GtPhlowProtoView >> forward [
-	^ GtPhlowForwarderView new 
+	^ GtPhlowForwarderView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #decorating }
 GtPhlowProtoView >> groupedList [
 	^ GtPhlowGroupedListView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #ui }
@@ -226,29 +210,23 @@ GtPhlowProtoView >> isTaskItViewGloballyEnabled [
 
 { #category : #decorating }
 GtPhlowProtoView >> labelled [
-	^ GtPhlowLabelledView new 
+	^ GtPhlowLabelledView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #decorating }
 GtPhlowProtoView >> labelled: aStringOrText [
-	^ self labelled 
+	^ self labelled
 		label: aStringOrText;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #decorating }
 GtPhlowProtoView >> list [
 	^ GtPhlowListView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #convenience }
@@ -267,11 +245,9 @@ GtPhlowProtoView >> object: anObject arguments: theExecutionArguments [
 
 { #category : #decorating }
 GtPhlowProtoView >> pannable [
-	^ GtPhlowPannableView new 
+	^ GtPhlowPannableView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #accessing }
@@ -293,9 +269,7 @@ GtPhlowProtoView >> priority: aNumber [
 GtPhlowProtoView >> sparta [
 	^ GtPhlowSpartaView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #'private - elements' }
@@ -307,27 +281,21 @@ GtPhlowProtoView >> subscribeToElement: anElement [
 GtPhlowProtoView >> table [
 	^ GtPhlowTableView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #decorating }
 GtPhlowProtoView >> text [
-	^ GtPhlowTextView new 
+	^ GtPhlowTextView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #decorating }
 GtPhlowProtoView >> textEditor [
-	^ GtPhlowTextEditorView new 
+	^ GtPhlowTextEditorView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #accessing }
@@ -348,9 +316,7 @@ GtPhlowProtoView >> title: aString [
 GtPhlowProtoView >> tree [
 	^ GtPhlowTreeView new
 		originalView: self;
-		definingMethod: (GtPhlowDefiningMethodsCollector new 
-			stack: thisContext stack;
-			collect)
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #updating }
