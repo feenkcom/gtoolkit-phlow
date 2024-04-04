@@ -3,7 +3,7 @@ Class {
 	#superclass : #GtPhlowCollector,
 	#traits : 'TGtPhlowContextAccessor',
 	#classTraits : 'TGtPhlowContextAccessor classTrait',
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #accessing }
@@ -24,8 +24,9 @@ GtPhlowViewsCollector >> collect [
 				perform: eachPragma methodSelector
 				withContext: self context.
 			self object gtActions do: [ :eachAction | 
-				(eachAction target isForViewDefinedIn: eachPragma methodSelector) ifTrue: [ 
-					aView addPhlowAction: eachAction ] ].
+				(eachAction target 
+					isForViewDefinedIn: eachPragma methodSelector) ifTrue: [ 
+						aView addPhlowAction: eachAction ] ].
 			aView ].
 	self sortByPriority: theViews.
 	^ theViews
