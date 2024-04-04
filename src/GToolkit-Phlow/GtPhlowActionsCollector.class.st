@@ -1,11 +1,13 @@
 Class {
 	#name : #GtPhlowActionsCollector,
 	#superclass : #GtPhlowCollector,
+	#traits : 'TGtPhlowContextAccessor',
+	#classTraits : 'TGtPhlowContextAccessor classTrait',
 	#instVars : [
 		'sortedUsing',
 		'selectUsing'
 	],
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #'api - actions' }
@@ -15,12 +17,15 @@ GtPhlowActionsCollector >> collect [
 	| anActions |
 	anActions := self sortedPragmas 
 		collect: [ :eachPragma | 
-			| anAction |
+			| anAction arguments |
 			anAction := GtPhlowAction noAction.
+			arguments := eachPragma methodSelector numArgs = 1 
+				ifTrue: [ {anAction } ]
+				ifFalse: [ {anAction. self context} ].
 			[ thisContext
 						object: self object
 						perform: eachPragma methodSelector
-						withArguments: {anAction}
+						withArguments: arguments
 						inClass: self object class ]
 				on: Error
 				do: [ :error |
@@ -41,6 +46,9 @@ GtPhlowActionsCollector >> defaultPragmaNames [
 { #category : #initialization }
 GtPhlowActionsCollector >> initialize [
 	super initialize.
+	
+	self initializePhlowContext.
+	
 	sortedUsing := [ :aPragma :bPragma | aPragma selector < bPragma selector ].
 	selectUsing := [ :anAction | true ]
 ]
