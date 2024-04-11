@@ -169,11 +169,18 @@ GtPhlowElementContext >> entity: aGtPhlowView [
 ]
 
 { #category : #'api - updating' }
-GtPhlowElementContext >> fireUpdateWish [
+GtPhlowElementContext >> fireToolUpdateWish [
 	"I fire an update wish to inform a whole tool, e.g., Inspector, that it should update its widgets"
 
 	self element
 		enqueueTask: (BlTaskAction new action: [ self element fireEvent: BrPhlowToolUpdateWish new ])
+]
+
+{ #category : #'api - updating' }
+GtPhlowElementContext >> fireUpdateWish [
+	self
+		deprecated: 'Use #fireToolUpdateWish instead'
+		transformWith: '`@receiver fireUpdateWish' -> '`@receiver fireToolUpdateWish'
 ]
 
 { #category : #'api - search' }
