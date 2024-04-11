@@ -65,6 +65,6 @@ GtPhlowViewWithError >> wrapWithFailedComputation: anElement [
 				"Here we update the entire inspector.
 				A better solution would be to take the view returned when retrying to
 				run the creation code and replace it with the current view."
-				aButton phlow fireUpdateWish ]);
+				aButton phlow fireToolUpdateWish ]);
 		yourself
 ]
