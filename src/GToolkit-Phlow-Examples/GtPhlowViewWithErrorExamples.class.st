@@ -4,6 +4,11 @@ Class {
 	#category : #'GToolkit-Phlow-Examples-Views'
 }
 
+{ #category : #'gt-extensions' }
+GtPhlowViewWithErrorExamples >> createViewFrom: aView [ 
+	^ aView
+]
+
 { #category : #'examples - element' }
 GtPhlowViewWithErrorExamples >> expectedElementClass [
 	^ BrHorizontalPane
@@ -35,14 +40,12 @@ GtPhlowViewWithErrorExamples >> gtViewWithFailureInColumnedListFor: aView [
 { #category : #'gt-extensions' }
 GtPhlowViewWithErrorExamples >> gtViewWithReturningIndirectlySameViewFor: aView [
 	<gtView>
-	| currentView |
-	currentView := aView.
 
-	self hasData ifFalse: [ ^ currentView ].
+	self hasData ifFalse: [ ^ self createViewFrom: aView  ].
 
 	^ aView list
 		title: 'View Data';
-		items: [ 1 to: 15 ]
+		items: [ 1 to: 100 ]
 ]
 
 { #category : #'gt-extensions' }
