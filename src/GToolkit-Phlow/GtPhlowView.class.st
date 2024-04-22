@@ -394,6 +394,7 @@ GtPhlowView >> basicOn: anObject perform: aMessageSymbol withArguments: aCollect
 	<return: #GtPhlowView>
 	<gtCollector>
 	| aPhlowView |
+	
 	aPhlowView := thisContext
 		object: anObject
 		perform: aMessageSymbol

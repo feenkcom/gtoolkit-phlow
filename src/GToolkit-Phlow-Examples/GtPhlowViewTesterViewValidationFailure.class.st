@@ -31,7 +31,7 @@ GtPhlowViewTesterViewValidationFailure >> expectedResult: anObject [
 { #category : #accessing }
 GtPhlowViewTesterViewValidationFailure >> gtActualResultFor: aView [
 	<gtView>
-	<gtExceptionDebuggingView>
+	<gtExceptionView>
 
 	^ aView forward
 		title: 'Failure';
@@ -43,7 +43,7 @@ GtPhlowViewTesterViewValidationFailure >> gtActualResultFor: aView [
 { #category : #accessing }
 GtPhlowViewTesterViewValidationFailure >> gtExceptionsFor: aView [
 	<gtView>
-	<gtExceptionDebuggingView>
+	<gtExceptionView>
 
 	^ aView forward
 		title: 'Exceptions';

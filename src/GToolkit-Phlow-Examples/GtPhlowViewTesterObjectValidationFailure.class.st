@@ -11,7 +11,7 @@ Class {
 { #category : #accessing }
 GtPhlowViewTesterObjectValidationFailure >> gtResultsFor: aView [
 	<gtView>
-	<gtExceptionDebuggingView>
+	<gtExceptionView>
 	
 	^ aView columnedList
 		title: 'Views';
