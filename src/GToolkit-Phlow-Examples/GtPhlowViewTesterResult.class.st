@@ -14,6 +14,15 @@ GtPhlowViewTesterResult >> = anObject [
 ]
 
 { #category : #accessing }
+GtPhlowViewTesterResult >> gtDefiningMethodFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Source';
+		object: [ self phlowView ];
+		view: #gtDefiningMethodFor:
+]
+
+{ #category : #accessing }
 GtPhlowViewTesterResult >> hash [
 	^ self class hash
 ]
