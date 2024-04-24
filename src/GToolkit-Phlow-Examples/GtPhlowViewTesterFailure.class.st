@@ -5,8 +5,8 @@ Class {
 }
 
 { #category : #accessing }
-GtPhlowViewTesterFailure >> gtDebuggingExtensionConfiguration [
+GtPhlowViewTesterFailure >> gtExceptionDebuggerSpecification [
 	"Enable the debugging extension for this assertion failure"
-	^ super gtDebuggingExtensionConfiguration
-		enableDebuggingViewExtension: [ true ] 
+	^ super gtExceptionDebuggerSpecification
+		enableWhen: [ true ] 
 ]
