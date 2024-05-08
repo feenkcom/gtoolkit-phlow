@@ -108,7 +108,7 @@ GtPhlowCompositeView >> gtContainedViewsFor: aView [
 { #category : #accessing }
 GtPhlowCompositeView >> views [
 	<return: #Array of: #GtPhlowView>
-	^ views
+	^ views ifNil: [ #() ]
 ]
 
 { #category : #accessing }
