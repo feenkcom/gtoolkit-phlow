@@ -4,19 +4,43 @@ Class {
 	#instVars : [
 		'name',
 		'description',
-		'value'
+		'value',
+		'isValueException'
 	],
 	#category : #'GToolkit-Phlow-Convenience and Utilities'
 }
 
+{ #category : #initalization }
+GtPhlowOverviewItem >> beComputedValue [
+	isValueException := false
+]
+
+{ #category : #initalization }
+GtPhlowOverviewItem >> beExceptionValue [
+	isValueException := true
+]
+
 { #category : #accessing }
 GtPhlowOverviewItem >> description [
-	^ description ifNil: [ description := '' ]
+	^ description
+		ifNil: [ description := self value gtDisplayText.
+			self isValueException
+				ifTrue: [ description foreground: BrGlamorousColors errorBackgroundColor ].
+			description ]
 ]
 
 { #category : #accessing }
 GtPhlowOverviewItem >> description: anObject [
 	description := anObject
+]
+
+{ #category : #printing }
+GtPhlowOverviewItem >> gtDisplayOn: stream [
+	name ifNil: [ ^ super gtDisplayOn: stream ].
+
+	self name asString gtDisplayOn: stream.
+	stream nextPutAll: ': '.
+	self description asString gtDisplayOn: stream
 ]
 
 { #category : #convenience }
@@ -33,6 +57,17 @@ GtPhlowOverviewItem >> if: aBoolean subduedDescription: aStringOrBlText [
 	self description: aText 
 ]
 
+{ #category : #convenience }
+GtPhlowOverviewItem >> ifExceptionValueDescription: aDescriptionBlock [
+	self isValueException ifFalse: [ ^ self ].
+	self description: (aDescriptionBlock value: self value)
+]
+
+{ #category : #testing }
+GtPhlowOverviewItem >> isValueException [
+	^ isValueException ifNil: [ false ]
+]
+
 { #category : #accessing }
 GtPhlowOverviewItem >> name [
 	^ name ifNil: [ name := '' ]
@@ -41,6 +76,28 @@ GtPhlowOverviewItem >> name [
 { #category : #accessing }
 GtPhlowOverviewItem >> name: anObject [
 	name := anObject
+]
+
+{ #category : #printing }
+GtPhlowOverviewItem >> printOn: aStream [
+	super printOn: aStream.
+	name ifNil: [ ^ self ].
+
+	aStream
+		nextPut: $(;
+		print: self name asString;
+		nextPutAll: ': ';
+		print: self description asString
+]
+
+{ #category : #convenience }
+GtPhlowOverviewItem >> secureValue: aValuable [
+	[ self value: aValuable value.
+	self beComputedValue ]
+		on: Error
+		do: [ :anException | 
+			self value: (GtMagritteActionUtility freeze: anException).
+			self beExceptionValue ]
 ]
 
 { #category : #convenience }
