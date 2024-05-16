@@ -17,7 +17,7 @@ GtPhlowListTextualLinkBuilder >> buildDefault [
 	^ BrButton new
 		aptitude: (BrGlamorousLinkButtonWithLabelAptitude new);
 		alignCenterLeft;
-		hMatchParent;
+		hFitContent;
 		vFitContent;
 		action: [ :aButton :aButtonModel |
 			| aCellObject anObjectToSpawn |
