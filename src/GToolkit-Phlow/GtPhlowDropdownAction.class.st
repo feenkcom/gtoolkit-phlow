@@ -7,7 +7,8 @@ Class {
 		'action',
 		'name',
 		'contentStencilBuilder',
-		'preferredExtent'
+		'preferredExtent',
+		'whenResizedHandler'
 	],
 	#category : #'GToolkit-Phlow-! Actions'
 }
@@ -113,11 +114,16 @@ GtPhlowDropdownAction >> newDropdownLookFor: aDropdown targetElement: aTargetEle
 					yourself ]
 			content: [ self
 					newContentForDropdown: aDropdown
-					targetElement: aTargetElement ].
+					targetElement: aTargetElement ]
+			aptitudeDo: [ :anAnchoredAptitude | ].
 					
-	preferredExtent ifNotNil: [ :anExtent |
-		anAptitude preferredExtent: anExtent ].
-					
+	preferredExtent ifNotNil: [ :anExtentOrValuable |
+		anAptitude preferredExtent: anExtentOrValuable value ].
+		
+	whenResizedHandler ifNotNil: [ :aHandler |
+		anAptitude whenResizedDo: [ :anEvent |
+			aHandler cull: anEvent cull: anAptitude ] ].
+	
 	^ anAptitude
 ]
 
@@ -135,4 +141,30 @@ GtPhlowDropdownAction >> preferredExtent: aPoint [
 	to place the dropdown contents inside of the space bounds."
 
 	preferredExtent := aPoint
+]
+
+{ #category : #accessing }
+GtPhlowDropdownAction >> preferredExtentFrom: anObject [
+	self
+		preferredExtentFrom: anObject
+		read: #preferredExtent
+		write: #preferredExtent:
+]
+
+{ #category : #accessing }
+GtPhlowDropdownAction >> preferredExtentFrom: aConfiguration read: aReadSelector write: aWriteSelector [
+	"Read and store a dropdown extent from aConfiguration object, using aReadSelector and aWriteSelector."
+
+	self preferredExtent: [ aConfiguration perform: aReadSelector ].
+	self whenResizedDo: [ :anEvent :anAptitude | 
+		anAptitude preferredExtent: anEvent extent.
+		aConfiguration perform: aWriteSelector with: anEvent extent ]
+]
+
+{ #category : #accessing }
+GtPhlowDropdownAction >> whenResizedDo: aHandler [
+	"Handler receives a resized event {{gtClass: BlResizerResizedEvent }} 
+	and a dropdown aptitude {{gtClass: BrGlamorousWithDropdownAptitude }}"
+
+	whenResizedHandler := aHandler
 ]
