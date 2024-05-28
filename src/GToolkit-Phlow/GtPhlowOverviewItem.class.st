@@ -58,6 +58,12 @@ GtPhlowOverviewItem >> if: aBoolean subduedDescription: aStringOrBlText [
 ]
 
 { #category : #convenience }
+GtPhlowOverviewItem >> ifComputedValueDescription: aDescriptionBlock [
+	self isValueException ifTrue: [ ^ self ].
+	self description: (aDescriptionBlock value: self value)
+]
+
+{ #category : #convenience }
 GtPhlowOverviewItem >> ifExceptionValueDescription: aDescriptionBlock [
 	self isValueException ifFalse: [ ^ self ].
 	self description: (aDescriptionBlock value: self value)
