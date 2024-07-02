@@ -15,6 +15,11 @@ GtPhlowButtonAction >> action: aValuable [
 	action := aValuable
 ]
 
+{ #category : #accessing }
+GtPhlowButtonAction >> actionBlock [
+	^ action
+]
+
 { #category : #converting }
 GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	<return: #BrButton>

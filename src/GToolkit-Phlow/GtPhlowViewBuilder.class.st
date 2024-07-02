@@ -4,9 +4,10 @@ Class {
 	#traits : 'TGtPhlowViewAccessor + TGtPhlowContextAccessor',
 	#classTraits : 'TGtPhlowViewAccessor classTrait + TGtPhlowContextAccessor classTrait',
 	#instVars : [
-		'object'
+		'object',
+		'actionsSelector'
 	],
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #testing }
@@ -17,7 +18,25 @@ GtPhlowViewBuilder class >> isAbstract [
 { #category : #actions }
 GtPhlowViewBuilder >> actions [ 
 	<return: #Array of: #GtPhlowAction>
-	^ self object gtActions
+	
+	^ thisContext
+		object: self object 
+		perform: self actionsSelector
+		withArguments: {self context}
+		inClass: self object  class
+		
+	"^ self object gtActions"
+]
+
+{ #category : #accessing }
+GtPhlowViewBuilder >> actionsSelector [
+	^ actionsSelector ifNil: [
+		self defaultActionsSelector ]
+]
+
+{ #category : #accessing }
+GtPhlowViewBuilder >> actionsSelector: aSelector [
+	actionsSelector := aSelector
 ]
 
 { #category : #actions }
@@ -48,6 +67,11 @@ GtPhlowViewBuilder >> build [
 GtPhlowViewBuilder >> buildView [
 	<return: #GtPhlowView>
 	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+GtPhlowViewBuilder >> defaultActionsSelector [
+	^ #gtActionsInContext:
 ]
 
 { #category : #initialization }
