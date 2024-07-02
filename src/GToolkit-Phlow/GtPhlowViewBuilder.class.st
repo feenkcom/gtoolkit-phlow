@@ -34,6 +34,11 @@ GtPhlowViewBuilder >> actionsSelector [
 		self defaultActionsSelector ]
 ]
 
+{ #category : #accessing }
+GtPhlowViewBuilder >> actionsSelector: aSelector [
+	actionsSelector := aSelector
+]
+
 { #category : #actions }
 GtPhlowViewBuilder >> addActionsInto: aView [
 	self actions

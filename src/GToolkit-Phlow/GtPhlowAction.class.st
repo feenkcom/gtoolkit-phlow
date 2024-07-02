@@ -62,6 +62,11 @@ GtPhlowAction >> definingMethod: anObject [
 	definingMethod := anObject
 ]
 
+{ #category : #accessing }
+GtPhlowAction >> definingSelector [
+	^ self definingMethod selector
+]
+
 { #category : #decorating }
 GtPhlowAction >> dropdown [
 	^ GtPhlowDropdownAction new
@@ -131,6 +136,7 @@ GtPhlowAction >> id: anElementId [
 { #category : #initialization }
 GtPhlowAction >> initialize [
 	super initialize.
+	
 	target := self defaultTarget.
 	priority := self defaultPriority.
 	self initializeTooltipBuilder
