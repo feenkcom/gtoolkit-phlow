@@ -7,14 +7,21 @@ Class {
 		'to',
 		'from',
 		'object',
-		'pragmaNames'
+		'pragmaNames',
+		'argumentMatchingBlockClosure'
 	],
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #sorting }
 GtPhlowCollector class >> sortByPriority: aCollection [
 	GtPhlowUtility sortByPriority: aCollection
+]
+
+{ #category : #accessing }
+GtPhlowCollector >> argumentMatchingBlockClosure [
+	^ argumentMatchingBlockClosure ifNil: [ 
+		[ :aPragma | true] ]
 ]
 
 { #category : #actions }
@@ -28,13 +35,15 @@ GtPhlowCollector >> collect [
 GtPhlowCollector >> collectAllPragmas [
 	"I collect all pragmas, including overriden methods."
 	<return: #Collection of: #Pragma>
-	^ self pragmaNames 
+	^ (self pragmaNames 
 		flatCollect: [ :eachPragmaName |
 			Pragma
 				allNamed: eachPragmaName
 				from: self from
 				to: self to ] 
-		as: OrderedCollection.
+		as: OrderedCollection)
+			select: [ :aPragma |
+				self argumentMatchingBlockClosure value: aPragma ] 
 ]
 
 { #category : #private }
@@ -105,6 +114,11 @@ GtPhlowCollector >> justBelowTheObject [
 	anIndex := theSuperClasses indexOf: Object ifAbsent: [ ^ self ].
 	anIndex = 1 ifTrue: [ self to: Object. ^ self ].
 	self to: (theSuperClasses at: anIndex - 1)
+]
+
+{ #category : #accessing }
+GtPhlowCollector >> matchingArguments: anArgumentMatchingBlockClosure [
+	argumentMatchingBlockClosure := anArgumentMatchingBlockClosure
 ]
 
 { #category : #accessing }
