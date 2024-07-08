@@ -52,6 +52,13 @@ GtPhlowTaskItView >> definingMethod: aRGMethodDefinition [
 	^ self originalView definingMethod: aRGMethodDefinition
 ]
 
+{ #category : #accessing }
+GtPhlowTaskItView >> definingMethodProvider [
+	"Get a provider that knows how to return the method defining the view"
+	<return: #RGMethodDefinition>
+	^ self originalView definingMethodProvider
+]
+
 { #category : #converting }
 GtPhlowTaskItView >> ifItHasContent: aBlock [
 	self originalView ifItHasContent: aBlock
