@@ -133,6 +133,12 @@ GtPhlowProtoView >> definingMethod: aRGMethodDefinition [
 ]
 
 { #category : #accessing }
+GtPhlowProtoView >> definingMethodProvider [
+	"Get a provider that knows how to return the method defining the view"
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
 GtPhlowProtoView >> definingSelector [
 	^ self definingMethod selector
 ]

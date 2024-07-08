@@ -349,8 +349,12 @@ GtPhlowElementContext >> selectTool: aTool [
 
 { #category : #'api - events' }
 GtPhlowElementContext >> spawnDefiningMethod [
-	self entity
-		ifNotNil: [ :anEntity | anEntity definingMethod ifNotNil: [ :aMethod | self spawnObject: aMethod ] ]
+	self entity ifNotNil: [ :anEntity | 
+		anEntity definingMethod ifNotNil: [ :aMethod | 
+			self spawnObject: aMethod ].
+		anEntity definingMethodProvider ifNotNil: [ :aMethodProvider | 
+			aMethodProvider definingMethod ifNotNil: [ :aMethod | 
+				self spawnObject: aMethod ] ]  ]
 ]
 
 { #category : #'api - events' }

@@ -19,7 +19,8 @@ Class {
 		'phlowActions',
 		'autoUpdates',
 		'asyncEnabled',
-		'buildContext'
+		'buildContext',
+		'definingMethodProvider'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -468,6 +469,16 @@ GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 			isMetaSide: anObject class isMeta;
 			asActive ] 
 		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
+]
+
+{ #category : #accessing }
+GtPhlowView >> definingMethodProvider [
+	^ definingMethodProvider
+]
+
+{ #category : #accessing }
+GtPhlowView >> definingMethodProvider: aMethodProvider [
+	definingMethodProvider := aMethodProvider
 ]
 
 { #category : #'api - async ui building' }
