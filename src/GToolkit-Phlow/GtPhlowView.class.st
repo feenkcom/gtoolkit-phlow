@@ -374,7 +374,11 @@ GtPhlowView >> allDefiningMethods [
 	"I return an object that understands #gtSourceFor:.
 	I return all methods that are involved in a view definition."
 	<return: #RGMethodDefinition or: #GtPhlowDefiningMethods>
-	^ self definingMethod
+	
+	self definingMethod ifNotNil: [ :aMethod | 
+		^ aMethod ].
+	^ self definingMethodProvider ifNotNil: [ :aMethodProvider | 
+		aMethodProvider definingMethod  ] 
 ]
 
 { #category : #converting }
