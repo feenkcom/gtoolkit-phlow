@@ -66,6 +66,27 @@ GtPhlowColumnedTreeView >> buildColumnsInTree: aTree [
 			eachPhlowColumn configureColumn: aTree column ].
 ]
 
+{ #category : #'private - building' }
+GtPhlowColumnedTreeView >> buildHeaderForItems: theItems [
+	| aHeader exp |
+	aHeader := BlElement new.
+	aHeader
+		layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: self cellSpacing).
+	aHeader padding: (BlInsets top: 5 bottom: 5).
+	aHeader id: GtPhlowColumnedListHeaderId.
+	aHeader
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical fitContent ].	
+
+	"Add an invisible expander to the header to make spacing for columns correct"
+	exp := BrColumnedTreeRowElementStencilBuilder new createExpandCollapseElement.
+	exp visibility: BlVisibilityHidden new.
+	aHeader addChild: exp.
+	self buildHeaderItems: theItems inHeader: aHeader.
+	^ aHeader
+]
+
 { #category : #accessing }
 GtPhlowColumnedTreeView >> cellSpacing [
 	^ 10
