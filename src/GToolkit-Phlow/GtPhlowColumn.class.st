@@ -116,7 +116,7 @@ GtPhlowColumn >> defaultTitle [
 
 { #category : #defaults }
 GtPhlowColumn >> defaultWidth [
-	^ GtPhlowColumnProportionalWidth new
+	^ BrColumnProportionalWidth new
 ]
 
 { #category : #'private - accessing' }
@@ -196,7 +196,7 @@ GtPhlowColumn >> titleStencil: aStencil [
 GtPhlowColumn >> weight: aNumber [
 	"Make a column match parent with a given proportion as a number (usually between 0 and 1)"
 
-	width := GtPhlowColumnProportionalWidth new weight: aNumber
+	width := BrColumnProportionalWidth new weight: aNumber
 ]
 
 { #category : #'api - cell width' }
