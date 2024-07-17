@@ -363,7 +363,7 @@ GtPhlowColumnedListViewExamples >> columnedListViewColumnResizing [
 				// BrColumnedList;
 				satisfies: [ :list | 
 					list columns
-						allSatisfy: [ :each | each columnWidth isKindOf: GtPhlowColumnProportionalWidth ] ];
+						allSatisfy: [ :each | each columnWidth isKindOf: BrColumnProportionalWidth ] ];
 				onSelf ].
 	scripter
 		substep: 'Move first column resizer'
@@ -380,7 +380,7 @@ GtPhlowColumnedListViewExamples >> columnedListViewColumnResizing [
 				// BrColumnedList;
 				satisfies: [ :list | 
 					(list columns first columnWidth isKindOf: BrColumnFixedWidth)
-						and: [ list columns second columnWidth isKindOf: GtPhlowColumnProportionalWidth ] ];
+						and: [ list columns second columnWidth isKindOf: BrColumnProportionalWidth ] ];
 				onSelf ].
 	^ scripter
 ]
