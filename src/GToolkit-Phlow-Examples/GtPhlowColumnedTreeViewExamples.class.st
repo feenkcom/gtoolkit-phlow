@@ -6,6 +6,41 @@ Class {
 	#category : #'GToolkit-Phlow-Examples-Views'
 }
 
+{ #category : #accessing }
+GtPhlowColumnedTreeViewExamples >> columnedTreeViewColumnResizing [
+	<gtExample>
+	| scripter |
+	scripter := BlScripter new.
+	scripter element: self columnedTreeViewWithItemsAndChildren asElement.
+	scripter
+		assertStep: [ :s | 
+			s
+				label: 'Check initial column widths';
+				// BrColumnedTree;
+				satisfies: [ :tree | 
+					tree columns
+						allSatisfy: [ :each | each columnWidth isKindOf: GtPhlowColumnProportionalWidth ] ];
+				onSelf ].
+	scripter
+		substep: 'Move first column resizer'
+		do: [ :aStep | 
+			aStep mouseMoveOver id: #'x-resizer'.
+			aStep mouseDown.
+			aStep mouseMove by: -50 @ 0.
+			aStep mouseUp.
+			aStep play ].
+	scripter
+		assertStep: [ :s | 
+			s
+				label: 'Check moved column widths';
+				// BrColumnedTree;
+				satisfies: [ :tree | 
+					(tree columns first columnWidth isKindOf: BrColumnFixedWidth)
+						and: [ tree columns second columnWidth isKindOf: GtPhlowColumnProportionalWidth ] ];
+				onSelf ].
+	^ scripter
+]
+
 { #category : #'examples - columned tree view' }
 GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItems [
 	<gtExample>
