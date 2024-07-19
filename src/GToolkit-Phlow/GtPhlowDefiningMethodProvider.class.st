@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #accessing }
+GtPhlowDefiningMethodProvider >> allDefiningMethods [
+	^ self definingMethod
+]
+
+{ #category : #accessing }
 GtPhlowDefiningMethodProvider >> definingMethod [
 	^ self subclassResponsibility
 ]

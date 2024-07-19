@@ -375,10 +375,10 @@ GtPhlowView >> allDefiningMethods [
 	I return all methods that are involved in a view definition."
 	<return: #RGMethodDefinition or: #GtPhlowDefiningMethods>
 	
-	self definingMethod ifNotNil: [ :aMethod | 
-		^ aMethod ].
-	^ self definingMethodProvider ifNotNil: [ :aMethodProvider | 
-		aMethodProvider definingMethod  ] 
+	^ self definingMethodProvider 
+		ifNil: [ definingMethod ]
+		ifNotNil: [ :aMethodProvider | 
+			aMethodProvider allDefiningMethods  ].
 ]
 
 { #category : #converting }
@@ -454,12 +454,16 @@ GtPhlowView >> defaultUpdateDefinitions [
 
 { #category : #accessing }
 GtPhlowView >> definingMethod [
-	^ definingMethod
+	^ self definingMethodProvider 
+		ifNil: [ definingMethod ]
+		ifNotNil: [ :aMethodProvider | 
+			aMethodProvider definingMethod  ].
 ]
 
 { #category : #accessing }
 GtPhlowView >> definingMethod: anObject [
-	definingMethod := anObject
+	definingMethodProvider := GtPhlowConcreteDefiningMethodProvider new
+		definingMethod: anObject
 ]
 
 { #category : #'error handling' }
@@ -619,7 +623,8 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withSomeArguments: aCollecti
 
 { #category : #'accessing - computed' }
 GtPhlowView >> originMethodsInto: aStream [
-	self definingMethod gtOriginMethodsInto: aStream
+	self definingMethod ifNotNil: [ :aMethod | 
+		aMethod gtOriginMethodsInto: aStream ]
 ]
 
 { #category : #'error handling' }

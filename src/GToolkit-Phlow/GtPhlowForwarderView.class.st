@@ -50,13 +50,6 @@ GtPhlowForwarderView >> allActionsPromise [
 	^ self phlowView then: [ :aPhlowView | aPhlowView allActionsPromise then: [ :allActions | allActions, self actions ] ]
 ]
 
-{ #category : #'accessing - computed' }
-GtPhlowForwarderView >> allDefiningMethods [
-	^ GtPhlowDefiningMethods new 
-		 methods: (Array streamContents: [ :aStream | 
-			self originMethodsInto: aStream ])
-]
-
 { #category : #private }
 GtPhlowForwarderView >> computeTargetViewForObject: aForwardedObject [
 	| aView |
@@ -71,6 +64,13 @@ GtPhlowForwarderView >> defaultTitle [
 	^ 'Forwarded'
 ]
 
+{ #category : #accessing }
+GtPhlowForwarderView >> definingMethod: aMethod [
+	definingMethodProvider := GtPhlowForwardViewDefiningMethodProvider new
+		phlowForwardView: self;
+		definingMethod: aMethod
+]
+
 { #category : #initialization }
 GtPhlowForwarderView >> initialize [
 	super initialize.
@@ -81,7 +81,9 @@ GtPhlowForwarderView >> initialize [
 { #category : #'accessing - computed' }
 GtPhlowForwarderView >> originMethodsInto: aStream [
 	super originMethodsInto: aStream.
-	self phlowView wait originMethodsInto: aStream
+	
+	self phlowView wait 
+		originMethodsInto: aStream
 ]
 
 { #category : #'private - elements' }
