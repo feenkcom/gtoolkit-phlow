@@ -350,6 +350,41 @@ GtPhlowColumnedListViewExamples >> columnItemView [
 	^ aView
 ]
 
+{ #category : #accessing }
+GtPhlowColumnedListViewExamples >> columnedListViewColumnResizing [
+	<gtExample>
+	| scripter |
+	scripter := BlScripter new.
+	scripter element: self viewWithItems asElement.
+	scripter
+		assertStep: [ :s | 
+			s
+				label: 'Check initial column widths';
+				// BrColumnedList;
+				satisfies: [ :list | 
+					list columns
+						allSatisfy: [ :each | each columnWidth isKindOf: BrColumnProportionalWidth ] ];
+				onSelf ].
+	scripter
+		substep: 'Move first column resizer'
+		do: [ :aStep | 
+			aStep mouseMoveOver id: #'x-resizer'.
+			aStep mouseDown.
+			aStep mouseMove by: -50 @ 0.
+			aStep mouseUp.
+			aStep play ].
+	scripter
+		assertStep: [ :s | 
+			s
+				label: 'Check moved column widths';
+				// BrColumnedList;
+				satisfies: [ :list | 
+					(list columns first columnWidth isKindOf: BrColumnFixedWidth)
+						and: [ list columns second columnWidth isKindOf: BrColumnProportionalWidth ] ];
+				onSelf ].
+	^ scripter
+]
+
 { #category : #'examples - text' }
 GtPhlowColumnedListViewExamples >> columnedListWithHorizontalScrolling [
 	<gtExample>
