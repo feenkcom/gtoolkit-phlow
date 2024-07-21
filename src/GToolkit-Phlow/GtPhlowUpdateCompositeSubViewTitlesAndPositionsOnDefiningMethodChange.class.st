@@ -26,8 +26,8 @@ GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> handleM
 	
 	self views ifNotNil: [ :currentViews |
 		currentViews do: [ :eachView | 
-			(eachView definingMethod isNotNil and: [ 
-				eachView definingMethod 
+			(eachView definingMethodProvider isNotNil and: [ 
+				eachView definingMethodProvider
 					gtPhlowIncludesCompiledMethod: aMethodModified methodAffected ]) ifTrue: [ 
 						^ self updateSubView: eachView ] ] ].
 ]

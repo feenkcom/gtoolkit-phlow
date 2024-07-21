@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'definitions'
 	],
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #'api - adding' }
@@ -54,6 +54,11 @@ GtPhlowUpdateDefinitions >> removeOfClass: aClass [
 	self definitions 
 		removeAllSuchThat: [ :eachDefinition | 
 			eachDefinition class = aClass ]
+]
+
+{ #category : #accessing }
+GtPhlowUpdateDefinitions >> removeUpdateOnMethodChanged [
+	self removeOfClass: GtPhlowUpdateViewOnDefiningMethodChange.
 ]
 
 { #category : #copying }

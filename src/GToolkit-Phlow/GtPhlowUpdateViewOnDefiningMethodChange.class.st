@@ -23,6 +23,7 @@ GtPhlowUpdateViewOnDefiningMethodChange >> handleMethodModifiedAnnouncement: aMe
 { #category : #subscriptions }
 GtPhlowUpdateViewOnDefiningMethodChange >> subscribeOn: aGtPhlowElementContext [
 	self hasDefiningMethod ifFalse: [ ^ self ].
+	
 	self addContext: aGtPhlowElementContext.
 	self setSubscribedIfAlreadySubscribedDo: [ ^ self ].
 	self

@@ -26,10 +26,14 @@ GtPhlowBrowseDefinitionAptitude >> handleMouseDown: anEvent [
 			self
 				widgetDo: [ :aWidget | 
 					anEvent consumed: true.
-					aWidget phlow spawnObject: definitionComputation value ] ]
-		ifNone: [ self
-				spawnPagerFor: (GtInspector newOn: definitionComputation value)
-				withTitle: definitionComputation value method name ]
+					aWidget phlow 
+						spawnObject: definitionComputation value ] ]
+		ifNone: [ 
+			| definingMethod |
+			definingMethod := definitionComputation value.
+			self
+				spawnPagerFor: (GtInspector newOn: definingMethod)
+				withTitle: definingMethod method name ]
 ]
 
 { #category : #initialization }
