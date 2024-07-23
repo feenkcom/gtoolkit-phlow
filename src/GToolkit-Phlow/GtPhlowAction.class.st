@@ -36,6 +36,28 @@ GtPhlowAction >> attachShowDefinitionEventHandler: element [
 		definition: [ self definingMethod ]).
 ]
 
+{ #category : #'message performing' }
+GtPhlowAction >> basicOn: anObject perform: aMessageSymbol withArguments: aCollectionOfArguments [
+	<return: #GtPhlowAction>
+	<gtCollector>
+	| phlowAction |
+	
+	phlowAction := thisContext
+		object: anObject
+		perform: aMessageSymbol
+		withArguments: aCollectionOfArguments
+		inClass: anObject class.
+		
+	phlowAction = self ifTrue: [
+		Error signal: 'Cannot return the same action'.
+		"GtPhlowViewsCollectorSameViewError 
+			signalForViewSelector: aMessageSymbol
+			fromObject: anObject" ].
+			
+	"phlowAction object: anObject arguments: aCollectionOfArguments."
+	^ phlowAction
+]
+
 { #category : #decorating }
 GtPhlowAction >> button [
 	^ GtPhlowButtonAction new
@@ -62,6 +84,20 @@ GtPhlowAction >> definingMethod: anObject [
 	definingMethod := anObject
 ]
 
+{ #category : #'error handling' }
+GtPhlowAction >> definingMethodForObject: anObject andSelector: aMessageSymbol [
+	| aNilOrClassName |
+	aNilOrClassName := anObject class 
+		whichClassIncludesSelector: aMessageSymbol.
+	^ aNilOrClassName 
+		ifNil: [ RGMethodDefinition new 
+			name: aMessageSymbol;
+			parentName: anObject class name;
+			isMetaSide: anObject class isMeta;
+			asActive ] 
+		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
+]
+
 { #category : #accessing }
 GtPhlowAction >> definingSelector [
 	^ self definingMethod selector
@@ -78,6 +114,11 @@ GtPhlowAction >> empty [
 	"Convenience --by analogy with views"
 
 	^ self noAction
+]
+
+{ #category : #'private - message performing' }
+GtPhlowAction >> ensureContext [
+	^ GtPhlowContext new
 ]
 
 { #category : #decorating }
@@ -169,9 +210,106 @@ GtPhlowAction >> noAction [
 		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
+{ #category : #'message performing' }
+GtPhlowAction >> on: anObject perform: aMessageSymbol [
+	<return: #GtPhlowAction>
+	<gtCollector>
+	
+	^ self 
+		on: anObject 
+		perform: aMessageSymbol 
+		withSomeArguments: { 
+			  self.
+			  self ensureContext }
+]
+
+{ #category : #'message performing' }
+GtPhlowAction >> on: anObject perform: aMessageSymbol withArguments: aCollectionOfArguments [
+	<return: #GtPhlowAction>
+	<gtCollector>
+	
+	^ [ 
+			self 
+				basicOn: anObject 
+				perform: aMessageSymbol 
+				withArguments: aCollectionOfArguments
+	
+	] on: Error do: [ :anException |
+		
+			NonInteractiveTranscript stdout
+				nextPut: $[;
+				nextPutAll: self class name;
+				nextPut: $];
+				space;
+				print: anException;
+				cr.
+			
+			self 
+				phlowErrorActionWithException: anException 
+				forBuildContext: (GtPhlowBuildContext new 
+					object: anObject; 
+					arguments: aCollectionOfArguments) 
+				andSelector: aMessageSymbol ]
+]
+
+{ #category : #'message performing' }
+GtPhlowAction >> on: anObject perform: aMessageSymbol withContext: aContext [
+	<return: #GtPhlowAction>
+	<gtCollector>
+	
+	^ self 
+		on: anObject 
+		perform: aMessageSymbol 
+		withSomeArguments: { self. aContext }
+]
+
+{ #category : #'message performing' }
+GtPhlowAction >> on: anObject perform: aMessageSymbol withSomeArguments: aCollectionOfArguments [
+	<return: #GtPhlowAction>
+	<gtCollector>
+	| aNewCollectionOfArguments |
+	
+	aCollectionOfArguments size = aMessageSymbol numArgs ifTrue: [ 
+		^ self 
+			on: anObject 
+			perform: aMessageSymbol 
+			withArguments: aCollectionOfArguments ].
+			
+	aNewCollectionOfArguments := aCollectionOfArguments 
+		copyFrom: 1 
+		to: aMessageSymbol numArgs.
+		
+	^ self 
+		on: anObject 
+		perform: aMessageSymbol 
+		withArguments: aNewCollectionOfArguments
+]
+
 { #category : #'api - action' }
 GtPhlowAction >> performActionOn: anActionElement [
 	self subclassResponsibility
+]
+
+{ #category : #'message performing' }
+GtPhlowAction >> phlowErrorActionWithException: anException [
+	
+	anException freeze.
+	
+	^ GtPhlowActionWithError new
+		error: anException
+]
+
+{ #category : #'message performing' }
+GtPhlowAction >> phlowErrorActionWithException: anException  forBuildContext: aContext andSelector: aMessageSymbol [
+	| aDefiningMethod phlowErrorAction | 
+	
+	aDefiningMethod := self 
+		definingMethodForObject: aContext object andSelector: aMessageSymbol. 
+	phlowErrorAction := self phlowErrorActionWithException: anException.
+	phlowErrorAction definingMethod: aDefiningMethod.
+	"phlowErrorAction buildContext: aContext."
+	
+	^ phlowErrorAction
 ]
 
 { #category : #accessing }

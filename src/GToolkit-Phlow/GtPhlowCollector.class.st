@@ -51,12 +51,15 @@ GtPhlowCollector >> collectPragmas [
 	"I exclude overriden methods"
 	<return: #Collection of: #Pragma>
 	| allPragmas overridenPragmas |
+	
 	allPragmas := self collectAllPragmas.
 	overridenPragmas := allPragmas 
 		groupedBy: [ :aPragma | aPragma methodSelector ] 
 		having: [ :aCollection | aCollection size > 1 ].
+		
 	overridenPragmas keysAndValuesDo: [ :aSelector :thePragmas | 
 		self removeOverridenPragmas: thePragmas from: allPragmas ].
+		
 	^ allPragmas
 ]
 

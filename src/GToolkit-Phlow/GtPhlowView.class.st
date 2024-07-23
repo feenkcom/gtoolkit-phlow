@@ -469,9 +469,10 @@ GtPhlowView >> definingMethod: anObject [
 { #category : #'error handling' }
 GtPhlowView >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 	| aNilOrClassName |
-	aNilOrClassName := anObject class whichClassIncludesSelector: aMessageSymbol.
+	aNilOrClassName := anObject class 
+		whichClassIncludesSelector: aMessageSymbol.
 	^ aNilOrClassName 
-		ifNil: [	RGMethodDefinition new 
+		ifNil: [ RGMethodDefinition new 
 			name: aMessageSymbol;
 			parentName: anObject class name;
 			isMetaSide: anObject class isMeta;
@@ -571,10 +572,13 @@ GtPhlowView >> methodSelector [
 
 { #category : #'message performing' }
 GtPhlowView >> on: anObject perform: aMessageSymbol [
-
 	<return: #GtPhlowView>
 	<gtCollector>
-	^ self on: anObject perform: aMessageSymbol withSomeArguments: { 
+	
+	^ self 
+		on: anObject 
+		perform: aMessageSymbol 
+		withSomeArguments: { 
 			  self.
 			  self ensureContext }
 ]
@@ -584,7 +588,11 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOf
 	<return: #GtPhlowView>
 	<gtCollector>
 	^ [ 
-			self basicOn: anObject perform: aMessageSymbol withArguments: aCollectionOfArguments
+			self 
+				basicOn: anObject 
+				perform: aMessageSymbol 
+				withArguments: aCollectionOfArguments
+				
 	] on: Error do: [ :anException |
 		
 			NonInteractiveTranscript stdout
@@ -607,7 +615,11 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOf
 GtPhlowView >> on: anObject perform: aMessageSymbol withContext: aContext [
 	<return: #GtPhlowView>
 	<gtCollector>
-	^ self on: anObject perform: aMessageSymbol withSomeArguments: { self. aContext }
+	
+	^ self 
+		on: anObject 
+		perform: aMessageSymbol 
+		withSomeArguments: { self. aContext }
 ]
 
 { #category : #'message performing' }
@@ -615,10 +627,21 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withSomeArguments: aCollecti
 	<return: #GtPhlowView>
 	<gtCollector>
 	| aNewCollectionOfArguments |
+	
 	aCollectionOfArguments size = aMessageSymbol numArgs ifTrue: [ 
-		^ self on: anObject perform: aMessageSymbol withArguments: aCollectionOfArguments ].
-	aNewCollectionOfArguments := aCollectionOfArguments copyFrom: 1 to: aMessageSymbol numArgs.
-	^ self on: anObject perform: aMessageSymbol withArguments: aNewCollectionOfArguments
+		^ self 
+			on: anObject 
+			perform: aMessageSymbol 
+			withArguments: aCollectionOfArguments ].
+			
+	aNewCollectionOfArguments := aCollectionOfArguments 
+		copyFrom: 1 
+		to: aMessageSymbol numArgs.
+		
+	^ self 
+		on: anObject 
+		perform: aMessageSymbol 
+		withArguments: aNewCollectionOfArguments
 ]
 
 { #category : #'accessing - computed' }
@@ -667,12 +690,12 @@ GtPhlowView >> phlowErrorViewWithException: anException [
 
 { #category : #'error handling' }
 GtPhlowView >> phlowErrorViewWithException: anException  forBuildContext: aContext andSelector: aMessageSymbol [
-	| aDefiningMethod aPhlow | 
+	| aDefiningMethod phlowErrorAction | 
 	aDefiningMethod := self definingMethodForObject: aContext object andSelector: aMessageSymbol. 
-	aPhlow := self phlowErrorViewWithException: anException.
-	aPhlow definingMethod: aDefiningMethod.
-	aPhlow buildContext: aContext.
-	^ aPhlow
+	phlowErrorAction := self phlowErrorViewWithException: anException.
+	phlowErrorAction definingMethod: aDefiningMethod.
+	phlowErrorAction buildContext: aContext.
+	^ phlowErrorAction
 ]
 
 { #category : #accessing }
