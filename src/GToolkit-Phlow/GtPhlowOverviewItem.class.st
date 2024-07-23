@@ -20,6 +20,14 @@ GtPhlowOverviewItem >> beExceptionValue [
 	isValueException := true
 ]
 
+{ #category : #convenience }
+GtPhlowOverviewItem >> boolean: aBoolean [
+	self value: aBoolean.
+	aBoolean
+		ifTrue: [ self description: 'yes' asRopedText ]
+		ifFalse: [ self description: ('no' asRopedText foreground: BrGlamorousColors disabledButtonTextColor) ]
+]
+
 { #category : #accessing }
 GtPhlowOverviewItem >> description [
 	^ description
