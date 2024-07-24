@@ -227,6 +227,11 @@ GtPhlowElementContext >> firstPopupContainerParentDo: aBlock ifNone: aNoneBlock 
 ]
 
 { #category : #accessing }
+GtPhlowElementContext >> forwardViewObjectFromViewAction [
+	^ self firstParentWithView content phlow firstChildWithView phlow entity viewObject wait object
+]
+
+{ #category : #accessing }
 GtPhlowElementContext >> gtActionSourceFor: aView [
 	<gtView>
 	self isAction ifFalse: [ ^ aView empty ].

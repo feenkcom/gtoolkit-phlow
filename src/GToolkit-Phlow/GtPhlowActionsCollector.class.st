@@ -15,26 +15,16 @@ GtPhlowActionsCollector >> collect [
 	<return: #Array of: #GtPhlowAction>
 	<gtCollector>
 	| anActions |
+	
 	anActions := self sortedPragmas 
 		collect: [ :eachPragma | 
-			| anAction arguments |
-			anAction := GtPhlowAction noAction.
-			arguments := eachPragma methodSelector numArgs = 1 
-				ifTrue: [ {anAction } ]
-				ifFalse: [ {anAction. self context} ].
-			[ thisContext
-						object: self object
-						perform: eachPragma methodSelector
-						withArguments: arguments
-						inClass: self object class ]
-				on: Error
-				do: [ :error |
-					error freeze.
-					GtPhlowActionWithError new 
-						definingMethod: eachPragma method asRingDefinition;
-						error: error ] ]
+			GtPhlowAction noAction  
+				on: self object 
+				perform: eachPragma methodSelector
+				withContext: self context  ]
 		thenSelect: self selectUsing.
 	self sortByPriority: anActions.
+	
 	^ anActions
 ]
 

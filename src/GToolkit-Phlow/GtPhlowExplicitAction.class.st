@@ -12,13 +12,16 @@ GtPhlowExplicitAction >> asElement: aBlock withHostElement: aTargetElement [
 	| anElement |
 	anElement := [ 
 		self newExplicitElementWithTargetElement: aTargetElement.
-	]	on: Error
-		do: [ :anError | 
+	] 
+		on: Error do: [ :anError | 
 			self 
 				newErrorElementFor: anError 
 				targetElement: aTargetElement ].
 	id ifNotNil: [ anElement id: self id ].
+	
 	self attachShowDefinitionEventHandler: anElement.
+	self attachTooltipFor: anElement hostElement: aTargetElement.
+	
 	^ aBlock value: anElement
 ]
 
