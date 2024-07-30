@@ -21,7 +21,8 @@ GtPhlowLabelledViewBuilder >> buildView [
 GtPhlowLabelledViewBuilder >> title [
 	^ titleComputation 
 		ifNil: [ self object gtInspectorTitleString ] 
-		ifNotNil: [ :aComputation | aComputation value ]
+		ifNotNil: [ :aComputation | 
+			aComputation cull: self object ]
 ]
 
 { #category : #accessing }
