@@ -38,11 +38,6 @@ GtPhlowViewTester >> assertObject: anObject withViewsSelector: aViewsSelector [
 			perform: aViewsSelector
 			withArguments: {GtPhlowContext new}
 			inClass: anObject class)
-		
-		
-		"(anObject 
-			perform: aViewsSelector
-			with: GtPhlowContext new)"
 ]
 
 { #category : #asserting }
