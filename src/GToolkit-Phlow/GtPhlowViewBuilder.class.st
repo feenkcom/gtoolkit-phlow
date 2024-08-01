@@ -77,6 +77,7 @@ GtPhlowViewBuilder >> defaultActionsSelector [
 { #category : #initialization }
 GtPhlowViewBuilder >> initialize [
 	super initialize.
+	
 	self initializePhlowContext.
 	self initializePhlowView.
 ]
