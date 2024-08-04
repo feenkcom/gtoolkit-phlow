@@ -90,6 +90,13 @@ GtPhlowAbstractTool >> extractSelectionStateFromElement: aToolElement [
 		yourself
 ]
 
+{ #category : #accessing }
+GtPhlowAbstractTool >> gtDefaultInspectorTool [
+	^ GtPhlowCompositeTool new
+		addTool: self;
+		addTool: super gtDefaultInspectorTool
+]
+
 { #category : #'gt-extension' }
 GtPhlowAbstractTool >> gtLiveFor: aView [
 	<gtView>
