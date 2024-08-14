@@ -5,7 +5,7 @@ Class {
 		'name',
 		'valuable'
 	],
-	#category : 'GToolkit-Phlow-Tool - Core'
+	#category : #'GToolkit-Phlow-Tool - Core'
 }
 
 { #category : #'api - converting' }
@@ -16,6 +16,7 @@ GtPhlowValuableTool >> asElementDo: aOneArgBlock [
 	self 
 		assert: [ anElement isKindOf: BlElement ] 
 		description: [ 'Valuable tool must create an element on #asElementDo: call' ].
+	
 	^ aOneArgBlock cull: anElement cull: self
 ]
 
