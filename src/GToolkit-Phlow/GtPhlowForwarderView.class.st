@@ -47,7 +47,7 @@ GtPhlowForwarderView >> allActionsPromise [
 	"I return all actions that belong to a view.
 	It may include actions of a other views in some cases"
 
-	^ self phlowView then: [ :aPhlowView | aPhlowView allActionsPromise then: [ :allActions | allActions, self actions ] ]
+	^ self phlowView asAsyncPromise then: [ :aPhlowView | aPhlowView allActionsPromise then: [ :allActions | allActions, self actions ] ]
 ]
 
 { #category : #private }
@@ -102,5 +102,5 @@ GtPhlowForwarderView >> updateContent: aCurrentElement [
 GtPhlowForwarderView >> views [
 	<return: #Array of: #GtPhlowView>
 
-	^ (self phlowView then: [ :aView | aView views ]) wait
+	^ (self phlowView map: [ :aView | aView views ]) wait
 ]

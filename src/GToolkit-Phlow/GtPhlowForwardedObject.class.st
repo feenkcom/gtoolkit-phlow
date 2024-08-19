@@ -5,11 +5,18 @@ We wrap the object to support forwarding to the low level objects of the futures
 Class {
 	#name : #GtPhlowForwardedObject,
 	#superclass : #Object,
+	#traits : 'TGtPhlowForwardedObject',
+	#classTraits : 'TGtPhlowForwardedObject classTrait',
 	#instVars : [
 		'object'
 	],
 	#category : #'GToolkit-Phlow-Support'
 }
+
+{ #category : #testing }
+GtPhlowForwardedObject >> isSuccess [
+	^ true
+]
 
 { #category : #accessing }
 GtPhlowForwardedObject >> object [

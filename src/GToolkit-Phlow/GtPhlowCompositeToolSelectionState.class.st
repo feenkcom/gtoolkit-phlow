@@ -14,6 +14,12 @@ GtPhlowCompositeToolSelectionState >> applySelectionStateInToolContainedIn: aTab
 	containedToolElement := aTabGroupElement content children first.
 	containedToolElement phlow isTool ifFalse: [ ^ self ].
 
+	GtPhlowApplyToolSelectionSignal new
+		toolElement: containedToolElement;
+		phlowView: containedToolElement phlow entity;
+		selectionState: selectedToolSelectionState;
+		emit.
+	
 	containedToolElement phlow entity
 		applySelectionState: selectedToolSelectionState
 		toElement: containedToolElement

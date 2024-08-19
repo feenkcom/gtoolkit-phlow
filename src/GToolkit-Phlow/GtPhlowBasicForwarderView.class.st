@@ -12,6 +12,12 @@ Class {
 	#category : #'GToolkit-Phlow-! Views'
 }
 
+{ #category : #accessing }
+GtPhlowBasicForwarderView class >> contentId [
+	<return: #BlElementId>
+	^ self subclassResponsibility
+]
+
 { #category : #testing }
 GtPhlowBasicForwarderView class >> isAbstract [
 	^ self name = #GtPhlowBasicForwarderView 
@@ -20,12 +26,12 @@ GtPhlowBasicForwarderView class >> isAbstract [
 { #category : #converting }
 GtPhlowBasicForwarderView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
-	| aPromiseElement |
+	| aFutureElement aFuture |
 	
-	aPromiseElement := BrFromPromise new.
-	self beViewElement: aPromiseElement.
+	aFutureElement := BrFromFuture new.
+	self beViewElement: aFutureElement.
 
-	aPromiseElement
+	aFutureElement
 		matchParent;
 		stencil: [ 
 			BrFrame new
@@ -65,9 +71,16 @@ GtPhlowBasicForwarderView >> asElementDo: aBlock [
 
 					aContainer addChild: aPendingLabel ] ].
 	
-	aPromiseElement promise: self phlowView.
+	aFuture := self phlowView.
+	aFutureElement future: aFuture.
 	
-	^ aBlock value: aPromiseElement
+	GtPhlowForwarderFutureElementSignal new
+		futureElement: aFutureElement;
+		future: aFuture;
+		phlowView: self;
+		emit.
+	
+	^ aBlock value: aFutureElement
 ]
 
 { #category : #accessing }
@@ -77,13 +90,23 @@ GtPhlowBasicForwarderView >> computeTargetViewForObject: aForwardedObject [
 
 { #category : #private }
 GtPhlowBasicForwarderView >> createPhlowView [
-	<return: #TAsyncPromise of: #GtPhlowView>
-	^ self viewObject
-		then: [ :aForwardedObject | 
-			self computeTargetViewForObject: aForwardedObject ]
-		otherwise: [ :anException | 
-			phlowView := (self phlowErrorViewWithException: anException) asAsyncPromise.
-			phlowView ]
+	<return: #TAsyncFuture of: #GtPhlowView>
+	^ (self viewObject
+		map: [ :aForwardedObject | 
+			aForwardedObject isSuccess
+				ifTrue: [ self computeTargetViewForObject: aForwardedObject ]
+				ifFalse: [ self phlowErrorViewWithException: aForwardedObject exception isFrozen: true ] ])
+		on: Error
+		do: [ :anException | 
+			self phlowErrorViewWithException: anException ]
+]
+
+{ #category : #initialization }
+GtPhlowBasicForwarderView >> initialize [
+	super initialize.
+	
+	viewObject := AsyncFutureCache new.
+	phlowView := AsyncFutureCache new.
 ]
 
 { #category : #accessing }
@@ -98,21 +121,25 @@ GtPhlowBasicForwarderView >> object: aComputation [
 
 { #category : #'accessing - computed' }
 GtPhlowBasicForwarderView >> phlowView [
-	<return: #TAsyncPromise of: #GtPhlowView>
+	<return: #TAsyncFuture of: #GtPhlowView>
 
-	^ phlowView ifNil: [ phlowView := self createPhlowView ]
+	^ AsyncCachedFuture 
+		forFuture: self createPhlowView 
+		cache: phlowView
 ]
 
 { #category : #private }
 GtPhlowBasicForwarderView >> secureObjectExecution [
-	<return: #TAsyncPromise>
+	<return: #TAsyncFuture of: #TGtPhlowForwardedObject>
 
-	^ (self object asAsyncFuture map: [ :anObject | GtPhlowForwardedObject new object: anObject ])
-		asAsyncPromise
-			then: [ :anObject | anObject ]
-			otherwise: [ :anException |
-				phlowView := (self phlowErrorViewWithException: anException) asAsyncPromise.
-				anException asAsyncPromise ]
+	^ (self object asAsyncFuture 
+		map: [ :anObject | 
+			GtPhlowForwardedObject new 
+				object: anObject ])
+		on: Error
+		do: [ :anException |
+			GtPhlowForwardedException new
+				freeze: anException ]
 ]
 
 { #category : #accessing }
@@ -122,9 +149,10 @@ GtPhlowBasicForwarderView >> view: anObject [
 
 { #category : #'accessing - computed' }
 GtPhlowBasicForwarderView >> viewObject [
-	<return: #AsyncPromise of: #Object>
-
-	^ viewObject ifNil: [ viewObject := self secureObjectExecution ]
+	<return: #AsyncFuture of: #TGtPhlowForwardedObject>
+	^ AsyncCachedFuture 
+		forFuture: self secureObjectExecution 
+		cache: viewObject
 ]
 
 { #category : #'accessing - computed' }
