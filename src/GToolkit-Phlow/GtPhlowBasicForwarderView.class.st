@@ -98,7 +98,7 @@ GtPhlowBasicForwarderView >> createPhlowView [
 				ifFalse: [ self phlowErrorViewWithException: aForwardedObject exception isFrozen: true ] ])
 		on: Error
 		do: [ :anException | 
-			self phlowErrorViewWithException: anException ]
+			AsyncPoll ready: (self phlowErrorViewWithException: anException) ]
 ]
 
 { #category : #initialization }
@@ -138,8 +138,8 @@ GtPhlowBasicForwarderView >> secureObjectExecution [
 				object: anObject ])
 		on: Error
 		do: [ :anException |
-			GtPhlowForwardedException new
-				freeze: anException ]
+			AsyncPoll ready: (GtPhlowForwardedException new
+				freeze: anException) ]
 ]
 
 { #category : #accessing }
