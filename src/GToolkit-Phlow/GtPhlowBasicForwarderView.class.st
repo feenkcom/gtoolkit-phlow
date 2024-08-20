@@ -149,7 +149,7 @@ GtPhlowBasicForwarderView >> view: anObject [
 
 { #category : #'accessing - computed' }
 GtPhlowBasicForwarderView >> viewObject [
-	<return: #AsyncFuture of: #TGtPhlowForwardedObject>
+	<return: #TAsyncFuture of: #TGtPhlowForwardedObject>
 	^ AsyncCachedFuture 
 		forFuture: self secureObjectExecution 
 		cache: viewObject

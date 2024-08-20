@@ -6,7 +6,7 @@ Class {
 
 { #category : #accessing }
 GtPhlowForwarderViewExamples >> expectedElementClass [
-	^ BrFromPromise
+	^ BrFromFuture
 ]
 
 { #category : #'examples - composite' }

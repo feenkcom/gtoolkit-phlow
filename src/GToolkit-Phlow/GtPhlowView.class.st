@@ -702,7 +702,7 @@ GtPhlowView >> phlowErrorViewWithException: anException isFrozen: aBoolean [
 	^ GtPhlowViewWithError new
 		definingMethod: self definingMethod;
 		title: aTitle;
-		error: aFrozenException
+		exception: aFrozenException
 ]
 
 { #category : #accessing }
