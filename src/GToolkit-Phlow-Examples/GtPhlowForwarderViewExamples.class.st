@@ -61,7 +61,7 @@ GtPhlowForwarderViewExamples >> forwardedView [
 
 	"Assertions after the forwarded view initialization"
 	self assert: aPhlowView notNil.
-	self assert: aView phlowView equals: aView phlowView.
+	self assert: aView phlowView wait equals: aView phlowView wait.
 	
 	aView title: 'Forwarded view'.
 	self assert: aView title equals: 'Forwarded view'.
@@ -69,7 +69,7 @@ GtPhlowForwarderViewExamples >> forwardedView [
 	self assert: aView actions size equals: 0.
 	self assert: aView allActionsPromise wait size equals: 1.
 	self assert: aView actions size equals: 0.
-	self assert: ((aView asElementDo: [ :anElement | anElement ]) isKindOf: BrFromPromise).
+	self assert: ((aView asElementDo: [ :anElement | anElement ]) isKindOf: BrFromFuture).
 	^ aView
 ]
 
