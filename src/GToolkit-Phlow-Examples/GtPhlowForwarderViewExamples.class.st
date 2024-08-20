@@ -6,7 +6,7 @@ Class {
 
 { #category : #accessing }
 GtPhlowForwarderViewExamples >> expectedElementClass [
-	^ BrFromPromise
+	^ BrFromFuture
 ]
 
 { #category : #'examples - composite' }
@@ -61,7 +61,7 @@ GtPhlowForwarderViewExamples >> forwardedView [
 
 	"Assertions after the forwarded view initialization"
 	self assert: aPhlowView notNil.
-	self assert: aView phlowView equals: aView phlowView.
+	self assert: aView phlowView wait equals: aView phlowView wait.
 	
 	aView title: 'Forwarded view'.
 	self assert: aView title equals: 'Forwarded view'.
@@ -69,7 +69,7 @@ GtPhlowForwarderViewExamples >> forwardedView [
 	self assert: aView actions size equals: 0.
 	self assert: aView allActionsPromise wait size equals: 1.
 	self assert: aView actions size equals: 0.
-	self assert: ((aView asElementDo: [ :anElement | anElement ]) isKindOf: BrFromPromise).
+	self assert: ((aView asElementDo: [ :anElement | anElement ]) isKindOf: BrFromFuture).
 	^ aView
 ]
 
@@ -87,7 +87,7 @@ GtPhlowForwarderViewExamples >> forwardedViewWithObjectCreationError [
 	self assert: aView object isNotNil.
 	self assert: aView object class equals: [ aView ] class.
 	self assert: aView viewSymbol equals: #gtUpdatingFor:.
-	self assert: aView viewObject isAsyncPromise.
+	self assert: aView viewObject isAsyncFuture.
 	self assert: aView actions size equals: 0.
 
 	aPhlowView := aView phlowView wait.
@@ -95,7 +95,7 @@ GtPhlowForwarderViewExamples >> forwardedViewWithObjectCreationError [
 	"Assertions after the forwarded view initialization"
 	self assert: aPhlowView notNil.
 	self assert: aPhlowView class equals: GtPhlowViewWithError.
-	self assert: aPhlowView error signalerContext notNil.
+	self assert: aPhlowView exception signalerContext notNil.
 	
 	self assert: ((aView asElementDo: [ :anElement | anElement ]) isKindOf: BlElement).
 	^ aView
@@ -111,7 +111,7 @@ GtPhlowForwarderViewExamples >> forwardedWithUndefinedViewMessage [
 
 	self assert: aView viewObject wait object equals: self.
 	self assert: aView phlowView wait class equals: GtPhlowViewWithError.
-	self assert: (aView asElementDo: [ :anElement | anElement ]) class equals: BrFromPromise.
+	self assert: (aView asElementDo: [ :anElement | anElement ]) class equals: BrFromFuture.
 	^ aView
 ]
 

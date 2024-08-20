@@ -2,7 +2,7 @@ Class {
 	#name : #GtPhlowViewWithError,
 	#superclass : #GtPhlowView,
 	#instVars : [
-		'error'
+		'exception'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -10,7 +10,7 @@ Class {
 { #category : #accessing }
 GtPhlowViewWithError >> asElementDo: aBlock [
 	| anElement |
-	anElement := error asDebuggableElement.
+	anElement := exception asDebuggableElement.
 	anElement id: GtPhlowExceptionId.
 	anElement := self wrapWithFailedComputation: anElement.
 	self beViewElement: anElement.
@@ -24,13 +24,13 @@ GtPhlowViewWithError >> canRerunViewComputation [
 ]
 
 { #category : #accessing }
-GtPhlowViewWithError >> error [
-	^ error
+GtPhlowViewWithError >> exception [
+	^ exception
 ]
 
 { #category : #accessing }
-GtPhlowViewWithError >> error: anObject [
-	error := anObject
+GtPhlowViewWithError >> exception: anObject [
+	exception := anObject
 ]
 
 { #category : #accessing }

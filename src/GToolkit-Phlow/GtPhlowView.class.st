@@ -677,25 +677,32 @@ GtPhlowView >> performBlock: aPerformBlock onExceptionErrorElement: anExceptionB
 
 { #category : #'error handling' }
 GtPhlowView >> phlowErrorViewWithException: anException [
-	| aTitle |
-	anException freeze.
-	aTitle := self hasExplicitTitle
-		ifTrue: [ self title asString, ' (Error)' ] 
-		ifFalse: [ 'Error' ].
-	^ GtPhlowViewWithError new
-		definingMethod: self definingMethod;
-		title: aTitle;
-		error: anException
+	^ self phlowErrorViewWithException: anException isFrozen: false
 ]
 
 { #category : #'error handling' }
-GtPhlowView >> phlowErrorViewWithException: anException  forBuildContext: aContext andSelector: aMessageSymbol [
+GtPhlowView >> phlowErrorViewWithException: anException forBuildContext: aContext andSelector: aMessageSymbol [
 	| aDefiningMethod phlowErrorAction | 
 	aDefiningMethod := self definingMethodForObject: aContext object andSelector: aMessageSymbol. 
 	phlowErrorAction := self phlowErrorViewWithException: anException.
 	phlowErrorAction definingMethod: aDefiningMethod.
 	phlowErrorAction buildContext: aContext.
 	^ phlowErrorAction
+]
+
+{ #category : #'error handling' }
+GtPhlowView >> phlowErrorViewWithException: anException isFrozen: aBoolean [
+	| aTitle aFrozenException |
+	aFrozenException := aBoolean 
+		ifTrue: [ anException ]
+		ifFalse: [ GtSystemUtility freeze: anException ].
+	aTitle := self hasExplicitTitle
+		ifTrue: [ self title asString, ' (Error)' ] 
+		ifFalse: [ 'Error' ].
+	^ GtPhlowViewWithError new
+		definingMethod: self definingMethod;
+		title: aTitle;
+		exception: aFrozenException
 ]
 
 { #category : #accessing }
