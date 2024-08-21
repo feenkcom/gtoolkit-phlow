@@ -99,8 +99,7 @@ GtPhlowForwarderView >> resubscribeFrom: aCurrentElement to: aNewChild [
 
 { #category : #updating }
 GtPhlowForwarderView >> updateContent: aCurrentElement [
-	self phlowView await then: [ :aPhlowView | 
-		aPhlowView updateContent: aCurrentElement ]
+	self phlowView wait updateContent: aCurrentElement
 ]
 
 { #category : #'api - accessing composite view' }
