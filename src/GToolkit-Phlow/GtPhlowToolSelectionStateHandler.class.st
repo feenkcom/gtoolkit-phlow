@@ -12,12 +12,6 @@ GtPhlowToolSelectionStateHandler >> applySelectionStateTo: aToolElement [
 	aToolElement phlow isTool ifFalse: [ ^ self ].
 	selectionState ifNil: [ ^ self ].
 	
-	GtPhlowApplyToolSelectionSignal new
-		toolElement: aToolElement;
-		phlowView: aToolElement phlow entity;
-		selectionState: selectionState;
-		emit.
-	
 	aToolElement phlow entity 
 		applySelectionState: selectionState toElement: aToolElement
 ]

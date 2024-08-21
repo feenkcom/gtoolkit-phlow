@@ -25,7 +25,7 @@ GtPhlowForwarderView class >> contentId [
 { #category : #'adding - actions' }
 GtPhlowForwarderView >> actionsToolbarForElement: anElement [
 
-	^ BrFromPromise new
+	^ BrFromFuture new
 		fitContent;
 		stencil: [ BrToolbar new aptitude: BrGlamorousToolbarAptitude ];
 		dataBinder: [ :aToolbar :aData | 
@@ -39,15 +39,19 @@ GtPhlowForwarderView >> actionsToolbarForElement: anElement [
 				ifError: [ :anError | 
 					aToolbar addItem: (BrDebuggableElementStencil new freeze: anError) createDebugButton ]
 				ifPending: [  ] ];
-		promise: self allActionsPromise
+		future: self allActionsFuture
 ]
 
 { #category : #'accessing - computed' }
-GtPhlowForwarderView >> allActionsPromise [
+GtPhlowForwarderView >> allActionsFuture [
 	"I return all actions that belong to a view.
 	It may include actions of a other views in some cases"
 
-	^ self phlowView asAsyncPromise then: [ :aPhlowView | aPhlowView allActionsPromise then: [ :allActions | allActions, self actions ] ]
+	<return: #AsyncFuture of: #OrderedCollection>
+	^ (self phlowView
+		map: [ :aPhlowView | 
+			aPhlowView allActionsFuture flatten
+				map: [ :allActions | allActions , self actions ] ]) flatten
 ]
 
 { #category : #private }
@@ -81,9 +85,9 @@ GtPhlowForwarderView >> initialize [
 { #category : #'accessing - computed' }
 GtPhlowForwarderView >> originMethodsInto: aStream [
 	super originMethodsInto: aStream.
-	
-	self phlowView wait 
-		originMethodsInto: aStream
+
+	self phlowView asAsyncPromise
+		then: [ :aPhlowView | aPhlowView originMethodsInto: aStream ]
 ]
 
 { #category : #'private - elements' }
@@ -101,6 +105,5 @@ GtPhlowForwarderView >> updateContent: aCurrentElement [
 { #category : #'api - accessing composite view' }
 GtPhlowForwarderView >> views [
 	<return: #Array of: #GtPhlowView>
-
 	^ (self phlowView map: [ :aView | aView views ]) wait
 ]

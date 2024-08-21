@@ -16,6 +16,13 @@ GtPhlowAbstractTool >> applySelectionState: aSelectionState toElement: aToolElem
 	self supportsSelectionHandling ifFalse: [ ^ self ].
 
 	(aSelectionState appliesToTool: self) ifFalse: [ ^ self ].
+	
+	GtPhlowApplyToolSelectionSignal new
+		toolElement: aToolElement;
+		phlowView: self;
+		selectionState: aSelectionState;
+		emit.
+	
 	self basicApplySelectionState: aSelectionState toElement: aToolElement
 ]
 

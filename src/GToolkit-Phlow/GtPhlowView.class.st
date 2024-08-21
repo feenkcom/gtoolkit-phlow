@@ -299,7 +299,7 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 							phlowAction
 								asElement: [ :actionElement | aToolbar addItem: actionElement ]
 								withHostElement: anElement ] ].
-			anElementPromise promise: self allActionsPromise ].
+			anElementPromise promise: self allActionsFuture ].
 
 	^ aToolbar
 ]
@@ -361,12 +361,12 @@ GtPhlowView >> addUpdateButtonTooltip: aTooltip [
 ]
 
 { #category : #'accessing - computed' }
-GtPhlowView >> allActionsPromise [
+GtPhlowView >> allActionsFuture [
 	"I return all actions that belong to a view.
 	It may include actions of a other views in some cases"
-	<return: #AsyncPromise of: #OrderedCollection>
+	<return: #AsyncFuture of: #OrderedCollection>
 
-	^ [ self actions ] asAsyncPromise
+	^ [ self actions ] asAsyncFuture
 ]
 
 { #category : #'accessing - computed' }
