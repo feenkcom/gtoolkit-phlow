@@ -20,6 +20,11 @@ GtPhlowToolSelectionStateHandler >> applySelectionStateTo: aToolElement [
 GtPhlowToolSelectionStateHandler >> initialize [
 	super initialize.
 	
+	self resetStoredSelectionState.
+]
+
+{ #category : #actions }
+GtPhlowToolSelectionStateHandler >> resetStoredSelectionState [
 	selectionState := GtPhlowToolNullSelectionState uniqueInstance.
 ]
 
