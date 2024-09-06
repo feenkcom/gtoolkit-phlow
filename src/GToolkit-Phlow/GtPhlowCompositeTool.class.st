@@ -27,6 +27,12 @@ GtPhlowCompositeTool >> addTool: aGtPhlowTool [
 	self tools: (self tools copyWith: aGtPhlowTool)
 ]
 
+{ #category : #'api - accessing' }
+GtPhlowCompositeTool >> addTools: aCollection [
+	aCollection do: [ :aTool |
+		self addTool: aTool ]
+]
+
 { #category : #'api - converting' }
 GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block."
