@@ -56,3 +56,8 @@ GtPhlowLabelWithIcon >> updateForPackage: aPackage [
 			gtSafeIconNamed: #package)
 		label: aPackage name
 ]
+
+{ #category : #configuration }
+GtPhlowLabelWithIcon >> withSmallSize [
+	self children first vExact: 16
+]
