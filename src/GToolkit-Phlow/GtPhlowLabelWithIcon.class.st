@@ -22,9 +22,11 @@ GtPhlowLabelWithIcon >> initialize [
 	iconContainer := (BrFrame new)
 				hFitContent;
 				vFitContent;
+				id: #iconContainer;
 				margin: (BlInsets left: 1 right: 3).
 	nameLabel := (BrLabel new)
 				aptitude: BrGlamorousListLabelAptitude;
+				id: #nameLabel;
 				text: '';
 				hMatchParent.
 	pane
