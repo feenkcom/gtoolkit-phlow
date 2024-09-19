@@ -15,7 +15,7 @@ Class {
 		'resizerStrategy',
 		'contentOffset'
 	],
-	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
 { #category : #'private - asserting' }
@@ -212,6 +212,13 @@ GtPhlowSidebarElement >> resizerElement [
 GtPhlowSidebarElement >> resizerStrategy [
 	<return: #BrResizerElementLength>
 	^ resizerStrategy
+]
+
+{ #category : #'private - accessing' }
+GtPhlowSidebarElement >> resizerStrategy: aResizerElementLength [
+	resizerStrategy := aResizerElementLength.
+
+	self expand
 ]
 
 { #category : #'api - visibility' }
