@@ -22,9 +22,11 @@ GtPhlowLabelWithIcon >> initialize [
 	iconContainer := (BrFrame new)
 				hFitContent;
 				vFitContent;
+				id: #iconContainer;
 				margin: (BlInsets left: 1 right: 3).
 	nameLabel := (BrLabel new)
 				aptitude: BrGlamorousListLabelAptitude;
+				id: #nameLabel;
 				text: '';
 				hMatchParent.
 	pane
@@ -55,4 +57,9 @@ GtPhlowLabelWithIcon >> updateForPackage: aPackage [
 		initializeWithIcon: (self 
 			gtSafeIconNamed: #package)
 		label: aPackage name
+]
+
+{ #category : #configuration }
+GtPhlowLabelWithIcon >> withSmallSize [
+	self children first vExact: 16
 ]
