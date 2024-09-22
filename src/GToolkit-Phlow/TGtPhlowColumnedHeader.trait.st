@@ -27,7 +27,7 @@ TGtPhlowColumnedHeader >> buildHeaderItems: theBrickColumns inHeader: aHeader [
 		| eachHeaderElement eachResizer |
 		eachHeaderElement := eachColumn buildHeaderElement.
 		eachResizer := BrResizer new
-			id: (eachColumn title, '-resizer') asSymbol;
+			id: (eachColumn title asString, '-resizer') asSymbol;
 			aptitude: BrGlamorousThinBarResizerAptitude;
 			beRight;
 			target: eachHeaderElement;
