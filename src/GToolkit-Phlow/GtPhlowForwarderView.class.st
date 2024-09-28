@@ -14,6 +14,9 @@ You can define me as follow: {{gtMethod:GtPhlowForwarderViewExamples>>#gtBasicFo
 Class {
 	#name : #GtPhlowForwarderView,
 	#superclass : #GtPhlowBasicForwarderView,
+	#instVars : [
+		'isDeclarative'
+	],
 	#category : #'GToolkit-Phlow-! Views'
 }
 
