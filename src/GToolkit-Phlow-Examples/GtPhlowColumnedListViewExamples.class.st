@@ -360,11 +360,10 @@ GtPhlowColumnedListViewExamples >> columnedListViewColumnResizing [
 		assertStep: [ :s | 
 			s
 				label: 'Check initial column widths';
-				// BrColumnedList;
 				satisfies: [ :list | 
 					list columns
 						allSatisfy: [ :each | each columnWidth isKindOf: BrColumnProportionalWidth ] ];
-				onSelf ].
+				// BrColumnedList ].
 	scripter
 		substep: 'Move first column resizer'
 		do: [ :aStep | 
@@ -377,11 +376,10 @@ GtPhlowColumnedListViewExamples >> columnedListViewColumnResizing [
 		assertStep: [ :s | 
 			s
 				label: 'Check moved column widths';
-				// BrColumnedList;
 				satisfies: [ :list | 
 					(list columns first columnWidth isKindOf: BrColumnFixedWidth)
 						and: [ list columns second columnWidth isKindOf: BrColumnProportionalWidth ] ];
-				onSelf ].
+				// BrColumnedList ].
 	^ scripter
 ]
 
