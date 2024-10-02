@@ -11,7 +11,7 @@ Class {
 
 { #category : #'examples - element' }
 GtPhlowTextEditorViewExamples >> expectedElementClass [
-	^ BrEditor
+	^ BrVerticalPane
 ]
 
 { #category : #'gt-extension' }
