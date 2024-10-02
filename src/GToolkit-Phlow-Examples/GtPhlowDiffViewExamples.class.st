@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+GtPhlowDiffViewExamples >> expectedElementClass [
+	^ BrVerticalPane
+]
+
+{ #category : #'as yet unclassified' }
 GtPhlowDiffViewExamples >> phlowView [
 	<gtExample>
 	^ GtPhlowView empty diff
