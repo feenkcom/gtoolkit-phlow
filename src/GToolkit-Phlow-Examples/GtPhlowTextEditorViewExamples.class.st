@@ -58,7 +58,8 @@ GtPhlowTextEditorViewExamples >> setFontSize [
 	aView := self phlowView.
 	aView fontSize: 21.
 	aView asElementDo: [ :theElement | anElement := theElement ].
-	self assertViewElement: anElement ofClass: BrEditor inView: aView.
+	self assertViewElement: anElement ofClass: BrVerticalPane inView: aView.
+	self assert: (anElement childNamed: #editor) class equals: BrEditor.
 	^ aView
 ]
 
@@ -70,7 +71,8 @@ GtPhlowTextEditorViewExamples >> setFontSizeSecondAsElementDoCall [
 	view := self setFontSize.
 	view asElementDo: [ :el | element := el ].
 
-	self assertViewElement: element ofClass: BrEditor inView: view.
+	self assertViewElement: element ofClass: BrVerticalPane inView: view.
+	self assert: (element childNamed: #editor) class equals: BrEditor.
 
 	^ view
 ]
@@ -86,8 +88,8 @@ GtPhlowTextEditorViewExamples >> textView [
 	
 	view asElementDo: [ :el | element := el ].
 
-	self assertViewElement: element ofClass: BrEditor inView: view.
-
+	self assertViewElement: element ofClass: BrVerticalPane inView: view.
+	self assert: (element childNamed: #editor) class equals: BrEditor.
 	^ view
 ]
 
@@ -99,7 +101,8 @@ GtPhlowTextEditorViewExamples >> textViewSecondAsElementDoCall [
 	view := self textView.
 	view asElementDo: [ :el | element := el ].
 
-	self assertViewElement: element ofClass: BrEditor inView: view.
+	self assertViewElement: element ofClass: BrVerticalPane inView: view.
+	self assert: (element childNamed: #editor) class equals: BrEditor.
 
 	^ view
 ]
