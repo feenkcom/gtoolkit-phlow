@@ -57,6 +57,11 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 	aBrickEditor
 		matchParent;
 		padding: (BlInsets all: 10).
+	pane addAptitude: (BrLayoutResizerAptitude new
+		matchParentToMatchParent: [ :aResizerBlock | aResizerBlock cull: aBrickEditor ];
+		exactToMatchParent: [ :aResizerBlock | aResizerBlock cull: aBrickEditor ];
+		fitContentToFitContent: [ :aResizerBlock | aResizerBlock cull: aBrickEditor ];
+		fitContentLimitedToFitContentLimited: [ :aResizerBlock | aResizerBlock cull: aBrickEditor ]).
 
 	self beViewElement: pane.
 

@@ -31,8 +31,7 @@ GtPhlowBuildContext >> arguments: anObject [
 { #category : #accessing }
 GtPhlowBuildContext >> context [
 	<return: #GtPhlowContext>
-
-	^ self arguments second
+	^ self arguments at: 2 ifAbsent: [ GtPhlowContext new ]
 ]
 
 { #category : #testing }

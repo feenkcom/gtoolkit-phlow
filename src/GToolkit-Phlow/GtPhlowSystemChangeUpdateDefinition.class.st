@@ -30,6 +30,7 @@ GtPhlowSystemChangeUpdateDefinition >> addContext: aGtPhlowElementContext [
 
 { #category : #accessing }
 GtPhlowSystemChangeUpdateDefinition >> contexts [
+	<return: #Array of: #GtPhlowElementContext>
 	^ mutexContexts critical: [ contexts ]
 ]
 

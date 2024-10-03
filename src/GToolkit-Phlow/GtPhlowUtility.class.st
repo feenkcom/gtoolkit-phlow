@@ -23,7 +23,27 @@ GtPhlowUtility class >> createSafelyTabElementFor: aPhlowView andDo: aBlock [
 ]
 
 { #category : #'instance creation' }
+GtPhlowUtility class >> createSafelyTabElementFor: aPhlowView stencil: aStencil andDo: aBlock [
+	aPhlowView autoUpdates removeUpdateOnMethodChanged.
+	[ self createTabElementFor: aPhlowView stencil: aStencil andDo: aBlock ]
+		on: Error
+		do: [ :anException | 
+			self createTabErrorElementFor: aPhlowView withError: anException andDo: aBlock ] 
+]
+
+{ #category : #'instance creation' }
 GtPhlowUtility class >> createTabElementFor: aPhlowView andDo: aBlock [
+	"we explicitly traverse the collection because it is possible for
+	asElementDo: to not return anything when we deal with an EmptyView"
+
+	self
+		createTabElementFor: aPhlowView
+		stencil: [ self newElementForView: aPhlowView ]
+		andDo: aBlock
+]
+
+{ #category : #'instance creation' }
+GtPhlowUtility class >> createTabElementFor: aPhlowView stencil: aStencil andDo: aBlock [
 	"we explicitly traverse the collection because it is possible for
 	asElementDo: to not return anything when we deal with an EmptyView"
 	aPhlowView ifItHasContent: [ 
@@ -37,7 +57,7 @@ GtPhlowUtility class >> createTabElementFor: aPhlowView andDo: aBlock [
 				(GtPhlowBrowseDefinitionAptitude new
 					definition: [ aPhlowView allDefiningMethods ]);
 			label: aPhlowView title;
-			stencil: [ self newElementForView: aPhlowView ];
+			stencil: aStencil;
 			toolbarStencil: [ self newToolbarForTab: aTab view: aPhlowView ].
 		aPhlowView attachTooltipFor: aTab.
 		aBlock value: aTab ]
