@@ -29,9 +29,9 @@ GtPhlowTextEditorView >> aptitude: aBlockOrAptitudeClass [
 
 { #category : #converting }
 GtPhlowTextEditorView >> asElementDo: aBlock [
-	| aBrickEditor aText aNewLook aNewStyler |
+	| aBrickEditor aText aNewLook aNewStyler pane |
 
-	aBrickEditor := self elementClass new.
+	aBrickEditor := self elementClass new id: #editor.
 
 	aText := self 
 		textFor: aBrickEditor 
@@ -51,14 +51,16 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 		enqueueTask: (BlTaskAction new action: [
 			aBrickEditor text: aText.
 			self highlightAndScrollIn: aBrickEditor ]).
-			
+	pane := BrVerticalPane new matchParent.		
+	pane addChild: aBrickEditor.
+	pane addAptitude: (BrGlamorousWithVerticalScrollbarAptitude new scrollableName: #editor).
 	aBrickEditor
 		matchParent;
 		padding: (BlInsets all: 10).
 
-	self beViewElement: aBrickEditor.
+	self beViewElement: pane.
 
-	^ aBlock value: aBrickEditor
+	^ aBlock value: pane
 ]
 
 { #category : #accessing }

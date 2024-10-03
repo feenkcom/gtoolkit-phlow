@@ -16,11 +16,10 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewColumnResizing [
 		assertStep: [ :s | 
 			s
 				label: 'Check initial column widths';
-				// BrColumnedTree;
 				satisfies: [ :tree | 
 					tree columns
 						allSatisfy: [ :each | each columnWidth isKindOf: BrColumnProportionalWidth ] ];
-				onSelf ].
+				// BrColumnedTree ].
 	scripter
 		substep: 'Move first column resizer'
 		do: [ :aStep | 
@@ -33,11 +32,10 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewColumnResizing [
 		assertStep: [ :s | 
 			s
 				label: 'Check moved column widths';
-				// BrColumnedTree;
 				satisfies: [ :tree | 
 					(tree columns first columnWidth isKindOf: BrColumnFixedWidth)
 						and: [ tree columns second columnWidth isKindOf: BrColumnProportionalWidth ] ];
-				onSelf ].
+				// BrColumnedTree ].
 	^ scripter
 ]
 
