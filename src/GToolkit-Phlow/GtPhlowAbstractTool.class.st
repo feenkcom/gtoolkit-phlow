@@ -146,6 +146,13 @@ GtPhlowAbstractTool >> object: anObject [
 	"defaults tools must implement this message"
 ]
 
+{ #category : #action }
+GtPhlowAbstractTool >> prepareForReusedNavigation [
+	"This tool is about to be reused in a navigation phlow.
+	Give specific tools a chance to reset cached data, or 
+	perform other clean-ups."
+]
+
 { #category : #'testing ' }
 GtPhlowAbstractTool >> supportsSelectionHandling [
 	"Indicates whether or not this tool can extract and restore its selection"

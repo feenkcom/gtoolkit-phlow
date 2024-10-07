@@ -98,6 +98,12 @@ GtPhlowCompositeTool >> name [
 	^ 'composite'
 ]
 
+{ #category : #action }
+GtPhlowCompositeTool >> prepareForReusedNavigation [
+	self tools do: [ :aTool |
+		aTool prepareForReusedNavigation ]
+]
+
 { #category : #'testing ' }
 GtPhlowCompositeTool >> supportsSelectionHandling [
 	"Composite tools know how to extract and restore the selected tool"
