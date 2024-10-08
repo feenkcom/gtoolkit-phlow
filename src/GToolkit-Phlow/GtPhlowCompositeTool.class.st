@@ -39,7 +39,7 @@ GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 	| aTabGroup |
 	
 	aTabGroup := BrTabGroup new
-		labeled: 'Composite Tool';
+		id: #'Composite Tool';
 		aptitude: BrGlamorousTabGroupSwitcherAptitude;
 		addTabs: self toolTabs.
 	aTabGroup addEventHandler: GtPhlowToolObjectChangeHandler new.
