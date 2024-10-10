@@ -23,9 +23,18 @@ GtPhlowOverviewItem >> beExceptionValue [
 { #category : #convenience }
 GtPhlowOverviewItem >> boolean: aBoolean [
 	self value: aBoolean.
+	aBoolean isBoolean
+		ifFalse: [ | aText |
+			aText := 'Not a boolean value: ' asRopedText
+					foreground: BrGlamorousColors errorBackgroundColor.
+			aText append: aBoolean asRopedText.
+			self description: aText.
+			^ self ].
+
 	aBoolean
 		ifTrue: [ self description: 'yes' asRopedText ]
-		ifFalse: [ self description: ('no' asRopedText foreground: BrGlamorousColors disabledButtonTextColor) ]
+		ifFalse: [ self
+				description: ('no' asRopedText foreground: BrGlamorousColors disabledButtonTextColor) ]
 ]
 
 { #category : #accessing }
@@ -53,6 +62,7 @@ GtPhlowOverviewItem >> gtDisplayOn: stream [
 
 { #category : #convenience }
 GtPhlowOverviewItem >> if: aBoolean description: aStringOrBlText [
+	aBoolean isBoolean ifFalse: [ ^ self ].
 	aBoolean ifFalse: [ ^ self ].
 	self description: aStringOrBlText
 ]
@@ -75,6 +85,12 @@ GtPhlowOverviewItem >> ifComputedValueDescription: aDescriptionBlock [
 GtPhlowOverviewItem >> ifExceptionValueDescription: aDescriptionBlock [
 	self isValueException ifFalse: [ ^ self ].
 	self description: (aDescriptionBlock value: self value)
+]
+
+{ #category : #convenience }
+GtPhlowOverviewItem >> ifNot: aBoolean description: aStringOrBlText [
+	aBoolean isBoolean ifFalse: [ ^ self ].
+	self if: aBoolean not description: aStringOrBlText
 ]
 
 { #category : #testing }
