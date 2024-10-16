@@ -44,7 +44,7 @@ GtPhlowDefiningMethodsCollector >> collect [
 			aCompiledMethod isDoIt
 				ifTrue: [  "For doits right now we return the compiled method, 
 				as wrapping doits in a Ring definition does work ok"^ aCompiledMethod ].
-			(aCompiledMethod hasPragmaNamed: 'gtExample')
+			(aCompiledMethod hasPragmaNamed: #gtExample)
 				ifTrue: [ ^ aCompiledMethod asRingDefinition ] ].
 
 	^ self definingMethodsFrom: aMethods
