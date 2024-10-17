@@ -103,9 +103,20 @@ GtPhlowClassPragmaChangeListener >> onMethodModifiedAction: anObject [
 GtPhlowClassPragmaChangeListener >> onMethodModifiedAnnouncement: aMethodModified [
 	(self
 		isInterestingClass: aMethodModified classAffected
-		andMethod: aMethodModified methodAffected) ifFalse: [ ^ self ].
-
-	onMethodAddedAction
+		andMethod: aMethodModified methodAffected)
+		ifTrue: [ 
+			onMethodModifiedAction
+				actOn: (GtPhlowChangeActionAffectedMethodContext
+						forAffectedClass: aMethodModified classAffected
+						affectedMethod: aMethodModified methodAffected).
+			^ self ].
+	
+	(self
+		isInterestingClass: aMethodModified classAffected
+		andMethod: aMethodModified oldMethod) ifFalse: [ ^ self ].
+	"The old method has an interesting pragma, while the new method does not have it.
+	We therefore remove the method."
+	onMethodRemovedAction
 		actOn: (GtPhlowChangeActionAffectedMethodContext
 				forAffectedClass: aMethodModified classAffected
 				affectedMethod: aMethodModified methodAffected)
