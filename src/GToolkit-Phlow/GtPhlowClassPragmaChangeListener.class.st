@@ -6,7 +6,8 @@ Class {
 		'interestingPragmas',
 		'isSubscribedToSystem',
 		'onMethodAddedAction',
-		'onMethodRemovedAction'
+		'onMethodRemovedAction',
+		'onMethodModifiedAction'
 	],
 	#category : #'GToolkit-Phlow-Updating'
 }
@@ -19,6 +20,7 @@ GtPhlowClassPragmaChangeListener >> initialize [
 	isSubscribedToSystem := false.
 	onMethodAddedAction := GtPhlowChangeNoAction default.
 	onMethodRemovedAction := GtPhlowChangeNoAction default.
+	onMethodModifiedAction := GtPhlowChangeNoAction default.
 ]
 
 { #category : #accessing }
@@ -88,6 +90,28 @@ GtPhlowClassPragmaChangeListener >> onMethodAddedAnnouncement: aMethodAdded [
 ]
 
 { #category : #accessing }
+GtPhlowClassPragmaChangeListener >> onMethodModifiedAction [
+	^ onMethodModifiedAction
+]
+
+{ #category : #accessing }
+GtPhlowClassPragmaChangeListener >> onMethodModifiedAction: anObject [
+	onMethodModifiedAction := anObject
+]
+
+{ #category : #'event handling' }
+GtPhlowClassPragmaChangeListener >> onMethodModifiedAnnouncement: aMethodModified [
+	(self
+		isInterestingClass: aMethodModified classAffected
+		andMethod: aMethodModified methodAffected) ifFalse: [ ^ self ].
+
+	onMethodAddedAction
+		actOn: (GtPhlowChangeActionAffectedMethodContext
+				forAffectedClass: aMethodModified classAffected
+				affectedMethod: aMethodModified methodAffected)
+]
+
+{ #category : #accessing }
 GtPhlowClassPragmaChangeListener >> onMethodRemovedAction [
 	^ onMethodRemovedAction
 ]
@@ -117,5 +141,8 @@ GtPhlowClassPragmaChangeListener >> subscribeToSystem [
 			to: self;
 		when: MethodRemoved
 			send: #onMethodRemovedAnnouncement:
+			to: self;
+		when: MethodModified
+			send: #onMethodModifiedAnnouncement:
 			to: self
 ]

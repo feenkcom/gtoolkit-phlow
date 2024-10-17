@@ -11,24 +11,26 @@ Class {
 
 { #category : #'api - actions' }
 GtPhlowChangeTabGroupAddTabAction >> actOn: aChangeContext [
-	| aCompositeView aNewView |
 	self tabGroup ifNil: [ ^ self ].
 	self buildContext isBuildContext ifFalse: [ ^ self ].
-	aCompositeView := self compositeView ifNil: [ ^ self ].
-	contentsBuilder ifNil: [ ^ self ].
+	self compositeView ifNil: [ ^ self ].
+	self contentsBuilder ifNil: [ ^ self ].
 
+	BlTaskAction
+		enqueueElement: self tabGroup
+		action: [ self addOn: aChangeContext ]
+]
+
+{ #category : #'api - actions' }
+GtPhlowChangeTabGroupAddTabAction >> addOn: aChangeContext [
+	"Must be called from a UI process"
+
+	| aNewView |
 	aNewView := self newPhlowViewOn: aChangeContext.
 	GtPhlowUtility
 		createSafelyTabElementFor: aNewView
 		stencil: (contentsBuilder value: aNewView)
-		andDo: [ :aTab | self addTab: aTab ofView: aNewView ]
-]
-
-{ #category : #private }
-GtPhlowChangeTabGroupAddTabAction >> addTab: aTab ofView: aPhlowView [
-	BlTaskAction
-		enqueueElement: self tabGroup
-		action: [ self basicAddTab: aTab ofView: aPhlowView ]
+		andDo: [ :aTab | self basicAddTab: aTab ofView: aNewView ]
 ]
 
 { #category : #private }

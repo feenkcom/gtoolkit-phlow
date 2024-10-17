@@ -9,36 +9,38 @@ Class {
 
 { #category : #'api - actions' }
 GtPhlowChangeTabGroupRemoveTabAction >> actOn: aChangeContext [
-	| aCompositeView |
 	self tabGroup ifNil: [ ^ self ].
-	aCompositeView := self compositeView ifNil: [ ^ self ].
+	self compositeView ifNil: [ ^ self ].
 
 	BlTaskAction
 		enqueueElement: self tabGroup
-		action: [ self basicRemoveOn: aChangeContext ]
+		action: [ self removeOn: aChangeContext ]
 ]
 
-{ #category : #private }
-GtPhlowChangeTabGroupRemoveTabAction >> basicRemoveOn: aChangeContext [
+{ #category : #accessing }
+GtPhlowChangeTabGroupRemoveTabAction >> compositeView [
+	^ self tabGroup phlow entity
+]
+
+{ #category : #'api - actions' }
+GtPhlowChangeTabGroupRemoveTabAction >> removeOn: aChangeContext [
+	"Must be called from a UI process"
+	
 	| aMethodDefinition |
 	aMethodDefinition := aChangeContext affectedMethodDefinition.
 	self tabGroup viewModel tabs
 		detect: [ :eachTabModel | 
-			eachTabModel widget
-				ifNotNil: [ :aWidget | 
-					aWidget phlow definingMethod = aMethodDefinition ]
-				ifNil: [ false ] ]
+			| isDetected |
+			isDetected := false.
+			eachTabModel widgetDo: [ :aWidget | 
+					isDetected := aWidget phlow definingMethod = aMethodDefinition ].
+			isDetected ]
 		ifFound: [ :aTabModel | self tabGroup viewModel removeTab: aTabModel ]
 		ifNone: [  "do nothing" ].
 	self compositeView views
 		detect: [ :eachView | eachView definingMethod = aMethodDefinition ]
 		ifFound: [ :aView | self compositeView views remove: aView ifAbsent: [  "ignore" ] ]
 		ifNone: [  "do nothing" ]
-]
-
-{ #category : #accessing }
-GtPhlowChangeTabGroupRemoveTabAction >> compositeView [
-	^ self tabGroup phlow entity
 ]
 
 { #category : #accessing }
