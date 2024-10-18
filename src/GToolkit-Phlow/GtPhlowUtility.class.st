@@ -90,10 +90,15 @@ GtPhlowUtility class >> defaultPriority [
 { #category : #enumerating }
 GtPhlowUtility class >> findIndexFor: aNewPhlowView in: aGtPhlowViews [
 	<return: #Integer>
-	^ aGtPhlowViews 
-		detectIndex: [ :anExistingPhlowView | 
-			self hasHigherPriority: aNewPhlowView than: anExistingPhlowView. ]
-		ifNone: [ aGtPhlowViews size + 1 ].
+	| anIndex |
+	anIndex := 1.
+	aGtPhlowViews do: [ :anExistingPhlowView | 
+		anExistingPhlowView ifItHasContent: [ 
+			(self hasHigherPriority: aNewPhlowView than: anExistingPhlowView)
+					ifTrue: [ ^ anIndex ].
+			anIndex := anIndex + 1 ] ].
+
+	^ anIndex
 ]
 
 { #category : #testing }
