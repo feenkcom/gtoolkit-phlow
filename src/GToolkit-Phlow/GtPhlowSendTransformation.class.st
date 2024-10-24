@@ -2,7 +2,7 @@
 I am an abstract class.
 I am used by {{gtClass:GtPhlowListHandler}}.
 My concrete subclasses implement:
-- {{gtMethod:GtPhlowSendTransformation>>#select:indices:from:|label=#selector}}, and
+- {{gtMethod:GtPhlowSendTransformation>>#select:indices:from:shouldShowSpace:|label=#selector}}, and
 - {{gtMethod:GtPhlowSendTransformation>>#spawn:indices:from:|label=#selector}}.
 See {{gtClass:GtPhlowSendTransformation|label=my subclasses|expanded|show=#gtSubclassesFor:}} for more details:
 
@@ -35,7 +35,7 @@ GtPhlowSendTransformation >> asPhlowSendTransformation [
 ]
 
 { #category : #'api - events' }
-GtPhlowSendTransformation >> select: aSelectedObject indices: aSelectionIndices from: anElement [
+GtPhlowSendTransformation >> select: aSelectedObject indices: aSelectionIndices from: anElement shouldShowSpace: shouldOpenInSpace [
 	"Properly instantiate and fire ${class:GtPhlowObjectToSelect}$ event.
 	The ${class:GtPhlowObjectToSelect}$ event must be instantiated with a ${class:GtPhlowTool}$ instance
 	that displayes the selected object (aSelectedObject)."

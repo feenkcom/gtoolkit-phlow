@@ -6,17 +6,17 @@ Class {
 
 { #category : #accessing }
 GtPhlowGroupedListToSelectHandler >> selectionChangedEvent: anEvent [
+	anEvent
+		selectedDo: [ :theIndices | 
+			| aWidgetElement aSelectedObject |
+			aWidgetElement := anEvent currentTarget.
+			aSelectedObject := aWidgetElement viewModel entityAt: theIndices first.
 
-	anEvent selectedDo: [ :theIndices |
-		| aWidgetElement aSelectedObject |
-		
-		aWidgetElement := anEvent currentTarget.
-		aSelectedObject := aWidgetElement viewModel entityAt: theIndices first.
-		
-		self transformation 
-			select: aSelectedObject
-			indices: theIndices
-			from: aWidgetElement ]
+			self transformation
+				select: aSelectedObject
+				indices: theIndices
+				from: aWidgetElement
+				shouldShowSpace: false ]
 ]
 
 { #category : #accessing }

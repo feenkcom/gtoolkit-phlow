@@ -19,11 +19,12 @@ GtPhlowSendTreeNodeTransformation >> asTreeNodeTransformation [
 ]
 
 { #category : #'api - events' }
-GtPhlowSendTreeNodeTransformation >> select: aSelectedNode indices: aSelectionIndices from: anElement [
-	self transformation 
+GtPhlowSendTreeNodeTransformation >> select: aSelectedNode indices: aSelectionIndices from: anElement shouldShowSpace: shouldOpenInSpace [
+	self transformation
 		select: aSelectedNode value
-		indices: aSelectionIndices 
+		indices: aSelectionIndices
 		from: anElement
+		shouldShowSpace: shouldOpenInSpace
 ]
 
 { #category : #'api - events' }

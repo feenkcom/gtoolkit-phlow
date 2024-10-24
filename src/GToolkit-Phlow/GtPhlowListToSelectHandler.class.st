@@ -27,16 +27,17 @@ GtPhlowListToSelectHandler >> selectionChangedEvent: anEvent [
 	anEvent
 		selectionDo: [ :aSelection | 
 			| currentWidgetElement selectedObject |
-		 
-			aSelection isNotEmpty ifTrue: [
-				currentWidgetElement := anEvent currentTarget.
-				selectedObject := currentWidgetElement selectionCallback 
-					value: aSelection indices.
-  
-				self transformation
-					select: selectedObject
-					indices: aSelection indices
-					from: currentWidgetElement ] ]
+			aSelection isNotEmpty
+				ifTrue: [ currentWidgetElement := anEvent currentTarget.
+					selectedObject := currentWidgetElement selectionCallback
+							value: aSelection indices.
+
+					self transformation
+						select: selectedObject
+						indices: aSelection indices
+						from: currentWidgetElement
+						shouldShowSpace: (anEvent sourceEvent notNil and: [	
+							anEvent sourceEvent modifiers isPrimaryModifier]) ] ]
 ]
 
 { #category : #'api - event managing' }

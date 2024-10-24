@@ -18,10 +18,15 @@ GtPhlowSendToolTransformation >> defaultValuable [
 ]
 
 { #category : #'api - events' }
-GtPhlowSendToolTransformation >> select: aSelectedObject indices: aSelectionIndices from: anElement [
+GtPhlowSendToolTransformation >> select: aSelectedObject indices: aSelectionIndices from: anElement shouldShowSpace: shouldOpenInSpace [
 	| aTransformedTool |
-	aTransformedTool := self transformedValueFrom: aSelectedObject selection: aSelectionIndices.
-	anElement phlow selectTool: aTransformedTool
+	aTransformedTool := self 
+		transformedValueFrom: aSelectedObject 
+		selection: aSelectionIndices.
+	
+	shouldOpenInSpace 
+		ifTrue: [ self spawnInSpaceTool: aTransformedTool from: anElement  ]
+		ifFalse: [ anElement phlow selectTool: aTransformedTool ]
 ]
 
 { #category : #'api - events' }
@@ -29,4 +34,13 @@ GtPhlowSendToolTransformation >> spawn: aSelectedObject indices: aSelectionIndic
 	| aTransformedTool |
 	aTransformedTool := self transformedValueFrom: aSelectedObject selection: aSelectionIndices.
 	anElement phlow spawnTool: aTransformedTool
+]
+
+{ #category : #utils }
+GtPhlowSendToolTransformation >> spawnInSpaceTool: aTool from: anElement [
+	GtWorldUtility 
+		showSpaceWithIcon: aTool icon 
+		title: aTool name
+		with: aTool
+		from: anElement
 ]
