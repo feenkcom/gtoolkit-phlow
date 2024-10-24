@@ -35,7 +35,7 @@ GtPhlowSendTransformation >> asPhlowSendTransformation [
 ]
 
 { #category : #'api - events' }
-GtPhlowSendTransformation >> select: aSelectedObject indices: aSelectionIndices from: anElement [
+GtPhlowSendTransformation >> select: aSelectedObject indices: aSelectionIndices from: anElement shouldShowSpace: shouldOpenInSpace [
 	"Properly instantiate and fire ${class:GtPhlowObjectToSelect}$ event.
 	The ${class:GtPhlowObjectToSelect}$ event must be instantiated with a ${class:GtPhlowTool}$ instance
 	that displayes the selected object (aSelectedObject)."

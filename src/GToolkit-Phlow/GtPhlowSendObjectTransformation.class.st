@@ -18,10 +18,15 @@ GtPhlowSendObjectTransformation >> defaultValuable [
 ]
 
 { #category : #'api - events' }
-GtPhlowSendObjectTransformation >> select: aSelectedObject indices: aSelectionIndices from: anElement [
+GtPhlowSendObjectTransformation >> select: aSelectedObject indices: aSelectionIndices from: anElement shouldShowSpace: shouldOpenInSpace [
 	| aTransformedValue |
-	aTransformedValue := self transformedValueFrom: aSelectedObject selection: aSelectionIndices.
-	anElement phlow selectObject: aTransformedValue
+	aTransformedValue := self 
+		transformedValueFrom: aSelectedObject 
+		selection: aSelectionIndices.
+	
+	shouldOpenInSpace 
+		ifTrue: [ self spawnInSpaceObject: aTransformedValue from: anElement  ]
+		ifFalse: [ anElement phlow selectObject: aTransformedValue ]
 ]
 
 { #category : #'api - events' }
@@ -29,4 +34,11 @@ GtPhlowSendObjectTransformation >> spawn: aSelectedObject indices: aSelectionInd
 	| aTransformedValue |
 	aTransformedValue := self transformedValueFrom: aSelectedObject selection: aSelectionIndices.
 	anElement phlow spawnObject: aTransformedValue
+]
+
+{ #category : #utils }
+GtPhlowSendObjectTransformation >> spawnInSpaceObject: aSelectedObject from: anElement [ 
+	GtWorldUtility
+		showObject: aSelectedObject
+		from:anElement
 ]
