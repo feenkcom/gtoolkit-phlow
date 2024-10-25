@@ -173,6 +173,12 @@ GtPhlowView >> actionDropdownButtonLabel: aStringOrRope tooltip: aTooltipText co
 			content: aValuable ]
 ]
 
+{ #category : #accessing }
+GtPhlowView >> actions [
+	<return: #OrderedCollection of: #GtPhlowAction>
+	^ phlowActions
+]
+
 { #category : #'adding - actions' }
 GtPhlowView >> actionStencil: anActionStencil [
 	self actionStencilDo: [ :anExplicit | 
@@ -191,6 +197,26 @@ GtPhlowView >> actionStencil: anActionStencil tooltip: aTooltipText [
 GtPhlowView >> actionStencilDo: aBlock [
 	self action: [ :aPhlowAction | 
 		aBlock cull: aPhlowAction explicit ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionsToolbarForElement: anElement [
+	| aToolbar |
+	aToolbar := BrToolbar new.
+	aToolbar aptitude: BrGlamorousToolbarAptitude.
+
+	aToolbar
+		withAsyncPromiseDo: [ :anElementPromise | 
+			anElementPromise
+				whenSuccess: [ :aToolbarElement :theActions | 
+					theActions
+						do: [ :phlowAction | 
+							phlowAction
+								asElement: [ :actionElement | aToolbar addItem: actionElement ]
+								withHostElement: anElement ] ].
+			anElementPromise promise: self allActionsFuture ].
+
+	^ aToolbar
 ]
 
 { #category : #'adding - actions' }
@@ -276,32 +302,6 @@ GtPhlowView >> actionUpdateButtonTooltip: aTooltip [
 	self 
 		actionUpdateButtonIcon: BrGlamorousVectorIcons refresh 
 		tooltip: aTooltip
-]
-
-{ #category : #accessing }
-GtPhlowView >> actions [
-	<return: #OrderedCollection of: #GtPhlowAction>
-	^ phlowActions
-]
-
-{ #category : #'adding - actions' }
-GtPhlowView >> actionsToolbarForElement: anElement [
-	| aToolbar |
-	aToolbar := BrToolbar new.
-	aToolbar aptitude: BrGlamorousToolbarAptitude.
-
-	aToolbar
-		withAsyncPromiseDo: [ :anElementPromise | 
-			anElementPromise
-				whenSuccess: [ :aToolbarElement :theActions | 
-					theActions
-						do: [ :phlowAction | 
-							phlowAction
-								asElement: [ :actionElement | aToolbar addItem: actionElement ]
-								withHostElement: anElement ] ].
-			anElementPromise promise: self allActionsFuture ].
-
-	^ aToolbar
 ]
 
 { #category : #'adding - update definitions' }

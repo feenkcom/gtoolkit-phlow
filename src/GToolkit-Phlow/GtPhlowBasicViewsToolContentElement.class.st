@@ -33,6 +33,14 @@ GtPhlowBasicViewsToolContentElement >> buildHeaderElement [
 ]
 
 { #category : #'building widgets' }
+GtPhlowBasicViewsToolContentElement >> buildToolbar [
+	^ BrToolbar new
+		aptitude: BrGlamorousToolbarAptitude new;
+		alignCenterLeft;
+		fitContent.
+]
+
+{ #category : #'building widgets' }
 GtPhlowBasicViewsToolContentElement >> buildToolLabel [
 	^(BrLabel new)
 		aptitude: ((BrGlamorousLabelAptitude new)
@@ -53,14 +61,6 @@ GtPhlowBasicViewsToolContentElement >> buildToolLabel [
 		hMatchParent;
 		vFitContent;
 		background: Color white
-]
-
-{ #category : #'building widgets' }
-GtPhlowBasicViewsToolContentElement >> buildToolbar [
-	^ BrToolbar new
-		aptitude: BrGlamorousToolbarAptitude new;
-		alignCenterLeft;
-		fitContent.
 ]
 
 { #category : #initialization }

@@ -32,6 +32,16 @@ GtPhlowCompositeToolSelectionState >> applySelectionStateToElement: aTabGroupEle
 ]
 
 { #category : #accessing }
+GtPhlowCompositeToolSelectionState >> selectedToolSelectionState: anObject [
+	selectedToolSelectionState := anObject
+]
+
+{ #category : #accessing }
+GtPhlowCompositeToolSelectionState >> selectedToolTabIdentifier: aToolTabIdentifier [
+	selectedToolTabIdentifier := aToolTabIdentifier
+]
+
+{ #category : #accessing }
 GtPhlowCompositeToolSelectionState >> selectToolTabInElement: aTabGroupElement [
 	selectedToolTabIdentifier ifNil: [ ^ self  ].
 	
@@ -40,14 +50,4 @@ GtPhlowCompositeToolSelectionState >> selectToolTabInElement: aTabGroupElement [
 			selectedToolTabIdentifier matchesTab: aTabModel ]
 		ifFound: [ :aTabModel | aTabModel select ]
 		ifNone: [  "do nothing" ]
-]
-
-{ #category : #accessing }
-GtPhlowCompositeToolSelectionState >> selectedToolSelectionState: anObject [
-	selectedToolSelectionState := anObject
-]
-
-{ #category : #accessing }
-GtPhlowCompositeToolSelectionState >> selectedToolTabIdentifier: aToolTabIdentifier [
-	selectedToolTabIdentifier := aToolTabIdentifier
 ]

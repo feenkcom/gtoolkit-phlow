@@ -26,19 +26,29 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	| aButton |
 	aButton := BrButton new.
 	aButton aptitude: self newButtonLook.
-	aButton phlow 
+	(aButton phlow)
 		beAction;
 		entity: self.
-	label ifNotNil: [ aButton label: label asRopedText ].
-	icon ifNotNil: [ aButton icon: icon asElement ].
-	id ifNotNil: [ aButton id: self id ].
-	action ifNotNil: [ aButton action: [ :theButton :aButtonModel :anEvent | 
-			(self isDefinitionRequested: anEvent) ifFalse: [ 
-				action gtValueWithArgs: { theButton. aTargetElement. aButtonModel. anEvent } ] ] ].
-	name ifNotNil: [ :aName | aButton id: aName ].
+	label ifNotNil: [aButton label: label asRopedText].
+	icon ifNotNil: [aButton icon: icon asElement].
+	id ifNotNil: [aButton id: self id].
+	aButton viewModel when: BlClickEvent
+		do: [:anEvent | anEvent modifiers isAlt ifFalse: [aButton viewModel clickEvent: anEvent]].
+	action
+		ifNotNil: 
+			[aButton action: 
+					[:theButton :aButtonModel :anEvent |
+					(self isDefinitionRequested: anEvent)
+						ifFalse: 
+							[action gtValueWithArgs: 
+									{theButton.
+									aTargetElement.
+									aButtonModel.
+									anEvent}]]].
+	name ifNotNil: [:aName | aButton id: aName].
 	self attachTooltipFor: aButton hostElement: aTargetElement.
 	self attachShowDefinitionEventHandler: aButton.
-	^ aBlock value: aButton
+	^aBlock value: aButton
 ]
 
 { #category : #accessing }

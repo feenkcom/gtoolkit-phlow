@@ -20,6 +20,12 @@ TGtPhlowTreeNodeExpansion >> expandAll [
 	self expandUpTo: 20
 ]
 
+{ #category : #'private - accessing' }
+TGtPhlowTreeNodeExpansion >> expander [
+	<return: #GtPhlowTreeNodeExpander>
+	^ expander ifNil: [ expander := GtPhlowTreeNodeExpander null ]
+]
+
 { #category : #'api - expansion' }
 TGtPhlowTreeNodeExpansion >> expandOneLevel [
 	self expandUpTo: 1
@@ -41,10 +47,4 @@ TGtPhlowTreeNodeExpansion >> expandTree: aBrTree [
 { #category : #'api - expansion' }
 TGtPhlowTreeNodeExpansion >> expandUpTo: aLevelIndex [
 	expander := GtPhlowTreeNodeExpander upTo: aLevelIndex.
-]
-
-{ #category : #'private - accessing' }
-TGtPhlowTreeNodeExpansion >> expander [
-	<return: #GtPhlowTreeNodeExpander>
-	^ expander ifNil: [ expander := GtPhlowTreeNodeExpander null ]
 ]

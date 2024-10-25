@@ -84,6 +84,11 @@ GtPhlowColumnedListView >> cellSpacing [
 	^ 10
 ]
 
+{ #category : #'private - testing' }
+GtPhlowColumnedListView >> columnedListClass [
+	^ BrColumnedList
+]
+
 { #category : #'api - scripting column' }
 GtPhlowColumnedListView >> columnOfType: aColumnClass [
 	<return: #GtPhlowTextColumn>
@@ -92,11 +97,6 @@ GtPhlowColumnedListView >> columnOfType: aColumnClass [
 	aColumn := aColumnClass new index: columns size + 1.
 	columns add: aColumn.
 	^ aColumn
-]
-
-{ #category : #'private - testing' }
-GtPhlowColumnedListView >> columnedListClass [
-	^ BrColumnedList
 ]
 
 { #category : #'private - accessing' }

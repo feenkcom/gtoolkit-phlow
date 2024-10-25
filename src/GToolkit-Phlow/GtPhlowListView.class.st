@@ -167,6 +167,24 @@ GtPhlowListView >> itemId: aBrListItemIdStencilBuilderOrBlock [
 	itemId := aBrListItemIdStencilBuilderOrBlock 
 ]
 
+{ #category : #'api - scripting' }
+GtPhlowListView >> items: aBlock [
+	itemsProviderComputation := aBlock
+]
+
+{ #category : #'private - accessing' }
+GtPhlowListView >> itemsProviderComputation [
+	^ itemsProviderComputation
+]
+
+{ #category : #'private - accessing' }
+GtPhlowListView >> itemsProviderOnExceptionErrorElement: aBlock [
+	^ self 
+		performBlock: [ itemsProviderComputation value asBrItemsProvider ]
+		onExceptionErrorElement: [ :anElement |
+			aBlock value: anElement ].
+]
+
 { #category : #'api - configuration' }
 GtPhlowListView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 	"An item element stencil can be a #value-able of the form [ :anItemType | ]"
@@ -196,24 +214,6 @@ GtPhlowListView >> itemTypeStencil [
 	"Return a stencil that is used to create an item type of a given item object"
 
 	^ itemTypeStencil
-]
-
-{ #category : #'api - scripting' }
-GtPhlowListView >> items: aBlock [
-	itemsProviderComputation := aBlock
-]
-
-{ #category : #'private - accessing' }
-GtPhlowListView >> itemsProviderComputation [
-	^ itemsProviderComputation
-]
-
-{ #category : #'private - accessing' }
-GtPhlowListView >> itemsProviderOnExceptionErrorElement: aBlock [
-	^ self 
-		performBlock: [ itemsProviderComputation value asBrItemsProvider ]
-		onExceptionErrorElement: [ :anElement |
-			aBlock value: anElement ].
 ]
 
 { #category : #'private - building' }

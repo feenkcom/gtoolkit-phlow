@@ -58,13 +58,13 @@ GtPhlowSpartaView >> extent: anExtent [
 ]
 
 { #category : #accessing }
-GtPhlowSpartaView >> hMatchParent [
-	horizontalResizer := BlLayoutResizer matchParent
+GtPhlowSpartaView >> height: aNumber [
+	verticalResizer := BlLayoutResizer exact: aNumber asFloat
 ]
 
 { #category : #accessing }
-GtPhlowSpartaView >> height: aNumber [
-	verticalResizer := BlLayoutResizer exact: aNumber asFloat
+GtPhlowSpartaView >> hMatchParent [
+	horizontalResizer := BlLayoutResizer matchParent
 ]
 
 { #category : #initialization }

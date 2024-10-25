@@ -110,6 +110,20 @@ GtPhlowCompositeTool >> supportsSelectionHandling [
 	^ true
 ]
 
+{ #category : #'api - accessing' }
+GtPhlowCompositeTool >> tools [
+	<return: #Array of: #GtPhlowTool>
+	^ tools
+]
+
+{ #category : #'api - accessing' }
+GtPhlowCompositeTool >> tools: aGtPhlowTool [
+	self 
+		assert: [ aGtPhlowTool isNotNil ] 
+		description: [ 'Phlow tool must be non-nil' ].
+	tools := aGtPhlowTool
+]
+
 { #category : #'private - instance creation' }
 GtPhlowCompositeTool >> toolTab: aGtPhlowTool into: aStream [
 	aGtPhlowTool asTabDo: [ :aTab | 
@@ -129,18 +143,4 @@ GtPhlowCompositeTool >> toolTabs [
 GtPhlowCompositeTool >> toolTabsInto: aStream [
 	self tools do: [ :eachTool | 
 		self toolTab: eachTool into: aStream ]
-]
-
-{ #category : #'api - accessing' }
-GtPhlowCompositeTool >> tools [
-	<return: #Array of: #GtPhlowTool>
-	^ tools
-]
-
-{ #category : #'api - accessing' }
-GtPhlowCompositeTool >> tools: aGtPhlowTool [
-	self 
-		assert: [ aGtPhlowTool isNotNil ] 
-		description: [ 'Phlow tool must be non-nil' ].
-	tools := aGtPhlowTool
 ]
