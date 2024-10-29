@@ -7,18 +7,13 @@ Class {
 		'sourceElement',
 		'properties'
 	],
-	#category : 'GToolkit-Phlow-Events'
+	#category : #'GToolkit-Phlow-Events'
 }
 
 { #category : #initialization }
 GtPhlowObjectEvent >> initialize [
 	super initialize.
 	self initializeTool.
-]
-
-{ #category : #convenience }
-GtPhlowObjectEvent >> object [
-	^ self tool object
 ]
 
 { #category : #convenience }

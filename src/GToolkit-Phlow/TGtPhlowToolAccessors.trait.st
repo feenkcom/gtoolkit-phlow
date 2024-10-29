@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'tool'
 	],
-	#category : 'GToolkit-Phlow-Tool - Support'
+	#category : #'GToolkit-Phlow-Tool - Support'
 }
 
 { #category : #defaults }
@@ -14,6 +14,11 @@ TGtPhlowToolAccessors >> defaultTool [
 { #category : #initialization }
 TGtPhlowToolAccessors >> initializeTool [
 	tool := self defaultTool
+]
+
+{ #category : #accessing }
+TGtPhlowToolAccessors >> object [
+	^ self tool object
 ]
 
 { #category : #accessing }
