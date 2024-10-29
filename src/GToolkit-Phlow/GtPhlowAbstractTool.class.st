@@ -87,6 +87,13 @@ GtPhlowAbstractTool >> beToolContentElement: anElement [
 		entity: self."
 ]
 
+{ #category : #'api - accessing' }
+GtPhlowAbstractTool >> context: aPhlowContext [
+	"Tools may use the given phlow context"
+
+	
+]
+
 { #category : #selection }
 GtPhlowAbstractTool >> extractSelectionStateFromElement: aToolElement [
 	self supportsSelectionHandling ifFalse: [ 
