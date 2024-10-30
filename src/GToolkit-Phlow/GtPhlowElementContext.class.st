@@ -15,7 +15,8 @@ Class {
 		'isPopupContainer',
 		'isException',
 		'isTool',
-		'isToolLabel'
+		'isToolLabel',
+		'toolViewModel'
 	],
 	#category : #'GToolkit-Phlow-Context'
 }
@@ -23,6 +24,15 @@ Class {
 { #category : #'instance creation' }
 GtPhlowElementContext class >> on: anElement [
 	^ self new element: anElement
+]
+
+{ #category : #'api - tool view model' }
+GtPhlowElementContext >> accessTool: aType viewModel: aViewModelSelector object: anObjectSelector [
+	toolViewModel := GtPhlowToolCommonViewModel new
+			context: self;
+			type: aType;
+			viewModelSelector: aViewModelSelector;
+			objectSelector: anObjectSelector
 ]
 
 { #category : #accessing }
@@ -396,6 +406,19 @@ GtPhlowElementContext >> textViewContent [
 	^ self viewContent
 		allChildrenBreadthFirstDetect: [ :each | each isKindOf: BrEditorElement ] 
 		ifFound: [:editorElement | editorElement editor text ]
+]
+
+{ #category : #'api - tool view model' }
+GtPhlowElementContext >> toolViewModel [
+	"Return a tool view model"
+
+	<return: #TGtPhlowToolViewModel>
+	^ toolViewModel
+]
+
+{ #category : #'api - tool view model' }
+GtPhlowElementContext >> toolViewModel: anObject [
+	toolViewModel := anObject
 ]
 
 { #category : #'api - updating' }
