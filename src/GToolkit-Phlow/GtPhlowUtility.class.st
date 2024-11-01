@@ -86,6 +86,13 @@ GtPhlowUtility class >> createTabErrorElementFor: aPhlowView withError: anExcept
 	aBlock value: aTab.
 ]
 
+{ #category : #'accessing - defaults' }
+GtPhlowUtility class >> defaultFutureExecutionConfiguration [
+	^ AsyncFutureExecutionConfiguration new
+		customGroup: #Phlow;
+		highPriority
+]
+
 { #category : #testing }
 GtPhlowUtility class >> defaultPriority [
 	^ 75

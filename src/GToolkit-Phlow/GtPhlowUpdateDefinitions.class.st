@@ -22,6 +22,11 @@ GtPhlowUpdateDefinitions >> asyncWhen: anAnnouncement if: anIfCondition in: anAn
 
 { #category : #'api - adding' }
 GtPhlowUpdateDefinitions >> asyncWhen: anAnnouncement in: anAnnouncer [
+	self add: (GtPhlowUpdateOnAnnouncement new
+		announcement: anAnnouncement;
+		announcer: anAnnouncer).
+	true ifTrue: [ ^ self ].
+
 	self add: (GtPhlowAsyncUpdateDefinition new
 		announcement: anAnnouncement;
 		announcer: anAnnouncer)

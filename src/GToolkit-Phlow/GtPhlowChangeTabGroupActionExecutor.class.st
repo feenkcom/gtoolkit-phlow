@@ -29,9 +29,7 @@ GtPhlowChangeTabGroupActionExecutor >> configuration: aFutureExecutionConfigurat
 
 { #category : #initialization }
 GtPhlowChangeTabGroupActionExecutor >> defaultConfiguration [
-	^ AsyncFutureExecutionConfiguration new
-		customGroup: #Phlow;
-		highPriority
+	^ GtPhlowUtility defaultFutureExecutionConfiguration
 ]
 
 { #category : #'gt - extensions' }
