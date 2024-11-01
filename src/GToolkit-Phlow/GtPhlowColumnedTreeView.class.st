@@ -64,6 +64,8 @@ GtPhlowColumnedTreeView >> buildColumnsInTree: aTree [
 	columns
 		do: [ :eachPhlowColumn | 
 			eachPhlowColumn configureColumn: aTree column ].
+			
+	columns ifEmpty:  [ self fallbackColumnWhenEmpty configureColumn: aTree column ].
 ]
 
 { #category : #'private - building' }
