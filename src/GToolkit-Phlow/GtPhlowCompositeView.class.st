@@ -88,10 +88,10 @@ GtPhlowCompositeView >> collectorDo: aBlock [
 { #category : #'adding - update definitions' }
 GtPhlowCompositeView >> defaultUpdateDefinitions [
 	^ Array new: 3 streamContents: [ :aStream |
-		"aStream 
+		aStream 
 			nextPutAll: super defaultUpdateDefinitions;
 			nextPut: GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange;
-			nextPut: GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange" ]
+			nextPut: GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange ]
 ]
 
 { #category : #ui }
