@@ -49,6 +49,12 @@ GtPhlowUpdateDefinitions >> initialize [
 	definitions := OrderedCollection new: 1.
 ]
 
+{ #category : #subscriptions }
+GtPhlowUpdateDefinitions >> installAutoUpdatesOn: anElement [
+	self definitions do: [ :eachDefinition | 
+		eachDefinition installOn: anElement ]
+]
+
 { #category : #'api - removing' }
 GtPhlowUpdateDefinitions >> removeOfClass: aClass [
 	self definitions 

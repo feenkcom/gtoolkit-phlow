@@ -17,6 +17,13 @@ Class {
 	#category : #'GToolkit-Phlow-Updating'
 }
 
+{ #category : #testing }
+GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange class >> isDeprecated [
+	"Replaced by GtPhlowUpdateCompositeViewTabGroupOnDefiningMethodChange"
+
+	^ true
+]
+
 { #category : #'private - updating' }
 GtPhlowUpdateCompositeSubViewListOnDefiningMethodChange >> addSubView: aMethodAdded inContext: aGtPhlowElementContext [
 
