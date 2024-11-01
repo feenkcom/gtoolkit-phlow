@@ -22,8 +22,13 @@ TGtPhlowColumnedHeader >> buildHeaderForItems: theItems [
 ]
 
 { #category : #'private - building' }
-TGtPhlowColumnedHeader >> buildHeaderItems: theBrickColumns inHeader: aHeader [	
-	aHeader addChildren: (self columns with: theBrickColumns collect: [ :eachColumn :eachBrickColumn |
+TGtPhlowColumnedHeader >> buildHeaderItems: theBrickColumns inHeader: aHeader [
+	| phlowColumns |
+	
+	phlowColumns := self columns
+		ifEmpty: [ { self fallbackColumnWhenEmpty } ].
+
+	aHeader addChildren: (phlowColumns with: theBrickColumns collect: [ :eachColumn :eachBrickColumn |
 		| eachHeaderElement eachResizer |
 		eachHeaderElement := eachColumn buildHeaderElement.
 		eachResizer := BrResizer new

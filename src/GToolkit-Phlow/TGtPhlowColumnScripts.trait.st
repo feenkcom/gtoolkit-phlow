@@ -174,6 +174,15 @@ TGtPhlowColumnScripts >> explicitColumn [
 	^ self columnOfType: GtPhlowExplicitColumn
 ]
 
+{ #category : #'as yet unclassified' }
+TGtPhlowColumnScripts >> fallbackColumnWhenEmpty [
+	"There must be always at least one column, even if users didn't specify any. In that case we create this column"
+
+	^ (GtPhlowTextColumn new
+		index: 1;
+		title: 'Items')
+]
+
 { #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> iconNameColumn [
 	<return: #GtPhlowThemeIconNameColumn>

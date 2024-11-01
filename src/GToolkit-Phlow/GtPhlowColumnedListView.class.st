@@ -76,7 +76,12 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 { #category : #'private - building' }
 GtPhlowColumnedListView >> buildColumnsInList: aList [
 	columns do: [ :eachPhlowColumn |
-		eachPhlowColumn configureColumn: aList column ]
+		eachPhlowColumn configureColumn: aList column ].
+	
+	"There must be at least one default column"
+	columns ifEmpty:  [
+		self fallbackColumnWhenEmpty
+			configureColumn: aList column ].
 ]
 
 { #category : #accessing }

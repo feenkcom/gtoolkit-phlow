@@ -945,3 +945,15 @@ GtPhlowColumnedListViewExamples >> viewWithTenItems [
 	^ self viewWithItems
 		items: [ 1 to: 10 ]
 ]
+
+{ #category : #'examples - view' }
+GtPhlowColumnedListViewExamples >> viewWithoutColumns [
+	"Return an initialized view with 10 (root) items"
+	<gtExample>
+	| view element |
+	view := self emptyList
+		items: [ 1 to: 100 ].
+	view asElementDo: [ :el | element := el ].
+	self assert: element children second items size = 100.
+	^ view
+]
