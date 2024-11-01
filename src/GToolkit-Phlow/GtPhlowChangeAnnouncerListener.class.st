@@ -20,6 +20,19 @@ GtPhlowChangeAnnouncerListener class >> installOn: anElement announcer: anAnnoun
 	^ aListener
 ]
 
+{ #category : #private }
+GtPhlowChangeAnnouncerListener >> addSubscription: aSubscription [
+	"We do not need to collect subscriptions.
+	We do it just for an explainability purpose."
+
+	subscriptions := WeakArray
+			new: subscriptions size + 1
+			streamContents: [ :aStream | 
+				aStream
+					nextPutAll: subscriptions;
+					nextPut: aSubscription ]
+]
+
 { #category : #accessing }
 GtPhlowChangeAnnouncerListener >> configuration: aFutureExecutionConfiguration [
 	elementFuture executionConfiguration: aFutureExecutionConfiguration
@@ -79,15 +92,7 @@ GtPhlowChangeAnnouncerListener >> installAnnouncer: anAnnouncer announcement: an
 			when: anAnnouncement
 			send: #onAnnouncement:
 			to: self.
-			
-	"We do not need to collect subscriptions.
-	We do it just for an explainability purpose."
-	subscriptions := WeakArray
-		new: subscriptions size + 1
-		streamContents: [ :aStream | 
-			aStream
-				nextPutAll: subscriptions;
-				nextPut: aSubscription ]
+	self addSubscription: aSubscription
 ]
 
 { #category : #'event handling' }

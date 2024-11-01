@@ -14,10 +14,11 @@ GtPhlowUpdateDefinitions >> add: aDefinition [
 
 { #category : #'api - adding' }
 GtPhlowUpdateDefinitions >> asyncWhen: anAnnouncement if: anIfCondition in: anAnnouncer [
-	self add: (GtPhlowAsyncUpdateWithConditionDefinition new
-		announcement: anAnnouncement;
-		condition: anIfCondition;
-		announcer: anAnnouncer)
+	self
+		add: (GtPhlowUpdateOnAnnouncement new
+				announcement: anAnnouncement;
+				condition: anIfCondition;
+				announcer: anAnnouncer)
 ]
 
 { #category : #'api - adding' }
@@ -25,11 +26,6 @@ GtPhlowUpdateDefinitions >> asyncWhen: anAnnouncement in: anAnnouncer [
 	self add: (GtPhlowUpdateOnAnnouncement new
 		announcement: anAnnouncement;
 		announcer: anAnnouncer).
-	true ifTrue: [ ^ self ].
-
-	self add: (GtPhlowAsyncUpdateDefinition new
-		announcement: anAnnouncement;
-		announcer: anAnnouncer)
 ]
 
 { #category : #copying }

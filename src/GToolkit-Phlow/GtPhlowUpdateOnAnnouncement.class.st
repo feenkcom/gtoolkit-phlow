@@ -3,7 +3,8 @@ Class {
 	#superclass : #GtPhlowUpdateDefinition,
 	#instVars : [
 		'announcerValuable',
-		'announcementValuable'
+		'announcementValuable',
+		'condition'
 	],
 	#category : #'GToolkit-Phlow-Updating'
 }
@@ -20,7 +21,11 @@ GtPhlowUpdateOnAnnouncement >> announcement: aValuable [
 
 { #category : #accessing }
 GtPhlowUpdateOnAnnouncement >> announcementDo: aBlock [
-	self announcement ifNotNil: aBlock
+	self announcement ifNotNil: [ :anAnnouncementClass |
+		self condition
+			ifNotNil: [ :aCondition | 
+				aBlock cull: (anAnnouncementClass where: aCondition) ]
+			ifNil: [ aBlock cull: anAnnouncementClass ] ]
 ]
 
 { #category : #accessing }
@@ -36,6 +41,20 @@ GtPhlowUpdateOnAnnouncement >> announcer: anAnnouncer [
 { #category : #accessing }
 GtPhlowUpdateOnAnnouncement >> announcerDo: aBlock [
 	self announcer ifNotNil: aBlock
+]
+
+{ #category : #accessing }
+GtPhlowUpdateOnAnnouncement >> condition [
+	^ condition
+]
+
+{ #category : #accessing }
+GtPhlowUpdateOnAnnouncement >> condition: aOneArgBlock [
+	"Condition is a block which receives an announcement and returns boolean value.
+	[ :anAnnouncement | true ].
+	See `Announcement where: [ :anAnnouncement | true ]`"
+
+	condition := aOneArgBlock
 ]
 
 { #category : #accessing }
