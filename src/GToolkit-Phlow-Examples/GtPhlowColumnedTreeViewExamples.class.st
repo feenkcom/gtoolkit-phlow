@@ -98,6 +98,20 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItems_WithItemsError [
 	^ aView
 ]
 
+{ #category : #'examples - columned tree view' }
+GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithNoColumns [
+	<gtExample>
+	| aView anElement |
+	aView := self emptyColumnedTreeView.
+	aView items: [ 1 to: 10 ].
+	aView asElementDo: [ :theElement | anElement := theElement ].
+	self assert: (anElement isKindOf: BlElement).
+	self
+		assert: anElement children second viewModel root childrenValues size
+		equals: 10.
+	^ aView
+]
+
 { #category : #'examples - support' }
 GtPhlowColumnedTreeViewExamples >> elementItemsFor: anElement [
 	"Return element items"
