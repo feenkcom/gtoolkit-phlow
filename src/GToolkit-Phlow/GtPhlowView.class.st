@@ -449,7 +449,7 @@ GtPhlowView >> defaultTitle [
 
 { #category : #defaults }
 GtPhlowView >> defaultUpdateDefinitions [
-	^ { GtPhlowUpdateViewOnDefiningMethodChange }
+	^ { "GtPhlowUpdateViewOnDefiningMethodChange" }
 ]
 
 { #category : #accessing }

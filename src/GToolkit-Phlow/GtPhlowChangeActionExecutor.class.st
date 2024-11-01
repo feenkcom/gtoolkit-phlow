@@ -1,5 +1,5 @@
 Class {
-	#name : #GtPhlowChangeActionContext,
+	#name : #GtPhlowChangeActionExecutor,
 	#superclass : #Object,
 	#category : #'GToolkit-Phlow-Updating New'
 }
