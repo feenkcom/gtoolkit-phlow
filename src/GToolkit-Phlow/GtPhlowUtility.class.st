@@ -15,7 +15,11 @@ GtPhlowUtility class >> compositeViewElementIn: anElement [
 
 { #category : #'instance creation' }
 GtPhlowUtility class >> createSafelyTabElementFor: aPhlowView andDo: aBlock [
+	"We remove the updates on method changes, because
+	this Phlow view is part of composite view which takes
+	care of updates on method changes."
 	aPhlowView autoUpdates removeUpdateOnMethodChanged.
+	
 	[ self createTabElementFor: aPhlowView andDo: aBlock ]
 		on: Error
 		do: [ :anException | 

@@ -310,8 +310,8 @@ GtPhlowView >> addAutoUpdate: aGtPhlowUpdateDefinition [
 ]
 
 { #category : #'adding - update definitions' }
-GtPhlowView >> addAutoUpdates: aCollectionOOfGtPhlowUpdateDefinition [
-	aCollectionOOfGtPhlowUpdateDefinition do: [ :eachDefinition | 
+GtPhlowView >> addAutoUpdates: aCollectionOfGtPhlowUpdateDefinition [
+	aCollectionOfGtPhlowUpdateDefinition do: [ :eachDefinition | 
 		self addAutoUpdate: eachDefinition ]
 ]
 
@@ -560,6 +560,11 @@ GtPhlowView >> initializeDefaultUpdateDefinitions [
 	self addAutoUpdates: self defaultUpdateDefinitions
 ]
 
+{ #category : #'private - elements' }
+GtPhlowView >> installAutoUpdatesOn: anElement [
+	self autoUpdates installAutoUpdatesOn: anElement
+]
+
 { #category : #testing }
 GtPhlowView >> isAsyncEnabled [
 	^ asyncEnabled
@@ -745,6 +750,9 @@ GtPhlowView >> subscribeAutoUpdatesOn: aGtPhlowElementContext [
 { #category : #'private - elements' }
 GtPhlowView >> subscribeToElement: anElement [
 	super subscribeToElement: anElement.
+	
+	self installAutoUpdatesOn: anElement.
+	
 	anElement
 		when: BlElementAddedToSceneGraphEvent 
 			do: [ :anEvent | self subscribeAutoUpdatesOn: anEvent currentTarget phlow ];

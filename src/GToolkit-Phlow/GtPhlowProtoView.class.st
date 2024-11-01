@@ -63,9 +63,9 @@ GtPhlowProtoView >> beViewElement: anElement [
 	The given element is marked as a view and its phlow entity is set to me.
 	In addition we also setup auto updates"
 
+	self assignMeAsEntityFor: anElement.
 	self subscribeToElement: anElement.
 	anElement phlow beView.
-	self assignMeAsEntityFor: anElement.
 ]
 
 { #category : #accessing }

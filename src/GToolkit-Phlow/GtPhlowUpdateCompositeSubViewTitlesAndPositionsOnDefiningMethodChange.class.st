@@ -13,6 +13,13 @@ Class {
 	#category : #'GToolkit-Phlow-Updating'
 }
 
+{ #category : #testing }
+GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange class >> isDeprecated [
+	"Replaced by GtPhlowUpdateCompositeViewTabGroupOnDefiningMethodChange"
+
+	^ true
+]
+
 { #category : #accessing }
 GtPhlowUpdateCompositeSubViewTitlesAndPositionsOnDefiningMethodChange >> assertContext: aGtPhlowElementContext [
 	self 
