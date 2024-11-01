@@ -7,20 +7,8 @@ Class {
 		'addTabAction',
 		'removeTabAction'
 	],
-	#category : #'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating New'
 }
-
-{ #category : #'api - actions' }
-GtPhlowChangeTabGroupModifyTabAction >> actOn: aChangeContext [
-	self tabGroup ifNil: [ ^ self ].
-	self compositeView ifNil: [ ^ self ].
-	self buildContext isBuildContext ifFalse: [ ^ self ].
-	self contentsBuilder ifNil: [ ^ self ].
-	
-	BlTaskAction
-		enqueueElement: self tabGroup
-		action: [ self modifyOn: aChangeContext ]
-]
 
 { #category : #accessing }
 GtPhlowChangeTabGroupModifyTabAction >> buildContext [
@@ -57,11 +45,16 @@ GtPhlowChangeTabGroupModifyTabAction >> initialize [
 ]
 
 { #category : #'api - actions' }
-GtPhlowChangeTabGroupModifyTabAction >> modifyOn: aChangeContext [
-	"Must be called from a UI process"
-
-	removeTabAction removeOn: aChangeContext.
-	addTabAction addOn: aChangeContext
+GtPhlowChangeTabGroupModifyTabAction >> prepareOn: aChangeContext [
+	"Can be called in any process.
+	It returns an action that must be executed in a UI process."
+	
+	<return: #TGtPhlowChangeUpdateAction>
+	| removeAction addAction |
+	removeAction := removeTabAction prepareOn: aChangeContext.
+	addAction := addTabAction prepareOn: aChangeContext.
+	^ GtPhlowChangeCompositeUpdateAction new
+		updateActions: (Array with: removeAction with: addAction)
 ]
 
 { #category : #accessing }
@@ -74,4 +67,13 @@ GtPhlowChangeTabGroupModifyTabAction >> tabGroup: anObject [
 	tabGroup := anObject.
 	addTabAction tabGroup: anObject.
 	removeTabAction tabGroup: anObject.
+]
+
+{ #category : #'api - actions' }
+GtPhlowChangeTabGroupModifyTabAction >> update: aResult on: aChangeContext [
+	"Must be called in a UI process.
+	This method is not called since the #prepareOn: returns 
+	an action that calls dirrectly remove and add actions."
+
+	
 ]

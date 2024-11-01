@@ -3,12 +3,17 @@ Class {
 	#superclass : #GtPhlowChangeAction,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : #'GToolkit-Phlow-Updating'
+	#classInstVars : [
+		'uniqueInstance'
+	],
+	#category : #'GToolkit-Phlow-Updating New'
 }
 
 { #category : #'api - actions' }
-GtPhlowChangeNoAction >> actOn: aChangeContext [
-	"do nothing"
+GtPhlowChangeNoAction >> prepareOn: aChangeContext [
+	"Can be called in any process.
+	It returns an action that must be executed in a UI process."
 
-	
+	<return: #TGtPhlowChangeUpdateAction>
+	^ GtPhlowChangeEmptyUpdateAction default
 ]

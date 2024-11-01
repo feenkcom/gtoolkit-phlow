@@ -6,42 +6,8 @@ Class {
 		'buildContext',
 		'contentsBuilder'
 	],
-	#category : #'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating New'
 }
-
-{ #category : #'api - actions' }
-GtPhlowChangeTabGroupAddTabAction >> actOn: aChangeContext [
-	self tabGroup ifNil: [ ^ self ].
-	self buildContext isBuildContext ifFalse: [ ^ self ].
-	self compositeView ifNil: [ ^ self ].
-	self contentsBuilder ifNil: [ ^ self ].
-
-	BlTaskAction
-		enqueueElement: self tabGroup
-		action: [ self addOn: aChangeContext ]
-]
-
-{ #category : #'api - actions' }
-GtPhlowChangeTabGroupAddTabAction >> addOn: aChangeContext [
-	"Must be called from a UI process"
-
-	| aNewView |
-	aNewView := self newPhlowViewOn: aChangeContext.
-	GtPhlowUtility
-		createSafelyTabElementFor: aNewView
-		stencil: (contentsBuilder value: aNewView)
-		andDo: [ :aTab | self basicAddTab: aTab ofView: aNewView ]
-]
-
-{ #category : #private }
-GtPhlowChangeTabGroupAddTabAction >> basicAddTab: aTab ofView: aPhlowView [
-	| anIndex |
-	anIndex := GtPhlowUtility
-		findIndexFor: aPhlowView
-		in: self compositeView views.
-	self tabGroup addTab: aTab at: anIndex.
-	self compositeView views add: aPhlowView beforeIndex: anIndex.
-]
 
 { #category : #accessing }
 GtPhlowChangeTabGroupAddTabAction >> buildContext [
@@ -73,15 +39,32 @@ GtPhlowChangeTabGroupAddTabAction >> contentsBuilder: anObject [
 GtPhlowChangeTabGroupAddTabAction >> initialize [
 	super initialize.
 	buildContext := GtPhlowBuildContext null.
-	contentsBuilder := [ :aPhlowView | [ GtPhlowUtility newElementForView: aPhlowView ] ]
+	contentsBuilder := [ :aPhlowView | 
+		[ GtPhlowUtility newElementForView: aPhlowView ] asStencil ]
 ]
 
-{ #category : #'instance creation' }
-GtPhlowChangeTabGroupAddTabAction >> newPhlowViewOn: aChangeContext [ 
-	^ GtPhlowView empty
-		on: self buildContext object 
-		perform: aChangeContext affectedMethodSelector
-		withContext: self buildContext context
+{ #category : #'api - actions' }
+GtPhlowChangeTabGroupAddTabAction >> prepareOn: aChangeContext [
+	"Can be called in any process.
+	It returns an action that must be executed in a UI process."
+
+	<return: #TGtPhlowChangeUpdateAction>
+	| aNewView anAction |
+	aNewView := GtPhlowView empty
+			on: self buildContext object
+			perform: aChangeContext affectedMethodSelector
+			withContext: self buildContext context.
+	GtPhlowUtility
+		createSafelyTabElementFor: aNewView
+		stencil: (contentsBuilder value: aNewView)
+		andDo: [ :aNewTab | 
+			anAction := GtPhlowChangeUpdateAction new
+					changeAction: self;
+					changeContext: aChangeContext;
+					preparationResult: (GtPhlowChangeTabPreparation new
+							phlowView: aNewView;
+							tabElement: aNewTab) ].
+	^ anAction ifNil: [ GtPhlowChangeEmptyUpdateAction default ]
 ]
 
 { #category : #accessing }
@@ -93,4 +76,17 @@ GtPhlowChangeTabGroupAddTabAction >> tabGroup [
 { #category : #accessing }
 GtPhlowChangeTabGroupAddTabAction >> tabGroup: anObject [
 	tabGroup := anObject
+]
+
+{ #category : #'api - actions' }
+GtPhlowChangeTabGroupAddTabAction >> update: aResult on: aChangeContext [
+	"Must be called in a UI process."
+
+	| aNewView aNewTab anIndex |
+	aNewView := aResult phlowView.
+	aNewTab := aResult tabElement.
+	aChangeContext isTabSelected ifTrue: [ aNewTab select ].
+	anIndex := GtPhlowUtility findIndexFor: aNewView in: self compositeView views.
+	self tabGroup addTab: aNewTab at: anIndex.
+	self compositeView views add: aNewView beforeIndex: anIndex
 ]

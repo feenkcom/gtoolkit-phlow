@@ -3,9 +3,10 @@ Class {
 	#superclass : #GtPhlowChangeActionContext,
 	#instVars : [
 		'affectedClass',
-		'affectedMethod'
+		'affectedMethod',
+		'isTabSelected'
 	],
-	#category : #'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating New'
 }
 
 { #category : #'event handling' }
@@ -43,4 +44,14 @@ GtPhlowChangeActionAffectedMethodContext >> affectedMethodDefinition [
 { #category : #accessing }
 GtPhlowChangeActionAffectedMethodContext >> affectedMethodSelector [
 	^ self affectedMethod selector
+]
+
+{ #category : #accessing }
+GtPhlowChangeActionAffectedMethodContext >> isTabSelected [
+	^ isTabSelected ifNil: [ false ]
+]
+
+{ #category : #accessing }
+GtPhlowChangeActionAffectedMethodContext >> isTabSelected: anObject [
+	isTabSelected := anObject
 ]

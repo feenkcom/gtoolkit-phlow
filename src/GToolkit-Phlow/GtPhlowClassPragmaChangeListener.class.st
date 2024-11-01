@@ -2,69 +2,110 @@ Class {
 	#name : #GtPhlowClassPragmaChangeListener,
 	#superclass : #Object,
 	#instVars : [
-		'interestingClasses',
-		'interestingPragmas',
 		'isSubscribedToSystem',
 		'onMethodAddedAction',
 		'onMethodRemovedAction',
-		'onMethodModifiedAction'
+		'onMethodModifiedAction',
+		'interestCondition',
+		'actionExecutor'
 	],
-	#category : #'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating New'
 }
+
+{ #category : #factory }
+GtPhlowClassPragmaChangeListener class >> installOn: aTabGroup [
+]
+
+{ #category : #factory }
+GtPhlowClassPragmaChangeListener class >> installOnCompositeElement: aTabGroup [
+	| aListener aCompositeView aBuildContext |
+	aCompositeView := aTabGroup phlow entity ifNil: [ ^ nil ].
+	aBuildContext := aCompositeView buildContext.
+	aBuildContext isBuildContext ifFalse: [ ^ nil ].
+	
+	aListener := self new
+		interestingPragmas: GtPhlowViewsCollector defaultViewPragmaNames 
+			andObject: aBuildContext object;
+		actionExecutor: (GtPhlowChangeTabGroupActionExecutor new 
+			tabGroup: aTabGroup);
+		onMethodAddedAction: (GtPhlowChangeTabGroupAddTabAction new
+			tabGroup: aTabGroup;
+			buildContext: aBuildContext);
+		onMethodRemovedAction: (GtPhlowChangeTabGroupRemoveTabAction new
+			tabGroup: aTabGroup);
+		onMethodModifiedAction: (GtPhlowChangeTabGroupModifyTabAction new
+			tabGroup: aTabGroup;
+			buildContext: aBuildContext);
+		subscribeToSystem.
+			
+	aTabGroup userData at: GtPhlowClassPragmaChangeListener put: aListener.
+	^ aListener
+]
+
+{ #category : #accessing }
+GtPhlowClassPragmaChangeListener >> actionExecutor [
+	^ actionExecutor
+]
+
+{ #category : #accessing }
+GtPhlowClassPragmaChangeListener >> actionExecutor: anActionExecutor [
+	actionExecutor := anActionExecutor
+]
 
 { #category : #initialization }
 GtPhlowClassPragmaChangeListener >> initialize [
 	super initialize.
-	interestingClasses := Array empty.
-	interestingPragmas := Array empty.
+	interestCondition := GtPhlowChangeLackOfInterestCondition default.
 	isSubscribedToSystem := false.
+	actionExecutor := GtPhlowChangeBasicActionExecutor default.
 	onMethodAddedAction := GtPhlowChangeNoAction default.
 	onMethodRemovedAction := GtPhlowChangeNoAction default.
 	onMethodModifiedAction := GtPhlowChangeNoAction default.
 ]
 
 { #category : #accessing }
-GtPhlowClassPragmaChangeListener >> interestingClass: aSymbol [
-	self interestingClasses: (self interestingClasses copyWith: aSymbol)
-]
-
-{ #category : #accessing }
-GtPhlowClassPragmaChangeListener >> interestingClasses [
-	<return: #Array of: #Behavior>
-	^ interestingClasses
+GtPhlowClassPragmaChangeListener >> interestingClass: aClass [
+	self interestingClasses: { aClass }
 ]
 
 { #category : #accessing }
 GtPhlowClassPragmaChangeListener >> interestingClasses: aCollection [
-	interestingClasses := aCollection
+	interestCondition := GtPhlowChangeClassesAndSuperclassesInterestCondition new
+		classes: aCollection
 ]
 
-{ #category : #accessing }
+{ #category : #'api - initialization' }
 GtPhlowClassPragmaChangeListener >> interestingPragma: aSymbol [
-	self interestingPragmas: (self interestingPragmas copyWith: aSymbol)
+	self interestingPragmas: { aSymbol }
 ]
 
-{ #category : #accessing }
-GtPhlowClassPragmaChangeListener >> interestingPragmas [
-	<return: #Array of: #Symbol>
-	^ interestingPragmas
+{ #category : #'api - initialization' }
+GtPhlowClassPragmaChangeListener >> interestingPragmas: aCollectionOfSymbols [
+	interestCondition := GtPhlowChangePragmasInterestCondition new 
+	 		pragmas: aCollectionOfSymbols
 ]
 
-{ #category : #accessing }
-GtPhlowClassPragmaChangeListener >> interestingPragmas: aCollection [
-	interestingPragmas := aCollection
+{ #category : #'api - initialization' }
+GtPhlowClassPragmaChangeListener >> interestingPragmas: aCollectionOfPragmas andObject: anObject [
+	interestCondition := GtPhlowChangeAndInterestCondition new
+	 	left: (GtPhlowChangePragmasInterestCondition new 
+	 		pragmas: aCollectionOfPragmas);
+	 	right: (GtPhlowChangeObjectInterestCondition new 
+	 		object: anObject)
+]
+
+{ #category : #'api - initialization' }
+GtPhlowClassPragmaChangeListener >> interestingPragmas: aCollectionOfPragmas andSuperclass: aClass [
+	 interestCondition := GtPhlowChangeAndInterestCondition new
+	 	left: (GtPhlowChangePragmasInterestCondition new 
+	 		pragmas: aCollectionOfPragmas);
+	 	right: (GtPhlowChangeClassesAndSubclassesInterestCondition new 
+	 		superclass: aClass)
 ]
 
 { #category : #testing }
 GtPhlowClassPragmaChangeListener >> isInterestingClass: anAffectedClass andMethod: anAffectedMethod [
-	(self interestingClasses anySatisfy: [ :eachClass | 
-		GtSystemUtility 
-			isClass: anAffectedClass 
-			sameOrSubclassOf: eachClass ])
-		ifFalse: [ ^ false ].
-
-	^ self interestingPragmas
-		anySatisfy: [ :eachSymbol | anAffectedMethod hasPragmaNamed: eachSymbol ]
+	^ interestCondition isInterestingClass: anAffectedClass andMethod: anAffectedMethod
 ]
 
 { #category : #accessing }
@@ -83,10 +124,11 @@ GtPhlowClassPragmaChangeListener >> onMethodAddedAnnouncement: aMethodAdded [
 		isInterestingClass: aMethodAdded classAffected
 		andMethod: aMethodAdded methodAdded) ifFalse: [ ^ self ].
 
-	onMethodAddedAction
-		actOn: (GtPhlowChangeActionAffectedMethodContext
-				forAffectedClass: aMethodAdded classAffected
-				affectedMethod: aMethodAdded methodAdded)
+	actionExecutor
+		submit: onMethodAddedAction 
+		context: (GtPhlowChangeActionAffectedMethodContext
+			forAffectedClass: aMethodAdded classAffected
+			affectedMethod: aMethodAdded methodAdded)
 ]
 
 { #category : #accessing }
@@ -105,10 +147,11 @@ GtPhlowClassPragmaChangeListener >> onMethodModifiedAnnouncement: aMethodModifie
 		isInterestingClass: aMethodModified classAffected
 		andMethod: aMethodModified methodAffected)
 		ifTrue: [ 
-			onMethodModifiedAction
-				actOn: (GtPhlowChangeActionAffectedMethodContext
-						forAffectedClass: aMethodModified classAffected
-						affectedMethod: aMethodModified methodAffected).
+			actionExecutor
+				submit: onMethodModifiedAction
+				context: (GtPhlowChangeActionAffectedMethodContext
+					forAffectedClass: aMethodModified classAffected
+					affectedMethod: aMethodModified methodAffected).
 			^ self ].
 	
 	(self
@@ -116,10 +159,11 @@ GtPhlowClassPragmaChangeListener >> onMethodModifiedAnnouncement: aMethodModifie
 		andMethod: aMethodModified oldMethod) ifFalse: [ ^ self ].
 	"The old method has an interesting pragma, while the new method does not have it.
 	We therefore remove the method."
-	onMethodRemovedAction
-		actOn: (GtPhlowChangeActionAffectedMethodContext
-				forAffectedClass: aMethodModified classAffected
-				affectedMethod: aMethodModified methodAffected)
+	actionExecutor
+		submit: onMethodRemovedAction
+		context: (GtPhlowChangeActionAffectedMethodContext
+			forAffectedClass: aMethodModified classAffected
+			affectedMethod: aMethodModified methodAffected)
 ]
 
 { #category : #accessing }
@@ -138,10 +182,11 @@ GtPhlowClassPragmaChangeListener >> onMethodRemovedAnnouncement: aMethodRemoved 
 		isInterestingClass: aMethodRemoved classAffected
 		andMethod: aMethodRemoved methodRemoved) ifFalse: [ ^ self ].
 		
-	onMethodRemovedAction
-		actOn: (GtPhlowChangeActionAffectedMethodContext
-				forAffectedClass: aMethodRemoved classAffected
-				affectedMethod: aMethodRemoved methodRemoved)
+	actionExecutor 
+		submit: onMethodRemovedAction
+		context: (GtPhlowChangeActionAffectedMethodContext
+			forAffectedClass: aMethodRemoved classAffected
+			affectedMethod: aMethodRemoved methodRemoved)
 ]
 
 { #category : #subscriptions }
@@ -156,4 +201,9 @@ GtPhlowClassPragmaChangeListener >> subscribeToSystem [
 		when: MethodModified
 			send: #onMethodModifiedAnnouncement:
 			to: self
+]
+
+{ #category : #subscriptions }
+GtPhlowClassPragmaChangeListener >> unsubscribeFromSystem [
+	SystemAnnouncer uniqueInstance unsubscribe: self
 ]
