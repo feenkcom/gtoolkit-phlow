@@ -43,6 +43,7 @@ GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 		aptitude: BrGlamorousTabGroupSwitcherAptitude;
 		addTabs: self toolTabs.
 	aTabGroup addEventHandler: GtPhlowToolObjectChangeHandler new.
+	aTabGroup phlow toolViewModel: (GtPhlowToolCompositeViewModel new tabGroup: aTabGroup).
 	
 	^ aOneArgBlock cull: aTabGroup
 ]
