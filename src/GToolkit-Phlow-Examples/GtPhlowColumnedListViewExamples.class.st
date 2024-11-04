@@ -26,13 +26,13 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView [
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	
 	aCollection := aCollection copy addFirst: 100; yourself.
 	anAnnouncer announce: Announcement new.
 	
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 
 	^ aView
 ]
@@ -74,13 +74,13 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_False [
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	
 	aCollection := aCollection copy addFirst: 100; yourself.
 	anAnnouncer announce: Announcement new.
 	
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 
 	^ aView
 ]
@@ -102,7 +102,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_False_InSpace [
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	
 	aParent addChild: anElement.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
@@ -134,7 +134,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_False_WithParent
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 
 	aParent addChild: anElement.
 	aCollection := aCollection copy addFirst: 100; yourself.
@@ -143,7 +143,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_False_WithParent
 		anAnnouncer announce: Announcement new ].
 	
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	self assert: aParent childrenCount equals: 1.
 	self assert: (aParent children first == anElement).
 	^ aView
@@ -164,13 +164,13 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_True [
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	
 	aCollection := aCollection copy addFirst: 100; yourself.
 	anAnnouncer announce: Announcement new.
 	
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 
 	^ aView
 ]
@@ -192,7 +192,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_True_InSpace [
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	
 	aParent addChild: anElement.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
@@ -204,7 +204,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_True_InSpace [
 	
 	self assert: aParent childrenCount equals: 1.
 	self assert: (aParent children first == anElement).
-	self assert: aParent children first children second items size equals: 11.
+	self assert: aParent children first children second items size equals: 10.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	^ aView
 ]
@@ -224,7 +224,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_True_WithParent 
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 
 	aParent addChild: anElement.
 	aCollection := aCollection copy addFirst: 100; yourself.
@@ -233,7 +233,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedViewWithCondition_True_WithParent 
 		anAnnouncer announce: Announcement new ].
 	
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	self assert: aParent childrenCount equals: 1.
 	self assert: (aParent children first == anElement).
 	^ aView
@@ -256,7 +256,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView_InSpace [
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	
 	aParent addChild: anElement.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
@@ -268,7 +268,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView_InSpace [
 	
 	self assert: aParent childrenCount equals: 1.
 	self assert: (aParent children first == anElement).
-	self assert: aParent children first children second items size equals: 11.
+	self assert: aParent children first children second items size equals: 10.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	^ aView
 ]
@@ -288,7 +288,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView_WithParent [
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 
 	aParent addChild: anElement.
 	aCollection := aCollection copy addFirst: 100; yourself.
@@ -297,7 +297,7 @@ GtPhlowColumnedListViewExamples >> autoUpdatedView_WithParent [
 		anAnnouncer announce: Announcement new ].
 	
 	self assert: anElement children second items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	self assert: aParent childrenCount equals: 1.
 	self assert: (aParent children first == anElement).
 	^ aView

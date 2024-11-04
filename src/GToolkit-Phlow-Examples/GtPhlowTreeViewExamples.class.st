@@ -30,7 +30,7 @@ GtPhlowTreeViewExamples >> autoUpdatedView_InSpace [
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	
 	self assert: anElement viewModel root childrenValues size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	
 	aParent addChild: anElement.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
@@ -45,7 +45,7 @@ GtPhlowTreeViewExamples >> autoUpdatedView_InSpace [
 	self assert: aParent children first == anElement.
 	self
 		assert: aParent children first viewModel root childrenValues size
-		equals: 11.
+		equals: 10.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	^ aView
 ]
@@ -99,7 +99,7 @@ GtPhlowTreeViewExamples >> autoUpdatedView_WithParent [
 	
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: anElement viewModel root childrenValues size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	
 	aParent addChild: anElement.
 	
@@ -110,7 +110,7 @@ GtPhlowTreeViewExamples >> autoUpdatedView_WithParent [
 		disableDuring: [ anAnnouncer announce: Announcement new ].
 	
 	self assert: anElement viewModel root childrenValues size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	^ aView
 ]
 
