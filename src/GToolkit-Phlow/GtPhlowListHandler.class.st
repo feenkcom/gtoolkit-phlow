@@ -18,6 +18,12 @@ GtPhlowListHandler >> initialize [
 	transformation := self defaultTransformation
 ]
 
+{ #category : #testing }
+GtPhlowListHandler >> shouldShowSelectionInNewSpaceFor: anEvent [ 
+	^ anEvent sourceEvent notNil and: [ 
+		anEvent sourceEvent modifiers isPrimaryModifier ]
+]
+
 { #category : #accessing }
 GtPhlowListHandler >> transformation [
 	<return: #GtPhlowSendTransformation>

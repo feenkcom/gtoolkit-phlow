@@ -29,35 +29,31 @@ GtPhlowListToSelectHandler >> selectionChangedEvent: anEvent [
 			| currentWidgetElement selectedObject |
 			aSelection isNotEmpty
 				ifTrue: [ 
-					| shouldShowSpace |
 					currentWidgetElement := anEvent currentTarget.
 					selectedObject := currentWidgetElement selectionCallback
 							value: aSelection indices.
-					shouldShowSpace := anEvent sourceEvent notNil and: [ 
-						anEvent sourceEvent modifiers isPrimaryModifier and: [ 
-							anEvent sourceEvent modifiers isShift ] ].
 
 					self transformation
 						select: selectedObject
 						indices: aSelection indices
 						from: currentWidgetElement
-						shouldShowSpace: shouldShowSpace ] ]
+						shouldShowSpace: false ] ]
 ]
 
 { #category : #'api - event managing' }
 GtPhlowListToSelectHandler >> selectionDoubleClickedEvent: anEvent [
-	
-	anEvent selection ifNotEmpty: [ :anInterval |
-		| currentWidgetElement selectedObject |
-		
-		currentWidgetElement := anEvent currentTarget.
-		selectedObject := currentWidgetElement selectionCallback 
-			value: anInterval.
-		
-		self transformation 
-			spawn: selectedObject
-			indices: anInterval
-			from: currentWidgetElement ]
+	anEvent selection
+		ifNotEmpty: [ :anInterval | 
+			| currentWidgetElement selectedObject shouldShowSpace |
+			currentWidgetElement := anEvent currentTarget.
+			selectedObject := currentWidgetElement selectionCallback value: anInterval.
+			shouldShowSpace := self shouldShowSelectionInNewSpaceFor: anEvent.
+
+			self transformation
+				spawn: selectedObject
+				indices: anInterval
+				from: currentWidgetElement
+				shouldShowSpace: shouldShowSpace ]
 ]
 
 { #category : #'api - event managing' }

@@ -28,11 +28,12 @@ GtPhlowSendTreeNodeTransformation >> select: aSelectedNode indices: aSelectionIn
 ]
 
 { #category : #'api - events' }
-GtPhlowSendTreeNodeTransformation >> spawn: aSelectedNode indices: aSelectionIndices from: anElement [
-	self transformation 
+GtPhlowSendTreeNodeTransformation >> spawn: aSelectedNode indices: aSelectionIndices from: anElement shouldShowSpace: shouldShowSpace [
+	self transformation
 		spawn: aSelectedNode value
-		indices: aSelectionIndices 
+		indices: aSelectionIndices
 		from: anElement
+		shouldShowSpace: shouldShowSpace
 ]
 
 { #category : #'api - accessing' }
