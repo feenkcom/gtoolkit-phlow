@@ -25,7 +25,6 @@ GtPhlowListToSpawnHandler >> handleEvent: anEvent [
 	anEvent
 		selectedDo: [ :anInterval | 
 			| selectedObject shouldShowSpace |
-			GtJustContextStackSignal emit.
 			selectedObject := aWidgetElement viewModel itemAt: anInterval first.
 			shouldShowSpace := self shouldShowSelectionInNewSpaceFor: anEvent.
 			
