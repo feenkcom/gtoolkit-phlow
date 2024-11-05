@@ -61,9 +61,9 @@ GtPhlowChangeTabGroupAddTabAction >> prepareOn: aChangeContext [
 			anAction := GtPhlowChangeUpdateAction new
 					changeAction: self;
 					changeContext: aChangeContext;
-					preparationResult: (GtPhlowChangeTabPreparation new
+					preparationResult: (GtPhlowChangeViewAndElementPreparation new
 							phlowView: aNewView;
-							tabElement: aNewTab) ].
+							element: aNewTab) ].
 	^ anAction ifNil: [ GtPhlowChangeEmptyUpdateAction default ]
 ]
 
@@ -84,7 +84,7 @@ GtPhlowChangeTabGroupAddTabAction >> update: aResult on: aChangeContext [
 
 	| aNewView aNewTab anIndex |
 	aNewView := aResult phlowView.
-	aNewTab := aResult tabElement.
+	aNewTab := aResult element.
 	aChangeContext isTabSelected ifTrue: [ aNewTab select ].
 	anIndex := GtPhlowUtility findIndexFor: aNewView in: self compositeView views.
 	self tabGroup addTab: aNewTab at: anIndex.

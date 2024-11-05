@@ -14,6 +14,36 @@ GtPhlowUtility class >> compositeViewElementIn: anElement [
 ]
 
 { #category : #'instance creation' }
+GtPhlowUtility class >> createElementFor: aPhlowView andDo: aBlock [
+	"we explicitly traverse the collection because it is possible for
+	asElementDo: to not return anything when we deal with an EmptyView"
+	aPhlowView ifItHasContent: [ 
+		aPhlowView asElementDo: aBlock ]
+]
+
+{ #category : #'instance creation' }
+GtPhlowUtility class >> createErrorElementFor: aPhlowView withError: anException andDo: aBlock [
+	| aFrozenException anElement |
+	aFrozenException := GtSystemUtility freeze: anException.
+	anElement := aFrozenException asDebuggableElement.
+	anElement phlow 
+		entity: aPhlowView;
+		beViewContent.
+	aBlock value: anElement.
+]
+
+{ #category : #'instance creation' }
+GtPhlowUtility class >> createSafelyElementFor: aPhlowView andDo: aBlock [
+	[ self createElementFor: aPhlowView andDo: aBlock ]
+		on: Error
+		do: [ :anException | 
+			self
+				createErrorElementFor: aPhlowView
+				withError: anException
+				andDo: aBlock ]
+]
+
+{ #category : #'instance creation' }
 GtPhlowUtility class >> createSafelyTabElementFor: aPhlowView andDo: aBlock [
 	"We remove the updates on method changes, because
 	this Phlow view is part of composite view which takes
@@ -69,14 +99,20 @@ GtPhlowUtility class >> createTabElementFor: aPhlowView stencil: aStencil andDo:
 
 { #category : #'instance creation' }
 GtPhlowUtility class >> createTabErrorElementFor: aPhlowView withError: anException andDo: aBlock [
-	| aTab |
-	anException freeze.
-	anException messageText: 'You likely did not return the proper view (' 
+	| aTab aFrozenException |
+	aFrozenException := GtSystemUtility freeze: anException.
+	aFrozenException messageText: 'You likely did not return the proper view (' 
 		, anException messageText , ')'.
 	aTab := BrTab new
 		aptitude: BrGlamorousTabAptitude;
 		label: 'Error';
-		stencil: [ anException asDebuggableElement ].
+		stencil: [
+			| anElement |
+			anElement := aFrozenException asDebuggableElement.
+			anElement phlow 
+				entity: aPhlowView;
+				beViewContent.
+			anElement ].
 	aTab phlow
 			beView;
 			entity: aPhlowView.

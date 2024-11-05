@@ -65,7 +65,9 @@ GtPhlowUpdateDefinitions >> removeOfClass: aClass [
 
 { #category : #accessing }
 GtPhlowUpdateDefinitions >> removeUpdateOnMethodChanged [
-	self removeOfClass: GtPhlowUpdateViewOnDefiningMethodChange.
+	self definitions removeAllSuchThat: [ :eachDefinition | 
+		eachDefinition uninstall.
+		eachDefinition isUpdateOnMethodChanged ]
 ]
 
 { #category : #copying }

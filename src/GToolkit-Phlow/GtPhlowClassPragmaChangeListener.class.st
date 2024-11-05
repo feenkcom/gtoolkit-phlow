@@ -1,6 +1,6 @@
 Class {
 	#name : #GtPhlowClassPragmaChangeListener,
-	#superclass : #GtPhlowChangeSystemListener,
+	#superclass : #GtPhlowChangeMethodSystemAnnouncerListener,
 	#category : #'GToolkit-Phlow-Updating New'
 }
 

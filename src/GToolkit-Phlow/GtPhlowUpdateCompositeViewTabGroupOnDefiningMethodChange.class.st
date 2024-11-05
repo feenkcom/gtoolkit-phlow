@@ -7,5 +7,5 @@ Class {
 { #category : #subscriptions }
 GtPhlowUpdateCompositeViewTabGroupOnDefiningMethodChange >> installOn: aTabGroup [
 	super installOn: aTabGroup.
-	GtPhlowChangeSystemListener installOnCompositeElement: aTabGroup
+	GtPhlowChangeMethodSystemAnnouncerListener installOnCompositeElement: aTabGroup
 ]

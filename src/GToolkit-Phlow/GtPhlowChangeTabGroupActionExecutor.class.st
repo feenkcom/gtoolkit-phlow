@@ -61,7 +61,7 @@ GtPhlowChangeTabGroupActionExecutor >> newSubmittedAction [
 				element: self tabGroup;
 				cancelSoft;
 				executionConfiguration: self configuration;
-				whenSuccess: [ :aTabGroup :anAction | anAction execute ])
+				whenSuccess: [ :aTabGroup :anAction | anAction ifNotNil: #execute ])
 ]
 
 { #category : #private }
