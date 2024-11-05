@@ -13,51 +13,59 @@ Class {
 
 { #category : #factory }
 GtPhlowChangeMethodSystemAnnouncerListener class >> installOnCompositeElement: aTabGroup [
-	| aListener aCompositeView aBuildContext |
+	| aListener aCompositeView aBuildContext aUserDataKey |
+	aUserDataKey := GtPhlowChangeMethodSystemAnnouncerListener class
+			>> #installOnCompositeElement:.
+	aTabGroup userData
+		at: aUserDataKey
+		ifPresent: [ :theListener | ^ theListener ]
+		ifAbsent: [ "ignore" ].
+
 	aCompositeView := aTabGroup phlow entity ifNil: [ ^ nil ].
 	aBuildContext := aCompositeView buildContext.
 	aBuildContext isBuildContext ifFalse: [ ^ nil ].
-	
+
 	aListener := self new
-		interestingPragmas: GtPhlowViewsCollector defaultViewPragmaNames 
-			andObject: aBuildContext object;
-		actionExecutor: (GtPhlowChangeTabGroupActionExecutor new 
-			tabGroup: aTabGroup);
-		onMethodAddedAction: (GtPhlowChangeTabGroupAddTabAction new
-			tabGroup: aTabGroup;
-			buildContext: aBuildContext);
-		onMethodRemovedAction: (GtPhlowChangeTabGroupRemoveTabAction new
-			tabGroup: aTabGroup);
-		onMethodModifiedAction: (GtPhlowChangeTabGroupModifyTabAction new
-			tabGroup: aTabGroup;
-			buildContext: aBuildContext);
-		subscribeToSystem.
-			
-	aTabGroup userData 
-		at: (GtPhlowChangeMethodSystemAnnouncerListener class >> #installOnCompositeElement:) 
-		put: aListener.
+			interestingPragmas: GtPhlowViewsCollector defaultViewPragmaNames
+				andObject: aBuildContext object;
+			actionExecutor: (GtPhlowChangeTabGroupActionExecutor new 
+					tabGroup: aTabGroup);
+			onMethodAddedAction: (GtPhlowChangeTabGroupAddTabAction new
+					tabGroup: aTabGroup;
+					buildContext: aBuildContext);
+			onMethodRemovedAction: (GtPhlowChangeTabGroupRemoveTabAction new 
+					tabGroup: aTabGroup);
+			onMethodModifiedAction: (GtPhlowChangeTabGroupModifyTabAction new
+					tabGroup: aTabGroup;
+					buildContext: aBuildContext);
+			subscribeToSystem.
+
+	aTabGroup userData at: aUserDataKey put: aListener.
 	^ aListener
 ]
 
 { #category : #factory }
 GtPhlowChangeMethodSystemAnnouncerListener class >> installOnSingleElement: anElement [
-	| aListener aView aBuildContext aDefiningMethod |
+	| aListener aView aBuildContext aDefiningMethod aUserDataKey |
+	aUserDataKey := GtPhlowChangeMethodSystemAnnouncerListener class
+			>> #installOnSingleElement:.
+	anElement userData
+		at: aUserDataKey
+		ifPresent: [ :theListener | ^ theListener ]
+		ifAbsent: [ "ignore" ].
+	
 	aView := anElement phlow entity ifNil: [ ^ nil ].
 	aDefiningMethod := aView definingMethod ifNil: [ ^ nil ].
 	aBuildContext := aView buildContext.
+
 	aBuildContext isBuildContext ifFalse: [ ^ nil ].
-	
 	aListener := self new
-		interestingDefiningMethod: aDefiningMethod;
-		actionExecutor: (GtPhlowChangeSingleElementActionExecutor new 
-			element: anElement);
-		onMethodModifiedAction: (GtPhlowChangeReplaceElementAction new
-			element: anElement);
-		subscribeToSystem.
-			
-	anElement userData 
-		at: (GtPhlowChangeMethodSystemAnnouncerListener class >> #installOnSingleElement:)
-		put: aListener.
+			interestingDefiningMethod: aDefiningMethod;
+			actionExecutor: (GtPhlowChangeSingleElementActionExecutor new element: anElement);
+			onMethodModifiedAction: (GtPhlowChangeReplaceElementAction new element: anElement);
+			subscribeToSystem.
+
+	anElement userData at: aUserDataKey put: aListener.
 	^ aListener
 ]
 
@@ -187,7 +195,7 @@ GtPhlowChangeMethodSystemAnnouncerListener >> onMethodModifiedAnnouncement: aMet
 		submit: onMethodRemovedAction
 		context: (GtPhlowChangeActionAffectedMethodContext
 			forAffectedClass: aMethodModified classAffected
-			affectedMethod: aMethodModified methodAffected)
+			affectedMethod: aMethodModified oldMethod)
 ]
 
 { #category : #accessing }
