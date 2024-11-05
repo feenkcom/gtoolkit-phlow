@@ -3,7 +3,7 @@ I am an abstract class.
 I am used by {{gtClass:GtPhlowListHandler}}.
 My concrete subclasses implement:
 - {{gtMethod:GtPhlowSendTransformation>>#select:indices:from:shouldShowSpace:|label=#selector}}, and
-- {{gtMethod:GtPhlowSendTransformation>>#spawn:indices:from:|label=#selector}}.
+- {{gtMethod:GtPhlowSendTransformation>>#spawn:indices:from:shouldShowSpace:|label=#selector}}.
 See {{gtClass:GtPhlowSendTransformation|label=my subclasses|expanded|show=#gtSubclassesFor:}} for more details:
 
 
