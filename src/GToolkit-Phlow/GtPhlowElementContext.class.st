@@ -329,8 +329,9 @@ GtPhlowElementContext >> methodSelector [
 
 { #category : #updating }
 GtPhlowElementContext >> postponeUpdate [
-
-	([ self syncUpdate ] asAsyncFuture delayed: 300 milliSeconds) await
+	([ self syncUpdate ] asAsyncFuture 
+		delayed: 300 milliSeconds)
+			await: GtPhlowUtility defaultFutureExecutionConfiguration
 ]
 
 { #category : #accessing }

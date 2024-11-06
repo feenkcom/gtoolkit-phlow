@@ -4,6 +4,13 @@ Class {
 	#category : #'GToolkit-Phlow-Updating'
 }
 
+{ #category : #testing }
+GtPhlowAsyncUpdateDefinition class >> isDeprecated [
+	"Replaced by GtPhlowUpdateOnAnnouncement"
+
+	^ true
+]
+
 { #category : #subscriptions }
 GtPhlowAsyncUpdateDefinition >> subscribeOn: aGtPhlowElementContext [
 	self announcerDo: [ :anAnnouncer |

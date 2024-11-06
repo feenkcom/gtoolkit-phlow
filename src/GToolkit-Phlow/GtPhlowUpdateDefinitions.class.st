@@ -14,17 +14,18 @@ GtPhlowUpdateDefinitions >> add: aDefinition [
 
 { #category : #'api - adding' }
 GtPhlowUpdateDefinitions >> asyncWhen: anAnnouncement if: anIfCondition in: anAnnouncer [
-	self add: (GtPhlowAsyncUpdateWithConditionDefinition new
-		announcement: anAnnouncement;
-		condition: anIfCondition;
-		announcer: anAnnouncer)
+	self
+		add: (GtPhlowUpdateOnAnnouncement new
+				announcement: anAnnouncement;
+				condition: anIfCondition;
+				announcer: anAnnouncer)
 ]
 
 { #category : #'api - adding' }
 GtPhlowUpdateDefinitions >> asyncWhen: anAnnouncement in: anAnnouncer [
-	self add: (GtPhlowAsyncUpdateDefinition new
+	self add: (GtPhlowUpdateOnAnnouncement new
 		announcement: anAnnouncement;
-		announcer: anAnnouncer)
+		announcer: anAnnouncer).
 ]
 
 { #category : #copying }
@@ -64,7 +65,11 @@ GtPhlowUpdateDefinitions >> removeOfClass: aClass [
 
 { #category : #accessing }
 GtPhlowUpdateDefinitions >> removeUpdateOnMethodChanged [
-	self removeOfClass: GtPhlowUpdateViewOnDefiningMethodChange.
+	self definitions removeAllSuchThat: [ :eachDefinition | 
+		| aResult | 
+		aResult := eachDefinition isUpdateOnMethodChanged.
+		aResult ifTrue: [ eachDefinition uninstall ].
+		aResult ]
 ]
 
 { #category : #copying }

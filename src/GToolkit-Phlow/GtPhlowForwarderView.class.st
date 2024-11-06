@@ -30,6 +30,7 @@ GtPhlowForwarderView >> actionsToolbarForElement: anElement [
 
 	^ BrFromFuture new
 		fitContent;
+		configuration: GtPhlowUtility defaultFutureExecutionConfiguration;
 		stencil: [ BrToolbar new aptitude: BrGlamorousToolbarAptitude ];
 		dataBinder: [ :aToolbar :aData | 
 			aToolbar removeAllItems.

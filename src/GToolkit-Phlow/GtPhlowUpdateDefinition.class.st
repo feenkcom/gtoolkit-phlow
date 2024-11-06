@@ -16,6 +16,11 @@ GtPhlowUpdateDefinition >> installOn: anElement [
 	
 ]
 
+{ #category : #testing }
+GtPhlowUpdateDefinition >> isUpdateOnMethodChanged [
+	^ false
+]
+
 { #category : #'api - initialization' }
 GtPhlowUpdateDefinition >> on: aView [
 	
@@ -24,6 +29,13 @@ GtPhlowUpdateDefinition >> on: aView [
 { #category : #subscriptions }
 GtPhlowUpdateDefinition >> subscribeOn: aGtPhlowElementContext [
 	"This method is called on every BlElementAddedToSceneGraphEvent event"
+
+	
+]
+
+{ #category : #subscriptions }
+GtPhlowUpdateDefinition >> uninstall [
+	"This method is called when a definition is removed."
 
 	
 ]

@@ -29,9 +29,7 @@ GtPhlowChangeTabGroupActionExecutor >> configuration: aFutureExecutionConfigurat
 
 { #category : #initialization }
 GtPhlowChangeTabGroupActionExecutor >> defaultConfiguration [
-	^ AsyncFutureExecutionConfiguration new
-		customGroup: #Phlow;
-		highPriority
+	^ GtPhlowUtility defaultFutureExecutionConfiguration
 ]
 
 { #category : #'gt - extensions' }
@@ -63,7 +61,7 @@ GtPhlowChangeTabGroupActionExecutor >> newSubmittedAction [
 				element: self tabGroup;
 				cancelSoft;
 				executionConfiguration: self configuration;
-				whenSuccess: [ :aTabGroup :anAction | anAction execute ])
+				whenSuccess: [ :aTabGroup :anAction | anAction ifNotNil: #execute ])
 ]
 
 { #category : #private }

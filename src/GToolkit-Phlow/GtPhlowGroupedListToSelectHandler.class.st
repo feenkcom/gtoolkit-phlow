@@ -21,15 +21,15 @@ GtPhlowGroupedListToSelectHandler >> selectionChangedEvent: anEvent [
 
 { #category : #accessing }
 GtPhlowGroupedListToSelectHandler >> selectionDoubleClickedEvent: anEvent [
-	
-	anEvent selection ifNotEmpty: [ :anInterval |
-		| aWidgetElement aSelectedObject |
-	
-		aWidgetElement := anEvent currentTarget.
-			
-		aSelectedObject := aWidgetElement viewModel entityAt: anInterval first.
-		self transformation 
-			spawn: aSelectedObject
-			indices: anInterval
-			from: aWidgetElement ]
+	anEvent selection
+		ifNotEmpty: [ :anInterval | 
+			| aWidgetElement aSelectedObject |
+			aWidgetElement := anEvent currentTarget.
+
+			aSelectedObject := aWidgetElement viewModel entityAt: anInterval first.
+			self transformation
+				spawn: aSelectedObject
+				indices: anInterval
+				from: aWidgetElement
+				shouldShowSpace: false ]
 ]

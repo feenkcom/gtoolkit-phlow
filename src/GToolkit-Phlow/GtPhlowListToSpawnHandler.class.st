@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowListToSpawnHandler,
 	#superclass : #GtPhlowListHandler,
-	#category : 'GToolkit-Phlow-Events'
+	#category : #'GToolkit-Phlow-Events'
 }
 
 { #category : #'private - accessing' }
@@ -20,16 +20,19 @@ GtPhlowListToSpawnHandler >> eventsToHandle [
 { #category : #'api - event managing' }
 GtPhlowListToSpawnHandler >> handleEvent: anEvent [
 	| aWidgetElement |
-	
 	aWidgetElement := anEvent currentTarget.
-	
-	anEvent selectedDo: [ :anInterval |
-		| selectedObject |
-		selectedObject := aWidgetElement viewModel itemAt: anInterval first.
-		self transformation 
-			spawn: selectedObject
-			indices: anInterval
-			from: aWidgetElement. ]
+
+	anEvent
+		selectedDo: [ :anInterval | 
+			| selectedObject shouldShowSpace |
+			selectedObject := aWidgetElement viewModel itemAt: anInterval first.
+			shouldShowSpace := self shouldShowSelectionInNewSpaceFor: anEvent.
+			
+			self transformation
+				spawn: selectedObject
+				indices: anInterval
+				from: aWidgetElement
+				shouldShowSpace: shouldShowSpace ]
 ]
 
 { #category : #'api - event managing' }

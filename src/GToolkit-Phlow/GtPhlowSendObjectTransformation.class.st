@@ -30,10 +30,13 @@ GtPhlowSendObjectTransformation >> select: aSelectedObject indices: aSelectionIn
 ]
 
 { #category : #'api - events' }
-GtPhlowSendObjectTransformation >> spawn: aSelectedObject indices: aSelectionIndices from: anElement [
+GtPhlowSendObjectTransformation >> spawn: aSelectedObject indices: aSelectionIndices from: anElement shouldShowSpace: shouldShowSpace [
 	| aTransformedValue |
 	aTransformedValue := self transformedValueFrom: aSelectedObject selection: aSelectionIndices.
-	anElement phlow spawnObject: aTransformedValue
+	
+	shouldShowSpace 
+		ifTrue: [ self spawnInSpaceObject: aTransformedValue from: anElement ]
+		ifFalse: [ anElement phlow spawnObject: aTransformedValue ]
 ]
 
 { #category : #utils }

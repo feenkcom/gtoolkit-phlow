@@ -3,7 +3,6 @@ Class {
 	#superclass : #GtPhlowChangeAction,
 	#instVars : [
 		'tabGroup',
-		'buildContext',
 		'addTabAction',
 		'removeTabAction'
 	],

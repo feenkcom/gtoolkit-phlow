@@ -11,6 +11,13 @@ Class {
 	#category : #'GToolkit-Phlow-Updating'
 }
 
+{ #category : #testing }
+GtPhlowUpdateViewOnDefiningMethodChange class >> isDeprecated [
+	"Replaced by GtPhlowUpdateSingleViewElementOnDefiningMethodChange"
+
+	^ true
+]
+
 { #category : #'announcement handling' }
 GtPhlowUpdateViewOnDefiningMethodChange >> handleMethodModifiedAnnouncement: aMethodModified [ 
 	self hasContexts ifFalse: [ ^ self ].
@@ -18,6 +25,11 @@ GtPhlowUpdateViewOnDefiningMethodChange >> handleMethodModifiedAnnouncement: aMe
 	(self definingMethod gtPhlowIncludesCompiledMethod: aMethodModified methodAffected)
 		ifFalse: [ ^ self ].
 	self updatePhlowViews.
+]
+
+{ #category : #testing }
+GtPhlowUpdateViewOnDefiningMethodChange >> isUpdateOnMethodChanged [
+	^ true
 ]
 
 { #category : #subscriptions }

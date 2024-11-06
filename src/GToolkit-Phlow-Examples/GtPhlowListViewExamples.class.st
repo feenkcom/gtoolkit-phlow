@@ -24,7 +24,7 @@ GtPhlowListViewExamples >> autoUpdatedView [
 	
 	aView asElementDo: [ :theElement | aListElement := theElement ].
 	self assert: aListElement items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	
 	aCollection := aCollection copy addFirst: 100; yourself.
 	
@@ -32,7 +32,7 @@ GtPhlowListViewExamples >> autoUpdatedView [
 		anAnnouncer announce: Announcement new ].
 	
 	self assert: aListElement items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	^ aView
 ]
 
@@ -53,7 +53,7 @@ GtPhlowListViewExamples >> autoUpdatedView_InSpace [
 	
 	aView asElementDo: [ :theElement | aListElement := theElement ].
 	self assert: aListElement items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	
 	aParent addChild: aListElement.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
@@ -65,7 +65,7 @@ GtPhlowListViewExamples >> autoUpdatedView_InSpace [
 	
 	self assert: aParent childrenCount equals: 1.
 	self assert: aParent children first == aListElement.
-	self assert: aParent children first items size equals: 11.
+	self assert: aParent children first items size equals: 10.
 	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	^ aView
 ]
@@ -85,7 +85,7 @@ GtPhlowListViewExamples >> autoUpdatedView_WithParent [
 	
 	aView asElementDo: [ :theElement | aListElement := theElement ].
 	self assert: aListElement items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 
 	aParent addChild: aListElement.
 	
@@ -94,7 +94,7 @@ GtPhlowListViewExamples >> autoUpdatedView_WithParent [
 		anAnnouncer announce: Announcement new ].
 	
 	self assert: aListElement items size equals: 10.
-	self assert: anAnnouncer numberOfSubscriptions equals: 0.
+	self assert: anAnnouncer numberOfSubscriptions equals: 1.
 	^ aView
 ]
 
