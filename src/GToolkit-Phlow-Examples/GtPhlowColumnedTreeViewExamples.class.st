@@ -213,27 +213,6 @@ GtPhlowColumnedTreeViewExamples >> selectItemAt: anIndex for: anElement [
 	self assert: (aListElement isSelectedAt: anIndex).
 ]
 
-{ #category : #'examples - transformation' }
-GtPhlowColumnedTreeViewExamples >> sendTool [
-	<gtExample>
-	| view element |
-	view := self viewWithTenItems.
-	view sendTool: [ :aNumber | GtPhlowValuableTool new
-		valuable: [
-			BrFrame new
-				labeled: 'tool';
-				matchParent;
-				addChild: (BrLabel new
-					aptitude: BrGlamorousLabelAptitude;
-					text: aNumber;
-					constraintsDo: [ :c | 
-						c frame horizontal alignCenter.
-						c frame vertical alignCenter ]) ] ].
-	view asElementDo: [ :el | element := el ].
-	self itemsFor: element ofSize: 10.
-	^ view
-]
-
 { #category : #'examples - view' }
 GtPhlowColumnedTreeViewExamples >> viewWithTenItems [
 	"Return an initialized view with 10 (root) items"

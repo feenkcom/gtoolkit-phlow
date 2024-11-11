@@ -368,16 +368,16 @@ GtPhlowToolDetailModelExamples >> toolElementInSpace [
 GtPhlowToolDetailModelExamples >> toolOne [
 	<gtExample>
 	| aTool anElement |
-	aTool := self basicValuableTool.
-	aTool valuable: [ 
-		BlElement new
-			layout: BlFrameLayout new;
-			constraintsDo: [ :c | 
-				c horizontal matchParent.
-				c vertical matchParent ];
-			background: self defaultBackgroundColor;
-			addAptitude: self lookWithBackgroundChanges;
-			addChild: (self labelWithText: 'One') ].
+	aTool := self basicExplicitTool.
+	aTool
+		stencil: [ BlElement new
+				layout: BlFrameLayout new;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent ];
+				background: self defaultBackgroundColor;
+				addAptitude: self lookWithBackgroundChanges;
+				addChild: (self labelWithText: 'One') ].
 	aTool name: 'One'.
 
 	anElement := aTool asElementDo: [ :theElement | theElement ].
@@ -390,16 +390,16 @@ GtPhlowToolDetailModelExamples >> toolOne [
 GtPhlowToolDetailModelExamples >> toolTwo [
 	<gtExample>
 	| aTool anElement |
-	aTool := self basicValuableTool.
-	aTool valuable: [ 
-		BlElement new
-			layout: BlFrameLayout new;
-			constraintsDo: [ :c | 
-				c horizontal matchParent.
-				c vertical matchParent ];
-			background: self defaultBackgroundColor;
-			addAptitude: self lookWithBackgroundChanges;
-			addChild: (self labelWithText: 'Two') ].
+	aTool := self basicExplicitTool.
+	aTool
+		stencil: [ BlElement new
+				layout: BlFrameLayout new;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent ];
+				background: self defaultBackgroundColor;
+				addAptitude: self lookWithBackgroundChanges;
+				addChild: (self labelWithText: 'Two') ].
 	aTool name: 'Two'.
 
 	anElement := aTool asElementDo: [ :theElement | theElement ].
