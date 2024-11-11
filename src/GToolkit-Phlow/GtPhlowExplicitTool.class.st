@@ -3,7 +3,9 @@ Class {
 	#superclass : #GtPhlowTool,
 	#instVars : [
 		'name',
-		'stencil'
+		'stencil',
+		'icon',
+		'tabLook'
 	],
 	#category : #'GToolkit-Phlow-Tool - Core'
 }
@@ -20,11 +22,27 @@ GtPhlowExplicitTool >> asElementDo: aOneArgBlock [
 	^ aOneArgBlock cull: anElement cull: self
 ]
 
+{ #category : #'private - accessing' }
+GtPhlowExplicitTool >> defaultTabLook [
+	^ BrGlamorousTabSwitcherWithLabelAptitude
+]
+
+{ #category : #accessing }
+GtPhlowExplicitTool >> icon [
+	^ icon ifNil: [ super icon ]
+]
+
+{ #category : #accessing }
+GtPhlowExplicitTool >> icon: anIconStencil [
+	icon := anIconStencil
+]
+
 { #category : #initialization }
 GtPhlowExplicitTool >> initialize [
 	super initialize.
 	stencil := [ BrFrame new matchParent ] asStencil.
 	name := 'Exlicit'.
+	icon := nil.
 ]
 
 { #category : #accessing }
@@ -47,6 +65,12 @@ GtPhlowExplicitTool >> stencil: aStencil [
 	stencil := aStencil asStencil
 ]
 
+{ #category : #'private - accessing' }
+GtPhlowExplicitTool >> tabLook [
+	^ tabLook ifNil: [ 
+		self defaultTabLook ]
+]
+
 { #category : #accessing }
 GtPhlowExplicitTool >> valuable [
 	self
@@ -63,4 +87,19 @@ GtPhlowExplicitTool >> valuable: aStencil [
 			'`@receiver valuable: `@statements1'
 				-> '`@receiver stencil: `@statements1'.
 	self stencil: aStencil
+]
+
+{ #category : #configuring }
+GtPhlowExplicitTool >> withIconAptitude [
+	tabLook := BrGlamorousTabSwitcherWithIconAptitude
+]
+
+{ #category : #configuring }
+GtPhlowExplicitTool >> withLabelAndIconAptitude [
+	tabLook := BrGlamorousTabSwitcherWithLabelAndIconAptitude
+]
+
+{ #category : #configuring }
+GtPhlowExplicitTool >> withLabelAptitude [
+	tabLook := BrGlamorousTabSwitcherWithLabelAptitude
 ]
