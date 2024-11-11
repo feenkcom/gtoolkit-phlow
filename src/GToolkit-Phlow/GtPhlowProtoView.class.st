@@ -26,6 +26,14 @@ GtPhlowProtoView class >> enableTaskItViews [
 	IsTaskItViewGloballyEnabled := true.
 ]
 
+{ #category : #typing }
+GtPhlowProtoView class >> gtViewArgumentType: aNode [
+	<gtVariableType>
+	^ ((aNode pragmasNamed: #gtView) notEmpty
+		and: [ aNode = aNode topParent variables first ])
+		ifTrue: [ ^ GtPhlowProtoView ]
+]
+
 { #category : #'class initialization' }
 GtPhlowProtoView class >> initialize [
 	IsTaskItViewGloballyEnabled := true.
