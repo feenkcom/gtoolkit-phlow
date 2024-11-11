@@ -149,10 +149,8 @@ GtPhlowCompositeToolExamples >> toolTwo [
 GtPhlowCompositeToolExamples >> toolWithLabel: aString color: aColor [
 	<gtExample>
 	| aTool anElement |
-	aTool := self basicValuableTool.
-	aTool valuable:
-		[ (self toolElementWithLabel: aString)
-			background: aColor ].
+	aTool := self basicExplicitTool.
+	aTool stencil: [ (self toolElementWithLabel: aString) background: aColor ].
 	aTool name: aString.
 	anElement := aTool asElementDo: [ :theElement | theElement ].
 	self assert: (anElement isKindOf: BlElement).

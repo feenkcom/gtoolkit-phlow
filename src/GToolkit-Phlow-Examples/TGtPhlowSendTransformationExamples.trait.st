@@ -163,16 +163,18 @@ TGtPhlowSendTransformationExamples >> sendTool [
 	<gtExample>
 	| view element |
 	view := self viewWithTenItems.
-	view sendTool: [ :aNumber | GtPhlowValuableTool new
-		valuable: [ BrFrame new
-			labeled: 'tool';
-			matchParent;
-			addChild: (BrLabel new
-				aptitude: BrGlamorousLabelAptitude;
-				text: aNumber;
-				constraintsDo: [ :c | 
-					c frame horizontal alignCenter.
-					c frame vertical alignCenter ]) ] ].
+	view
+		sendTool: [ :aNumber | 
+			GtPhlowExplicitTool new
+				stencil: [ BrFrame new
+						labeled: 'tool';
+						matchParent;
+						addChild: (BrLabel new
+								aptitude: BrGlamorousLabelAptitude;
+								text: aNumber;
+								constraintsDo: [ :c | 
+									c frame horizontal alignCenter.
+									c frame vertical alignCenter ]) ] ].
 	view asElementDo: [ :el | element := el ].
 	self itemsFor: element ofSize: 10.
 	^ view
@@ -200,7 +202,7 @@ TGtPhlowSendTransformationExamples >> sendTool_Element_SelectEvent [
 	self selectItemAt: 1 for: anElement.
 	self assert: aCollection size equals: 1.
 	self assert: aCollection first class equals: GtPhlowObjectToSelect.
-	self assert: aCollection first tool class equals: GtPhlowValuableTool.
+	self assert: aCollection first tool class equals: GtPhlowExplicitTool.
 	
 	^ anElement
 ]
@@ -217,7 +219,7 @@ TGtPhlowSendTransformationExamples >> sendTool_Element_SelectEvent_Tool [
 	self selectItemAt: 1 for: anElement.
 	self assert: aCollection size equals: 1.
 	self assert: aCollection first class equals: GtPhlowObjectToSelect.
-	self assert: aCollection first tool class equals: GtPhlowValuableTool.
+	self assert: aCollection first tool class equals: GtPhlowExplicitTool.
 	
 	^ aCollection first tool.
 ]

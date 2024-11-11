@@ -16,10 +16,10 @@ GtPhlowToolExamples >> basicCompositeTool [
 ]
 
 { #category : #'examples - tools' }
-GtPhlowToolExamples >> basicValuableTool [
+GtPhlowToolExamples >> basicExplicitTool [
 	<gtExample>
 	| aTool anElement |
-	aTool := GtPhlowValuableTool new.
+	aTool := GtPhlowExplicitTool new.
 	anElement := aTool asElementDo: [ :theElement | theElement ].
 	self assert: (anElement isKindOf: BlElement).
 	self assert: aTool name isString.
