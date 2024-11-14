@@ -90,8 +90,10 @@ GtPhlowForwarderView >> initialize [
 GtPhlowForwarderView >> originMethodsInto: aStream [
 	super originMethodsInto: aStream.
 
-	self phlowView asAsyncPromise
-		then: [ :aPhlowView | aPhlowView originMethodsInto: aStream ]
+	phlowView
+		ifSome: [ :aPhlowView | 
+			aPhlowView originMethodsInto: aStream ] 
+		ifNone: [ "ignore" ]
 ]
 
 { #category : #'private - elements' }
