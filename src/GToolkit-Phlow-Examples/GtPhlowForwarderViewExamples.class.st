@@ -78,6 +78,8 @@ GtPhlowForwarderViewExamples >> forwardedViewWithObjectCreationError [
 	<gtExample>
 	| aView aPhlowView |
 	aView := GtPhlowForwarderView new
+		object: self 
+			arguments: { GtPhlowView empty. GtPhlowContext new };
 		object: [ Error signal. self ];
 		view: #gtUpdatingFor:.
 
@@ -96,6 +98,7 @@ GtPhlowForwarderViewExamples >> forwardedViewWithObjectCreationError [
 	self assert: aPhlowView notNil.
 	self assert: aPhlowView class equals: GtPhlowViewWithError.
 	self assert: aPhlowView exception signalerContext notNil.
+	self assert: aPhlowView buildContext isBuildContext.
 	
 	self assert: ((aView asElementDo: [ :anElement | anElement ]) isKindOf: BlElement).
 	^ aView
@@ -106,11 +109,14 @@ GtPhlowForwarderViewExamples >> forwardedWithUndefinedViewMessage [
 	<gtExample>
 	| aView |
 	aView := GtPhlowForwarderView new
+		object: self 
+			arguments: { GtPhlowView empty. GtPhlowContext new };
 		object: [ self ];
 		view: #gtUndefinedViewMessageFor:.
 
 	self assert: aView viewObject wait object equals: self.
 	self assert: aView phlowView wait class equals: GtPhlowViewWithError.
+	self assert: aView buildContext isBuildContext.
 	self assert: (aView asElementDo: [ :anElement | anElement ]) class equals: BrFromFuture.
 	^ aView
 ]

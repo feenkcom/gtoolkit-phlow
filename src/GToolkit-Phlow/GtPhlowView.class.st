@@ -705,6 +705,7 @@ GtPhlowView >> phlowErrorViewWithException: anException isFrozen: aBoolean [
 		ifTrue: [ self title asString, ' (Error)' ] 
 		ifFalse: [ 'Error' ].
 	^ GtPhlowViewWithError new
+		buildContext: self buildContext;
 		definingMethod: self definingMethod;
 		title: aTitle;
 		exception: aFrozenException
