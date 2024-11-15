@@ -426,7 +426,8 @@ GtPhlowColumnedListViewExamples >> emptyList [
 	self assert: (element isKindOf: BlElement).
 	self assert: (element children size = 2).
 	self assert: (element children second isKindOf: BrColumnedList).
-	self assert: element phlow isView.
+	self assert: element phlow isViewTitle not.
+	self assert: element phlow isViewContent.
 	self assert: element phlow entity = view.
 	^ view
 ]

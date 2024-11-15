@@ -20,7 +20,7 @@ GtPhlowTreeItemElementWithContextMenuDecorator >> buildDefault [
 					allParentsDetect: [ :eachParent | eachParent constraints infinite holder infiniteElement notNil ]
 					ifFound: [ :aListItemElement |
 						anElement
-							allParentsDetect: [ :eachParent | eachParent phlow isView ]
+							allParentsDetect: [ :eachParent | eachParent phlow isViewContent ]
 							ifFound: [ :aListElement |
 								| anItemHolder anItemPosition anItemObject anItemType |
 						

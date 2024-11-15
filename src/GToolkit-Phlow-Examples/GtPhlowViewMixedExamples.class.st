@@ -78,7 +78,8 @@ GtPhlowViewMixedExamples >> compositeView [
 	view := GtPhlowView empty composite views: {self explicitViewWithElementStencil}.
 	view asElementDo: [ :el | element := el ].
 	self assert: (element isKindOf: BrTabGroup).
-	self assert: element phlow isView.
+	self assert: element phlow isViewTitle not.
+	self assert: element phlow isViewContent.
 	self assert: element phlow entity = view.
 	^ view
 ]
@@ -113,7 +114,8 @@ GtPhlowViewMixedExamples >> explicitViewWithElementStencil [
 		stencil: [ BlElement new ].
 	view asElementDo: [ :el | element := el ].
 	self assert: (element isKindOf: BlElement).
-	self assert: element phlow isView.
+	self assert: element phlow isViewContent.
+	self assert: element phlow isViewTitle not.
 	^ view
 ]
 
@@ -166,21 +168,28 @@ GtPhlowViewMixedExamples >> gtViewWithExtraActionsFor: aView [
 { #category : #examples }
 GtPhlowViewMixedExamples >> labelledCompositeViewElement [
 	<gtExample>
-	| view element childElementsWithView |
+	| view element childElementsWithView scripter |
 	view := self compositeView labelled label: 'Composite'.
 	view asElementDo: [ :el | element := el ].
 	self assert: element notNil.
 	self assert: (element isKindOf: BrTabGroup).
+	scripter := BlScripter new.
+	scripter element: element.
 	
 	"Original test was written with a faulty breadth first search"
 	"The properties of the second child are the ones being tested"
 	
 	childElementsWithView := element
-			allChildrenBreadthFirstSelect: [ :each | each phlow isView ].
-	self assert: childElementsWithView size = 3.
+			allChildrenBreadthFirstSelect: [ :each | each phlow isViewTitle ].
+	self assert: childElementsWithView size equals: 2.
+	
+	self assert: (childElementsWithView first isKindOf: BrTab).
+	self assert: childElementsWithView first phlow entity = view.
+	self assert: childElementsWithView first viewContentElement phlow isViewContent.
+	
 	self assert: (childElementsWithView second isKindOf: BrTab).
-	self assert: childElementsWithView second phlow entity = view.
-	self assert: childElementsWithView second viewContentElement phlow isView.
+	self assert: childElementsWithView second phlow entity equals: view originalView views first.
+	self assert: childElementsWithView second viewContentElement phlow isViewContent.
 
 	^ view
 ]

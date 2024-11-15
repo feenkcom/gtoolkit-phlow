@@ -9,7 +9,7 @@ GtPhlowUtility class >> compositeViewElementIn: anElement [
 	"Return a composite view element that was constructed using GtPhlowCompositeView."
 	<return: #BrTabGroup or: nil>
 	anElement phlow 
-		firstChildWithCompositeViewDo: [ :aBrTabGroup | ^ aBrTabGroup ].
+		firstChildWithCompositeViewContentDo: [ :aBrTabGroup | ^ aBrTabGroup ].
 	^ nil
 ]
 
@@ -80,21 +80,22 @@ GtPhlowUtility class >> createTabElementFor: aPhlowView andDo: aBlock [
 GtPhlowUtility class >> createTabElementFor: aPhlowView stencil: aStencil andDo: aBlock [
 	"we explicitly traverse the collection because it is possible for
 	asElementDo: to not return anything when we deal with an EmptyView"
-	aPhlowView ifItHasContent: [ 
-		| aTab |
-		aTab := BrTab new.
-		aTab phlow
-			beView;
-			entity: aPhlowView.
-		aTab
-			aptitude: BrGlamorousTabAptitude +
-				(GtPhlowBrowseDefinitionAptitude new
-					definition: [ aPhlowView allDefiningMethods ]);
-			label: aPhlowView title;
-			stencil: aStencil;
-			toolbarStencil: [ self newToolbarForTab: aTab view: aPhlowView ].
-		aPhlowView attachTooltipFor: aTab.
-		aBlock value: aTab ]
+
+	aPhlowView
+		ifItHasContent: [ | aTab |
+			aTab := BrTab new.
+			aTab phlow
+				beViewTitle;
+				entity: aPhlowView.
+			aTab
+				aptitude: BrGlamorousTabAptitude
+						+ (GtPhlowBrowseDefinitionAptitude new
+								definition: [ aPhlowView allDefiningMethods ]);
+				label: aPhlowView title;
+				stencil: aStencil;
+				toolbarStencil: [ self newToolbarForTab: aTab view: aPhlowView ].
+			aPhlowView attachTooltipFor: aTab.
+			aBlock value: aTab ]
 ]
 
 { #category : #'instance creation' }
@@ -114,7 +115,7 @@ GtPhlowUtility class >> createTabErrorElementFor: aPhlowView withError: anExcept
 				beViewContent.
 			anElement ].
 	aTab phlow
-			beView;
+			beViewTitle;
 			entity: aPhlowView.
 	GtPhlowTooltipLabelBuilder new
 		text: 'You likely did not return the proper view';
@@ -169,7 +170,6 @@ GtPhlowUtility class >> newElementForView: aPhlowView [
 		| aTaskItView |
 		aTaskItView := aPhlowView asTaskItView.
 		^ aTaskItView asElementDo: [ :anElement | 
-			anElement phlow beViewContent.
 			anElement asScrollableElement ] 
 ]
 

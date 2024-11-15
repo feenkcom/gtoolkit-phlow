@@ -21,7 +21,7 @@ GtPhlowCanvassableView >> asElementDo: aBlock [
 				(self phlowErrorViewWithException: anError)
 					asElementDo: [ :errorElement | errorElement ] ].
 	element phlow
-		beView;
+		beViewContent;
 		entity: self.
 	^ aBlock value: element
 ]

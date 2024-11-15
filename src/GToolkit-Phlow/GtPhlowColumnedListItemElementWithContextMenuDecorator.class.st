@@ -14,7 +14,7 @@ GtPhlowColumnedListItemElementWithContextMenuDecorator >> buildDefault [
 
 	aContextMenuAptitude := BrGlamorousWithContextMenuAptitude
 			content: [ anElement
-					allParentsDetect: [ :eachParent | eachParent phlow isView ]
+					allParentsDetect: [ :eachParent | eachParent phlow isViewContent ]
 					ifFound: [ :aContainerElement | 
 						aContainerElement
 							allChildrenBreadthFirstDetect: [ :eachChild | eachChild isKindOf: BrColumnedList ]

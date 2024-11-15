@@ -2,10 +2,10 @@ Extension { #name : #BrTab }
 
 { #category : #'*GToolkit-Phlow' }
 BrTab >> viewContentElement [
-	"A tab that is marked as a isView can find
+	"A tab that is marked as a isViewTitle can find
 	the related content element by going through the parentTabGroup"
 	self 
-		assert: [ self phlow isView ]
+		assert: [ self phlow isViewTitle ]
 		description: [ 'Phlow context must be a view' ].
 	
 	^ self parentTabGroup

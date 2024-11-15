@@ -25,7 +25,8 @@ GtPhlowExplicitViewExamples >> explicitViewUpdate [
 	BlUseAsyncFeatures disableDuring: [ anElement phlow update ].
 
 	self assert: aParent children first background paint color equals: Color green.
-	self assert: aParent children first phlow isView.
+	self assert: aParent children first phlow isViewContent.
+	self assert: aParent children first phlow isViewTitle not.
 
 	^ aParent
 ]
