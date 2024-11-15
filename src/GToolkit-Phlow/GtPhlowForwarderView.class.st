@@ -90,8 +90,10 @@ GtPhlowForwarderView >> initialize [
 GtPhlowForwarderView >> originMethodsInto: aStream [
 	super originMethodsInto: aStream.
 
-	self phlowView asAsyncPromise
-		then: [ :aPhlowView | aPhlowView originMethodsInto: aStream ]
+	phlowView
+		ifSome: [ :aPhlowView | 
+			aPhlowView originMethodsInto: aStream ] 
+		ifNone: [ "ignore" ]
 ]
 
 { #category : #'private - elements' }
@@ -103,7 +105,10 @@ GtPhlowForwarderView >> resubscribeFrom: aCurrentElement to: aNewChild [
 
 { #category : #updating }
 GtPhlowForwarderView >> updateContent: aCurrentElement [
-	self phlowView wait updateContent: aCurrentElement
+	phlowView
+		ifSome: [ :aView | 
+			aView updateContent: aCurrentElement ] 
+		ifNone: [ "ignore" ]
 ]
 
 { #category : #'api - accessing composite view' }
