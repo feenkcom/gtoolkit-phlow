@@ -221,15 +221,35 @@ GtPhlowElementContext >> firstChildWithAction [
 
 { #category : #'api - search' }
 GtPhlowElementContext >> firstChildWithCompositeView [
-	^ self firstChildWithCompositeViewDo: [ :child | child ]
+	self
+		deprecated: 'Use #firstChildWithCompositeViewContent'
+		transformWith: '`@receiver firstChildWithCompositeView' 
+			-> '`@receiver firstChildWithCompositeViewContent'.
+	
+	^ self firstChildWithCompositeViewContent
+]
+
+{ #category : #'api - search' }
+GtPhlowElementContext >> firstChildWithCompositeViewContent [
+	^ self firstChildWithCompositeViewContentDo: [ :child | child ]
+]
+
+{ #category : #'api - search' }
+GtPhlowElementContext >> firstChildWithCompositeViewContentDo: aBlock [
+	^ self element 
+		allChildrenBreadthFirstDetect: [ :child | 
+			child phlow isViewContent and: [ child phlow entity isKindOf: GtPhlowCompositeView ] ] 
+		ifFound: aBlock
 ]
 
 { #category : #'api - search' }
 GtPhlowElementContext >> firstChildWithCompositeViewDo: aBlock [
-	^ self element 
-		allChildrenBreadthFirstDetect: [ :child | 
-			child phlow isViewTitle and: [ child phlow entity isKindOf: GtPhlowCompositeView ] ] 
-		ifFound: aBlock
+	self
+		deprecated: 'Use #firstChildWithCompositeViewContentDo:'
+		transformWith: '`@receiver firstChildWithCompositeViewDo: `@args' 
+			-> '`@receiver firstChildWithCompositeViewContentDo: `@args'.
+	
+	^ self firstChildWithCompositeViewContentDo: aBlock
 ]
 
 { #category : #'api - search' }
