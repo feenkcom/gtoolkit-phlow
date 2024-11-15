@@ -67,7 +67,7 @@ GtPhlowElementContext >> allChildrenWithAction [
 GtPhlowElementContext >> allChildrenWithView [
 	<return: #Array of: #BrTab>
 	| aTab |
-	aTab := self firstChildWithView.
+	aTab := self firstChildWithViewTitle.
 	aTab ifNil: [ ^ #() ].
 	^ aTab parent children select: [ :child | child phlow isViewTitle ]
 ]
@@ -224,6 +224,22 @@ GtPhlowElementContext >> firstChildWithCompositeViewDo: aBlock [
 
 { #category : #'api - search' }
 GtPhlowElementContext >> firstChildWithView [
+	self
+		deprecated: 'Use #firstChildWithViewTitle'
+		transformWith: '`@receiver firstChildWithView' -> '`@receiver firstChildWithViewTitle'.
+	
+	^ self firstChildWithViewTitle
+]
+
+{ #category : #'api - search' }
+GtPhlowElementContext >> firstChildWithViewContent [
+	^ self element 
+		allChildrenBreadthFirstDetect: [ :child | child phlow isViewContent ] 
+		ifFound: [ :child | child ]
+]
+
+{ #category : #'api - search' }
+GtPhlowElementContext >> firstChildWithViewTitle [
 	^ self element 
 		allChildrenBreadthFirstDetect: [ :child | child phlow isViewTitle ] 
 		ifFound: [ :child | child ]
@@ -232,9 +248,9 @@ GtPhlowElementContext >> firstChildWithView [
 { #category : #'api - search' }
 GtPhlowElementContext >> firstParentWithView [
 	^ self element 
-		allParentsDetect: [ :parent | parent phlow isViewTitle ] 
+		allParentsDetect: [ :parent | parent phlow isViewContent ] 
 		ifFound: [ :parent | parent ]
-		ifNone: [ "nothing" ]
+		ifNone: [ self error: 'Couldn''t find a #viewContent parent' ]
 ]
 
 { #category : #'api - search' }
@@ -247,7 +263,7 @@ GtPhlowElementContext >> firstPopupContainerParentDo: aBlock ifNone: aNoneBlock 
 
 { #category : #accessing }
 GtPhlowElementContext >> forwardViewObjectFromViewAction [
-	^ self firstParentWithView content phlow firstChildWithView phlow entity viewObject wait object
+	^ self firstParentWithView content phlow firstChildWithViewTitle phlow entity viewObject wait object
 ]
 
 { #category : #accessing }
@@ -461,5 +477,5 @@ GtPhlowElementContext >> updateEntity: aNewPhlow [
 { #category : #'api - search' }
 GtPhlowElementContext >> viewContent [
 	self assert: [ self isAction ].
-	^ self firstParentWithView phlow firstChildWithView parentTabGroup content
+	^ self firstParentWithView phlow firstChildWithViewTitle parentTabGroup content
 ]

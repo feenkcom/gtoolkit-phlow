@@ -124,7 +124,7 @@ GtPhlowTaskItView >> title: aString [
 GtPhlowTaskItView >> updateContent: aCurrentElement [
 	"anElement is previously computed content from asElementDo:"
 
-	aCurrentElement phlow firstChildWithView ifNotNil: [ :anElementWithView |
+	aCurrentElement phlow firstChildWithViewTitle ifNotNil: [ :anElementWithView |
 		anElementWithView phlow entity == self originalView
 			ifTrue: [ self originalView updateContent: anElementWithView ] ]
 ]

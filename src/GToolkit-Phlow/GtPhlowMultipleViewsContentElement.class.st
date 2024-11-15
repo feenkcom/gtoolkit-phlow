@@ -41,5 +41,5 @@ GtPhlowMultipleViewsContentElement >> collectContentViews [
 GtPhlowMultipleViewsContentElement >> updateContentElement [
 
 	(viewsContainer  childNamed: #viewsContainer) 	
-		content phlow firstChildWithView phlow syncUpdate.
+		content phlow firstChildWithViewTitle phlow syncUpdate.
 ]

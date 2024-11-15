@@ -170,7 +170,6 @@ GtPhlowUtility class >> newElementForView: aPhlowView [
 		| aTaskItView |
 		aTaskItView := aPhlowView asTaskItView.
 		^ aTaskItView asElementDo: [ :anElement | 
-			anElement phlow beViewContent.
 			anElement asScrollableElement ] 
 ]
 
