@@ -73,7 +73,7 @@ GtPhlowProtoView >> beViewElement: anElement [
 
 	self assignMeAsEntityFor: anElement.
 	self subscribeToElement: anElement.
-	anElement phlow beView.
+	anElement phlow beViewContent.
 ]
 
 { #category : #accessing }

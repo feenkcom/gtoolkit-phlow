@@ -9,14 +9,14 @@ Class {
 	#instVars : [
 		'entity',
 		'element',
-		'isView',
 		'isAction',
 		'isViewContent',
 		'isPopupContainer',
 		'isException',
 		'isTool',
 		'isToolLabel',
-		'toolViewModel'
+		'toolViewModel',
+		'isViewTitle'
 	],
 	#category : #'GToolkit-Phlow-Context'
 }
@@ -113,12 +113,17 @@ GtPhlowElementContext >> beToolLabel [
 
 { #category : #'api - initialization' }
 GtPhlowElementContext >> beView [
-	isView := true
+	self beViewTitle
 ]
 
 { #category : #'api - initialization' }
 GtPhlowElementContext >> beViewContent [
 	isViewContent := true
+]
+
+{ #category : #'api - initialization' }
+GtPhlowElementContext >> beViewTitle [
+	isViewTitle := true
 ]
 
 { #category : #'api - convenience' }
@@ -278,7 +283,7 @@ GtPhlowElementContext >> initialize [
 	super initialize.
 	
 	isAction := false.
-	isView := false.
+	isViewTitle := false.
 	isViewContent := false.
 	isPopupContainer := false.
 	isException := false.
@@ -313,12 +318,17 @@ GtPhlowElementContext >> isToolLabel [
 
 { #category : #'api - testing' }
 GtPhlowElementContext >> isView [
-	^ isView
+	^ self isViewTitle
 ]
 
 { #category : #'api - testing' }
 GtPhlowElementContext >> isViewContent [
 	^ isViewContent
+]
+
+{ #category : #'api - testing' }
+GtPhlowElementContext >> isViewTitle [
+	^ isViewTitle
 ]
 
 { #category : #'api - convenience' }

@@ -676,7 +676,7 @@ GtPhlowView >> performBlock: aPerformBlock onExceptionErrorElement: anExceptionB
 			| anElement | 
 			anElement := anException asDebuggableElement. 
 			anElement id: GtPhlowExceptionId.
-			anElement phlow beView; entity: self.
+			anElement phlow beViewContent; entity: self.
 			anExceptionBlock value: anElement ]
 ]
 

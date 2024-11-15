@@ -5,7 +5,7 @@ Class {
 		'stencilBuilder',
 		'element'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #accessing }
@@ -16,7 +16,7 @@ GtPhlowPannableView >> asElementDo: aBlock [
 		do: [ :anError | 
 			(self phlowErrorViewWithException: anError)
 				asElementDo: [ :errorElement | errorElement ] ].
-	element phlow beView; entity: self.
+	element phlow beViewContent; entity: self.
 	^ aBlock value: element.
 ]
 
