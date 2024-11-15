@@ -25,7 +25,7 @@ GtPhlowViewExamples >> assertErrorElement: anElement inView: aView [
 	self assert: anElement class equals: BrFrame.
 	self assert: anElement childrenCount equals: 1.
 	self assert: anElement phlow isViewContent.
-	self assert: anElement phlow isView not.
+	self assert: anElement phlow isViewTitle not.
 	self assert: anElement phlow entity equals: aView.
 ]
 
@@ -33,7 +33,7 @@ GtPhlowViewExamples >> assertErrorElement: anElement inView: aView [
 GtPhlowViewExamples >> assertViewElement: anElement ofClass: aClass inView: aView [
 	self assert: anElement class equals: aClass.
 	self assert: anElement phlow isViewContent.
-	self assert: anElement phlow isView not.
+	self assert: anElement phlow isViewTitle not.
 	self assert: anElement phlow entity equals: aView
 ]
 

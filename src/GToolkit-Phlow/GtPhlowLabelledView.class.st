@@ -19,7 +19,7 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 	group id: GtPhlowLabelledViewElementId.
 	self originalView asElementDo: [ :originalElement | 
 		tab := BrTab new.
-		tab phlow beView; entity: self.
+		tab phlow beViewTitle; entity: self.
 		tab
 			aptitude: BrGlamorousTabWithoutBarAptitude;
 			label: self newLabel;

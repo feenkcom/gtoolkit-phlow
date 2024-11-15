@@ -26,7 +26,7 @@ GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> buildDefault [
 					ifFound:
 						[ :aListItemElement | 
 						anElement
-							allParentsDetect: [ :eachParent | eachParent phlow isView ]
+							allParentsDetect: [ :eachParent | eachParent phlow isViewContent ]
 							ifFound:
 								[ :aContainerElement | 
 								aContainerElement

@@ -38,7 +38,7 @@ GtPhlowElementContext >> accessTool: aType viewModel: aViewModelSelector object:
 { #category : #accessing }
 GtPhlowElementContext >> activePhlowContexts [
 	^ {
-	#view -> self isView.
+	#viewTitle -> self isViewTitle.
 	#viewContent -> self isViewContent.
 	#action -> self isAction.
 	#exception -> self isException.
@@ -69,7 +69,7 @@ GtPhlowElementContext >> allChildrenWithView [
 	| aTab |
 	aTab := self firstChildWithView.
 	aTab ifNil: [ ^ #() ].
-	^ aTab parent children select: [ :child | child phlow isView ]
+	^ aTab parent children select: [ :child | child phlow isViewTitle ]
 ]
 
 { #category : #asserting }
@@ -113,6 +113,10 @@ GtPhlowElementContext >> beToolLabel [
 
 { #category : #'api - initialization' }
 GtPhlowElementContext >> beView [
+	self
+		deprecated: 'Use #beViewTitle'
+		transformWith: '`@receiver beView' -> '`@receiver beViewTitle'.
+
 	self beViewTitle
 ]
 
@@ -214,21 +218,21 @@ GtPhlowElementContext >> firstChildWithCompositeView [
 GtPhlowElementContext >> firstChildWithCompositeViewDo: aBlock [
 	^ self element 
 		allChildrenBreadthFirstDetect: [ :child | 
-			child phlow isView and: [ child phlow entity isKindOf: GtPhlowCompositeView ] ] 
+			child phlow isViewTitle and: [ child phlow entity isKindOf: GtPhlowCompositeView ] ] 
 		ifFound: aBlock
 ]
 
 { #category : #'api - search' }
 GtPhlowElementContext >> firstChildWithView [
 	^ self element 
-		allChildrenBreadthFirstDetect: [ :child | child phlow isView ] 
+		allChildrenBreadthFirstDetect: [ :child | child phlow isViewTitle ] 
 		ifFound: [ :child | child ]
 ]
 
 { #category : #'api - search' }
 GtPhlowElementContext >> firstParentWithView [
 	^ self element 
-		allParentsDetect: [ :parent | parent phlow isView ] 
+		allParentsDetect: [ :parent | parent phlow isViewTitle ] 
 		ifFound: [ :parent | parent ]
 		ifNone: [ "nothing" ]
 ]
@@ -260,7 +264,12 @@ GtPhlowElementContext >> gtActionSourceFor: aView [
 { #category : #accessing }
 GtPhlowElementContext >> gtViewSourceFor: aView [
 	<gtView>
-	self isView ifFalse: [ ^ aView empty ].
+	self isViewTitle
+		ifFalse: [ ^ aView empty ].
+		
+	self isViewContent
+		ifFalse: [ ^ aView empty ].
+
 	^ aView forward 
 		title: 'Source';
 		priority: 20;
@@ -318,6 +327,10 @@ GtPhlowElementContext >> isToolLabel [
 
 { #category : #'api - testing' }
 GtPhlowElementContext >> isView [
+	self
+		deprecated: 'Use #beViewTitle'
+		transformWith: '`@receiver isView' -> '`@receiver isViewTitle'.
+
 	^ self isViewTitle
 ]
 

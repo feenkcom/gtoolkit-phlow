@@ -129,7 +129,7 @@ GtPhlowColumnedTreeViewExamples >> emptyColumnedTreeView [
 	aView := GtPhlowView empty columnedTree.
 	aView asElementDo: [ :theElement | anElement := theElement ].
 	self assert: (anElement isKindOf: BlElement).
-	self assert: anElement phlow isView not.
+	self assert: anElement phlow isViewTitle not.
 	self assert: anElement phlow isViewContent.
 	self assert: anElement phlow entity equals: aView.
 	^ aView

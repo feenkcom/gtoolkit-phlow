@@ -24,7 +24,7 @@ Class {
 		'horizontalResizer',
 		'verticalResizer'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #converting }
@@ -40,7 +40,7 @@ GtPhlowSpartaView >> asElementDo: aBlock [
 	embellisher value: aSpartaElement.
 
 	aSpartaElement phlow 
-		beView; 
+		beViewContent; 
 		entity: self.
 
 	^ aBlock value: aSpartaElement

@@ -11,7 +11,7 @@ Class {
 		'stencilBuilder',
 		'contextMenuStencil'
 	],
-	#category : 'GToolkit-Phlow-Support - List utilities'
+	#category : #'GToolkit-Phlow-Support - List utilities'
 }
 
 { #category : #accessing }
@@ -35,7 +35,7 @@ GtPhlowListItemElementWithContextMenuDecorator >> buildDefault [
 					allParentsDetect: [ :eachParent | eachParent constraints infinite holder infiniteElement notNil ]
 					ifFound: [ :aListItemElement |
 						anElement
-							allParentsDetect: [ :eachParent | eachParent phlow isView ]
+							allParentsDetect: [ :eachParent | eachParent phlow isViewContent ]
 							ifFound: [ :aListElement |
 								| anItemHolder anItemPosition anItemObject anItemType |
 						

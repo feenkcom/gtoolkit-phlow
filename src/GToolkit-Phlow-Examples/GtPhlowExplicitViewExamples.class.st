@@ -26,7 +26,7 @@ GtPhlowExplicitViewExamples >> explicitViewUpdate [
 
 	self assert: aParent children first background paint color equals: Color green.
 	self assert: aParent children first phlow isViewContent.
-	self assert: aParent children first phlow isView not.
+	self assert: aParent children first phlow isViewTitle not.
 
 	^ aParent
 ]

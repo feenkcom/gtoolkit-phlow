@@ -78,7 +78,7 @@ GtPhlowViewMixedExamples >> compositeView [
 	view := GtPhlowView empty composite views: {self explicitViewWithElementStencil}.
 	view asElementDo: [ :el | element := el ].
 	self assert: (element isKindOf: BrTabGroup).
-	self assert: element phlow isView not.
+	self assert: element phlow isViewTitle not.
 	self assert: element phlow isViewContent.
 	self assert: element phlow entity = view.
 	^ view
@@ -115,7 +115,7 @@ GtPhlowViewMixedExamples >> explicitViewWithElementStencil [
 	view asElementDo: [ :el | element := el ].
 	self assert: (element isKindOf: BlElement).
 	self assert: element phlow isViewContent.
-	self assert: element phlow isView not.
+	self assert: element phlow isViewTitle not.
 	^ view
 ]
 
@@ -178,7 +178,7 @@ GtPhlowViewMixedExamples >> labelledCompositeViewElement [
 	"The properties of the second child are the ones being tested"
 	
 	childElementsWithView := element
-			allChildrenBreadthFirstSelect: [ :each | each phlow isView ].
+			allChildrenBreadthFirstSelect: [ :each | each phlow isViewTitle ].
 	self assert: childElementsWithView size equals: 2.
 	
 	self assert: (childElementsWithView first isKindOf: BrTab).
