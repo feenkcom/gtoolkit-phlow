@@ -88,6 +88,7 @@ GtPhlowViewWithErrorExamples >> onPerformWithErrorAtCreation [
 	| aView |
 	aView := GtPhlowView empty on: self perform: #gtViewWithExceptionAtCreationFor:.
 	self assert: aView class equals: GtPhlowViewWithError.
+	self assert: aView buildContext isBuildContext.
 	self 
 		assert: aView definingMethod 
 		equals: (self class >> #gtViewWithExceptionAtCreationFor:) asRingDefinition.
@@ -100,6 +101,7 @@ GtPhlowViewWithErrorExamples >> onPerformWithNonExistingMethodError [
 	| aView |
 	aView := GtPhlowView empty on: self perform: #nonExistingMethod:.
 	self assert: aView class equals: GtPhlowViewWithError.
+	self assert: aView buildContext isBuildContext.
 	^ aView
 ]
 
