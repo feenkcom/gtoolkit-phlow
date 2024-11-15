@@ -66,6 +66,16 @@ GtPhlowElementContext >> allChildrenWithAction [
 { #category : #'api - search' }
 GtPhlowElementContext >> allChildrenWithView [
 	<return: #Array of: #BrTab>
+	self
+		deprecated: 'Use #allChildrenWithViewTitle'
+		transformWith: '`@receiver allChildrenWithView' -> '`@receiver allChildrenWithViewTitle'.
+	
+	^ self allChildrenWithViewTitle
+]
+
+{ #category : #'api - search' }
+GtPhlowElementContext >> allChildrenWithViewTitle [
+	<return: #Array of: #BrTab>
 	| aTab |
 	aTab := self firstChildWithViewTitle.
 	aTab ifNil: [ ^ #() ].

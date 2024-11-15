@@ -168,11 +168,13 @@ GtPhlowViewMixedExamples >> gtViewWithExtraActionsFor: aView [
 { #category : #examples }
 GtPhlowViewMixedExamples >> labelledCompositeViewElement [
 	<gtExample>
-	| view element childElementsWithView |
+	| view element childElementsWithView scripter |
 	view := self compositeView labelled label: 'Composite'.
 	view asElementDo: [ :el | element := el ].
 	self assert: element notNil.
 	self assert: (element isKindOf: BrTabGroup).
+	scripter := BlScripter new.
+	scripter element: element.
 	
 	"Original test was written with a faulty breadth first search"
 	"The properties of the second child are the ones being tested"
