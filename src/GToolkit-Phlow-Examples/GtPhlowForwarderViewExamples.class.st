@@ -127,15 +127,20 @@ GtPhlowForwarderViewExamples >> forwardedWithUpdateAction [
 { #category : #'examples - update actions' }
 GtPhlowForwarderViewExamples >> forwardedWithUpdateActionElement [
 	<gtExample>
-	| aView anElement aContainer aNewElement |
+	| aView anElement aContainer aNewElement aScripter |
 	aView := self forwardedWithUpdateAction.
+	aScripter := BlScripter new.
 	aContainer := self container.
 	anElement := aView asElementDo: [ :theElement | theElement ].
 	aContainer addChild: anElement.
+	aScripter element: aContainer.
 	self assert: anElement phlow entity equals: aView.
 	self assert: aView autoUpdates size equals: aView defaultUpdateDefinitions size + 1.
 
-	BlUseAsyncFeatures disableDuring: [ anElement phlow syncUpdate ].
+	aScripter do
+		label: 'Update element';
+		block: [ anElement phlow syncUpdate ];
+		play.
 	self assert: anElement phlow entity equals: aView.
 	self assert: aView autoUpdates size equals: aView defaultUpdateDefinitions size + 1.
 	
