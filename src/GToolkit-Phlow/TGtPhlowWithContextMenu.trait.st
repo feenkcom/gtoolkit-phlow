@@ -29,7 +29,13 @@ TGtPhlowWithContextMenu >> contextMenuStencilFromActions [
 	BrGlamorousSimpleContextMenuContent new
 		items: (self contextMenuActions
 				select: [ :anAction | anAction respondsTo: item ]
-				thenCollect: [ :anAction | anAction toActionOn: item ]) ]
+				thenCollect: [ :anAction | anAction toActionOn: item ]) flattened ]
+]
+
+{ #category : #accessing }
+TGtPhlowWithContextMenu >> dynamicContextItems: aBlock [
+	self contextMenuActions
+		add: (GtPhlowContextMenuActions named: 'Dynamic menu items' action: aBlock)
 ]
 
 { #category : #accessing }
