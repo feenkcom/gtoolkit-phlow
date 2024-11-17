@@ -9,7 +9,7 @@ GtPhlowUtility class >> compositeViewElementIn: anElement [
 	"Return a composite view element that was constructed using GtPhlowCompositeView."
 	<return: #BrTabGroup or: nil>
 	anElement phlow 
-		firstChildWithCompositeViewDo: [ :aBrTabGroup | ^ aBrTabGroup ].
+		firstChildWithCompositeViewContentDo: [ :aBrTabGroup | ^ aBrTabGroup ].
 	^ nil
 ]
 
