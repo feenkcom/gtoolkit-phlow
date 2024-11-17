@@ -225,10 +225,10 @@ GtPhlowElementContext >> firstChildWithCompositeViewDo: aBlock [
 { #category : #'api - search' }
 GtPhlowElementContext >> firstChildWithView [
 	self
-		deprecated: 'Use #firstChildWithViewTitle'
-		transformWith: '`@receiver firstChildWithView' -> '`@receiver firstChildWithViewTitle'.
+		deprecated: 'Use #firstChildWithViewContent'
+		transformWith: '`@receiver firstChildWithView' -> '`@receiver firstChildWithViewContent'.
 	
-	^ self firstChildWithViewTitle
+	^ self firstChildWithViewContent
 ]
 
 { #category : #'api - search' }
