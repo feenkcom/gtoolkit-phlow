@@ -107,6 +107,12 @@ GtPhlowChangeMethodSystemAnnouncerListener >> interestingDefiningMethod: aDefini
 ]
 
 { #category : #'api - initialization' }
+GtPhlowChangeMethodSystemAnnouncerListener >> interestingObject: anObject [
+	interestCondition := GtPhlowChangeObjectInterestCondition new 
+		object: anObject
+]
+
+{ #category : #'api - initialization' }
 GtPhlowChangeMethodSystemAnnouncerListener >> interestingPragma: aSymbol [
 	self interestingPragmas: { aSymbol }
 ]
@@ -222,7 +228,7 @@ GtPhlowChangeMethodSystemAnnouncerListener >> onMethodRemovedAnnouncement: aMeth
 ]
 
 { #category : #subscriptions }
-GtPhlowChangeMethodSystemAnnouncerListener >> subscribeToSystem [
+GtPhlowChangeMethodSystemAnnouncerListener >> subscribeToMethodChanges [
 	SystemAnnouncer uniqueInstance weak
 		when: MethodAdded
 			send: #onMethodAddedAnnouncement:
@@ -232,7 +238,12 @@ GtPhlowChangeMethodSystemAnnouncerListener >> subscribeToSystem [
 			to: self;
 		when: MethodModified
 			send: #onMethodModifiedAnnouncement:
-			to: self
+			to: self 
+]
+
+{ #category : #subscriptions }
+GtPhlowChangeMethodSystemAnnouncerListener >> subscribeToSystem [
+	self subscribeToMethodChanges
 ]
 
 { #category : #subscriptions }

@@ -20,6 +20,21 @@ GtPhlowDefiningMethods >> fullName [
 	^ self methods first fullName
 ]
 
+{ #category : #printing }
+GtPhlowDefiningMethods >> gtDisplayOn: aStream [
+	| aCount |
+	self methods ifEmpty: [ ^ super gtDisplayOn: aStream ].
+	aStream nextPutAll: self fullName.
+
+	self methods size > 1 ifFalse: [ ^ self ].
+	aCount := self methods size - 1.
+	aStream
+		nextPutAll: ' [+';
+		print: aCount;
+		nextPutAll: (' more method' asPluralBasedOn: aCount);
+		nextPut: $]
+]
+
 { #category : #stream }
 GtPhlowDefiningMethods >> gtOriginMethodsInto: aWriteStream [ 
 	aWriteStream nextPutAll: self methods

@@ -19,8 +19,15 @@ is updated to:
 Class {
 	#name : #GtPhlowUpdateLabelledViewTitle,
 	#superclass : #GtPhlowUpdateCommand,
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
+
+{ #category : #testing }
+GtPhlowUpdateLabelledViewTitle class >> isDeprecated [
+	"Replaced by GtPhlowChangeUpdateLabelAction"
+
+	^ true
+]
 
 { #category : #evaluating }
 GtPhlowUpdateLabelledViewTitle >> execute [

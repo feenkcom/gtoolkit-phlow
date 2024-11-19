@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #'api - testing' }
+GtPhlowChangePragmasInterestCondition >> isInterestingClass: anAffectedClass [
+	<return: #Boolean>
+	^ false
+]
+
+{ #category : #'api - testing' }
 GtPhlowChangePragmasInterestCondition >> isInterestingClass: anAffectedClass andMethod: anAffectedMethod [
 	<return: #Boolean>
 	^ self pragmas

@@ -164,7 +164,7 @@ GtPhlowElementContext >> compositeTool [
 { #category : #'api - convenience' }
 GtPhlowElementContext >> definingMethod [
 	<return: #RGMethodDefinition>
-	^ self entity definingMethod
+	^ self entity ifNotNil: #definingMethod
 ]
 
 { #category : #'api - accessing' }

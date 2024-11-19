@@ -8,11 +8,17 @@ Class {
 }
 
 { #category : #'api - testing' }
-GtPhlowChangeObjectInterestCondition >> isInterestingClass: anAffectedClass andMethod: anAffectedMethod [
+GtPhlowChangeObjectInterestCondition >> isInterestingClass: anAffectedClass [
 	<return: #Boolean>
 	^ GtSystemUtility 
 		isClass: self object class 
 		sameOrSubclassOf: anAffectedClass
+]
+
+{ #category : #'api - testing' }
+GtPhlowChangeObjectInterestCondition >> isInterestingClass: anAffectedClass andMethod: anAffectedMethod [
+	<return: #Boolean>
+	^ self isInterestingClass: anAffectedClass
 ]
 
 { #category : #accessing }

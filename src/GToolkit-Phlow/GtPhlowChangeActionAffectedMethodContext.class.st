@@ -9,7 +9,7 @@ Class {
 	#category : #'GToolkit-Phlow-Updating New'
 }
 
-{ #category : #'event handling' }
+{ #category : #'instance creation' }
 GtPhlowChangeActionAffectedMethodContext class >> forAffectedClass: aClass affectedMethod: aCompiledMethod [
 	^ self new
 		affectedClass: aClass;
