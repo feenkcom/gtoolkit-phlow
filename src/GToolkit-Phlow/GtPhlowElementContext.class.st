@@ -277,10 +277,19 @@ GtPhlowElementContext >> firstChildWithViewTitle [
 
 { #category : #'api - search' }
 GtPhlowElementContext >> firstParentWithView [
+	self
+		deprecated: 'Use #firstParentWithViewContent'
+		transformWith: '`@receiver firstParentWithView' -> '`@receiver firstParentWithViewContent'.
+	
+	^ self firstParentWithViewContent
+]
+
+{ #category : #'api - search' }
+GtPhlowElementContext >> firstParentWithViewContent [
 	^ self element 
 		allParentsDetect: [ :parent | parent phlow isViewContent ] 
 		ifFound: [ :parent | parent ]
-		ifNone: [ self error: 'Couldn''t find a #viewContent parent' ]
+		ifNone: [ self error: 'Couldn''t find a view content parent' ]
 ]
 
 { #category : #'api - search' }
@@ -293,7 +302,7 @@ GtPhlowElementContext >> firstPopupContainerParentDo: aBlock ifNone: aNoneBlock 
 
 { #category : #accessing }
 GtPhlowElementContext >> forwardViewObjectFromViewAction [
-	^ self firstParentWithView content phlow firstChildWithViewTitle phlow entity viewObject wait object
+	^ self firstParentWithViewContent content phlow firstChildWithViewTitle phlow entity viewObject wait object
 ]
 
 { #category : #accessing }
@@ -439,6 +448,26 @@ GtPhlowElementContext >> spawnDefiningMethod [
 ]
 
 { #category : #'api - events' }
+GtPhlowElementContext >> spawnFuture: anAsyncFuture [
+	self spawnFuture: anAsyncFuture result: #yourself
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> spawnFuture: anAsyncFuture result: aSuccessBlock [
+	"Spawn a result of future computation. 
+	aSuccessBlock must have one argument, computing an object to spawn."
+
+	BrAsyncElementFuture new
+		executionConfiguration: GtPhlowUtility defaultFutureExecutionConfiguration;
+		element: self element;
+		future: anAsyncFuture;
+		whenSuccess: [ :anElement :aResult | 
+			| anObject |
+			anObject := aSuccessBlock cull: aResult.
+			self spawnObject: anObject gtDefaultInspectorTool ].
+]
+
+{ #category : #'api - events' }
 GtPhlowElementContext >> spawnObject: anObject [
 	self spawnTool: anObject gtDefaultInspectorTool
 ]
@@ -507,5 +536,5 @@ GtPhlowElementContext >> updateEntity: aNewPhlow [
 { #category : #'api - search' }
 GtPhlowElementContext >> viewContent [
 	self assert: [ self isAction ].
-	^ self firstParentWithView phlow firstChildWithViewTitle parentTabGroup content
+	^ self firstParentWithViewContent phlow firstChildWithViewTitle parentTabGroup content
 ]
