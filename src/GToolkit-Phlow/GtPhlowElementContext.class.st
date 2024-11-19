@@ -448,6 +448,26 @@ GtPhlowElementContext >> spawnDefiningMethod [
 ]
 
 { #category : #'api - events' }
+GtPhlowElementContext >> spawnFuture: anAsyncFuture [
+	self spawnFuture: anAsyncFuture result: #yourself
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> spawnFuture: anAsyncFuture result: aSuccessBlock [
+	"Spawn a result of future computation. 
+	aSuccessBlock must have one argument, computing an object to spawn."
+
+	BrAsyncElementFuture new
+		executionConfiguration: GtPhlowUtility defaultFutureExecutionConfiguration;
+		element: self element;
+		future: anAsyncFuture;
+		whenSuccess: [ :anElement :aResult | 
+			| anObject |
+			anObject := aSuccessBlock cull: aResult.
+			self spawnObject: anObject gtDefaultInspectorTool ].
+]
+
+{ #category : #'api - events' }
 GtPhlowElementContext >> spawnObject: anObject [
 	self spawnTool: anObject gtDefaultInspectorTool
 ]
