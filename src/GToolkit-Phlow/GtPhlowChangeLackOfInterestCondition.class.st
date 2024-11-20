@@ -7,6 +7,12 @@ Class {
 }
 
 { #category : #'api - testing' }
+GtPhlowChangeLackOfInterestCondition >> isInterestingClass: anAffectedClass [
+	<return: #Boolean>
+	^ false
+]
+
+{ #category : #'api - testing' }
 GtPhlowChangeLackOfInterestCondition >> isInterestingClass: anAffectedClass andMethod: anAffectedMethod [
 	<return: #Boolean>
 	^ false

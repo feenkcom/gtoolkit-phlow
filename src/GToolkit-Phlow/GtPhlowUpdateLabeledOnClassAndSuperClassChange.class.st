@@ -13,6 +13,13 @@ Class {
 	#category : #'GToolkit-Phlow-Updating'
 }
 
+{ #category : #testing }
+GtPhlowUpdateLabeledOnClassAndSuperClassChange class >> isDeprecated [
+	"Replaced GtPhlowUpdateLabelledViewTitleOnClassChange"
+
+	^ true
+]
+
 { #category : #'announcement handling' }
 GtPhlowUpdateLabeledOnClassAndSuperClassChange >> handleAnnouncement: anAnnouncement [
 	self hasContexts ifFalse: [ ^ self ].

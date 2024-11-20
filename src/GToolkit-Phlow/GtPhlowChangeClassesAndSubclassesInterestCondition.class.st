@@ -8,12 +8,18 @@ Class {
 }
 
 { #category : #'api - testing' }
-GtPhlowChangeClassesAndSubclassesInterestCondition >> isInterestingClass: anAffectedClass andMethod: anAffectedMethod [
+GtPhlowChangeClassesAndSubclassesInterestCondition >> isInterestingClass: anAffectedClass [
 	<return: #Boolean>
 	^ self superclasses anySatisfy: [ :eachClass | 
 		GtSystemUtility 
 			isClass: anAffectedClass 
 			sameOrSubclassOf: eachClass ]
+]
+
+{ #category : #'api - testing' }
+GtPhlowChangeClassesAndSubclassesInterestCondition >> isInterestingClass: anAffectedClass andMethod: anAffectedMethod [
+	<return: #Boolean>
+	^ self isInterestingClass: anAffectedClass
 ]
 
 { #category : #accessing }

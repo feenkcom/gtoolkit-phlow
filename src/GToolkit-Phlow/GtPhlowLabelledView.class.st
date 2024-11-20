@@ -7,7 +7,7 @@ Class {
 	#name : #GtPhlowLabelledView,
 	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
-		'label'
+		'labelComputation'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -40,21 +40,33 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 
 { #category : #defaults }
 GtPhlowLabelledView >> defaultUpdateDefinitions [
-	^ super defaultUpdateDefinitions copyWith: GtPhlowUpdateLabeledOnClassAndSuperClassChange
+	^ super defaultUpdateDefinitions copyWith: GtPhlowUpdateLabelledViewTitleOnClassChange
+]
+
+{ #category : #'initialization ' }
+GtPhlowLabelledView >> initialize [
+	super initialize.
+	labelComputation := [ self buildContext isBuildContext 
+		ifTrue: [ self buildContext object gtInspectorTitleString ]
+		ifFalse: [ 'Labelled view' ] ]
 ]
 
 { #category : #accessing }
 GtPhlowLabelledView >> label [
-	^ label
+	^ labelComputation
 ]
 
 { #category : #accessing }
 GtPhlowLabelledView >> label: anObject [
-	label := anObject
+	labelComputation := anObject
 ]
 
 { #category : #'instance creation' }
 GtPhlowLabelledView >> newLabel [
 	<return: #BlRunRopedText or: #String>
-	^ self label value
+	^ [ self label value ]
+		on: Error
+		do: [ :anException | 
+			anException printString asRopedText
+				foreground: BrGlamorousColors linkWithErrorColor ]
 ]

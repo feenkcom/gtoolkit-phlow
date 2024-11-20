@@ -18,6 +18,12 @@ GtPhlowChangeDefiningMethodCondition >> definingMethod: anObject [
 ]
 
 { #category : #'api - testing' }
+GtPhlowChangeDefiningMethodCondition >> isInterestingClass: anAffectedClass [
+	<return: #Boolean>
+	^ false
+]
+
+{ #category : #'api - testing' }
 GtPhlowChangeDefiningMethodCondition >> isInterestingClass: anAffectedClass andMethod: anAffectedMethod [
 	<return: #Boolean>
 	^ self definingMethod gtPhlowIncludesCompiledMethod: anAffectedMethod
