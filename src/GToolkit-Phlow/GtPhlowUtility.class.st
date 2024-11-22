@@ -165,6 +165,15 @@ GtPhlowUtility class >> isDefinitionRequested: anEvent [
 				anEvent modifiers isShift not ] ] ]
 ]
 
+{ #category : #testing }
+GtPhlowUtility class >> isPrimaryModifierOnly: anEvent [
+	"Return true, if the primary key is the only pressed"
+	<return: #Boolean>
+	^ anEvent modifiers isAlt not and: [ 
+		anEvent modifiers isPrimaryModifier and: [ 
+			anEvent modifiers isShift not ] ]
+]
+
 { #category : #'instance creation' }
 GtPhlowUtility class >> newElementForView: aPhlowView [
 		| aTaskItView |
