@@ -158,20 +158,12 @@ GtPhlowUtility class >> hasHigherPriority: aViewOrActionOne than: aViewOrActionT
 { #category : #testing }
 GtPhlowUtility class >> isDefinitionRequested: anEvent [
 	"Return true, if a user wants to see an action definition"
+
 	<return: #Boolean>
 	^ anEvent modifiers isAlt and: [ 
 		anEvent modifiers isCmd not and: [ 
 			anEvent modifiers isCtrl not and: [ 
 				anEvent modifiers isShift not ] ] ]
-]
-
-{ #category : #testing }
-GtPhlowUtility class >> isPrimaryModifierOnly: anEvent [
-	"Return true, if the primary key is the only pressed"
-	<return: #Boolean>
-	^ anEvent modifiers isAlt not and: [ 
-		anEvent modifiers isPrimaryModifier and: [ 
-			anEvent modifiers isShift not ] ]
 ]
 
 { #category : #'instance creation' }

@@ -43,26 +43,13 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 
 { #category : #converting }
 GtPhlowButtonAction >> attachPrimaryModifierActionFor: aButton hostElement: aTargetElement [ 
-	primaryModifierAction ifNotNil: [ :anAct |
-		aButton 
-			when: BlClickEvent
-			do: [ :anEvent |
-				| theButton |
-				theButton := anEvent currentTarget.
-				(GtPhlowUtility isPrimaryModifierOnly: anEvent) ifTrue: [
-					anEvent consumed: true.
-					anAct action ifNotNil: [ :anActBlock |
-						anActBlock gtValueWithArgs: { 
-							theButton. aTargetElement. theButton viewModel. anEvent } ] ] ];
-			when: BlMouseEnterEvent
-			do: [ :anEvent | 
-				| theButton |
-				theButton := anEvent currentTarget.
-				anEvent consumed: true.
-				(GtPhlowUtility isPrimaryModifierOnly: anEvent) 
-					ifTrue: [ anEvent target mouseCursor: anAct mouseCursor ]
-					ifFalse: [ anEvent target mouseCursor: nil ] ] ].
-
+	| anAptitude |
+	primaryModifierAction ifNil: [ ^ self ].
+	anAptitude := GtPhlowPrimaryModifierClickAptitude new
+		action: primaryModifierAction action;
+		mouseCursor: primaryModifierAction mouseCursor;
+		hostElement: aTargetElement.
+	aButton addAptitude: anAptitude
 ]
 
 { #category : #accessing }

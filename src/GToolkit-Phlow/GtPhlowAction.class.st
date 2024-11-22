@@ -195,6 +195,7 @@ GtPhlowAction >> isDefaultTarget [
 { #category : #testing }
 GtPhlowAction >> isDefinitionRequested: anEvent [
 	"Return true, if a user wants to see an action definition"
+
 	<return: #Boolean>
 	^ GtPhlowUtility isDefinitionRequested: anEvent
 ]
