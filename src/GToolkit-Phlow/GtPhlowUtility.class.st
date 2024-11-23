@@ -158,6 +158,7 @@ GtPhlowUtility class >> hasHigherPriority: aViewOrActionOne than: aViewOrActionT
 { #category : #testing }
 GtPhlowUtility class >> isDefinitionRequested: anEvent [
 	"Return true, if a user wants to see an action definition"
+
 	<return: #Boolean>
 	^ anEvent modifiers isAlt and: [ 
 		anEvent modifiers isCmd not and: [ 

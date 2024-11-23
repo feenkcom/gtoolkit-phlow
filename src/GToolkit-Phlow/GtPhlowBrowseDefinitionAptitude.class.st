@@ -53,11 +53,9 @@ GtPhlowBrowseDefinitionAptitude >> initializeListeners [
 { #category : #testing }
 GtPhlowBrowseDefinitionAptitude >> isDefinitionRequested: anEvent [
 	"Return true, if a user wants to see an action definition"
+
 	<return: #Boolean>
-	^ anEvent modifiers isAlt and: [ 
-		anEvent modifiers isCmd not and: [ 
-			anEvent modifiers isCtrl not and: [ 
-				anEvent modifiers isShift not ] ] ]
+	^ GtPhlowUtility isDefinitionRequested: anEvent
 ]
 
 { #category : #accessing }

@@ -5,7 +5,8 @@ Class {
 		'icon',
 		'label',
 		'action',
-		'name'
+		'name',
+		'primaryModifierAction'
 	],
 	#category : #'GToolkit-Phlow-! Actions'
 }
@@ -33,12 +34,22 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	icon ifNotNil: [ aButton icon: icon asElement ].
 	id ifNotNil: [ aButton id: self id ].
 	action ifNotNil: [ aButton action: [ :theButton :aButtonModel :anEvent | 
-			(self isDefinitionRequested: anEvent) ifFalse: [ 
-				action gtValueWithArgs: { theButton. aTargetElement. aButtonModel. anEvent } ] ] ].
-	name ifNotNil: [ :aName | aButton id: aName ].
+		action gtValueWithArgs: { theButton. aTargetElement. aButtonModel. anEvent } ] ].
+	self attachPrimaryModifierActionFor: aButton hostElement: aTargetElement.
 	self attachTooltipFor: aButton hostElement: aTargetElement.
 	self attachShowDefinitionEventHandler: aButton.
 	^ aBlock value: aButton
+]
+
+{ #category : #converting }
+GtPhlowButtonAction >> attachPrimaryModifierActionFor: aButton hostElement: aTargetElement [ 
+	| anAptitude |
+	primaryModifierAction ifNil: [ ^ self ].
+	anAptitude := GtPhlowPrimaryModifierClickAptitude new
+		action: primaryModifierAction action;
+		mouseCursor: primaryModifierAction mouseCursor;
+		hostElement: aTargetElement.
+	aButton addAptitude: anAptitude
 ]
 
 { #category : #accessing }
@@ -50,7 +61,8 @@ GtPhlowButtonAction >> icon: anIcon [
 GtPhlowButtonAction >> initialize [
 	super initialize.
 
-	action := [ :aButton ":aTargetElement :aButtonModel :anEvent " | "do nothing" ].
+	action := [ :aButton :aTargetElement :aButtonModel :anEvent | "do nothing" ].
+	primaryModifierAction := nil
 ]
 
 { #category : #'api - action' }
@@ -65,8 +77,13 @@ GtPhlowButtonAction >> label: aString [
 
 { #category : #accessing }
 GtPhlowButtonAction >> name: aSymbol [
-	"Set a child name of the corresponding element"
-	name := aSymbol
+	self
+		deprecated: 'Please use id: instead.'
+		transformWith:
+			'`@receiver name: `@statements1'
+				-> '`@receiver id: `@statements1'.
+				
+	self id: aSymbol
 ]
 
 { #category : #'instance creation' }
@@ -79,4 +96,16 @@ GtPhlowButtonAction >> newButtonLook [
 { #category : #'api - action' }
 GtPhlowButtonAction >> performActionOn: anActionElement [
 	action cull: anActionElement
+]
+
+{ #category : #accessing }
+GtPhlowButtonAction >> primaryModifierAction: aValuable [
+	self primaryModifierAction: aValuable mouseCursor: BlCopyCursor new
+]
+
+{ #category : #accessing }
+GtPhlowButtonAction >> primaryModifierAction: aValuable mouseCursor: aBlCursorOrNil [
+	primaryModifierAction := GtPhlowActionAct new
+			action: aValuable;
+			mouseCursor: aBlCursorOrNil
 ]
