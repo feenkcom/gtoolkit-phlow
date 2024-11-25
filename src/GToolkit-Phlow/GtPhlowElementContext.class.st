@@ -441,6 +441,19 @@ GtPhlowElementContext >> selectTool: aTool [
 		sourceElement: self element) 
 ]
 
+{ #category : #'api - space' }
+GtPhlowElementContext >> showObject: anObject [
+	^ self spaceBuilder
+		objectInPager: anObject;
+		show
+]
+
+{ #category : #'api - space' }
+GtPhlowElementContext >> spaceBuilder [
+	^ GtPhlowSpaceBuilder new 
+		fromElement: self element
+]
+
 { #category : #'api - events' }
 GtPhlowElementContext >> spawnDefiningMethod [
 	self entity
@@ -477,6 +490,14 @@ GtPhlowElementContext >> spawnObject: anObject withDestination: aPhlowDestinatio
 	self 
 		spawnTool: anObject gtDefaultInspectorTool
 		withDestination: aPhlowDestination
+]
+
+{ #category : #'api - space' }
+GtPhlowElementContext >> spawnOrShowObject: anObject [
+	^ self element
+		allParentsDetect: [ :aParent | aParent isKindOf: GtPager ]
+		ifFound: [ :aParent | self spawnObject: anObject ]
+		ifNone: [ self showObject: anObject ]
 ]
 
 { #category : #'api - events' }

@@ -41,7 +41,5 @@ GtPhlowSendObjectTransformation >> spawn: aSelectedObject indices: aSelectionInd
 
 { #category : #utils }
 GtPhlowSendObjectTransformation >> spawnInSpaceObject: aSelectedObject from: anElement [ 
-	GtWorldUtility
-		showObject: aSelectedObject
-		from:anElement
+	anElement phlow showObject: self
 ]
