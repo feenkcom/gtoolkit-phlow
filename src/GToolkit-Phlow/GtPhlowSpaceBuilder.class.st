@@ -49,8 +49,8 @@ GtPhlowSpaceBuilder >> extent [
 ]
 
 { #category : #accessing }
-GtPhlowSpaceBuilder >> extent: anObject [
-	extent := anObject
+GtPhlowSpaceBuilder >> extent: aPoint [
+	extent := aPoint
 ]
 
 { #category : #accessing }
