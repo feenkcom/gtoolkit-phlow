@@ -2,9 +2,12 @@
 I create a {{gtClass:BlSpace}} and requests to show it using {{gtMethod:BlElement >> #showSpace:}}. 
 You can use me by calling:
 - {{gtMethod:GtPhlowElementContext >> #spaceBuilder | label=anElement phlow spaceBuilder ... ; show}}, 
-- {{gtMethod:GtPhlowElementContext >> #showObject: | label=anElement phlow showObject: anObject}}, and
-- {{gtMethod:GtPhlowElementContext >> #spawnOrShowObject: | label=anElement phlow spawnOrShowObject: anObject}}. 
- 
+- {{gtMethod:GtPhlowElementContext >> #showObject: | label=anElement phlow showObject: anObject}}, 
+- {{gtMethod:GtPhlowElementContext >> #spawnOrShowObject: | label=anElement phlow spawnOrShowObject: anObject}}, and
+- {{gtMethod:BlSpace class >> #spaceBuilder | label=BlSpace spaceBuilder}}.
+
+For other cases, see my methods.
+
 "
 Class {
 	#name : #GtPhlowSpaceBuilder,
