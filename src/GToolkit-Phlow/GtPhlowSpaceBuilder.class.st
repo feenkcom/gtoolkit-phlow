@@ -1,4 +1,6 @@
 "
+We will eventually remove it as we think that it is more meanigful to move the logic to {{gtClass:BlSpace}}. 
+
 I create a {{gtClass:BlSpace}} and requests to show it using {{gtMethod:BlElement >> #showSpace:}}. 
 You can use me by calling:
 - {{gtMethod:GtPhlowElementContext >> #spaceBuilder | label=anElement phlow spaceBuilder ... ; show}}, 
