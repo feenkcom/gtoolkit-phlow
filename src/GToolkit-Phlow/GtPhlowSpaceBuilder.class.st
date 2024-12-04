@@ -89,9 +89,10 @@ GtPhlowSpaceBuilder >> show [
 	aSpace := self create.
 	self fromElement 
 		ifNil: [ aSpace show ] 
-		ifNotNil: [ :anElement | BlTaskAction 
-			enqueueElement: anElement 
-			action: [ anElement showSpace: aSpace ] ].
+		ifNotNil: [ :anElement | 
+			"Show space immediatelly because anElement might be removed after this request.
+			See https://github.com/feenkcom/gtoolkit/issues/4217"
+			anElement showSpace: aSpace ].
 			
 	^ aSpace
 ]
