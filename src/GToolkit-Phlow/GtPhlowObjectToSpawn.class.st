@@ -1,8 +1,29 @@
 Class {
 	#name : #GtPhlowObjectToSpawn,
 	#superclass : #GtPhlowObjectEvent,
-	#category : 'GToolkit-Phlow-Events'
+	#category : #'GToolkit-Phlow-Events'
 }
+
+{ #category : #'api - factory' }
+GtPhlowObjectToSpawn class >> fromPreviousSpawnEvent: aSpawnEvent [
+	^ self new fromPreviousSpawnEvent: aSpawnEvent
+]
+
+{ #category : #accessing }
+GtPhlowObjectToSpawn >> consumed: aBoolean [
+	super consumed: aBoolean.
+	self previousSpawnEvent ifNotNil: [ :anEvent | anEvent consumed: aBoolean ]
+]
+
+{ #category : #'api - initialization' }
+GtPhlowObjectToSpawn >> fromPreviousSpawnEvent: aSpawnEvent [
+	self
+		previousSpawnEvent: aSpawnEvent;
+		tool: aSpawnEvent tool;
+		sourceElement: aSpawnEvent currentTarget;
+		spawnDestination: aSpawnEvent spawnDestination;
+		in: [ :anNewEvent | anNewEvent propertyAt: #spawnContainer put: self ]
+]
 
 { #category : #'accessing - utils' }
 GtPhlowObjectToSpawn >> previousSpawnEvent [

@@ -482,7 +482,7 @@ GtPhlowElementContext >> spawnFuture: anAsyncFuture result: aSuccessBlock [
 
 { #category : #'api - events' }
 GtPhlowElementContext >> spawnObject: anObject [
-	self spawnTool: anObject gtDefaultInspectorTool
+	^ self spawnTool: anObject gtDefaultInspectorTool
 ]
 
 { #category : #'api - events' }
@@ -494,25 +494,38 @@ GtPhlowElementContext >> spawnObject: anObject withDestination: aPhlowDestinatio
 
 { #category : #'api - space' }
 GtPhlowElementContext >> spawnOrShowObject: anObject [
-	^ self element
-		allParentsDetect: [ :aParent | aParent isKindOf: GtPager ]
-		ifFound: [ :aParent | self spawnObject: anObject ]
-		ifNone: [ self showObject: anObject ]
+	<return: #BlSpace or: nil>
+	| anEvent |
+	anEvent := self spawnObject: anObject.
+	anEvent isConsumed ifTrue: [ ^ nil ].
+	^ self showObject: anObject
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> spawnPreviousEvent: aPreviousSpawnEvent [
+	| aNewEvent |
+	aNewEvent := GtPhlowObjectToSpawn new
+			fromPreviousSpawnEvent: aPreviousSpawnEvent.
+	self element fireEvent: aNewEvent.
+	^ aNewEvent
 ]
 
 { #category : #'api - events' }
 GtPhlowElementContext >> spawnTool: aTool [
-	self 
-		spawnTool: aTool 
+	^ self
+		spawnTool: aTool
 		withDestination: GtPhlowSpawnDesiredDestination defaultDestination
 ]
 
 { #category : #'api - events' }
 GtPhlowElementContext >> spawnTool: aTool withDestination: aPhlowDestination [
-	self element fireEvent: (GtPhlowObjectToSpawn new
-		tool: aTool;
-		spawnDestination: aPhlowDestination;
-		sourceElement: self element)
+	| anEvent |
+	anEvent := GtPhlowObjectToSpawn new
+			tool: aTool;
+			spawnDestination: aPhlowDestination;
+			sourceElement: self element.
+	self element fireEvent: anEvent.
+	^ anEvent
 ]
 
 { #category : #'api - updating' }
