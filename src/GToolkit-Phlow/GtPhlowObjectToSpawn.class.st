@@ -21,8 +21,9 @@ GtPhlowObjectToSpawn >> fromPreviousSpawnEvent: aSpawnEvent [
 		previousSpawnEvent: aSpawnEvent;
 		tool: aSpawnEvent tool;
 		sourceElement: aSpawnEvent currentTarget;
-		spawnDestination: aSpawnEvent spawnDestination;
-		in: [ :anNewEvent | anNewEvent propertyAt: #spawnContainer put: self ]
+		spawnDestination: aSpawnEvent spawnDestination.
+	aSpawnEvent properties keysAndValuesDo: [ :aKey :aValue | 
+		self propertyAt: aKey put: aValue ]
 ]
 
 { #category : #'accessing - utils' }
