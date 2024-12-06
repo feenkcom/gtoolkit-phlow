@@ -91,9 +91,10 @@ GtPhlowListItemElementWithContextMenuDecorator >> contextMenuStencil [
 { #category : #accessing }
 GtPhlowListItemElementWithContextMenuDecorator >> contextMenuStencil: aGtPhlowListContextMenuStencilBuilder [
 	"Set a stencil builder that creates a `BlElement` instance,
-	representing a context menu, e.g., simple list element"
-
-	self deprecated: 'Use #contextMenuItemsStencil: instead'.
+	representing a context menu, e.g., simple list element.
+	
+	This solution is deprecated.
+	Use #contextMenuItemsStencil: instead."
 
 	contextMenuStencil := aGtPhlowListContextMenuStencilBuilder
 			asStencilBuilder: GtPhlowListContextMenuStencilBuilder
