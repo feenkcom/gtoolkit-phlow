@@ -78,6 +78,13 @@ GtPhlowCompositeTool >> defaultTools [
 	^ Array empty
 ]
 
+{ #category : #'api - converting' }
+GtPhlowCompositeTool >> gtDefaultInspectorTool [
+	^ GtPhlowCompositeTool new
+		tools: self tools copy;
+		addTool: (GtPhlowTool default object: self)
+]
+
 { #category : #accessing }
 GtPhlowCompositeTool >> gtToolsFor: aView [
 	<gtView>
