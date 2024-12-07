@@ -41,6 +41,7 @@ GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> buildContextMenuAptitu
 GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeFor: anElement [
 	| aMenuAptitude |
 	aMenuAptitude := BrWithExplicitMenuAptitude new
+			beClickPositionRelocator;
 			stencil: [ 
 				self 
 					findColumnedTreeFor: anElement 
