@@ -4,7 +4,7 @@ Class {
 	#category : #'GToolkit-Phlow-Support - List columned'
 }
 
-{ #category : #accessing }
+{ #category : #'api - instantiation' }
 GtPhlowColumnedListItemElementWithContextMenuDecorator >> buildDefault [
 	<return: #BrStencil or: #BlElement>
 	| anElement aContextMenuAptitude |

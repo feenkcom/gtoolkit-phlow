@@ -1,5 +1,8 @@
+"
+I build {{gtClass:BrMenu}} sub-instances.
+"
 Class {
-	#name : #GtPhlowListContextMenuStencilBuilder,
+	#name : #GtPhlowListContextMenuItemsStencilBuilder,
 	#superclass : #BrStencilBuilder,
 	#instVars : [
 		'itemType',
@@ -10,70 +13,62 @@ Class {
 	#category : #'GToolkit-Phlow-Support - List utilities'
 }
 
-{ #category : #testing }
-GtPhlowListContextMenuStencilBuilder class >> isDeprecated [
-	"Use GtPhlowListContextMenuItemsStencilBuilder instead"
-
-	^ true
-]
-
 { #category : #'api - instantiation' }
-GtPhlowListContextMenuStencilBuilder >> buildDefault [
-	<return: #BrStencil or: #BlElement>
-
-	^ BlElement new
+GtPhlowListContextMenuItemsStencilBuilder >> buildDefault [
+	<return: #BrMenu of: #nil>
+	^ nil
 ]
 
 { #category : #accessing }
-GtPhlowListContextMenuStencilBuilder >> itemElement [
+GtPhlowListContextMenuItemsStencilBuilder >> itemElement [
 
 	^ itemElement
 ]
 
 { #category : #accessing }
-GtPhlowListContextMenuStencilBuilder >> itemElement: anObject [
+GtPhlowListContextMenuItemsStencilBuilder >> itemElement: anObject [
 
 	itemElement := anObject
 ]
 
 { #category : #accessing }
-GtPhlowListContextMenuStencilBuilder >> itemObject [
+GtPhlowListContextMenuItemsStencilBuilder >> itemObject [
 
 	^ itemObject
 ]
 
 { #category : #accessing }
-GtPhlowListContextMenuStencilBuilder >> itemObject: anObject [
+GtPhlowListContextMenuItemsStencilBuilder >> itemObject: anObject [
 
 	itemObject := anObject
 ]
 
 { #category : #accessing }
-GtPhlowListContextMenuStencilBuilder >> itemPosition [
+GtPhlowListContextMenuItemsStencilBuilder >> itemPosition [
 
 	^ itemPosition
 ]
 
 { #category : #accessing }
-GtPhlowListContextMenuStencilBuilder >> itemPosition: anObject [
+GtPhlowListContextMenuItemsStencilBuilder >> itemPosition: anObject [
 
 	itemPosition := anObject
 ]
 
 { #category : #accessing }
-GtPhlowListContextMenuStencilBuilder >> itemType [
+GtPhlowListContextMenuItemsStencilBuilder >> itemType [
 
 	^ itemType
 ]
 
 { #category : #accessing }
-GtPhlowListContextMenuStencilBuilder >> itemType: anObject [
+GtPhlowListContextMenuItemsStencilBuilder >> itemType: anObject [
 
 	itemType := anObject
 ]
 
 { #category : #'api - instantiation' }
-GtPhlowListContextMenuStencilBuilder >> paramsOn: aStencilExecutor [
+GtPhlowListContextMenuItemsStencilBuilder >> paramsOn: aStencilExecutor [
 	aStencilExecutor
 		push: self itemElement;
 		push: self itemObject;
@@ -82,7 +77,7 @@ GtPhlowListContextMenuStencilBuilder >> paramsOn: aStencilExecutor [
 ]
 
 { #category : #accessing }
-GtPhlowListContextMenuStencilBuilder >> reset [
+GtPhlowListContextMenuItemsStencilBuilder >> reset [
 	itemType := nil.
 	itemElement := nil.
 	itemObject := nil.

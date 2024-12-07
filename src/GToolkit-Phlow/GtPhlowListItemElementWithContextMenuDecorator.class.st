@@ -9,14 +9,15 @@ Class {
 	#superclass : #BrListItemElementStencilBuilder,
 	#instVars : [
 		'stencilBuilder',
-		'contextMenuStencil'
+		'contextMenuStencil',
+		'contextMenuItemsStencil'
 	],
 	#category : #'GToolkit-Phlow-Support - List utilities'
 }
 
 { #category : #accessing }
 GtPhlowListItemElementWithContextMenuDecorator class >> stencilProperties [
-	^ #(contextMenuStencil stencilBuilder)
+	^ #(contextMenuStencil stencilBuilder contextMenuItemsStencil)
 ]
 
 { #category : #'api - instantiation' }
@@ -66,6 +67,21 @@ GtPhlowListItemElementWithContextMenuDecorator >> buildDefault [
 ]
 
 { #category : #accessing }
+GtPhlowListItemElementWithContextMenuDecorator >> contextMenuItemsStencil [
+	<return: #GtPhlowListContextMenuItemsStencilBuilder or: nil>
+
+	^ contextMenuItemsStencil
+]
+
+{ #category : #accessing }
+GtPhlowListItemElementWithContextMenuDecorator >> contextMenuItemsStencil: aGtPhlowListContextMenuItemsStencilBuilder [
+	"Set a stencil builder that creates a `BrMenu` subclass instance,
+	representing a context menu, e.g., `BrMenuItems` object"
+	
+	contextMenuItemsStencil := aGtPhlowListContextMenuItemsStencilBuilder asStencilBuilder: GtPhlowListContextMenuItemsStencilBuilder
+]
+
+{ #category : #accessing }
 GtPhlowListItemElementWithContextMenuDecorator >> contextMenuStencil [
 	<return: #GtPhlowListContextMenuStencilBuilder>
 
@@ -74,7 +90,23 @@ GtPhlowListItemElementWithContextMenuDecorator >> contextMenuStencil [
 
 { #category : #accessing }
 GtPhlowListItemElementWithContextMenuDecorator >> contextMenuStencil: aGtPhlowListContextMenuStencilBuilder [
-	contextMenuStencil := aGtPhlowListContextMenuStencilBuilder asStencilBuilder: GtPhlowListContextMenuStencilBuilder
+	"Set a stencil builder that creates a `BlElement` instance,
+	representing a context menu, e.g., simple list element.
+	
+	This solution is deprecated.
+	Use #contextMenuItemsStencil: instead."
+
+	contextMenuStencil := aGtPhlowListContextMenuStencilBuilder
+			asStencilBuilder: GtPhlowListContextMenuStencilBuilder
+]
+
+{ #category : #'api - instantiation' }
+GtPhlowListItemElementWithContextMenuDecorator >> paramsOn: aStencilExecutor [
+	super paramsOn: aStencilExecutor.
+	aStencilExecutor
+		push: stencilBuilder;
+		push: contextMenuStencil;
+		push: contextMenuItemsStencil
 ]
 
 { #category : #accessing }
