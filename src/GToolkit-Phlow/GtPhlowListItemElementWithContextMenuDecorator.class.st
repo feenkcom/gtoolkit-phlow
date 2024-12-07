@@ -17,7 +17,7 @@ Class {
 
 { #category : #accessing }
 GtPhlowListItemElementWithContextMenuDecorator class >> stencilProperties [
-	^ #(contextMenuStencil stencilBuilder)
+	^ #(contextMenuStencil stencilBuilder contextMenuItemsStencil)
 ]
 
 { #category : #'api - instantiation' }
@@ -98,6 +98,15 @@ GtPhlowListItemElementWithContextMenuDecorator >> contextMenuStencil: aGtPhlowLi
 
 	contextMenuStencil := aGtPhlowListContextMenuStencilBuilder
 			asStencilBuilder: GtPhlowListContextMenuStencilBuilder
+]
+
+{ #category : #'api - instantiation' }
+GtPhlowListItemElementWithContextMenuDecorator >> paramsOn: aStencilExecutor [
+	super paramsOn: aStencilExecutor.
+	aStencilExecutor
+		push: stencilBuilder;
+		push: contextMenuStencil;
+		push: contextMenuItemsStencil
 ]
 
 { #category : #accessing }
