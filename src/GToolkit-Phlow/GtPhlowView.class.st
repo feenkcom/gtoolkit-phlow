@@ -768,14 +768,18 @@ GtPhlowView >> tabElementContextMenu [
 	
 	^ BrMenuItems new
 		addItemLabel: 'Defining method' submenu: (self allDefiningMethods asBrMenu);
-		addItemLabel: 'Inspect phlow view' action: [ :anElement :aButtonModel :anEvent |
-			anElement phlow spawnObject: self ];
-		addItemLabel: 'Update' action: [ :anElement :aButtonModel :anEvent |
-			| aRequest |
-			aRequest := BrMenuSourceElementRequest new.
-			anElement fireEvent: aRequest.
-			aRequest sourceElementDo: [ :aTab | 
-				aTab viewContentElement phlow update ] ]
+		addItemLabel: 'Inspect' 
+			preview: self title
+			action: [ :anElement :aButtonModel :anEvent |
+				anElement phlow spawnObject: self ];
+		addItemLabel: 'Update' 
+			preview: self title
+			action: [ :anElement :aButtonModel :anEvent |
+				| aRequest |
+				aRequest := BrMenuSourceElementRequest new.
+				anElement fireEvent: aRequest.
+				aRequest sourceElementDo: [ :aTab | 
+					aTab viewContentElement phlow update ] ]
 ]
 
 { #category : #accessing }
