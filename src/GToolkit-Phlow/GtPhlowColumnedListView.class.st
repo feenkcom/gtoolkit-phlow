@@ -198,6 +198,7 @@ GtPhlowColumnedListView >> newDecoratedItemStencil [
 			anItemElementStencil := GtPhlowColumnedListItemElementWithContextMenuDecorator
 					new
 					stencilBuilder: anItemElementStencil;
+					contextMenuItemsStencil: self contextMenuItemsStencilFromActions;
 					contextMenuStencil: self contextMenuStencilFromActions ].
 
 	^ anItemElementStencil

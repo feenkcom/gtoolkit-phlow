@@ -7,36 +7,20 @@ Class {
 { #category : #'api - instantiation' }
 GtPhlowColumnedListItemElementWithContextMenuDecorator >> buildDefault [
 	<return: #BrStencil or: #BlElement>
-	| anElement aContextMenuAptitude |
+	| anElement |
 	anElement := stencilBuilder
 			itemType: self itemType;
 			build.
-
-	aContextMenuAptitude := BrGlamorousWithContextMenuAptitude
-			content: [ anElement
-					allParentsDetect: [ :eachParent | eachParent phlow isViewContent ]
-					ifFound: [ :aContainerElement | 
-						aContainerElement
-							allChildrenBreadthFirstDetect: [ :eachChild | eachChild isKindOf: BrColumnedList ]
-							ifFound: [ :aListElement | 
-								| anItemHolder anItemPosition anItemObject anItemType |
-								anItemHolder := anElement constraints infinite holder.
-								anItemPosition := anItemHolder dataSourcePosition.
-								anItemObject := aListElement viewModel itemAt: anItemPosition.
-								anItemType := aListElement viewModel itemTypeStencil
-										itemPosition: anItemPosition;
-										itemObject: anItemObject;
-										build.
-
-								contextMenuStencil
-									itemType: anItemType;
-									itemObject: anItemObject;
-									itemPosition: anItemPosition;
-									itemElement: anElement;
-									build ]
-							ifNone: [ BlElement new ] ]
-					ifNone: [ BlElement new ] ].
-
-	anElement addAptitude: aContextMenuAptitude.
+	
+	"Prefer building context menu using `BrMenuModel` objects."
+	contextMenuItemsStencil
+		ifNotNil: [ self buildContextMenuItemsAptitudeFor: anElement ]
+		ifNil: [ self buildContextMenuAptitudeFor: anElement ].
+	
 	^ anElement
+]
+
+{ #category : #'as yet unclassified' }
+GtPhlowColumnedListItemElementWithContextMenuDecorator >> listOfKindClass [
+	^ BrColumnedList
 ]

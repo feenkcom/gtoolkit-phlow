@@ -20,6 +20,74 @@ GtPhlowListItemElementWithContextMenuDecorator class >> stencilProperties [
 	^ #(contextMenuStencil stencilBuilder contextMenuItemsStencil)
 ]
 
+{ #category : #private }
+GtPhlowListItemElementWithContextMenuDecorator >> buildContextMenuAptitudeFor: anElement [
+	"It is an old way to build context menu.
+	Use #buildContextMenuItemsAptitudeFor: instead."
+
+	| aContextMenuAptitude |
+	aContextMenuAptitude := BrGlamorousWithContextMenuAptitude
+			content: [ 
+				GtPhlowListAndListItemParentFinder new
+					element: anElement;
+					listKindOfClass: self listOfKindClass;
+					foundBlock: [ :aListElement :aListItemElement | 
+						| anItemHolder anItemPosition anItemObject anItemType |
+						anItemHolder := aListItemElement constraints infinite holder.
+						anItemPosition := anItemHolder dataSourcePosition.
+						anItemObject := aListElement viewModel itemAt: anItemPosition.
+
+						anItemType := aListElement viewModel itemTypeStencil
+								itemPosition: anItemPosition;
+								itemObject: anItemObject;
+								build.
+
+						contextMenuStencil
+							itemType: anItemType;
+							itemObject: anItemObject;
+							itemPosition: anItemPosition;
+							itemElement: anElement;
+							build ];
+					noneBlock: [ BlElement new ];
+					find ].
+
+	anElement addAptitude: aContextMenuAptitude.
+]
+
+{ #category : #private }
+GtPhlowListItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeFor: anElement [
+	| aMenuAptitude |
+	aMenuAptitude := BrWithExplicitMenuAptitude new
+			withAllExtraEventHandlers;
+			beClickPositionRelocator;
+			stencil: [ 
+				GtPhlowListAndListItemParentFinder new
+					element: anElement;
+					listKindOfClass: self listOfKindClass;
+					foundBlock: [ :aListElement :aListItemElement | 
+						| anItemHolder anItemPosition anItemObject anItemType |
+						
+						anItemHolder := aListItemElement constraints infinite holder.
+						anItemPosition := anItemHolder dataSourcePosition.
+						anItemObject := aListElement viewModel itemAt: anItemPosition.
+						
+						anItemType := aListElement viewModel itemTypeStencil
+							itemPosition: anItemPosition;
+							itemObject: anItemObject;
+							build.
+						
+						contextMenuItemsStencil
+							itemType: anItemType;
+							itemObject: anItemObject;
+							itemPosition: anItemPosition;
+							itemElement: anElement;
+							build ];
+					noneBlock: [ nil ];
+					find ].
+
+	anElement addAptitude: aMenuAptitude.
+]
+
 { #category : #'api - instantiation' }
 GtPhlowListItemElementWithContextMenuDecorator >> buildDefault [
 	| anElement aContextMenuAptitude |
@@ -98,6 +166,11 @@ GtPhlowListItemElementWithContextMenuDecorator >> contextMenuStencil: aGtPhlowLi
 
 	contextMenuStencil := aGtPhlowListContextMenuStencilBuilder
 			asStencilBuilder: GtPhlowListContextMenuStencilBuilder
+]
+
+{ #category : #private }
+GtPhlowListItemElementWithContextMenuDecorator >> listOfKindClass [
+	^ BrList
 ]
 
 { #category : #'api - instantiation' }

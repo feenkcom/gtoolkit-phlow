@@ -10,61 +10,69 @@ Class {
 
 { #category : #private }
 GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> buildContextMenuAptitudeFor: anElement [
+	"It is an old way to build context menu.
+	Use #buildContextMenuItemsAptitudeFor: instead."
+
 	| aContextMenuAptitude |
 	aContextMenuAptitude := BrGlamorousWithContextMenuAptitude
 			content: [ 
-				self 
-					findColumnedTreeFor: anElement 
-					ifFound: [ :aListElement :aListItemElement |
+				GtPhlowListAndListItemParentFinder new
+					element: anElement;
+					listKindOfClass: self listOfKindClass;
+					foundBlock: [ :aListElement :aListItemElement | 
 						| anItemHolder anItemPosition anItemObject anItemType |
 						anItemHolder := aListItemElement constraints infinite holder.
 						anItemPosition := anItemHolder dataSourcePosition.
 						anItemObject := aListElement viewModel itemAt: anItemPosition.
-
+						
 						anItemType := aListElement viewModel nodeTypeStencil
 								itemPosition: anItemPosition;
 								itemNode: anItemObject;
 								build.
-
+						
 						contextMenuStencil
 							itemType: anItemType;
 							itemObject: anItemObject;
 							itemPosition: anItemPosition;
 							itemElement: anElement;
-							build ] 
-					ifNone: [ BlElement new ] ].
+							build ];
+					noneBlock: [ BlElement new ];
+					find ].
 
-	anElement addAptitude: aContextMenuAptitude.
+	anElement addAptitude: aContextMenuAptitude
 ]
 
 { #category : #private }
 GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeFor: anElement [
 	| aMenuAptitude |
 	aMenuAptitude := BrWithExplicitMenuAptitude new
+			withAllExtraEventHandlers;
 			beClickPositionRelocator;
 			stencil: [ 
-				self 
-					findColumnedTreeFor: anElement 
-					ifFound: [ :aListElement :aListItemElement |
+				GtPhlowListAndListItemParentFinder new
+					element: anElement;
+					listKindOfClass: self listOfKindClass;
+					foundBlock: [ :aListElement :aListItemElement | 
 						| anItemHolder anItemPosition anItemObject anItemType |
 						anItemHolder := aListItemElement constraints infinite holder.
 						anItemPosition := anItemHolder dataSourcePosition.
 						anItemObject := aListElement viewModel itemAt: anItemPosition.
-
+						
 						anItemType := aListElement viewModel nodeTypeStencil
 								itemPosition: anItemPosition;
 								itemNode: anItemObject;
 								build.
-
+						
 						contextMenuItemsStencil
 							itemType: anItemType;
 							itemObject: anItemObject;
 							itemPosition: anItemPosition;
 							itemElement: anElement;
-							build ] 
-					ifNone: [ nil ] ].
+							build ];
+					noneBlock: [ nil ];
+					find ].
 
-	anElement addAptitude: aMenuAptitude.
+	anElement addAptitude: aMenuAptitude
 ]
 
 { #category : #accessing }
@@ -96,32 +104,8 @@ GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> columns: aListOfColumn
 ]
 
 { #category : #private }
-GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> findColumnedTreeFor: anElement ifFound: aFoundBlock ifNone: aNoneBlock [
-	^ self
-		for: anElement
-		findListOfKind: BrColumnedTree
-		ifFound: aFoundBlock
-		ifNone: aNoneBlock.
-]
-
-{ #category : #private }
-GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> for: anElement findListOfKind: aListClass ifFound: aFoundBlock ifNone: aNoneBlock [
-	^ anElement
-		withAllParentsDetect: [ :eachParent | 
-			eachParent constraints infinite holder infiniteElement notNil ]
-		ifFound: [ :aListItemElement | 
-			anElement
-				allParentsDetect: [ :eachParent | 
-					eachParent phlow isViewContent ]
-				ifFound: [ :aContainerElement | 
-					aContainerElement
-						allChildrenBreadthFirstDetect: [ :eachChild | 
-							eachChild isKindOf: aListClass ]
-						ifFound: [ :aListElement | 
-							aFoundBlock cull: aListElement cull: aListItemElement ]
-						ifNone: aNoneBlock ]
-				ifNone: aNoneBlock ]
-		ifNone: aNoneBlock
+GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> listOfKindClass [
+	^ BrColumnedTree
 ]
 
 { #category : #accessing }
