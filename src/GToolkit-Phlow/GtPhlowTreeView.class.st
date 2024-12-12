@@ -230,6 +230,7 @@ GtPhlowTreeView >> newDecoratedItemStencil [
 		ifNotEmpty: [ :contextMenuActionsList | 
 			anItemStencil := GtPhlowTreeItemElementWithContextMenuDecorator new
 					stencilBuilder: anItemStencil;
+					contextMenuItemsStencil: self contextMenuItemsStencilFromActions;
 					contextMenuStencil: self contextMenuStencilFromActions ].
 
 	^ anItemStencil
