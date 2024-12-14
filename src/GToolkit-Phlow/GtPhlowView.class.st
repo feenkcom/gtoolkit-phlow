@@ -768,13 +768,16 @@ GtPhlowView >> tabElementContextMenu [
 	
 	^ BrMenuItems new
 		addItemLabel: 'Defining method' 
-			shortcut: 'Alt+Click' 
 			submenu: (self allDefiningMethods asBrMenu);
-		addItemLabel: 'Inspect' 
+		addItemLabel: 'Inspect defining method' 
+			shortcut: 'Alt+Click' 
+			action: [ :anElement :aButtonModel :anEvent |
+				anElement phlow spawnObject: self allDefiningMethods ];
+		addItemLabel: 'Inspect view' 
 			preview: self title
 			action: [ :anElement :aButtonModel :anEvent |
 				anElement phlow spawnObject: self ];
-		addItemLabel: 'Update' 
+		addItemLabel: 'Update view' 
 			preview: self title
 			action: [ :anElement :aButtonModel :anEvent |
 				| aRequest |
