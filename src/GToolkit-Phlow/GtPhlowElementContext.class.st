@@ -443,9 +443,10 @@ GtPhlowElementContext >> selectTool: aTool [
 
 { #category : #'api - space' }
 GtPhlowElementContext >> showObject: anObject [
-	^ self spaceBuilder
+	^ BlSpace new
 		objectInPager: anObject;
-		show
+		withSceneDriller;
+		showFrom: self element.
 ]
 
 { #category : #'api - space' }
