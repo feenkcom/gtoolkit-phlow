@@ -1,5 +1,5 @@
 "
-We will eventually remove it as we think that it is more meanigful to move the logic to {{gtClass:BlSpace}}. 
+We will eventually remove it. Please use {{gtClass:BlSpace}} instead. 
 
 I create a {{gtClass:BlSpace}} and requests to show it using {{gtMethod:BlElement >> #showSpace:}}. 
 You can use me by calling:
@@ -23,6 +23,13 @@ Class {
 	],
 	#category : #'GToolkit-Phlow-Support'
 }
+
+{ #category : #testing }
+GtPhlowSpaceBuilder class >> isDeprecated [
+	"Use BlSpace instead."
+
+	^ true
+]
 
 { #category : #'api - actions' }
 GtPhlowSpaceBuilder >> create [
