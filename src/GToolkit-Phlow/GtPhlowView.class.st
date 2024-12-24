@@ -767,8 +767,11 @@ GtPhlowView >> tabElementContextMenu [
 	<return: #BrMenu or: nil>
 	
 	^ BrMenuItems new
-		addItemLabel: 'Defining method' 
+		addItem: (BrMenuSubmenuItem new
+			label: 'Defining method' ;
 			submenu: (self allDefiningMethods asBrMenu);
+			bePinSubmenuAction;
+			hideOnClick: true);
 		addItemLabel: 'Inspect defining method' 
 			shortcut: 'Alt+Click' 
 			action: [ :anElement :aButtonModel :anEvent |
