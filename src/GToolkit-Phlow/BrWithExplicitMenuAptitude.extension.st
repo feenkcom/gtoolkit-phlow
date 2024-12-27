@@ -6,6 +6,7 @@ BrWithExplicitMenuAptitude >> withPhlowSpawnEventHandler [
 	self menuContainer 
 		when: GtPhlowObjectToSpawn 
 		do: [ :anEvent | 
-			self widgetDo: [ :aWidget | 
-				aWidget phlow spawnPreviousEvent: anEvent ] ]
+			anEvent isConsumed ifFalse: [
+				self widgetDo: [ :aWidget | 
+					aWidget phlow spawnPreviousEvent: anEvent ] ] ]
 ]
