@@ -40,6 +40,11 @@ GtPhlowObjectToSpawn >> previousSpawnEvent: aSpawnEvent [
 		put: aSpawnEvent
 ]
 
+{ #category : #sending }
+GtPhlowObjectToSpawn >> sendTo: anObject [
+	anObject objectToSpawnEvent: self
+]
+
 { #category : #'accessing - utils' }
 GtPhlowObjectToSpawn >> spawnDestination [
 	^ self 
