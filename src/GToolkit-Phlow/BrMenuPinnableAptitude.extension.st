@@ -2,6 +2,7 @@ Extension { #name : #BrMenuPinnableAptitude }
 
 { #category : #'*GToolkit-Phlow' }
 BrMenuPinnableAptitude >> withPhlowSpawnEventHandler [
-	<postPinAction>
-	self addEventHandler: GtPhlowMenuSpawnEventHandler new
+	<menuPinAction>
+	self addPinningAction: (BrMenuPinAction new
+		preEndPinBlock: [ self addEventHandler: GtPhlowMenuSpawnEventHandler new ])
 ]
