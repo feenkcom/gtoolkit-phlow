@@ -31,6 +31,7 @@ GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 	name ifNotNil: [ :aName | aButton id: aName ].
 	id ifNotNil: [ aButton id: self id ].
 	self attachShowDefinitionEventHandler: aButton.
+	self attachShowShowContextMenuEventHandler: aButton.
 	self attachTooltipFor: aButton hostElement: aTargetElement.
 	^ aBlock value: aButton
 ]
@@ -56,6 +57,11 @@ GtPhlowDropdownAction >> initialize [
 	action := [ :aBrButton |  ].
 	icon := nil.
 	label := nil.
+]
+
+{ #category : #'api - action' }
+GtPhlowDropdownAction >> label [
+	^ label
 ]
 
 { #category : #accessing }
