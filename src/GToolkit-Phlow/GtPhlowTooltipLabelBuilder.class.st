@@ -18,8 +18,18 @@ Class {
 	#instVars : [
 		'text'
 	],
-	#category : 'GToolkit-Phlow-Support - Tooltip'
+	#category : #'GToolkit-Phlow-Support - Tooltip'
 }
+
+{ #category : #building }
+GtPhlowTooltipLabelBuilder >> actionContextMenuPreviewLabel [
+	<return: #String or: nil>
+	| aString aLimit |
+	aLimit := 30.
+	aString := self text asString.
+	aString size < aLimit ifTrue: [ ^ aString ].
+	^ (aString copyFrom: 1 to: (aString size min: aLimit)) , '...'
+]
 
 { #category : #building }
 GtPhlowTooltipLabelBuilder >> applyOn: anElement [

@@ -24,6 +24,35 @@ GtPhlowAction class >> noAction [
 ]
 
 { #category : #converting }
+GtPhlowAction >> actionContextMenuPreviewLabel [
+	<return: #String>
+	^ self label
+		ifNil: [ self tooltipBuilder actionContextMenuPreviewLabel 
+			ifNil: [ self className ] ]
+]
+
+{ #category : #converting }
+GtPhlowAction >> actionElementContextMenu [
+	"I return a menu object that displays phlow action details, e.g., defining method."
+	<return: #BrMenu or: nil>
+	
+	^ BrMenuItems new
+		addItem: (BrMenuSubmenuItem new
+			label: 'Defining method' ;
+			submenu: (self definingMethod asBrMenu);
+			bePinSubmenuAction;
+			hideOnClick: true);
+		addItemLabel: 'Inspect defining method' 
+			shortcut: 'Alt+Click' 
+			action: [ :anElement :aButtonModel :anEvent |
+				anElement phlow spawnObject: self definingMethod ];
+		addItemLabel: 'Inspect action' 
+			preview: self actionContextMenuPreviewLabel
+			action: [ :anElement :aButtonModel :anEvent |
+				anElement phlow spawnObject: self ]
+]
+
+{ #category : #converting }
 GtPhlowAction >> asElement: aBlock withHostElement: aTargetElement [
 	"Return an element that represents the action in Bloc space, e.g., a button"
 	<return: #BlElement>
@@ -34,6 +63,14 @@ GtPhlowAction >> asElement: aBlock withHostElement: aTargetElement [
 GtPhlowAction >> attachShowDefinitionEventHandler: element [
 	element addAptitude: (GtPhlowBrowseDefinitionAptitude new
 		definition: [ self definingMethod ]).
+]
+
+{ #category : #converting }
+GtPhlowAction >> attachShowShowContextMenuEventHandler: anElement [
+	anElement addAptitude: (BrWithExplicitMenuAptitude new
+				withAllExtraEventHandlers;
+				beClickPositionRelocator;
+				stencil: [ self actionElementContextMenu ])
 ]
 
 { #category : #'message performing' }

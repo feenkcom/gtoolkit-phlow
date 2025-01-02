@@ -7,7 +7,7 @@ I am an abstract class.
 Class {
 	#name : #GtPhlowTooltipBuilder,
 	#superclass : #Object,
-	#category : 'GToolkit-Phlow-Support - Tooltip'
+	#category : #'GToolkit-Phlow-Support - Tooltip'
 }
 
 { #category : #factory }
@@ -18,6 +18,12 @@ GtPhlowTooltipBuilder class >> null [
 { #category : #factory }
 GtPhlowTooltipBuilder class >> text: aText [
 	^ GtPhlowTooltipLabelBuilder new text: aText
+]
+
+{ #category : #building }
+GtPhlowTooltipBuilder >> actionContextMenuPreviewLabel [
+	<return: #String or: nil>
+	^ nil
 ]
 
 { #category : #building }

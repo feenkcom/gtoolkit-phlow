@@ -38,6 +38,7 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	self attachPrimaryModifierActionFor: aButton hostElement: aTargetElement.
 	self attachTooltipFor: aButton hostElement: aTargetElement.
 	self attachShowDefinitionEventHandler: aButton.
+	self attachShowShowContextMenuEventHandler: aButton.
 	^ aBlock value: aButton
 ]
 
@@ -67,7 +68,7 @@ GtPhlowButtonAction >> initialize [
 
 { #category : #'api - action' }
 GtPhlowButtonAction >> label [
-	^ label ifNil: [ 'Action' ]
+	^ label
 ]
 
 { #category : #accessing }

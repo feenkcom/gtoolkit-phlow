@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'error'
 	],
-	#category : 'GToolkit-Phlow-! Actions'
+	#category : #'GToolkit-Phlow-! Actions'
 }
 
 { #category : #converting }
@@ -19,6 +19,7 @@ GtPhlowActionWithError >> asElement: aBlock withHostElement: aTargetElement [
 		label: 'Error';
 		action: [ [ self error defaultAction ] fork ].
 	self attachShowDefinitionEventHandler: aDebugButton.
+	self attachShowShowContextMenuEventHandler: aDebugButton.
 	self attachTooltipFor: aDebugButton hostElement: aTargetElement.
 	^ aBlock value: aDebugButton
 ]
@@ -36,4 +37,9 @@ GtPhlowActionWithError >> error [
 { #category : #accessing }
 GtPhlowActionWithError >> error: anObject [
 	error := anObject
+]
+
+{ #category : #'api - action' }
+GtPhlowActionWithError >> label [
+	^ nil
 ]
