@@ -44,6 +44,19 @@ GtPhlowDiffViewExamples >> viewWithSplitter [
 ]
 
 { #category : #'as yet unclassified' }
+GtPhlowDiffViewExamples >> viewWithSplitters [
+	<gtExample>
+	| view |
+	view := self phlowView.
+
+	view
+		splitters: [ {GtSmaCCDiffSplitter forPharo.
+				GtLineDiffSplitter new} ].
+
+	^ view
+]
+
+{ #category : #'as yet unclassified' }
 GtPhlowDiffViewExamples >> viewWithStyler [
 	<gtExample>
 	| view |
