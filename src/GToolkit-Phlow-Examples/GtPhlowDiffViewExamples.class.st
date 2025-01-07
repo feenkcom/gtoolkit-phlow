@@ -6,7 +6,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 GtPhlowDiffViewExamples >> expectedElementClass [
-	^ BrVerticalPane
+	^ GtMultiSplitterDiffElement
 ]
 
 { #category : #'as yet unclassified' }
