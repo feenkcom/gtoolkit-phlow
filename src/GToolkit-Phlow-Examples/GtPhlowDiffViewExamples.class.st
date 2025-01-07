@@ -6,7 +6,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 GtPhlowDiffViewExamples >> expectedElementClass [
-	^ BrVerticalPane
+	^ GtMultiSplitterDiffElement
 ]
 
 { #category : #'as yet unclassified' }
@@ -39,6 +39,19 @@ GtPhlowDiffViewExamples >> viewWithSplitter [
 	view := self phlowView.
 
 	view splitter: [ GtSmaCCDiffSplitter forPharo ].
+
+	^ view
+]
+
+{ #category : #'as yet unclassified' }
+GtPhlowDiffViewExamples >> viewWithSplitters [
+	<gtExample>
+	| view |
+	view := self phlowView.
+
+	view
+		splitters: [ {GtSmaCCDiffSplitter forPharo.
+				GtLineDiffSplitter new} ].
 
 	^ view
 ]
