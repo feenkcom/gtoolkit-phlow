@@ -52,7 +52,7 @@ GtMultiSplitterDiffElement >> makeDiffHolder [
 { #category : #'as yet unclassified' }
 GtMultiSplitterDiffElement >> makeFilter [
 	filterModel := GtFilterShortListModel new.
-	filterModel name: 'Splitter'.
+	filterModel name: 'Split'.
 	filterModel
 		when: GtFilterModelSelectedItemChanged
 		send: #onSelectedItemChanged
@@ -85,7 +85,10 @@ GtMultiSplitterDiffElement >> onSplittersChanged [
 	self assert: splitters size > 0 description: [ 'Splitters cannot be empty' ].
 
 	filterModel items: splitters label: #descriptionString.
-	filterModel selectedItem: splitters first.
+	filterModel
+		selectedItem: (GtFilterModelPluggableItem new
+				object: splitters first;
+				label: #descriptionString).
 
 	splitters size = 1
 		ifTrue: [ filterElement visibility: BlVisibility gone ]
