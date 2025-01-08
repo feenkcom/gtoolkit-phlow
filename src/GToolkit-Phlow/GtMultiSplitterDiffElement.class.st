@@ -85,10 +85,7 @@ GtMultiSplitterDiffElement >> onSplittersChanged [
 	self assert: splitters size > 0 description: [ 'Splitters cannot be empty' ].
 
 	filterModel items: splitters label: #descriptionString.
-	filterModel
-		selectedItem: (GtFilterModelPluggableItem new
-				object: splitters first;
-				label: #descriptionString).
+	filterModel selectFirstItem.
 
 	splitters size = 1
 		ifTrue: [ filterElement visibility: BlVisibility gone ]
