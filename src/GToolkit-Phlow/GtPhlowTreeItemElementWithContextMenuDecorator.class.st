@@ -44,7 +44,7 @@ GtPhlowTreeItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeF
 	aMenuAptitude := BrWithExplicitMenuAptitude new
 			withAllExtraEventHandlers;
 			beClickPositionRelocator;
-			stencil: [ 
+			withHandleSubmenu: [ 
 				GtPhlowListAndListItemParentFinder new
 					element: anElement;
 					listKindOfClass: self listOfKindClass;

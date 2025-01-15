@@ -64,7 +64,7 @@ GtPhlowAction >> attachShowContextMenuEventHandler: anElement [
 	anElement addAptitude: (BrWithExplicitMenuAptitude new
 				withAllExtraEventHandlers;
 				beClickPositionRelocator;
-				stencil: [ self actionElementContextMenu ])
+				withHandleSubmenu: [ self actionElementContextMenu ])
 ]
 
 { #category : #converting }
