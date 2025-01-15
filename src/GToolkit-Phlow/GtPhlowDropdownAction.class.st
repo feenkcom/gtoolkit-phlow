@@ -31,7 +31,7 @@ GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 	name ifNotNil: [ :aName | aButton id: aName ].
 	id ifNotNil: [ aButton id: self id ].
 	self attachShowDefinitionEventHandler: aButton.
-	self attachShowShowContextMenuEventHandler: aButton.
+	self attachShowContextMenuEventHandler: aButton.
 	self attachTooltipFor: aButton hostElement: aTargetElement.
 	^ aBlock value: aButton
 ]

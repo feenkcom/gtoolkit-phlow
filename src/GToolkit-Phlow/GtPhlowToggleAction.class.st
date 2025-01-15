@@ -42,7 +42,7 @@ GtPhlowToggleAction >> asElement: aBlock withHostElement: aTargetElement [
 			(self isDefinitionRequested: anEvent) ifFalse: [ 
 				deactivatedAction gtValueWithArgs: { aToggle. aTargetElement. anEvent } ] ].
 	self attachShowDefinitionEventHandler: aToggle.
-	self attachShowShowContextMenuEventHandler: aToggle.
+	self attachShowContextMenuEventHandler: aToggle.
 	self attachTooltipFor: aToggle hostElement: aTargetElement.
 	^ aBlock value: aToggle
 ]

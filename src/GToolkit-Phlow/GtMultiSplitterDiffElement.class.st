@@ -53,6 +53,7 @@ GtMultiSplitterDiffElement >> makeDiffHolder [
 GtMultiSplitterDiffElement >> makeFilter [
 	filterModel := GtFilterShortListModel new.
 	filterModel name: 'Split'.
+	filterModel items: {}.
 	filterModel
 		when: GtFilterModelSelectedItemChanged
 		send: #onSelectedItemChanged
