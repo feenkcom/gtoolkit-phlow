@@ -20,7 +20,7 @@ GtPhlowExplicitAction >> asElement: aBlock withHostElement: aTargetElement [
 	id ifNotNil: [ anElement id: self id ].
 	
 	self attachShowDefinitionEventHandler: anElement.
-	self attachShowShowContextMenuEventHandler: anElement.
+	self attachShowContextMenuEventHandler: anElement.
 	self attachTooltipFor: anElement hostElement: aTargetElement.
 	
 	^ aBlock value: anElement

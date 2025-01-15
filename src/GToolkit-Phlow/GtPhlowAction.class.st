@@ -60,17 +60,17 @@ GtPhlowAction >> asElement: aBlock withHostElement: aTargetElement [
 ]
 
 { #category : #converting }
-GtPhlowAction >> attachShowDefinitionEventHandler: element [
-	element addAptitude: (GtPhlowBrowseDefinitionAptitude new
-		definition: [ self definingMethod ]).
-]
-
-{ #category : #converting }
-GtPhlowAction >> attachShowShowContextMenuEventHandler: anElement [
+GtPhlowAction >> attachShowContextMenuEventHandler: anElement [
 	anElement addAptitude: (BrWithExplicitMenuAptitude new
 				withAllExtraEventHandlers;
 				beClickPositionRelocator;
 				stencil: [ self actionElementContextMenu ])
+]
+
+{ #category : #converting }
+GtPhlowAction >> attachShowDefinitionEventHandler: element [
+	element addAptitude: (GtPhlowBrowseDefinitionAptitude new
+		definition: [ self definingMethod ]).
 ]
 
 { #category : #'message performing' }

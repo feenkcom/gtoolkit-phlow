@@ -38,7 +38,7 @@ GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	self attachPrimaryModifierActionFor: aButton hostElement: aTargetElement.
 	self attachTooltipFor: aButton hostElement: aTargetElement.
 	self attachShowDefinitionEventHandler: aButton.
-	self attachShowShowContextMenuEventHandler: aButton.
+	self attachShowContextMenuEventHandler: aButton.
 	^ aBlock value: aButton
 ]
 

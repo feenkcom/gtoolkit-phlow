@@ -19,7 +19,7 @@ GtPhlowActionWithError >> asElement: aBlock withHostElement: aTargetElement [
 		label: 'Error';
 		action: [ [ self error defaultAction ] fork ].
 	self attachShowDefinitionEventHandler: aDebugButton.
-	self attachShowShowContextMenuEventHandler: aDebugButton.
+	self attachShowContextMenuEventHandler: aDebugButton.
 	self attachTooltipFor: aDebugButton hostElement: aTargetElement.
 	^ aBlock value: aDebugButton
 ]
