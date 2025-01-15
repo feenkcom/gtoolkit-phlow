@@ -784,7 +784,7 @@ GtPhlowView >> tabElementContextMenu [
 			preview: self title
 			action: [ :anElement :aButtonModel :anEvent |
 				| aRequest |
-				aRequest := BrMenuSourceElementRequest new.
+				aRequest := BrMenuAnchorElementRequest new.
 				anElement fireEvent: aRequest.
 				aRequest sourceElementDo: [ :aTab | 
 					aTab viewContentElement phlow update ] ]
