@@ -93,8 +93,8 @@ GtPhlowUtility class >> createTabElementFor: aPhlowView stencil: aStencil andDo:
 					definition: [ aPhlowView allDefiningMethods ]);
 				addAptitude: (BrWithExplicitMenuAptitude new
 					withAllExtraEventHandlers;
-					beClickPositionRelocator;
-					withHandleSubmenu: [ aPhlowView tabElementContextMenu ]);
+					withClickPositionRelocator;
+					handleSubmenu: [ aPhlowView tabElementContextMenu ]);
 				label: aPhlowView title;
 				stencil: aStencil;
 				toolbarStencil: [ self newToolbarForTab: aTab view: aPhlowView ].

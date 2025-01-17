@@ -54,7 +54,7 @@ GtMultiSplitterDiffElement >> makeFilter [
 	filterModel := GtFilterShortListModel new.
 	filterModel name: 'Split'.
 	filterModel items: {}.
-	filterModel
+	filterModel weak
 		when: GtFilterModelSelectedItemChanged
 		send: #onSelectedItemChanged
 		to: self.

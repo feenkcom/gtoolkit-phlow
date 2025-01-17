@@ -59,8 +59,8 @@ GtPhlowListItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeF
 	| aMenuAptitude |
 	aMenuAptitude := BrWithExplicitMenuAptitude new
 			withAllExtraEventHandlers;
-			beClickPositionRelocator;
-			withHandleSubmenu: [ 
+			withClickPositionRelocator;
+			handleSubmenu: [ 
 				GtPhlowListAndListItemParentFinder new
 					element: anElement;
 					listKindOfClass: self listOfKindClass;

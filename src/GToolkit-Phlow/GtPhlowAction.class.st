@@ -63,8 +63,8 @@ GtPhlowAction >> asElement: aBlock withHostElement: aTargetElement [
 GtPhlowAction >> attachShowContextMenuEventHandler: anElement [
 	anElement addAptitude: (BrWithExplicitMenuAptitude new
 				withAllExtraEventHandlers;
-				beClickPositionRelocator;
-				withHandleSubmenu: [ self actionElementContextMenu ])
+				withClickPositionRelocator;
+				handleSubmenu: [ self actionElementContextMenu ])
 ]
 
 { #category : #converting }
