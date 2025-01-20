@@ -46,7 +46,7 @@ GtMultiSplitterDiffElement >> initialize [
 
 { #category : #'as yet unclassified' }
 GtMultiSplitterDiffElement >> makeDiffHolder [
-	^ diffHolder := BrFrame new matchParent
+	^ diffHolder := BrVerticalPane new matchParent
 ]
 
 { #category : #'as yet unclassified' }
