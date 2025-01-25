@@ -91,7 +91,7 @@ GtPhlowUtility class >> createTabElementFor: aPhlowView stencil: aStencil andDo:
 				aptitude: BrGlamorousTabAptitude new;
 				addAptitude: (GtPhlowBrowseDefinitionAptitude new
 					definition: [ aPhlowView allDefiningMethods ]);
-				addAptitude: (BrWithExplicitContextMenuAptitude 
+				addAptitude: (BrGlamorousWithExplicitContextMenuAptitude 
 					menu: [ aPhlowView tabElementContextMenu ]);
 				label: aPhlowView title;
 				stencil: aStencil;
