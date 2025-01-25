@@ -104,30 +104,31 @@ GtPhlowDropdownAction >> newButtonLook [
 
 { #category : #'instance creation' }
 GtPhlowDropdownAction >> newContentForDropdown: aDropdown targetElement: aTargetElement [
-	| anElement |
 	contentStencilBuilder 
 		actionElement: aDropdown;
 		targetElement: aTargetElement.
-	anElement := contentStencilBuilder asElement.
-	
-	whenResizedHandler ifNotNil: [ :aHandler |
-		anElement addAptitude: (BrMenuResizableAptitude new
-			whenResizedDo: aHandler )].
-			
-	^ anElement
+	^ contentStencilBuilder asElement
 ]
 
 { #category : #converting }
 GtPhlowDropdownAction >> newDropdownLookFor: aDropdown targetElement: aTargetElement [
 	| anAptitude |
-	anAptitude := BrWithExplicitDropdownAptitude
+	anAptitude := BrGlamorousWithDropdownAptitude
 			handle: [ self newButton
 					aptitude: self newButtonLook - BrGlamorousButtonWithLabelTooltipAptitude
 							- BrGlamorousButtonExteriorAptitude;
 					yourself ]
 			content: [ self
 					newContentForDropdown: aDropdown
-					targetElement: aTargetElement ].
+					targetElement: aTargetElement ]
+			aptitudeDo: [ :anAnchoredAptitude | ].
+					
+	preferredExtent ifNotNil: [ :anExtentOrValuable |
+		anAptitude preferredExtent: anExtentOrValuable value ].
+		
+	whenResizedHandler ifNotNil: [ :aHandler |
+		anAptitude whenResizedDo: [ :anEvent |
+			aHandler cull: anEvent cull: anAptitude ] ].
 	
 	^ anAptitude
 ]
