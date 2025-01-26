@@ -45,7 +45,7 @@ GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> buildContextMenuAptitu
 { #category : #private }
 GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeFor: anElement [
 	| aMenuAptitude |
-	aMenuAptitude := BrWithExplicitContextMenuAptitude menu: [ 
+	aMenuAptitude := BrGlamorousWithExplicitContextMenuAptitude menu: [ 
 				GtPhlowListAndListItemParentFinder new
 					element: anElement;
 					listKindOfClass: self listOfKindClass;
