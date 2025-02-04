@@ -18,7 +18,7 @@ Class {
 { #category : #'api - label' }
 GtPhlowLabelBuilder >> articleFor: aString [
 	<return: #String>
-	^ aString first isVowel ifTrue: [ 'an ' ] ifFalse: [ 'a ' ]
+	^ aString first isVowel ifTrue: [ 'an' ] ifFalse: [ 'a' ]
 ]
 
 { #category : #'api - building' }
@@ -48,19 +48,22 @@ GtPhlowLabelBuilder >> textOf: anObject [
 { #category : #'api - label' }
 GtPhlowLabelBuilder >> titleOfObject: anObject [
 	<return: #BlRunRopedText or: #String>
-	| aClassName aHeader aDisplayText |
-	aClassName := anObject class name.
-	aHeader := (self articleFor: aClassName), aClassName.
-	aDisplayText := self textOf: anObject.
-	^ (aDisplayText asString beginsWith: aHeader)
-		ifTrue: [ aDisplayText ]
-		ifFalse: [ 
-			String streamContents: [ :stream |
-				stream
-					nextPutAll: aHeader;
-					nextPutAll: ' (';
-					nextPutAll: aDisplayText characters;
-					nextPutAll: ')' ] ].
+	| className classArticle headerWithoutSpace headerWithSpace displayText |
+	className := anObject class name.
+	classArticle := self articleFor: className.
+	headerWithoutSpace := classArticle, className.
+	headerWithSpace := classArticle, String space, className.
+	displayText := self textOf: anObject.
+	^ ((displayText asString beginsWith: headerWithoutSpace) or: [
+		displayText asString beginsWith: headerWithSpace ])
+			ifTrue: [ displayText ]
+			ifFalse: [ 
+				String streamContents: [ :stream |
+					stream
+						nextPutAll: headerWithSpace;
+						nextPutAll: ' (';
+						nextPutAll: displayText characters;
+						nextPutAll: ')' ] ].
 ]
 
 { #category : #'api - building' }
