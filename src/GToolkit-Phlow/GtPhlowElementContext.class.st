@@ -161,6 +161,46 @@ GtPhlowElementContext >> compositeTool [
 	^ GtPhlowCompositeToolBuilder new context: self
 ]
 
+{ #category : #'api - search' }
+GtPhlowElementContext >> contextMenuAnchorElement [
+	"Return element to which a context menu (or dropdown) is attached."
+
+	<return: #BlElement or: nil>
+	| anEvent |
+	anEvent := BrMenuAnchorElementRequest new.
+	self element fireEvent: anEvent.
+	anEvent sourceElementDo: [ :anItemElement | ^ anItemElement ].
+	^ nil
+]
+
+{ #category : #'api - search' }
+GtPhlowElementContext >> contextMenuAnchorElementFirstParentWithViewContent [
+	"Return view content element to which a context menu (or dropdown) is attached."
+
+	<return: #BlElement or: nil>
+	^ self contextMenuAnchorElement
+		ifNotNil: [ :anAnchorElement | anAnchorElement phlow firstParentWithViewContent ]
+]
+
+{ #category : #'api - updating' }
+GtPhlowElementContext >> contextMenuFireToolUpdateWish [
+	"I fire an update wish to inform a whole tool, e.g., Inspector, that it should update its widgets"
+
+	^ self contextMenuAnchorElementFirstParentWithViewContent
+		ifNotNil: [ :anElement | 
+			BlTaskAction
+				enqueueElement: anElement
+				action: [ self element fireEvent: BrPhlowToolUpdateWish new ] ]
+]
+
+{ #category : #'api - updating' }
+GtPhlowElementContext >> contextMenuUpdateViewContent [
+	"Updated a view content element to which a context menu (or dropdown) is attached."
+
+	^ self contextMenuAnchorElementFirstParentWithViewContent
+		ifNotNil: [ :anElement | anElement phlow update ]
+]
+
 { #category : #'api - convenience' }
 GtPhlowElementContext >> definingMethod [
 	<return: #RGMethodDefinition>
