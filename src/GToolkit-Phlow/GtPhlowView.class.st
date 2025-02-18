@@ -766,10 +766,17 @@ GtPhlowView >> tabElementContextMenu [
 	"I return a menu object that displays phlow view details, e.g., defining method."
 	<return: #BrMenu or: nil>
 	
+	| aMethodMenu |
+	aMethodMenu := self buildContext 
+		objectDo: [ :aSelfObject | 
+			self allDefiningMethods asBrMenuWithSelfObject: aSelfObject ]
+		ifAbsent: [
+			self allDefiningMethods asBrMenu ].
+	
 	^ BrMenuItems new
 		addItem: (BrMenuSubmenuItem new
 			label: 'Defining method' ;
-			submenu: (self allDefiningMethods asBrMenu);
+			submenu: aMethodMenu;
 			bePinSubmenuAction;
 			hideOnClick: true);
 		addItemLabel: 'Inspect defining method' 
