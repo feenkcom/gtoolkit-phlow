@@ -769,9 +769,11 @@ GtPhlowView >> tabElementContextMenu [
 	| aMethodMenu |
 	aMethodMenu := self buildContext 
 		objectDo: [ :aSelfObject | 
-			self allDefiningMethods asBrMenuWithSelfObject: aSelfObject ]
+			self allDefiningMethods 
+				asBrMenuWithSelfObjectHolder: (GtCoderObject forValue: aSelfObject) ]
 		ifAbsent: [
-			self allDefiningMethods asBrMenu ].
+			self allDefiningMethods 
+				asBrMenuWithSelfObjectHolder: GtCoderUndefinedObject default ].
 	
 	^ BrMenuItems new
 		addItem: (BrMenuSubmenuItem new
