@@ -181,7 +181,7 @@ GtPhlowColumnedTreeViewExamples >> gtNumbersWithContextMenuFor: aView [
 		children: [ :aNumber | aNumber // 2 to: aNumber ];
 		column: 'x' text: [ :aNumber | aNumber ];
 		column: 'x * x' text: [ :aNumber | aNumber * aNumber ];
-		contextItemLabel: 'Context Menu Action' action: [ :anElement | anElement halt ]
+		contextItemLabel: 'Context Menu Action' action: [ :anElement | anElement inspect ]
 ]
 
 { #category : #'examples - support' }

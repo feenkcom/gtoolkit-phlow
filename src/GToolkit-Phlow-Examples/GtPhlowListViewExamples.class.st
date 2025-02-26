@@ -360,7 +360,7 @@ GtPhlowListViewExamples >> gtTenItemsWithContextMenuFor: aView [
 		priority: 1;
 		items: [ 1 to: 10 ];
 		contextItemLabel: 'Context Menu Action'
-			action: [ :anElement | anElement halt ]
+			action: [ :anElement | anElement inspect ]
 ]
 
 { #category : #'gt-extension' }
