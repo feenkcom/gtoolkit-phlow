@@ -756,7 +756,7 @@ GtPhlowColumnedListViewExamples >> gtFourItemsWithColumnIconAndContextMenuFor: a
 				#cancel} ];
 		column: 'icon' icon: [ :x | BrGlamorousVectorIcons perform: x ];
 		column: 'name' text: [ :x | x printString ];
-		contextItemLabel: 'Context Menu Action' action: [ :anElement | anElement halt ]
+		contextItemLabel: 'Context Menu Action' action: [ :anElement | anElement inspect ]
 ]
 
 { #category : #'gt-extensions' }

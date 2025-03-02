@@ -213,11 +213,11 @@ GtPhlowTreeViewExamples >> treeViewWithItemsChildrenAndContextMenu [
 	<gtExample>
 	| aView |
 	aView := self treeViewWithItemsAndChildren.
-	aView contextItemLabel: 'Action' action: #halt.
+	aView contextItemLabel: 'Action' action: #inspect.
 	self assert: aView contextMenuActions size equals: 1.
 	self
 		assert: aView contextMenuActions first asAssociation
-		equals: 'Action' -> #halt.
+		equals: 'Action' -> #inspect.
 	^ aView
 ]
 
