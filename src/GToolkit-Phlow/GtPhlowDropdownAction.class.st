@@ -113,22 +113,23 @@ GtPhlowDropdownAction >> newContentForDropdown: aDropdown targetElement: aTarget
 { #category : #converting }
 GtPhlowDropdownAction >> newDropdownLookFor: aDropdown targetElement: aTargetElement [
 	| anAptitude |
-	anAptitude := BrGlamorousWithDropdownAptitude
+	anAptitude := BrGlamorousWithExplicitDropdownAptitude
 			handle: [ self newButton
 					aptitude: self newButtonLook - BrGlamorousButtonWithLabelTooltipAptitude
 							- BrGlamorousButtonExteriorAptitude;
 					yourself ]
-			content: [ self
+			content: [ 
+				| anElement |
+				anElement := self
 					newContentForDropdown: aDropdown
-					targetElement: aTargetElement ]
-			aptitudeDo: [ :anAnchoredAptitude | ].
+					targetElement: aTargetElement.
 					
-	preferredExtent ifNotNil: [ :anExtentOrValuable |
-		anAptitude preferredExtent: anExtentOrValuable value ].
-		
-	whenResizedHandler ifNotNil: [ :aHandler |
-		anAptitude whenResizedDo: [ :anEvent |
-			aHandler cull: anEvent cull: anAptitude ] ].
+				whenResizedHandler ifNotNil: [ :aHandler |
+					anElement addAptitude: (BrGlamorousMenuResizableAptitude new
+						whenResizedDo: [ :anEvent |
+							aHandler cull: anEvent cull: anAptitude ]) ].
+					
+				anElement ].
 	
 	^ anAptitude
 ]
@@ -141,10 +142,9 @@ GtPhlowDropdownAction >> preferredExtent [
 
 { #category : #accessing }
 GtPhlowDropdownAction >> preferredExtent: aPoint [
-	"Currently the dropdown position is determined by 
+	"This is an obsolete method that used to be used for set  
 	{{gtMethod: BrWithAnchoredAptitude >> #preferredExtent:}}.
-	For that reason users can set explicitly the preferred extent
-	to place the dropdown contents inside of the space bounds."
+	The new menu (dropdown) implementation does not require it."
 
 	preferredExtent := aPoint
 ]
@@ -163,14 +163,13 @@ GtPhlowDropdownAction >> preferredExtentFrom: aConfiguration read: aReadSelector
 
 	self preferredExtent: [ aConfiguration perform: aReadSelector ].
 	self whenResizedDo: [ :anEvent :anAptitude | 
-		anAptitude preferredExtent: anEvent extent.
 		aConfiguration perform: aWriteSelector with: anEvent extent ]
 ]
 
 { #category : #accessing }
 GtPhlowDropdownAction >> whenResizedDo: aHandler [
 	"Handler receives a resized event {{gtClass: BlResizerResizedEvent }} 
-	and a dropdown aptitude {{gtClass: BrGlamorousWithDropdownAptitude }}"
+	and a dropdown aptitude {{gtClass: BrGlamorousWithExplicitDropdownAptitude }}"
 
 	whenResizedHandler := aHandler
 ]
