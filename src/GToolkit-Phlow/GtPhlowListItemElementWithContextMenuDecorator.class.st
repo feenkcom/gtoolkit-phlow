@@ -87,47 +87,18 @@ GtPhlowListItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeF
 
 { #category : #'api - instantiation' }
 GtPhlowListItemElementWithContextMenuDecorator >> buildDefault [
-	| anElement aContextMenuAptitude |
+	| anElement |
 	<return: #BrStencil or: #BlElement>
 
 	anElement := stencilBuilder
 		itemType: self itemType;
 		build.
 
-	aContextMenuAptitude :=
-		BrGlamorousWithContextMenuAptitude
-			content: [
-				anElement
-					allParentsDetect: [ :eachParent | eachParent constraints infinite holder infiniteElement notNil ]
-					ifFound: [ :aListItemElement |
-						anElement
-							allParentsDetect: [ :eachParent | eachParent phlow isViewContent ]
-							ifFound: [ :aListElement |
-								| anItemHolder anItemPosition anItemObject anItemType |
-						
-								anItemHolder := aListItemElement constraints infinite holder.
-								anItemPosition := anItemHolder dataSourcePosition.
-								anItemObject := aListElement viewModel itemAt: anItemPosition.
+	"Prefer building context menu using `BrMenuModel` objects."
+	contextMenuItemsStencil
+		ifNotNil: [ self buildContextMenuItemsAptitudeFor: anElement ]
+		ifNil: [ self buildContextMenuAptitudeFor: anElement ].
 
-								anItemType := aListElement viewModel itemTypeStencil
-									itemPosition: anItemPosition;
-									itemObject: anItemObject;
-									build.
-								
-								contextMenuStencil
-									itemType: anItemType;
-									itemObject: anItemObject;
-									itemPosition: anItemPosition;
-									itemElement: anElement;
-									build ]
-					ifNone: [ BlElement new ]
-					]
-					ifNone: [ BlElement new ].
-				
-				
-				 ].
-
-	anElement addAptitude: aContextMenuAptitude.
 	^ anElement
 ]
 
