@@ -14,7 +14,7 @@ GtPhlowColumnedTreeItemElementWithContextMenuDecorator >> buildContextMenuAptitu
 	Use #buildContextMenuItemsAptitudeFor: instead."
 
 	| aContextMenuAptitude |
-	aContextMenuAptitude := BrGlamorousWithContextMenuAptitude
+	aContextMenuAptitude := BrGlamorousWithExplicitContextMenuAptitude
 			content: [ 
 				GtPhlowListAndListItemParentFinder new
 					element: anElement;
