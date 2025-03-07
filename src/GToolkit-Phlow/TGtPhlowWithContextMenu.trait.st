@@ -33,7 +33,7 @@ TGtPhlowWithContextMenu >> contextMenuItemsStencilFromActions [
 	^ [ :element :item | 
 	| allItems |
 	allItems := (self contextMenuActions
-			select: [ :anAction | anAction respondsTo: item ]
+			select: [ :anAction | anAction respondsToItem: item ]
 			thenCollect: [ :anAction | anAction toMenuItemOn: item ]) flattened.
 	allItems 
 		ifNotEmpty: [ BrMenuItems new addItems: allItems ]
@@ -45,7 +45,7 @@ TGtPhlowWithContextMenu >> contextMenuStencilFromActions [
 	^ [ :element :item | 
 	BrGlamorousSimpleContextMenuContent new
 		items: (self contextMenuActions
-				select: [ :anAction | anAction respondsTo: item ]
+				select: [ :anAction | anAction respondsToItem: item ]
 				thenCollect: [ :anAction | anAction toActionOn: item ]) flattened ]
 ]
 
