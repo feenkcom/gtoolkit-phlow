@@ -96,7 +96,7 @@ GtPhlowContextMenuAction >> name: aString [
 ]
 
 { #category : #converting }
-GtPhlowContextMenuAction >> respondsTo: anItem [
+GtPhlowContextMenuAction >> respondsToItem: anItem [
 	^ self filter ifNil: [ true ] ifNotNil: [ :aFilter | aFilter value: anItem ]
 ]
 

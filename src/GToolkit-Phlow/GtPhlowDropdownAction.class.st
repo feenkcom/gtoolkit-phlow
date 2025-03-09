@@ -37,8 +37,11 @@ GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 ]
 
 { #category : #accessing }
-GtPhlowDropdownAction >> content: aStencilBuilder [
-	contentStencilBuilder := aStencilBuilder asStencilBuilder: GtPhlowActionStencilBuilder
+GtPhlowDropdownAction >> content: aBlock [
+	self menu: [ :anActionElement :aTargetElement | 
+		BrMenuExplicit new 
+			stencil: [ :anExplicitMenu |
+				aBlock cull: anActionElement cull: aTargetElement ] ]
 ]
 
 { #category : #accessing }
@@ -59,6 +62,19 @@ GtPhlowDropdownAction >> initialize [
 	label := nil.
 ]
 
+{ #category : #accessing }
+GtPhlowDropdownAction >> items: aBlock [
+	"Build a menu items (BrMenuItems).
+	The stencil builds can be a block with arguments: [ :aButton :aHostElement :aMenuItems | ].
+	The block configure the aMenuItems instance."
+
+	self menu: [ :anActionElement :aTargetElement | 
+		| aMenuItems |
+		aMenuItems := BrMenuItems new.
+		aBlock cull: anActionElement cull: aTargetElement cull: aMenuItems.
+		aMenuItems ]
+]
+
 { #category : #'api - action' }
 GtPhlowDropdownAction >> label [
 	^ label
@@ -67,6 +83,11 @@ GtPhlowDropdownAction >> label [
 { #category : #accessing }
 GtPhlowDropdownAction >> label: aString [
 	label := aString
+]
+
+{ #category : #accessing }
+GtPhlowDropdownAction >> menu: aStencilBuilder [
+	contentStencilBuilder := aStencilBuilder asStencilBuilder: GtPhlowActionMenuContentStencilBuilder
 ]
 
 { #category : #accessing }
@@ -107,7 +128,7 @@ GtPhlowDropdownAction >> newContentForDropdown: aDropdown targetElement: aTarget
 	contentStencilBuilder 
 		actionElement: aDropdown;
 		targetElement: aTargetElement.
-	^ contentStencilBuilder asElement
+	^ contentStencilBuilder build
 ]
 
 { #category : #converting }
@@ -118,18 +139,22 @@ GtPhlowDropdownAction >> newDropdownLookFor: aDropdown targetElement: aTargetEle
 					aptitude: self newButtonLook - BrGlamorousButtonWithLabelTooltipAptitude
 							- BrGlamorousButtonExteriorAptitude;
 					yourself ]
-			content: [ 
-				| anElement |
-				anElement := self
+			menu: [ 
+				| aMenu anOriginalMenu |
+				aMenu := anOriginalMenu := self
 					newContentForDropdown: aDropdown
 					targetElement: aTargetElement.
 					
-				whenResizedHandler ifNotNil: [ :aHandler |
-					anElement addAptitude: (BrGlamorousMenuResizableAptitude new
-						whenResizedDo: [ :anEvent |
-							aHandler cull: anEvent cull: anAptitude ]) ].
+				anOriginalMenu ifNotNil: [
+					whenResizedHandler ifNotNil: [ :aHandler |
+						aMenu := BrMenuDecoratoringModel new
+							menuModel: anOriginalMenu;
+							decorator: [ :theOriginalMenuElement | 				
+								theOriginalMenuElement addAptitude: (BrGlamorousMenuResizableAptitude new
+									whenResizedDo: [ :anEvent |
+										aHandler cull: anEvent cull: anAptitude ]) ] ] ].
 					
-				anElement ].
+				aMenu ].
 	
 	^ anAptitude
 ]

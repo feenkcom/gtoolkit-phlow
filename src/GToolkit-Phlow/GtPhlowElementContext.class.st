@@ -167,7 +167,7 @@ GtPhlowElementContext >> contextMenuAnchorElement [
 
 	<return: #BlElement or: nil>
 	| anEvent |
-	anEvent := BrMenuAnchorElementRequest new.
+	anEvent := BrMenuAnchorElementEvent new.
 	self element fireEvent: anEvent.
 	anEvent sourceElementDo: [ :anItemElement | ^ anItemElement ].
 	^ nil

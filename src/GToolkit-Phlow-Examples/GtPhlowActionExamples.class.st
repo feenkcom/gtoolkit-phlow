@@ -165,7 +165,8 @@ GtPhlowActionExamples >> dropdownWithIcon [
 	| anAction aButton |
 	anAction := GtPhlowAction noAction dropdown
 		icon: BrGlamorousIcons menu;
-		content: [ BlElement new
+		content: [ :theButton :aHostElemetn |
+			 BlElement new
 				background: Color lightBrown;
 				size: 200 @ 300 ].
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
@@ -191,7 +192,84 @@ GtPhlowActionExamples >> dropdownWithIconAndLabel [
 	self assert: aButton icon background image equals: BrGlamorousIcons menu.
 	self
 		assert: (aButton aptitude hasActor: BrGlamorousButtonWithIconAndLabelAptitude).
-	^ aButton
+	^ anAction
+]
+
+{ #category : #dropdown }
+GtPhlowActionExamples >> dropdownWithIconAndLabelAndMenuItems [
+	<gtExample>
+	| anAction aButton |
+	anAction := GtPhlowAction noAction dropdown
+		icon: BrGlamorousIcons menu;
+		label: 'Check me :-)';
+		items: [ :theButton :aHostElement :aMenuItems |
+			aMenuItems 
+				addItemLabel: 'Spawn dropdown button' 
+				action: [ :anotherButton |
+					anotherButton phlow spawnObject: theButton ].
+			aMenuItems
+				addItemLabel: 'Spawn host element' 
+				preview: aHostElement gtDisplayString
+				action: [ :anotherButton |
+					anotherButton phlow spawnObject: aHostElement ].
+			aMenuItems
+				addItemLabel: 'Spawn menu items model' 
+				preview: aMenuItems gtDisplayString
+				action: [ :anotherButton |
+					anotherButton phlow spawnObject: aMenuItems ].
+			aMenuItems 
+				addItemLabel: 'Spawn menu item button' 
+				preview: theButton gtDisplayString
+				action: [ :anotherButton |
+					anotherButton phlow spawnObject: anotherButton ].
+		 ].
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
+	self assert: (aButton isKindOf: BrButton).
+	self assert: aButton label asString equals: 'Check me :-)'.
+	self assert: aButton icon background image equals: BrGlamorousIcons menu.
+	self
+		assert: (aButton aptitude hasActor: BrGlamorousButtonWithIconAndLabelAptitude).
+	^ anAction
+]
+
+{ #category : #dropdown }
+GtPhlowActionExamples >> dropdownWithIconAndLabelAndMenuModel [
+	<gtExample>
+	| anAction aButton |
+	anAction := GtPhlowAction noAction dropdown
+		icon: BrGlamorousIcons menu;
+		label: 'Check me :-)';
+		menu: [ :theButton :aHostElement | BrMenuExamples new menuItems ].
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
+	self assert: (aButton isKindOf: BrButton).
+	self assert: aButton label asString equals: 'Check me :-)'.
+	self assert: aButton icon background image equals: BrGlamorousIcons menu.
+	self
+		assert: (aButton aptitude hasActor: BrGlamorousButtonWithIconAndLabelAptitude).
+	^ anAction
+]
+
+{ #category : #dropdown }
+GtPhlowActionExamples >> dropdownWithIconAndLabelAndResizer [
+	<gtExample>
+	| anAction aButton |
+	anAction := GtPhlowAction noAction dropdown
+		icon: BrGlamorousIcons menu;
+		label: 'Check me :-)';
+		content: [ BlElement new
+				background: Color lightBrown;
+				size: 200 @ 300 ];
+		whenResizedDo: [ :anEvent | 
+			NonInteractiveTranscript stdout show: anEvent resizeTarget.
+			anEvent resizeTarget ifNotNil: [ :anElement |
+				anElement background: Color random ] ].
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
+	self assert: (aButton isKindOf: BrButton).
+	self assert: aButton label asString equals: 'Check me :-)'.
+	self assert: aButton icon background image equals: BrGlamorousIcons menu.
+	self
+		assert: (aButton aptitude hasActor: BrGlamorousButtonWithIconAndLabelAptitude).
+	^ anAction
 ]
 
 { #category : #explicit }
