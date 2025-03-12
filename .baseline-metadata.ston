@@ -1,6 +1,6 @@
 {
 	"repositories" : {
-		"github://feenkcom/Brick/src" : "v0.8.1444",
+		"github://feenkcom/Brick/src" : "v0.8.1445",
 		"github://feenkcom/gtoolkit-utility/src" : "v0.8.359",
 		"github://feenkcom/gtoolkit-examples/src" : "v0.8.102"
 	}
