@@ -14,7 +14,8 @@ Class {
 	#name : #GtPhlowCompositeTool,
 	#superclass : #GtPhlowTool,
 	#instVars : [
-		'tools'
+		'tools',
+		'toolName'
 	],
 	#category : #'GToolkit-Phlow-Tool - Core'
 }
@@ -103,7 +104,12 @@ GtPhlowCompositeTool >> initialize [
 
 { #category : #'api - accessing' }
 GtPhlowCompositeTool >> name [
-	^ 'composite'
+	^ toolName ifNil: ['composite']
+]
+
+{ #category : #'api - accessing' }
+GtPhlowCompositeTool >> name: aName [
+	toolName := aName
 ]
 
 { #category : #action }
