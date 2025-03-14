@@ -47,7 +47,8 @@ GtPhlowLabelWithIcon >> initializeWithIcon: anIcon label: aString [
 GtPhlowLabelWithIcon >> updateForClass: aClass [
 	^ self 
 		initializeWithIcon: (self 
-			gtSafeIconNamed: aClass gtSystemIconName)
+			gtSafeIconNamed: (aClass gtSystemIconName 
+				ifEmpty: [Object gtSystemIconName] ))
 		label: aClass name
 ]
 
