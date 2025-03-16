@@ -43,7 +43,7 @@ GtPhlowDiffView >> defaultSplitter [
 
 { #category : #'as yet unclassified' }
 GtPhlowDiffView >> defaultStyler [
-	^ GtCodeDiffRBTextStyler new
+	^ BlTextNullStyler new
 ]
 
 { #category : #accessing }
