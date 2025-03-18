@@ -29,13 +29,14 @@ GtPhlowBasicForwarderView >> asElementDo: aBlock [
 	| aFutureElement aFuture |
 	
 	aFutureElement := BrFromFuture new.
+	aFutureElement layout: BlLinearLayout vertical.
 	aFutureElement configuration: GtPhlowUtility defaultFutureExecutionConfiguration.
 	self beViewElement: aFutureElement.
 
 	aFutureElement
 		matchParent;
 		stencil: [ 
-			BrFrame new
+			BrVerticalPane new
 				matchParent ];
 		dataBinder: [ :aContainer :aData |
 			aContainer removeChildren.
