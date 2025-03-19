@@ -93,6 +93,11 @@ GtPhlowButtonAction >> icon: anIcon [
 	icon := anIcon
 ]
 
+{ #category : #accessing }
+GtPhlowButtonAction >> iconStencil [
+	^ icon
+]
+
 { #category : #initialization }
 GtPhlowButtonAction >> initialize [
 	super initialize.
