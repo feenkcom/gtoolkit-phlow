@@ -8,7 +8,8 @@ Class {
 		'name',
 		'contentStencilBuilder',
 		'preferredExtent',
-		'whenResizedHandler'
+		'whenResizedHandler',
+		'isWithDropdownIndicator'
 	],
 	#category : #'GToolkit-Phlow-! Actions'
 }
@@ -30,6 +31,10 @@ GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 		+ (self newDropdownLookFor: aButton targetElement: aTargetElement).
 	name ifNotNil: [ :aName | aButton id: aName ].
 	id ifNotNil: [ aButton id: self id ].
+	
+	self isWithDropdownIndicator ifTrue: [ 
+		aButton addAptitude: BrGlamorousButtonIconDropdownAptitude new ].
+	
 	self attachShowDefinitionEventHandler: aButton.
 	self attachShowContextMenuEventHandler: aButton.
 	self attachTooltipFor: aButton hostElement: aTargetElement.
@@ -60,6 +65,12 @@ GtPhlowDropdownAction >> initialize [
 	action := [ :aBrButton |  ].
 	icon := nil.
 	label := nil.
+	isWithDropdownIndicator := false
+]
+
+{ #category : #testing }
+GtPhlowDropdownAction >> isWithDropdownIndicator [
+	^ isWithDropdownIndicator ifNil: [ false ]
 ]
 
 { #category : #accessing }
@@ -138,6 +149,9 @@ GtPhlowDropdownAction >> newDropdownLookFor: aDropdown targetElement: aTargetEle
 			handle: [ self newButton
 					aptitude: self newButtonLook - BrGlamorousButtonWithLabelTooltipAptitude
 							- BrGlamorousButtonExteriorAptitude;
+					in: [ :theHandle | 
+						self isWithDropdownIndicator ifTrue: [ 
+							theHandle addAptitude: BrGlamorousButtonIconDropdownAptitude new ] ];
 					yourself ]
 			menu: [ 
 				| aMenu anOriginalMenu |
@@ -197,4 +211,14 @@ GtPhlowDropdownAction >> whenResizedDo: aHandler [
 	and a dropdown aptitude {{gtClass: BrGlamorousWithExplicitDropdownAptitude }}"
 
 	whenResizedHandler := aHandler
+]
+
+{ #category : #'api - initialization' }
+GtPhlowDropdownAction >> withDropdownIndicator [
+	isWithDropdownIndicator := true
+]
+
+{ #category : #'api - initialization' }
+GtPhlowDropdownAction >> withoutDropdownIndicator [
+	isWithDropdownIndicator := false
 ]

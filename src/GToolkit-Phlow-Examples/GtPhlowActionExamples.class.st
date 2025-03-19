@@ -196,6 +196,29 @@ GtPhlowActionExamples >> dropdownWithIconAndLabel [
 ]
 
 { #category : #dropdown }
+GtPhlowActionExamples >> dropdownWithIconAndLabelAndIndicator [
+	<gtExample>
+	| anAction aButton |
+	anAction := GtPhlowAction noAction dropdown
+		icon: BrGlamorousIcons add;
+		label: 'Add item';
+		withDropdownIndicator;
+		content: [ BlElement new
+				background: Color lightBrown;
+				size: 200 @ 300 ].
+	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
+	self assert: (aButton isKindOf: BrButton).
+	self assert: aButton label asString equals: 'Add item'.
+	self assert: aButton icon background image equals: BrGlamorousIcons add.
+	self
+		assert: (aButton aptitude hasActor: BrGlamorousButtonWithIconAndLabelAptitude).
+	self
+		assert: (aButton aptitude hasActor: BrGlamorousButtonIconDropdownAptitude).
+	self assert: (aButton childWithId: #iconDropdown) isNotNil.
+	^ anAction
+]
+
+{ #category : #dropdown }
 GtPhlowActionExamples >> dropdownWithIconAndLabelAndMenuItems [
 	<gtExample>
 	| anAction aButton |
@@ -256,6 +279,7 @@ GtPhlowActionExamples >> dropdownWithIconAndLabelAndResizer [
 	anAction := GtPhlowAction noAction dropdown
 		icon: BrGlamorousIcons menu;
 		label: 'Check me :-)';
+		withoutDropdownIndicator;
 		content: [ BlElement new
 				background: Color lightBrown;
 				size: 200 @ 300 ];
@@ -269,6 +293,9 @@ GtPhlowActionExamples >> dropdownWithIconAndLabelAndResizer [
 	self assert: aButton icon background image equals: BrGlamorousIcons menu.
 	self
 		assert: (aButton aptitude hasActor: BrGlamorousButtonWithIconAndLabelAptitude).
+	self
+		assert: (aButton aptitude hasActor: BrGlamorousButtonIconDropdownAptitude) not.
+	self assert: (aButton childWithId: #iconDropdown ifFound: [ :e | false ] ifNone: [ true ] ).
 	^ anAction
 ]
 
