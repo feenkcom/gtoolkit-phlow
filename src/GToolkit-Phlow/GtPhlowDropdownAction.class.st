@@ -46,7 +46,7 @@ GtPhlowDropdownAction >> content: aBlock [
 	self menu: [ :anActionElement :aTargetElement | 
 		BrMenuExplicit new 
 			stencil: [ :anExplicitMenu |
-				aBlock cull: anActionElement cull: aTargetElement ] ]
+				aBlock cull: anActionElement cull: aTargetElement cull: anExplicitMenu ] ]
 ]
 
 { #category : #accessing }
