@@ -86,7 +86,7 @@ GtPhlowActionExamples >> buttonWithIconAndLabelAndTooltip [
 	anAction tooltip: 'I am a tooltip'.
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
-	self assert: (aButton aptitude children anySatisfy: [ :e | e class = GtPhlowLabelTooltipAptitude ]).
+	self assert: (aButton aptitude children anySatisfy: [ :e | e class = GtPhlowLabelTooltipAptitude2 ]).
 	^ anAction
 ]
 
@@ -98,7 +98,7 @@ GtPhlowActionExamples >> buttonWithIconAndTooltip [
 	anAction tooltip: 'I am tooltip'.
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
-	self assert: (aButton aptitude children anySatisfy: [ :e | e class = GtPhlowLabelTooltipAptitude ]).
+	self assert: (aButton aptitude children anySatisfy: [ :e | e class = GtPhlowLabelTooltipAptitude2 ]).
 	^ anAction
 ]
 
@@ -124,7 +124,7 @@ GtPhlowActionExamples >> buttonWithLabelWithTooltip [
 	anAction tooltip: 'I am tooltip'.
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
-	self assert: (aButton aptitude children anySatisfy: [ :e | e class = GtPhlowLabelTooltipAptitude ]).
+	self assert: (aButton aptitude children anySatisfy: [ :e | e class = GtPhlowLabelTooltipAptitude2 ]).
 	^ anAction
 ]
 
@@ -137,7 +137,7 @@ GtPhlowActionExamples >> buttonWithNoConfiguration [
 	self assert: (aButton isKindOf: BrButton).
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton aptitude class equals: BrGlamorousButtonWithIconAptitude.
-	self assert: (aButton aptitude children allSatisfy: [ :e | e class ~= GtPhlowLabelTooltipAptitude ]).
+	self assert: (aButton aptitude children allSatisfy: [ :e | e class ~= GtPhlowLabelTooltipAptitude2 ]).
 	^ anAction 
 ]
 

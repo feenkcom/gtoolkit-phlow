@@ -33,7 +33,7 @@ GtPhlowTooltipLabelBuilder >> actionContextMenuPreviewLabel [
 
 { #category : #building }
 GtPhlowTooltipLabelBuilder >> applyOn: anElement [
-	anElement addAptitude: (GtPhlowLabelTooltipAptitude new text: self text)
+	anElement addAptitude: (GtPhlowLabelTooltipAptitude2 text: self text)
 ]
 
 { #category : #building }
