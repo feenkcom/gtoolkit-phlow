@@ -129,9 +129,12 @@ GtPhlowButtonAction >> name: aSymbol [
 
 { #category : #'instance creation' }
 GtPhlowButtonAction >> newButtonLook [
-	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ ^ BrGlamorousButtonWithIconAndLabelAptitude ].
-	(label notNil and: [ icon isNil ]) ifTrue: [ ^ BrGlamorousButtonWithLabelAptitude ].
-	^ BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
+	(label isNotNil and: [ icon isNotNil ])
+		ifTrue: [ ^ BrGlamorousButtonWithIconAndLabelAptitude ].
+	(label notNil and: [ icon isNil ])
+		ifTrue: [ ^ BrGlamorousButtonWithLabelAptitude ].
+	^ BrGlamorousButtonWithIconAptitude
+		- BrGlamorousButtonWithLabelTooltipAptitude2
 ]
 
 { #category : #'api - action' }

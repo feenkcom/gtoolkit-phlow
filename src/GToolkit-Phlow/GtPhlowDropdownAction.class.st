@@ -124,14 +124,14 @@ GtPhlowDropdownAction >> newButton [
 
 { #category : #'instance creation' }
 GtPhlowDropdownAction >> newButtonLook [
-	(label isNotNil and: [ icon isNotNil ]) ifTrue: [ 
-		^ BrGlamorousButtonWithIconAndLabelAptitude ].
-	
-	(label notNil and: [ icon isNil ]) ifTrue: [ 
-		^ BrGlamorousButtonWithLabelAptitude ].
-	
-	^ BrGlamorousButtonWithIconAptitude 
-		- BrGlamorousButtonWithLabelTooltipAptitude
+	(label isNotNil and: [ icon isNotNil ])
+		ifTrue: [ ^ BrGlamorousButtonWithIconAndLabelAptitude ].
+
+	(label notNil and: [ icon isNil ])
+		ifTrue: [ ^ BrGlamorousButtonWithLabelAptitude ].
+
+	^ BrGlamorousButtonWithIconAptitude
+		- BrGlamorousButtonWithLabelTooltipAptitude2
 ]
 
 { #category : #'instance creation' }
@@ -147,29 +147,29 @@ GtPhlowDropdownAction >> newDropdownLookFor: aDropdown targetElement: aTargetEle
 	| anAptitude |
 	anAptitude := BrGlamorousWithExplicitDropdownAptitude
 			handle: [ self newButton
-					aptitude: self newButtonLook - BrGlamorousButtonWithLabelTooltipAptitude
+					aptitude: self newButtonLook - BrGlamorousButtonWithLabelTooltipAptitude2
 							- BrGlamorousButtonExteriorAptitude;
 					in: [ :theHandle | 
-						self isWithDropdownIndicator ifTrue: [ 
-							theHandle addAptitude: BrGlamorousButtonIconDropdownAptitude new ] ];
+						self isWithDropdownIndicator
+							ifTrue: [ theHandle addAptitude: BrGlamorousButtonIconDropdownAptitude new ] ];
 					yourself ]
-			menu: [ 
-				| aMenu anOriginalMenu |
+			menu: [ | aMenu anOriginalMenu |
 				aMenu := anOriginalMenu := self
-					newContentForDropdown: aDropdown
-					targetElement: aTargetElement.
-					
-				anOriginalMenu ifNotNil: [
-					whenResizedHandler ifNotNil: [ :aHandler |
-						aMenu := BrMenuDecoratoringModel new
-							menuModel: anOriginalMenu;
-							decorator: [ :theOriginalMenuElement | 				
-								theOriginalMenuElement addAptitude: (BrGlamorousMenuResizableAptitude new
-									whenResizedDo: [ :anEvent |
-										aHandler cull: anEvent cull: anAptitude ]) ] ] ].
-					
+							newContentForDropdown: aDropdown
+							targetElement: aTargetElement.
+
+				anOriginalMenu
+					ifNotNil: [ whenResizedHandler
+							ifNotNil: [ :aHandler | 
+								aMenu := BrMenuDecoratoringModel new
+										menuModel: anOriginalMenu;
+										decorator: [ :theOriginalMenuElement | 
+											theOriginalMenuElement
+												addAptitude: (BrGlamorousMenuResizableAptitude new
+														whenResizedDo: [ :anEvent | aHandler cull: anEvent cull: anAptitude ]) ] ] ].
+
 				aMenu ].
-	
+
 	^ anAptitude
 ]
 
