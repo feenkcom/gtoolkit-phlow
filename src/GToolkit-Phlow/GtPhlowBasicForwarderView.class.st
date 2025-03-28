@@ -26,56 +26,55 @@ GtPhlowBasicForwarderView class >> isAbstract [
 { #category : #converting }
 GtPhlowBasicForwarderView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
+
 	| aFutureElement aFuture |
-	
 	aFutureElement := BrFromFuture new.
 	aFutureElement layout: BlLinearLayout vertical.
-	aFutureElement configuration: GtPhlowUtility defaultFutureExecutionConfiguration.
+	aFutureElement
+		configuration: GtPhlowUtility defaultFutureExecutionConfiguration.
 	self beViewElement: aFutureElement.
 
 	aFutureElement
 		matchParent;
-		stencil: [ 
-			BrVerticalPane new
-				matchParent ];
-		dataBinder: [ :aContainer :aData |
+		stencil: [ BrVerticalPane new matchParent ];
+		dataBinder: [ :aContainer :aData | 
 			aContainer removeChildren.
 			aData
-				ifSuccess: [ :anElement |
-					aContainer addChild: anElement as: self class contentId ]
+				ifSuccess: [ :anElement | 
+					[ aContainer addChild: anElement as: self class contentId ]
+						on: Error
+						do: [ :anError | 
+							(self phlowErrorViewWithException: anError)
+								asElementDo: [ :anErrorElement | aContainer addChild: anErrorElement as: self class contentId ] ] ]
 				ifError: [ :anError | 
-					(self phlowErrorViewWithException: anError) 
-						asElementDo: [ :anErrorElement | 
-							aContainer 
-								addChild: anErrorElement 
-								as: self class contentId ] ]
-				ifPending: [
-					| aPendingLabel |
-					
+					(self phlowErrorViewWithException: anError)
+						asElementDo: [ :anErrorElement | aContainer addChild: anErrorElement as: self class contentId ] ]
+				ifPending: [ | aPendingLabel |
 					aPendingLabel := BrLabel new
-						aptitude: (BrGlamorousLabelAptitude new italic 
-							foreground: BrGlamorousColors disabledHeaderTextColor);
-						constraintsDo: [ :c | 
-							c ignoreByLayout.
-							c ignored horizontal alignCenter.
-							c ignored vertical alignCenter ];
-						text: ''.
+							aptitude: (BrGlamorousLabelAptitude new italic
+									foreground: BrGlamorousColors disabledHeaderTextColor);
+							constraintsDo: [ :c | 
+								c ignoreByLayout.
+								c ignored horizontal alignCenter.
+								c ignored vertical alignCenter ];
+							text: ''.
 
-					aPendingLabel enqueueTask: (BlDelayedTaskAction new
-						delay: 1 second;
-						action: [ aPendingLabel text: 'Rendering...' ]). 
+					aPendingLabel
+						enqueueTask: (BlDelayedTaskAction new
+								delay: 1 second;
+								action: [ aPendingLabel text: 'Rendering...' ]).
 
 					aContainer addChild: aPendingLabel ] ].
-	
+
 	aFuture := self secureElementPhlowView.
 	aFutureElement future: aFuture.
-	
+
 	GtPhlowForwarderFutureElementSignal new
 		futureElement: aFutureElement;
 		future: aFuture;
 		phlowView: self;
 		emit.
-	
+
 	^ aBlock value: aFutureElement
 ]
 

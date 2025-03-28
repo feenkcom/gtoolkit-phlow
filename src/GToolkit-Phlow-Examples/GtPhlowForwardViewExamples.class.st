@@ -4,9 +4,38 @@ Class {
 	#category : #'GToolkit-Phlow-Examples-Views'
 }
 
+{ #category : #'examples - view' }
+GtPhlowForwardViewExamples >> elemenWithParentError [
+	<gtExample>
+	<return: #GtPhlowView>
+	| aForwardView aScripter anElement |
+	aForwardView := GtPhlowView empty forward
+			object: [ GtPhlowForwardViewExamples new ];
+			view: #gtElementWithParentFor:.
+
+	anElement := aForwardView asElementDo: [ :theElement | theElement ].
+	
+	aScripter := BlScripter new.
+	aScripter model: aForwardView.
+	aScripter element: anElement.
+			
+	^ aScripter
+]
+
 { #category : #'examples - element' }
 GtPhlowForwardViewExamples >> expectedElementClass [
 	^ BrFromFuture
+]
+
+{ #category : #'gt - extensions' }
+GtPhlowForwardViewExamples >> gtElementWithParentFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Element with parent';
+		stencil: [ | child |
+			child := BlElement new.
+			BlElement new addChild: child.
+			child ]
 ]
 
 { #category : #'examples - view' }
