@@ -41,14 +41,8 @@ GtPhlowBasicForwarderView >> asElementDo: aBlock [
 		dataBinder: [ :aContainer :aData |
 			aContainer removeChildren.
 			aData
-				ifSuccess: [ :aPhlowView |
-					aPhlowView asElementDo: [ :anElement |
-						[ aContainer addChild: anElement as: self class contentId ]
-							on: Error
-							do: [ :anException |
-								(self phlowErrorViewWithException: anException)
-									asElementDo: [ :anErrorElement | 
-										aContainer addChild: anErrorElement ] ] ] ]
+				ifSuccess: [ :anElement |
+					aContainer addChild: anElement as: self class contentId ]
 				ifError: [ :anError | 
 					(self phlowErrorViewWithException: anError) 
 						asElementDo: [ :anErrorElement | 
@@ -73,7 +67,7 @@ GtPhlowBasicForwarderView >> asElementDo: aBlock [
 
 					aContainer addChild: aPendingLabel ] ].
 	
-	aFuture := self phlowView.
+	aFuture := self secureElementPhlowView.
 	aFutureElement future: aFuture.
 	
 	GtPhlowForwarderFutureElementSignal new
@@ -103,6 +97,13 @@ GtPhlowBasicForwarderView >> createPhlowView [
 			AsyncPoll ready: (self phlowErrorViewWithException: anException) ]
 ]
 
+{ #category : #'accessing - computed' }
+GtPhlowBasicForwarderView >> elementPhlowView [
+	<return: #TAsyncFuture of: #BlElement>
+	^ self phlowView
+		map: [ :aPhlowView | aPhlowView asElementDo: [ :anElement | anElement ] ]
+]
+
 { #category : #initialization }
 GtPhlowBasicForwarderView >> initialize [
 	super initialize.
@@ -128,6 +129,16 @@ GtPhlowBasicForwarderView >> phlowView [
 	^ AsyncCachedFuture 
 		forFuture: self createPhlowView 
 		cache: phlowView
+]
+
+{ #category : #'accessing - computed' }
+GtPhlowBasicForwarderView >> secureElementPhlowView [
+	<return: #TAsyncFuture of: #BlElement>
+	^ self elementPhlowView
+		on: Error
+		do: [ :anError | 
+			(self phlowErrorViewWithException: anError)
+				asElementDo: [ :anErrorElement | anErrorElement ] ]
 ]
 
 { #category : #private }
