@@ -139,7 +139,7 @@ GtPhlowViewExamples >> updateAllAgainstAllViews [
 { #category : #'examples - updating' }
 GtPhlowViewExamples >> updatePhlowView: aCurrentPhlowView to: aNewPhlowView [
 	<gtExample>
-	| aCurrentElement aContainer |
+	| aCurrentElement aContainer aScripter |
 	aCurrentElement := aCurrentPhlowView asElementDo: [ :theElement | theElement ].
 
 	self assert: (aCurrentElement isKindOf: BlElement).	
@@ -148,8 +148,9 @@ GtPhlowViewExamples >> updatePhlowView: aCurrentPhlowView to: aNewPhlowView [
 	aContainer := self container.
 	aContainer addChild: aCurrentElement.
 	aCurrentElement phlow replaceEntity: aNewPhlowView.
-	BlUseAsyncFeatures disableDuring: [
-		aCurrentElement phlow syncUpdate ].
+	aScripter := BlScripter new.
+	aScripter element: aContainer.
+	aScripter do block: [ aCurrentElement phlow syncUpdate ]; play.
 	
 	aCurrentPhlowView class = aNewPhlowView class ifTrue: [ ^ aContainer ].
 	

@@ -26,62 +26,55 @@ GtPhlowBasicForwarderView class >> isAbstract [
 { #category : #converting }
 GtPhlowBasicForwarderView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
+
 	| aFutureElement aFuture |
-	
 	aFutureElement := BrFromFuture new.
 	aFutureElement layout: BlLinearLayout vertical.
-	aFutureElement configuration: GtPhlowUtility defaultFutureExecutionConfiguration.
+	aFutureElement
+		configuration: GtPhlowUtility defaultFutureExecutionConfiguration.
 	self beViewElement: aFutureElement.
 
 	aFutureElement
 		matchParent;
-		stencil: [ 
-			BrVerticalPane new
-				matchParent ];
-		dataBinder: [ :aContainer :aData |
+		stencil: [ BrVerticalPane new matchParent ];
+		dataBinder: [ :aContainer :aData | 
 			aContainer removeChildren.
 			aData
-				ifSuccess: [ :aPhlowView |
-					aPhlowView asElementDo: [ :anElement |
-						[ aContainer addChild: anElement as: self class contentId ]
-							on: Error
-							do: [ :anException |
-								(self phlowErrorViewWithException: anException)
-									asElementDo: [ :anErrorElement | 
-										aContainer addChild: anErrorElement ] ] ] ]
+				ifSuccess: [ :anElement | 
+					[ aContainer addChild: anElement as: self class contentId ]
+						on: Error
+						do: [ :anError | 
+							(self phlowErrorViewWithException: anError)
+								asElementDo: [ :anErrorElement | aContainer addChild: anErrorElement as: self class contentId ] ] ]
 				ifError: [ :anError | 
-					(self phlowErrorViewWithException: anError) 
-						asElementDo: [ :anErrorElement | 
-							aContainer 
-								addChild: anErrorElement 
-								as: self class contentId ] ]
-				ifPending: [
-					| aPendingLabel |
-					
+					(self phlowErrorViewWithException: anError)
+						asElementDo: [ :anErrorElement | aContainer addChild: anErrorElement as: self class contentId ] ]
+				ifPending: [ | aPendingLabel |
 					aPendingLabel := BrLabel new
-						aptitude: (BrGlamorousLabelAptitude new italic 
-							foreground: BrGlamorousColors disabledHeaderTextColor);
-						constraintsDo: [ :c | 
-							c ignoreByLayout.
-							c ignored horizontal alignCenter.
-							c ignored vertical alignCenter ];
-						text: ''.
+							aptitude: (BrGlamorousLabelAptitude new italic
+									foreground: BrGlamorousColors disabledHeaderTextColor);
+							constraintsDo: [ :c | 
+								c ignoreByLayout.
+								c ignored horizontal alignCenter.
+								c ignored vertical alignCenter ];
+							text: ''.
 
-					aPendingLabel enqueueTask: (BlDelayedTaskAction new
-						delay: 1 second;
-						action: [ aPendingLabel text: 'Rendering...' ]). 
+					aPendingLabel
+						enqueueTask: (BlDelayedTaskAction new
+								delay: 1 second;
+								action: [ aPendingLabel text: 'Rendering...' ]).
 
 					aContainer addChild: aPendingLabel ] ].
-	
-	aFuture := self phlowView.
+
+	aFuture := self secureElementPhlowView.
 	aFutureElement future: aFuture.
-	
+
 	GtPhlowForwarderFutureElementSignal new
 		futureElement: aFutureElement;
 		future: aFuture;
 		phlowView: self;
 		emit.
-	
+
 	^ aBlock value: aFutureElement
 ]
 
@@ -103,12 +96,28 @@ GtPhlowBasicForwarderView >> createPhlowView [
 			AsyncPoll ready: (self phlowErrorViewWithException: anException) ]
 ]
 
+{ #category : #'accessing - computed' }
+GtPhlowBasicForwarderView >> elementPhlowView [
+	<return: #TAsyncFuture of: #BlElement>
+	^ self phlowView
+		map: [ :aPhlowView | aPhlowView asElementDo: [ :anElement | anElement ] ]
+]
+
 { #category : #initialization }
 GtPhlowBasicForwarderView >> initialize [
 	super initialize.
-	
-	viewObject := AsyncFutureCache new.
-	phlowView := AsyncFutureCache new.
+	self initializePhlowViewObjectCache.
+	self initializePhlowViewFutureCache
+]
+
+{ #category : #initialization }
+GtPhlowBasicForwarderView >> initializePhlowViewFutureCache [
+	phlowView := AsyncFutureCache new
+]
+
+{ #category : #initialization }
+GtPhlowBasicForwarderView >> initializePhlowViewObjectCache [
+	viewObject := AsyncFutureCache new
 ]
 
 { #category : #accessing }
@@ -128,6 +137,16 @@ GtPhlowBasicForwarderView >> phlowView [
 	^ AsyncCachedFuture 
 		forFuture: self createPhlowView 
 		cache: phlowView
+]
+
+{ #category : #'accessing - computed' }
+GtPhlowBasicForwarderView >> secureElementPhlowView [
+	<return: #TAsyncFuture of: #BlElement>
+	^ self elementPhlowView
+		on: Error
+		do: [ :anError | 
+			(self phlowErrorViewWithException: anError)
+				asElementDo: [ :anErrorElement | anErrorElement ] ]
 ]
 
 { #category : #private }
