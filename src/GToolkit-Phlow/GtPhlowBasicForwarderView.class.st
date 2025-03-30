@@ -106,9 +106,18 @@ GtPhlowBasicForwarderView >> elementPhlowView [
 { #category : #initialization }
 GtPhlowBasicForwarderView >> initialize [
 	super initialize.
-	
-	viewObject := AsyncFutureCache new.
-	phlowView := AsyncFutureCache new.
+	self initializePhlowViewObjectCache.
+	self initializePhlowViewFutureCache
+]
+
+{ #category : #initialization }
+GtPhlowBasicForwarderView >> initializePhlowViewFutureCache [
+	phlowView := AsyncFutureCache new
+]
+
+{ #category : #initialization }
+GtPhlowBasicForwarderView >> initializePhlowViewObjectCache [
+	viewObject := AsyncFutureCache new
 ]
 
 { #category : #accessing }

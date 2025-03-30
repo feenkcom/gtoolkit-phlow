@@ -151,9 +151,10 @@ GtPhlowForwarderViewExamples >> forwardedWithUpdateActionElement [
 	self assert: aView autoUpdates size equals: aView defaultUpdateDefinitions size + 1.
 	
 	aNewElement := aContainer childAt: 1.
-	self assert: aNewElement phlow entity equals: aView phlowView wait.
+	self assert: aNewElement class equals: BrFromFuture.
+	self assert: aNewElement phlow entity equals: aView.
 	self assert: aView autoUpdates size equals: aView defaultUpdateDefinitions size + 1.
-
+	
 	^ anElement
 ]
 
