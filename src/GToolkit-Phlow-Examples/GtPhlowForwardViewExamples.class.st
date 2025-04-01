@@ -38,8 +38,8 @@ GtPhlowForwardViewExamples >> gtElementWithParentFor: aView [
 			child ]
 ]
 
-{ #category : #'examples - view' }
-GtPhlowForwardViewExamples >> onAddedToSceneUpdatingView [
+{ #category : #'examples - updating' }
+GtPhlowForwardViewExamples >> onAddedToSceneUpdatingView2 [
 	"See https://github.com/feenkcom/gtoolkit/issues/4403"
 
 	<gtExample>

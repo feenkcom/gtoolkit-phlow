@@ -93,6 +93,26 @@ GtPhlowViewExamples >> modifiedPhlowView [
 	^ aView
 ]
 
+{ #category : #'examples - updating' }
+GtPhlowViewExamples >> onAddedToSceneUpdatingView [
+	"See https://github.com/feenkcom/gtoolkit/issues/4403"
+
+	<gtExample>
+	<return: #GtPhlowView>
+	| aPhlowView aScripter anElement |
+	aPhlowView := self phlowView
+			addAutoUpdate: GtPhlowUpdateViewOnAddedToScene.
+
+	anElement := aPhlowView asElementDo: [ :theElement | theElement ].
+	
+	aScripter := BlScripter new.
+	aScripter maxPulseElapsedTime: 30 seconds.
+	aScripter model: aPhlowView.
+	aScripter element: anElement.
+			
+	^ aScripter
+]
+
 { #category : #'examples - view' }
 GtPhlowViewExamples >> phlowView [
 	<return: #GtPhlowView>
