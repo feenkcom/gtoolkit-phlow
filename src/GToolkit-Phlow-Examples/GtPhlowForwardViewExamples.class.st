@@ -39,6 +39,28 @@ GtPhlowForwardViewExamples >> gtElementWithParentFor: aView [
 ]
 
 { #category : #'examples - view' }
+GtPhlowForwardViewExamples >> onAddedToSceneUpdatingView [
+	"See https://github.com/feenkcom/gtoolkit/issues/4403"
+
+	<gtExample>
+	<return: #GtPhlowView>
+	| aForwardView aScripter anElement |
+	aForwardView := GtPhlowView empty forward
+			object: [ GtPhlowListViewExamples new ];
+			view: #gtTenLinesFor:;
+			addAutoUpdate: GtPhlowUpdateViewOnAddedToScene.
+
+	anElement := aForwardView asElementDo: [ :theElement | theElement ].
+	
+	aScripter := BlScripter new.
+	aScripter maxPulseElapsedTime: 30 seconds.
+	aScripter model: aForwardView.
+	aScripter element: anElement.
+			
+	^ aScripter
+]
+
+{ #category : #'examples - view' }
 GtPhlowForwardViewExamples >> phlowView [
 	<gtExample>
 	<return: #GtPhlowView>
