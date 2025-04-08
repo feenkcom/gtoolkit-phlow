@@ -5,6 +5,32 @@ Class {
 }
 
 { #category : #'examples - view' }
+GtPhlowForwardViewExamples >> elemenWithEventHandleError [
+	"See https://github.com/feenkcom/gtoolkit/issues/4408"
+	
+	<gtExample>
+	<return: #GtPhlowView>
+	| anOriginalView aForwardView aScripter anElement |
+	anOriginalView := GtPhlowView empty explicit
+		stencil: [
+			BlElement new
+				when: BlElementAddedToSceneGraphEvent
+				do: [ 1/0 ] ].
+
+	aForwardView := GtPhlowView empty forward
+			object: [ anOriginalView ];
+			view: #yourself.
+
+	anElement := aForwardView asElementDo: [ :theElement | theElement ].
+	
+	aScripter := BlScripter new.
+	aScripter model: aForwardView.
+	aScripter element: anElement.
+			
+	^ aScripter
+]
+
+{ #category : #'examples - view' }
 GtPhlowForwardViewExamples >> elemenWithParentError [
 	<gtExample>
 	<return: #GtPhlowView>
