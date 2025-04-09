@@ -45,7 +45,14 @@ GtPhlowBasicForwarderView >> asElementDo: aBlock [
 						on: Error
 						do: [ :anError | 
 							(self phlowErrorViewWithException: anError)
-								asElementDo: [ :anErrorElement | aContainer addChild: anErrorElement as: self class contentId ] ] ]
+								asElementDo: [ :anErrorElement | 
+									aContainer 
+										childWithId: self class contentId 
+										ifFound: [ :aChild | aChild removeFromParent ] 
+										ifNone: [ ].
+									aContainer 
+										addChild: anErrorElement 
+										as: self class contentId ] ] ]
 				ifError: [ :anError | 
 					(self phlowErrorViewWithException: anError)
 						asElementDo: [ :anErrorElement | aContainer addChild: anErrorElement as: self class contentId ] ]
