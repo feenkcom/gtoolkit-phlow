@@ -104,7 +104,12 @@ GtPhlowCompositeTool >> initialize [
 
 { #category : #'api - accessing' }
 GtPhlowCompositeTool >> name [
-	^ toolName ifNil: ['composite']
+	^ toolName ifNil: [ 
+		tools 
+			ifEmpty: ['composite'] 
+			ifNotEmpty: [ :currentTools |
+				currentTools first name 
+					ifNil: [ 'composite' ] ]]
 ]
 
 { #category : #'api - accessing' }
