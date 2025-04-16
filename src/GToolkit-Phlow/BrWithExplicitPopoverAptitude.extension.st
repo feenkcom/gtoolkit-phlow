@@ -1,7 +1,7 @@
-Extension { #name : #BrWithExplicitMenuAptitude }
+Extension { #name : #BrWithExplicitPopoverAptitude }
 
 { #category : #'*GToolkit-Phlow' }
-BrWithExplicitMenuAptitude >> withPhlowSpawnEventHandler [
+BrWithExplicitPopoverAptitude >> withPhlowSpawnEventHandler [
 	<menuContainerInitialization>
 	self menuContainer 
 		when: GtPhlowObjectToSpawn 
@@ -12,7 +12,7 @@ BrWithExplicitMenuAptitude >> withPhlowSpawnEventHandler [
 ]
 
 { #category : #'*GToolkit-Phlow' }
-BrWithExplicitMenuAptitude >> withPhlowUpdateWishEventHandler [
+BrWithExplicitPopoverAptitude >> withPhlowUpdateWishEventHandler [
 	<menuContainerInitialization>
 	self menuContainer 
 		when: BrPhlowToolUpdateWish 

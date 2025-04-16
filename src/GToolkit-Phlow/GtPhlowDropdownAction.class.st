@@ -165,7 +165,7 @@ GtPhlowDropdownAction >> newDropdownLookFor: aDropdown targetElement: aTargetEle
 										menuModel: anOriginalMenu;
 										decorator: [ :theOriginalMenuElement | 
 											theOriginalMenuElement
-												addAptitude: (BrGlamorousMenuResizableAptitude new
+												addAptitude: (BrGlamorousPopoverResizableAptitude new
 														whenResizedDo: [ :anEvent | aHandler cull: anEvent cull: anAptitude ]) ] ] ].
 
 				aMenu ].
