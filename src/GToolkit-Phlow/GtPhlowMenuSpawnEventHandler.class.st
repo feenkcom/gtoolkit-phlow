@@ -29,7 +29,7 @@ GtPhlowMenuSpawnEventHandler >> anchorElementDo: aBlock [
 
 { #category : #'api - accessing' }
 GtPhlowMenuSpawnEventHandler >> eventsToHandle [
-	^ { GtPhlowObjectToSpawn. BrMenuAnchorElementChanged}
+	^ { GtPhlowObjectToSpawn. BrPopoverAnchorElementChanged}
 ]
 
 { #category : #'api - event managing' }
