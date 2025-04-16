@@ -48,15 +48,18 @@ GtPhlowAction >> actionElementContextMenu [
 	
 	^ BrMenuItems new
 		addItem: (BrMenuSubmenuItem new
+			id: #'menu--defining-method';
 			label: 'Defining method' ;
 			submenu: (self definingMethod asBrMenu);
 			bePinSubmenuAction;
 			hideOnClick: true);
-		addItemLabel: 'Inspect defining method' 
+		addItemId: #'menu--inspect-defining-method'
+			label: 'Inspect defining method' 
 			shortcut: 'Alt+Click' 
 			action: [ :anElement :aButtonModel :anEvent |
 				anElement phlow spawnObject: self definingMethod ];
-		addItemLabel: 'Inspect action' 
+		addItemId: #'menu--inspect-phlow-action'
+			label: 'Inspect action' 
 			preview: self actionContextMenuPreviewLabel
 			action: [ :anElement :aButtonModel :anEvent |
 				anElement phlow spawnObject: self ]
