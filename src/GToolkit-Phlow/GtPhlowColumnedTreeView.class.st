@@ -55,6 +55,19 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 		addChildren:
 			{aHeader.
 			aTree}.
+	
+	aContainer addAptitude: (
+		BrLayoutResizerAptitude new
+			hMatchParentToMatchParent: aHeader;
+			hExactToMatchParent: aHeader;
+			hFitContentToFitContent: aHeader;
+			hFitContentLimitedToFitContentLimited: aHeader;
+			vAnyToFitContent: aHeader;
+			matchParentToMatchParent: aTree;
+			exactToMatchParent: aTree;
+			fitContentToFitContent: aTree;
+			fitContentLimitedToFitContentLimited: aTree).
+			
 	self beViewElement: aContainer.
 	^ aBlock value: aContainer
 ]

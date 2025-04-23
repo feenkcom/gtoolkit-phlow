@@ -20,7 +20,7 @@ Class {
 GtPhlowColumnedListView >> asElementDo: aBlock [
 	"it evaluates aBlock if the view should have content"
 
-	| aContainer header itemsProvider list |
+	| aContainer aHeader itemsProvider aList |
 	itemsProvider := self
 			itemsProviderOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 
@@ -33,32 +33,32 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 
 	aContainer layout: BlLinearLayout vertical.
 
-	list := self columnedListClass new.
+	aList := self columnedListClass new.
 
 	self hasMultipleSelection
-		ifTrue: [ list aptitude: BrColumnedMultiListAptitude ].
+		ifTrue: [ aList aptitude: BrColumnedMultiListAptitude ].
 
-	list
+	aList
 		id: GtPhlowColumnedListId;
 		itemsProvider: itemsProvider;
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation);
 		rowStencil: self newDecoratedItemStencil.
 
-	rowDataBinder ifNotNil: [ list rowDataBinder: rowDataBinder ].
+	rowDataBinder ifNotNil: [ aList rowDataBinder: rowDataBinder ].
 
-	self buildColumnsInList: list.
-	header := self buildHeaderForItems: list columns.
+	self buildColumnsInList: aList.
+	aHeader := self buildHeaderForItems: aList columns.
 	
 	aContainer
-		addChildren: { header. list }.
+		addChildren: { aHeader. aList }.
 
 	horizontalScrollingEnabled
 		ifTrue: [
 			| aScrollableElement |
 			
 			aContainer constraintsDo: [ :c | c horizontal fitContent ].
-			list hFitContent.
-			header constraintsDo: [ :c | c horizontal fitContent ].
+			aList hFitContent.
+			aHeader constraintsDo: [ :c | c horizontal fitContent ].
 			
 			aScrollableElement := BrScrollPane new
 				aptitude: BrScrollPaneAptitude + BrGlamorousWithHorizontalScrollbarAptitude;
@@ -67,6 +67,18 @@ GtPhlowColumnedListView >> asElementDo: aBlock [
 				margin: (BlInsets bottom: 2).
 			
 			aContainer := aScrollableElement ].
+			
+	aContainer addAptitude: (
+		BrLayoutResizerAptitude new
+			hMatchParentToMatchParent: aHeader;
+			hExactToMatchParent: aHeader;
+			hFitContentToFitContent: aHeader;
+			hFitContentLimitedToFitContentLimited: aHeader;
+			vAnyToFitContent: aHeader;
+			matchParentToMatchParent: aList;
+			exactToMatchParent: aList;
+			fitContentToFitContent: aList;
+			fitContentLimitedToFitContentLimited: aList).
 	
 	self beViewElement: aContainer.
 

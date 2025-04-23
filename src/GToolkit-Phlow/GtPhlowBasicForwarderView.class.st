@@ -75,6 +75,16 @@ GtPhlowBasicForwarderView >> asElementDo: aBlock [
 
 	aFuture := self secureElementPhlowView.
 	aFutureElement future: aFuture.
+	
+	aFutureElement addAptitude: (BrLayoutResizerAptitude new
+		matchParentToMatchParent: [ :aResizerBlock | 
+			aFutureElement hasChildren ifTrue: [ aResizerBlock cull: (aFutureElement childAt: 1) ] ];
+		exactToMatchParent: [ :aResizerBlock | 
+			aFutureElement hasChildren ifTrue: [ aResizerBlock cull: (aFutureElement childAt: 1) ] ];
+		fitContentToFitContent: [ :aResizerBlock | 
+			aFutureElement hasChildren ifTrue: [ aResizerBlock cull: (aFutureElement childAt: 1) ] ];
+		fitContentLimitedToFitContentLimited: [ :aResizerBlock | 
+			aFutureElement hasChildren ifTrue: [ aResizerBlock cull: (aFutureElement childAt: 1) ] ]).
 
 	GtPhlowForwarderFutureElementSignal new
 		futureElement: aFutureElement;
