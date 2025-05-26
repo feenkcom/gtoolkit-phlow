@@ -14,14 +14,25 @@ BrWithExplicitPopoverAptitude >> withPhlowSpawnEventHandler [
 { #category : #'*GToolkit-Phlow' }
 BrWithExplicitPopoverAptitude >> withPhlowUpdateWishEventHandler [
 	<menuContainerInitialization>
-	self menuContainer 
-		when: BrPhlowToolUpdateWish 
+	self menuContainer
+		when: BrPhlowToolUpdateWish
 		do: [ :anEvent | 
-			anEvent isConsumed ifFalse: [
-				self widgetDo: [ :aWidget | 
-					| aForwardedEvent |
-					aForwardedEvent := BrPhlowToolUpdateWish new.
-					aWidget fireEvent: aForwardedEvent.
-					aForwardedEvent isConsumed ifTrue: [
-						anEvent consumed: true ] ] ] ]
+			anEvent isConsumed
+				ifFalse: [ self
+						widgetDo: [ :aWidget | 
+							| aForwardedEvent |
+							aForwardedEvent := BrPhlowToolUpdateWish new.
+							aWidget fireEvent: aForwardedEvent.
+							aForwardedEvent isConsumed ifTrue: [ anEvent consumed: true ] ] ] ].
+
+	self menuContainer
+		when: GtPhlowViewUpdateWish
+		do: [ :anEvent | 
+			anEvent isConsumed
+				ifFalse: [ self
+						widgetDo: [ :aWidget | 
+							| aForwardedEvent |
+							aForwardedEvent := GtPhlowViewUpdateWish new.
+							aWidget fireEvent: aForwardedEvent.
+							aForwardedEvent isConsumed ifTrue: [ anEvent consumed: true ] ] ] ]
 ]

@@ -31,6 +31,9 @@ GtPhlowUpdateViewOnAddedToScene >> subscribeOn: aGtPhlowElementContext [
 			See GtPhlowForwardViewExamples>>#onAddedToSceneUpdatingView"
 			^ self ].
 
-
-	aGtPhlowElementContext asyncUpdate
+	"Do not trigger the update the first time we add it. It causes infinite update loops."
+	aGtPhlowElementContext element userData
+		at: GtPhlowUpdateViewOnAddedToScene
+		ifPresent: [ :aBoolean | aGtPhlowElementContext asyncUpdate ]
+		ifAbsentPut: [ true ]
 ]
