@@ -16,7 +16,8 @@ Class {
 		'isTool',
 		'isToolLabel',
 		'toolViewModel',
-		'isViewTitle'
+		'isViewTitle',
+		'updateElementFuture'
 	],
 	#category : #'GToolkit-Phlow-Context'
 }
@@ -214,13 +215,14 @@ GtPhlowElementContext >> element [
 
 { #category : #'api - accessing' }
 GtPhlowElementContext >> element: anElement [
-	self 
-		assert: [ anElement isNotNil ] 
-		description: [ 'Element must be non-nil' ].
-	self 
-		assert: [ element isNil ] 
+	self assert: [ anElement isNotNil ] description: [ 'Element must be non-nil' ].
+	self
+		assert: [ element isNil ]
 		description: [ 'Context element can be initialized only once' ].
-	element := anElement
+	element := anElement.
+	updateElementFuture := (BrAsyncElementFuture on: anElement)
+			executionConfiguration: GtPhlowUtility defaultFutureExecutionConfiguration;
+			whenSuccess: [ :theElement :aData | "do nothing" ]
 ]
 
 { #category : #'api - accessing' }
@@ -250,6 +252,14 @@ GtPhlowElementContext >> fireUpdateWish [
 	self
 		deprecated: 'Use #fireToolUpdateWish instead'
 		transformWith: '`@receiver fireUpdateWish' -> '`@receiver fireToolUpdateWish'
+]
+
+{ #category : #'api - updating' }
+GtPhlowElementContext >> fireViewUpdateWish [
+	"I fire an update wish to inform a Phlow view, that it should update its widgets"
+
+	self element
+		enqueueTask: (BlTaskAction new action: [ self element fireEvent: GtPhlowViewUpdateWish new ])
 ]
 
 { #category : #'api - search' }
@@ -303,8 +313,9 @@ GtPhlowElementContext >> firstChildWithView [
 
 { #category : #'api - search' }
 GtPhlowElementContext >> firstChildWithViewContent [
-	^ self element 
-		allChildrenBreadthFirstDetect: [ :child | child phlow isViewContent ] 
+	<return: #BlElement or: nil>
+	^ self element
+		allChildrenBreadthFirstDetect: [ :child | child phlow isViewContent ]
 		ifFound: [ :child | child ]
 ]
 
@@ -447,9 +458,9 @@ GtPhlowElementContext >> methodSelector [
 
 { #category : #updating }
 GtPhlowElementContext >> postponeUpdate [
-	([ self syncUpdate ] asAsyncFuture 
-		delayed: 300 milliSeconds)
-			await: GtPhlowUtility defaultFutureExecutionConfiguration
+	| aFuture |
+	aFuture := [ self syncUpdate ] asAsyncFuture delayed: 300 milliSeconds.
+	updateElementFuture future: aFuture
 ]
 
 { #category : #accessing }

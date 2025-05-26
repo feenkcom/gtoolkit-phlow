@@ -55,11 +55,16 @@ GtPhlowCompositeView >> appendViews: aCollection [
 GtPhlowCompositeView >> asElementDo: aBlock [
 	| tabs group |
 	tabs := OrderedCollection new.
-	self views ifNotNil: [ :currentViews |
-		currentViews do: [ :view | 
-			self addNewTabTo: tabs forView: view ] ].
+	self views
+		ifNotNil: [ :currentViews | currentViews do: [ :view | self addNewTabTo: tabs forView: view ] ].
 	group := BrTabGroup new.
 	group id: GtPhlowCompositeViewElementId.
+	group
+		when: GtPhlowViewUpdateWish
+		do: [ :anEvent | 
+			anEvent consumed: true.
+			anEvent currentTarget content phlow firstChildWithViewContent
+				ifNotNil: [ :anElement | anElement phlow update ] ].
 	self beViewElement: group.
 	group
 		aptitude: BrGlamorousTabGroupAptitude;

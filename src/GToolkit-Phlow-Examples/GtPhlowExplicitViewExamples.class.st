@@ -93,17 +93,18 @@ GtPhlowExplicitViewExamples >> gtUpdatingEnabledOnSystemChangeFor: aView [
 ]
 
 { #category : #'gt-extension' }
-GtPhlowExplicitViewExamples >> gtUpdatingFor: aView [ 
+GtPhlowExplicitViewExamples >> gtUpdatingFor: aView [
 	<gtView>
-	^ aView explicit 
+	^ aView explicit
 		title: 'Update on click';
-		stencil: [ BlElement new 
+		stencil: [ BlElement new
+				id: #'phlow--random-color';
 				aptitude: BrShadowAptitude;
 				background: Color random;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent.
-					c margin: (BlInsets all: 40) ]  ];
+					c margin: (BlInsets all: 40) ] ];
 		actionUpdateButton
 ]
 

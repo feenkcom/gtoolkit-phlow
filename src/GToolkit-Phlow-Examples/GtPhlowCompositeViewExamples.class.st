@@ -117,6 +117,54 @@ GtPhlowCompositeViewExamples >> expectedElementClass [
 	^ BrTabGroup
 ]
 
+{ #category : #'examples - updating' }
+GtPhlowCompositeViewExamples >> fireUpdateViewWish [
+	"See https://github.com/feenkcom/gtoolkit/issues/4556"
+
+	<gtExample>
+	| aTabGroup aScripter someEvents anOriginalElement |
+	someEvents := OrderedCollection new.
+	aTabGroup := self element.
+	aTabGroup
+		when: GtPhlowViewUpdateWish
+		do: [ :anEvent | someEvents add: anEvent ].
+	aScripter := BlScripter new element: aTabGroup.
+
+	aScripter do
+		label: 'Store current view element';
+		block: [ :anElement | 
+			aScripter userData at: #originalElement put: anElement.
+			anOriginalElement := anElement ];
+		// #'phlow--random-color';
+		play.
+
+	aScripter do
+		label: 'Fire view update wish';
+		block: [ :anElement | anElement phlow fireViewUpdateWish ];
+		play.
+
+	self assert: someEvents size equals: 1.
+	self
+		assert: someEvents first isConsumed
+		description: [ 'Event must be consumed' ].
+
+
+	aScripter assert
+		label: 'Assert element is changed';
+		satisfies: [ :anElement | 
+				aScripter userData at: #newElement put: anElement.
+				anElement ~= anOriginalElement ]
+			description: [ :anElement | 
+				'Elements must be different instances: {1} vs. {2}'
+					format: {anElement.
+							anOriginalElement} ];
+		// #'phlow--random-color';
+		play.
+
+
+	^ aScripter
+]
+
 { #category : #'gt-extensions' }
 GtPhlowCompositeViewExamples >> gtAutoUpdatingFor: aView [
 	<gtDemoView>
