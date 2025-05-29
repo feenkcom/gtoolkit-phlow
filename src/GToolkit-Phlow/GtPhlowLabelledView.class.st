@@ -29,7 +29,7 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 			toolbarStencil: [ self actionsToolbarForElement: tab ];
 			padding: (BlInsets top: 15 right: 0 bottom: 15 left: 10) ].
 	group 
-		aptitude: (BrGlamorousTabGroupAptitude new headerBackground: (BrGlamorousColors defaultHeaderBackgroundColor));
+		aptitude: (BrGlamorousTabGroupAptitude new headerBackground: (BlTheme default header defaultBackground));
 		addTab: tab;
 		constraintsDo: [ :c | 
 			c vertical matchParent. 
