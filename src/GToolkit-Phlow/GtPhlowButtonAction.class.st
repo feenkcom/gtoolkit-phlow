@@ -78,7 +78,7 @@ GtPhlowButtonAction >> debugSource: aBlockClosureOrString receiver: anObject [
 								class: anObject class;
 								context: nil;
 								requestor: nil;
-								noPattern: true;
+								isScripting: true;
 								failBlock: nil;
 								compile ].
 			GtPharoSourceCoder
