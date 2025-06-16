@@ -10,10 +10,10 @@ BaselineOfGToolkitPhlowExamples >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'GToolkitPhlow' with: [
-				spec repository: 'github://feenkcom/gtoolkit-phlow:v0.8.1721/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-phlow:v0.8.1722/src' ].
 		spec
 			baseline: 'GToolkitExamplesEngine' with: [
-				spec repository: 'github://feenkcom/gtoolkit-examples:v0.8.107/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-examples:v0.8.108/src' ].
 
 		spec package: 'GToolkit-Phlow-Examples' with: [
 			spec requires: #(#GToolkitPhlow #GToolkitExamplesEngine) ].
