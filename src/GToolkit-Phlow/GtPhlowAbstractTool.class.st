@@ -173,6 +173,14 @@ GtPhlowAbstractTool >> tabLook [
 	^ BrGlamorousTabSwitcherWithLabelAptitude
 ]
 
+{ #category : #'api - accessing' }
+GtPhlowAbstractTool >> title [
+	"Return an object name"
+
+	<return: #String>
+	^ self object gtDisplayString
+]
+
 { #category : #accessing }
 GtPhlowAbstractTool >> toolTabIdentifier [
 	^ GtPhlowToolTabIdentifier forTool: self
