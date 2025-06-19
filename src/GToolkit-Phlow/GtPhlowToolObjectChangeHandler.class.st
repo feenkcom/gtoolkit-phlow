@@ -20,7 +20,7 @@ Class {
 	#instVars : [
 		'element'
 	],
-	#category : 'GToolkit-Phlow-Tool - Object Changer'
+	#category : #'GToolkit-Phlow-Tool - Object Changer'
 }
 
 { #category : #comparing }
@@ -62,6 +62,7 @@ GtPhlowToolObjectChangeHandler >> onInstalledIn: anElement [
 { #category : #visiting }
 GtPhlowToolObjectChangeHandler >> visitToolChangedObjectWish: aWish [
 	| aWeak anObject |
+	aWish consumed: true.
 	aWeak := self element userData 
 		at: #compositeToolObjectChange
 		ifAbsent: [ ^ self ].
@@ -75,6 +76,7 @@ GtPhlowToolObjectChangeHandler >> visitToolChangedObjectWish: aWish [
 { #category : #visiting }
 GtPhlowToolObjectChangeHandler >> visitToolObjectChangeWish: aWish [
 	| aWeak |
+	aWish consumed: true.
 	aWeak := (WeakArray new: 2)
 		at: 1 put: aWish object;
 		at: 2 put: aWish object isNil;

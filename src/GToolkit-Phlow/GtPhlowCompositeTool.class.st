@@ -117,6 +117,13 @@ GtPhlowCompositeTool >> name: aName [
 	toolName := aName
 ]
 
+{ #category : #'api - accessing' }
+GtPhlowCompositeTool >> object [
+	^ self tools
+		ifEmpty: [ super object ]
+		ifNotEmpty: [ :aCollection | aCollection anyOne object ]
+]
+
 { #category : #action }
 GtPhlowCompositeTool >> prepareForReusedNavigation [
 	self tools do: [ :aTool |
