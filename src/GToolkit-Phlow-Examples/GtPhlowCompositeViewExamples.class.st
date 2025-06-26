@@ -118,7 +118,7 @@ GtPhlowCompositeViewExamples >> expectedElementClass [
 ]
 
 { #category : #'examples - updating' }
-GtPhlowCompositeViewExamples >> fireUpdateViewWish [
+GtPhlowCompositeViewExamples >> fireViewUpdateWish [
 	"See https://github.com/feenkcom/gtoolkit/issues/4556"
 
 	<gtExample>
@@ -161,6 +161,61 @@ GtPhlowCompositeViewExamples >> fireUpdateViewWish [
 		// #'phlow--random-color';
 		play.
 
+
+	^ aScripter
+]
+
+{ #category : #'examples - updating' }
+GtPhlowCompositeViewExamples >> fireViewUpdateWishFromContextMenu [
+	"See https://github.com/feenkcom/gtoolkit/issues/4606"
+
+	<gtExample>
+	| aTabGroup aScripter someEvents aCompositeView data anItemsView |
+	someEvents := OrderedCollection new.
+	data := OrderedCollection withAll: (1 to: 10).
+	aCompositeView := GtPhlowView empty composite.
+	anItemsView := GtPhlowView new on: data perform: #gtItemsFor:.
+	anItemsView
+		contextItemLabel: 'Remove item'
+		action: [ :anElement :anItem | 
+			data remove: anItem.
+			anElement phlow fireViewUpdateWish ].
+	aCompositeView views: {anItemsView}.
+
+	aTabGroup := aCompositeView asElementDo: [ :theElement | theElement ].
+	aTabGroup
+		when: GtPhlowViewUpdateWish
+		do: [ :anEvent | someEvents add: anEvent ].
+	aScripter := BlScripter new element: aTabGroup.
+
+	aScripter assert
+		label: 'Assert 10 items in the columned list';
+		value: [ :anInfiniteList | anInfiniteList childrenCount ] equals: 10;
+		// GtPhlowColumnedListId;
+		/ #scrollable;
+		play.
+
+	aScripter menuStep
+		openContextMenu;
+		// GtPhlowColumnedListId;
+		// GtPhlowCellElement;
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		@ 1;
+		play.
+
+	aScripter menuStep
+		clickMenuItemWithId: [ :anElement | (anElement isKindOf: BrLabel) and: [ anElement text asString = 'Remove item' ] ];
+		onMenuContainer;
+		play.
+
+	self assert: data size equals: 9.
+	self assert: (data includes: 7) not.
+
+	self assert: someEvents size equals: 1.
+	self
+		assert: someEvents first isConsumed
+		description: [ 'Event must be consumed' ].
 
 	^ aScripter
 ]
@@ -256,6 +311,16 @@ GtPhlowCompositeViewExamples >> subViewEmpty [
 	| aView |
 	aView := GtPhlowView empty on: GtPhlowEmptyViewExamples new perform: #gtPhlowEmptyViewFor:.
 	aView title: 'Empty View'.
+	aView priority: 4.
+	^ aView
+]
+
+{ #category : #'examples - sub-views' }
+GtPhlowCompositeViewExamples >> subViewFour [
+	<gtExample>
+	| aView |
+	aView := GtPhlowColumnedListViewExamples new viewWithItems.
+	aView title: 'View Four'.
 	aView priority: 4.
 	^ aView
 ]

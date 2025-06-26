@@ -243,8 +243,7 @@ GtPhlowElementContext >> entity: aGtPhlowView [
 GtPhlowElementContext >> fireToolUpdateWish [
 	"I fire an update wish to inform a whole tool, e.g., Inspector, that it should update its widgets"
 
-	self element
-		enqueueTask: (BlTaskAction new action: [ self element fireEvent: BrPhlowToolUpdateWish new ])
+	self element fireEvent: BrPhlowToolUpdateWish new
 ]
 
 { #category : #'api - updating' }
@@ -258,8 +257,7 @@ GtPhlowElementContext >> fireUpdateWish [
 GtPhlowElementContext >> fireViewUpdateWish [
 	"I fire an update wish to inform a Phlow view, that it should update its widgets"
 
-	self element
-		enqueueTask: (BlTaskAction new action: [ self element fireEvent: GtPhlowViewUpdateWish new ])
+	self element fireEvent: GtPhlowViewUpdateWish new
 ]
 
 { #category : #'api - search' }
