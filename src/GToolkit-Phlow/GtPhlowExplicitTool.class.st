@@ -13,12 +13,14 @@ Class {
 { #category : #'api - converting' }
 GtPhlowExplicitTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block."
+
 	| anElement |
-	anElement := self stencil value asElement.
-	self 
-		assert: [ anElement isKindOf: BlElement ] 
+	anElement := [ self stencil value asElement ]
+			onErrorDo: [ :anError | anError asDebuggableElement ].
+	self
+		assert: [ anElement isKindOf: BlElement ]
 		description: [ 'Valuable tool must create an element on #asElementDo: call' ].
-	
+
 	^ aOneArgBlock cull: anElement cull: self
 ]
 

@@ -36,17 +36,16 @@ GtPhlowAbstractTool >> asElementDo: aOneArgBlock [
 GtPhlowAbstractTool >> asTabDo: aBlock [
 	| toolTab |
 	toolTab := BrTab new
-		aptitude: self tabLook;
-		label: self name;
-		icon: self icon;
-		stencil: [ 
-			self asTabElement ].
-	
-	toolTab phlow 
-		beToolLabel; 
+			aptitude: self tabLook;
+			label: self name;
+			icon: self icon;
+			stencil: [ [ self asTabElement ] onErrorDo: [ :anError | anError asDebuggableElement ] ].
+
+	toolTab phlow
+		beToolLabel;
 		entity: self.
-	
-	aBlock cull: toolTab cull: self.
+
+	aBlock cull: toolTab cull: self
 ]
 
 { #category : #'private - converting' }
