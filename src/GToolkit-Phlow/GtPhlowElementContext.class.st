@@ -208,6 +208,21 @@ GtPhlowElementContext >> definingMethod [
 	^ self entity ifNotNil: #definingMethod
 ]
 
+{ #category : #'api - events' }
+GtPhlowElementContext >> deselectPreviousEvent: aPreviousDeselectEvent [
+	| aNewEvent |
+	aNewEvent := GtPhlowObjectToDeselect new
+			tool: aPreviousDeselectEvent tool;
+			sourceElement: aPreviousDeselectEvent sourceElement.
+	aPreviousDeselectEvent properties keysAndValuesDo: [ :aKey :aValue | 
+		aNewEvent propertyAt: aKey put: aValue ].
+	
+	self element fireEvent: aNewEvent.
+	aPreviousDeselectEvent consumed: aNewEvent isConsumed.
+	
+	^ aNewEvent
+]
+
 { #category : #'api - accessing' }
 GtPhlowElementContext >> element [
 	^ element
@@ -481,6 +496,21 @@ GtPhlowElementContext >> replaceEntity: aNewPhlow [
 { #category : #'api - events' }
 GtPhlowElementContext >> selectObject: anObject [
 	self selectTool: anObject gtDefaultInspectorTool
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> selectPreviousEvent: aPreviousSelectEvent [
+	| aNewEvent |
+	aNewEvent := GtPhlowObjectToSelect new
+			tool: aPreviousSelectEvent tool;
+			sourceElement: aPreviousSelectEvent sourceElement.
+	aPreviousSelectEvent properties keysAndValuesDo: [ :aKey :aValue | 
+		aNewEvent propertyAt: aKey put: aValue ].
+	
+	self element fireEvent: aNewEvent.
+	aPreviousSelectEvent consumed: aNewEvent isConsumed.
+	
+	^ aNewEvent
 ]
 
 { #category : #'api - events' }
