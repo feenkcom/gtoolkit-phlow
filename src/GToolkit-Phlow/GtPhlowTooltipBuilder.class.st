@@ -27,6 +27,13 @@ GtPhlowTooltipBuilder >> actionContextMenuPreviewLabel [
 ]
 
 { #category : #building }
+GtPhlowTooltipBuilder >> applyAsLabelOnMenuLabeledItem: aMenuItem hostElement: aTargetElement [
+	"Set menu item's label using tooltip label"
+
+	self subclassResponsibility
+]
+
+{ #category : #building }
 GtPhlowTooltipBuilder >> applyOn: anElement [
 	"Attach a tooltip into anElement"
 	self subclassResponsibility

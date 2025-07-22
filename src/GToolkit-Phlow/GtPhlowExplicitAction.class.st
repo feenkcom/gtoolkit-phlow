@@ -26,6 +26,30 @@ GtPhlowExplicitAction >> asElement: aBlock withHostElement: aTargetElement [
 	^ aBlock value: anElement
 ]
 
+{ #category : #converting }
+GtPhlowExplicitAction >> asMenuItem: aBlock withHostElement: aTargetElement [
+	"Return a menu item that represents the action in BrMenuItems, e.g., action"
+
+	<return: #BrMenuItem>
+	| aMenuItem |
+	aMenuItem := BrMenuSubmenuItem new.
+	aMenuItem
+		stencil: [ [ self newExplicitElementWithTargetElement: aTargetElement ]
+				on: Error
+				do: [ :anError | self newErrorElementFor: anError targetElement: aTargetElement ] ].
+	id ifNotNil: [ aMenuItem id: self id ].
+
+	self tooltipBuilder
+		applyAsLabelOnMenuLabeledItem: aMenuItem
+		hostElement: aTargetElement.
+		
+	self
+		menuItemGroupIfPresent: [ :aGroup | aMenuItem group: aGroup ]
+		ifAbsent: [  ].
+
+	^ aBlock value: aMenuItem
+]
+
 { #category : #'as yet unclassified' }
 GtPhlowExplicitAction >> label [
 	^ nil

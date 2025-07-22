@@ -24,6 +24,26 @@ GtPhlowActionWithError >> asElement: aBlock withHostElement: aTargetElement [
 	^ aBlock value: aDebugButton
 ]
 
+{ #category : #converting }
+GtPhlowActionWithError >> asMenuItem: aBlock withHostElement: aTargetElement [
+	"Return a menu item that represents the action in BrMenuItems, e.g., action"
+
+	<return: #BrMenuItem>
+	| aMenuItem |
+	aMenuItem := BrMenuActionItem new.
+	aMenuItem
+		icon: BrGlamorousVectorIcons debug
+		label: 'Error'
+		preview: [ self error messageText ].
+	aMenuItem action: [ [ self error defaultAction ] fork ].
+
+	self
+		menuItemGroupIfPresent: [ :aGroup | aMenuItem group: aGroup ]
+		ifAbsent: [  ].
+
+	^ aBlock value: aMenuItem
+]
+
 { #category : #defaults }
 GtPhlowActionWithError >> defaultTooltipBuilder [
 	^ GtPhlowTooltipBuilder text: 'Display error'
