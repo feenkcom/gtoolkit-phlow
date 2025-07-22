@@ -1,8 +1,8 @@
 Class {
 	#name : #GtPhlowAction,
 	#superclass : #Object,
-	#traits : 'TBlDebug + TGtPhlowActionTooltipBuilder',
-	#classTraits : 'TBlDebug classTrait + TGtPhlowActionTooltipBuilder classTrait',
+	#traits : 'TBlDebug + TGtPhlowActionTooltipBuilder + TGtOptions',
+	#classTraits : 'TBlDebug classTrait + TGtPhlowActionTooltipBuilder classTrait + TGtOptions classTrait',
 	#instVars : [
 		'definingMethod',
 		'priority',
@@ -69,6 +69,13 @@ GtPhlowAction >> actionElementContextMenu [
 GtPhlowAction >> asElement: aBlock withHostElement: aTargetElement [
 	"Return an element that represents the action in Bloc space, e.g., a button"
 	<return: #BlElement>
+	^ self subclassResponsibility
+]
+
+{ #category : #converting }
+GtPhlowAction >> asMenuItem: aBlock withHostElement: aTargetElement [
+	"Return a menu item that represents the action in BrMenuItems, e.g., action"
+	<return: #BrMenuItem>
 	^ self subclassResponsibility
 ]
 
@@ -252,6 +259,36 @@ GtPhlowAction >> isDefinitionRequested: anEvent [
 { #category : #'api - action' }
 GtPhlowAction >> label [
 	^ self subclassResponsibility
+]
+
+{ #category : #'api - options' }
+GtPhlowAction >> menuItemGroup: aGroup [
+	self assert: [ aGroup isKindOf: BrMenuItemGroupConfiguration ].
+
+	self optionAt: #menuItemGroup put: aGroup
+]
+
+{ #category : #'api - options' }
+GtPhlowAction >> menuItemGroupIfPresent: aPresentBlock ifAbsent: anAbsentBlock [
+	^ self
+		optionAt: #menuItemGroup
+		ifPresent: aPresentBlock
+		ifAbsent: anAbsentBlock
+]
+
+{ #category : #'api - options' }
+GtPhlowAction >> menuItemHideOnClick: aBoolean [
+	self assert: [ aBoolean isBoolean ].
+
+	self optionAt: #menuItemHideOnClick put: aBoolean
+]
+
+{ #category : #'api - options' }
+GtPhlowAction >> menuItemHideOnClickIfPresent: aPresentBlock ifAbsent: anAbsentBlock [
+	^ self
+		optionAt: #menuItemHideOnClick
+		ifPresent: aPresentBlock
+		ifAbsent: anAbsentBlock
 ]
 
 { #category : #decorating }

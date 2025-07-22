@@ -41,6 +41,45 @@ GtPhlowDropdownAction >> asElement: aBlock withHostElement: aTargetElement [
 	^ aBlock value: aButton
 ]
 
+{ #category : #converting }
+GtPhlowDropdownAction >> asMenuItem: aBlock withHostElement: aTargetElement [
+	"Return a menu item that represents the action in BrMenuItems, e.g., action"
+
+	<return: #BrMenuItem>
+	| aMenuItem |
+	aMenuItem := BrMenuSubmenuItem new.
+	(label isNotNil and: [ icon isNotNil ])
+		ifTrue: [ aMenuItem icon: icon label: label ]
+		ifFalse: [ (label notNil and: [ icon isNil ])
+				ifTrue: [ aMenuItem label: label ]
+				ifFalse: [ aMenuItem icon: icon label: ''.
+					self tooltipBuilder
+						applyAsLabelOnMenuLabeledItem: aMenuItem
+						hostElement: aTargetElement ] ].
+	id ifNotNil: [ aMenuItem id: self id ].
+	action
+		ifNotNil: [ aMenuItem
+				action: [ :theButton :aButtonModel :anEvent | 
+					action
+						gtValueWithArgs: {theButton.
+								aTargetElement.
+								aButtonModel.
+								anEvent} ] ].
+
+	aMenuItem
+		submenu: (self newContentForDropdown: aTargetElement targetElement: aTargetElement).
+
+	self
+		menuItemHideOnClickIfPresent: [ :aBoolean | aMenuItem hideOnClick: aBoolean ]
+		ifAbsent: [  ].
+		
+	self
+		menuItemGroupIfPresent: [ :aGroup | aMenuItem group: aGroup ]
+		ifAbsent: [  ].
+
+	^ aBlock value: aMenuItem
+]
+
 { #category : #accessing }
 GtPhlowDropdownAction >> content: aBlock [
 	self menu: [ :anActionElement :aTargetElement | 
