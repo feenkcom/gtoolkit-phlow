@@ -26,7 +26,7 @@ The following example shows the sidebar on the right side:
 Class {
 	#name : #GtPhlowHorizontalSidebarElement,
 	#superclass : #GtPhlowSidebarElement,
-	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
 { #category : #'api - location' }
@@ -40,9 +40,17 @@ GtPhlowHorizontalSidebarElement >> beLeft [
 { #category : #'api - location' }
 GtPhlowHorizontalSidebarElement >> beRight [
 	"We want the sidebar on the right side, 
-	therefore the rresizer on the left side."
+	therefore the resizer on the left side."
 	self resizerElement beLeft.
 	self contentOffset: (GtPhlowSidebarContentOffset left: self contentOffset length)
+]
+
+{ #category : #'api - location' }
+GtPhlowHorizontalSidebarElement >> beTop [
+	"We want the sidebar at the top side, 
+	therefore the resizer at the bottom side."
+	self resizerElement beBottom.
+	self contentOffset: (GtPhlowSidebarContentOffset bottom: self contentOffset length)
 ]
 
 { #category : #'api - visibility' }
@@ -68,6 +76,10 @@ GtPhlowHorizontalSidebarElement >> expand [
 { #category : #initialization }
 GtPhlowHorizontalSidebarElement >> initialize [
 	super initialize.
+	
+	"We do not want to propagate detail states to children."
+	contentElement states addState: GtPhlowToolDetailState normal.
+	contentElement states addState: GtPhlowToolDetailPositionState left.
 
 	self addAptitude: (BrLayoutResizerAptitude new
 		vInherit;
