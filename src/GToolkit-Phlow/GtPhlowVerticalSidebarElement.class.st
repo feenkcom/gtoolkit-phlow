@@ -26,29 +26,8 @@ The following example shows the sidebar on the top:
 Class {
 	#name : #GtPhlowVerticalSidebarElement,
 	#superclass : #GtPhlowSidebarElement,
-	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
 }
-
-{ #category : #location }
-GtPhlowVerticalSidebarElement >> beBottom [
-	"We want the sidebar at the bottom, 
-	therefore the resizer at the top."
-	self resizerElement beTop.
-	self contentOffset: (GtPhlowSidebarContentOffset top: self contentOffset length)
-]
-
-{ #category : #location }
-GtPhlowVerticalSidebarElement >> beTop [
-	"We want the sidebar at the top, 
-	therefore the resizer at the bottom."
-	self resizerElement beBottom.
-	self contentOffset: (GtPhlowSidebarContentOffset bottom: self contentOffset length)
-]
-
-{ #category : #'api - visibility' }
-GtPhlowVerticalSidebarElement >> collapse [
-	self height: self contentOffset length
-]
 
 { #category : #defaults }
 GtPhlowVerticalSidebarElement >> defaultContentOffset [
@@ -58,29 +37,4 @@ GtPhlowVerticalSidebarElement >> defaultContentOffset [
 { #category : #defaults }
 GtPhlowVerticalSidebarElement >> defaultResizerLook [
 	^ BrGlamorousWithVerticalResizerAptitude new beTop
-]
-
-{ #category : #'api - visibility' }
-GtPhlowVerticalSidebarElement >> expand [
-	self resizerStrategy adjustHeightFor: self.
-]
-
-{ #category : #initialization }
-GtPhlowVerticalSidebarElement >> initialize [
-	super initialize.
-	
-	self addAptitude: (BrLayoutResizerAptitude new
-		hInherit;
-		hInherit: [ :aBlock | self contentElementDo: aBlock ])
-]
-
-{ #category : #'private - testing' }
-GtPhlowVerticalSidebarElement >> isCollapsed [
-	<return: #Boolean>
-	^ self height <= self contentOffset length
-]
-
-{ #category : #'private - event handling' }
-GtPhlowVerticalSidebarElement >> onResizerResized: anEvent [
-	self beExact: anEvent extent y
 ]
