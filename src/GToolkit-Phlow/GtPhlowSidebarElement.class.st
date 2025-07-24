@@ -269,9 +269,7 @@ GtPhlowSidebarElement >> resizerStrategy [
 
 { #category : #'private - accessing' }
 GtPhlowSidebarElement >> resizerStrategy: aResizerElementLength [
-	resizerStrategy := aResizerElementLength.
-
-	self expand
+	resizerStrategy := aResizerElementLength
 ]
 
 { #category : #'api - visibility' }
