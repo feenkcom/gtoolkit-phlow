@@ -29,14 +29,46 @@ GtPhlowSidebarElement >> assertContentStencil: aStencil [
 	
 ]
 
+{ #category : #'api - location' }
+GtPhlowSidebarElement >> beBottom [
+	"We want the sidebar on the bottom side, 
+	hence the content offset and resizing on the top side."
+	
+	self contentOffset: (GtPhlowSidebarContentOffset top: self contentOffset length)
+]
+
 { #category : #'api - visibility' }
 GtPhlowSidebarElement >> beExact: aNumber [
 	resizerStrategy := BrResizerElementLength exact: aNumber
 ]
 
+{ #category : #'api - location' }
+GtPhlowSidebarElement >> beLeft [
+	"We want the sidebar on the left side, 
+	hence the content offset and resizing on the right side."
+
+	self contentOffset: (GtPhlowSidebarContentOffset right: self contentOffset length)
+]
+
+{ #category : #'api - location' }
+GtPhlowSidebarElement >> beRight [
+	"We want the sidebar on the right side, 
+	hence the content offset and resizing on the left side."
+	
+	self contentOffset: (GtPhlowSidebarContentOffset left: self contentOffset length)
+]
+
+{ #category : #'api - location' }
+GtPhlowSidebarElement >> beTop [
+	"We want the sidebar on the top side, 
+	hence the content offset and resizing on the bottom side."
+	
+	self contentOffset: (GtPhlowSidebarContentOffset bottom: self contentOffset length)
+]
+
 { #category : #'api - visibility' }
 GtPhlowSidebarElement >> collapse [
-	self subclassResponsibility
+	self contentOffset adjustElementLength: self
 ]
 
 { #category : #'private - accessing' }
@@ -63,10 +95,18 @@ GtPhlowSidebarElement >> contentOffset [
 
 { #category : #'private - accessing' }
 GtPhlowSidebarElement >> contentOffset: aGtPhlowSidebarContentOffset [
-	self 
-		assert: [ aGtPhlowSidebarContentOffset isKindOf: GtPhlowSidebarContentOffset ] 
-		description: [ 'Content offset must be a ', GtPhlowSidebarContentOffset name, ' instance' ].
-	contentOffset := aGtPhlowSidebarContentOffset
+	| oldContentOffset |
+	self
+		assert: [ aGtPhlowSidebarContentOffset isKindOf: GtPhlowSidebarContentOffset ]
+		description: [ 'Content offset must be a ' , GtPhlowSidebarContentOffset name , ' instance' ].
+
+	contentOffset = aGtPhlowSidebarContentOffset ifTrue: [ ^ self ].
+
+	oldContentOffset := contentOffset.
+	contentOffset := aGtPhlowSidebarContentOffset.
+	self
+		onContentOffsetChangedFrom: oldContentOffset
+		to: aGtPhlowSidebarContentOffset
 ]
 
 { #category : #'private - accessing' }
@@ -101,7 +141,7 @@ GtPhlowSidebarElement >> defaultContentStencil [
 
 { #category : #defaults }
 GtPhlowSidebarElement >> defaultResizerLook [
-	^ self subclassResponsibility
+	^ BrGlamorousWithResizerAptitude new
 ]
 
 { #category : #defaults }
@@ -111,7 +151,9 @@ GtPhlowSidebarElement >> defaultResizerStrategy [
 
 { #category : #'api - visibility' }
 GtPhlowSidebarElement >> expand [
-	self subclassResponsibility
+	self contentOffset
+		adjustElement: self
+		lenghtWithResizerStrategy: self resizerStrategy
 ]
 
 { #category : #'api - visibility' }
@@ -132,6 +174,10 @@ GtPhlowSidebarElement >> initialize [
 	self initializeResizerElement.
 	
 	self expand.
+	
+	self addAptitude: (BrLayoutResizerAptitude new
+		vInherit;
+		vInherit: [ :aBlock | self contentElementDo: aBlock ])
 ]
 
 { #category : #initialization }
@@ -165,7 +211,7 @@ GtPhlowSidebarElement >> initializeResizerElement [
 { #category : #'private - testing' }
 GtPhlowSidebarElement >> isCollapsed [
 	<return: #Boolean>
-	^ self subclassResponsibility
+	^ self contentOffset isElementCollapsed: self
 ]
 
 { #category : #'api - accessing' }
@@ -177,6 +223,13 @@ GtPhlowSidebarElement >> offset: anInteger [
 	anOldOffset := self contentOffset length.
 	self contentOffset length: anInteger.
 	self onOffsetChangedFrom: anOldOffset to: anInteger.
+]
+
+{ #category : #'private - hooks' }
+GtPhlowSidebarElement >> onContentOffsetChangedFrom: anOldContentOffset to: aNewContentOffset [
+	self updateElementOffsetsFrom: anOldContentOffset to: aNewContentOffset.
+	self updateElementConstraintsFrom: anOldContentOffset to: aNewContentOffset.
+	self updateResizerElementPosition
 ]
 
 { #category : #'private - hooks' }
@@ -199,7 +252,7 @@ GtPhlowSidebarElement >> onResizerDoubleClick: anEvent [
 
 { #category : #'private - event handling' }
 GtPhlowSidebarElement >> onResizerResized: anEvent [
-	self subclassResponsibility
+	self contentOffset adjustElement: self resizerStrategyOnResizerResized: anEvent
 ]
 
 { #category : #'private - accessing' }
@@ -243,4 +296,33 @@ GtPhlowSidebarElement >> updateContentElementOffsetWith: aPreviousLength [
 	| anInsets |
 	anInsets := self contentOffset marginExtra: aPreviousLength negated.
 	self contentElement margin: contentElement margin + anInsets.
+]
+
+{ #category : #'private - updating' }
+GtPhlowSidebarElement >> updateElementConstraintsFrom: oldContentOffset to: newContentOffset [
+	"For now, we just expects that the other length has matchParent constraints."
+
+	self contentOffset
+		adjustElement: self
+		lenghtWithResizerStrategy: self resizerStrategy.
+	self contentOffset adjustElementOrthogonalLength: self
+]
+
+{ #category : #'private - updating' }
+GtPhlowSidebarElement >> updateElementOffsetsFrom: oldContentOffset to: newContentOffset [
+	| oldInsets newInsets existingInsets updatedInsets |
+	oldInsets := oldContentOffset margin.
+	newInsets := newContentOffset margin.
+	existingInsets := self margin.
+	updatedInsets := BlInsets
+			top: existingInsets top - oldInsets top + newInsets top
+			right: existingInsets right - oldInsets right + newInsets right
+			bottom: existingInsets bottom - oldInsets bottom + newInsets bottom
+			left: existingInsets left - oldInsets left + newInsets left.
+	self contentElement margin: updatedInsets
+]
+
+{ #category : #'private - updating' }
+GtPhlowSidebarElement >> updateResizerElementPosition [
+	self contentOffset adjustResizerElementPosition: self resizerElement
 ]

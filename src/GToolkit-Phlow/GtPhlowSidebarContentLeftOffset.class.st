@@ -16,8 +16,53 @@ The following example shows a default distance: {{gtExample:GtPhlowSidebarElemen
 Class {
 	#name : #GtPhlowSidebarContentLeftOffset,
 	#superclass : #GtPhlowSidebarContentOffset,
-	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
 }
+
+{ #category : #'api - updating' }
+GtPhlowSidebarContentLeftOffset >> adjustElement: anElement lenghtWithResizerStrategy: aResizerStrategy [
+	"The resizer strategy does not know whether it should change height or width.
+	For that reason the adjustment is dispatched to me."
+
+	aResizerStrategy adjustWidthFor: anElement
+]
+
+{ #category : #'api - updating' }
+GtPhlowSidebarContentLeftOffset >> adjustElement: anElement resizerStrategyOnResizerResized: anEvent [
+	"The element does not know whether it should store extent x or y value.
+	For that reason the adjustment is dispatched to me.
+	The given anEvent has extent information."
+
+	anElement beExact: anEvent extent x
+]
+
+{ #category : #'api - updating' }
+GtPhlowSidebarContentLeftOffset >> adjustElementLength: anElement [ 
+	"Set element height or width."
+
+	anElement hExact: self length
+]
+
+{ #category : #'api - updating' }
+GtPhlowSidebarContentLeftOffset >> adjustElementOrthogonalLength: anElement [
+
+	anElement vMatchParent
+]
+
+{ #category : #'api - updating' }
+GtPhlowSidebarContentLeftOffset >> adjustResizerElementPosition: aResizerElement [
+	"Set the top/bottom/left/right resizer position"
+
+	^ aResizerElement beLeft
+]
+
+{ #category : #'api - testing' }
+GtPhlowSidebarContentLeftOffset >> isElementCollapsed: anElement [
+	"Return true if an element lenght (height or width) is less or equal to lenght."
+
+	<return: #Boolean>
+	^ anElement width <= self length
+]
 
 { #category : #'api - accessing' }
 GtPhlowSidebarContentLeftOffset >> margin [

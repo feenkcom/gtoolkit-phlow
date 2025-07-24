@@ -29,35 +29,6 @@ Class {
 	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
-{ #category : #'api - location' }
-GtPhlowHorizontalSidebarElement >> beLeft [
-	"We want the sidebar on the left side, 
-	therefore the rresizer on the right side."
-	self resizerElement beRight.
-	self contentOffset: (GtPhlowSidebarContentOffset right: self contentOffset length)
-]
-
-{ #category : #'api - location' }
-GtPhlowHorizontalSidebarElement >> beRight [
-	"We want the sidebar on the right side, 
-	therefore the resizer on the left side."
-	self resizerElement beLeft.
-	self contentOffset: (GtPhlowSidebarContentOffset left: self contentOffset length)
-]
-
-{ #category : #'api - location' }
-GtPhlowHorizontalSidebarElement >> beTop [
-	"We want the sidebar at the top side, 
-	therefore the resizer at the bottom side."
-	self resizerElement beBottom.
-	self contentOffset: (GtPhlowSidebarContentOffset bottom: self contentOffset length)
-]
-
-{ #category : #'api - visibility' }
-GtPhlowHorizontalSidebarElement >> collapse [
-	self width: self contentOffset length
-]
-
 { #category : #defaults }
 GtPhlowHorizontalSidebarElement >> defaultContentOffset [
 	^ GtPhlowSidebarContentOffset right: self defaultContentOffsetLength
@@ -68,11 +39,6 @@ GtPhlowHorizontalSidebarElement >> defaultResizerLook [
 	^ BrGlamorousWithHorizontalResizerAptitude new
 ]
 
-{ #category : #'api - visibility' }
-GtPhlowHorizontalSidebarElement >> expand [
-	self resizerStrategy adjustWidthFor: self.
-]
-
 { #category : #initialization }
 GtPhlowHorizontalSidebarElement >> initialize [
 	super initialize.
@@ -80,19 +46,4 @@ GtPhlowHorizontalSidebarElement >> initialize [
 	"We do not want to propagate detail states to children."
 	contentElement states addState: GtPhlowToolDetailState normal.
 	contentElement states addState: GtPhlowToolDetailPositionState left.
-
-	self addAptitude: (BrLayoutResizerAptitude new
-		vInherit;
-		vInherit: [ :aBlock | self contentElementDo: aBlock ])
-]
-
-{ #category : #'private - testing' }
-GtPhlowHorizontalSidebarElement >> isCollapsed [
-	<return: #Boolean>
-	^ self width <= self contentOffset length
-]
-
-{ #category : #'private - event handling' }
-GtPhlowHorizontalSidebarElement >> onResizerResized: anEvent [
-	self beExact: anEvent extent x
 ]

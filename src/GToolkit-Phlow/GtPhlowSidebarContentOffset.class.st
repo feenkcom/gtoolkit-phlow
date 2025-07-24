@@ -30,7 +30,7 @@ Class {
 	#instVars : [
 		'length'
 	],
-	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
 { #category : #factory }
@@ -53,6 +53,42 @@ GtPhlowSidebarContentOffset class >> top: anInteger [
 	^ GtPhlowSidebarContentTopOffset new length: anInteger
 ]
 
+{ #category : #'api - updating' }
+GtPhlowSidebarContentOffset >> adjustElement: anElement lenghtWithResizerStrategy: aResizerStrategy [
+	"The resizer strategy does not know whether it should change height or width.
+	For that reason the adjustment is dispatched to me."
+
+	^ self subclassResponsibility
+]
+
+{ #category : #'api - updating' }
+GtPhlowSidebarContentOffset >> adjustElement: anElement resizerStrategyOnResizerResized: anEvent [
+	"The element does not know whether it should store extent x or y value.
+	For that reason the adjustment is dispatched to me.
+	The given anEvent has extent information."
+
+	^ self subclassResponsibility
+]
+
+{ #category : #'api - updating' }
+GtPhlowSidebarContentOffset >> adjustElementLength: anElement [ 
+	"Set element height or width."
+
+	self subclassResponsibility
+]
+
+{ #category : #'api - updating' }
+GtPhlowSidebarContentOffset >> adjustElementOrthogonalLength: anElement [
+	^ self subclassResponsibility
+]
+
+{ #category : #'api - updating' }
+GtPhlowSidebarContentOffset >> adjustResizerElementPosition: aResizerElement [
+	"Set the top/bottom/left/right resizer position"
+
+	^ self subclassResponsibility
+]
+
 { #category : #'private - asserting' }
 GtPhlowSidebarContentOffset >> assertLength: anInteger [
 	self 
@@ -62,6 +98,14 @@ GtPhlowSidebarContentOffset >> assertLength: anInteger [
 		assert: [ anInteger >= 0 ] 
 		description: [ 'Lenght must be zero or positive' ].
 	
+]
+
+{ #category : #'api - testing' }
+GtPhlowSidebarContentOffset >> isElementCollapsed: anElement [
+	"Return true if an element lenght (height or width) is less or equal to lenght."
+
+	<return: #Boolean>
+	^ self subclassResponsibility
 ]
 
 { #category : #'api - accessing' }
