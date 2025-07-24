@@ -20,20 +20,11 @@ GtPhlowBrowseDefinitionAptitude >> handleMouseDown: anEvent [
 	"If I'm not within a Pager, spawn a new one."
 
 	(self isDefinitionRequested: anEvent) ifFalse: [ ^ self ].
-	self widget
-		allParentsDetect: [ :aParent | aParent isKindOf: GtPager ]
-		ifFound: [ :aParent | 
-			self
-				widgetDo: [ :aWidget | 
-					anEvent consumed: true.
-					aWidget phlow 
-						spawnObject: definitionComputation value ] ]
-		ifNone: [ 
-			| definingMethod |
-			definingMethod := definitionComputation value.
-			self
-				spawnPagerFor: (GtInspector newOn: definingMethod)
-				withTitle: definingMethod method name ]
+	
+	self widgetDo: [ :aWidget | 
+		BlSpace 
+			spawnObject: definitionComputation value 
+			from: aWidget ]
 ]
 
 { #category : #initialization }
