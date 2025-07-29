@@ -39,6 +39,8 @@ GtPhlowExplicitAction >> asMenuItem: aBlock withHostElement: aTargetElement [
 				do: [ :anError | self newErrorElementFor: anError targetElement: aTargetElement ] ].
 	id ifNotNil: [ aMenuItem id: self id ].
 
+	aMenuItem definition: [ self definingMethod ].
+	
 	self tooltipBuilder
 		applyAsLabelOnMenuLabeledItem: aMenuItem
 		hostElement: aTargetElement.

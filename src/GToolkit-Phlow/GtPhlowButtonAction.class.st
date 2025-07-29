@@ -74,6 +74,8 @@ GtPhlowButtonAction >> asMenuItem: aBlock withHostElement: aTargetElement [
 	self
 		menuItemGroupIfPresent: [ :aGroup | aMenuItem group: aGroup ]
 		ifAbsent: [  ].
+		
+	aMenuItem definition: [ self definingMethod ].
 
 	^ aBlock value: aMenuItem
 ]
