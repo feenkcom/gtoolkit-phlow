@@ -51,12 +51,9 @@ GtPhlowBrowseDefinitionAptitude >> isDefinitionRequested: anEvent [
 
 { #category : #accessing }
 GtPhlowBrowseDefinitionAptitude >> spawnPagerFor: anElement withTitle: aString [
-	| aPager aSpace |
-	aPager := GtPager createWrappedOn: anElement.
-	aPager maximized.
-	aSpace := BlSpace new.
-	aSpace title: aString.
-	aSpace extent: 1200 @ 600.
-	aSpace addChild: aPager.
-	self widget showSpace: aSpace
+	BlSpace new
+		inPager: anElement;
+		title: aString;
+		extent: 1200 @ 600;
+		showFrom: self widget
 ]
