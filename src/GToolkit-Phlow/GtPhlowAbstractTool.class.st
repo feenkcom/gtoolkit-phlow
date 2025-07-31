@@ -153,11 +153,21 @@ GtPhlowAbstractTool >> object: anObject [
 	"defaults tools must implement this message"
 ]
 
+{ #category : #copying }
+GtPhlowAbstractTool >> postSimilarToolCopy [
+	self prepareForReusedNavigation
+]
+
 { #category : #action }
 GtPhlowAbstractTool >> prepareForReusedNavigation [
 	"This tool is about to be reused in a navigation phlow.
 	Give specific tools a chance to reset cached data, or 
 	perform other clean-ups."
+]
+
+{ #category : #copying }
+GtPhlowAbstractTool >> similarToolCopy [
+	^ self shallowCopy postSimilarToolCopy
 ]
 
 { #category : #'testing ' }
