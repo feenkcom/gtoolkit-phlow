@@ -35,10 +35,24 @@ GtPhlowTool >> asElement [
 ]
 
 { #category : #converting }
+GtPhlowTool >> asStencil [
+	"Compatibility with BrStencil."
+
+	^ self
+]
+
+{ #category : #converting }
 GtPhlowTool >> asToolElementDo: aOneArgBlock [
 	^ self asElementDo: [ :anElement |
 		anElement phlow 
 			beTool;
 			entity: self.
 		aOneArgBlock cull: anElement ]
+]
+
+{ #category : #converting }
+GtPhlowTool >> create [
+	"Compatibility with BrStencil."
+
+	^ self asElement
 ]
