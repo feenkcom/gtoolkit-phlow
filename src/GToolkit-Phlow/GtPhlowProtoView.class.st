@@ -51,6 +51,11 @@ GtPhlowProtoView >> asElementDo: aBlock [
 ]
 
 { #category : #'api - converting' }
+GtPhlowProtoView >> asStencil [
+	^ self
+]
+
+{ #category : #'api - converting' }
 GtPhlowProtoView >> asTaskItView [
 	^ self isTaskItViewGloballyEnabled
 		ifTrue: [
@@ -127,6 +132,11 @@ GtPhlowProtoView >> copyAutoUpdatesFrom: aGtPhlowUpdateDefinitions [
 { #category : #copying }
 GtPhlowProtoView >> copyTransformationFrom: aSendBlock [
 
+]
+
+{ #category : #'api - converting' }
+GtPhlowProtoView >> create [
+	^ self asElement
 ]
 
 { #category : #accessing }
