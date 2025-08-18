@@ -26,21 +26,34 @@ GtPhlowToggleAction >> asElement: aBlock withHostElement: aTargetElement [
 	<return: #BrButton>
 	| aToggle |
 	aToggle := BrToggle new.
-	aToggle phlow 
+	aToggle phlow
 		beAction;
 		entity: self.
 	aToggle aptitude: self newToggleLook.
 	label ifNotNil: [ aToggle label: label asRopedText ].
 	icon ifNotNil: [ aToggle icon: icon asElement ].
 	id ifNotNil: [ aToggle id: self id ].
-	aToggle activated: isActivated value.
-	aToggle 
-		when: BrToggleActivatedEvent do: [ :anEvent | 
-			(self isDefinitionRequested: anEvent) ifFalse: [ 
-				activatedAction gtValueWithArgs: { aToggle. aTargetElement. anEvent } ] ];
-		when: BrToggleDeactivatedEvent do: [ :anEvent | 
-			(self isDefinitionRequested: anEvent) ifFalse: [ 
-				deactivatedAction gtValueWithArgs: { aToggle. aTargetElement. anEvent } ] ].
+	aToggle
+		activated: (isActivated isBoolean
+				ifTrue: [ isActivated ]
+				ifFalse: [ (isActivated respondsTo: #cull:)
+						ifTrue: [ isActivated cull: aTargetElement ]
+						ifFalse: [ isActivated value ] ]).
+	aToggle
+		when: BrToggleActivatedEvent
+			do: [ :anEvent | 
+				(self isDefinitionRequested: anEvent)
+					ifFalse: [ activatedAction
+							gtValueWithArgs: {aToggle.
+									aTargetElement.
+									anEvent} ] ];
+		when: BrToggleDeactivatedEvent
+			do: [ :anEvent | 
+				(self isDefinitionRequested: anEvent)
+					ifFalse: [ deactivatedAction
+							gtValueWithArgs: {aToggle.
+									aTargetElement.
+									anEvent} ] ].
 	self attachShowDefinitionEventHandler: aToggle.
 	self attachShowContextMenuEventHandler: aToggle.
 	self attachTooltipFor: aToggle hostElement: aTargetElement.

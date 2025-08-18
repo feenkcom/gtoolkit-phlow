@@ -2,7 +2,7 @@ Trait {
 	#name : #TGtPhlowActionTooltipBuilder,
 	#traits : 'TGtPhlowTooltipBuilder',
 	#classTraits : 'TGtPhlowTooltipBuilder classTrait',
-	#category : 'GToolkit-Phlow-Support - Tooltip'
+	#category : #'GToolkit-Phlow-Support - Tooltip'
 }
 
 { #category : #'building tooltip' }

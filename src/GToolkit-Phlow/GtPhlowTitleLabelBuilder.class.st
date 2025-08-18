@@ -8,7 +8,7 @@ See my {{gtClass:GtPhlowTitleLabelBuilder|show=#gtSubclassesFor:|expanded=true|l
 Class {
 	#name : #GtPhlowTitleLabelBuilder,
 	#superclass : #Object,
-	#category : 'GToolkit-Phlow-Tool - Title'
+	#category : #'GToolkit-Phlow-Tool - Title'
 }
 
 { #category : #'api - instance creation' }

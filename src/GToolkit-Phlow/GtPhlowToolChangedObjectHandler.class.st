@@ -18,7 +18,7 @@ Class {
 		'element',
 		'action'
 	],
-	#category : 'GToolkit-Phlow-Tool - Object Changer'
+	#category : #'GToolkit-Phlow-Tool - Object Changer'
 }
 
 { #category : #comparing }

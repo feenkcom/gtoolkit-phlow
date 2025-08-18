@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowListTextualLinkDataBinder,
 	#superclass : #BrListItemDataBinder,
-	#category : 'GToolkit-Phlow-Support - List'
+	#category : #'GToolkit-Phlow-Support - List'
 }
 
 { #category : #'api - instantiation' }

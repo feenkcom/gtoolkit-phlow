@@ -29,7 +29,7 @@ Class {
 	#instVars : [
 		'subView'
 	],
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #comparing }

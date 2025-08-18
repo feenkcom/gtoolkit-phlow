@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'view'
 	],
-	#category : 'GToolkit-Phlow-Utilities'
+	#category : #'GToolkit-Phlow-Utilities'
 }
 
 { #category : #defaults }

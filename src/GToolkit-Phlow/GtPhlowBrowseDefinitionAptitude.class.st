@@ -21,6 +21,8 @@ GtPhlowBrowseDefinitionAptitude >> handleMouseDown: anEvent [
 
 	(self isDefinitionRequested: anEvent) ifFalse: [ ^ self ].
 	
+	anEvent consumed: true.
+	
 	self widgetDo: [ :aWidget | 
 		BlSpace 
 			spawnObject: definitionComputation value 
