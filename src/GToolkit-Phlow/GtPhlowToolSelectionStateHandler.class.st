@@ -30,14 +30,17 @@ GtPhlowToolSelectionStateHandler >> resetStoredSelectionState [
 
 { #category : #actions }
 GtPhlowToolSelectionStateHandler >> storeSelectionStateFrom: aToolElement [
+	| aState |
 	aToolElement phlow isTool ifFalse: [ ^ self ].
-	
-	selectionState := aToolElement phlow entity
-		extractSelectionStateFromElement: aToolElement.
-		
+
+	aState := aToolElement phlow entity
+			extractSelectionStateFromElement: aToolElement.
+	(aState isNotNil and: [ aState ~= GtPhlowToolNullSelectionState uniqueInstance ]) 
+		ifTrue: [ selectionState := aState ].
+
 	GtPhlowStoreToolSelectionSignal new
 		toolElement: aToolElement;
 		phlowView: aToolElement phlow entity;
 		selectionState: selectionState;
-		emit.
+		emit
 ]

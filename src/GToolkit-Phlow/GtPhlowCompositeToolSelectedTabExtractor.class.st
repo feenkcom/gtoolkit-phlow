@@ -9,14 +9,16 @@ Class {
 
 { #category : #accessing }
 GtPhlowCompositeToolSelectedTabExtractor >> extractTabIdentifier [
-	<return: #GtPhlowToolTabIdentifier>
+	<return: #GtPhlowToolTabIdentifier or: #GtPhlowToolNullTabIdentifier>
 	| selectedTabPhlowContext |
+	
+	tabGroupElement viewModel hasSelectedTab ifFalse: [ ^ GtPhlowToolNullTabIdentifier uniqueInstance ].
 	
 	selectedTabPhlowContext := tabGroupElement viewModel selectedTab widget phlow.
 	^ (selectedTabPhlowContext isToolLabel and: [
 		selectedTabPhlowContext entity notNil ])
 			ifTrue: [ selectedTabPhlowContext entity toolTabIdentifier ]
-			ifFalse: [ nil ].
+			ifFalse: [ GtPhlowToolNullTabIdentifier uniqueInstance ].
 ]
 
 { #category : #accessing }
