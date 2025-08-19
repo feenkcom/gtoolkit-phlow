@@ -82,6 +82,15 @@ GtPhlowToggleAction >> initialize [
 
 { #category : #accessing }
 GtPhlowToggleAction >> isActivated: anObject [
+	"Set initial toggle state.
+	anObject can be:
+	- a boolean,
+	- a block with two arguments [ :aToggleElement :aHostElement | true ],
+	- a valuable that understands #value.
+	Note: If the block is used: 
+	- aToggleElement is not fully initialized yet, neither in a space;
+	- aHostElement may neither be in a space."
+
 	isActivated := anObject
 ]
 
