@@ -36,8 +36,8 @@ GtPhlowToggleAction >> asElement: aBlock withHostElement: aTargetElement [
 	aToggle
 		activated: (isActivated isBoolean
 				ifTrue: [ isActivated ]
-				ifFalse: [ (isActivated respondsTo: #cull:)
-						ifTrue: [ isActivated cull: aTargetElement ]
+				ifFalse: [ (isActivated respondsTo: #cull:cull:)
+						ifTrue: [ isActivated cull: aToggle cull: aTargetElement ]
 						ifFalse: [ isActivated value ] ]).
 	aToggle
 		when: BrToggleActivatedEvent
