@@ -274,7 +274,8 @@ GtPhlowSidebarElement >> resizerStrategy: aResizerElementLength [
 
 { #category : #'api - visibility' }
 GtPhlowSidebarElement >> show [
-	self visibility: BlVisibility visible
+	self visibility: BlVisibility visible.
+	self requestStyle
 ]
 
 { #category : #'private - updating' }
