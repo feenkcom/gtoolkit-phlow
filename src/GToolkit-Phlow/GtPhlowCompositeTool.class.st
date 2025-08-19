@@ -65,7 +65,9 @@ GtPhlowCompositeTool >> basicExtractSelectionStateFromElement: aTabGroupElement 
 	selectedToolTabIdentifier := (GtPhlowCompositeToolSelectedTabExtractor new 
 		tabGroupElement: aTabGroupElement) extractTabIdentifier.
 	
-	containedToolElement := aTabGroupElement content children first.
+	containedToolElement := aTabGroupElement content children 
+		ifNotEmpty: #first 
+		ifEmpty: [ ^ GtPhlowToolNullSelectionState uniqueInstance ].
 	containedToolContext := containedToolElement phlow.
 
 	^ GtPhlowCompositeToolSelectionState new

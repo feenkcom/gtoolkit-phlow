@@ -36,7 +36,7 @@ GtPhlowExplicitTool >> icon [
 
 { #category : #accessing }
 GtPhlowExplicitTool >> icon: anIconStencil [
-	icon := anIconStencil
+	icon := anIconStencil asStencil
 ]
 
 { #category : #initialization }
