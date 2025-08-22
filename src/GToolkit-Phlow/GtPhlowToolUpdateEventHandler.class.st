@@ -34,6 +34,11 @@ GtPhlowToolUpdateEventHandler >> initialize [
 ]
 
 { #category : #'private - accessing' }
+GtPhlowToolUpdateEventHandler >> isDisabled [
+	^ self isEnabled not
+]
+
+{ #category : #'private - accessing' }
 GtPhlowToolUpdateEventHandler >> isEnabled [
 	^ isEnabled
 ]
@@ -54,8 +59,7 @@ GtPhlowToolUpdateEventHandler >> phlowToolDisableUpdatesWish: aWish [
 
 { #category : #'api - event managing' }
 GtPhlowToolUpdateEventHandler >> phlowToolUpdateWish: aWish [
-	self isEnabled ifFalse: [ ^ self ].
-	aWish consumed: true.
-
-	self action cull: aWish
+	(self isEnabled or: [ aWish isCurrentToolOnly ]) ifTrue: [
+		aWish consumed: true.
+		self action cull: aWish ]
 ]

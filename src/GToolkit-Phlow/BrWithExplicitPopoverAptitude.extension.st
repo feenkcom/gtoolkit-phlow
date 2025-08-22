@@ -22,6 +22,7 @@ BrWithExplicitPopoverAptitude >> withPhlowUpdateWishEventHandler [
 						widgetDo: [ :aWidget | 
 							| aForwardedEvent |
 							aForwardedEvent := GtPhlowToolUpdateWish new.
+							aForwardedEvent isCurrentToolOnly: anEvent isCurrentToolOnly.
 							aWidget fireEvent: aForwardedEvent.
 							aForwardedEvent isConsumed ifTrue: [ anEvent consumed: true ] ] ] ].
 

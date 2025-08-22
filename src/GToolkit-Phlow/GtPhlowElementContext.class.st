@@ -255,8 +255,19 @@ GtPhlowElementContext >> entity: aGtPhlowView [
 ]
 
 { #category : #'api - updating' }
+GtPhlowElementContext >> fireCurrentToolUpdateWish [
+	"I fire an update wish to inform a current tool, e.g., Inspector, that it should update its widgets.
+	Phlow tools can be composed of other tools. In this case, only the displayed tool will be updated."
+
+	self element fireEvent: GtPhlowToolUpdateWish onlyCurrentTool
+]
+
+{ #category : #'api - updating' }
 GtPhlowElementContext >> fireToolUpdateWish [
-	"I fire an update wish to inform a whole tool, e.g., Inspector, that it should update its widgets"
+	"I fire an update wish to inform a whole tool, e.g., Inspector or a phlow composite tool, 
+	that it should update its widgets.
+	Phlow tools can be composed of other tools. In this case, the whole composite tool with its all
+	sub-tools will be updated."
 
 	self element fireEvent: GtPhlowToolUpdateWish new
 ]
