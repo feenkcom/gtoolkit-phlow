@@ -191,7 +191,7 @@ GtPhlowElementContext >> contextMenuFireToolUpdateWish [
 		ifNotNil: [ :anElement | 
 			BlTaskAction
 				enqueueElement: anElement
-				action: [ self element fireEvent: BrPhlowToolUpdateWish new ] ]
+				action: [ self element fireEvent: GtPhlowToolUpdateWish new ] ]
 ]
 
 { #category : #'api - updating' }
@@ -258,7 +258,7 @@ GtPhlowElementContext >> entity: aGtPhlowView [
 GtPhlowElementContext >> fireToolUpdateWish [
 	"I fire an update wish to inform a whole tool, e.g., Inspector, that it should update its widgets"
 
-	self element fireEvent: BrPhlowToolUpdateWish new
+	self element fireEvent: GtPhlowToolUpdateWish new
 ]
 
 { #category : #'api - updating' }

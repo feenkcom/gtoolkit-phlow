@@ -29,15 +29,6 @@ GtPhlowExplicitCompositeTool >> asElementDo: aOneArgBlock [
 	^ aOneArgBlock cull: anElement cull: self
 ]
 
-{ #category : #'api - converting' }
-GtPhlowExplicitCompositeTool >> asToolElementDo: aOneArgBlock [
-	^ self asElementDo: [ :anElement |
-		anElement phlow 
-			beTool;
-			entity: self.
-		aOneArgBlock cull: anElement ]
-]
-
 { #category : #selection }
 GtPhlowExplicitCompositeTool >> basicExtractSelectionStateFromElement: aTabGroupElement [
 	self lastCompositeToolDo: [ :aCompositeTool | 
@@ -104,6 +95,12 @@ GtPhlowExplicitCompositeTool >> object [
 		^ aTool object ].
 		
 	^ super object
+]
+
+{ #category : #copying }
+GtPhlowExplicitCompositeTool >> postSimilarToolCopy [
+	lastCompositeTool := nil.
+	super postSimilarToolCopy
 ]
 
 { #category : #action }

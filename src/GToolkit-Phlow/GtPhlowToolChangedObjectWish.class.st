@@ -1,8 +1,7 @@
 "
 I am a {{gtClass:BrWish}}.
 I am fired by {{gtClass:GtPhlowTool}} to inform which object (domain model) should be displayed. See {{gtClass:GtPhlowToolChangedObjectHandler}} and {{gtClass:GtPhlowToolObjectChangeHandler}} for more information.
-1. # Example
-
+# Example
 See a complete example in the {{gtClass:GtPhlowCompositeTool}} class comment.
 
 
@@ -43,4 +42,9 @@ GtPhlowToolChangedObjectWish >> object: anObject [
 	object := anObject.
 	hasObject := true.
 	self consumed: true.
+]
+
+{ #category : #sending }
+GtPhlowToolChangedObjectWish >> sendTo: anObject [
+	^ anObject phlowToolChangedObjectWish: self
 ]

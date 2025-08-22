@@ -44,18 +44,10 @@ GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 		aptitude: BrGlamorousTabGroupSwitcherAptitude;
 		addTabs: self toolTabs.
 	aTabGroup addEventHandler: GtPhlowToolObjectChangeHandler new.
+	aTabGroup addEventHandler: (GtPhlowToolUpdateEventHandler new onUpdateSend: #onCompositeUpdateWish: to: GtPhlowToolInParentUpdater new).
 	aTabGroup phlow toolViewModel: (GtPhlowToolCompositeViewModel new tabGroup: aTabGroup).
 	
 	^ aOneArgBlock cull: aTabGroup
-]
-
-{ #category : #'api - converting' }
-GtPhlowCompositeTool >> asToolElementDo: aOneArgBlock [
-	^ self asElementDo: [ :anElement |
-		anElement phlow 
-			beTool;
-			entity: self.
-		aOneArgBlock cull: anElement ]
 ]
 
 { #category : #selection }

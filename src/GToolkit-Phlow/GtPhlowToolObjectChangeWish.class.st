@@ -30,3 +30,8 @@ GtPhlowToolObjectChangeWish >> object [
 GtPhlowToolObjectChangeWish >> object: anObject [
 	object := anObject
 ]
+
+{ #category : #sending }
+GtPhlowToolObjectChangeWish >> sendTo: anObject [
+	^ anObject phlowToolObjectChangeWish: self
+]
