@@ -13,7 +13,7 @@ Class {
 	#instVars : [
 		'object'
 	],
-	#category : 'GToolkit-Phlow-Tool - Object Changer'
+	#category : #'GToolkit-Phlow-Tool - Object Changer'
 }
 
 { #category : #visiting }
@@ -29,4 +29,9 @@ GtPhlowToolObjectChangeWish >> object [
 { #category : #'api - accessing' }
 GtPhlowToolObjectChangeWish >> object: anObject [
 	object := anObject
+]
+
+{ #category : #sending }
+GtPhlowToolObjectChangeWish >> sendTo: anObject [
+	^ anObject phlowToolObjectChangeWish: self
 ]

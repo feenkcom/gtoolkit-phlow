@@ -39,7 +39,10 @@ GtPhlowAbstractTool >> asTabDo: aBlock [
 			aptitude: self tabLook;
 			label: self name;
 			icon: self icon;
-			stencil: [ [ self asTabElement ] onErrorDo: [ :anError | anError asDebuggableElement ] ].
+			stencil: [ [ | anElement | 
+				anElement := self asTabElement.
+				anElement dispatchEvent: GtPhlowToolDisableUpdatesWish new.
+				anElement ] onErrorDo: [ :anError | anError asDebuggableElement ] ].
 
 	toolTab phlow
 		beToolLabel;
@@ -91,6 +94,11 @@ GtPhlowAbstractTool >> context: aPhlowContext [
 	"Tools may use the given phlow context"
 
 	
+]
+
+{ #category : #'api - accessing' }
+GtPhlowAbstractTool >> definingMethod [
+	^ nil
 ]
 
 { #category : #selection }

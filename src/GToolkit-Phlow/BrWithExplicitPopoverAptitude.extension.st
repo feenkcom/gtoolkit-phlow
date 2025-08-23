@@ -15,13 +15,14 @@ BrWithExplicitPopoverAptitude >> withPhlowSpawnEventHandler [
 BrWithExplicitPopoverAptitude >> withPhlowUpdateWishEventHandler [
 	<menuContainerInitialization>
 	self menuContainer
-		when: BrPhlowToolUpdateWish
+		when: GtPhlowToolUpdateWish
 		do: [ :anEvent | 
 			anEvent isConsumed
 				ifFalse: [ self
 						widgetDo: [ :aWidget | 
 							| aForwardedEvent |
-							aForwardedEvent := BrPhlowToolUpdateWish new.
+							aForwardedEvent := GtPhlowToolUpdateWish new.
+							aForwardedEvent isCurrentToolOnly: anEvent isCurrentToolOnly.
 							aWidget fireEvent: aForwardedEvent.
 							aForwardedEvent isConsumed ifTrue: [ anEvent consumed: true ] ] ] ].
 
