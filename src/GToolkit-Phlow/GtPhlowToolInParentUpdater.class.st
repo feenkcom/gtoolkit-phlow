@@ -23,9 +23,9 @@ GtPhlowToolInParentUpdater >> onCompositeUpdateWish: aWish [
 GtPhlowToolInParentUpdater >> onUpdateWish: aWish [
 	| anElement aPhlowTool aParent |
 	anElement := aWish currentTarget.
-	(anElement isKindOf: BlElement) ifFalse: [ ^ self ].
-	anElement phlow isTool ifFalse: [ ^ self ].
-	anElement hasParent ifFalse: [ ^ self ].
+	(anElement isKindOf: BlElement) ifFalse: [ ^ nil ].
+	anElement phlow isTool ifFalse: [ ^ nil ].
+	anElement hasParent ifFalse: [ ^ nil ].
 	aParent := anElement parent.
 	aPhlowTool := anElement phlow entity.
 	aPhlowTool asToolElementDo: [ :aToolElement | 
