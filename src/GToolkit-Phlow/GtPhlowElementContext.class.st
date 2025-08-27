@@ -249,7 +249,7 @@ GtPhlowElementContext >> entity [
 GtPhlowElementContext >> entity: aGtPhlowView [
 	self assertIncomingView: aGtPhlowView.
 	self
-		assert: [ entity isNil ]
+		assert: [ entity isNil or: [ entity == aGtPhlowView ] ]
 		description: [ 'Context entity (Phlow view) can be initialized only once' ].
 	entity := aGtPhlowView
 ]
