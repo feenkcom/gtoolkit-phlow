@@ -89,6 +89,17 @@ GtPhlowAbstractTool >> beToolContentElement: anElement [
 		entity: self."
 ]
 
+{ #category : #'api - converting' }
+GtPhlowAbstractTool >> canRecreateToolElement [
+	"Users, e.g., tree pager, can ask whether phlow tool element can be recreated.
+	Note: It should be a default property of every tool, to create new elements several times,
+	and, as a consequence, allow users to replace a current tool element by a new one.
+	There might be special cases, where it is not possible."
+
+	<return: #Boolean>
+	^ true
+]
+
 { #category : #'api - accessing' }
 GtPhlowAbstractTool >> context: aPhlowContext [
 	"Tools may use the given phlow context"
