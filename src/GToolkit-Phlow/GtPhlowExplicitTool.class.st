@@ -24,6 +24,11 @@ GtPhlowExplicitTool >> asElementDo: aOneArgBlock [
 	^ aOneArgBlock cull: anElement cull: self
 ]
 
+{ #category : #'api - converting' }
+GtPhlowExplicitTool >> canRecreateToolElement [
+	^ (self stencil isKindOf: BlElement) not
+]
+
 { #category : #'private - accessing' }
 GtPhlowExplicitTool >> defaultTabLook [
 	^ BrGlamorousTabSwitcherWithLabelAptitude
