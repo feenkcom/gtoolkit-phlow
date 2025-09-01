@@ -5,8 +5,6 @@ I determine that actions are supposed to be displayed in a default position, e.g
 "
 Class {
 	#name : #GtPhlowObjectActionTarget,
-	#superclass : #GtPhlowActionTarget,
-	#traits : 'TGtUniqueInstance',
-	#classTraits : 'TGtUniqueInstance classTrait',
+	#superclass : #GtPhlowActionUniqueTarget,
 	#category : #'GToolkit-Phlow-Action Targets'
 }

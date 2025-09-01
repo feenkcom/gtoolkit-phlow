@@ -66,6 +66,13 @@ GtPhlowAction >> actionElementContextMenu [
 ]
 
 { #category : #converting }
+GtPhlowAction >> asCircularElement: aBlock withHostElement: aTargetElement [
+	"Return an element that represents the action in Bloc space, e.g., a button"
+	<return: #BlElement>
+	^ self asElement: aBlock withHostElement: aTargetElement
+]
+
+{ #category : #converting }
 GtPhlowAction >> asElement: aBlock withHostElement: aTargetElement [
 	"Return an element that represents the action in Bloc space, e.g., a button"
 	<return: #BlElement>
