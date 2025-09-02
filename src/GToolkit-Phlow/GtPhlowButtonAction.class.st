@@ -22,23 +22,25 @@ GtPhlowButtonAction >> actionBlock [
 ]
 
 { #category : #converting }
+GtPhlowButtonAction >> asCircularElement: aBlock withHostElement: aTargetElement [
+	<return: #BrButton>
+	| aButton aLook |
+	aButton := BrButton new.
+	aLook := self newButtonLook.
+	aLook - BrGlamorousButtonRectangularAptitude.
+	aLook + BrGlamorousButtonCircularAptitude.
+	aButton aptitude: aLook.
+	self configureButton: aButton withHostElement: aTargetElement.
+	^ aBlock value: aButton
+]
+
+{ #category : #converting }
 GtPhlowButtonAction >> asElement: aBlock withHostElement: aTargetElement [
 	<return: #BrButton>
 	| aButton |
 	aButton := BrButton new.
 	aButton aptitude: self newButtonLook.
-	aButton phlow 
-		beAction;
-		entity: self.
-	label ifNotNil: [ aButton label: label asRopedText ].
-	icon ifNotNil: [ aButton icon: icon asElement ].
-	id ifNotNil: [ aButton id: self id ].
-	action ifNotNil: [ aButton action: [ :theButton :aButtonModel :anEvent | 
-		action gtValueWithArgs: { theButton. aTargetElement. aButtonModel. anEvent } ] ].
-	self attachPrimaryModifierActionFor: aButton hostElement: aTargetElement.
-	self attachTooltipFor: aButton hostElement: aTargetElement.
-	self attachShowDefinitionEventHandler: aButton.
-	self attachShowContextMenuEventHandler: aButton.
+	self configureButton: aButton withHostElement: aTargetElement.
 	^ aBlock value: aButton
 ]
 
@@ -89,6 +91,28 @@ GtPhlowButtonAction >> attachPrimaryModifierActionFor: aButton hostElement: aTar
 		mouseCursor: primaryModifierAction mouseCursor;
 		hostElement: aTargetElement.
 	aButton addAptitude: anAptitude
+]
+
+{ #category : #converting }
+GtPhlowButtonAction >> configureButton: aButton withHostElement: aTargetElement [
+	aButton phlow
+		beAction;
+		entity: self.
+	label ifNotNil: [ aButton label: label asRopedText ].
+	icon ifNotNil: [ aButton icon: icon asElement ].
+	id ifNotNil: [ aButton id: self id ].
+	action
+		ifNotNil: [ aButton
+				action: [ :theButton :aButtonModel :anEvent | 
+					action
+						gtValueWithArgs: {theButton.
+								aTargetElement.
+								aButtonModel.
+								anEvent} ] ].
+	self attachPrimaryModifierActionFor: aButton hostElement: aTargetElement.
+	self attachTooltipFor: aButton hostElement: aTargetElement.
+	self attachShowDefinitionEventHandler: aButton.
+	self attachShowContextMenuEventHandler: aButton
 ]
 
 { #category : #'api - action' }

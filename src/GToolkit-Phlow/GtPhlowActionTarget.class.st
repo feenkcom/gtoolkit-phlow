@@ -37,6 +37,11 @@ GtPhlowActionTarget >> , aTarget [
 ]
 
 { #category : #testing }
+GtPhlowActionTarget >> isForTarget: aTarget [
+	^ self = aTarget
+]
+
+{ #category : #testing }
 GtPhlowActionTarget >> isForViewDefinedIn: aSymbol [
 	^ false
 ]

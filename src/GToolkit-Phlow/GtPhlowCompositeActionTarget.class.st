@@ -34,6 +34,13 @@ GtPhlowCompositeActionTarget >> initialize [
 ]
 
 { #category : #testing }
+GtPhlowCompositeActionTarget >> isForTarget: aTarget [
+
+	^ self targets anySatisfy: [ :eachTarget | 
+		  eachTarget isForViewDefinedIn: aTarget ]
+]
+
+{ #category : #testing }
 GtPhlowCompositeActionTarget >> isForViewDefinedIn: aSymbol [
 
 	^ self targets anySatisfy: [ :eachTarget | 
