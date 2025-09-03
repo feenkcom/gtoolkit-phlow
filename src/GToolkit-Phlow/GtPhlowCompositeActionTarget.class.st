@@ -16,11 +16,6 @@ Class {
 	#category : #'GToolkit-Phlow-Action Targets'
 }
 
-{ #category : #composing }
-GtPhlowCompositeActionTarget >> , aTarget [
-	self targets: (self targets copyWith: aTarget asPhlowTarget)
-]
-
 { #category : #'gt - extensions' }
 GtPhlowCompositeActionTarget >> gtTargetsFor: aView [
 
