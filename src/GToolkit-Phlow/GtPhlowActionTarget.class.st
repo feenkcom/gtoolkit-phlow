@@ -23,6 +23,12 @@ GtPhlowActionTarget class >> forViewSelector: aSelector [
 ]
 
 { #category : #composing }
+GtPhlowActionTarget >> + aTarget [
+
+	^ self, aTarget asPhlowTarget
+]
+
+{ #category : #composing }
 GtPhlowActionTarget >> , aTarget [
 
 	| aComposition aCollection |
@@ -34,6 +40,23 @@ GtPhlowActionTarget >> , aTarget [
 
 	aComposition targets: aCollection.
 	^ aComposition
+]
+
+{ #category : #enumerating }
+GtPhlowActionTarget >> actionsForObject: anObject [
+	^ self actionsForObject: anObject collect: [ :e | e ]
+]
+
+{ #category : #enumerating }
+GtPhlowActionTarget >> actionsForObject: anObject collect: aBlock [
+	^ anObject gtActions
+		select: [ :eachAction | eachAction target isForTarget: self ]
+		thenCollect: aBlock
+]
+
+{ #category : #converting }
+GtPhlowActionTarget >> asPhlowTarget [
+	^ self
 ]
 
 { #category : #testing }

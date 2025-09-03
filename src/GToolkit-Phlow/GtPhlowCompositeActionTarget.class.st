@@ -16,6 +16,11 @@ Class {
 	#category : #'GToolkit-Phlow-Action Targets'
 }
 
+{ #category : #composing }
+GtPhlowCompositeActionTarget >> , aTarget [
+	self targets: (self targets copyWith: aTarget asPhlowTarget)
+]
+
 { #category : #'gt - extensions' }
 GtPhlowCompositeActionTarget >> gtTargetsFor: aView [
 
@@ -37,7 +42,7 @@ GtPhlowCompositeActionTarget >> initialize [
 GtPhlowCompositeActionTarget >> isForTarget: aTarget [
 
 	^ self targets anySatisfy: [ :eachTarget | 
-		  eachTarget isForViewDefinedIn: aTarget ]
+		  eachTarget isForTarget: aTarget ]
 ]
 
 { #category : #testing }
