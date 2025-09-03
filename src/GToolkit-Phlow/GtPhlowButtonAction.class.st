@@ -51,6 +51,7 @@ GtPhlowButtonAction >> asMenuItem: aBlock withHostElement: aTargetElement [
 	<return: #BrMenuItem>
 	| aMenuItem |
 	aMenuItem := BrMenuActionItem new.
+
 	(label isNotNil and: [ icon isNotNil ])
 		ifTrue: [ aMenuItem icon: icon label: label ]
 		ifFalse: [ (label notNil and: [ icon isNil ])
@@ -59,6 +60,12 @@ GtPhlowButtonAction >> asMenuItem: aBlock withHostElement: aTargetElement [
 					self tooltipBuilder
 						applyAsLabelOnMenuLabeledItem: aMenuItem
 						hostElement: aTargetElement ] ].
+
+	self
+		menuShortcutIfPresent: [ :aShortcut | 
+			aMenuItem labelModel shortcut: aShortcut ]
+		ifAbsent: [  ].
+
 	id ifNotNil: [ aMenuItem id: self id ].
 	action
 		ifNotNil: [ aMenuItem
@@ -72,11 +79,15 @@ GtPhlowButtonAction >> asMenuItem: aBlock withHostElement: aTargetElement [
 	self
 		menuItemHideOnClickIfPresent: [ :aBoolean | aMenuItem hideOnClick: aBoolean ]
 		ifAbsent: [  ].
-		
+
 	self
 		menuItemGroupIfPresent: [ :aGroup | aMenuItem group: aGroup ]
 		ifAbsent: [  ].
-		
+
+	self
+		menuDisableIfPresent: [ :aDisableBlock | aMenuItem disableIf: aDisableBlock ]
+		ifAbsent: [  ].
+
 	aMenuItem definition: [ self definingMethod ].
 
 	^ aBlock value: aMenuItem

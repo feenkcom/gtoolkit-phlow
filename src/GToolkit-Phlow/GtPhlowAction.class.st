@@ -65,6 +65,14 @@ GtPhlowAction >> actionElementContextMenu [
 				anElement phlow spawnObject: self ]
 ]
 
+{ #category : #'api - target' }
+GtPhlowAction >> addTarget: aGtPhlowActionTarget [
+	self 
+		assert: [ aGtPhlowActionTarget notNil ]
+		description: [ 'Phlow action target must be non-nil' ].
+	target := target, aGtPhlowActionTarget asPhlowTarget
+]
+
 { #category : #converting }
 GtPhlowAction >> asCircularElement: aBlock withHostElement: aTargetElement [
 	"Return an element that represents the action in Bloc space, e.g., a button"
@@ -269,6 +277,19 @@ GtPhlowAction >> label [
 ]
 
 { #category : #'api - options' }
+GtPhlowAction >> menuDisable: aBlock [
+	self optionAt: #menuDisable put: aBlock
+]
+
+{ #category : #'api - options' }
+GtPhlowAction >> menuDisableIfPresent: aPresentBlock ifAbsent: anAbsentBlock [
+	^ self
+		optionAt: #menuDisable
+		ifPresent: aPresentBlock
+		ifAbsent: anAbsentBlock
+]
+
+{ #category : #'api - options' }
 GtPhlowAction >> menuItemGroup: aGroup [
 	self assert: [ aGroup isKindOf: BrMenuItemGroupConfiguration ].
 
@@ -294,6 +315,21 @@ GtPhlowAction >> menuItemHideOnClick: aBoolean [
 GtPhlowAction >> menuItemHideOnClickIfPresent: aPresentBlock ifAbsent: anAbsentBlock [
 	^ self
 		optionAt: #menuItemHideOnClick
+		ifPresent: aPresentBlock
+		ifAbsent: anAbsentBlock
+]
+
+{ #category : #'api - options' }
+GtPhlowAction >> menuShortcut: anObject [
+	"Set shortcut that can be displayed next to a context menu item label."
+
+	self optionAt: #menuShortcut put: anObject
+]
+
+{ #category : #'api - options' }
+GtPhlowAction >> menuShortcutIfPresent: aPresentBlock ifAbsent: anAbsentBlock [
+	^ self
+		optionAt: #menuShortcut
 		ifPresent: aPresentBlock
 		ifAbsent: anAbsentBlock
 ]
@@ -417,18 +453,18 @@ GtPhlowAction >> priority: aNumber [
 	priority := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : #'api - target' }
 GtPhlowAction >> target [
 	<return: #GtPhlowActionTarget>
 	^ target
 ]
 
-{ #category : #accessing }
+{ #category : #'api - target' }
 GtPhlowAction >> target: aGtPhlowActionTarget [
 	self 
 		assert: [ aGtPhlowActionTarget notNil ]
 		description: [ 'Phlow action target must be non-nil' ].
-	target := aGtPhlowActionTarget
+	target := aGtPhlowActionTarget asPhlowTarget
 ]
 
 { #category : #decorating }
