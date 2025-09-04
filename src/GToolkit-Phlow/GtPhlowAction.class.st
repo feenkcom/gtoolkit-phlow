@@ -174,6 +174,16 @@ GtPhlowAction >> definingSelector [
 	^ self definingMethod selector
 ]
 
+{ #category : #acessing }
+GtPhlowAction >> description [
+	"Return an action description.
+	I am a convenience method to easily inspect and describe actions.
+	I am not supposed to be used in a production code."
+
+	<return: #String or: #BlText>
+	^ self label ifNil: [ self tooltipText ifEmpty: [ self gtDisplayText ] ]
+]
+
 { #category : #decorating }
 GtPhlowAction >> dropdown [
 	^ GtPhlowDropdownAction new
