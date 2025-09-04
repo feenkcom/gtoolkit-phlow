@@ -44,3 +44,12 @@ GtPhlowTooltipBuilder >> applyOn: anElement hostElement: aTargetElement [
 	"Attach a tooltip into anElement"
 	self subclassResponsibility
 ]
+
+{ #category : #accessing }
+GtPhlowTooltipBuilder >> text [
+	"I am a convenience method to easily inspect a tooltip value.
+	Please, use corresponding `apply*` method to apply the tooltip (e.g., to a button)."
+
+	<return: #String or: #BlText>
+	^ self subclassResponsibility
+]

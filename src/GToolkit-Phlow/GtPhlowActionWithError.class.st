@@ -51,6 +51,16 @@ GtPhlowActionWithError >> defaultTooltipBuilder [
 	^ GtPhlowTooltipBuilder text: 'Display error'
 ]
 
+{ #category : #'api - action' }
+GtPhlowActionWithError >> description [
+	"Return an action description.
+	I am a convenience method to easily inspect and describe actions.
+	I am not supposed to be used in a production code."
+
+	<return: #String or: #BlText>
+	^ 'error: {1}' format: { self definingSelector }
+]
+
 { #category : #accessing }
 GtPhlowActionWithError >> error [
 	^ error
@@ -59,6 +69,24 @@ GtPhlowActionWithError >> error [
 { #category : #accessing }
 GtPhlowActionWithError >> error: anObject [
 	error := anObject
+]
+
+{ #category : #'gt-extension' }
+GtPhlowActionWithError >> gtError1For: aView [
+	<gtView>
+	^ aView forward
+		title: 'Error stack';
+		object: [ error ];
+		view: #gtLiveFor:
+]
+
+{ #category : #'gt-extension' }
+GtPhlowActionWithError >> gtErrorFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Error message';
+		object: [ error ];
+		view: #gtMessageTextFor:
 ]
 
 { #category : #'api - action' }

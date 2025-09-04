@@ -61,7 +61,7 @@ GtPhlowActionTarget >> asPhlowTarget [
 
 { #category : #testing }
 GtPhlowActionTarget >> isForTarget: aTarget [
-	^ self = aTarget
+	^ self = aTarget asPhlowTarget
 ]
 
 { #category : #testing }
