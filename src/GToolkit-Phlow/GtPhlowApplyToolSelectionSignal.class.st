@@ -9,6 +9,14 @@ Class {
 	#category : #'GToolkit-Phlow-Beacon'
 }
 
+{ #category : #testing }
+GtPhlowApplyToolSelectionSignal class >> gtNormalOperationSignal [
+	"Answer a Boolean indicating whether this signal is generated as part of normal operations.
+	See {{gtMethod:BeaconSignal class>>gtNormalOperationSignal}} for a description"
+
+	^ true.
+]
+
 { #category : #'gt - extensions' }
 GtPhlowApplyToolSelectionSignal >> gtOverview [
 	^ {GtPhlowOverviewItem new
