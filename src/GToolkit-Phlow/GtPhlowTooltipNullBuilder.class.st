@@ -27,3 +27,12 @@ GtPhlowTooltipNullBuilder >> applyOn: anElement [
 GtPhlowTooltipNullBuilder >> applyOn: anElement hostElement: aTargetElement [
 	"ignore"
 ]
+
+{ #category : #accessing }
+GtPhlowTooltipNullBuilder >> text [
+	"I am a convenience method to easily inspect a tooltip value.
+	Please, use corresponding `apply*` method to apply the tooltip (e.g., to a button)."
+
+	<return: #String or: #BlText>
+	^ ''
+]
