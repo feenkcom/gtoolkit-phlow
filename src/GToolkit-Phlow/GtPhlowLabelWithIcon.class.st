@@ -53,6 +53,15 @@ GtPhlowLabelWithIcon >> updateForClass: aClass [
 ]
 
 { #category : #updating }
+GtPhlowLabelWithIcon >> updateForMethod: aMethod [
+	^ self 
+		initializeWithIcon: (self 
+			gtSafeIconNamed: (aMethod methodClass gtSystemIconName 
+				ifEmpty: [Object gtSystemIconName] ))
+		label: aMethod name
+]
+
+{ #category : #updating }
 GtPhlowLabelWithIcon >> updateForPackage: aPackage [
 	^ self 
 		initializeWithIcon: (self 
