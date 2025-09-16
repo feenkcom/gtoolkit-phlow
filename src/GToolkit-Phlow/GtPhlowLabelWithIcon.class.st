@@ -43,6 +43,11 @@ GtPhlowLabelWithIcon >> initializeWithIcon: anIcon label: aString [
 		iconContainer addChild: anIcon asElement]
 ]
 
+{ #category : #accessing }
+GtPhlowLabelWithIcon >> nameLabelText [
+	^ nameLabel text
+]
+
 { #category : #updating }
 GtPhlowLabelWithIcon >> updateForClass: aClass [
 	^ self 
