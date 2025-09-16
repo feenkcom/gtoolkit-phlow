@@ -5,7 +5,8 @@ Class {
 		'name',
 		'description',
 		'value',
-		'isValueException'
+		'isValueException',
+		'children'
 	],
 	#category : #'GToolkit-Phlow-Convenience and Utilities'
 }
@@ -38,6 +39,27 @@ GtPhlowOverviewItem >> boolean: aBoolean [
 ]
 
 { #category : #accessing }
+GtPhlowOverviewItem >> children [
+	<return: #Collection of: #GtPhlowOverviewItem>
+	^ children ifNil: [ Array empty ]
+]
+
+{ #category : #accessing }
+GtPhlowOverviewItem >> childrenItems: aCollectionOrNil [
+	children := aCollectionOrNil
+]
+
+{ #category : #accessing }
+GtPhlowOverviewItem >> childrenObjects: aCollectionOrNil [
+	aCollectionOrNil ifNil: [ 
+		children := nil.
+		^ self ].
+
+	self childrenItems: (aCollectionOrNil collect: [ :each | 
+		self class new value: each ])
+]
+
+{ #category : #accessing }
 GtPhlowOverviewItem >> description [
 	^ description
 		ifNil: [ description := self value gtDisplayText.
@@ -61,17 +83,17 @@ GtPhlowOverviewItem >> gtDisplayOn: stream [
 ]
 
 { #category : #convenience }
-GtPhlowOverviewItem >> if: aBoolean description: aStringOrBlText [
+GtPhlowOverviewItem >> if: aBoolean description: aStringOrBlTextOrBlock [
 	aBoolean isBoolean ifFalse: [ ^ self ].
 	aBoolean ifFalse: [ ^ self ].
-	self description: aStringOrBlText
+	self description: aStringOrBlTextOrBlock value
 ]
 
 { #category : #convenience }
-GtPhlowOverviewItem >> if: aBoolean subduedDescription: aStringOrBlText [
+GtPhlowOverviewItem >> if: aBoolean subduedDescription: aStringOrBlTextOrBlock [
 	| aText |
 	aBoolean ifFalse: [ ^ self ].
-	aText := aStringOrBlText asRopedText foreground: BrGlamorousColors disabledButtonTextColor.
+	aText := aStringOrBlTextOrBlock value asRopedText foreground: BrGlamorousColors disabledButtonTextColor.
 	self description: aText 
 ]
 
@@ -88,9 +110,9 @@ GtPhlowOverviewItem >> ifExceptionValueDescription: aDescriptionBlock [
 ]
 
 { #category : #convenience }
-GtPhlowOverviewItem >> ifNot: aBoolean description: aStringOrBlText [
+GtPhlowOverviewItem >> ifNot: aBoolean description: aStringOrBlTextOrBlock [
 	aBoolean isBoolean ifFalse: [ ^ self ].
-	self if: aBoolean not description: aStringOrBlText
+	self if: aBoolean not description: aStringOrBlTextOrBlock
 ]
 
 { #category : #testing }
