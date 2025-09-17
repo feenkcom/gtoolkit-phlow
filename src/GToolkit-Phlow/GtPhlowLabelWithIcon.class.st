@@ -43,6 +43,11 @@ GtPhlowLabelWithIcon >> initializeWithIcon: anIcon label: aString [
 		iconContainer addChild: anIcon asElement]
 ]
 
+{ #category : #accessing }
+GtPhlowLabelWithIcon >> nameLabelText [
+	^ nameLabel text
+]
+
 { #category : #updating }
 GtPhlowLabelWithIcon >> updateForClass: aClass [
 	^ self 
@@ -50,6 +55,15 @@ GtPhlowLabelWithIcon >> updateForClass: aClass [
 			gtSafeIconNamed: (aClass gtSystemIconName 
 				ifEmpty: [Object gtSystemIconName] ))
 		label: aClass name
+]
+
+{ #category : #updating }
+GtPhlowLabelWithIcon >> updateForMethod: aMethod [
+	^ self 
+		initializeWithIcon: (self 
+			gtSafeIconNamed: (aMethod methodClass gtSystemIconName 
+				ifEmpty: [Object gtSystemIconName] ))
+		label: aMethod name
 ]
 
 { #category : #updating }
