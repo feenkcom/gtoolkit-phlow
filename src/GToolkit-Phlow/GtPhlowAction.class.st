@@ -232,7 +232,9 @@ GtPhlowAction >> gtLiveFor: aView [
 	^ aView explicit
 		title: 'Live';
 		priority: 1;
-		stencil: [ self asElement: [ :x | x ] withHostElement: nil ];
+		stencil: [ | anElement | 
+			self asElement: [ :x | anElement := x ] withHostElement: nil.
+			anElement ifNil: [ BlElement new ] ];
 		actionButtonIcon: BrGlamorousVectorIcons play
 			action: [ :aButton | aButton phlow 
 				spawnObject: (self asElement: [ :x | x ] withHostElement: nil) ]
@@ -325,6 +327,36 @@ GtPhlowAction >> menuItemHideOnClick: aBoolean [
 GtPhlowAction >> menuItemHideOnClickIfPresent: aPresentBlock ifAbsent: anAbsentBlock [
 	^ self
 		optionAt: #menuItemHideOnClick
+		ifPresent: aPresentBlock
+		ifAbsent: anAbsentBlock
+]
+
+{ #category : #'api - options' }
+GtPhlowAction >> menuItemPinSubmenu [
+	"Set shortcut that can be displayed next to a context menu item label."
+
+	self optionAt: #menuItemPinSubmenu put: true
+]
+
+{ #category : #'api - options' }
+GtPhlowAction >> menuItemPinSubmenuIfPin: aPinBlock ifNone: aNoneBlock [
+	^ self
+		optionAt: #menuItemPinSubmenu
+		ifPresent: [ :aBoolean | aBoolean ifTrue: aPinBlock ifFalse: aNoneBlock ]
+		ifAbsent: aNoneBlock
+]
+
+{ #category : #'api - options' }
+GtPhlowAction >> menuItemPreview: anObject [
+	"Set menu preview that can be displayed next to a context menu item label."
+
+	self optionAt: #menuPreview put: anObject
+]
+
+{ #category : #'api - options' }
+GtPhlowAction >> menuItemPreviewIfPresent: aPresentBlock ifAbsent: anAbsentBlock [
+	^ self
+		optionAt: #menuPreview
 		ifPresent: aPresentBlock
 		ifAbsent: anAbsentBlock
 ]

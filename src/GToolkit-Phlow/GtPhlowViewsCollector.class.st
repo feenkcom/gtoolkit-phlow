@@ -24,9 +24,13 @@ GtPhlowViewsCollector >> collect [
 				perform: eachPragma methodSelector
 				withContext: self context.
 			self object gtActions do: [ :eachAction | 
-				(eachAction target 
-					isForViewDefinedIn: eachPragma methodSelector) ifTrue: [ 
-						aView addPhlowAction: eachAction ] ].
+				(eachAction isKindOf: GtPhlowAction) 
+					ifTrue: [ 
+						(eachAction target 
+							isForViewDefinedIn: eachPragma methodSelector) ifTrue: [ 
+								aView addPhlowAction: eachAction ] ]
+					ifFalse: [
+						"Ignore" ] ].
 			aView ].
 	self sortByPriority: theViews.
 	^ theViews

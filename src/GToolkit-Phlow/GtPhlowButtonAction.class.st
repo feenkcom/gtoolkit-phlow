@@ -60,7 +60,11 @@ GtPhlowButtonAction >> asMenuItem: aBlock withHostElement: aTargetElement [
 					self tooltipBuilder
 						applyAsLabelOnMenuLabeledItem: aMenuItem
 						hostElement: aTargetElement ] ].
-
+	self
+		menuItemPreviewIfPresent: [ :aPreview | 
+			aMenuItem labelModel preview: aPreview ]
+		ifAbsent: [  ].
+	
 	self
 		menuShortcutIfPresent: [ :aShortcut | 
 			aMenuItem labelModel shortcut: aShortcut ]

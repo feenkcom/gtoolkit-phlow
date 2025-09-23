@@ -70,12 +70,19 @@ GtPhlowDropdownAction >> asMenuItem: aBlock withHostElement: aTargetElement [
 		submenu: (self newContentForDropdown: aTargetElement targetElement: aTargetElement).
 
 	self
+		menuItemPreviewIfPresent: [ :aPreview | 
+			aMenuItem labelModel preview: aPreview ]
+		ifAbsent: [  ].
+	
+	self
 		menuItemHideOnClickIfPresent: [ :aBoolean | aMenuItem hideOnClick: aBoolean ]
 		ifAbsent: [  ].
 		
 	self
 		menuItemGroupIfPresent: [ :aGroup | aMenuItem group: aGroup ]
 		ifAbsent: [  ].
+		
+	self menuItemPinSubmenuIfPin: [ aMenuItem bePinSubmenuAction ] ifNone: [ ].
 		
 	aMenuItem definition: [ self definingMethod ].
 
@@ -84,6 +91,9 @@ GtPhlowDropdownAction >> asMenuItem: aBlock withHostElement: aTargetElement [
 
 { #category : #accessing }
 GtPhlowDropdownAction >> content: aBlock [
+	"The block can have three arguments: [ :anActionElement :aTargetElement :anExplicitMenu | ].
+	It must return a BlElement instance."
+
 	self menu: [ :anActionElement :aTargetElement | 
 		BrMenuExplicit new 
 			stencil: [ :anExplicitMenu |
@@ -139,6 +149,9 @@ GtPhlowDropdownAction >> label: aString [
 
 { #category : #accessing }
 GtPhlowDropdownAction >> menu: aStencilBuilder [
+	"Stencil builder can be a block with two arguments: [ :anActionElement :aTargetElement | ].
+	The stencil builder (block) must return a BrMenu instance."
+
 	contentStencilBuilder := aStencilBuilder asStencilBuilder: GtPhlowActionMenuContentStencilBuilder
 ]
 
