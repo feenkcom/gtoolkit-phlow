@@ -153,8 +153,10 @@ GtPhlowUtility class >> findIndexFor: aNewPhlowView in: aGtPhlowViews [
 
 { #category : #testing }
 GtPhlowUtility class >> hasHigherPriority: aViewOrActionOne than: aViewOrActionTwo [
-	^ (aViewOrActionOne priority ifNil: [ self defaultPriority ])
-		< (aViewOrActionTwo priority ifNil: [ self defaultPriority ])
+	| aPriorityOne aPriorityTwo |
+	aPriorityOne := self securePriority: aViewOrActionOne.
+	aPriorityTwo := self securePriority: aViewOrActionTwo.
+	^ aPriorityOne < aPriorityTwo
 ]
 
 { #category : #testing }
@@ -187,6 +189,14 @@ GtPhlowUtility class >> newItemLabel [
 GtPhlowUtility class >> newToolbarForTab: aTab view: aPhlowView [ 
 	<return: #BrToolbar>
 	^ aPhlowView actionsToolbarForElement: aTab
+]
+
+{ #category : #testing }
+GtPhlowUtility class >> securePriority: aViewOrActionOne [
+	^ [ aViewOrActionOne priority ifNil: [ self defaultPriority ] ]
+		onErrorDo: [ :anError | 
+			anError emit.
+			self defaultPriority ]
 ]
 
 { #category : #sorting }
