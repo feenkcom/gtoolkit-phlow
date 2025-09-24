@@ -54,6 +54,20 @@ GtPhlowActionTarget >> actionsForObject: anObject collect: aBlock [
 		thenCollect: aBlock
 ]
 
+{ #category : #enumerating }
+GtPhlowActionTarget >> actionsForObject: anObject do: aBlock [
+	anObject gtActions
+		select: [ :eachAction | eachAction target isForTarget: self ]
+		thenDo: aBlock
+]
+
+{ #category : #enumerating }
+GtPhlowActionTarget >> actionsForObject: anObject inContext: aPhlowContext do: aBlock [
+	(anObject gtActionsInContext: aPhlowContext)
+		select: [ :eachAction | eachAction target isForTarget: self ]
+		thenDo: aBlock
+]
+
 { #category : #converting }
 GtPhlowActionTarget >> asPhlowTarget [
 	^ self
@@ -67,6 +81,35 @@ GtPhlowActionTarget >> isForTarget: aTarget [
 { #category : #testing }
 GtPhlowActionTarget >> isForViewDefinedIn: aSymbol [
 	^ false
+]
+
+{ #category : #converting }
+GtPhlowActionTarget >> menuItemsForObject: anObject hostElement: aHostElement [
+	| aMenuItems |
+	aMenuItems := BrMenuItems new.
+	self
+		actionsForObject: anObject
+		do: [ :eachAction | 
+			eachAction
+				asMenuItem: [ :aMenuItem | aMenuItems addItem: aMenuItem ]
+				withHostElement: aHostElement ].
+
+	^ aMenuItems
+]
+
+{ #category : #converting }
+GtPhlowActionTarget >> menuItemsForObject: anObject inContext: aPhlowContext hostElement: aHostElement [
+	| aMenuItems |
+	aMenuItems := BrMenuItems new.
+	self
+		actionsForObject: anObject
+		inContext: aPhlowContext
+		do: [ :eachAction | 
+			eachAction
+				asMenuItem: [ :aMenuItem | aMenuItems addItem: aMenuItem ]
+				withHostElement: aHostElement ].
+
+	^ aMenuItems
 ]
 
 { #category : #enumerating }
