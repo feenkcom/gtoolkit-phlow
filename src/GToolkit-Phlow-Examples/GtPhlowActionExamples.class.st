@@ -307,7 +307,7 @@ GtPhlowActionExamples >> explicitAction [
 		BrButton new
 			aptitude: BrGlamorousButtonWithIconAptitude; 
 			action:  [ self inform: 'Explicit' ];
-			icon: BrGlamorousIcons edit asElement;
+			icon: BrGlamorousVectorIcons edit asElement;
 			label: 'Edit' translated ].
 	^ anAction
 ]
