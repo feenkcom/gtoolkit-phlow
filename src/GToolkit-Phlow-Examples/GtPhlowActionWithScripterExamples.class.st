@@ -30,7 +30,7 @@ GtPhlowActionWithScripterExamples >> dropdownWithIconAndLabel [
 			scripterWithPhlowAction: [ GtPhlowActionExamples new dropdownWithIconAndLabel ].
 
 	aScripter click play.
-
+	
 	aScripter menuStep
 		assertMenuContainerExist: 1;
 		play.
