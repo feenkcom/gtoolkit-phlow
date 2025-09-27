@@ -57,7 +57,7 @@ GtPhlowViewWithError >> wrapWithFailedComputation: anElement [
 			fitContent);
 		addChild: (BrButton new 
 			aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
-			icon: BrGlamorousIcons play;
+			icon: BrGlamorousVectorIcons play;
 			label: 'Re-run';
 			beSmallSize;
 			action: [ :aButton |

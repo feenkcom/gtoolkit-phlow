@@ -168,7 +168,7 @@ GtPhlowForwarderViewExamples >> gtAutoUpdatingExplicitFor: aView [
 		object: [ GtPhlowExplicitViewExamples new ];
 		view: #gtBasicFor:;
 		updateWhen: Announcement in: [ anAnnouncer ];
-		actionButtonIcon: BrGlamorousIcons refresh
+		actionButtonIcon: BrGlamorousVectorIcons refresh
 			action: [ BlUseAsyncFeatures disableDuring: [ anAnnouncer announce: Announcement new ] ]
 ]
 

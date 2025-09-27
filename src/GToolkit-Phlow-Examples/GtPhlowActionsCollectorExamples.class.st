@@ -12,7 +12,7 @@ GtPhlowActionsCollectorExamples >> buttonWithIcon [
 	self assert: anAction definingMethod selector equals: #buttonWithIconActionFor:.
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
-	self assert: aButton icon background image equals: BrGlamorousIcons refresh.
+	self assert: aButton icon background image equals: BrGlamorousVectorIcons refresh.
 	^ anAction 
 ]
 
@@ -20,7 +20,7 @@ GtPhlowActionsCollectorExamples >> buttonWithIcon [
 GtPhlowActionsCollectorExamples >> buttonWithIconActionFor: anAction [
 	<gtButtonWithIconAction>
 	^ anAction button
-		icon: BrGlamorousIcons refresh;
+		icon: BrGlamorousVectorIcons refresh;
 		action: [ :aBrButton | self inform: 'Click!' ]
 ]
 

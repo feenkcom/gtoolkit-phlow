@@ -53,11 +53,11 @@ GtPhlowActionExamples >> buttonWithIcon [
 	<gtExample>
 	| anAction aButton |
 	anAction := GtPhlowAction noAction button
-		icon: BrGlamorousIcons edit;
+		icon: BrGlamorousVectorIcons edit;
 		action: [ :aBrButton | self inform: 'Click!' ].
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
-	self assert: aButton icon background image equals: BrGlamorousIcons edit.
+	self assert: aButton icon background image equals: BrGlamorousVectorIcons edit.
 	self assert: aButton aptitude class equals: BrGlamorousButtonWithIconAptitude.
 	^ anAction
 ]
@@ -67,13 +67,13 @@ GtPhlowActionExamples >> buttonWithIconAndLabel [
 	<gtExample>
 	| anAction aButton |
 	anAction := GtPhlowAction noAction button
-		icon: BrGlamorousIcons edit;
+		icon: BrGlamorousVectorIcons edit;
 		label: 'Edit';
 		action: [ :aBrButton | self inform: 'Click!' ].
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton label asString equals: 'Edit'.
-	self assert: aButton icon background image equals: BrGlamorousIcons edit.
+	self assert: aButton icon background image equals: BrGlamorousVectorIcons edit.
 	self assert: aButton aptitude class equals: BrGlamorousButtonWithIconAndLabelAptitude.
 	^ anAction
 ]
@@ -164,14 +164,14 @@ GtPhlowActionExamples >> dropdownWithIcon [
 	<gtExample>
 	| anAction aButton |
 	anAction := GtPhlowAction noAction dropdown
-		icon: BrGlamorousIcons menu;
+		icon: BrGlamorousVectorIcons menu;
 		content: [ :theButton :aHostElemetn |
 			 BlElement new
 				background: Color lightBrown;
 				size: 200 @ 300 ].
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
-	self assert: aButton icon background image equals: BrGlamorousIcons menu.
+	self assert: aButton icon background image equals: BrGlamorousVectorIcons menu.
 	self assert: (aButton aptitude hasActor: BrGlamorousButtonWithIconAptitude).
 	^ anAction
 ]
@@ -181,7 +181,7 @@ GtPhlowActionExamples >> dropdownWithIconAndLabel [
 	<gtExample>
 	| anAction aButton |
 	anAction := GtPhlowAction noAction dropdown
-		icon: BrGlamorousIcons menu;
+		icon: BrGlamorousVectorIcons menu;
 		label: 'Check me :-)';
 		content: [ BlElement new
 				background: Color lightBrown;
@@ -189,7 +189,7 @@ GtPhlowActionExamples >> dropdownWithIconAndLabel [
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton label asString equals: 'Check me :-)'.
-	self assert: aButton icon background image equals: BrGlamorousIcons menu.
+	self assert: aButton icon background image equals: BrGlamorousVectorIcons menu.
 	self
 		assert: (aButton aptitude hasActor: BrGlamorousButtonWithIconAndLabelAptitude).
 	^ anAction
@@ -200,7 +200,7 @@ GtPhlowActionExamples >> dropdownWithIconAndLabelAndIndicator [
 	<gtExample>
 	| anAction aButton |
 	anAction := GtPhlowAction noAction dropdown
-		icon: BrGlamorousIcons add;
+		icon: BrGlamorousVectorIcons add;
 		label: 'Add item';
 		withDropdownIndicator;
 		content: [ BlElement new
@@ -209,7 +209,7 @@ GtPhlowActionExamples >> dropdownWithIconAndLabelAndIndicator [
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton label asString equals: 'Add item'.
-	self assert: aButton icon background image equals: BrGlamorousIcons add.
+	self assert: aButton icon background image equals: BrGlamorousVectorIcons add.
 	self
 		assert: (aButton aptitude hasActor: BrGlamorousButtonWithIconAndLabelAptitude).
 	self
@@ -223,7 +223,7 @@ GtPhlowActionExamples >> dropdownWithIconAndLabelAndMenuItems [
 	<gtExample>
 	| anAction aButton |
 	anAction := GtPhlowAction noAction dropdown
-		icon: BrGlamorousIcons menu;
+		icon: BrGlamorousVectorIcons menu;
 		label: 'Check me :-)';
 		items: [ :theButton :aHostElement :aMenuItems |
 			aMenuItems 
@@ -249,7 +249,7 @@ GtPhlowActionExamples >> dropdownWithIconAndLabelAndMenuItems [
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton label asString equals: 'Check me :-)'.
-	self assert: aButton icon background image equals: BrGlamorousIcons menu.
+	self assert: aButton icon background image equals: BrGlamorousVectorIcons menu.
 	self
 		assert: (aButton aptitude hasActor: BrGlamorousButtonWithIconAndLabelAptitude).
 	^ anAction
@@ -260,13 +260,13 @@ GtPhlowActionExamples >> dropdownWithIconAndLabelAndMenuModel [
 	<gtExample>
 	| anAction aButton |
 	anAction := GtPhlowAction noAction dropdown
-		icon: BrGlamorousIcons menu;
+		icon: BrGlamorousVectorIcons menu;
 		label: 'Check me :-)';
 		menu: [ :theButton :aHostElement | BrMenuExamples new menuItems ].
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton label asString equals: 'Check me :-)'.
-	self assert: aButton icon background image equals: BrGlamorousIcons menu.
+	self assert: aButton icon background image equals: BrGlamorousVectorIcons menu.
 	self
 		assert: (aButton aptitude hasActor: BrGlamorousButtonWithIconAndLabelAptitude).
 	^ anAction
@@ -277,7 +277,7 @@ GtPhlowActionExamples >> dropdownWithIconAndLabelAndResizer [
 	<gtExample>
 	| anAction aButton |
 	anAction := GtPhlowAction noAction dropdown
-		icon: BrGlamorousIcons menu;
+		icon: BrGlamorousVectorIcons menu;
 		label: 'Check me :-)';
 		withoutDropdownIndicator;
 		content: [ BlElement new
@@ -290,7 +290,7 @@ GtPhlowActionExamples >> dropdownWithIconAndLabelAndResizer [
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
 	self assert: aButton label asString equals: 'Check me :-)'.
-	self assert: aButton icon background image equals: BrGlamorousIcons menu.
+	self assert: aButton icon background image equals: BrGlamorousVectorIcons menu.
 	self
 		assert: (aButton aptitude hasActor: BrGlamorousButtonWithIconAndLabelAptitude).
 	self
@@ -379,13 +379,13 @@ GtPhlowActionExamples >> toggleWithIcon [
 	<gtExample>
 	| aButton anAction |
 	anAction := GtPhlowAction noAction toggle
-		icon: BrGlamorousIcons refresh;
+		icon: BrGlamorousVectorIcons refresh;
 		activatedAction: [ :aBrButton | self inform: 'Switched on!' ];
 		deactivatedAction: [ :aBrButton | self inform: 'Switched off!' ].
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrToggle).
 	self assert: aButton isActivated not.
-	self assert: aButton icon background image equals: BrGlamorousIcons refresh.
+	self assert: aButton icon background image equals: BrGlamorousVectorIcons refresh.
 	^ anAction
 ]
 
@@ -395,7 +395,7 @@ GtPhlowActionExamples >> toggleWithIconAndLabelActivated [
 	| anAction aButton |
 	anAction := GtPhlowAction noAction  toggle
 		isActivated: [ true ];
-		icon: BrGlamorousIcons graycircle;
+		icon: BrGlamorousVectorIcons graycircle;
 		label: 'Circle';
 		activatedAction: [ :aBrButton | self inform: 'Switched on!' ];
 		deactivatedAction: [ :aBrButton | self inform: 'Switched off!' ].
@@ -403,7 +403,7 @@ GtPhlowActionExamples >> toggleWithIconAndLabelActivated [
 	self assert: (aButton isKindOf: BrToggle).
 	self assert: aButton isActivated.
 	self assert: aButton label asString equals: 'Circle'.
-	self assert: aButton icon background image equals: BrGlamorousIcons graycircle.
+	self assert: aButton icon background image equals: BrGlamorousVectorIcons graycircle.
 	^ anAction
 ]
 
@@ -413,7 +413,7 @@ GtPhlowActionExamples >> toggleWithIconAndLabelDeactivated [
 	| anAction aButton |
 	anAction := GtPhlowAction noAction toggle
 		isActivated: [ false ];
-		icon: BrGlamorousIcons graycircle;
+		icon: BrGlamorousVectorIcons graycircle;
 		label: 'Circle';
 		activatedAction: [ :aBrButton | self inform: 'Switched on!' ];
 		deactivatedAction: [ :aBrButton | self inform: 'Switched off!' ].
@@ -421,7 +421,7 @@ GtPhlowActionExamples >> toggleWithIconAndLabelDeactivated [
 	self assert: (aButton isKindOf: BrToggle).
 	self assert: aButton isActivated not.
 	self assert: aButton label asString equals: 'Circle'.
-	self assert: aButton icon background image equals: BrGlamorousIcons graycircle.
+	self assert: aButton icon background image equals: BrGlamorousVectorIcons graycircle.
 	^ anAction
 ]
 
