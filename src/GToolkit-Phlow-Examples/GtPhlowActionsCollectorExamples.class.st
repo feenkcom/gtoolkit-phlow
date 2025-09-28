@@ -12,15 +12,19 @@ GtPhlowActionsCollectorExamples >> buttonWithIcon [
 	self assert: anAction definingMethod selector equals: #buttonWithIconActionFor:.
 	aButton := anAction asElement: [ :x | x ] withHostElement: nil.
 	self assert: (aButton isKindOf: BrButton).
-	self assert: aButton icon background image equals: BrGlamorousIcons refresh.
-	^ anAction 
+	self assert: (aButton icon isKindOf: BlElement).
+	self assert: (aButton icon geometry isKindOf: BlSvgPath).
+	self
+		assert: (aButton icon geometry instVarNamed: #segments) size
+		equals: (BrGlamorousVectorIcons refresh asElement geometry instVarNamed: #segments) size.
+	^ anAction
 ]
 
 { #category : #button }
 GtPhlowActionsCollectorExamples >> buttonWithIconActionFor: anAction [
 	<gtButtonWithIconAction>
 	^ anAction button
-		icon: BrGlamorousIcons refresh;
+		icon: BrGlamorousVectorIcons refresh;
 		action: [ :aBrButton | self inform: 'Click!' ]
 ]
 

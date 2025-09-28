@@ -24,7 +24,7 @@ GtPhlowTitleIconAndLabelNotifierExamples >> notifier [
 	<gtExample>
 	| aNotifier |
 	aNotifier := self basicNotifier.
-	aNotifier icon: BrGlamorousIcons file.
+	aNotifier icon: BrGlamorousVectorIcons file.
 	aNotifier shortLabel: 'Title'.
 	^ aNotifier
 ]

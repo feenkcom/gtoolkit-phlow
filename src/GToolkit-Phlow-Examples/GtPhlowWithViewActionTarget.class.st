@@ -16,7 +16,7 @@ GtPhlowWithViewActionTarget >> gtDemoActionWithTargetFor: anAction [
 		  target:
 			  (GtPhlowActionTarget forViewSelector: #gtMyDemoFor:);
 		  label: 'HERE I AM!';
-		  icon: BrGlamorousIcons greencircle;
+		  icon: BrGlamorousVectorIcons greencircle;
 		  tooltip:
 			  'I am an action that is displayed in a view tab';
 		  action: [ :aButton :aTab | aButton label: 'Yes! It is me :-)' ]

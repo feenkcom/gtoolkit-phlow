@@ -14,7 +14,7 @@ GtPhlowWithObjectActionTarget >> gtDemoActionWithTargetFor: anAction [
 	^ anAction button
 		  priority: 1;
 		  label: 'HERE I AM!';
-		  icon: BrGlamorousIcons greencircle;
+		  icon: BrGlamorousVectorIcons greencircle;
 		  tooltip:
 			  'I am an action that is displayed in a default position (inspector top-right toolbar)';
 		  action: [ :aButton :aTab | aButton label: 'Yes! It is me :-)' ]

@@ -101,7 +101,7 @@ GtPhlowCompositeToolExamples >> plusElement: aTextChanger [
 	aValue := 1.
 	^ BrButton new
 		aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonExteriorAptitude;
-		icon: BrGlamorousIcons add;
+		icon: BrGlamorousVectorIcons add;
 		label: 'Increase label number';
 		fitContent;
 		constraintsDo: [ :c | 
