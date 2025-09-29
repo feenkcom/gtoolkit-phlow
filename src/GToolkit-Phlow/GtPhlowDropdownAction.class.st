@@ -89,7 +89,7 @@ GtPhlowDropdownAction >> asMenuItem: aBlock withHostElement: aTargetElement [
 	^ aBlock value: aMenuItem
 ]
 
-{ #category : #accessing }
+{ #category : #'api - menu' }
 GtPhlowDropdownAction >> content: aBlock [
 	"The block can have three arguments: [ :anActionElement :aTargetElement :anExplicitMenu | ].
 	It must return a BlElement instance."
@@ -124,7 +124,7 @@ GtPhlowDropdownAction >> isWithDropdownIndicator [
 	^ isWithDropdownIndicator ifNil: [ false ]
 ]
 
-{ #category : #accessing }
+{ #category : #'api - menu' }
 GtPhlowDropdownAction >> items: aBlock [
 	"Build a menu items (BrMenuItems).
 	The stencil builds can be a block with arguments: [ :aButton :aHostElement :aMenuItems | ].
@@ -147,12 +147,21 @@ GtPhlowDropdownAction >> label: aString [
 	label := aString
 ]
 
-{ #category : #accessing }
+{ #category : #'api - menu' }
 GtPhlowDropdownAction >> menu: aStencilBuilder [
 	"Stencil builder can be a block with two arguments: [ :anActionElement :aTargetElement | ].
 	The stencil builder (block) must return a BrMenu instance."
 
 	contentStencilBuilder := aStencilBuilder asStencilBuilder: GtPhlowActionMenuContentStencilBuilder
+]
+
+{ #category : #'api - menu' }
+GtPhlowDropdownAction >> menuItemsForObject: anObject fromTarget: anActionTarget [
+	"Build a menu items (BrMenuItems).
+	anActionTarget is kind of GtPhlowActionTarget."
+
+	self menu: [ :anActionElement :aTargetElement | 
+		anActionTarget menuItemsForObject: anObject hostElement: aTargetElement ]
 ]
 
 { #category : #accessing }
