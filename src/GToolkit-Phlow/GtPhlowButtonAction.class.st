@@ -61,13 +61,11 @@ GtPhlowButtonAction >> asMenuItem: aBlock withHostElement: aTargetElement [
 						applyAsLabelOnMenuLabeledItem: aMenuItem
 						hostElement: aTargetElement ] ].
 	self
-		menuItemPreviewIfPresent: [ :aPreview | 
-			aMenuItem labelModel preview: aPreview ]
+		menuItemPreviewIfPresent: [ :aPreview | aMenuItem labelModel preview: aPreview ]
 		ifAbsent: [  ].
-	
+
 	self
-		menuShortcutIfPresent: [ :aShortcut | 
-			aMenuItem labelModel shortcut: aShortcut ]
+		menuShortcutIfPresent: [ :aShortcut | aMenuItem labelModel shortcut: aShortcut ]
 		ifAbsent: [  ].
 
 	id ifNotNil: [ aMenuItem id: self id ].
@@ -93,6 +91,17 @@ GtPhlowButtonAction >> asMenuItem: aBlock withHostElement: aTargetElement [
 		ifAbsent: [  ].
 
 	aMenuItem definition: [ self definingMethod ].
+
+	primaryModifierAction
+		ifNotNil: [ :aPrimaryModifierAction | 
+			aMenuItem
+				actionWithModifiers: [ :anElement :aButtonModel :anEvent | 
+					anEvent modifiers isSoftPrimaryModifierOnly ifTrue: [
+						aPrimaryModifierAction action
+							gtValueWithArgs: {anElement.
+									aTargetElement.
+									aButtonModel.
+									anEvent} ] ] ].
 
 	^ aBlock value: aMenuItem
 ]
