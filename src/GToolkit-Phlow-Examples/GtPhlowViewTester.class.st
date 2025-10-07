@@ -84,25 +84,30 @@ GtPhlowViewTester >> testView: aPhlowView [
 GtPhlowViewTester >> testView: aPhlowView andElement: aPhlowViewElement [
 	<return: #GtPhlowViewTesterResult>
 	| scripter |
-	
 	scripter := BlScripter new.
 	scripter element: aPhlowViewElement.
+
+	scripter assert
+		elementsWithoutErrorHandlerErrors;
+		onSpaceRoot;
+		play.
+		
+	"We want to be able to inspect the element later on"
 	scripter elementWithoutParent.
-	
-	(aPhlowViewElement id = GtPhlowExceptionId asBlocElementId)
-		ifTrue: [
-			^ GtPhlowViewTesterViewCreationExceptionFailureResult new
+
+	aPhlowViewElement id = GtPhlowExceptionId asBlocElementId
+		ifTrue: [ ^ GtPhlowViewTesterViewCreationExceptionFailureResult new
 				phlowView: aPhlowView;
 				phlowElement: aPhlowViewElement;
 				exceptionElement: aPhlowViewElement ].
-	
+
 	(aPhlowViewElement query // GtPhlowExceptionId) all
-		ifNotEmpty: [ :theExceptionElements |
+		ifNotEmpty: [ :theExceptionElements | 
 			^ GtPhlowViewTesterViewContentExceptionFailureResult new
 				phlowView: aPhlowView;
 				phlowElement: aPhlowViewElement;
 				exceptionElements: theExceptionElements ].
-	
+
 	^ GtPhlowViewTesterOkResult new
 		phlowView: aPhlowView;
 		phlowElement: aPhlowViewElement
