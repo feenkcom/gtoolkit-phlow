@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'value'
 	],
-	#category : #'GToolkit-Phlow-Object Holder'
+	#category : #'GToolkit-Phlow-Model-Object Holder'
 }
 
 { #category : #'instance creation' }

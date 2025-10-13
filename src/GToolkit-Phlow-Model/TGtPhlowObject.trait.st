@@ -4,7 +4,7 @@ See my users for more details: {{gtClass:TGtCoderObject | show= #gtUsersFor: | e
 "
 Trait {
 	#name : #TGtPhlowObject,
-	#category : #'GToolkit-Phlow-Object Holder'
+	#category : #'GToolkit-Phlow-Model-Object Holder'
 }
 
 { #category : #'api - accessing' }

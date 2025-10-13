@@ -11,7 +11,7 @@ Class {
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'GToolkit-Phlow-Object Holder'
+	#category : #'GToolkit-Phlow-Model-Object Holder'
 }
 
 { #category : #printing }

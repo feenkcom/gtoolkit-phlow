@@ -36,7 +36,8 @@ BaselineOfGToolkitPhlow >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-utility:main/src' ];
 			baseline: 'GToolkitBasicUtility' with: [
 				spec repository: 'github://feenkcom/gtoolkit-utility:main/src' ].
+		spec package: 'GToolkit-Phlow-Model'.
 		spec package: 'GToolkit-Phlow' with: [
-				spec requires: #('Brick' 'GToolkitUtility' 'GToolkitBasicUtility' ). ]. ].
+				spec requires: #('GToolkit-Phlow-Model' 'Brick' 'GToolkitUtility' 'GToolkitBasicUtility' ). ]. ].
 
 ]

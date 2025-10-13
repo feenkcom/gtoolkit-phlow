@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'objectHolder'
 	],
-	#category : #'GToolkit-Phlow-Object Holder'
+	#category : #'GToolkit-Phlow-Model-Object Holder'
 }
 
 { #category : #'api - object' }
