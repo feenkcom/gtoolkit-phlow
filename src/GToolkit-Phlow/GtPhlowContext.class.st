@@ -6,8 +6,8 @@ I am a basic Phlow context that can store key-value information.
 Class {
 	#name : #GtPhlowContext,
 	#superclass : #GtPhlowExecutionContext,
-	#traits : 'TGtOptions + TGtCoderWithSelfObjectHolder + TGtPhlowWithBehaviorHolder',
-	#classTraits : 'TGtOptions classTrait + TGtCoderWithSelfObjectHolder classTrait + TGtPhlowWithBehaviorHolder classTrait',
+	#traits : 'TGtOptions + TGtPhlowWithSelfObjectHolder + TGtPhlowWithBehaviorHolder',
+	#classTraits : 'TGtOptions classTrait + TGtPhlowWithSelfObjectHolder classTrait + TGtPhlowWithBehaviorHolder classTrait',
 	#category : #'GToolkit-Phlow-Context'
 }
 
