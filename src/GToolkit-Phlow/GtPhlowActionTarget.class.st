@@ -87,14 +87,23 @@ GtPhlowActionTarget >> isForViewDefinedIn: aSymbol [
 GtPhlowActionTarget >> menuItemsForObject: anObject hostElement: aHostElement [
 	| aMenuItems |
 	aMenuItems := BrMenuItems new.
+	
+	self
+		menuItemsForObject: anObject
+		hostElement: aHostElement
+		do: [ :aMenuItem | aMenuItems addItem: aMenuItem ].
+	
+	^ aMenuItems
+]
+
+{ #category : #converting }
+GtPhlowActionTarget >> menuItemsForObject: anObject hostElement: aHostElement do: aBlock [
 	self
 		actionsForObject: anObject
 		do: [ :eachAction | 
 			eachAction
-				asMenuItem: [ :aMenuItem | aMenuItems addItem: aMenuItem ]
+				asMenuItem: [ :aMenuItem | aBlock value: aMenuItem ]
 				withHostElement: aHostElement ].
-
-	^ aMenuItems
 ]
 
 { #category : #converting }
@@ -110,6 +119,17 @@ GtPhlowActionTarget >> menuItemsForObject: anObject inContext: aPhlowContext hos
 				withHostElement: aHostElement ].
 
 	^ aMenuItems
+]
+
+{ #category : #converting }
+GtPhlowActionTarget >> menuItemsForObject: anObject inContext: aPhlowContext hostElement: aHostElement do: aBlock [
+	self
+		actionsForObject: anObject
+		inContext: aPhlowContext 
+		do: [ :eachAction | 
+			eachAction
+				asMenuItem: [ :aMenuItem | aBlock value: aMenuItem ]
+				withHostElement: aHostElement ].
 ]
 
 { #category : #enumerating }

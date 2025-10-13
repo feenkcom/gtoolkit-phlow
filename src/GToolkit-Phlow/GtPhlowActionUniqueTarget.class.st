@@ -38,7 +38,19 @@ GtPhlowActionUniqueTarget class >> menuItemsForObject: anObject hostElement: aHo
 ]
 
 { #category : #converting }
+GtPhlowActionUniqueTarget class >> menuItemsForObject: anObject hostElement: aHostElement do: aBlock [
+	<return: #BrMenuItems>
+	^ self default menuItemsForObject: anObject hostElement: aHostElement do: aBlock
+]
+
+{ #category : #converting }
 GtPhlowActionUniqueTarget class >> menuItemsForObject: anObject inContext: aPhlowContext hostElement: aHostElement [
 	<return: #BrMenuItems>
 	^ self default menuItemsForObject: anObject inContext: aPhlowContext hostElement: aHostElement
+]
+
+{ #category : #converting }
+GtPhlowActionUniqueTarget class >> menuItemsForObject: anObject inContext: aPhlowContext hostElement: aHostElement do: aBlock [
+	<return: #BrMenuItems>
+	^ self default menuItemsForObject: anObject inContext: aPhlowContext hostElement: aHostElement do: aBlock
 ]
