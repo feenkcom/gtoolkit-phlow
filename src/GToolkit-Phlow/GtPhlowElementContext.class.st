@@ -223,6 +223,24 @@ GtPhlowElementContext >> deselectPreviousEvent: aPreviousDeselectEvent [
 	^ aNewEvent
 ]
 
+{ #category : #'api - events' }
+GtPhlowElementContext >> dispatchPreviousTreeEvent: aPreviousTreeEvent [
+	| aNewEvent |
+	aNewEvent := aPreviousTreeEvent class new
+			levels: aPreviousTreeEvent.
+	self element dispatchEvent: aNewEvent.
+	aPreviousTreeEvent consumed: aNewEvent isConsumed.
+	^ aNewEvent
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> dispatchPreviousTreeEventInChildWithViewContent: aPreviousTreeEvent [
+	| anElement |
+	anElement := self firstChildWithViewContent ifNil: [ ^ nil ].
+
+	^ anElement phlow dispatchPreviousTreeEvent: aPreviousTreeEvent
+]
+
 { #category : #'api - accessing' }
 GtPhlowElementContext >> element [
 	^ element

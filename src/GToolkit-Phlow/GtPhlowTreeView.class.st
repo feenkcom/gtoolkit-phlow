@@ -44,6 +44,9 @@ GtPhlowTreeView >> asElementDo: aBlock [
 	self
 		performBlock: [ self expandTree: aTree ]
 		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
+	
+	aTree addEventHandler: (GtPhlowTreeExpanderEventHandler new 
+		treeElement: aTree).
 
 	self beViewElement: aTree.
 	^ aBlock value: aTree
