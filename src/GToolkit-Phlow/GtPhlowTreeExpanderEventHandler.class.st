@@ -46,7 +46,6 @@ GtPhlowTreeExpanderEventHandler >> phlowExpandLevelWish: aWish [
 		allChildrenNodesBreadthFirstConditionedDo: [ :eachNode | 
 			aMaxDepth := aMaxDepth max: eachNode depth.
 			eachNode isExpanded ].
-	aMaxDepth := aMaxDepth + 1.
 
 	aRootNode
 		allChildrenNodesBreadthFirstConditionedDo: [ :eachNode | 
