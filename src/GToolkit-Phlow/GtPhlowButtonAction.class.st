@@ -26,9 +26,7 @@ GtPhlowButtonAction >> asCircularElement: aBlock withHostElement: aTargetElement
 	<return: #BrButton>
 	| aButton aLook |
 	aButton := BrButton new.
-	aLook := self newButtonLook.
-	aLook - BrGlamorousButtonRectangularAptitude.
-	aLook + BrGlamorousButtonCircularAptitude.
+	aLook := self newButtonCircularAptitude.
 	aButton aptitude: aLook.
 	self configureButton: aButton withHostElement: aTargetElement.
 	^ aBlock value: aButton
@@ -211,6 +209,15 @@ GtPhlowButtonAction >> name: aSymbol [
 				-> '`@receiver id: `@statements1'.
 				
 	self id: aSymbol
+]
+
+{ #category : #'instance creation' }
+GtPhlowButtonAction >> newButtonCircularAptitude [
+	(label isNotNil and: [ icon isNotNil ])
+		ifTrue: [ ^ BrGlamorousButtonWithIconAndLabelAptitude ].
+	(label notNil and: [ icon isNil ])
+		ifTrue: [ ^ BrGlamorousButtonWithLabelAptitude ].
+	^ BrGlamorousButtonWithIconCircularAptitude
 ]
 
 { #category : #'instance creation' }
