@@ -51,6 +51,9 @@ GtPhlowColumnedTreeView >> asElementDo: aBlock [
 		performBlock: [ self expandTree: aTree ]
 		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
 
+	aContainer addEventHandler: (GtPhlowTreeExpanderEventHandler new 
+		treeElement: aTree).
+		
 	aContainer
 		addChildren:
 			{aHeader.

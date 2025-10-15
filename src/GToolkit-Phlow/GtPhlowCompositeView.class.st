@@ -65,6 +65,18 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 			anEvent consumed: true.
 			anEvent currentTarget content phlow firstChildWithViewContent
 				ifNotNil: [ :anElement | anElement phlow update ] ].
+	group
+		when: GtPhlowExpandLevelWish
+		do: [ :anEvent | 
+			anEvent currentTarget content 
+				ifNotNil: [ :anElement | 
+					anElement phlow  dispatchPreviousTreeEventInChildWithViewContent: anEvent. ] ].
+	group
+		when: GtPhlowCollapseLevelWish
+		do: [ :anEvent | 
+			anEvent currentTarget content 
+				ifNotNil: [ :anElement | 
+					anElement phlow  dispatchPreviousTreeEventInChildWithViewContent: anEvent. ] ].
 	self beViewElement: group.
 	group
 		aptitude: BrGlamorousTabGroupAptitude;

@@ -10,6 +10,28 @@ Trait {
 	#category : #'GToolkit-Phlow-Support - Tree Expansion'
 }
 
+{ #category : #'adding - actions' }
+TGtPhlowTreeNodeExpansion >> actionCollapseAndExpandButtons [
+	self actionCollapseOneLevelButton.
+	self actionExpandOneLevelButton
+]
+
+{ #category : #'adding - actions' }
+TGtPhlowTreeNodeExpansion >> actionCollapseOneLevelButton [
+	self
+		actionButtonIcon: BrGlamorousVectorIcons collapsevertical
+		tooltip: 'Collapse one level'
+		action: [ :aButton :aTab | aTab fireEvent: GtPhlowCollapseLevelWish new ]
+]
+
+{ #category : #'adding - actions' }
+TGtPhlowTreeNodeExpansion >> actionExpandOneLevelButton [
+	self
+		actionButtonIcon: BrGlamorousVectorIcons expandvertical
+		tooltip: 'Expand one level'
+		action: [ :aButton :aTab | aTab fireEvent: GtPhlowExpandLevelWish new ]
+]
+
 { #category : #'api - expansion' }
 TGtPhlowTreeNodeExpansion >> collapseAll [
 	expander := GtPhlowTreeNodeExpander null.
