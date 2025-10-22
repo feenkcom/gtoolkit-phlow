@@ -13,7 +13,7 @@ Class {
 GtPhlowChangeAnnouncerListener class >> installOn: anElement announcer: anAnnouncer announcement: anAnnouncement [
 	| aListener |
 	aListener := anElement userData
-			at: GtPhlowChangeAnnouncerListener
+			at: self
 			ifAbsentPut: [ self new element: anElement ].
 
 	aListener installAnnouncer: anAnnouncer announcement: anAnnouncement.
@@ -79,7 +79,8 @@ GtPhlowChangeAnnouncerListener >> initialize [
 	elementFuture := BrAsyncElementFuture new
 			cancelSoft;
 			executionConfiguration: self defaultConfiguration;
-			whenSuccess: [ :anElement :anObject | "do nothing" ]
+			whenSuccess: [ :anElement :anObject | "do nothing" ];
+			whenError: [ :anElement :anError | self onFutureError: anError ]
 ]
 
 { #category : #'api - subscriptions' }
@@ -96,9 +97,19 @@ GtPhlowChangeAnnouncerListener >> installAnnouncer: anAnnouncer announcement: an
 ]
 
 { #category : #'event handling' }
+GtPhlowChangeAnnouncerListener >> newUpdateFutureFromAnnouncement: anAnnouncement [
+	<return: #TAsyncFuture>
+	^ [ self updateElement ] asAsyncFuture delayed: 200 milliSeconds
+]
+
+{ #category : #'event handling' }
 GtPhlowChangeAnnouncerListener >> onAnnouncement: anAnnouncement [
 	element ifNil: [ ^ self ].
-	elementFuture future: ([ self updateElement ] asAsyncFuture delayed: 200 milliSeconds)
+	elementFuture future: (self newUpdateFutureFromAnnouncement: anAnnouncement)
+]
+
+{ #category : #'event handling' }
+GtPhlowChangeAnnouncerListener >> onFutureError: anError [ 
 ]
 
 { #category : #'private - updating' }
