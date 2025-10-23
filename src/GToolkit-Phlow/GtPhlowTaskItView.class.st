@@ -9,12 +9,13 @@ Class {
 
 { #category : #converting }
 GtPhlowTaskItView >> asElementDo: aBlock [
-
 	| aFutureElement |
 	aFutureElement := BrAsyncWidget new
-		                  matchParent;
-		                  stencil: [ 
-			                  self originalElementDo: [ :anElement | anElement ] ].
+			withAsyncFutureDo: [ :anElementFuture | 
+				anElementFuture
+					executionConfiguration: GtPhlowUtility defaultFutureExecutionConfiguration ];
+			matchParent;
+			stencil: [ self originalElementDo: [ :anElement | anElement ] ].
 
 	self assignMeAsEntityFor: aFutureElement.
 

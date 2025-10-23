@@ -129,6 +129,7 @@ GtPhlowUtility class >> createTabErrorElementFor: aPhlowView withError: anExcept
 GtPhlowUtility class >> defaultFutureExecutionConfiguration [
 	^ AsyncFutureExecutionConfiguration new
 		customGroup: #Phlow;
+		maxAmountOfWorkers: 2;
 		highPriority
 ]
 
@@ -165,6 +166,14 @@ GtPhlowUtility class >> isDefinitionRequested: anEvent [
 
 	<return: #Boolean>
 	^ anEvent modifiers isSoftAltOnly
+]
+
+{ #category : #'accessing - defaults' }
+GtPhlowUtility class >> lowFutureExecutionConfiguration [
+	^ AsyncFutureExecutionConfiguration new
+		customGroup: #Phlow;
+		maxAmountOfWorkers: 1;
+		lowPriority
 ]
 
 { #category : #'instance creation' }
