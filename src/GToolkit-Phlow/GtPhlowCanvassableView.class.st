@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'stencilBuilder',
 		'element',
-		'zoomLevel'
+		'zoomLevel',
+		'autoScaleEnabled'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -14,8 +15,10 @@ GtPhlowCanvassableView >> asElementDo: aBlock [
 	self
 		assert: stencilBuilder notNil
 		description: 'The stencil should be initialized'.
-	element := [ stencilBuilder asElement asCanvassableElement
-			zoomLevel: self zoomLevel ]
+	element := [ | result |
+		result := stencilBuilder asElement asCanvassableElement.
+		autoScaleEnabled ifFalse: [ result zoomLevel: self zoomLevel ].
+		result ]
 			on: Error
 			do: [ :anError | 
 				(self phlowErrorViewWithException: anError)
@@ -29,7 +32,7 @@ GtPhlowCanvassableView >> asElementDo: aBlock [
 { #category : #initialization }
 GtPhlowCanvassableView >> initialize [
 	super initialize.
-	zoomLevel := 1.
+	autoScaleEnabled := true.
 	self
 		actionStencil: [ BrButton new
 				aptitude: BrGlamorousButtonWithIconAptitude;
@@ -69,5 +72,6 @@ GtPhlowCanvassableView >> zoomLevel [
 
 { #category : #accessing }
 GtPhlowCanvassableView >> zoomLevel: aNumber [
-	zoomLevel := aNumber
+	zoomLevel := aNumber.
+	autoScaleEnabled := false.
 ]
