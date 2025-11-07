@@ -160,6 +160,16 @@ GtPhlowUtility class >> hasHigherPriority: aViewOrActionOne than: aViewOrActionT
 	^ aPriorityOne < aPriorityTwo
 ]
 
+{ #category : #'accessing - defaults' }
+GtPhlowUtility class >> importantFutureExecutionConfiguration [
+	"I should be used carefully only for a critical tools, e.g., Monitor views."
+
+	^ AsyncFutureExecutionConfiguration new
+		customGroup: #PhlowTool;
+		maxAmountOfWorkers: 2;
+		importantPriority
+]
+
 { #category : #testing }
 GtPhlowUtility class >> isDefinitionRequested: anEvent [
 	"Return true, if a user wants to see an action definition"

@@ -20,7 +20,8 @@ Class {
 		'autoUpdates',
 		'asyncEnabled',
 		'buildContext',
-		'definingMethodProvider'
+		'definingMethodProvider',
+		'futureExecutionConfiguration'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -529,6 +530,17 @@ GtPhlowView >> ensureContext [
 	^ GtPhlowContext new
 ]
 
+{ #category : #'api - async ui building' }
+GtPhlowView >> futureExecutionConfiguration [
+	<return: #AsyncFutureExecutionConfiguration or: nil>
+	^ futureExecutionConfiguration
+]
+
+{ #category : #'api - async ui building' }
+GtPhlowView >> futureExecutionConfiguration: aFutureExecutionConfiguration [
+	futureExecutionConfiguration := aFutureExecutionConfiguration
+]
+
 { #category : #'gt-extension' }
 GtPhlowView >> gtActionsFor: aView [
 	<gtView>
@@ -550,6 +562,14 @@ GtPhlowView >> hasExplicitTitle [
 { #category : #converting }
 GtPhlowView >> ifItHasContent: aBlock [
 	^ aBlock value
+]
+
+{ #category : #'api - async ui building' }
+GtPhlowView >> importantFutureExecutionConfiguration [
+	"I should be used carefully only for a critical tools, e.g., Monitor views."
+
+	self
+		futureExecutionConfiguration: GtPhlowUtility importantFutureExecutionConfiguration
 ]
 
 { #category : #initialization }
