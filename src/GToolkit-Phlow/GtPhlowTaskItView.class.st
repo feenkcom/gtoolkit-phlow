@@ -12,8 +12,14 @@ GtPhlowTaskItView >> asElementDo: aBlock [
 	| aFutureElement |
 	aFutureElement := BrAsyncWidget new
 			withAsyncFutureDo: [ :anElementFuture | 
+				| anExecutionConfiguration |
+				anExecutionConfiguration := nil.
+				self originalView
+					ifNotNil: [ :aPhlowView | anExecutionConfiguration := aPhlowView futureExecutionConfiguration ].
+
 				anElementFuture
-					executionConfiguration: GtPhlowUtility defaultFutureExecutionConfiguration ];
+					executionConfiguration: (anExecutionConfiguration
+							ifNil: [ GtPhlowUtility defaultFutureExecutionConfiguration ]) ];
 			matchParent;
 			stencil: [ self originalElementDo: [ :anElement | anElement ] ].
 

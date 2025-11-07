@@ -31,7 +31,7 @@ GtPhlowBasicForwarderView >> asElementDo: aBlock [
 	aFutureElement := BrFromFuture new.
 	aFutureElement layout: BlLinearLayout vertical.
 	aFutureElement
-		configuration: GtPhlowUtility defaultFutureExecutionConfiguration.
+		configuration: (self futureExecutionConfiguration ifNil: [ GtPhlowUtility defaultFutureExecutionConfiguration ]).
 	self beViewElement: aFutureElement.
 
 	aFutureElement
