@@ -62,7 +62,7 @@ GtPhlowForwarderView >> allActionsFuture [
 GtPhlowForwarderView >> computeTargetViewForObject: aForwardedObject [
 	| aView |
 	GtProcessStackOverflowChecker currentCheckerClass
-		ensureCheckDuring: [ 
+		checkDuring: [ 
 			aView := self on: aForwardedObject object perform: self viewSymbol.
 			self hasTransformation
 				ifTrue: [ aView copyTransformationFrom: self transformation ] ].
