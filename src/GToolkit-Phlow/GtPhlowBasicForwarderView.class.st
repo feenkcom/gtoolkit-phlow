@@ -31,7 +31,8 @@ GtPhlowBasicForwarderView >> asElementDo: aBlock [
 	aFutureElement := BrFromFuture new.
 	aFutureElement layout: BlLinearLayout vertical.
 	aFutureElement
-		configuration: (self futureExecutionConfiguration ifNil: [ GtPhlowUtility defaultFutureExecutionConfiguration ]).
+		configuration: (self futureExecutionConfiguration
+				ifNil: [ GtPhlowUtility defaultFutureExecutionConfiguration ]).
 	self beViewElement: aFutureElement.
 
 	aFutureElement
@@ -66,12 +67,18 @@ GtPhlowBasicForwarderView >> asElementDo: aBlock [
 								c ignoreByLayout.
 								c ignored horizontal alignCenter.
 								c ignored vertical alignCenter ];
-							text: ''.
+							text: 'Rendering...';
+							visibility: BlVisibility gone;
+							addChild: (BrButton new
+									aptitude: BrGlamorousButtonWithIconAptitude;
+									beSmallSize;
+									icon: BrGlamorousVectorIcons cancel;
+									action: [ aFutureElement cancelHard interrupt ]).
 
 					aPendingLabel
 						enqueueTask: (BlDelayedTaskAction new
 								delay: 1 second;
-								action: [ aPendingLabel text: 'Rendering...' ]).
+								action: [ aPendingLabel visibility: BlVisibility visible ]).
 
 					aContainer addChild: aPendingLabel ] ].
 
@@ -106,7 +113,7 @@ GtPhlowBasicForwarderView >> configureLayoutResizerFor: anElement [
 { #category : #private }
 GtPhlowBasicForwarderView >> createPhlowView [
 	<return: #TAsyncFuture of: #GtPhlowView>
-	^ (self viewObject
+	^ (self viewObject 
 		map: [ :aForwardedObject | 
 			aForwardedObject isSuccess
 				ifTrue: [ self computeTargetViewForObject: aForwardedObject ]
@@ -120,7 +127,9 @@ GtPhlowBasicForwarderView >> createPhlowView [
 GtPhlowBasicForwarderView >> elementPhlowView [
 	<return: #TAsyncFuture of: #BlElement>
 	^ self phlowView
-		map: [ :aPhlowView | aPhlowView asElementDo: [ :anElement | anElement ] ]
+		map: [ :aPhlowView | 
+			GtProcessStackOverflowChecker currentCheckerClass
+				checkDuring: [ aPhlowView asElementDo: [ :anElement | anElement ] ] ]
 ]
 
 { #category : #initialization }
@@ -173,7 +182,8 @@ GtPhlowBasicForwarderView >> secureElementPhlowView [
 GtPhlowBasicForwarderView >> secureObjectExecution [
 	<return: #TAsyncFuture of: #TGtPhlowForwardedObject>
 
-	^ (self object asAsyncFuture 
+	^ ((self object asAsyncFuture 
+		processStackOverflowChecker)
 		map: [ :anObject | 
 			GtPhlowForwardedObject new 
 				object: anObject ])

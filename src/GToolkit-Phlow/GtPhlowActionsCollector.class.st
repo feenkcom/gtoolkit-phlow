@@ -15,16 +15,16 @@ GtPhlowActionsCollector >> collect [
 	<return: #Array of: #GtPhlowAction>
 	<gtCollector>
 	| anActions |
-	
-	anActions := self sortedPragmas 
-		collect: [ :eachPragma | 
-			GtPhlowAction noAction  
-				on: self object 
-				perform: eachPragma methodSelector
-				withContext: self context  ]
-		thenSelect: self selectUsing.
+	anActions := self sortedPragmas
+			collect: [ :eachPragma | 
+				GtProcessStackOverflowChecker currentCheckerClass
+					checkDuring: [ GtPhlowAction noAction
+							on: self object
+							perform: eachPragma methodSelector
+							withContext: self context ] ]
+			thenSelect: self selectUsing.
 	self sortByPriority: anActions.
-	
+
 	^ anActions
 ]
 

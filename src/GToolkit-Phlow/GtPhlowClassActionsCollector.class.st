@@ -9,22 +9,23 @@ GtPhlowClassActionsCollector >> collect [
 	<return: #Array of: #GtPhlowAction>
 	<gtCollector>
 	| anActions |
-	anActions := self sortedPragmas 
-		collect: [ :eachPragma | 
-			| anAction |
-			anAction := GtPhlowAction noAction.
-			[ thisContext
-						object: from soleInstance
-						perform: eachPragma methodSelector
-						withArguments: {anAction}
-						inClass: from ]
-				on: Error
-				do: [ :error |
-					error freeze.
-					GtPhlowActionWithError new 
-						definingMethod: eachPragma method asRingDefinition;
-						error: error ] ]
-		thenSelect: self selectUsing.
+	anActions := self sortedPragmas
+			collect: [ :eachPragma | 
+				| anAction |
+				anAction := GtPhlowAction noAction.
+				[ GtProcessStackOverflowChecker currentCheckerClass
+					checkDuring: [ thisContext
+							object: from soleInstance
+							perform: eachPragma methodSelector
+							withArguments: {anAction}
+							inClass: from ] ]
+					on: Error
+					do: [ :error | 
+						error freeze.
+						GtPhlowActionWithError new
+							definingMethod: eachPragma method asRingDefinition;
+							error: error ] ]
+			thenSelect: self selectUsing.
 	self sortByPriority: anActions.
 	^ anActions
 ]
