@@ -20,7 +20,7 @@ GtPhlowViewsCollector >> collect [
 			collect: [ :eachPragma | 
 				| aView |
 				GtProcessStackOverflowChecker currentCheckerClass
-					checkDuring: [ aView := GtPhlowView empty
+					ensureCheckDuring: [ aView := GtPhlowView empty
 								on: self object
 								perform: eachPragma methodSelector
 								withContext: self context ].

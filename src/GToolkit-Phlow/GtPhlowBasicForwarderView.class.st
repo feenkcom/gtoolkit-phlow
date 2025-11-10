@@ -129,7 +129,7 @@ GtPhlowBasicForwarderView >> elementPhlowView [
 	^ self phlowView
 		map: [ :aPhlowView | 
 			GtProcessStackOverflowChecker currentCheckerClass
-				checkDuring: [ aPhlowView asElementDo: [ :anElement | anElement ] ] ]
+				ensureCheckDuring: [ aPhlowView asElementDo: [ :anElement | anElement ] ] ]
 ]
 
 { #category : #initialization }

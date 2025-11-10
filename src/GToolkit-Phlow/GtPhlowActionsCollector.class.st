@@ -18,7 +18,7 @@ GtPhlowActionsCollector >> collect [
 	anActions := self sortedPragmas
 			collect: [ :eachPragma | 
 				GtProcessStackOverflowChecker currentCheckerClass
-					checkDuring: [ GtPhlowAction noAction
+					ensureCheckDuring: [ GtPhlowAction noAction
 							on: self object
 							perform: eachPragma methodSelector
 							withContext: self context ] ]

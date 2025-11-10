@@ -14,7 +14,7 @@ GtPhlowClassActionsCollector >> collect [
 				| anAction |
 				anAction := GtPhlowAction noAction.
 				[ GtProcessStackOverflowChecker currentCheckerClass
-					checkDuring: [ thisContext
+					ensureCheckDuring: [ thisContext
 							object: from soleInstance
 							perform: eachPragma methodSelector
 							withArguments: {anAction}
