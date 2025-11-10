@@ -10,7 +10,8 @@ Class {
 	#instVars : [
 		'stencilBuilder',
 		'contextMenuStencil',
-		'contextMenuItemsStencil'
+		'contextMenuItemsStencil',
+		'multipleSelectionEnabled'
 	],
 	#category : #'GToolkit-Phlow-Support - List utilities'
 }
@@ -57,22 +58,23 @@ GtPhlowListItemElementWithContextMenuDecorator >> buildContextMenuAptitudeFor: a
 { #category : #private }
 GtPhlowListItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeFor: anElement [
 	| aMenuAptitude |
-	aMenuAptitude := BrGlamorousWithExplicitContextMenuAptitude menu: [ 
-				GtPhlowListAndListItemParentFinder new
+	aMenuAptitude := BrGlamorousWithExplicitContextMenuAptitude
+			menu: [ GtPhlowListAndListItemParentFinder new
 					element: anElement;
 					listKindOfClass: self listOfKindClass;
 					foundBlock: [ :aListElement :aListItemElement | 
 						| anItemHolder anItemPosition anItemObject anItemType |
-						
 						anItemHolder := aListItemElement constraints infinite holder.
 						anItemPosition := anItemHolder dataSourcePosition.
-						anItemObject := aListElement viewModel itemAt: anItemPosition.
-						
+						anItemObject := multipleSelectionEnabled
+								ifTrue: [ anItemObject := aListElement selectedItems ifEmpty: [ {aListElement viewModel itemAt: anItemPosition} ] ]
+								ifFalse: [ aListElement viewModel itemAt: anItemPosition ].
+
 						anItemType := aListElement viewModel itemTypeStencil
-							itemPosition: anItemPosition;
-							itemObject: anItemObject;
-							build.
-						
+								itemPosition: anItemPosition;
+								itemObject: anItemObject;
+								build.
+
 						contextMenuItemsStencil
 							itemType: anItemType;
 							itemObject: anItemObject;
@@ -82,7 +84,7 @@ GtPhlowListItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeF
 					noneBlock: [ nil ];
 					find ].
 
-	anElement addAptitude: aMenuAptitude.
+	anElement addAptitude: aMenuAptitude
 ]
 
 { #category : #'api - instantiation' }
@@ -136,9 +138,25 @@ GtPhlowListItemElementWithContextMenuDecorator >> contextMenuStencil: aGtPhlowLi
 			asStencilBuilder: GtPhlowListContextMenuStencilBuilder
 ]
 
+{ #category : #'as yet unclassified' }
+GtPhlowListItemElementWithContextMenuDecorator >> initialize [
+	super initialize.
+	multipleSelectionEnabled := false
+]
+
 { #category : #private }
 GtPhlowListItemElementWithContextMenuDecorator >> listOfKindClass [
 	^ BrList
+]
+
+{ #category : #accessing }
+GtPhlowListItemElementWithContextMenuDecorator >> multipleSelectionEnabled [
+	^ multipleSelectionEnabled
+]
+
+{ #category : #accessing }
+GtPhlowListItemElementWithContextMenuDecorator >> multipleSelectionEnabled: anObject [
+	multipleSelectionEnabled := anObject
 ]
 
 { #category : #'api - instantiation' }
