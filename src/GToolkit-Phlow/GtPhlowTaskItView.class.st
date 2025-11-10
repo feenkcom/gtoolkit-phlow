@@ -79,9 +79,8 @@ GtPhlowTaskItView >> initialize [
 
 { #category : #private }
 GtPhlowTaskItView >> originalElementDo: anAsElementBlock [
-
-	^ self originalView asElementDo: anAsElementBlock.
-
+	^ GtProcessStackOverflowChecker currentCheckerClass
+		checkDuring: [ self originalView asElementDo: anAsElementBlock ]
 ]
 
 { #category : #accessing }

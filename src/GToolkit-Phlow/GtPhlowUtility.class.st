@@ -130,7 +130,7 @@ GtPhlowUtility class >> defaultFutureExecutionConfiguration [
 	^ AsyncFutureExecutionConfiguration new
 		customGroup: #Phlow;
 		maxAmountOfWorkers: 2;
-		highPriority
+		defaultPriority
 ]
 
 { #category : #testing }
