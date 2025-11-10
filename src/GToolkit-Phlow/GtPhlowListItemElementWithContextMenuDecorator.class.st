@@ -168,6 +168,12 @@ GtPhlowListItemElementWithContextMenuDecorator >> paramsOn: aStencilExecutor [
 		push: contextMenuItemsStencil
 ]
 
+{ #category : #'as yet unclassified' }
+GtPhlowListItemElementWithContextMenuDecorator >> reset [
+	super reset.
+	multipleSelectionEnabled := nil
+]
+
 { #category : #accessing }
 GtPhlowListItemElementWithContextMenuDecorator >> stencilBuilder [
 	<return: #BrListItemElementStencilBuilder>
