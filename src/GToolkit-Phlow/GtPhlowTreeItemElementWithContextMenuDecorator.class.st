@@ -50,7 +50,7 @@ GtPhlowTreeItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeF
 						anItemHolder := aListItemElement constraints infinite holder.
 						anItemPosition := anItemHolder dataSourcePosition.
 						"anItemObject := aListElement viewModel itemAt: anItemPosition."
-						anItemObject := multipleSelectionEnabled
+						anItemObject := self isMultipleSelectionEnabled
 								ifTrue: [ anItemObject := aListElement selectedItems ifEmpty: [ {(aListElement viewModel itemAt: anItemPosition) value} ] ]
 								ifFalse: [ (aListElement viewModel itemAt: anItemPosition) value ].
 
