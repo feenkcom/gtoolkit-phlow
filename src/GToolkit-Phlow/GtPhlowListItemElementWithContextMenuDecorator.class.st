@@ -67,9 +67,11 @@ GtPhlowListItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeF
 						anItemHolder := aListItemElement constraints infinite holder.
 						anItemPosition := anItemHolder dataSourcePosition.
 						anItemObject := self isMultipleSelectionEnabled
-								ifTrue: [ anItemObject := aListElement selectedItems
-											ifEmpty: [ {aListElement viewModel itemAt: anItemPosition} ] ]
-								ifFalse: [ aListElement viewModel itemAt: anItemPosition ].
+								ifTrue: [ aListElement selectedItems
+										ifEmpty: [ {aListElement viewModel itemAt: anItemPosition} ] ]
+								ifFalse: [ aListElement selectedItems
+										ifNotEmpty: [ :items | items anyOne ]
+										ifEmpty: [ aListElement viewModel itemAt: anItemPosition ] ].
 
 						anItemType := aListElement viewModel itemTypeStencil
 								itemPosition: anItemPosition;
@@ -177,7 +179,8 @@ GtPhlowListItemElementWithContextMenuDecorator >> paramsOn: aStencilExecutor [
 { #category : #'as yet unclassified' }
 GtPhlowListItemElementWithContextMenuDecorator >> reset [
 	super reset.
-	multipleSelectionEnabled := false
+	"we are doing this only to make the {{gtClass:GtBlocStencilBuilderShouldImplementReset}} happy"
+	multipleSelectionEnabled := multipleSelectionEnabled
 ]
 
 { #category : #accessing }

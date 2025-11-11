@@ -208,6 +208,36 @@ GtPhlowTreeViewExamples >> columnedListViewContextMenuWithSingleSelection [
 ]
 
 { #category : #'as yet unclassified' }
+GtPhlowTreeViewExamples >> columnedListViewContextMenuWithSingleSelectionAndClickOnAnotherItem [
+	<gtExample>
+	| scripter view result |
+	scripter := BlScripter new.
+	view := self treeViewWithItemsAndChildren.
+	view contextItemLabel: 'Itself' action: [ :element :each | result := each ].
+	scripter element: view asElement.
+	scripter click
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		play.
+
+	scripter menuStep
+		openContextMenu;
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '8' ];
+		@ 1;
+		play.
+
+	scripter menuStep
+		clickMenuItemWithId: [ :anElement | (anElement isKindOf: BrLabel) and: [ anElement text asString = 'Itself' ] ];
+		onMenuContainer;
+		play.
+
+	self assert: result equals: 7.
+
+	^ scripter
+]
+
+{ #category : #'as yet unclassified' }
 GtPhlowTreeViewExamples >> columnedListViewContextMenuWithSingleSelectionAndNoExplicitSelection [
 	<gtExample>
 	| scripter view result |
