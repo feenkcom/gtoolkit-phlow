@@ -17,21 +17,20 @@ GtPhlowViewsCollector >> collect [
 	<gtCollector>
 	| theViews |
 	theViews := self collectPragmas
-		collect: [ :eachPragma | 
-			| aView |
-			aView := GtPhlowView empty 
-				on: self object 
-				perform: eachPragma methodSelector
-				withContext: self context.
-			self object gtActions do: [ :eachAction | 
-				(eachAction isKindOf: GtPhlowAction) 
-					ifTrue: [ 
-						(eachAction target 
-							isForViewDefinedIn: eachPragma methodSelector) ifTrue: [ 
-								aView addPhlowAction: eachAction ] ]
-					ifFalse: [
-						"Ignore" ] ].
-			aView ].
+			collect: [ :eachPragma | 
+				| aView |
+				GtProcessStackOverflowChecker currentCheckerClass
+					checkDuring: [ aView := GtPhlowView empty
+								on: self object
+								perform: eachPragma methodSelector
+								withContext: self context ].
+				self object gtActions
+					do: [ :eachAction | 
+						(eachAction isKindOf: GtPhlowAction)
+							ifTrue: [ (eachAction target isForViewDefinedIn: eachPragma methodSelector)
+									ifTrue: [ aView addPhlowAction: eachAction ] ]
+							ifFalse: [  "Ignore" ] ].
+				aView ].
 	self sortByPriority: theViews.
 	^ theViews
 ]

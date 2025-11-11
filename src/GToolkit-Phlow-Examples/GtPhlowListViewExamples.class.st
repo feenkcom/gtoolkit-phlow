@@ -432,6 +432,159 @@ GtPhlowListViewExamples >> itemsAsDefaultTexts [
 	^ aView
 ]
 
+{ #category : #'as yet unclassified' }
+GtPhlowListViewExamples >> listViewContextMenuWithMultiSelection [
+	<gtExample>
+	| scripter view result |
+	scripter := BlScripter new.
+	view := self viewWithItems.
+	view withMultipleSelection.
+	view contextItemLabel: 'Itself' action: [ :element :each | result := each ].
+	scripter element: view asElement.
+
+	scripter click
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		play.
+	
+	scripter menuStep
+		openContextMenu;
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		@ 1;
+		play.
+		
+	scripter menuStep
+		clickMenuItemWithId: [ :anElement | (anElement isKindOf: BrLabel) and: [ anElement text asString = 'Itself' ] ];
+		onMenuContainer;
+		play.
+
+	self assert: result equals: {7}.
+	
+	^ scripter
+]
+
+{ #category : #'as yet unclassified' }
+GtPhlowListViewExamples >> listViewContextMenuWithMultiSelectionAndNoExplicitSelection [
+	<gtExample>
+	| scripter view result |
+	scripter := BlScripter new.
+	view := self viewWithItems.
+	view withMultipleSelection.
+	view contextItemLabel: 'Itself' action: [ :element :each | result := each ].
+	scripter element: view asElement.
+
+	"We do not select anything first"
+	
+	scripter menuStep
+		openContextMenu;
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		@ 1;
+		play.
+		
+	scripter menuStep
+		clickMenuItemWithId: [ :anElement | (anElement isKindOf: BrLabel) and: [ anElement text asString = 'Itself' ] ];
+		onMenuContainer;
+		play.
+	
+	"But we still get the target in the menu"
+	self assert: result equals: {7}.
+	
+	^ scripter
+]
+
+{ #category : #'as yet unclassified' }
+GtPhlowListViewExamples >> listViewContextMenuWithSingleSelection [
+	<gtExample>
+	| scripter view result |
+	scripter := BlScripter new.
+	view := self viewWithItems.
+	view contextItemLabel: 'Itself' action: [ :element :each | result := each ].
+	scripter element: view asElement.
+
+	scripter click
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		play.
+	
+	scripter menuStep
+		openContextMenu;
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		@ 1;
+		play.
+		
+	scripter menuStep
+		clickMenuItemWithId: [ :anElement | (anElement isKindOf: BrLabel) and: [ anElement text asString = 'Itself' ] ];
+		onMenuContainer;
+		play.
+
+	self assert: result equals: 7.
+	
+	^ scripter
+]
+
+{ #category : #'as yet unclassified' }
+GtPhlowListViewExamples >> listViewContextMenuWithSingleSelectionAndClickOnAnotherItem [
+	<gtExample>
+	| scripter view result |
+	scripter := BlScripter new.
+	view := self viewWithItems.
+	view contextItemLabel: 'Itself' action: [ :element :each | result := each ].
+	scripter element: view asElement.
+
+	scripter click
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		play.
+	
+	scripter menuStep
+		openContextMenu;
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '8' ];
+		@ 1;
+		play.
+		
+	scripter menuStep
+		clickMenuItemWithId: [ :anElement | (anElement isKindOf: BrLabel) and: [ anElement text asString = 'Itself' ] ];
+		onMenuContainer;
+		play.
+
+	self assert: result equals: 7.
+	
+	^ scripter
+]
+
+{ #category : #'as yet unclassified' }
+GtPhlowListViewExamples >> listViewContextMenuWithSingleSelectionAndNoExplicitSelection [
+	<gtExample>
+	| scripter view result |
+	scripter := BlScripter new.
+	view := self viewWithItems.
+	view contextItemLabel: 'Itself' action: [ :element :each | result := each ].
+	scripter element: view asElement.
+
+	"We do not select anything first"
+	
+	scripter menuStep
+		openContextMenu;
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		@ 1;
+		play.
+		
+	scripter menuStep
+		clickMenuItemWithId: [ :anElement | (anElement isKindOf: BrLabel) and: [ anElement text asString = 'Itself' ] ];
+		onMenuContainer;
+		play.
+
+	"But we still get the target in the menu"
+	self assert: result equals: 7.
+	
+	^ scripter
+]
+
 { #category : #'examples - element' }
 GtPhlowListViewExamples >> modifiedElement [
 	<gtExample>

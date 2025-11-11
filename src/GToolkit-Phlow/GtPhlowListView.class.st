@@ -242,7 +242,8 @@ GtPhlowListView >> newDecoratedItemStencil [
 			anItemElementStencil := GtPhlowListItemElementWithContextMenuDecorator new
 					stencilBuilder: anItemElementStencil;
 					contextMenuItemsStencil: self contextMenuItemsStencilFromActions;
-					contextMenuStencil: self contextMenuStencilFromActions ].
+					contextMenuStencil: self contextMenuStencilFromActions;
+					multipleSelectionEnabled: multipleSelectionEnabled ].
 
 
 	anItemElementStencil := GtPhlowSimpleListErrorHandlingItemElementStencilBuilder

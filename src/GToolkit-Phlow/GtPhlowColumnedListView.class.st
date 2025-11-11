@@ -211,7 +211,8 @@ GtPhlowColumnedListView >> newDecoratedItemStencil [
 					new
 					stencilBuilder: anItemElementStencil;
 					contextMenuItemsStencil: self contextMenuItemsStencilFromActions;
-					contextMenuStencil: self contextMenuStencilFromActions ].
+					contextMenuStencil: self contextMenuStencilFromActions;
+					multipleSelectionEnabled: multipleSelectionEnabled ].
 
 	^ anItemElementStencil
 ]
