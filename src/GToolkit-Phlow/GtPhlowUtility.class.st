@@ -127,9 +127,11 @@ GtPhlowUtility class >> createTabErrorElementFor: aPhlowView withError: anExcept
 
 { #category : #'accessing - defaults' }
 GtPhlowUtility class >> defaultFutureExecutionConfiguration [
+	"With just 2 workers, some scenery examples with scripters end up blocking."
+
 	^ AsyncFutureExecutionConfiguration new
 		customGroup: #Phlow;
-		maxAmountOfWorkers: 2;
+		maxAmountOfWorkers: 3;
 		defaultPriority
 ]
 
