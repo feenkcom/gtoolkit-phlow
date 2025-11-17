@@ -101,12 +101,12 @@ GtPhlowContextMenuAction >> respondsToItem: anItem [
 ]
 
 { #category : #converting }
-GtPhlowContextMenuAction >> toActionOn: anItem [
+GtPhlowContextMenuAction >> toActionOn: anItem element: anotherElement [
 	^ self name -> [ :anElement | self action cull: anElement cull: anItem ]
 ]
 
 { #category : #converting }
-GtPhlowContextMenuAction >> toMenuItemOn: anItem [
+GtPhlowContextMenuAction >> toMenuItemOn: anItem element: anotherElement [
 	"Return a menu item which will be displayed in a context menu.
 	Context menu action can return also collection of menu items."
 

@@ -17,20 +17,23 @@ GtPhlowContextMenuActions >> convertToMenuItem: anObject [
 
 	(anObject isKindOf: BrMenuItem) ifTrue: [
 		^ anObject ].
-
+	
 	self error: 'Cannot convert to a menu item: ' , anObject printString
 ]
 
 { #category : #converting }
-GtPhlowContextMenuActions >> toActionOn: anItem [
-	^ self action cull: anItem
+GtPhlowContextMenuActions >> toActionOn: anItem element: anElement [
+	^ self action cull: anElement cull: anItem
 ]
 
 { #category : #converting }
-GtPhlowContextMenuActions >> toMenuItemOn: anItem [
+GtPhlowContextMenuActions >> toMenuItemOn: anItem element: anElement [
 	<return: #Collection of: #BrMenuItem>
+	<return: #BrMenuItems>
 	| aResult |
-	aResult := self toActionOn: anItem.
-	^ aResult asCollection collect: [ :eachAssoc |
-		self convertToMenuItem: eachAssoc ]
+	aResult := self toActionOn: anItem element: anElement.
+	(aResult isKindOf: BrMenuItems) ifTrue: [ ^ aResult ].
+
+	^ aResult asCollection
+		collect: [ :eachAssoc | self convertToMenuItem: eachAssoc ]
 ]
