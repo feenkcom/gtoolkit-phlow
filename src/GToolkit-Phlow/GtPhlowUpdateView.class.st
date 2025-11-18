@@ -18,7 +18,7 @@ is updated to a new definition with ten elements:
 Class {
 	#name : #GtPhlowUpdateView,
 	#superclass : #GtPhlowUpdateCommand,
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #evaluating }

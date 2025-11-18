@@ -16,7 +16,7 @@ The default destination is given by {{gtMethod:GtPhlowSpawnDesiredDestination cl
 Class {
 	#name : #GtPhlowSpawnDesiredDestination,
 	#superclass : #Object,
-	#category : 'GToolkit-Phlow-Direction'
+	#category : #'GToolkit-Phlow-Direction'
 }
 
 { #category : #initialization }

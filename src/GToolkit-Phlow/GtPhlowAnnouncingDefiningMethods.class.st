@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'announcer'
 	],
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #announcer }

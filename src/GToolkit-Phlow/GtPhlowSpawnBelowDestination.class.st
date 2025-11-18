@@ -10,7 +10,7 @@ determine where to place the event.
 Class {
 	#name : #GtPhlowSpawnBelowDestination,
 	#superclass : #GtPhlowSpawnDesiredDestination,
-	#category : 'GToolkit-Phlow-Direction'
+	#category : #'GToolkit-Phlow-Direction'
 }
 
 { #category : #accessing }

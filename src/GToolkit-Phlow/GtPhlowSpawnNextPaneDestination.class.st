@@ -8,7 +8,7 @@ Tools using these event are responsible with managing extra informations for det
 Class {
 	#name : #GtPhlowSpawnNextPaneDestination,
 	#superclass : #GtPhlowSpawnDesiredDestination,
-	#category : 'GToolkit-Phlow-Direction'
+	#category : #'GToolkit-Phlow-Direction'
 }
 
 { #category : #accessing }

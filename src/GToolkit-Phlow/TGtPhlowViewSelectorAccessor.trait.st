@@ -5,7 +5,7 @@ Trait {
 	],
 	#traits : 'TGtPhlowViewSelectorAssertion',
 	#classTraits : 'TGtPhlowViewSelectorAssertion classTrait',
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #defaults }

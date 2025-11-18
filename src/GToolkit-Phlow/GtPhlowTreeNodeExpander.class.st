@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowTreeNodeExpander,
 	#superclass : #Object,
-	#category : 'GToolkit-Phlow-Support - Tree Expansion'
+	#category : #'GToolkit-Phlow-Support - Tree Expansion'
 }
 
 { #category : #'api - instance creation' }

@@ -27,17 +27,21 @@ TGtPhlowWithContextMenu >> contextMenuActions [
 TGtPhlowWithContextMenu >> contextMenuItemsStencilFromActions [
 	"I return a block (stencil builder) that knows how to compute `BrMenu` sub-instances. 
 	I can also return `nil` if there is no menu to display."
-	
+
 	<return: #GtPhlowListContextMenuItemsStencilBuilder>
 	<return: #BlockClosure of: #BrMenuItems>
 	^ [ :element :item | 
 	| allItems |
 	allItems := (self contextMenuActions
 			select: [ :anAction | anAction respondsToItem: item ]
-			thenCollect: [ :anAction | anAction toMenuItemOn: item ]) flattened.
-	allItems 
-		ifNotEmpty: [ BrMenuItems new addItems: allItems ]
-		ifEmpty: [ nil ] ]
+			thenCollect: [ :anAction | 
+				| aResult | 
+				aResult := anAction toMenuItemOn: item element: element.
+				(aResult isKindOf: BrMenuItems) 
+					ifTrue: [ aResult items ] 
+					ifFalse: [ aResult ] ])
+			flattened.
+	allItems ifNotEmpty: [ BrMenuItems new addItems: allItems ] ifEmpty: [ nil ] ]
 ]
 
 { #category : #building }
@@ -46,7 +50,8 @@ TGtPhlowWithContextMenu >> contextMenuStencilFromActions [
 	BrGlamorousSimpleContextMenuContent new
 		items: (self contextMenuActions
 				select: [ :anAction | anAction respondsToItem: item ]
-				thenCollect: [ :anAction | anAction toActionOn: item ]) flattened ]
+				thenCollect: [ :anAction | anAction toActionOn: item element: element ])
+				flattened ]
 ]
 
 { #category : #accessing }

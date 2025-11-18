@@ -20,7 +20,7 @@ Class {
 		'element',
 		'labelBuilder'
 	],
-	#category : 'GToolkit-Phlow-Tool - Title'
+	#category : #'GToolkit-Phlow-Tool - Title'
 }
 
 { #category : #testing }

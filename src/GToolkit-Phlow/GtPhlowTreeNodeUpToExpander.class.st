@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'level'
 	],
-	#category : 'GToolkit-Phlow-Support - Tree Expansion'
+	#category : #'GToolkit-Phlow-Support - Tree Expansion'
 }
 
 { #category : #'api - actions' }

@@ -17,7 +17,7 @@ Class {
 	#instVars : [
 		'label'
 	],
-	#category : 'GToolkit-Phlow-Tool - Title'
+	#category : #'GToolkit-Phlow-Tool - Title'
 }
 
 { #category : #'api - accessing' }
