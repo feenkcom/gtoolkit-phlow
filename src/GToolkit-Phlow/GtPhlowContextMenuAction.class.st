@@ -101,6 +101,11 @@ GtPhlowContextMenuAction >> respondsToItem: anItem [
 ]
 
 { #category : #converting }
+GtPhlowContextMenuAction >> toActionOn: anItem [
+	^ self name -> [ :anElement | self action cull: anElement cull: anItem ]
+]
+
+{ #category : #converting }
 GtPhlowContextMenuAction >> toActionOn: anItem element: anotherElement [
 	^ self name -> [ :anElement | self action cull: anElement cull: anItem ]
 ]
