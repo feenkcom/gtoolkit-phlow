@@ -1,6 +1,6 @@
 Class {
 	#name : #GtPhlowToolInParentUpdater,
-	#superclass : #BrWish,
+	#superclass : #Object,
 	#category : #'GToolkit-Phlow-Updating New'
 }
 
