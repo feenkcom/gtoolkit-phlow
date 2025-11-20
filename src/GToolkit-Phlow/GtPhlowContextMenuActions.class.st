@@ -22,6 +22,13 @@ GtPhlowContextMenuActions >> convertToMenuItem: anObject [
 ]
 
 { #category : #converting }
+GtPhlowContextMenuActions >> toActionOn: anItem [
+	self deprecated: 'use #toActionOn:element: instead'.
+
+	^ self action cull: anItem
+]
+
+{ #category : #converting }
 GtPhlowContextMenuActions >> toActionOn: anItem element: anElement [
 	^ self action cull: anElement cull: anItem
 ]
