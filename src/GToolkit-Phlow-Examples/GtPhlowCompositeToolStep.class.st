@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowCompositeToolStep,
 	#superclass : #BlDevScripterToolActionStep,
-	#category : #'GToolkit-Phlow-Examples'
+	#category : #'GToolkit-Phlow-Examples-Scripter'
 }
 
 { #category : #'as yet unclassified' }
