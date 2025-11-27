@@ -59,9 +59,8 @@ GtPhlowExplicitAction >> label [
 
 { #category : #'instance creation' }
 GtPhlowExplicitAction >> newErrorElementFor: anError targetElement: aTargetElement [
-	anError freeze.
 	^ GtPhlowActionWithError new
-		error: anError;
+		freeze: anError;
 		definingMethod: self definingMethod;
 		asElement: [ :errorElement | errorElement ]
 			withHostElement: aTargetElement

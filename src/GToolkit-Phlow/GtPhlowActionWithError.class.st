@@ -2,7 +2,7 @@ Class {
 	#name : #GtPhlowActionWithError,
 	#superclass : #GtPhlowAction,
 	#instVars : [
-		'error'
+		'exception'
 	],
 	#category : #'GToolkit-Phlow-! Actions'
 }
@@ -63,12 +63,29 @@ GtPhlowActionWithError >> description [
 
 { #category : #accessing }
 GtPhlowActionWithError >> error [
-	^ error
+	^ exception
 ]
 
 { #category : #accessing }
 GtPhlowActionWithError >> error: anObject [
-	error := anObject
+	exception := anObject
+]
+
+{ #category : #accessing }
+GtPhlowActionWithError >> exception [
+	^ exception
+]
+
+{ #category : #accessing }
+GtPhlowActionWithError >> exception: anObject [
+	exception := anObject
+]
+
+{ #category : #'api - initialization' }
+GtPhlowActionWithError >> freeze: anException [
+	| aCopy |
+	aCopy := GtSystemUtility freeze: anException.
+	self exception: aCopy
 ]
 
 { #category : #'gt-extension' }
@@ -76,7 +93,7 @@ GtPhlowActionWithError >> gtError1For: aView [
 	<gtView>
 	^ aView forward
 		title: 'Error stack';
-		object: [ error ];
+		object: [ exception ];
 		view: #gtLiveFor:
 ]
 
@@ -85,7 +102,7 @@ GtPhlowActionWithError >> gtErrorFor: aView [
 	<gtView>
 	^ aView forward
 		title: 'Error message';
-		object: [ error ];
+		object: [ exception ];
 		view: #gtMessageTextFor:
 ]
 

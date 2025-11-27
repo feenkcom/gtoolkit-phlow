@@ -21,10 +21,9 @@ GtPhlowClassActionsCollector >> collect [
 							inClass: from ] ]
 					on: Error
 					do: [ :error | 
-						error freeze.
 						GtPhlowActionWithError new
 							definingMethod: eachPragma method asRingDefinition;
-							error: error ] ]
+							freeze: error ] ]
 			thenSelect: self selectUsing.
 	self sortByPriority: anActions.
 	^ anActions

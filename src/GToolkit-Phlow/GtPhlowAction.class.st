@@ -119,6 +119,15 @@ GtPhlowAction >> basicOn: anObject perform: aMessageSymbol withArguments: aColle
 		withArguments: aCollectionOfArguments
 		inClass: anObject class.
 		
+	(phlowAction isKindOf: GtPhlowAction) ifFalse: [
+		GtPhlowActionNotProvidedError new 
+			returnedObject: phlowAction;
+			object: anObject;
+			selector: aMessageSymbol;
+			arguments: aCollectionOfArguments;
+			parentAction: self;
+			signal ].
+		
 	phlowAction = self ifTrue: [
 		Error signal: 'Cannot return the same action'.
 		"GtPhlowViewsCollectorSameViewError 
@@ -465,11 +474,7 @@ GtPhlowAction >> performActionOn: anActionElement [
 
 { #category : #'message performing' }
 GtPhlowAction >> phlowErrorActionWithException: anException [
-	
-	anException freeze.
-	
-	^ GtPhlowActionWithError new
-		error: anException
+	^ GtPhlowActionWithError new freeze: anException
 ]
 
 { #category : #'message performing' }
