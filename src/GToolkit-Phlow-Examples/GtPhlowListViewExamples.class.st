@@ -551,7 +551,8 @@ GtPhlowListViewExamples >> listViewContextMenuWithSingleSelectionAndClickOnAnoth
 		onMenuContainer;
 		play.
 
-	self assert: result equals: 7.
+	"We do not want to explicitly select, to be able to open a context menu of another item"
+	self assert: result equals: 8.
 	
 	^ scripter
 ]

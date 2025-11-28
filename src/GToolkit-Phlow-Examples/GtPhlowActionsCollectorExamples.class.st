@@ -62,3 +62,23 @@ GtPhlowActionsCollectorExamples >> errorExample [
 	self assert: aDebugButton label asString equals: 'Error'.
 	^ anAction
 ]
+
+{ #category : #error }
+GtPhlowActionsCollectorExamples >> noReturnedActionExample [
+	<gtExample>
+	| anAction aDebugButton |
+	anAction := self collectOneActionForPragma: #noReturnedAction.
+	self assert: anAction definingMethod selector equals: #noReturnedActionFor:.
+	self assert: anAction exception class equals: GtPhlowActionNotProvidedError.
+	aDebugButton := anAction asElement: [ :x | x ] withHostElement: nil.
+	self assert: (aDebugButton isKindOf: BrButton).
+	self assert: aDebugButton label asString equals: 'Error'.
+	^ anAction
+]
+
+{ #category : #error }
+GtPhlowActionsCollectorExamples >> noReturnedActionFor: anAction [
+	<gtAction>
+	<noReturnedAction>
+	^ self
+]
