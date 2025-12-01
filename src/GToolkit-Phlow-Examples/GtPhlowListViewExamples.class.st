@@ -433,6 +433,61 @@ GtPhlowListViewExamples >> itemsAsDefaultTexts [
 ]
 
 { #category : #'as yet unclassified' }
+GtPhlowListViewExamples >> listViewContextMenuWithCleanedPressedState [
+	"See https://github.com/feenkcom/gtoolkit/issues/4875"
+
+	<gtExample>
+	| scripter view result |
+	scripter := BlScripter new.
+	view := self viewWithItems.
+	view contextItemLabel: 'Itself' action: [ :element :each | result := each ].
+	scripter element: view asElement.
+
+	scripter assert
+		label: 'Assert item has NOT pressed state (line selected)';
+		satisfies: [ :aLabel | (aLabel parent states hasState: BlElementState pressed) not ];
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		play.
+	
+	"We do not select anything first"
+	
+	scripter menuStep
+		openContextMenu;
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		play.
+		
+	scripter assert
+		label: 'Assert item has pressed state (line selected)';
+		satisfies: [ :aLabel | aLabel parent states hasState: BlElementState pressed ];
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		play.
+		
+	scripter menuStep
+		clickMenuItemWithId: [ :anElement | (anElement isKindOf: BrLabel) and: [ anElement text asString = 'Itself' ] ];
+		onMenuContainer;
+		play.
+
+	"But we still get the target in the menu"
+	self assert: result equals: 7.
+	
+	scripter menuStep 
+		assertClosedMenuContainer; 
+		play.
+		
+	scripter assert
+		label: 'Assert item has NOT pressed state (line selected)';
+		satisfies: [ :aLabel | (aLabel parent states hasState: BlElementState pressed) not ];
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		play.
+	
+	^ scripter
+]
+
+{ #category : #'as yet unclassified' }
 GtPhlowListViewExamples >> listViewContextMenuWithMultiSelection [
 	<gtExample>
 	| scripter view result |
