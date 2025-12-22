@@ -190,10 +190,18 @@ GtPhlowUtility class >> lowFutureExecutionConfiguration [
 
 { #category : #'instance creation' }
 GtPhlowUtility class >> newElementForView: aPhlowView [
-		| aTaskItView |
-		aTaskItView := aPhlowView asTaskItView.
-		^ aTaskItView asElementDo: [ :anElement | 
-			anElement asScrollableElement ] 
+	| aTaskItView |
+	aTaskItView := aPhlowView asTaskItView.
+	^ aTaskItView
+		asElementDo: [ :anElement | 
+			| aScrollableElement |
+			aScrollableElement := anElement asScrollableElement.
+			aScrollableElement == anElement
+				ifFalse: [ aScrollableElement
+						id: #'phlow--scrollable';
+						addAptitude: (BrLayoutResizerAptitude new common: [ aScrollableElement children ]) ].
+
+			aScrollableElement ]
 ]
 
 { #category : #'instance creation' }
