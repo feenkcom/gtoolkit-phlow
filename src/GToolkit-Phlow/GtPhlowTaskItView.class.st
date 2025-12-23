@@ -21,8 +21,10 @@ GtPhlowTaskItView >> asElementDo: aBlock [
 					executionConfiguration: (anExecutionConfiguration
 							ifNil: [ GtPhlowUtility defaultFutureExecutionConfiguration ]) ];
 			matchParent;
-			stencil: [ self originalElementDo: [ :anElement | anElement ] ].
-
+			stencil: [ self originalElementDo: [ :anElement | anElement ] ];
+			addAptitude: (BrLayoutResizerAptitude new
+				common: [ aFutureElement children ]).
+			
 	self assignMeAsEntityFor: aFutureElement.
 
 	^ aBlock value: aFutureElement
