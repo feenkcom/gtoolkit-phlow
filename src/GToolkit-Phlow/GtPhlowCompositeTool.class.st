@@ -53,19 +53,19 @@ GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 { #category : #selection }
 GtPhlowCompositeTool >> basicExtractSelectionStateFromElement: aTabGroupElement [
 	| selectedToolTabIdentifier containedToolElement containedToolContext |
-	
-	selectedToolTabIdentifier := (GtPhlowCompositeToolSelectedTabExtractor new 
-		tabGroupElement: aTabGroupElement) extractTabIdentifier.
-	
-	containedToolElement := aTabGroupElement content children 
-		ifNotEmpty: #first 
-		ifEmpty: [ ^ GtPhlowToolNullSelectionState uniqueInstance ].
+	selectedToolTabIdentifier := (GtPhlowCompositeToolSelectedTabExtractor new
+			tabGroupElement: aTabGroupElement) extractTabIdentifier.
+
+	containedToolElement := aTabGroupElement content children
+			ifNotEmpty: #first
+			ifEmpty: [ ^ GtPhlowToolNullSelectionState uniqueInstance ].
 	containedToolContext := containedToolElement phlow.
 
 	^ GtPhlowCompositeToolSelectionState new
 		selectedToolTabIdentifier: selectedToolTabIdentifier;
 		selectedToolSelectionState: (containedToolContext entity
-			extractSelectionStateFromElement: containedToolElement)
+				ifNotNil: [ :anEntity | anEntity extractSelectionStateFromElement: containedToolElement ]
+				ifNil: [ GtPhlowToolNullSelectionState uniqueInstance ])
 ]
 
 { #category : #defaults }
