@@ -50,12 +50,3 @@ GtPhlowBrowseDefinitionAptitude >> isDefinitionRequested: anEvent [
 	<return: #Boolean>
 	^ GtPhlowUtility isDefinitionRequested: anEvent
 ]
-
-{ #category : #accessing }
-GtPhlowBrowseDefinitionAptitude >> spawnPagerFor: anElement withTitle: aString [
-	BlSpace new
-		inPager: anElement;
-		title: aString;
-		extent: 1200 @ 600;
-		showFrom: self widget
-]
