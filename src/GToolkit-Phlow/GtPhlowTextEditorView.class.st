@@ -50,13 +50,16 @@ GtPhlowTextEditorView >> asElementDo: aBlock [
 		styler: aNewStyler;
 		enqueueTask: (BlTaskAction new action: [
 			aBrickEditor text: aText.
-			self highlightAndScrollIn: aBrickEditor ]).
+			self highlightAndScrollIn: aBrickEditor.
+			"We want to update the scrollbar when the editor text is changed."
+			aBrickEditor dispatchEvent: BlElementScrolledEvent new ]).
 	pane := BrVerticalPane new matchParent.		
 	pane addChild: aBrickEditor.
 	pane addAptitude: (BrGlamorousWithVerticalScrollbarAptitude new scrollableName: #editor).
 	aBrickEditor
 		matchParent;
 		padding: (BlInsets all: 10).
+	
 	pane addAptitude: (BrLayoutResizerAptitude new
 		matchParentToMatchParent: [ :aResizerBlock | aResizerBlock cull: aBrickEditor ];
 		exactToMatchParent: [ :aResizerBlock | aResizerBlock cull: aBrickEditor ];
