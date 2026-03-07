@@ -17,22 +17,33 @@ GtPhlowLabelledView >> asElementDo: aBlock [
 	| tab group |
 	group := BrTabGroup new.
 	group id: GtPhlowLabelledViewElementId.
-	self originalView asElementDo: [ :originalElement | 
-		tab := BrTab new.
-		tab phlow beViewTitle; entity: self.
-		tab
-			aptitude: BrGlamorousTabWithoutBarAptitude;
-			label: self newLabel;
-			stencil: [ 
-				originalElement phlow beViewContent.
-				originalElement asScrollableElement ];
-			toolbarStencil: [ self actionsToolbarForElement: tab ];
-			padding: (BlInsets top: 15 right: 0 bottom: 15 left: 10) ].
-	group 
-		aptitude: (BrGlamorousTabGroupAptitude new headerBackground: (BlTheme default header defaultBackground));
+	self originalView
+		asElementDo: [ :originalElement | 
+			tab := BrTab new.
+			tab phlow
+				beViewTitle;
+				entity: self.
+			tab
+				aptitude: BrGlamorousTabWithoutBarAptitude;
+				label: self newLabel;
+				stencil: [ originalElement phlow beViewContent.
+					originalElement asScrollableElement ];
+				toolbarStencil: [ self actionsToolbarForElement: tab ];
+				padding: (BlInsets
+						top: 15
+						right: 0
+						bottom: 15
+						left: 10) ].
+	group
+		aptitude: (BrGlamorousTabGroupAptitude new
+				headerBackground: BlTheme default header defaultBackground;
+				headerDo: [ :aHeaderElement |
+					"Add header context menu"
+					aHeaderElement addAptitude: (BrGlamorousWithExplicitContextMenuAptitude new
+						handleSubmenu: [ self newContextMenuModelWithHostElement: tab ])]);
 		addTab: tab;
 		constraintsDo: [ :c | 
-			c vertical matchParent. 
+			c vertical matchParent.
 			c horizontal matchParent ].
 	self beViewElement: group.
 	^ aBlock value: group
@@ -59,6 +70,24 @@ GtPhlowLabelledView >> label [
 { #category : #accessing }
 GtPhlowLabelledView >> label: anObject [
 	labelComputation := anObject
+]
+
+{ #category : #private }
+GtPhlowLabelledView >> newContextMenuModelWithHostElement: aHostElement [
+	<return: #BrMenuItems or: nil>
+	| anObject aContext |
+	anObject := self buildContext
+			objectDo: [ :theObject | theObject ]
+			ifAbsent: [ ^ nil ].
+
+	aContext := self buildContext
+			contextDo: [ :theContext | theContext ]
+			ifAbsent: [ GtPhlowContext new ].
+
+	^ GtPhlowObjectContextMenuTarget
+		menuItemsForObject: anObject
+		inContext: aContext
+		hostElement: aHostElement
 ]
 
 { #category : #'instance creation' }
