@@ -490,6 +490,15 @@ GtPhlowAction >> phlowErrorActionWithException: anException  forBuildContext: aC
 	^ phlowErrorAction
 ]
 
+{ #category : #printing }
+GtPhlowAction >> printOn: aStream [
+	super printOn: aStream.
+	aStream
+		nextPut: $(;
+		print: self definingMethod;
+		nextPut: $)
+]
+
 { #category : #accessing }
 GtPhlowAction >> priority [
 	^ priority
