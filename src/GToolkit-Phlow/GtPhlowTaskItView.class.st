@@ -23,8 +23,13 @@ GtPhlowTaskItView >> asElementDo: aBlock [
 			matchParent;
 			stencil: [ self originalElementDo: [ :anElement | anElement ] ];
 			addAptitude: (BrLayoutResizerAptitude new
-				common: [ aFutureElement children ]).
-			
+					"let's ignore vMatchParentToMatchParent: for now, to allow fitContent(Limited)
+					in regular inspector views."
+					hMatchParentToMatchParent: [ aFutureElement children ];
+					fitContentToFitContent: [ aFutureElement children ];
+					fitContentLimitedToFitContentLimited: [ aFutureElement children ];
+					exactToMatchParent: [ aFutureElement children ]).
+
 	self assignMeAsEntityFor: aFutureElement.
 
 	^ aBlock value: aFutureElement
