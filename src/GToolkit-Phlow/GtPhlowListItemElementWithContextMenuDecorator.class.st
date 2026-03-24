@@ -18,7 +18,7 @@ Class {
 
 { #category : #accessing }
 GtPhlowListItemElementWithContextMenuDecorator class >> stencilProperties [
-	^ #(contextMenuStencil stencilBuilder contextMenuItemsStencil)
+	^ #(contextMenuStencil stencilBuilder contextMenuItemsStencil multipleSelectionEnabled)
 ]
 
 { #category : #private }
@@ -176,13 +176,6 @@ GtPhlowListItemElementWithContextMenuDecorator >> paramsOn: aStencilExecutor [
 		push: stencilBuilder;
 		push: contextMenuStencil;
 		push: contextMenuItemsStencil
-]
-
-{ #category : #'as yet unclassified' }
-GtPhlowListItemElementWithContextMenuDecorator >> reset [
-	super reset.
-	"we are doing this only to make the {{gtClass:GtBlocStencilBuilderShouldImplementReset}} happy"
-	multipleSelectionEnabled := multipleSelectionEnabled
 ]
 
 { #category : #accessing }
