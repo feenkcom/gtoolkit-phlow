@@ -304,9 +304,10 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 	aToolbar
 		withAsyncPromiseDo: [ :anElementPromise | 
 			anElementPromise
-				whenSuccess: [ :aToolbarElement :theActions | 
+				whenSuccess: [ :aToolbarElement :theActions |
+					aToolbar removeAllItems.
 					theActions
-						do: [ :phlowAction | 
+						do: [ :phlowAction |
 							phlowAction
 								asElement: [ :actionElement | aToolbar addItem: actionElement ]
 								withHostElement: anElement ] ].
