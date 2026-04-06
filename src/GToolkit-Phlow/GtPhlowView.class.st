@@ -302,15 +302,16 @@ GtPhlowView >> actionsToolbarForElement: anElement [
 	aToolbar aptitude: BrGlamorousToolbarAptitude.
 
 	aToolbar
-		withAsyncPromiseDo: [ :anElementPromise | 
-			anElementPromise
+		withAsyncFutureDo: [ :anElementFuture | 
+			anElementFuture
+				executionConfiguration: GtPhlowUtility defaultFutureExecutionConfiguration;
 				whenSuccess: [ :aToolbarElement :theActions | 
 					theActions
 						do: [ :phlowAction | 
 							phlowAction
 								asElement: [ :actionElement | aToolbar addItem: actionElement ]
 								withHostElement: anElement ] ].
-			anElementPromise promise: self allActionsFuture ].
+			anElementFuture future: self allActionsFuture ].
 
 	^ aToolbar
 ]
