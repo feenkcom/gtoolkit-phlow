@@ -85,7 +85,11 @@ GtPhlowTextEditorView >> elementClass [
 
 { #category : #private }
 GtPhlowTextEditorView >> highlightAndScrollIn: aBrickEditor [
+	"TODO: this method is broken, because highlighterSpecification might work 
+	with an old text and therefore start and stop positions may be wrong."
+
 	| highlight |
+	self flag: #TODO.
 	highlighterSpecification ifNil: [ ^ self ].
 	highlight := highlighterSpecification value.
 	highlight color
