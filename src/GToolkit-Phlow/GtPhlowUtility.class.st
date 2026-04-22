@@ -135,6 +135,17 @@ GtPhlowUtility class >> defaultFutureExecutionConfiguration [
 		defaultPriority
 ]
 
+{ #category : #'accessing - defaults' }
+GtPhlowUtility class >> defaultFutureExecutionConfigurationForViewParts [
+	"I am used to compute additional information inside of a view, e.g., columned list.
+	I compute such information with a lower priority not to block other Phlow view computation."
+
+	^ AsyncFutureExecutionConfiguration new
+		customGroup: #Phlow;
+		maxAmountOfWorkers: 3;
+		lowPriority
+]
+
 { #category : #testing }
 GtPhlowUtility class >> defaultPriority [
 	^ 75
