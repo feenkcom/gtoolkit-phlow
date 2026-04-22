@@ -557,12 +557,6 @@ GtPhlowElementContext >> showObject: anObject [
 		showFrom: self element.
 ]
 
-{ #category : #'api - space' }
-GtPhlowElementContext >> spaceBuilder [
-	^ GtPhlowSpaceBuilder new 
-		fromElement: self element
-]
-
 { #category : #'api - events' }
 GtPhlowElementContext >> spawnDefiningMethod [
 	self entity
