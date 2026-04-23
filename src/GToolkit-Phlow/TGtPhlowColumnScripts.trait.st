@@ -163,6 +163,49 @@ TGtPhlowColumnScripts >> column: aTitleString textDo: aBlock [
 ]
 
 { #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString textFuture: aFutureBlock pending: aPendingBlock success: aSuccessBlock [
+	self
+		column: aTitleString
+		textFutureDo: [ :aColumn | 
+			aColumn
+				item: GtPhlowIdentityFunction uniqueInstance;
+				future: aFutureBlock;
+				pending: aPendingBlock;
+				success: aSuccessBlock ]
+]
+
+{ #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString textFuture: aFutureBlock pending: aPendingBlock success: aSuccessBlock weight: aNumber [
+	self
+		column: aTitleString
+		textFutureDo: [ :aColumn | 
+			aColumn
+				item: GtPhlowIdentityFunction uniqueInstance;
+				future: aFutureBlock;
+				pending: aPendingBlock;
+				success: aSuccessBlock;
+				weight: aNumber ]
+]
+
+{ #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString textFuture: aFutureBlock pending: aPendingBlock success: aSuccessBlock width: aNumber [
+	self
+		column: aTitleString
+		textFutureDo: [ :aColumn | 
+			aColumn
+				item: GtPhlowIdentityFunction uniqueInstance;
+				future: aFutureBlock;
+				pending: aPendingBlock;
+				success: aSuccessBlock;
+				width: aNumber ]
+]
+
+{ #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString textFutureDo: aBlock [
+	aBlock value: (self textFutureColumn title: aTitleString)
+]
+
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> columnOfType: aColumnClass [
 	^ self explicitRequirement
 ]
@@ -202,4 +245,11 @@ TGtPhlowColumnScripts >> textColumn [
 	<return: #GtPhlowTextColumn>
 
 	^ self columnOfType: GtPhlowTextColumn
+]
+
+{ #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> textFutureColumn [
+	<return: #GtPhlowTextFutureColumn>
+
+	^ self columnOfType: GtPhlowTextFutureColumn
 ]

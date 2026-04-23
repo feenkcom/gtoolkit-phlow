@@ -350,6 +350,72 @@ GtPhlowColumnedListViewExamples >> columnItemView [
 	^ aView
 ]
 
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureView [
+	<gtExample>
+	| aView anElement aScripter |
+	aView := GtPhlowView empty on: self perform: #gtTextFutureFor:.
+	anElement := aView asElementDo: [ :theElement | theElement ].
+	self
+		assertViewElement: anElement
+		ofClass: self expectedElementClass
+		inView: aView.
+	aScripter := BlScripter new model: aView; element: anElement.
+	
+	^ aView
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInFutureView [
+	<gtExample>
+	| aView anElement aScripter |
+	aView := GtPhlowView empty on: self perform: #gtTextFutureErrorInFutureFor:.
+	anElement := aView asElementDo: [ :theElement | theElement ].
+	self
+		assertViewElement: anElement
+		ofClass: self expectedElementClass
+		inView: aView.
+	aScripter := BlScripter new
+			model: aView;
+			element: anElement.
+
+	^ aView
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInPendingView [
+	<gtExample>
+	| aView anElement aScripter |
+	aView := GtPhlowView empty on: self perform: #gtTextFutureErrorInPendingFor:.
+	anElement := aView asElementDo: [ :theElement | theElement ].
+	self
+		assertViewElement: anElement
+		ofClass: self expectedElementClass
+		inView: aView.
+	aScripter := BlScripter new
+			model: aView;
+			element: anElement.
+
+	^ aView
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInSuccessView [
+	<gtExample>
+	| aView anElement aScripter |
+	aView := GtPhlowView empty on: self perform: #gtTextFutureErrorInSuccessFor:.
+	anElement := aView asElementDo: [ :theElement | theElement ].
+	self
+		assertViewElement: anElement
+		ofClass: self expectedElementClass
+		inView: aView.
+	aScripter := BlScripter new
+			model: aView;
+			element: anElement.
+
+	^ aView
+]
+
 { #category : #accessing }
 GtPhlowColumnedListViewExamples >> columnedListViewColumnResizing [
 	<gtExample>
@@ -1022,6 +1088,79 @@ GtPhlowColumnedListViewExamples >> gtTenItemsWithColumnTextFor: aView [
 		items: [ 1 to: 10 ];
 		column: 'x' text: [ :x | 'Base ', x asString ];
 		column: 'x * x' text: [ :x | 'Square ', (x * x) asString ]
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtTextFutureErrorInFutureFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'column:textFuture: error 1';
+		priority: 30.1;
+		items: [ 1 to: 20 ];
+		column: 'x' number: [ :x | x ];
+		column: 'x*x' number: [ :x | x * x ];
+		column: 'x**x (slow)'
+			textFuture: [ :x | 
+				[ ZeroDivide signal.
+				50 milliSeconds wait.
+				x ** x ] asAsyncFuture ]
+			pending: [ :aTheme | '...' asRopedText foreground: aTheme button disabledTextColor ]
+			success: [ :aResult :aTheme | aResult ]
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtTextFutureErrorInPendingFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'column:textFuture: error 2';
+		priority: 30.2;
+		items: [ 1 to: 20 ];
+		column: 'x' number: [ :x | x ];
+		column: 'x*x' number: [ :x | x * x ];
+		column: 'x**x (slow)'
+			textFuture: [ :x | 
+				[ 50 milliSeconds wait.
+				x ** x ] asAsyncFuture ]
+			pending: [ :aTheme | 
+				ZeroDivide signal.
+				'...' asRopedText foreground: aTheme button disabledTextColor ]
+			success: [ :aResult :aTheme | aResult ]
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtTextFutureErrorInSuccessFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'column:textFuture: error 3';
+		priority: 30.3;
+		items: [ 1 to: 20 ];
+		column: 'x' number: [ :x | x ];
+		column: 'x*x' number: [ :x | x * x ];
+		column: 'x**x (slow)'
+			textFuture: [ :x | 
+				[ 50 milliSeconds wait.
+				x ** x ] asAsyncFuture ]
+			pending: [ :aTheme | '...' asRopedText foreground: aTheme button disabledTextColor ]
+			success: [ :aResult :aTheme | 
+				ZeroDivide signal.
+				aResult ]
+]
+
+{ #category : #'gt-extensions' }
+GtPhlowColumnedListViewExamples >> gtTextFutureFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'column:textFuture: usage';
+		priority: 30;
+		items: [ 1 to: 20 ];
+		column: 'x' number: [ :x | x ];
+		column: 'x*x' number: [ :x | x * x ];
+		column: 'x**x (slow)'
+			textFuture: [ :x | 
+				[ 50 milliSeconds wait.
+				x ** x ] asAsyncFuture ]
+			pending: [ :aTheme | '...' asRopedText foreground: aTheme button disabledTextColor ]
+			success: [ :aResult :aTheme | aResult ]
 ]
 
 { #category : #'examples - support' }
