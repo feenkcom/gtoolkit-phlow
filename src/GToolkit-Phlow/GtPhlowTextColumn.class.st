@@ -16,7 +16,7 @@ GtPhlowTextColumn >> bindToCellElement: aCellElement cellObject: aCellObject atP
 		ifNotNil: [ :aBlock |
 			aBlock
 				phlowValue: aCellObject
-				withEnoughArguments: { aRowIndex . index } ].
+				withEnoughArguments: { aRowIndex . index. aCellElement theme } ].
 
 	aCellElement text: aText gtDisplayText
 ]
