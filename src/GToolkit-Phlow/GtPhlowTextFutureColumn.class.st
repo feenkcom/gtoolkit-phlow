@@ -27,7 +27,7 @@ GtPhlowTextFutureColumn >> bindToCellElement: aCellElement cellObject: aCellObje
 		ifNotNil: [ :aBlock |
 			aBlock
 				phlowValue: aCellObject
-				withEnoughArguments: { aRowIndex . index } ].
+				withEnoughArguments: { aRowIndex . index. aCellElement theme } ].
 
 	aCellElement asyncFuture future: anAsyncFuture asAsyncFuture
 ]
