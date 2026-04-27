@@ -42,7 +42,8 @@ GtPhlowViewMixedExamples >> announceDefiningMethodChange [
 	anAnnouncements := OrderedCollection new.
 	aMethods
 		when: GtPhlowDefinitionUpdated
-		do: [ :anAnnouncement | anAnnouncements add: anAnnouncement ].
+		do: [ :anAnnouncement | anAnnouncements add: anAnnouncement ]
+		for: self.
 	aDemo compileFooMethod.
 	self assert: anAnnouncements size equals: 1.
 	^ aMethods
