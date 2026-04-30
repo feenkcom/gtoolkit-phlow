@@ -120,18 +120,17 @@ GtPhlowDemoDefinitionsExamples >> compilePrintOnMethod [
 	^ (self demoClass >> self printOnMethodName) asRingDefinition
 ]
 
-{ #category : #classes }
+{ #category : #examples }
 GtPhlowDemoDefinitionsExamples >> demoClass [
 	<gtExample>
 	| aClass |
 	aClass := self class environment
 		at: self demoClassName
 		ifAbsent: [
-			Object
-				subclass: self demoClassName
-				instanceVariableNames: ''
-				classVariableNames: ''
-				package: self demoPackageName ].
+			((Object
+				<< self demoClassName)
+				slots: {};
+				package: self demoPackageName) install ].
 	self
 		assert: (self class environment at: self demoClassName)
 		equals: aClass.
@@ -150,18 +149,17 @@ GtPhlowDemoDefinitionsExamples >> demoPackageName [
 	^ 'GToolkit-PhlowTempPackage'
 ]
 
-{ #category : #classes }
+{ #category : #examples }
 GtPhlowDemoDefinitionsExamples >> demoSubClass [
 	<gtExample>
 	| aClass |
 	aClass := self class environment
 		at: self demoSubClassName
 		ifAbsent: [
-			self demoClass
-				subclass: self demoSubClassName
-				instanceVariableNames: ''
-				classVariableNames: ''
-				package: self demoPackageName ].
+			((self demoClass
+				<< self demoSubClassName)
+				slots: {};
+				package: self demoPackageName) install ].
 	self
 		assert: (self class environment at: self demoSubClassName)
 		equals: aClass.
