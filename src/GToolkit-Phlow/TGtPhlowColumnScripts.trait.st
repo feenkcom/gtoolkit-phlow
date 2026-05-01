@@ -164,6 +164,21 @@ TGtPhlowColumnScripts >> column: aTitleString textDo: aBlock [
 
 { #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString textFuture: aFutureBlock pending: aPendingBlock success: aSuccessBlock [
+	"aFutureBlock:
+	  - is a block that computes its value in an async future,
+	  - parameters are [ :aRowItem :aRowIndex :aContext | ].
+	 aPendingBlock:
+	  - is a block that computes a pending text while aFutureBlock is computed,
+	  - parameters are [ :aRowItem :aRowIndex :aContext | ],
+	  - the pending text must be computed quickly to not block the UI process.
+	 aSuccessBlock:
+	  - is a block that computes a success text of the aFutureBlock return value that is displayed instead of the pending text,
+	  - parameters are [ :aResult :aContext | ],
+	  - the success text must be computed quickly to not block the UI process.
+	 aContext parameter of the blocks above:
+	  - is kind of `GtPhlowTextFutureColumnContext` instance that access value,
+	  - it provides access to `rowItem`, `rowIndex`, `columnIndex`, `theme` (BlTheme instance)."
+
 	self
 		column: aTitleString
 		textFutureDo: [ :aColumn | 
@@ -176,6 +191,21 @@ TGtPhlowColumnScripts >> column: aTitleString textFuture: aFutureBlock pending: 
 
 { #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString textFuture: aFutureBlock pending: aPendingBlock success: aSuccessBlock weight: aNumber [
+	"aFutureBlock:
+	  - is a block that computes its value in an async future,
+	  - parameters are [ :aRowItem :aRowIndex :aContext | ].
+	 aPendingBlock:
+	  - is a block that computes a pending text while aFutureBlock is computed,
+	  - parameters are [ :aRowItem :aRowIndex :aContext | ],
+	  - the pending text must be computed quickly to not block the UI process.
+	 aSuccessBlock:
+	  - is a block that computes a success text of the aFutureBlock return value that is displayed instead of the pending text,
+	  - parameters are [ :aResult :aContext | ],
+	  - the success text must be computed quickly to not block the UI process.
+	 aContext parameter of the blocks above:
+	  - is kind of `GtPhlowTextFutureColumnContext` instance that access value,
+	  - it provides access to `rowItem`, `rowIndex`, `columnIndex`, `theme` (BlTheme instance)."
+
 	self
 		column: aTitleString
 		textFutureDo: [ :aColumn | 
@@ -189,6 +219,21 @@ TGtPhlowColumnScripts >> column: aTitleString textFuture: aFutureBlock pending: 
 
 { #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString textFuture: aFutureBlock pending: aPendingBlock success: aSuccessBlock width: aNumber [
+	"aFutureBlock:
+	  - is a block that computes its value in an async future,
+	  - parameters are [ :aRowItem :aRowIndex :aContext | ].
+	 aPendingBlock:
+	  - is a block that computes a pending text while aFutureBlock is computed,
+	  - parameters are [ :aRowItem :aRowIndex :aContext | ],
+	  - the pending text must be computed quickly to not block the UI process.
+	 aSuccessBlock:
+	  - is a block that computes a success text of the aFutureBlock return value that is displayed instead of the pending text,
+	  - parameters are [ :aResult :aContext | ],
+	  - the success text must be computed quickly to not block the UI process.
+	 aContext parameter of the blocks above:
+	  - is kind of `GtPhlowTextFutureColumnContext` instance that access value,
+	  - it provides access to `rowItem`, `rowIndex`, `columnIndex`, `theme` (BlTheme instance)."
+
 	self
 		column: aTitleString
 		textFutureDo: [ :aColumn | 
