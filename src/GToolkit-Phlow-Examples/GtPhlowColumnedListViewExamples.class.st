@@ -1100,12 +1100,12 @@ GtPhlowColumnedListViewExamples >> gtTextFutureErrorInFutureFor: aView [
 		column: 'x' number: [ :x | x ];
 		column: 'x*x' number: [ :x | x * x ];
 		column: 'x**x (slow)'
-			textFuture: [ :x | 
-				[ ZeroDivide signal.
+			textFuture: [ :x :aRowIndex :aContext | 
 				50 milliSeconds wait.
-				x ** x ] asAsyncFuture ]
-			pending: [ :aTheme | '...' asRopedText foreground: aTheme button disabledTextColor ]
-			success: [ :aResult :aTheme | aResult ]
+				ZeroDivide new messageText: 'in text future'; signal.
+				x ** x ]
+			pending: [ :x :aRowIndex :aContext | '...' asRopedText foreground: aContext theme button disabledTextColor ]
+			success: [ :aResult :aContext | aResult ]
 ]
 
 { #category : #'gt-extensions' }
@@ -1118,13 +1118,13 @@ GtPhlowColumnedListViewExamples >> gtTextFutureErrorInPendingFor: aView [
 		column: 'x' number: [ :x | x ];
 		column: 'x*x' number: [ :x | x * x ];
 		column: 'x**x (slow)'
-			textFuture: [ :x | 
-				[ 50 milliSeconds wait.
-				x ** x ] asAsyncFuture ]
-			pending: [ :aTheme | 
-				ZeroDivide signal.
-				'...' asRopedText foreground: aTheme button disabledTextColor ]
-			success: [ :aResult :aTheme | aResult ]
+			textFuture: [ :x :aRowIndex :aContext | 
+				50 milliSeconds wait.
+				x ** x ]
+			pending: [ :x :aRowIndex :aContext | 
+				ZeroDivide new messageText: 'in pending'; signal.
+				'...' asRopedText foreground: aContext theme button disabledTextColor ]
+			success: [ :aResult :aContext | aResult ]
 ]
 
 { #category : #'gt-extensions' }
@@ -1137,12 +1137,12 @@ GtPhlowColumnedListViewExamples >> gtTextFutureErrorInSuccessFor: aView [
 		column: 'x' number: [ :x | x ];
 		column: 'x*x' number: [ :x | x * x ];
 		column: 'x**x (slow)'
-			textFuture: [ :x | 
-				[ 50 milliSeconds wait.
-				x ** x ] asAsyncFuture ]
-			pending: [ :aTheme | '...' asRopedText foreground: aTheme button disabledTextColor ]
-			success: [ :aResult :aTheme | 
-				ZeroDivide signal.
+			textFuture: [ :x :aRowIndex :aContext | 
+				50 milliSeconds wait.
+				x ** x ]
+			pending: [ :x :aRowIndex :aContext | '...' asRopedText foreground: aContext theme button disabledTextColor ]
+			success: [ :aResult :aContext | 
+				ZeroDivide new messageText: 'in success'; signal.
 				aResult ]
 ]
 
@@ -1156,11 +1156,11 @@ GtPhlowColumnedListViewExamples >> gtTextFutureFor: aView [
 		column: 'x' number: [ :x | x ];
 		column: 'x*x' number: [ :x | x * x ];
 		column: 'x**x (slow)'
-			textFuture: [ :x | 
-				[ 50 milliSeconds wait.
-				x ** x ] asAsyncFuture ]
-			pending: [ :aTheme | '...' asRopedText foreground: aTheme button disabledTextColor ]
-			success: [ :aResult :aTheme | aResult ]
+			textFuture: [ :x :aRowIndex :aContext | 
+				50 milliSeconds wait.
+				x ** x ]
+			pending: [ :x :aRowIndex :aContext | '...' asRopedText foreground: aContext theme button disabledTextColor ]
+			success: [ :aResult :aContext | aResult ]
 ]
 
 { #category : #'examples - support' }
