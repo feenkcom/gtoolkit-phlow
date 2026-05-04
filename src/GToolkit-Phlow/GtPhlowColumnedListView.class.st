@@ -240,7 +240,11 @@ GtPhlowColumnedListView >> updateContent: aCurrentElement [
 		theItems := self itemsProviderOnExceptionErrorElement: [ :anErrorElement | 
 			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
 		aList := aCurrentElement children second.
-		self enqueueAction: [ aList itemsProvider: theItems ] in: aList ].
+		self 
+			enqueueAction: [ 
+				self columns do: #prepareForUpdateContent.
+				aList itemsProvider: theItems ] 
+			in: aList ].
 ]
 
 { #category : #'api - converting' }

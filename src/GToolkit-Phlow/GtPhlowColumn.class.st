@@ -177,6 +177,14 @@ GtPhlowColumn >> noWidth [
 	width := BrColumnUndefinedWidth new.
 ]
 
+{ #category : #'api - building' }
+GtPhlowColumn >> prepareForUpdateContent [
+	"Items are going to be updated. Columns can clear caches, etc.
+	It is called only from the UI process."
+
+	
+]
+
 { #category : #'private - accessing' }
 GtPhlowColumn >> title [
 	^ title
