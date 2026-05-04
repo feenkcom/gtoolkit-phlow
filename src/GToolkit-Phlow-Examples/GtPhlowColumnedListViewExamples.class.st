@@ -8,8 +8,32 @@ Class {
 	#superclass : #GtPhlowViewExamples,
 	#traits : 'TGtPhlowSendTransformationExamples',
 	#classTraits : 'TGtPhlowSendTransformationExamples classTrait',
+	#instVars : [
+		'futuresCount',
+		'pendingsCount',
+		'successesCount'
+	],
 	#category : #'GToolkit-Phlow-Examples-Views'
 }
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> assertFuturesCount: anInteger pendingsCount: anInteger1 successesCount: anInteger2 [
+	self
+		assert: futuresCount = anInteger
+		description: [ 'Assertion failed. Got futures count {1} instead of {2}'
+				format: {futuresCount.
+						anInteger} ].
+	self
+		assert: pendingsCount = anInteger1
+		description: [ 'Assertion failed. Got pendings count {1} instead of {2}'
+				format: {pendingsCount.
+						anInteger1} ].
+	self
+		assert: successesCount = anInteger2
+		description: [ 'Assertion failed. Got successes count {1} instead of {2}'
+				format: {successesCount.
+						anInteger2} ]
+]
 
 { #category : #'examples - auto updates' }
 GtPhlowColumnedListViewExamples >> autoUpdatedView [
@@ -351,18 +375,186 @@ GtPhlowColumnedListViewExamples >> columnItemView [
 ]
 
 { #category : #'examples - text future' }
-GtPhlowColumnedListViewExamples >> columnTextFutureView [
+GtPhlowColumnedListViewExamples >> columnTextFutureScripter [
 	<gtExample>
 	| aView anElement aScripter |
+	aView := self columnTextFutureViewForScripter.
+	anElement := aView asElementDo: [ :theElement | theElement ].
+	self
+		assertViewElement: anElement
+		ofClass: self expectedElementClass
+		inView: aView.
+	aScripter := BlScripter new
+			model: aView;
+			element: anElement.
+
+	aScripter assert
+		label: 'Assert no selected items';
+		value: [ :aList | aList selectedItems size ] equals: 0;
+		// GtPhlowColumnedListId;
+		play.
+
+	self
+		assertFuturesCount: 1
+		pendingsCount: 1
+		successesCount: 1.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureScripter_selectRow [
+	<gtExample>
+	| aScripter |
+	aScripter := self columnTextFutureScripter.
+	self resetFutureCounts.
+
+	aScripter click
+		label: 'Select row item';
+		// GtPhlowCellElement;
+		@ 2;
+		play.
+
+	aScripter assert
+		label: 'Assert one selected item';
+		value: [ :aList | aList selectedItems size ] equals: 1;
+		// GtPhlowColumnedListId;
+		play.
+
+	self
+		assertFuturesCount: 0
+		pendingsCount: 0
+		successesCount: 0.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureScripter_selectRow_deselectRow [
+	<gtExample>
+	| aScripter |
+	aScripter := self columnTextFutureScripter_selectRow.
+	self resetFutureCounts.
+
+	aScripter do
+		label: 'Deselect row item';
+		block: [ :aList | aList deselectAll ];
+		// GtPhlowColumnedListId;
+		play.
+
+	aScripter assert
+		label: 'Assert no selected items';
+		value: [ :aList | aList selectedItems size ] equals: 0;
+		// GtPhlowColumnedListId;
+		play.
+
+	self
+		assertFuturesCount: 0
+		pendingsCount: 0
+		successesCount: 0.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureScripter_updatePhlowContent [
+	<gtExample>
+	| aScripter |
+	aScripter := self columnTextFutureScripter.
+	self resetFutureCounts.
+
+	aScripter do
+		label: 'Update list phlow content';
+		block: [ :aList | aList phlow update ];
+		play.
+	
+	self
+		assertFuturesCount: 1
+		pendingsCount: 1
+		successesCount: 1.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureScripter_updatePhlowContent_selectRow [
+	<gtExample>
+	| aScripter |
+	aScripter := self columnTextFutureScripter_updatePhlowContent.
+	self resetFutureCounts.
+
+	aScripter click
+		label: 'Select row item';
+		// GtPhlowCellElement;
+		@ 2;
+		play.
+
+	aScripter assert
+		label: 'Assert one selected item';
+		value: [ :aList | aList selectedItems size ] equals: 1;
+		// GtPhlowColumnedListId;
+		play.
+
+	self
+		assertFuturesCount: 0
+		pendingsCount: 0
+		successesCount: 0.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureScripter_updatePhlowContent_selectRow_deselectRow [
+	<gtExample>
+	| aScripter |
+	aScripter := self columnTextFutureScripter_updatePhlowContent_selectRow.
+	self resetFutureCounts.
+
+	aScripter do
+		label: 'Deselect row item';
+		block: [ :aList | aList deselectAll ];
+		// GtPhlowColumnedListId;
+		play.
+
+	aScripter assert
+		label: 'Assert no selected items';
+		value: [ :aList | aList selectedItems size ] equals: 0;
+		// GtPhlowColumnedListId;
+		play.
+
+	self
+		assertFuturesCount: 0
+		pendingsCount: 0
+		successesCount: 0.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureView [
+	<gtExample>
+	| aView anElement |
 	aView := GtPhlowView empty on: self perform: #gtTextFutureFor:.
 	anElement := aView asElementDo: [ :theElement | theElement ].
 	self
 		assertViewElement: anElement
 		ofClass: self expectedElementClass
 		inView: aView.
-	aScripter := BlScripter new model: aView; element: anElement.
-	
+
 	^ aView
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureViewForScripter [
+	<gtExample>
+	^ GtPhlowView empty columnedList
+		title: 'column:textFuture: usage';
+		items: [ 1 to: 1 ];
+		column: 'x' number: [ :x | x ];
+		column: 'x**x (future)'
+			textFuture: [ :x :aRowIndex :aContext | 
+				futuresCount := futuresCount + 1.
+				x ** x ]
+			pending: [ :x :aRowIndex :aContext | 
+				pendingsCount := pendingsCount + 1.
+				'...' asRopedText foreground: aContext theme button disabledTextColor ]
+			success: [ :aResult :aContext | 
+				successesCount := successesCount + 1.
+				aResult ]
 ]
 
 { #category : #'examples - text future' }
@@ -1163,6 +1355,14 @@ GtPhlowColumnedListViewExamples >> gtTextFutureFor: aView [
 			success: [ :aResult :aContext | aResult ]
 ]
 
+{ #category : #initialization }
+GtPhlowColumnedListViewExamples >> initialize [
+	super initialize.
+	futuresCount := 0.
+	pendingsCount := 0.
+	successesCount := 0
+]
+
 { #category : #'examples - support' }
 GtPhlowColumnedListViewExamples >> listElementFor: anElement [
 	| aListElement |
@@ -1191,6 +1391,13 @@ GtPhlowColumnedListViewExamples >> registeredColors [
 	self assert: aCollection isNotNil.
 	self assert: aCollection isNotEmpty.
 	^ aCollection
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> resetFutureCounts [
+	futuresCount := 0.
+	pendingsCount := 0.
+	successesCount := 0
 ]
 
 { #category : #'examples - support' }
