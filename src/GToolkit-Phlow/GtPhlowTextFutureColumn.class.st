@@ -44,12 +44,12 @@ GtPhlowTextFutureColumn >> bindToCellElement: aCellElement cellObject: aCellObje
 					ifNone: [  ].
 				theCacheValue exceptionResultHolder
 					ifDefined: [ :theContext | 
-						aCellElement asyncFuture future: theContext asAsyncFuture.
+						aCellElement text: theContext exceptionText.
 						^ self ]
 					ifNone: [  ].
 				theCacheValue futureResultHolder
 					ifDefined: [ :theContext | 
-						aCellElement text: theContext exceptionText.
+						aCellElement asyncFuture future: theContext asAsyncFuture.
 						^ self ]
 					ifNone: [  ] ]
 			ifAbsentPut: [ GtPhlowColumnCacheValue new ].

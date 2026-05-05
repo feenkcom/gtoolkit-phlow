@@ -558,6 +558,67 @@ GtPhlowColumnedListViewExamples >> columnTextFutureViewForScripter [
 ]
 
 { #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInFutureScripter [
+	<gtExample>
+	| aView anElement aScripter |
+	aView := self columnTextFutureWithErrorInFutureViewForScripter.
+	anElement := aView asElementDo: [ :theElement | theElement ].
+	self
+		assertViewElement: anElement
+		ofClass: self expectedElementClass
+		inView: aView.
+	aScripter := BlScripter new
+			model: aView;
+			element: anElement.
+
+	aScripter assert
+		label: 'Assert no selected items';
+		value: [ :aList | aList selectedItems size ] equals: 0;
+		// GtPhlowColumnedListId;
+		play.
+
+	self
+		assertFuturesCount: 1
+		pendingsCount: 1
+		successesCount: 0.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInFutureScripter_selectRow [
+	<gtExample>
+	| aScripter |
+	aScripter := self columnTextFutureWithErrorInFutureScripter.
+	self resetFutureCounts.
+
+	aScripter click
+		label: 'Select row item';
+		// GtPhlowCellElement;
+		@ 1;
+		play.
+
+	aScripter assert
+		label: 'Assert one selected item';
+		value: [ :aList | aList selectedItems size ] equals: 1;
+		// GtPhlowColumnedListId;
+		play.
+
+	aScripter assert
+		label: 'Assert cell text';
+		value: [ :aLabel | aLabel text asString ] equals: '';
+		// GtPhlowCellElement;
+		@ 2;
+		/ BrLabel;
+		play.
+
+	self
+		assertFuturesCount: 0
+		pendingsCount: 0
+		successesCount: 0.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
 GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInFutureView [
 	<gtExample>
 	| aView anElement aScripter |
@@ -572,6 +633,26 @@ GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInFutureView [
 			element: anElement.
 
 	^ aView
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInFutureViewForScripter [
+	<gtExample>
+	^ GtPhlowView empty columnedList
+		title: 'column:textFuture: usage';
+		items: [ 1 to: 1 ];
+		column: 'x' number: [ :x | x ];
+		column: 'x**x (future)'
+			textFuture: [ :x :aRowIndex :aContext | 
+				futuresCount := futuresCount + 1.
+				ZeroDivide new messageText: 'in text future'; signal.
+				x ** x ]
+			pending: [ :x :aRowIndex :aContext | 
+				pendingsCount := pendingsCount + 1.
+				'...' asRopedText foreground: aContext theme button disabledTextColor ]
+			success: [ :aResult :aContext | 
+				successesCount := successesCount + 1.
+				aResult ]
 ]
 
 { #category : #'examples - text future' }
