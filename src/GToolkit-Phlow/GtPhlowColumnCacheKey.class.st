@@ -27,7 +27,7 @@ GtPhlowColumnCacheKey >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		nextPut: $(;
-		nextPutAll: ', row: ';
+		nextPutAll: 'row: ';
 		print: rowIndex;
 		nextPutAll: ', value: ';
 		print: rowItem;
