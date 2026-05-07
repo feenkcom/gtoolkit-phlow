@@ -39,7 +39,36 @@ GtPhlowColumnCacheValue >> futureResultHolder [
 	^ futureResultHolder
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'gt - extensions' }
+GtPhlowColumnCacheValue >> gtOverview [
+	^ {GtPhlowOverviewItem new
+			name: 'Future result';
+			description: self futureResultHolder gtDisplayText;
+			value: self futureResultHolder.
+		GtPhlowOverviewItem new
+			name: 'Exception result';
+			description: self exceptionResultHolder gtDisplayText;
+			value: self futureResultHolder.
+		GtPhlowOverviewItem new
+			name: 'Success result';
+			description: self successResultHolder gtDisplayText;
+			value: self successResultHolder}
+]
+
+{ #category : #'gt - extensions' }
+GtPhlowColumnCacheValue >> gtOverviewFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Info';
+		items: [ self gtOverview ];
+		column: 'Name' text: #name;
+		column: 'Description'
+			text: #description
+			weight: 2;
+		send: [ :anItem | anItem value value ]
+]
+
+{ #category : #initialization }
 GtPhlowColumnCacheValue >> initialize [
 	super initialize.
 
