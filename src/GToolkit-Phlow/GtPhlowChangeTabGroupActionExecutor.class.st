@@ -69,7 +69,7 @@ GtPhlowChangeTabGroupActionExecutor >> removeSubmittedAction: aSubmittedAction c
 	mutex critical: [ 
 		aSubmittedAction changeContext == aChangeContext ifTrue: [
 			actions 
-				removeKey: aChangeContext affectedMethodSelector
+				removeKey: aChangeContext actionIdentifier
 				ifAbsent: [ "ignore" ] ] ]
 ]
 
@@ -80,7 +80,7 @@ GtPhlowChangeTabGroupActionExecutor >> submit: aChangeAction context: aChangeCon
 	mutex critical: [ 
 		| aSubmittedAction anActionFuture aFuture |
 		aSubmittedAction := actions 
-			at: aChangeContext affectedMethodSelector
+			at: aChangeContext actionIdentifier
 			ifAbsentPut: [ self newSubmittedAction ].
 		aSubmittedAction 
 			changeAction: aChangeAction;
