@@ -17,6 +17,26 @@ Class {
 }
 
 { #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> assert: aScripter labelTextAndUserData: aLabelText [
+	aScripter assert
+		label: ('Assert cell text is "{1}"' format: { aLabelText });
+		value: [ :aLabel | aLabel text asString ] equals: aLabelText;
+		// GtPhlowCellElement;
+		@ 2;
+		/ BrLabel;
+		play.
+
+	aScripter assert
+		label: 'Assert cell userData with GtPhlowTextFutureColumnContext object';
+		satisfies: [ :aLabel | aLabel userData includesKey: GtPhlowTextFutureColumn name ]
+			description: [ :aLabel | 'Cell label does not' ];
+		// GtPhlowCellElement;
+		@ 2;
+		/ BrLabel;
+		play
+]
+
+{ #category : #'examples - text future' }
 GtPhlowColumnedListViewExamples >> assertFuturesCount: anInteger pendingsCount: anInteger1 successesCount: anInteger2 [
 	self
 		assert: futuresCount = anInteger
@@ -387,13 +407,12 @@ GtPhlowColumnedListViewExamples >> columnTextFutureScripter [
 	aScripter := BlScripter new
 			model: aView;
 			element: anElement.
-
 	aScripter assert
 		label: 'Assert no selected items';
 		value: [ :aList | aList selectedItems size ] equals: 0;
 		// GtPhlowColumnedListId;
 		play.
-
+	self assert: aScripter labelTextAndUserData: '1'.
 	self
 		assertFuturesCount: 1
 		pendingsCount: 1
@@ -408,17 +427,21 @@ GtPhlowColumnedListViewExamples >> columnTextFutureScripter_selectRow [
 	aScripter := self columnTextFutureScripter.
 	self resetFutureCounts.
 
-	aScripter click
-		label: 'Select row item';
-		// GtPhlowCellElement;
-		@ 2;
-		play.
+	aScripter
+		substeps: 'Select row'
+		do: [ :aStep | 
+			aStep click
+				label: 'Select row item';
+				// GtPhlowCellElement;
+				@ 2;
+				play.
 
-	aScripter assert
-		label: 'Assert one selected item';
-		value: [ :aList | aList selectedItems size ] equals: 1;
-		// GtPhlowColumnedListId;
-		play.
+			aStep assert
+				label: 'Assert one selected item';
+				value: [ :aList | aList selectedItems size ] equals: 1;
+				// GtPhlowColumnedListId;
+				play.
+			self assert: aStep labelTextAndUserData: '1' ].
 
 	self
 		assertFuturesCount: 0
@@ -434,18 +457,22 @@ GtPhlowColumnedListViewExamples >> columnTextFutureScripter_selectRow_deselectRo
 	aScripter := self columnTextFutureScripter_selectRow.
 	self resetFutureCounts.
 
-	aScripter do
-		label: 'Deselect row item';
-		block: [ :aList | aList deselectAll ];
-		// GtPhlowColumnedListId;
-		play.
+	aScripter
+		substeps: 'Deselect row'
+		do: [ :aStep | 
+			aStep do
+				label: 'Deselect row item';
+				block: [ :aList | aList deselectAll ];
+				// GtPhlowColumnedListId;
+				play.
 
-	aScripter assert
-		label: 'Assert no selected items';
-		value: [ :aList | aList selectedItems size ] equals: 0;
-		// GtPhlowColumnedListId;
-		play.
+			aStep assert
+				label: 'Assert no selected items';
+				value: [ :aList | aList selectedItems size ] equals: 0;
+				// GtPhlowColumnedListId;
+				play.
 
+			self assert: aStep labelTextAndUserData: '1' ].
 	self
 		assertFuturesCount: 0
 		pendingsCount: 0
@@ -464,7 +491,8 @@ GtPhlowColumnedListViewExamples >> columnTextFutureScripter_updatePhlowContent [
 		label: 'Update list phlow content';
 		block: [ :aList | aList phlow update ];
 		play.
-	
+
+	self assert: aScripter labelTextAndUserData: '1'.
 	self
 		assertFuturesCount: 1
 		pendingsCount: 1
@@ -479,18 +507,22 @@ GtPhlowColumnedListViewExamples >> columnTextFutureScripter_updatePhlowContent_s
 	aScripter := self columnTextFutureScripter_updatePhlowContent.
 	self resetFutureCounts.
 
-	aScripter click
-		label: 'Select row item';
-		// GtPhlowCellElement;
-		@ 2;
-		play.
+	aScripter
+		substeps: 'Select row'
+		do: [ :aStep | 
+			aStep click
+				label: 'Select row item';
+				// GtPhlowCellElement;
+				@ 2;
+				play.
 
-	aScripter assert
-		label: 'Assert one selected item';
-		value: [ :aList | aList selectedItems size ] equals: 1;
-		// GtPhlowColumnedListId;
-		play.
+			aStep assert
+				label: 'Assert one selected item';
+				value: [ :aList | aList selectedItems size ] equals: 1;
+				// GtPhlowColumnedListId;
+				play.
 
+			self assert: aStep labelTextAndUserData: '1' ].
 	self
 		assertFuturesCount: 0
 		pendingsCount: 0
@@ -505,18 +537,22 @@ GtPhlowColumnedListViewExamples >> columnTextFutureScripter_updatePhlowContent_s
 	aScripter := self columnTextFutureScripter_updatePhlowContent_selectRow.
 	self resetFutureCounts.
 
-	aScripter do
-		label: 'Deselect row item';
-		block: [ :aList | aList deselectAll ];
-		// GtPhlowColumnedListId;
-		play.
+	aScripter
+		substeps: 'Deselect row'
+		do: [ :aStep | 
+			aStep do
+				label: 'Deselect row item';
+				block: [ :aList | aList deselectAll ];
+				// GtPhlowColumnedListId;
+				play.
 
-	aScripter assert
-		label: 'Assert no selected items';
-		value: [ :aList | aList selectedItems size ] equals: 0;
-		// GtPhlowColumnedListId;
-		play.
+			aStep assert
+				label: 'Assert no selected items';
+				value: [ :aList | aList selectedItems size ] equals: 0;
+				// GtPhlowColumnedListId;
+				play.
 
+			self assert: aStep labelTextAndUserData: '1' ].
 	self
 		assertFuturesCount: 0
 		pendingsCount: 0
@@ -577,6 +613,16 @@ GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInFutureScripter [
 		// GtPhlowColumnedListId;
 		play.
 
+	aScripter assert
+		label: 'Assert cell displays debug button';
+		exists;
+		// GtPhlowCellElement;
+		@ 2;
+		/ BrLabel;
+		// #futureException;
+		play.
+
+	self assert: aScripter labelTextAndUserData: ''.
 	self
 		assertFuturesCount: 1
 		pendingsCount: 1
@@ -591,26 +637,61 @@ GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInFutureScripter_sel
 	aScripter := self columnTextFutureWithErrorInFutureScripter.
 	self resetFutureCounts.
 
-	aScripter click
-		label: 'Select row item';
-		// GtPhlowCellElement;
-		@ 1;
-		play.
+	aScripter
+		substeps: 'Select row'
+		do: [ :aStep | 
+			aStep click
+				label: 'Select row item';
+				// GtPhlowCellElement;
+				@ 1;
+				play.
 
-	aScripter assert
-		label: 'Assert one selected item';
-		value: [ :aList | aList selectedItems size ] equals: 1;
-		// GtPhlowColumnedListId;
-		play.
+			aStep assert
+				label: 'Assert one selected item';
+				value: [ :aList | aList selectedItems size ] equals: 1;
+				// GtPhlowColumnedListId;
+				play.
 
-	aScripter assert
-		label: 'Assert cell text';
-		value: [ :aLabel | aLabel text asString ] equals: '';
-		// GtPhlowCellElement;
-		@ 2;
-		/ BrLabel;
-		play.
+			aStep assert
+				label: 'Assert cell displays debug button';
+				exists;
+				// GtPhlowCellElement;
+				@ 2;
+				/ BrLabel;
+				// #futureException;
+				play.
 
+			self assert: aStep labelTextAndUserData: '' ].
+	self
+		assertFuturesCount: 0
+		pendingsCount: 0
+		successesCount: 0.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInFutureScripter_selectRow_deselectRow [
+	<gtExample>
+	| aScripter |
+	aScripter := self columnTextFutureWithErrorInFutureScripter_selectRow.
+	self resetFutureCounts.
+
+	aScripter
+		substeps: 'Deselect row'
+		do: [ :aStep | 
+			aStep do
+				label: 'Deselect row item';
+				block: [ :aList | aList deselectAll ];
+				// GtPhlowColumnedListId;
+				play.
+
+			aStep assert
+				label: 'Assert no selected items';
+				value: [ :aList | aList selectedItems size ] equals: 0;
+				// GtPhlowColumnedListId;
+				play.
+
+			self assert: aStep labelTextAndUserData: '' ].
 	self
 		assertFuturesCount: 0
 		pendingsCount: 0
@@ -656,6 +737,112 @@ GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInFutureViewForScrip
 ]
 
 { #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInPendingScripter [
+	<gtExample>
+	| aView anElement aScripter |
+	aView := self columnTextFutureWithErrorInPendingViewForScripter.
+	anElement := aView asElementDo: [ :theElement | theElement ].
+	self
+		assertViewElement: anElement
+		ofClass: self expectedElementClass
+		inView: aView.
+	aScripter := BlScripter new
+			model: aView;
+			element: anElement.
+
+	aScripter assert
+		label: 'Assert no selected items';
+		value: [ :aList | aList selectedItems size ] equals: 0;
+		// GtPhlowColumnedListId;
+		play.
+
+	aScripter assert
+		label: 'Assert cell displays debug button';
+		exists;
+		// GtPhlowCellElement;
+		@ 2;
+		/ BrLabel;
+		// #futurePendingException;
+		play.
+
+	self assert: aScripter labelTextAndUserData: '1'.
+	self
+		assertFuturesCount: 1
+		pendingsCount: 1
+		successesCount: 1.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInPendingScripter_selectRow [
+	<gtExample>
+	| aScripter |
+	aScripter := self columnTextFutureWithErrorInPendingScripter.
+	self resetFutureCounts.
+
+	aScripter
+		substeps: 'Select row'
+		do: [ :aStep | 
+			aStep click
+				label: 'Select row item';
+				// GtPhlowCellElement;
+				@ 1;
+				play.
+
+			aStep assert
+				label: 'Assert one selected item';
+				value: [ :aList | aList selectedItems size ] equals: 1;
+				// GtPhlowColumnedListId;
+				play.
+
+			aStep assert
+				label: 'Assert cell displays debug button';
+				exists;
+				// GtPhlowCellElement;
+				@ 2;
+				/ BrLabel;
+				// #futurePendingException;
+				play.
+
+			self assert: aStep labelTextAndUserData: '1' ].
+	self
+		assertFuturesCount: 0
+		pendingsCount: 0
+		successesCount: 0.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInPendingScripter_selectRow_deselectRow [
+	<gtExample>
+	| aScripter |
+	aScripter := self columnTextFutureWithErrorInPendingScripter_selectRow.
+	self resetFutureCounts.
+
+	aScripter
+		substeps: 'Deselect row'
+		do: [ :aStep | 
+			aStep do
+				label: 'Deselect row item';
+				block: [ :aList | aList deselectAll ];
+				// GtPhlowColumnedListId;
+				play.
+
+			aStep assert
+				label: 'Assert no selected items';
+				value: [ :aList | aList selectedItems size ] equals: 0;
+				// GtPhlowColumnedListId;
+				play.
+
+			self assert: aStep labelTextAndUserData: '1' ].
+	self
+		assertFuturesCount: 0
+		pendingsCount: 0
+		successesCount: 0.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
 GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInPendingView [
 	<gtExample>
 	| aView anElement aScripter |
@@ -673,6 +860,132 @@ GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInPendingView [
 ]
 
 { #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInPendingViewForScripter [
+	<gtExample>
+	^ GtPhlowView empty columnedList
+		title: 'column:textFuture: usage';
+		items: [ 1 to: 1 ];
+		column: 'x' number: [ :x | x ];
+		column: 'x**x (future)'
+			textFuture: [ :x :aRowIndex :aContext | 
+				futuresCount := futuresCount + 1.
+				x ** x ]
+			pending: [ :x :aRowIndex :aContext | 
+				pendingsCount := pendingsCount + 1.
+				ZeroDivide new messageText: 'in pending'; signal.
+				'...' asRopedText foreground: aContext theme button disabledTextColor ]
+			success: [ :aResult :aContext | 
+				successesCount := successesCount + 1.
+				aResult ]
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInSuccessScripter [
+	<gtExample>
+	| aView anElement aScripter |
+	aView := self columnTextFutureWithErrorInSuccessViewForScripter.
+	anElement := aView asElementDo: [ :theElement | theElement ].
+	self
+		assertViewElement: anElement
+		ofClass: self expectedElementClass
+		inView: aView.
+	aScripter := BlScripter new
+			model: aView;
+			element: anElement.
+
+	aScripter assert
+		label: 'Assert no selected items';
+		value: [ :aList | aList selectedItems size ] equals: 0;
+		// GtPhlowColumnedListId;
+		play.
+
+	aScripter assert
+		label: 'Assert cell displays debug button';
+		exists;
+		// GtPhlowCellElement;
+		@ 2;
+		/ BrLabel;
+		// #futureSuccessException;
+		play.
+
+	self assert: aScripter labelTextAndUserData: ''.
+	self
+		assertFuturesCount: 1
+		pendingsCount: 1
+		successesCount: 1.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInSuccessScripter_selectRow [
+	<gtExample>
+	| aScripter |
+	aScripter := self columnTextFutureWithErrorInSuccessScripter.
+	self resetFutureCounts.
+
+	aScripter
+		substeps: 'Select row'
+		do: [ :aStep | 
+			aStep click
+				label: 'Select row item';
+				// GtPhlowCellElement;
+				@ 1;
+				play.
+
+			aStep assert
+				label: 'Assert one selected item';
+				value: [ :aList | aList selectedItems size ] equals: 1;
+				// GtPhlowColumnedListId;
+				play.
+
+			aStep assert
+				label: 'Assert cell displays debug button';
+				exists;
+				// GtPhlowCellElement;
+				@ 2;
+				/ BrLabel;
+				// #futureSuccessException;
+				play.
+
+			self assert: aStep labelTextAndUserData: '' ].
+	self
+		assertFuturesCount: 0
+		pendingsCount: 0
+		successesCount: 0.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInSuccessScripter_selectRow_deselectRow [
+	<gtExample>
+	| aScripter |
+	aScripter := self columnTextFutureWithErrorInSuccessScripter_selectRow.
+	self resetFutureCounts.
+
+	aScripter
+		substeps: 'Deselect row'
+		do: [ :aStep | 
+			aStep do
+				label: 'Deselect row item';
+				block: [ :aList | aList deselectAll ];
+				// GtPhlowColumnedListId;
+				play.
+
+			aStep assert
+				label: 'Assert no selected items';
+				value: [ :aList | aList selectedItems size ] equals: 0;
+				// GtPhlowColumnedListId;
+				play.
+
+			self assert: aStep labelTextAndUserData: '' ].
+	self
+		assertFuturesCount: 0
+		pendingsCount: 0
+		successesCount: 0.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
 GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInSuccessView [
 	<gtExample>
 	| aView anElement aScripter |
@@ -687,6 +1000,26 @@ GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInSuccessView [
 			element: anElement.
 
 	^ aView
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInSuccessViewForScripter [
+	<gtExample>
+	^ GtPhlowView empty columnedList
+		title: 'column:textFuture: usage';
+		items: [ 1 to: 1 ];
+		column: 'x' number: [ :x | x ];
+		column: 'x**x (future)'
+			textFuture: [ :x :aRowIndex :aContext | 
+				futuresCount := futuresCount + 1.
+				x ** x ]
+			pending: [ :x :aRowIndex :aContext | 
+				pendingsCount := pendingsCount + 1.
+				'...' asRopedText foreground: aContext theme button disabledTextColor ]
+			success: [ :aResult :aContext | 
+				successesCount := successesCount + 1.
+				ZeroDivide new messageText: 'in success'; signal.
+				aResult ]
 ]
 
 { #category : #accessing }

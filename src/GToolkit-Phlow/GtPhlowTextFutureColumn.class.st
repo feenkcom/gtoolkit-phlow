@@ -32,33 +32,40 @@ GtPhlowTextFutureColumn >> addException: anException inLabel: aLabel as: anEleme
 
 { #category : #'api - building' }
 GtPhlowTextFutureColumn >> bindToCellElement: aCellElement cellObject: aCellObject atPosition: aRowIndex [
-	| aCacheKey aCacheValue anAsyncFuture |
+	| aCacheKey aCacheValue anAsyncFuture aContext |
 	aCacheKey := self createCacheKeyRowItem: aCellObject rowIndex: aRowIndex.
 	aCacheValue := resultCache
 			at: aCacheKey
 			ifPresent: [ :theCacheValue | 
 				theCacheValue successResultHolder
 					ifDefined: [ :theContext | 
+						self bindToCellElement: aCellElement setUserDataContext: theContext.
+						self updateCellElement: aCellElement exceptionsFromContext: theContext.
 						aCellElement text: theContext successText.
 						^ self ]
 					ifNone: [  ].
 				theCacheValue exceptionResultHolder
 					ifDefined: [ :theContext | 
+						self bindToCellElement: aCellElement setUserDataContext: theContext.
+						self updateCellElement: aCellElement exceptionsFromContext: theContext.
 						aCellElement text: theContext exceptionText.
 						^ self ]
 					ifNone: [  ].
 				theCacheValue futureResultHolder
 					ifDefined: [ :theContext | 
+						self bindToCellElement: aCellElement setUserDataContext: theContext.
+						self updateCellElement: aCellElement exceptionsFromContext: theContext.
 						aCellElement asyncFuture future: theContext asAsyncFuture.
 						^ self ]
 					ifNone: [  ] ]
 			ifAbsentPut: [ GtPhlowColumnCacheValue new ].
 
-	anAsyncFuture := [ | aContext aResult |
-		aContext := self
-				createContextCellElement: aCellElement
-				rowItem: aCellObject
-				rowIndex: aRowIndex.
+	aContext := self
+			createContextCellElement: aCellElement
+			rowItem: aCellObject
+			rowIndex: aRowIndex.
+
+	anAsyncFuture := [ | aResult |
 		aResult := futureComputation
 				ifNil: [ aCellObject gtDisplayText ]
 				ifNotNil: [ :aBlock | 
@@ -74,13 +81,16 @@ GtPhlowTextFutureColumn >> bindToCellElement: aCellElement cellObject: aCellObje
 ]
 
 { #category : #'private - building' }
+GtPhlowTextFutureColumn >> bindToCellElement: aCellElement setUserDataContext: theContext [
+	aCellElement userData at: self class name put: theContext
+]
+
+{ #category : #'private - building' }
 GtPhlowTextFutureColumn >> computeErrorLabelTextFor: aLabel exception: anError [
 	| aContext aText aCacheKey aCacheValue |
-	aContext := aLabel userData
-			at: self class name
-			ifAbsent: [ GtPhlowTextFutureColumnContext new
-					columnIndex: index;
-					theme: aLabel theme ].
+	aContext := self retrieveContextFromLabelElement: aLabel.
+	aContext futureException: (GtSystemUtility freeze: anError).
+
 	aCacheKey := self
 			createCacheKeyRowItem: aContext rowItem
 			rowIndex: aContext rowIndex.
@@ -104,31 +114,42 @@ GtPhlowTextFutureColumn >> computeErrorLabelTextFor: aLabel exception: anError [
 	self
 		addException: anError
 		inLabel: aLabel
-		as: #columnCellFutureEvaluationException
+		as: #futureException
 ]
 
 { #category : #'private - building' }
 GtPhlowTextFutureColumn >> computePendingLabelTextFor: aLabel [
-	| aText |
+	| aContext aText |
+	aLabel userData
+		at: self class name
+		ifAbsent: [ GtJustContextStackSignal emit ].
+	aContext := self retrieveContextFromLabelElement: aLabel.
+
 	aText := pendingComputation
 			ifNil: [ '' ]
 			ifNotNil: [ :aBlock | 
-				[ | aContext aResult |
-				aContext := aLabel userData
-						at: self class
-						ifAbsent: [ GtPhlowTextFutureColumnContext new
-								columnIndex: index;
-								theme: aLabel theme ].
+				[ | aResult |
 				aResult := aBlock
 						phlowValue: aContext rowItem
 						withEnoughArguments: {aContext rowIndex.
 								aContext}.
 				aResult gtDisplayText ]
 					onErrorDo: [ :anException | 
+						| aCacheKey aCacheValue |
+						aCacheKey := self
+								createCacheKeyRowItem: aContext rowItem
+								rowIndex: aContext rowIndex.
+						aCacheValue := resultCache
+								at: aCacheKey
+								ifPresent: [ :theCacheValue | theCacheValue ]
+								ifAbsentPut: [ GtPhlowColumnCacheValue new ].
+
+						aContext pendingException: (GtSystemUtility freeze: anException).
+						aCacheValue exceptionResult: aContext.
 						self
 							addException: anException
 							inLabel: aLabel
-							as: #columnCellFuturePendingException.
+							as: #futurePendingException.
 						anException return: '' ] ].
 
 	aLabel text: aText
@@ -158,10 +179,11 @@ GtPhlowTextFutureColumn >> computeSuccessLabelTextFor: aLabel value: aTextFuture
 					phlowValue: aTextFutureContext result
 					withEnoughArguments: {aTextFutureContext}) gtDisplayText ]
 					onErrorDo: [ :anException | 
+						aTextFutureContext successException: (GtSystemUtility freeze: anException).
 						self
 							addException: anException
 							inLabel: aLabel
-							as: #columnCellFutureSuccessException.
+							as: #futureSuccessException.
 						anException return: '' ] ].
 
 	aTextFutureContext successText: aText.
@@ -201,8 +223,16 @@ GtPhlowTextFutureColumn >> createContextCellElement: aCellElement rowItem: aCell
 			rowIndex: aRowIndex;
 			columnIndex: index;
 			theme: aCellElement theme.
-	aCellElement userData at: self class name put: aContext.
+	self bindToCellElement: aCellElement setUserDataContext: aContext.
 	^ aContext
+]
+
+{ #category : #'private - building' }
+GtPhlowTextFutureColumn >> ensureRemove: aLabel childWithId: anElementId [
+	aLabel
+		directChildNamed: anElementId asSymbol
+		ifFound: [ :aCurrentElement | aCurrentElement removeFromParent ]
+		ifNone: [  ]
 ]
 
 { #category : #'api - configuration' }
@@ -255,6 +285,15 @@ GtPhlowTextFutureColumn >> prepareForUpdateContent [
 	self initializeResultCache
 ]
 
+{ #category : #'private - building' }
+GtPhlowTextFutureColumn >> retrieveContextFromLabelElement: aLabel [
+	^ aLabel userData
+		at: self class name
+		ifAbsent: [ GtPhlowTextFutureColumnContext new
+				columnIndex: index;
+				theme: aLabel theme ]
+]
+
 { #category : #'api - configuration' }
 GtPhlowTextFutureColumn >> success: aBlock [
 	"Set a block that computes a success text during the computation.
@@ -272,4 +311,31 @@ GtPhlowTextFutureColumn >> successComputation [
 	See `GtPhlowTextFutureColumn>>#updateValue:forComputedItem:rowIndex:columnIndex:`."
 
 	^ successComputation
+]
+
+{ #category : #'private - building' }
+GtPhlowTextFutureColumn >> updateCellElement: aCellElement exceptionsFromContext: aTextFutureContext [
+	aTextFutureContext futureException
+		ifNil: [ self ensureRemove: aCellElement childWithId: #futureException ]
+		ifNotNil: [ :anEception | 
+			self
+				addException: anEception
+				inLabel: aCellElement
+				as: #futureException ].
+
+	aTextFutureContext pendingException
+		ifNil: [ self ensureRemove: aCellElement childWithId: #futurePendingException ]
+		ifNotNil: [ :anEception | 
+			self
+				addException: anEception
+				inLabel: aCellElement
+				as: #futurePendingException ].
+
+	aTextFutureContext successException
+		ifNil: [ self ensureRemove: aCellElement childWithId: #futureSuccessException ]
+		ifNotNil: [ :anEception | 
+			self
+				addException: anEception
+				inLabel: aCellElement
+				as: #futureSuccessException ]
 ]
