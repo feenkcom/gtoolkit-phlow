@@ -163,6 +163,110 @@ TGtPhlowColumnScripts >> column: aTitleString textDo: aBlock [
 ]
 
 { #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString textFuture: aFutureBlock executionConfiguration: aConfigurationBlock pending: aPendingBlock success: aSuccessBlock [
+	"aFutureBlock:
+	  - is a block that computes its value in an async future,
+	  - parameters are [ :aRowItem :aRowIndex :aContext | ].
+	 aConfigurationBlock:
+	   - is a block that computes future execution configuration,
+	   - parameters are [ :aConfiguration | ],
+	   - aConfiguration is kind of `AsyncFutureExecutionConfiguration` instance which
+	     can be modified or aConfigurationBlock can return another instance of that kind,
+	   - the execution configuration must be computed quickly to not block the UI process.
+	 aPendingBlock:
+	  - is a block that computes a pending text while aFutureBlock is computed,
+	  - parameters are [ :aRowItem :aRowIndex :aContext | ],
+	  - the pending text must be computed quickly to not block the UI process.
+	 aSuccessBlock:
+	  - is a block that computes a success text of the aFutureBlock return value that is displayed instead of the pending text,
+	  - parameters are [ :aResult :aContext | ],
+	  - the success text must be computed quickly to not block the UI process.
+	 aContext parameter of the blocks above:
+	  - is kind of `GtPhlowTextFutureColumnContext` instance that access value,
+	  - it provides access to `rowItem`, `rowIndex`, `columnIndex`, `theme` (BlTheme instance)."
+
+	self
+		column: aTitleString
+		textFutureDo: [ :aColumn | 
+			aColumn
+				item: GtPhlowIdentityFunction uniqueInstance;
+				executionConfiguration: aConfigurationBlock;
+				future: aFutureBlock;
+				pending: aPendingBlock;
+				success: aSuccessBlock ]
+]
+
+{ #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString textFuture: aFutureBlock executionConfiguration: aConfigurationBlock pending: aPendingBlock success: aSuccessBlock weight: aNumber [
+	"aFutureBlock:
+	  - is a block that computes its value in an async future,
+	  - parameters are [ :aRowItem :aRowIndex :aContext | ].
+	 aConfigurationBlock:
+	   - is a block that computes future execution configuration,
+	   - parameters are [ :aConfiguration | ],
+	   - aConfiguration is kind of `AsyncFutureExecutionConfiguration` instance which
+	     can be modified or aConfigurationBlock can return another instance of that kind,
+	   - the execution configuration must be computed quickly to not block the UI process.
+	 aPendingBlock:
+	  - is a block that computes a pending text while aFutureBlock is computed,
+	  - parameters are [ :aRowItem :aRowIndex :aContext | ],
+	  - the pending text must be computed quickly to not block the UI process.
+	 aSuccessBlock:
+	  - is a block that computes a success text of the aFutureBlock return value that is displayed instead of the pending text,
+	  - parameters are [ :aResult :aContext | ],
+	  - the success text must be computed quickly to not block the UI process.
+	 aContext parameter of the blocks above:
+	  - is kind of `GtPhlowTextFutureColumnContext` instance that access value,
+	  - it provides access to `rowItem`, `rowIndex`, `columnIndex`, `theme` (BlTheme instance)."
+
+	self
+		column: aTitleString
+		textFutureDo: [ :aColumn | 
+			aColumn
+				item: GtPhlowIdentityFunction uniqueInstance;
+				executionConfiguration: aConfigurationBlock;
+				future: aFutureBlock;
+				pending: aPendingBlock;
+				success: aSuccessBlock;
+				weight: aNumber ]
+]
+
+{ #category : #'api - scripting column' }
+TGtPhlowColumnScripts >> column: aTitleString textFuture: aFutureBlock executionConfiguration: aConfigurationBlock pending: aPendingBlock success: aSuccessBlock width: aNumber [
+	"aFutureBlock:
+	  - is a block that computes its value in an async future,
+	  - parameters are [ :aRowItem :aRowIndex :aContext | ].
+	 aConfigurationBlock:
+	   - is a block that computes future execution configuration,
+	   - parameters are [ :aConfiguration | ],
+	   - aConfiguration is kind of `AsyncFutureExecutionConfiguration` instance which
+	     can be modified or aConfigurationBlock can return another instance of that kind,
+	   - the execution configuration must be computed quickly to not block the UI process.
+	 aPendingBlock:
+	  - is a block that computes a pending text while aFutureBlock is computed,
+	  - parameters are [ :aRowItem :aRowIndex :aContext | ],
+	  - the pending text must be computed quickly to not block the UI process.
+	 aSuccessBlock:
+	  - is a block that computes a success text of the aFutureBlock return value that is displayed instead of the pending text,
+	  - parameters are [ :aResult :aContext | ],
+	  - the success text must be computed quickly to not block the UI process.
+	 aContext parameter of the blocks above:
+	  - is kind of `GtPhlowTextFutureColumnContext` instance that access value,
+	  - it provides access to `rowItem`, `rowIndex`, `columnIndex`, `theme` (BlTheme instance)."
+
+	self
+		column: aTitleString
+		textFutureDo: [ :aColumn | 
+			aColumn
+				item: GtPhlowIdentityFunction uniqueInstance;
+				executionConfiguration: aConfigurationBlock;
+				future: aFutureBlock;
+				pending: aPendingBlock;
+				success: aSuccessBlock;
+				width: aNumber ]
+]
+
+{ #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString textFuture: aFutureBlock pending: aPendingBlock success: aSuccessBlock [
 	"aFutureBlock:
 	  - is a block that computes its value in an async future,

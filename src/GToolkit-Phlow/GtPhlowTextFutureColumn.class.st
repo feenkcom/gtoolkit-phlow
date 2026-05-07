@@ -5,7 +5,8 @@ Class {
 		'futureComputation',
 		'pendingComputation',
 		'successComputation',
-		'resultCache'
+		'resultCache',
+		'executionConfigurationComputation'
 	],
 	#category : #'GToolkit-Phlow-Support'
 }
@@ -118,6 +119,24 @@ GtPhlowTextFutureColumn >> computeErrorLabelTextFor: aLabel exception: anError [
 ]
 
 { #category : #'private - building' }
+GtPhlowTextFutureColumn >> computeExecutionConfigurationForLabel: aLabel [
+	| aConfiguration |
+	aConfiguration := GtPhlowUtility
+			defaultFutureExecutionConfigurationForViewParts.
+	^ executionConfigurationComputation
+		ifNil: [ aConfiguration ]
+		ifNotNil: [ :aBlock | 
+			[ aBlock phlowValue: aConfiguration withEnoughArguments: {} ]
+				onErrorDo: [ :anException | 
+					self
+						addException: anException
+						inLabel: aLabel
+						as: #futureExcecutionConfigurationException.
+					anException emit.
+					anException return: aConfiguration ] ]
+]
+
+{ #category : #'private - building' }
 GtPhlowTextFutureColumn >> computePendingLabelTextFor: aLabel [
 	| aContext aText |
 	aLabel userData
@@ -201,7 +220,9 @@ GtPhlowTextFutureColumn >> createCacheKeyRowItem: aCellObject rowIndex: aRowInde
 
 { #category : #'api - building' }
 GtPhlowTextFutureColumn >> createCellElement [
-	^ BrLabel new
+	| aLabel |
+	aLabel := BrLabel new.
+	aLabel
 		aptitude: BrGlamorousListLabelAptitude;
 		alignCenterLeft;
 		hMatchParent;
@@ -209,10 +230,12 @@ GtPhlowTextFutureColumn >> createCellElement [
 		text: '';
 		withAsyncFutureDo: [ :anElementFuture | 
 			anElementFuture
-				executionConfiguration: GtPhlowUtility defaultFutureExecutionConfigurationForViewParts;
-				whenPending: [ :aLabel | self computePendingLabelTextFor: aLabel ];
-				whenError: [ :aLabel :anError | self computeErrorLabelTextFor: aLabel exception: anError ];
-				whenSuccess: [ :aLabel :aTextFutureContext | self computeSuccessLabelTextFor: aLabel value: aTextFutureContext ] ]
+				executionConfiguration: (self computeExecutionConfigurationForLabel: aLabel);
+				whenPending: [ :theLabel | self computePendingLabelTextFor: theLabel ];
+				whenError: [ :theLabel :anError | self computeErrorLabelTextFor: theLabel exception: anError ];
+				whenSuccess: [ :theLabel :aTextFutureContext | self computeSuccessLabelTextFor: theLabel value: aTextFutureContext ] ].
+
+	^ aLabel
 ]
 
 { #category : #'private - building' }
@@ -227,12 +250,28 @@ GtPhlowTextFutureColumn >> createContextCellElement: aCellElement rowItem: aCell
 	^ aContext
 ]
 
+{ #category : #initialization }
+GtPhlowTextFutureColumn >> defaultExecutionConfigurationComputation [
+	^ nil
+]
+
 { #category : #'private - building' }
 GtPhlowTextFutureColumn >> ensureRemove: aLabel childWithId: anElementId [
 	aLabel
 		directChildNamed: anElementId asSymbol
 		ifFound: [ :aCurrentElement | aCurrentElement removeFromParent ]
 		ifNone: [  ]
+]
+
+{ #category : #'private - accessing' }
+GtPhlowTextFutureColumn >> executionConfiguration: aBlock [
+	"Set a block that computes a future execution configuration.
+	Note that the value must be computed fast to not block the UI process.
+	Block has following parameters: [ :anExecutionConfiguration | ].
+	anExecutionConfiguration is kind of `AsyncFutureExecutionConfiguration` instance,
+	which is a default execution configuration that users can modify or return another instance."
+
+	executionConfigurationComputation := aBlock
 ]
 
 { #category : #'api - configuration' }
@@ -255,6 +294,8 @@ GtPhlowTextFutureColumn >> futureComputation [
 { #category : #initialization }
 GtPhlowTextFutureColumn >> initialize [
 	super initialize.
+	executionConfigurationComputation := self
+			defaultExecutionConfigurationComputation.
 	self initializeResultCache
 ]
 

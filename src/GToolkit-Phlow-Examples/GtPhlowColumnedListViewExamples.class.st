@@ -594,6 +594,67 @@ GtPhlowColumnedListViewExamples >> columnTextFutureViewForScripter [
 ]
 
 { #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInExecutionComputationScripter [
+	<gtExample>
+	| aView anElement aScripter |
+	aView := self columnTextFutureWithErrorInExecutionConfigurationViewForScripter.
+	anElement := aView asElementDo: [ :theElement | theElement ].
+	self
+		assertViewElement: anElement
+		ofClass: self expectedElementClass
+		inView: aView.
+	aScripter := BlScripter new
+			model: aView;
+			element: anElement.
+
+	aScripter assert
+		label: 'Assert no selected items';
+		value: [ :aList | aList selectedItems size ] equals: 0;
+		// GtPhlowColumnedListId;
+		play.
+
+	aScripter assert
+		label: 'Assert cell displays debug button';
+		exists;
+		// GtPhlowCellElement;
+		@ 2;
+		/ BrLabel;
+		// #futureExcecutionConfigurationException;
+		play.
+
+	self assert: aScripter labelTextAndUserData: '1'.
+	self
+		assertFuturesCount: 1
+		pendingsCount: 1
+		successesCount: 1.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInExecutionConfigurationViewForScripter [
+	<gtExample>
+	^ GtPhlowView empty columnedList
+		title: 'column:textFuture: usage';
+		items: [ 1 to: 1 ];
+		column: 'x' number: [ :x | x ];
+		column: 'x**x (future)'
+			textFuture: [ :x :aRowIndex :aContext | 
+				futuresCount := futuresCount + 1.
+				x ** x ]
+			executionConfiguration: [ :aConfig | 
+				ZeroDivide new
+					messageText: 'in execution configuration';
+					signal.
+				aConfig ]
+			pending: [ :x :aRowIndex :aContext | 
+				pendingsCount := pendingsCount + 1.
+				'...' asRopedText foreground: aContext theme button disabledTextColor ]
+			success: [ :aResult :aContext | 
+				successesCount := successesCount + 1.
+				aResult ]
+]
+
+{ #category : #'examples - text future' }
 GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInFutureScripter [
 	<gtExample>
 	| aView anElement aScripter |
@@ -1019,6 +1080,63 @@ GtPhlowColumnedListViewExamples >> columnTextFutureWithErrorInSuccessViewForScri
 			success: [ :aResult :aContext | 
 				successesCount := successesCount + 1.
 				ZeroDivide new messageText: 'in success'; signal.
+				aResult ]
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithExecutionComputationScripter [
+	<gtExample>
+	| aView anElement aScripter |
+	aView := self columnTextFutureWithExecutionConfigurationViewForScripter.
+	anElement := aView asElementDo: [ :theElement | theElement ].
+	self
+		assertViewElement: anElement
+		ofClass: self expectedElementClass
+		inView: aView.
+	aScripter := BlScripter new
+			model: aView;
+			element: anElement.
+
+	aScripter assert
+		label: 'Assert no selected items';
+		value: [ :aList | aList selectedItems size ] equals: 0;
+		// GtPhlowColumnedListId;
+		play.
+
+	aScripter assert
+		label: 'Assert cell displays debug button';
+		notExists;
+		// GtPhlowCellElement;
+		@ 2;
+		/ BrLabel;
+		// #futureExcecutionConfigurationException;
+		play.
+
+	self assert: aScripter labelTextAndUserData: '1'.
+	self
+		assertFuturesCount: 1
+		pendingsCount: 1
+		successesCount: 1.
+	^ aScripter
+]
+
+{ #category : #'examples - text future' }
+GtPhlowColumnedListViewExamples >> columnTextFutureWithExecutionConfigurationViewForScripter [
+	<gtExample>
+	^ GtPhlowView empty columnedList
+		title: 'column:textFuture: usage';
+		items: [ 1 to: 1 ];
+		column: 'x' number: [ :x | x ];
+		column: 'x**x (future)'
+			textFuture: [ :x :aRowIndex :aContext | 
+				futuresCount := futuresCount + 1.
+				x ** x ]
+			executionConfiguration: [ :aConfig | AsyncFutureExecutionConfiguration new ]
+			pending: [ :x :aRowIndex :aContext | 
+				pendingsCount := pendingsCount + 1.
+				'...' asRopedText foreground: aContext theme button disabledTextColor ]
+			success: [ :aResult :aContext | 
+				successesCount := successesCount + 1.
 				aResult ]
 ]
 
