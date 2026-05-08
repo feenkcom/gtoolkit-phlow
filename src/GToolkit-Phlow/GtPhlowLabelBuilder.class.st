@@ -27,6 +27,28 @@ GtPhlowLabelBuilder >> build [
 	^ self titleOfObject: self object
 ]
 
+{ #category : #'api - label' }
+GtPhlowLabelBuilder >> ensureClassName: aClassName inTitle: aText [
+	<return: #BlRunRopedText or: #String>
+	| classArticle headerWithoutSpace headerWithSpace titleAsString |
+	classArticle := self articleFor: aClassName.
+	headerWithoutSpace := classArticle, aClassName.
+	headerWithSpace := classArticle, String space, aClassName.
+	titleAsString := aText asString.
+	^ ((titleAsString beginsWith: headerWithoutSpace) or: [
+		titleAsString beginsWith: headerWithSpace ])
+			ifTrue: [ aText ]
+			ifFalse: [ 
+				String streamContents: [ :stream |
+					stream
+						nextPutAll: headerWithSpace;
+						nextPutAll: ' (';
+						nextPutAll: (aText isString
+							ifTrue: [ aText ]
+							ifFalse: [ aText characters ]);
+						nextPutAll: ')' ] ].
+]
+
 { #category : #accessing }
 GtPhlowLabelBuilder >> object [
 	^ object
@@ -48,22 +70,10 @@ GtPhlowLabelBuilder >> textOf: anObject [
 { #category : #'api - label' }
 GtPhlowLabelBuilder >> titleOfObject: anObject [
 	<return: #BlRunRopedText or: #String>
-	| className classArticle headerWithoutSpace headerWithSpace displayText |
+	| className displayText |
 	className := anObject class name.
-	classArticle := self articleFor: className.
-	headerWithoutSpace := classArticle, className.
-	headerWithSpace := classArticle, String space, className.
 	displayText := self textOf: anObject.
-	^ ((displayText asString beginsWith: headerWithoutSpace) or: [
-		displayText asString beginsWith: headerWithSpace ])
-			ifTrue: [ displayText ]
-			ifFalse: [ 
-				String streamContents: [ :stream |
-					stream
-						nextPutAll: headerWithSpace;
-						nextPutAll: ' (';
-						nextPutAll: displayText characters;
-						nextPutAll: ')' ] ].
+	^ self ensureClassName: className inTitle: displayText
 ]
 
 { #category : #'api - building' }
