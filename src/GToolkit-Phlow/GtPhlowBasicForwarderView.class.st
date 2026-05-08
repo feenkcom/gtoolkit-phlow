@@ -104,7 +104,9 @@ GtPhlowBasicForwarderView >> computeTargetViewForObject: aForwardedObject [
 GtPhlowBasicForwarderView >> configureLayoutResizerFor: anElement [
 	anElement
 		addAptitude: (BrLayoutResizerAptitude new
-				matchParentToMatchParent: [ :aResizerBlock | anElement hasChildren ifTrue: [ aResizerBlock cull: (anElement childAt: 1) ] ];
+				"let's ignore vMatchParentToMatchParent: for now, to allow fitContent(Limited)
+				in regular inspector views."
+				hMatchParentToMatchParent: [ :aResizerBlock | anElement hasChildren ifTrue: [ aResizerBlock cull: (anElement childAt: 1) ] ];
 				exactToMatchParent: [ :aResizerBlock | anElement hasChildren ifTrue: [ aResizerBlock cull: (anElement childAt: 1) ] ];
 				fitContentToFitContent: [ :aResizerBlock | anElement hasChildren ifTrue: [ aResizerBlock cull: (anElement childAt: 1) ] ];
 				fitContentLimitedToFitContentLimited: [ :aResizerBlock | anElement hasChildren ifTrue: [ aResizerBlock cull: (anElement childAt: 1) ] ])

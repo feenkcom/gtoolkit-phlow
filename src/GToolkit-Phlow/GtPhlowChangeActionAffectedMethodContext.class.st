@@ -17,6 +17,11 @@ GtPhlowChangeActionAffectedMethodContext class >> forAffectedClass: aClass affec
 ]
 
 { #category : #accessing }
+GtPhlowChangeActionAffectedMethodContext >> actionIdentifier [
+	^ self affectedMethodSelector
+]
+
+{ #category : #accessing }
 GtPhlowChangeActionAffectedMethodContext >> affectedClass [
 	^ affectedClass
 ]

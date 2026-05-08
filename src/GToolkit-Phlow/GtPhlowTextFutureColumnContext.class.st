@@ -4,7 +4,10 @@ Class {
 	#instVars : [
 		'result',
 		'successText',
-		'exceptionText'
+		'exceptionText',
+		'futureException',
+		'pendingException',
+		'successException'
 	],
 	#category : #'GToolkit-Phlow-Support'
 }
@@ -20,6 +23,26 @@ GtPhlowTextFutureColumnContext >> exceptionText: anObject [
 ]
 
 { #category : #accessing }
+GtPhlowTextFutureColumnContext >> futureException [
+	^ futureException
+]
+
+{ #category : #accessing }
+GtPhlowTextFutureColumnContext >> futureException: anException [
+	futureException := anException
+]
+
+{ #category : #accessing }
+GtPhlowTextFutureColumnContext >> pendingException [
+	^ pendingException
+]
+
+{ #category : #accessing }
+GtPhlowTextFutureColumnContext >> pendingException: anObject [
+	pendingException := anObject
+]
+
+{ #category : #accessing }
 GtPhlowTextFutureColumnContext >> result [
 	"Return result of the future execution"
 
@@ -29,6 +52,16 @@ GtPhlowTextFutureColumnContext >> result [
 { #category : #accessing }
 GtPhlowTextFutureColumnContext >> result: anObject [
 	result := anObject
+]
+
+{ #category : #accessing }
+GtPhlowTextFutureColumnContext >> successException [
+	^ successException
+]
+
+{ #category : #accessing }
+GtPhlowTextFutureColumnContext >> successException: anObject [
+	successException := anObject
 ]
 
 { #category : #accessing }
