@@ -35,7 +35,7 @@ BrTextStreamExamples >> elaborateTextAndAdornment [
 		highlight: Color paleYellow;
 		putAll: 'Including fancy artifacts'.
 	expanderAttribute := (stream contents attributesAt: stream contents size)
-			detect: [ :each | each class = BrGlamorousTriangleExpanderTextAttribute ].
+			detect: [ :each | each class = BrGlamorousTriangleExpanderTextAttributeV2 ].
 	self assert: expanderAttribute notNil.
 	self assert: expanderAttribute isExpanded.
 	^ stream
