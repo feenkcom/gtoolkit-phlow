@@ -178,7 +178,7 @@ GtPhlowCompositeViewExamples >> fireViewUpdateWishFromContextMenu [
 	anItemsView
 		contextItemLabel: 'Remove item'
 		action: [ :anElement :anItem | 
-			data remove: anItem.
+			data remove: anItem anyOne.
 			anElement phlow fireViewUpdateWish ].
 	aCompositeView views: {anItemsView}.
 
