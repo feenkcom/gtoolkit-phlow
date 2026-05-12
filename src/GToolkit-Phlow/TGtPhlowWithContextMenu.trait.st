@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'contextMenuActions'
 	],
-	#category : #'GToolkit-Phlow-Support - Context Menu'
+	#category : 'GToolkit-Phlow-Support - Context Menu'
 }
 
 { #category : #accessing }

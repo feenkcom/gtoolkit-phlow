@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowAbstractBuildContext,
 	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Context'
+	#category : 'GToolkit-Phlow-Context'
 }
 
 { #category : #'api - accessing' }

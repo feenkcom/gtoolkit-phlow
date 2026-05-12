@@ -9,7 +9,7 @@ Class {
 		'target',
 		'id'
 	],
-	#category : #'GToolkit-Phlow-! Actions'
+	#category : 'GToolkit-Phlow-! Actions'
 }
 
 { #category : #defaults }

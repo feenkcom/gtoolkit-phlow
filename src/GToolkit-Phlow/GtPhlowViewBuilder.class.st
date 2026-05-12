@@ -7,7 +7,7 @@ Class {
 		'object',
 		'actionsSelector'
 	],
-	#category : #'GToolkit-Phlow-Collectors'
+	#category : 'GToolkit-Phlow-Collectors'
 }
 
 { #category : #testing }

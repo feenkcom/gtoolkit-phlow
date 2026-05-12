@@ -5,7 +5,7 @@ Class {
 		'stencilBuilder',
 		'cellSpacing'
 	],
-	#category : #'GToolkit-Phlow-Support - List simple'
+	#category : 'GToolkit-Phlow-Support - List simple'
 }
 
 { #category : #accessing }

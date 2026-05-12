@@ -1,6 +1,6 @@
 Trait {
 	#name : #TGtPhlowChangeUpdateAction,
-	#category : #'GToolkit-Phlow-Updating New'
+	#category : 'GToolkit-Phlow-Updating New'
 }
 
 { #category : #'api - execution' }

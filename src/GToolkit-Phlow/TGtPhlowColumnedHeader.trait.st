@@ -4,7 +4,7 @@ I add methods that creates column headers for columned views {{gtClass:GtPhlowCo
 "
 Trait {
 	#name : #TGtPhlowColumnedHeader,
-	#category : #'GToolkit-Phlow-Support'
+	#category : 'GToolkit-Phlow-Support'
 }
 
 { #category : #'private - building' }

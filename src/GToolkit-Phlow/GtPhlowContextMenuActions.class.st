@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowContextMenuActions,
 	#superclass : #GtPhlowContextMenuAction,
-	#category : #'GToolkit-Phlow-Support - Context Menu'
+	#category : 'GToolkit-Phlow-Support - Context Menu'
 }
 
 { #category : #private }

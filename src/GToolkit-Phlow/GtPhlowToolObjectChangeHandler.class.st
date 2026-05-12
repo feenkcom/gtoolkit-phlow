@@ -13,7 +13,7 @@ See a complete example in the {{gtClass:GtPhlowCompositeTool}} class comment.
 Class {
 	#name : #GtPhlowToolObjectChangeHandler,
 	#superclass : #BlCustomEventHandler,
-	#category : #'GToolkit-Phlow-Tool - Object Changer'
+	#category : 'GToolkit-Phlow-Tool - Object Changer'
 }
 
 { #category : #'api - accessing' }

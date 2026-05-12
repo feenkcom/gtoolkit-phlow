@@ -26,7 +26,7 @@ The following example shows the sidebar on the top:
 Class {
 	#name : #GtPhlowVerticalSidebarElement,
 	#superclass : #GtPhlowSidebarElement,
-	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
 { #category : #defaults }

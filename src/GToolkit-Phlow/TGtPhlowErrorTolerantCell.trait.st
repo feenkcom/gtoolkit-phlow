@@ -6,7 +6,7 @@ I am used by {{gtClass:GtPhlowListView}} and {{gtClass:GtPhlowColumn}}.
 "
 Trait {
 	#name : #TGtPhlowErrorTolerantCell,
-	#category : #'GToolkit-Phlow-Support'
+	#category : 'GToolkit-Phlow-Support'
 }
 
 { #category : #'private - errors' }

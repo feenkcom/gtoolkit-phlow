@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'labelComputation'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
 { #category : #accessing }

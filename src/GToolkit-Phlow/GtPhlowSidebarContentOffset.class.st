@@ -30,7 +30,7 @@ Class {
 	#instVars : [
 		'length'
 	],
-	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
 { #category : #factory }

@@ -6,7 +6,7 @@ Class {
 		'exceptionResultHolder',
 		'successResultHolder'
 	],
-	#category : #'GToolkit-Phlow-Support'
+	#category : 'GToolkit-Phlow-Support'
 }
 
 { #category : #accessing }

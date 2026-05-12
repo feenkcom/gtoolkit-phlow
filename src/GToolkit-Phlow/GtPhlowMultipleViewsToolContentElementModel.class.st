@@ -5,7 +5,7 @@ Class {
 		'phlowTool',
 		'targetObject'
 	],
-	#category : #'GToolkit-Phlow-Tool - Element'
+	#category : 'GToolkit-Phlow-Tool - Element'
 }
 
 { #category : #accessing }

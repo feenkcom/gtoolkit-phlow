@@ -10,7 +10,7 @@ Class {
 		'pragmaNames',
 		'argumentMatchingBlockClosure'
 	],
-	#category : #'GToolkit-Phlow-Collectors'
+	#category : 'GToolkit-Phlow-Collectors'
 }
 
 { #category : #sorting }

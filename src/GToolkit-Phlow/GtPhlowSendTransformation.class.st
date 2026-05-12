@@ -11,7 +11,7 @@ See {{gtClass:GtPhlowSendTransformation|label=my subclasses|expanded|show=#gtSub
 Class {
 	#name : #GtPhlowSendTransformation,
 	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Support - Transformation'
+	#category : 'GToolkit-Phlow-Support - Transformation'
 }
 
 { #category : #'api - factory' }

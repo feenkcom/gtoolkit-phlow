@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TGtUniqueInstance + TGtPhlowChangeUpdateAction',
 	#classTraits : 'TGtUniqueInstance classTrait + TGtPhlowChangeUpdateAction classTrait',
-	#category : #'GToolkit-Phlow-Updating New'
+	#category : 'GToolkit-Phlow-Updating New'
 }
 
 { #category : #'api - execution' }

@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'isCurrentToolOnly'
 	],
-	#category : #'GToolkit-Phlow-Updating New'
+	#category : 'GToolkit-Phlow-Updating New'
 }
 
 { #category : #'api - convenience' }

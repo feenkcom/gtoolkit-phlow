@@ -6,7 +6,7 @@ Class {
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'GToolkit-Phlow-Updating New'
+	#category : 'GToolkit-Phlow-Updating New'
 }
 
 { #category : #'api - execution' }

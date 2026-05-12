@@ -4,7 +4,7 @@ I add scripting methods that simplify colum definitions for {{gtClass:GtPhlowCol
 "
 Trait {
 	#name : #TGtPhlowColumnScripts,
-	#category : #'GToolkit-Phlow-Support'
+	#category : 'GToolkit-Phlow-Support'
 }
 
 { #category : #'api - scripting column' }

@@ -13,7 +13,7 @@ Class {
 		'object',
 		'hasObject'
 	],
-	#category : #'GToolkit-Phlow-Tool - Object Changer'
+	#category : 'GToolkit-Phlow-Tool - Object Changer'
 }
 
 { #category : #visiting }

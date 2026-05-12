@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowExceptionId,
 	#superclass : #BlElementUniqueId,
-	#category : #'GToolkit-Phlow-Support'
+	#category : 'GToolkit-Phlow-Support'
 }
 
 { #category : #converting }

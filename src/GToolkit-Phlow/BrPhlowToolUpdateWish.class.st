@@ -1,7 +1,7 @@
 Class {
 	#name : #BrPhlowToolUpdateWish,
 	#superclass : #GtPhlowToolUpdateWish,
-	#category : #'GToolkit-Phlow-Updating New'
+	#category : 'GToolkit-Phlow-Updating New'
 }
 
 { #category : #testing }

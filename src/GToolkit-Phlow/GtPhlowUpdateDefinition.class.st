@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowUpdateDefinition,
 	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Updating'
+	#category : 'GToolkit-Phlow-Updating'
 }
 
 { #category : #'api - instance creation' }

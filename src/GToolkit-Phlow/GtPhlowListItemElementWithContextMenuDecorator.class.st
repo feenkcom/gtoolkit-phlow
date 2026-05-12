@@ -13,7 +13,7 @@ Class {
 		'contextMenuItemsStencil',
 		'multipleSelectionEnabled'
 	],
-	#category : #'GToolkit-Phlow-Support - List utilities'
+	#category : 'GToolkit-Phlow-Support - List utilities'
 }
 
 { #category : #accessing }

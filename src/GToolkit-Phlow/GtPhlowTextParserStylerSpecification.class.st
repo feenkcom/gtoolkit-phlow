@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'parserClassName'
 	],
-	#category : #'GToolkit-Phlow-Text - Styling'
+	#category : 'GToolkit-Phlow-Text - Styling'
 }
 
 { #category : #styling }

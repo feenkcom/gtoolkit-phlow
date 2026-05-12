@@ -1,4 +1,4 @@
 Trait {
 	#name : #TGtPhlowToolType,
-	#category : #'GToolkit-Phlow-Tool - Navigation'
+	#category : 'GToolkit-Phlow-Tool - Navigation'
 }

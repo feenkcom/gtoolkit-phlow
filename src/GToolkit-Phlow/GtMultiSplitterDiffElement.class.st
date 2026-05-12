@@ -12,7 +12,7 @@ Class {
 		'diffHolder',
 		'filterElement'
 	],
-	#category : #'GToolkit-Phlow-UI'
+	#category : 'GToolkit-Phlow-UI'
 }
 
 { #category : #accessing }

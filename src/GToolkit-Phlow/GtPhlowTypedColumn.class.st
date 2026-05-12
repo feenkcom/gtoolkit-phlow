@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowTypedColumn,
 	#superclass : #GtPhlowColumn,
-	#category : #'GToolkit-Phlow-Support'
+	#category : 'GToolkit-Phlow-Support'
 }
 
 { #category : #testing }

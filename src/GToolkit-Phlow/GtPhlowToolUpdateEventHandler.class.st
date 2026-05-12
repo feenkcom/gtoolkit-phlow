@@ -11,7 +11,7 @@ Class {
 		'action',
 		'isEnabled'
 	],
-	#category : #'GToolkit-Phlow-Updating New'
+	#category : 'GToolkit-Phlow-Updating New'
 }
 
 { #category : #'private - accessing' }

@@ -7,7 +7,7 @@ I am an abstract class.
 Class {
 	#name : #GtPhlowTooltipBuilder,
 	#superclass : #Object,
-	#category : #'GToolkit-Phlow-Support - Tooltip'
+	#category : 'GToolkit-Phlow-Support - Tooltip'
 }
 
 { #category : #factory }

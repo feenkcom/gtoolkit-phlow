@@ -12,18 +12,12 @@ Class {
 	#instVars : [
 		'valuable'
 	],
-	#category : #'GToolkit-Phlow-Support - Transformation'
+	#category : 'GToolkit-Phlow-Support - Transformation'
 }
 
 { #category : #testing }
 GtPhlowSendValuableTransformation class >> isAbstract [
 	^ self name = #GtPhlowSendValuableTransformation 
-]
-
-{ #category : #converting }
-GtPhlowSendValuableTransformation >> asTreeNodeTransformation [
-	^ GtPhlowSendTreeNodeTransformation new
-		transformation: self
 ]
 
 { #category : #'private - asserting' }
@@ -34,6 +28,12 @@ GtPhlowSendValuableTransformation >> assertValuable: aBlock [
 	self
 		assert: [ aBlock numArgs <= 2 ]
 		description: [ 'Send transformation block must have two or less arguments'  ].
+]
+
+{ #category : #converting }
+GtPhlowSendValuableTransformation >> asTreeNodeTransformation [
+	^ GtPhlowSendTreeNodeTransformation new
+		transformation: self
 ]
 
 { #category : #defaults }

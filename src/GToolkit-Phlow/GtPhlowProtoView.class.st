@@ -11,7 +11,7 @@ Class {
 	#classVars : [
 		'IsTaskItViewGloballyEnabled'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
 { #category : #setup }
@@ -50,6 +50,11 @@ GtPhlowProtoView >> asElementDo: aBlock [
 	self subclassResponsibility
 ]
 
+{ #category : #'private - elements' }
+GtPhlowProtoView >> assignMeAsEntityFor: anElement [
+	anElement phlow entity: self.
+]
+
 { #category : #'api - converting' }
 GtPhlowProtoView >> asStencil [
 	^ self
@@ -63,11 +68,6 @@ GtPhlowProtoView >> asTaskItView [
 				ifEnabledDo: [ GtPhlowTaskItView new originalView: self ]
 				otherwise: [ self ] ]
 		ifFalse: [ self ]
-]
-
-{ #category : #'private - elements' }
-GtPhlowProtoView >> assignMeAsEntityFor: anElement [
-	anElement phlow entity: self.
 ]
 
 { #category : #'private - elements' }
@@ -163,6 +163,14 @@ GtPhlowProtoView >> definingMethodProvider [
 { #category : #accessing }
 GtPhlowProtoView >> definingSelector [
 	^ self definingMethod selector
+]
+
+{ #category : #accessing }
+GtPhlowProtoView >> details [
+	<return: #GtPhlowDetailsView>
+	^ GtPhlowDetailsView new
+		originalView: self;
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
 { #category : #decorating }

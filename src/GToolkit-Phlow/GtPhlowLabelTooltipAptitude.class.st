@@ -9,7 +9,7 @@ If a user clicks on the action, a defining method is displayed.
 Class {
 	#name : #GtPhlowLabelTooltipAptitude,
 	#superclass : #BrGlamorousWithLabelTooltipAptitude,
-	#category : #'GToolkit-Phlow-Support - Tooltip'
+	#category : 'GToolkit-Phlow-Support - Tooltip'
 }
 
 { #category : #testing }

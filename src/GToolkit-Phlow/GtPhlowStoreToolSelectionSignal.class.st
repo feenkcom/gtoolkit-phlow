@@ -6,7 +6,7 @@ Class {
 		'phlowView',
 		'selectionState'
 	],
-	#category : #'GToolkit-Phlow-Beacon'
+	#category : 'GToolkit-Phlow-Beacon'
 }
 
 { #category : #testing }
