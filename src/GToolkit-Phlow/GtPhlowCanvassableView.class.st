@@ -7,7 +7,7 @@ Class {
 		'zoomLevel',
 		'autoScaleEnabled'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
 { #category : #accessing }

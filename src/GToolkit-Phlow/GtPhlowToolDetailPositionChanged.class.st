@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'position'
 	],
-	#category : #'GToolkit-Phlow-Tool - Looks'
+	#category : 'GToolkit-Phlow-Tool - Looks'
 }
 
 { #category : #accessing }

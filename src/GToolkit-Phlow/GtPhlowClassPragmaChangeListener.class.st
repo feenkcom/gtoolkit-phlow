@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowClassPragmaChangeListener,
 	#superclass : #GtPhlowChangeMethodSystemAnnouncerListener,
-	#category : #'GToolkit-Phlow-Updating New'
+	#category : 'GToolkit-Phlow-Updating New'
 }
 
 { #category : #testing }

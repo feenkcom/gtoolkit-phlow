@@ -9,7 +9,7 @@ Class {
 		'viewSymbol',
 		'objectComputation'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
 { #category : #accessing }

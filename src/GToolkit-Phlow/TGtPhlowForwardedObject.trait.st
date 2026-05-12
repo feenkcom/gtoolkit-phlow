@@ -1,6 +1,6 @@
 Trait {
 	#name : #TGtPhlowForwardedObject,
-	#category : #'GToolkit-Phlow-Support'
+	#category : 'GToolkit-Phlow-Support'
 }
 
 { #category : #testing }

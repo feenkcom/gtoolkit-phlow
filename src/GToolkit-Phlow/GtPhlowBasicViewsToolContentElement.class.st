@@ -11,7 +11,7 @@ Class {
 		'toolModel',
 		'contentUpdater'
 	],
-	#category : #'GToolkit-Phlow-Tool - Element'
+	#category : 'GToolkit-Phlow-Tool - Element'
 }
 
 { #category : #callbacks }
@@ -30,6 +30,14 @@ GtPhlowBasicViewsToolContentElement >> buildHeaderElement [
 		margin: (BlInsets top: 5 left: 8 bottom: 0 right: 0);
 		vFitContent;
 		hMatchParent
+]
+
+{ #category : #'building widgets' }
+GtPhlowBasicViewsToolContentElement >> buildToolbar [
+	^ BrToolbar new
+		aptitude: BrGlamorousToolbarAptitude new;
+		alignCenterLeft;
+		fitContent.
 ]
 
 { #category : #'building widgets' }
@@ -53,14 +61,6 @@ GtPhlowBasicViewsToolContentElement >> buildToolLabel [
 		hMatchParent;
 		vFitContent;
 		background: Color white
-]
-
-{ #category : #'building widgets' }
-GtPhlowBasicViewsToolContentElement >> buildToolbar [
-	^ BrToolbar new
-		aptitude: BrGlamorousToolbarAptitude new;
-		alignCenterLeft;
-		fitContent.
 ]
 
 { #category : #initialization }

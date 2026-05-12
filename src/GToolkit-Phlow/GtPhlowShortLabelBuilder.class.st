@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'fullLabel'
 	],
-	#category : #'GToolkit-Phlow-Collectors'
+	#category : 'GToolkit-Phlow-Collectors'
 }
 
 { #category : #'api - building' }

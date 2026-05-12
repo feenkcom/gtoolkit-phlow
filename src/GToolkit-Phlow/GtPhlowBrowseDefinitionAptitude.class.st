@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'definitionComputation'
 	],
-	#category : #'GToolkit-Phlow-Tool - Looks'
+	#category : 'GToolkit-Phlow-Tool - Looks'
 }
 
 { #category : #initialization }

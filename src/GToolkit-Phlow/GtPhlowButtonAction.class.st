@@ -8,7 +8,7 @@ Class {
 		'name',
 		'primaryModifierAction'
 	],
-	#category : #'GToolkit-Phlow-! Actions'
+	#category : 'GToolkit-Phlow-! Actions'
 }
 
 { #category : #accessing }

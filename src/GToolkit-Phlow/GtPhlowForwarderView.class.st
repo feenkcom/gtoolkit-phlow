@@ -17,7 +17,7 @@ Class {
 	#instVars : [
 		'isDeclarative'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
 { #category : #accessing }

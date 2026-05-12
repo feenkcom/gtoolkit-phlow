@@ -6,7 +6,7 @@ Class {
 		'futureElement',
 		'future'
 	],
-	#category : #'GToolkit-Phlow-Beacon'
+	#category : 'GToolkit-Phlow-Beacon'
 }
 
 { #category : #testing }

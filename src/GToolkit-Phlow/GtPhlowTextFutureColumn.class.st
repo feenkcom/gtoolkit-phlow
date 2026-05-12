@@ -8,7 +8,7 @@ Class {
 		'resultCache',
 		'executionConfigurationComputation'
 	],
-	#category : #'GToolkit-Phlow-Support'
+	#category : 'GToolkit-Phlow-Support'
 }
 
 { #category : #'private - building' }

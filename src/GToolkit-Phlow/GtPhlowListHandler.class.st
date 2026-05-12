@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'transformation'
 	],
-	#category : #'GToolkit-Phlow-Events'
+	#category : 'GToolkit-Phlow-Events'
 }
 
 { #category : #defaults }

@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowTreeItemElementWithContextMenuDecorator,
 	#superclass : #GtPhlowListItemElementWithContextMenuDecorator,
-	#category : #'GToolkit-Phlow-Support - Tree utilities'
+	#category : 'GToolkit-Phlow-Support - Tree utilities'
 }
 
 { #category : #accessing }

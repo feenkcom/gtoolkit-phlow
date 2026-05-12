@@ -19,7 +19,7 @@ Class {
 		'isViewTitle',
 		'updateElementFuture'
 	],
-	#category : #'GToolkit-Phlow-Context'
+	#category : 'GToolkit-Phlow-Context'
 }
 
 { #category : #'instance creation' }

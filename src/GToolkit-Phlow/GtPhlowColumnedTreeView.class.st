@@ -10,7 +10,7 @@ Class {
 		'childrenBuilder',
 		'multipleSelectionEnabled'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
 { #category : #'api - converting' }
@@ -120,6 +120,11 @@ GtPhlowColumnedTreeView >> childrenBuilder [
 	^ childrenBuilder
 ]
 
+{ #category : #'private - accessing' }
+GtPhlowColumnedTreeView >> columnedTreeClass [
+	^ BrColumnedTree
+]
+
 { #category : #'api - scripting column' }
 GtPhlowColumnedTreeView >> columnOfType: aColumnClass [
 	<return: #GtPhlowTextColumn>
@@ -128,11 +133,6 @@ GtPhlowColumnedTreeView >> columnOfType: aColumnClass [
 	aColumn := aColumnClass new index: columns size + 1.
 	columns add: aColumn.
 	^ aColumn
-]
-
-{ #category : #'private - accessing' }
-GtPhlowColumnedTreeView >> columnedTreeClass [
-	^ BrColumnedTree
 ]
 
 { #category : #'private - accessing' }

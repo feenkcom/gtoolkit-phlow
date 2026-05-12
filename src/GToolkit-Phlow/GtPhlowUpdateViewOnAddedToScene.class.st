@@ -9,7 +9,7 @@ It is better to subscribe to specific announcements using {{gtMethod:GtPhlowView
 Class {
 	#name : #GtPhlowUpdateViewOnAddedToScene,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
-	#category : #'GToolkit-Phlow-Updating'
+	#category : 'GToolkit-Phlow-Updating'
 }
 
 { #category : #testing }

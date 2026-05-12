@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowUpdateLabelledViewTitleOnClassChange,
 	#superclass : #GtPhlowUpdateDefinition,
-	#category : #'GToolkit-Phlow-Updating'
+	#category : 'GToolkit-Phlow-Updating'
 }
 
 { #category : #subscriptions }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'targetElement'
 	],
-	#category : #'GToolkit-Phlow-UI'
+	#category : 'GToolkit-Phlow-UI'
 }
 
 { #category : #'api - instantiation' }

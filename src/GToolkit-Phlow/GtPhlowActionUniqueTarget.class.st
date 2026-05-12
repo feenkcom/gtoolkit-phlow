@@ -3,7 +3,7 @@ Class {
 	#superclass : #GtPhlowActionTarget,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : #'GToolkit-Phlow-Action Targets'
+	#category : 'GToolkit-Phlow-Action Targets'
 }
 
 { #category : #composing }

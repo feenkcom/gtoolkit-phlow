@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowNoAction,
 	#superclass : #GtPhlowAction,
-	#category : #'GToolkit-Phlow-! Actions'
+	#category : 'GToolkit-Phlow-! Actions'
 }
 
 { #category : #converting }

@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowObjectToSpawn,
 	#superclass : #GtPhlowObjectEvent,
-	#category : #'GToolkit-Phlow-Events'
+	#category : 'GToolkit-Phlow-Events'
 }
 
 { #category : #'api - factory' }

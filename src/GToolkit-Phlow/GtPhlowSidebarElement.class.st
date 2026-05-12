@@ -15,7 +15,7 @@ Class {
 		'resizerStrategy',
 		'contentOffset'
 	],
-	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
 { #category : #'private - asserting' }

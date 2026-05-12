@@ -5,7 +5,7 @@ Class {
 		'columns',
 		'columnElements'
 	],
-	#category : #'GToolkit-Phlow-Support - List columned'
+	#category : 'GToolkit-Phlow-Support - List columned'
 }
 
 { #category : #private }

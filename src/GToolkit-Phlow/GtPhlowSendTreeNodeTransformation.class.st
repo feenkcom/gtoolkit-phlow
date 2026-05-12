@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'transformation'
 	],
-	#category : #'GToolkit-Phlow-Support - Transformation'
+	#category : 'GToolkit-Phlow-Support - Transformation'
 }
 
 { #category : #'api - converting' }

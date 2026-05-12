@@ -7,7 +7,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
-	#category : #'GToolkit-Phlow-Action Targets'
+	#category : 'GToolkit-Phlow-Action Targets'
 }
 
 { #category : #'instance creation' }

@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowObjectToDeselect,
 	#superclass : #GtPhlowObjectEvent,
-	#category : #'GToolkit-Phlow-Events'
+	#category : 'GToolkit-Phlow-Events'
 }
 
 { #category : #sending }

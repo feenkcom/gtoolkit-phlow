@@ -14,7 +14,7 @@ See {{gtClass:GtPhlowToolDetailState}} for more details.
 "
 Trait {
 	#name : #TGtPhlowToolDetailAdjustable,
-	#category : #'GToolkit-Phlow-Tool - Looks'
+	#category : 'GToolkit-Phlow-Tool - Looks'
 }
 
 { #category : #'api - tool information detail level adjustable' }

@@ -1,6 +1,6 @@
 Trait {
 	#name : #TGtPhlowToolViewModel,
-	#category : #'GToolkit-Phlow-Tool - Navigation'
+	#category : 'GToolkit-Phlow-Tool - Navigation'
 }
 
 { #category : #'api - accessing' }

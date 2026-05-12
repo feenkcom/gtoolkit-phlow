@@ -13,7 +13,7 @@ Trait {
 	#name : #TGtPhlowSendTreeNodeTransformable,
 	#traits : 'TGtPhlowSendTransformable',
 	#classTraits : 'TGtPhlowSendTransformable classTrait',
-	#category : #'GToolkit-Phlow-Support - Transformation'
+	#category : 'GToolkit-Phlow-Support - Transformation'
 }
 
 { #category : #accessing }

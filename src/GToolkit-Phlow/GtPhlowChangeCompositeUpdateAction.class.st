@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'updateActions'
 	],
-	#category : #'GToolkit-Phlow-Updating New'
+	#category : 'GToolkit-Phlow-Updating New'
 }
 
 { #category : #'api - execution' }

@@ -11,7 +11,7 @@ Class {
 		'itemDataBinder',
 		'multipleSelectionEnabled'
 	],
-	#category : #'GToolkit-Phlow-! Views'
+	#category : 'GToolkit-Phlow-! Views'
 }
 
 { #category : #'api - converting' }
@@ -165,6 +165,29 @@ GtPhlowTreeView >> itemFormat: aBlockOrSymbol [
 	self itemText: aBlockOrSymbol
 ]
 
+{ #category : #'api - scripting' }
+GtPhlowTreeView >> items: anObject [
+	itemsBuilder := anObject
+]
+
+{ #category : #'private - accessing' }
+GtPhlowTreeView >> itemsBuilder [
+	^ itemsBuilder
+]
+
+{ #category : #'private - accessing' }
+GtPhlowTreeView >> itemsOnExceptionErrorElement: aBlock [
+	^ self 
+		performBlock: [ self itemsBuilder value ]
+		onExceptionErrorElement: [ :anElement |
+			aBlock value: anElement ].
+]
+
+{ #category : #'private - accessing' }
+GtPhlowTreeView >> itemsProviderComputation [
+	^ self itemsBuilder
+]
+
 { #category : #'private - accessing' }
 GtPhlowTreeView >> itemStencil [
 	^ itemStencil
@@ -190,29 +213,6 @@ GtPhlowTreeView >> itemTypeStencil [
 	"Return a stencil that is used to create an item type of a given item object"
 
 	^ itemTypeStencil
-]
-
-{ #category : #'api - scripting' }
-GtPhlowTreeView >> items: anObject [
-	itemsBuilder := anObject
-]
-
-{ #category : #'private - accessing' }
-GtPhlowTreeView >> itemsBuilder [
-	^ itemsBuilder
-]
-
-{ #category : #'private - accessing' }
-GtPhlowTreeView >> itemsOnExceptionErrorElement: aBlock [
-	^ self 
-		performBlock: [ self itemsBuilder value ]
-		onExceptionErrorElement: [ :anElement |
-			aBlock value: anElement ].
-]
-
-{ #category : #'private - accessing' }
-GtPhlowTreeView >> itemsProviderComputation [
-	^ self itemsBuilder
 ]
 
 { #category : #'private - building' }

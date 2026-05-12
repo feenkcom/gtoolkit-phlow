@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'selectionState'
 	],
-	#category : #'GToolkit-Phlow-Tool - Selection'
+	#category : 'GToolkit-Phlow-Tool - Selection'
 }
 
 { #category : #actions }

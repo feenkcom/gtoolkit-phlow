@@ -5,7 +5,7 @@ Class {
 		'actionElement',
 		'targetElement'
 	],
-	#category : #'GToolkit-Phlow-UI'
+	#category : 'GToolkit-Phlow-UI'
 }
 
 { #category : #accessing }
