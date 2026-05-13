@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowValuableTool,
 	#superclass : #GtPhlowExplicitTool,
-	#category : 'GToolkit-Phlow-Tool - Core'
+	#category : #'GToolkit-Phlow-Tool - Core'
 }
 
 { #category : #testing }

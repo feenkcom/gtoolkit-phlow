@@ -7,7 +7,7 @@ Class {
 		'sortedUsing',
 		'selectUsing'
 	],
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #'api - actions' }

@@ -6,7 +6,7 @@
 Class {
 	#name : #GtPhlowListTextElementStencilBuilder,
 	#superclass : #BrListItemElementStencilBuilder,
-	#category : 'GToolkit-Phlow-Support - List'
+	#category : #'GToolkit-Phlow-Support - List'
 }
 
 { #category : #'api - instantiation' }

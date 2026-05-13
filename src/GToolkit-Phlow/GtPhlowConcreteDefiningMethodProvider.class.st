@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'definingMethod'
 	],
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #accessing }

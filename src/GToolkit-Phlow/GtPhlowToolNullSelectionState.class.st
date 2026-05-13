@@ -6,7 +6,7 @@ Class {
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : 'GToolkit-Phlow-Tool - Selection'
+	#category : #'GToolkit-Phlow-Tool - Selection'
 }
 
 { #category : #accessing }

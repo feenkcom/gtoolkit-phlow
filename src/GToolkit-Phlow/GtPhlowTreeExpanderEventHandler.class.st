@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'treeElement'
 	],
-	#category : 'GToolkit-Phlow-Support - Tree Expansion'
+	#category : #'GToolkit-Phlow-Support - Tree Expansion'
 }
 
 { #category : #'api - accessing' }

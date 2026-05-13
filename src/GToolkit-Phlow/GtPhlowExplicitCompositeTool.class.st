@@ -7,7 +7,7 @@ Class {
 		'toolName',
 		'toolIcon'
 	],
-	#category : 'GToolkit-Phlow-Tool - Core'
+	#category : #'GToolkit-Phlow-Tool - Core'
 }
 
 { #category : #'api - converting' }
@@ -119,16 +119,16 @@ GtPhlowExplicitCompositeTool >> supportsSelectionHandling [
 ]
 
 { #category : #accessing }
+GtPhlowExplicitCompositeTool >> toolStencil: aStencil [
+	"Stencil must return a `GtPhlowCompositeTool` on #create calls."
+
+	compositeToolStencil := aStencil asStencil
+]
+
+{ #category : #accessing }
 GtPhlowExplicitCompositeTool >> tools [
 	<return: #Array of: #GtPhlowTool>
 	self lastCompositeToolDo: [ :aCompositeTool | ^ aCompositeTool tools ].
 
 	^ Array empty
-]
-
-{ #category : #accessing }
-GtPhlowExplicitCompositeTool >> toolStencil: aStencil [
-	"Stencil must return a `GtPhlowCompositeTool` on #create calls."
-
-	compositeToolStencil := aStencil asStencil
 ]

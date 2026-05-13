@@ -15,7 +15,7 @@ Class {
 	#instVars : [
 		'action'
 	],
-	#category : 'GToolkit-Phlow-Tool - Object Changer'
+	#category : #'GToolkit-Phlow-Tool - Object Changer'
 }
 
 { #category : #'private - accessing' }

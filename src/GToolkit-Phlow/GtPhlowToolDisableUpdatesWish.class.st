@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowToolDisableUpdatesWish,
 	#superclass : #BrWish,
-	#category : 'GToolkit-Phlow-Updating New'
+	#category : #'GToolkit-Phlow-Updating New'
 }
 
 { #category : #sending }

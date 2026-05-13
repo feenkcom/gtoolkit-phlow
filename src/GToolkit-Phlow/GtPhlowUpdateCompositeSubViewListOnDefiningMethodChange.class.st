@@ -14,7 +14,7 @@ Class {
 	#instVars : [
 		'pragmas'
 	],
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #testing }

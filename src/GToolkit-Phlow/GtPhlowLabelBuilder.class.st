@@ -12,7 +12,7 @@ Class {
 	#instVars : [
 		'object'
 	],
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #'api - label' }

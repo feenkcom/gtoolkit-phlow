@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'level'
 	],
-	#category : 'GToolkit-Phlow-Tool - Looks'
+	#category : #'GToolkit-Phlow-Tool - Looks'
 }
 
 { #category : #'instance creation' }

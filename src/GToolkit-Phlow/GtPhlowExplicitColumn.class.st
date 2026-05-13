@@ -12,7 +12,7 @@ Class {
 		'dataBinder',
 		'spawnObjectComputation'
 	],
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #'private - accessing' }

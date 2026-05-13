@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'iconNameComputation'
 	],
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #testijg }

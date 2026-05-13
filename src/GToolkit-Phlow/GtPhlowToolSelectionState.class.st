@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'targetToolIdentifier'
 	],
-	#category : 'GToolkit-Phlow-Tool - Selection'
+	#category : #'GToolkit-Phlow-Tool - Selection'
 }
 
 { #category : #testing }

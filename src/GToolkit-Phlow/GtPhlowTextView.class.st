@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'textBuilder'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #converting }

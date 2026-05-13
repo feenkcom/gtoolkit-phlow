@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'itemTypeStencilBuilder'
 	],
-	#category : 'GToolkit-Phlow-Support - List utilities'
+	#category : #'GToolkit-Phlow-Support - List utilities'
 }
 
 { #category : #accessing }

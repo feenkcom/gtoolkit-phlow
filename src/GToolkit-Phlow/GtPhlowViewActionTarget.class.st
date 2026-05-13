@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'definingMethodSelector'
 	],
-	#category : 'GToolkit-Phlow-Action Targets'
+	#category : #'GToolkit-Phlow-Action Targets'
 }
 
 { #category : #accessing }

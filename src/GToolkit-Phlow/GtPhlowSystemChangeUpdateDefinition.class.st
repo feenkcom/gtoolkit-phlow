@@ -14,7 +14,7 @@ Class {
 		'isSubscribedToSystem',
 		'view'
 	],
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #testing }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'dataBinder'
 	],
-	#category : 'GToolkit-Phlow-Support - List simple'
+	#category : #'GToolkit-Phlow-Support - List simple'
 }
 
 { #category : #accessing }

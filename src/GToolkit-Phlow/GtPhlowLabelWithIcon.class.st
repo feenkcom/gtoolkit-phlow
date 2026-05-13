@@ -5,7 +5,7 @@ Class {
 		'iconContainer',
 		'nameLabel'
 	],
-	#category : 'GToolkit-Phlow-Utilities'
+	#category : #'GToolkit-Phlow-Utilities'
 }
 
 { #category : #initialization }

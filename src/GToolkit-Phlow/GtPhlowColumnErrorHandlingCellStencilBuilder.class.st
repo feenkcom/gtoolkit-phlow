@@ -5,7 +5,7 @@ Class {
 		'cellSpacing',
 		'cellStencil'
 	],
-	#category : 'GToolkit-Phlow-Support - List columned'
+	#category : #'GToolkit-Phlow-Support - List columned'
 }
 
 { #category : #accessing }

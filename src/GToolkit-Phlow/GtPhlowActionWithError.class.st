@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'exception'
 	],
-	#category : 'GToolkit-Phlow-! Actions'
+	#category : #'GToolkit-Phlow-! Actions'
 }
 
 { #category : #converting }

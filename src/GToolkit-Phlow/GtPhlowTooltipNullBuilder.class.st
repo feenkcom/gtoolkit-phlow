@@ -8,7 +8,7 @@ Class {
 	#superclass : #GtPhlowTooltipBuilder,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : 'GToolkit-Phlow-Support - Tooltip'
+	#category : #'GToolkit-Phlow-Support - Tooltip'
 }
 
 { #category : #building }

@@ -8,7 +8,7 @@ See {{gtClass:GtPhlowUpdateView}} for more details.
 Class {
 	#name : #GtPhlowUpdateViewOnDefiningMethodChange,
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #testing }

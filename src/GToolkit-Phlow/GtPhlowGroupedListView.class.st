@@ -19,7 +19,7 @@ Class {
 		'groupedItemProviderComputation',
 		'headerDataBinder'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #'api - converting' }
@@ -112,11 +112,6 @@ GtPhlowGroupedListView >> format: aBlockOrSymbol [
 ]
 
 { #category : #accessing }
-GtPhlowGroupedListView >> groupedItems: aBlock [
-	groupedItemProviderComputation := aBlock
-]
-
-{ #category : #accessing }
 GtPhlowGroupedListView >> groupHeaderDataBinder [
 	^ groupHeaderDataBinder
 ]
@@ -137,6 +132,21 @@ GtPhlowGroupedListView >> groupHeaderStencil: anObject [
 ]
 
 { #category : #accessing }
+GtPhlowGroupedListView >> groupStencil [
+	^ groupStencil
+]
+
+{ #category : #accessing }
+GtPhlowGroupedListView >> groupStencil: anObject [
+	groupStencil := anObject
+]
+
+{ #category : #accessing }
+GtPhlowGroupedListView >> groupedItems: aBlock [
+	groupedItemProviderComputation := aBlock
+]
+
+{ #category : #accessing }
 GtPhlowGroupedListView >> groups: aBlock [
 	groupsProviderComputation := aBlock
 ]
@@ -152,16 +162,6 @@ GtPhlowGroupedListView >> groupsProviderOnExceptionErrorElement: aBlock [
 								itemDataBinder: self newDecoratedItemDataBinder;
 								itemType: self newDecoratedItemTypeStencil ]) ]
 		onExceptionErrorElement: [ :anElement | aBlock value: anElement ]
-]
-
-{ #category : #accessing }
-GtPhlowGroupedListView >> groupStencil [
-	^ groupStencil
-]
-
-{ #category : #accessing }
-GtPhlowGroupedListView >> groupStencil: anObject [
-	groupStencil := anObject
 ]
 
 { #category : #accessing }
@@ -254,11 +254,6 @@ GtPhlowGroupedListView >> itemId: aBrListItemIdStencilBuilderOrBlock [
 	itemId := aBrListItemIdStencilBuilderOrBlock 
 ]
 
-{ #category : #'private - accessing' }
-GtPhlowGroupedListView >> items: aBlock [
-	itemsProvider := aBlock
-]
-
 { #category : #accessing }
 GtPhlowGroupedListView >> itemStencil: aBrListItemElementStencilBuilderOrBlock [
 	"An item element stencil can be a #value-able of the form [ :anItemType | ]"
@@ -288,6 +283,11 @@ GtPhlowGroupedListView >> itemTypeStencil [
 	"Return a stencil that is used to create an item type of a given item object"
 
 	^ itemTypeStencil
+]
+
+{ #category : #'private - accessing' }
+GtPhlowGroupedListView >> items: aBlock [
+	itemsProvider := aBlock
 ]
 
 { #category : #'private - building' }

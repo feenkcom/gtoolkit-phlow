@@ -11,5 +11,5 @@ See:
 Class {
 	#name : #GtPhlowObjectContextMenuTarget,
 	#superclass : #GtPhlowActionUniqueTarget,
-	#category : 'GToolkit-Phlow-Action Targets'
+	#category : #'GToolkit-Phlow-Action Targets'
 }

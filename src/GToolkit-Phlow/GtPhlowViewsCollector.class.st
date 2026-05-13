@@ -3,7 +3,7 @@ Class {
 	#superclass : #GtPhlowCollector,
 	#traits : 'TGtPhlowContextAccessor',
 	#classTraits : 'TGtPhlowContextAccessor classTrait',
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #accessing }

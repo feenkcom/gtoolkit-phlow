@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowDefiningMethodProvider,
 	#superclass : #Object,
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #accessing }

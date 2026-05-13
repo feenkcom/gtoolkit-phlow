@@ -18,7 +18,7 @@ I use {{gtClass:GtPhlowTitleLabelBuilder}} to create labels.
 Class {
 	#name : #GtPhlowTitleLabelNotifier,
 	#superclass : #GtPhlowTitleNotifier,
-	#category : 'GToolkit-Phlow-Tool - Title'
+	#category : #'GToolkit-Phlow-Tool - Title'
 }
 
 { #category : #'api - notifying' }

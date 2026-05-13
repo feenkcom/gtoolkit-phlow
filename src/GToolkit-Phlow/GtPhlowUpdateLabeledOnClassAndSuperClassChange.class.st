@@ -10,7 +10,7 @@ Class {
 	#superclass : #GtPhlowSystemChangeUpdateDefinition,
 	#traits : 'TGtPhlowObservedClassAccessors',
 	#classTraits : 'TGtPhlowObservedClassAccessors classTrait',
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #testing }

@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'exception'
 	],
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #'api - instance creation' }

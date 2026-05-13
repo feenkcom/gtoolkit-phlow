@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'formatComputation'
 	],
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #'api - building' }

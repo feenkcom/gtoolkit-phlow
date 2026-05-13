@@ -12,7 +12,7 @@ Class {
 		'toolName',
 		'toolClassName'
 	],
-	#category : 'GToolkit-Phlow-Tool - Selection'
+	#category : #'GToolkit-Phlow-Tool - Selection'
 }
 
 { #category : #'initialization ' }

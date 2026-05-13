@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'type'
 	],
-	#category : 'GToolkit-Phlow-Tool - Navigation'
+	#category : #'GToolkit-Phlow-Tool - Navigation'
 }
 
 { #category : #'instance creation' }

@@ -1,6 +1,6 @@
 Trait {
 	#name : #TGtPhlowCompositeViewAccessors,
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #'api - view' }

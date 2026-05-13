@@ -5,7 +5,7 @@ Class {
 		'rowItem',
 		'rowIndex'
 	],
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #comparing }

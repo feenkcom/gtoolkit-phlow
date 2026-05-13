@@ -12,7 +12,7 @@ Class {
 	#superclass : #BrStencil,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
 { #category : #'api - instantiation' }

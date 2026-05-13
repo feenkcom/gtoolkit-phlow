@@ -5,7 +5,7 @@ Class {
 		'dataBinder',
 		'itemComputation'
 	],
-	#category : 'GToolkit-Phlow-Support - List simple'
+	#category : #'GToolkit-Phlow-Support - List simple'
 }
 
 { #category : #accessing }

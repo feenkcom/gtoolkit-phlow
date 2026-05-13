@@ -26,7 +26,7 @@ The following example shows the sidebar on the right side:
 Class {
 	#name : #GtPhlowHorizontalSidebarElement,
 	#superclass : #GtPhlowSidebarElement,
-	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
 { #category : #defaults }

@@ -5,7 +5,7 @@ Class {
 		'object',
 		'arguments'
 	],
-	#category : 'GToolkit-Phlow-Context'
+	#category : #'GToolkit-Phlow-Context'
 }
 
 { #category : #factory }

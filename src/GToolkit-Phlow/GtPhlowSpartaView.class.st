@@ -24,7 +24,7 @@ Class {
 		'horizontalResizer',
 		'verticalResizer'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #converting }
@@ -58,13 +58,13 @@ GtPhlowSpartaView >> extent: anExtent [
 ]
 
 { #category : #accessing }
-GtPhlowSpartaView >> height: aNumber [
-	verticalResizer := BlLayoutResizer exact: aNumber asFloat
+GtPhlowSpartaView >> hMatchParent [
+	horizontalResizer := BlLayoutResizer matchParent
 ]
 
 { #category : #accessing }
-GtPhlowSpartaView >> hMatchParent [
-	horizontalResizer := BlLayoutResizer matchParent
+GtPhlowSpartaView >> height: aNumber [
+	verticalResizer := BlLayoutResizer exact: aNumber asFloat
 ]
 
 { #category : #initialization }

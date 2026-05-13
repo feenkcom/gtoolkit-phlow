@@ -17,7 +17,7 @@ The following example shows a default distance: {{gtExample:GtPhlowSidebarElemen
 Class {
 	#name : #GtPhlowSidebarContentTopOffset,
 	#superclass : #GtPhlowSidebarContentOffset,
-	#category : 'GToolkit-Phlow-Tool - UI Sidebar'
+	#category : #'GToolkit-Phlow-Tool - UI Sidebar'
 }
 
 { #category : #'api - updating' }

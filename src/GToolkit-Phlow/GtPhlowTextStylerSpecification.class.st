@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowTextStylerSpecification,
 	#superclass : #Object,
-	#category : 'GToolkit-Phlow-Text - Styling'
+	#category : #'GToolkit-Phlow-Text - Styling'
 }
 
 { #category : #testing }

@@ -22,7 +22,7 @@ Class {
 		'compiledMethod',
 		'ringDefinition'
 	],
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #comparing }

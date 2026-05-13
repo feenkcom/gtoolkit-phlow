@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowUtility,
 	#superclass : #Object,
-	#category : 'GToolkit-Phlow-Utilities'
+	#category : #'GToolkit-Phlow-Utilities'
 }
 
 { #category : #enumerating }

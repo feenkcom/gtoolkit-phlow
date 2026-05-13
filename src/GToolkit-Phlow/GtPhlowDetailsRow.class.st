@@ -6,7 +6,7 @@ Class {
 		'valueComputation',
 		'textComputation'
 	],
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #initialization }

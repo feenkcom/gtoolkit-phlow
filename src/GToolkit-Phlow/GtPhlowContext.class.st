@@ -8,7 +8,7 @@ Class {
 	#superclass : #GtPhlowExecutionContext,
 	#traits : 'TGtOptions + TGtPhlowWithSelfObjectHolder + TGtPhlowWithBehaviorHolder',
 	#classTraits : 'TGtOptions classTrait + TGtPhlowWithSelfObjectHolder classTrait + TGtPhlowWithBehaviorHolder classTrait',
-	#category : 'GToolkit-Phlow-Context'
+	#category : #'GToolkit-Phlow-Context'
 }
 
 { #category : #accessing }

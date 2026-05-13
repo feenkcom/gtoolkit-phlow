@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowAsyncUpdateDefinition,
 	#superclass : #GtPhlowSyncUpdateDefinition,
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #testing }

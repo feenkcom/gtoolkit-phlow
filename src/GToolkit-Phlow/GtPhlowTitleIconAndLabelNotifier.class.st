@@ -27,7 +27,7 @@ Class {
 	#instVars : [
 		'icon'
 	],
-	#category : 'GToolkit-Phlow-Tool - Title'
+	#category : #'GToolkit-Phlow-Tool - Title'
 }
 
 { #category : #'api - accessing' }

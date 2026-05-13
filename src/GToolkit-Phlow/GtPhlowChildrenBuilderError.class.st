@@ -12,7 +12,7 @@ Class {
 		'parent',
 		'childrenBuilder'
 	],
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #accessing }

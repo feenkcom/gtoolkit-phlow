@@ -15,7 +15,7 @@ Trait {
 	#instVars : [
 		'transformation'
 	],
-	#category : 'GToolkit-Phlow-Support - Transformation'
+	#category : #'GToolkit-Phlow-Support - Transformation'
 }
 
 { #category : #defaults }

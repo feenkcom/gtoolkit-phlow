@@ -18,7 +18,7 @@ Class {
 	#instVars : [
 		'text'
 	],
-	#category : 'GToolkit-Phlow-Support - Tooltip'
+	#category : #'GToolkit-Phlow-Support - Tooltip'
 }
 
 { #category : #building }

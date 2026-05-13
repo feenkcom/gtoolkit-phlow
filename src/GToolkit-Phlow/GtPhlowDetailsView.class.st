@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'rows'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #'api - converting' }
@@ -117,14 +117,14 @@ GtPhlowDetailsView >> initialize [
 	rows := OrderedCollection new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'api - scripting' }
 GtPhlowDetailsView >> row: aString value: aBlockClosure [
 	rows add: (GtPhlowDetailsRow new
 		name: aString;
 		valueComputation: aBlockClosure)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'api - scripting' }
 GtPhlowDetailsView >> row: aString value: aValueComputation text: aTextComputation [
 	rows add: (GtPhlowDetailsRow new
 		name: aString;

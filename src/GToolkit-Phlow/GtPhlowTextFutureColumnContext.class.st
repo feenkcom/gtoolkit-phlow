@@ -9,7 +9,7 @@ Class {
 		'pendingException',
 		'successException'
 	],
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #accessing }

@@ -15,7 +15,7 @@ Class {
 	#superclass : #GtPhlowTitleLabelBuilder,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : 'GToolkit-Phlow-Tool - Title'
+	#category : #'GToolkit-Phlow-Tool - Title'
 }
 
 { #category : #building }

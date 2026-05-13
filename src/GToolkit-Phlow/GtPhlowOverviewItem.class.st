@@ -8,7 +8,7 @@ Class {
 		'isValueException',
 		'children'
 	],
-	#category : 'GToolkit-Phlow-Convenience and Utilities'
+	#category : #'GToolkit-Phlow-Convenience and Utilities'
 }
 
 { #category : #initalization }

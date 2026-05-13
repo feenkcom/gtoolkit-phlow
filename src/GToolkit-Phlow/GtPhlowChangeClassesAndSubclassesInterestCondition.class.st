@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'superclasses'
 	],
-	#category : 'GToolkit-Phlow-Updating New'
+	#category : #'GToolkit-Phlow-Updating New'
 }
 
 { #category : #'api - testing' }

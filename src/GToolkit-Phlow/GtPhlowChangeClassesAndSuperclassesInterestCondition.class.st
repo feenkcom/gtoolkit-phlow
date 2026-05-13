@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'classes'
 	],
-	#category : 'GToolkit-Phlow-Updating New'
+	#category : #'GToolkit-Phlow-Updating New'
 }
 
 { #category : #accessing }

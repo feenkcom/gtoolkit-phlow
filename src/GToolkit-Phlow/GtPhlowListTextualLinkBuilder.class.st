@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'spawnObjectComputation'
 	],
-	#category : 'GToolkit-Phlow-Support - List'
+	#category : #'GToolkit-Phlow-Support - List'
 }
 
 { #category : #accessing }

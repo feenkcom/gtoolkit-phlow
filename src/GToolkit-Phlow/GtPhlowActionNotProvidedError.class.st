@@ -8,7 +8,7 @@ Class {
 		'parentAction',
 		'returnedObject'
 	],
-	#category : 'GToolkit-Phlow-Support - Exceptions'
+	#category : #'GToolkit-Phlow-Support - Exceptions'
 }
 
 { #category : #'ui - building' }

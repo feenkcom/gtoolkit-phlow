@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowClassActionsCollector,
 	#superclass : #GtPhlowActionsCollector,
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #accessing }

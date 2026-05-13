@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'anchorElement'
 	],
-	#category : 'GToolkit-Phlow-Events'
+	#category : #'GToolkit-Phlow-Events'
 }
 
 { #category : #accessing }

@@ -24,7 +24,7 @@ Class {
 		'toolName',
 		'subjectName'
 	],
-	#category : 'GToolkit-Phlow-Tool - Title'
+	#category : #'GToolkit-Phlow-Tool - Title'
 }
 
 { #category : #'api - building' }

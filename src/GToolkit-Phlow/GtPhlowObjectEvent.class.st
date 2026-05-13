@@ -7,7 +7,7 @@ Class {
 		'sourceElement',
 		'properties'
 	],
-	#category : 'GToolkit-Phlow-Events'
+	#category : #'GToolkit-Phlow-Events'
 }
 
 { #category : #initialization }

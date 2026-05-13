@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'affectedClass'
 	],
-	#category : 'GToolkit-Phlow-Updating New'
+	#category : #'GToolkit-Phlow-Updating New'
 }
 
 { #category : #'instance  creation' }

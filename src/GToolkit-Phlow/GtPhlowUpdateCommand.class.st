@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'elementContext'
 	],
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #testing }

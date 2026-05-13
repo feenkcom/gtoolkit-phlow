@@ -8,7 +8,7 @@ See {{gtClass:TGtPhlowSendTransformable}} for more details and examples.
 Class {
 	#name : #GtPhlowSendToolTransformation,
 	#superclass : #GtPhlowSendValuableTransformation,
-	#category : 'GToolkit-Phlow-Support - Transformation'
+	#category : #'GToolkit-Phlow-Support - Transformation'
 }
 
 { #category : #defaults }

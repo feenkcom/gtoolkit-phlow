@@ -12,7 +12,7 @@ The following example changes an element background color on information level c
 Class {
 	#name : #GtPhlowToolDetailAptitude,
 	#superclass : #BrLazyStyleAptitude,
-	#category : 'GToolkit-Phlow-Tool - Looks'
+	#category : #'GToolkit-Phlow-Tool - Looks'
 }
 
 { #category : #'api - style' }

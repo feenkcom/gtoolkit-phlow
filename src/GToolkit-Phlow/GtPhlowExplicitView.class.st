@@ -14,7 +14,7 @@ Class {
 		'stencilBuilder',
 		'phlowView'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #accessing }

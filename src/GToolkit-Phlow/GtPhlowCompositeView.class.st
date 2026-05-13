@@ -30,7 +30,7 @@ Class {
 	#instVars : [
 		'views'
 	],
-	#category : 'GToolkit-Phlow-! Views'
+	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #private }

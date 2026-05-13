@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowChangeAndInterestCondition,
 	#superclass : #GtPhlowChangeBinaryInterestCondition,
-	#category : 'GToolkit-Phlow-Updating New'
+	#category : #'GToolkit-Phlow-Updating New'
 }
 
 { #category : #'api - testing' }

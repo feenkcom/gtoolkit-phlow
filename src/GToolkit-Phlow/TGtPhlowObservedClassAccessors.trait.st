@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'observedClass'
 	],
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #testing }

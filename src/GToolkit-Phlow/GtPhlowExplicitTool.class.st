@@ -7,7 +7,7 @@ Class {
 		'icon',
 		'tabLook'
 	],
-	#category : 'GToolkit-Phlow-Tool - Core'
+	#category : #'GToolkit-Phlow-Tool - Core'
 }
 
 { #category : #'api - converting' }

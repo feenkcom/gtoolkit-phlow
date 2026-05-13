@@ -9,7 +9,7 @@ Class {
 		'itemComputation',
 		'backgroundComputation'
 	],
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #testing }

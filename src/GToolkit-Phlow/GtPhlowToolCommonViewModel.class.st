@@ -9,7 +9,7 @@ Class {
 		'objectSelector',
 		'type'
 	],
-	#category : 'GToolkit-Phlow-Tool - Navigation'
+	#category : #'GToolkit-Phlow-Tool - Navigation'
 }
 
 { #category : #accessing }

@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowGroupedListToSelectHandler,
 	#superclass : #GtPhlowListToSelectHandler,
-	#category : 'GToolkit-Phlow-Events'
+	#category : #'GToolkit-Phlow-Events'
 }
 
 { #category : #accessing }

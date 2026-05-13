@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowTool,
 	#superclass : #GtPhlowAbstractTool,
-	#category : 'GToolkit-Phlow-Tool - Core'
+	#category : #'GToolkit-Phlow-Tool - Core'
 }
 
 { #category : #accessing }

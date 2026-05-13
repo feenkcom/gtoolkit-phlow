@@ -18,7 +18,7 @@ See {{gtClass:GtPhlowTitleNotifier|show=#gtSubclassesFor:|expanded=true|height=1
 Class {
 	#name : #GtPhlowChangeTitleWish,
 	#superclass : #BrWish,
-	#category : 'GToolkit-Phlow-Tool - Title'
+	#category : #'GToolkit-Phlow-Tool - Title'
 }
 
 { #category : #'api - accessing' }

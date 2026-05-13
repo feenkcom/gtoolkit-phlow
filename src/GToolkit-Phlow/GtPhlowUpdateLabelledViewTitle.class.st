@@ -19,7 +19,7 @@ is updated to:
 Class {
 	#name : #GtPhlowUpdateLabelledViewTitle,
 	#superclass : #GtPhlowUpdateCommand,
-	#category : 'GToolkit-Phlow-Updating'
+	#category : #'GToolkit-Phlow-Updating'
 }
 
 { #category : #testing }

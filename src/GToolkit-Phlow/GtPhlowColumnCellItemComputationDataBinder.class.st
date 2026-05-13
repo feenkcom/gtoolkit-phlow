@@ -6,7 +6,7 @@ Class {
 		'itemComputation',
 		'backgroundComputation'
 	],
-	#category : 'GToolkit-Phlow-Support - List columned'
+	#category : #'GToolkit-Phlow-Support - List columned'
 }
 
 { #category : #accessing }

@@ -1,6 +1,6 @@
 Trait {
 	#name : #TGtPhlowViewSelectorAssertion,
-	#category : 'GToolkit-Phlow-Collectors'
+	#category : #'GToolkit-Phlow-Collectors'
 }
 
 { #category : #asserting }

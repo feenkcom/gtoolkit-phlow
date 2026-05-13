@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'stylerComputation'
 	],
-	#category : 'GToolkit-Phlow-Text - Styling'
+	#category : #'GToolkit-Phlow-Text - Styling'
 }
 
 { #category : #styling }

@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'context'
 	],
-	#category : 'GToolkit-Phlow-Context'
+	#category : #'GToolkit-Phlow-Context'
 }
 
 { #category : #accessing }

@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'object'
 	],
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #testing }

@@ -13,7 +13,7 @@ Class {
 	#instVars : [
 		'targets'
 	],
-	#category : 'GToolkit-Phlow-Action Targets'
+	#category : #'GToolkit-Phlow-Action Targets'
 }
 
 { #category : #'gt - extensions' }

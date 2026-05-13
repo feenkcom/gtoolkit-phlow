@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowThemeIconNameColumn,
 	#superclass : #GtPhlowIconNameColumn,
-	#category : 'GToolkit-Phlow-Support'
+	#category : #'GToolkit-Phlow-Support'
 }
 
 { #category : #'api - building' }

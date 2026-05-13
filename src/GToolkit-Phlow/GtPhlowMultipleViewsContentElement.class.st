@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'viewsContainer'
 	],
-	#category : 'GToolkit-Phlow-Tool - Element'
+	#category : #'GToolkit-Phlow-Tool - Element'
 }
 
 { #category : #callbacks }

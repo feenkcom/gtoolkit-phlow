@@ -3,7 +3,7 @@ Class {
 	#superclass : #GtPhlowChangeInterestCondition,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : 'GToolkit-Phlow-Updating New'
+	#category : #'GToolkit-Phlow-Updating New'
 }
 
 { #category : #'api - testing' }

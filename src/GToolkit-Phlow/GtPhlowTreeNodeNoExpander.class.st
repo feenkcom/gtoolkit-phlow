@@ -3,7 +3,7 @@ Class {
 	#superclass : #GtPhlowTreeNodeExpander,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : 'GToolkit-Phlow-Support - Tree Expansion'
+	#category : #'GToolkit-Phlow-Support - Tree Expansion'
 }
 
 { #category : #'api - actions' }
