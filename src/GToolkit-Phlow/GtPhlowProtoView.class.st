@@ -165,6 +165,14 @@ GtPhlowProtoView >> definingSelector [
 	^ self definingMethod selector
 ]
 
+{ #category : #accessing }
+GtPhlowProtoView >> details [
+	<return: #GtPhlowDetailsView>
+	^ GtPhlowDetailsView new
+		originalView: self;
+		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
+]
+
 { #category : #decorating }
 GtPhlowProtoView >> diff [
 	<return: #GtPhlowDiffView>
