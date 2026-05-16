@@ -139,9 +139,6 @@ GtPhlowTextFutureColumn >> computeExecutionConfigurationForLabel: aLabel [
 { #category : #'private - building' }
 GtPhlowTextFutureColumn >> computePendingLabelTextFor: aLabel [
 	| aContext aText |
-	aLabel userData
-		at: self class name
-		ifAbsent: [ GtJustContextStackSignal emit ].
 	aContext := self retrieveContextFromLabelElement: aLabel.
 
 	aText := pendingComputation
