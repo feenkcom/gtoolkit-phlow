@@ -119,8 +119,9 @@ GtPhlowCompositeView >> gtContainedViewsFor: aView [
 		title: 'Views' translated;
 		items: [ self views ];
 		column: 'View' text: [:each | each gtDisplayString];
-		column: 'Title' text: [:each | each title ];
-		column: 'Priority' text: [:each | each priority ]
+		column: 'Title' text: [:each | each title ] width: 80;
+		column: 'Priority' text: [:each | each priority ] width: 80;
+		column: 'Method' text: [ :each | each definingMethod ifNil: [''] ]
 ]
 
 { #category : #accessing }
