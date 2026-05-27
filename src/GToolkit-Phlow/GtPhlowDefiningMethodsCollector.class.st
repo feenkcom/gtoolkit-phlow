@@ -8,7 +8,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'stack',
-		'methods'
+		'methods',
+		'skipCount'
 	],
 	#category : #'GToolkit-Phlow-Collectors'
 }
@@ -27,7 +28,7 @@ GtPhlowDefiningMethodsCollector class >> stackLimit [
 GtPhlowDefiningMethodsCollector >> collect [
 	| aMethods |
 	aMethods := OrderedCollection new.
-	2
+	self startIndex
 		to: self stack size
 		do: [ :anIndex | 
 			| aCompiledMethod |
@@ -36,7 +37,7 @@ GtPhlowDefiningMethodsCollector >> collect [
 				ifTrue: [ ^ self definingMethodsFrom: aMethods ].
 			aMethods addFirst: aCompiledMethod asRingDefinition ].
 
-	2
+	self startIndex
 		to: self stack size
 		do: [ :anIndex | 
 			| aCompiledMethod |
@@ -56,11 +57,31 @@ GtPhlowDefiningMethodsCollector >> definingMethodsFrom: aMethods [
 	^ GtPhlowDefiningMethods new methods: aMethods
 ]
 
+{ #category : #accessing }
+GtPhlowDefiningMethodsCollector >> dontSkipCount [
+	self skipCount: 0
+]
+
 { #category : #initialization }
 GtPhlowDefiningMethodsCollector >> initialize [
 	super initialize.
 	methods := OrderedCollection new.
 	stack := nil.
+	skipCount := 1
+]
+
+{ #category : #accessing }
+GtPhlowDefiningMethodsCollector >> skipCount [
+	^ skipCount ifNil: [ 1 ]
+]
+
+{ #category : #accessing }
+GtPhlowDefiningMethodsCollector >> skipCount: anInteger [
+	"Set how much first methods should it skip."
+	self assert: [ anInteger isInteger ].
+	self assert: [ anInteger >= 0 ].
+
+	skipCount := anInteger
 ]
 
 { #category : #accessing }
@@ -71,4 +92,9 @@ GtPhlowDefiningMethodsCollector >> stack [
 { #category : #accessing }
 GtPhlowDefiningMethodsCollector >> stack: anObject [
 	stack := anObject
+]
+
+{ #category : #actions }
+GtPhlowDefiningMethodsCollector >> startIndex [
+	^ self skipCount + 1
 ]
