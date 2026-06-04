@@ -15,10 +15,24 @@ Class {
 	#name : #GtPhlowLongTitleLabelBuilder,
 	#superclass : #GtPhlowTitleLabelBuilder,
 	#instVars : [
-		'block'
+		'block',
+		'textLengthToShow'
+	],
+	#classVars : [
+		'DefaultTextLengthToShow'
 	],
 	#category : #'GToolkit-Phlow-Tool - Title'
 }
+
+{ #category : #building }
+GtPhlowLongTitleLabelBuilder class >> defaultTextLengthToShow [
+	^ DefaultTextLengthToShow ifNil: [ 12 ]
+]
+
+{ #category : #building }
+GtPhlowLongTitleLabelBuilder class >> defaultTextLengthToShow: anInteger [
+	DefaultTextLengthToShow := anInteger
+]
 
 { #category : #'api - accessing' }
 GtPhlowLongTitleLabelBuilder >> block [
@@ -74,5 +88,11 @@ GtPhlowLongTitleLabelBuilder >> longLabel [
 
 { #category : #building }
 GtPhlowLongTitleLabelBuilder >> textLengthToShow [
-	^ 12
+	^ textLengthToShow ifNil: [
+			self class defaultTextLengthToShow]
+]
+
+{ #category : #building }
+GtPhlowLongTitleLabelBuilder >> textLengthToShow: anInteger [
+	textLengthToShow := anInteger
 ]
