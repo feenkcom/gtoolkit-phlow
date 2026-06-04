@@ -40,9 +40,11 @@ GtPhlowLongTitleLabelBuilder >> build [
 	aLongLabel size < 42 ifTrue: [ ^ aLongLabel ].
 	
 	aShortTitle := '' asRopedText.
-	aShortTitle append: (aLongLabel from: 1 to: 12) asRopedText.
+	aShortTitle append: (aLongLabel from: 1 to: self textLengthToShow) asRopedText.
 	aShortTitle appendString: '...'.
-	aShortTitle append: (aLongLabel from: aLongLabel size - 12 to: aLongLabel size) asRopedText.
+	aShortTitle append: (aLongLabel 
+		from: aLongLabel size - self textLengthToShow 
+		to: aLongLabel size) asRopedText.
 	
 	^ aShortTitle
 ]
@@ -68,4 +70,9 @@ GtPhlowLongTitleLabelBuilder >> gtResultFor: aView [
 { #category : #'private - accessing' }
 GtPhlowLongTitleLabelBuilder >> longLabel [
 	^ self block value
+]
+
+{ #category : #building }
+GtPhlowLongTitleLabelBuilder >> textLengthToShow [
+	^ 12
 ]
