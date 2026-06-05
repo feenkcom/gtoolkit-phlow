@@ -3,25 +3,48 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'phlowTool',
-		'targetObject'
+		'targetObject',
+		'contentViewPragmaNames',
+		'toolActionPragmaNames',
+		'headerTitleComputation'
 	],
 	#category : #'GToolkit-Phlow-Tool - Element'
 }
 
-{ #category : #accessing }
-GtPhlowMultipleViewsToolContentElementModel >> collectContentViews [ 
-	^ GtPhlowViewsCollector new
-		pragmaName: #gtToolView;
-		fromObject: self targetObject
+{ #category : #'instance creation' }
+GtPhlowMultipleViewsToolContentElementModel class >> forPhlowTool: aPhlowTool [
+	^ self new
+		initializeWithPhlowTool: aPhlowTool
+]
+
+{ #category : #views }
+GtPhlowMultipleViewsToolContentElementModel >> collectContentViews [
+	| views |
+	
+	views := GtPhlowViewsCollector new
+		pragmaNames: self contentViewPragmaNames;
+		fromObject: self targetObject;
+		collect.
+	
+	^ GtPhlowEmptyView empty composite views: views
+]
+
+{ #category : #actions }
+GtPhlowMultipleViewsToolContentElementModel >> collectToolActions [
+	^ GtPhlowActionsCollector new
+		pragmaNames: self toolActionPragmaNames;
+		fromObject: self targetObject;
 		collect
 ]
 
 { #category : #accessing }
-GtPhlowMultipleViewsToolContentElementModel >> collectToolActions [ 
-	^ GtPhlowActionsCollector new
-		pragmaName: #gtToolAction;
-		fromObject: self targetObject;
-		collect
+GtPhlowMultipleViewsToolContentElementModel >> contentViewPragmaNames [
+	^ contentViewPragmaNames
+]
+
+{ #category : #accessing }
+GtPhlowMultipleViewsToolContentElementModel >> contentViewPragmaNames: aCollection [
+	contentViewPragmaNames := aCollection
 ]
 
 { #category : #accessing }
@@ -29,6 +52,45 @@ GtPhlowMultipleViewsToolContentElementModel >> createTitleNotifier [
 	^GtPhlowTitleIconAndLabelNotifier new 
 		longLabel: [self toolName];
 		icon: [ self toolIcon ] asStencil
+]
+
+{ #category : #defaults }
+GtPhlowMultipleViewsToolContentElementModel >> defaultContentViewPragmaNames [
+	^ #(#gtToolView)
+]
+
+{ #category : #defaults }
+GtPhlowMultipleViewsToolContentElementModel >> defaultToolActionPragmaNames [
+	^ #(#gtToolAction)
+]
+
+{ #category : #accessing }
+GtPhlowMultipleViewsToolContentElementModel >> headerTitle [
+	^ headerTitleComputation value
+]
+
+{ #category : #accessing }
+GtPhlowMultipleViewsToolContentElementModel >> headerTitleComputation: aBlock [
+	headerTitleComputation := aBlock
+]
+
+{ #category : #initialization }
+GtPhlowMultipleViewsToolContentElementModel >> initialize [
+	super initialize.
+	
+	contentViewPragmaNames := self defaultContentViewPragmaNames.
+	toolActionPragmaNames := self defaultToolActionPragmaNames
+]
+
+{ #category : #initialization }
+GtPhlowMultipleViewsToolContentElementModel >> initializeWithPhlowTool: aPhlowTool [
+	self phlowTool: aPhlowTool.
+	self targetObject: aPhlowTool object.
+]
+
+{ #category : #accessing }
+GtPhlowMultipleViewsToolContentElementModel >> phlowTool [
+	^ phlowTool
 ]
 
 { #category : #accessing }
@@ -43,7 +105,18 @@ GtPhlowMultipleViewsToolContentElementModel >> targetObject [
 
 { #category : #accessing }
 GtPhlowMultipleViewsToolContentElementModel >> targetObject: anObject [
-	targetObject := anObject
+	targetObject := anObject.
+	^ self
+]
+
+{ #category : #accessing }
+GtPhlowMultipleViewsToolContentElementModel >> toolActionPragmaNames [
+	^ toolActionPragmaNames
+]
+
+{ #category : #accessing }
+GtPhlowMultipleViewsToolContentElementModel >> toolActionPragmaNames: aCollection [
+	toolActionPragmaNames := aCollection
 ]
 
 { #category : #accessing }
