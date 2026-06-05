@@ -12,7 +12,7 @@ GtMultipleViewsForExamplesPhlowToolExamples >> collectToolViews [
 	<gtExample>
 	| views titles |
 	
-	views := self toolContentModel collectContentViews views.
+	views := self currentToolContentModel collectContentViews views.
 	titles := views collect: [ :each | each title asString ].
 	
 	self assert: views size equals: 2.
@@ -26,7 +26,7 @@ GtMultipleViewsForExamplesPhlowToolExamples >> collectsToolActions [
 	<gtExample>
 	| actions incrementAction extraAction refreshAction |
 	
-	actions := self toolContentModel collectToolActions.
+	actions := self currentToolContentModel collectToolActions.
 	self assert: actions size equals: 3.
 	
 	incrementAction := actions first.
@@ -48,7 +48,40 @@ GtMultipleViewsForExamplesPhlowToolExamples >> collectsToolActions [
 	^ actions
 ]
 
-{ #category : #'instance creation' }
+{ #category : #'examples - instance creation' }
+GtMultipleViewsForExamplesPhlowToolExamples >> createToolElementInScripter [
+	<gtExample>
+	| phlowTool anElement aScripter |
+	
+	phlowTool := self phlowTool.
+	anElement := phlowTool asElement.
+	
+	aScripter := BlScripter new.
+	aScripter
+		model: phlowTool;
+		element: anElement.
+	
+	self assert: anElement class equals: GtPhlowMultipleViewsContentElement.
+			
+	^ aScripter
+]
+
+{ #category : #'examples - instance creation' }
+GtMultipleViewsForExamplesPhlowToolExamples >> currentToolContentModel [
+	<gtExample>
+	| aScripter toolContentModel |
+	
+	aScripter := self createToolElementInScripter.
+	toolContentModel := aScripter element toolContentModel.
+	
+	self assert: toolContentModel headerTitle equals: 'Object: a GtMultipleViewsForExamplesObject'.
+	self assert: toolContentModel toolIcon notNil.
+	self assert: toolContentModel toolName equals: 'Composite view tool'.
+	
+	^ toolContentModel
+]
+
+{ #category : #'examples - instance creation' }
 GtMultipleViewsForExamplesPhlowToolExamples >> exampleObject [
 	<gtExample>
 	| anObject |
@@ -58,8 +91,8 @@ GtMultipleViewsForExamplesPhlowToolExamples >> exampleObject [
 	^ anObject
 ]
 
-{ #category : #'instance creation' }
-GtMultipleViewsForExamplesPhlowToolExamples >> tool [
+{ #category : #'examples - instance creation' }
+GtMultipleViewsForExamplesPhlowToolExamples >> phlowTool [
 	<gtExample>
 	| aTool |
 	
@@ -68,110 +101,86 @@ GtMultipleViewsForExamplesPhlowToolExamples >> tool [
 		
 	self assert: aTool object notNil.
 	self assert: aTool name equals: 'Composite view tool'.
+	self assert: aTool icon notNil.
 	
 	^ aTool
 ]
 
-{ #category : #'instance creation' }
-GtMultipleViewsForExamplesPhlowToolExamples >> toolContentModel [
-	<gtExample>
-	| aModel |
-	
-	aModel := GtPhlowMultipleViewsToolContentElementModel new.
-	aModel phlowTool: self tool.
-	aModel targetObject: self tool object.
-	
-	^ aModel
-]
-
-{ #category : #'instance creation' }
-GtMultipleViewsForExamplesPhlowToolExamples >> toolContentModelProperties [
-	<gtExample>
-	| toolContentModel |
-	
-	toolContentModel := self toolContentModel.
-	self assert: toolContentModel headerTitle equals: 'Object: a GtMultipleViewsForExamplesObject'.
-	self assert: toolContentModel toolIcon notNil.
-	self assert: toolContentModel toolName equals: 'Composite view tool'.
-	
-	^ toolContentModel
-]
-
-{ #category : #scripter }
+{ #category : #'examples - scripter' }
 GtMultipleViewsForExamplesPhlowToolExamples >> toolElementExecuteIncrementAction [
 	<gtExample>
-	| aScripter |
+	| scripter |
 	
-	aScripter := self toolElementInScripter.
+	scripter := self createToolElementInScripter.
 	
-	aScripter click
+	scripter click
 		label: 'Click increment action';
 		// #headerToolbar;
 		// #incrementActionWithCurrentToolUpdate;
 		play.
 		
-	self assert: aScripter model object counter equals: 1.
-	self assert: aScripter model object log asArray equals: #('incremented to 1').
+	self assert: scripter model object counter equals: 1.
+	self assert: scripter model object log asArray equals: #('incremented to 1').
 	
-	aScripter click
+	scripter click
 		label: 'Click increment action a second time';
 		// #headerToolbar;
 		// #incrementActionWithCurrentToolUpdate;
 		play.
 		
-	self assert: aScripter model object counter equals: 2.
-	self assert: aScripter model object log asArray equals: #('incremented to 1' 'incremented to 2').
+	self assert: scripter model object counter equals: 2.
+	self assert: scripter model object log asArray equals: #('incremented to 1' 'incremented to 2').
 	
-	^ aScripter
+	^ scripter
 ]
 
-{ #category : #scripter }
+{ #category : #'examples - scripter' }
 GtMultipleViewsForExamplesPhlowToolExamples >> toolElementHasPlayground [
 	<gtExample>
-	| aScripter |
+	| scripter |
 	
-	aScripter := self toolElementInScripter.
+	scripter := self createToolElementInScripter.
 	
-	aScripter assertStep: [ :aStep |
+	scripter assertStep: [ :aStep |
 		aStep
 			label: 'Tool playground exists';
 			exists;
 			// #playgroundPage ].
 			
-	^ aScripter
+	^ scripter
 ]
 
-{ #category : #scripter }
+{ #category : #'examples - scripter' }
 GtMultipleViewsForExamplesPhlowToolExamples >> toolElementHasTitleLabel [
 	<gtExample>
-	| aScripter expectedText|
+	| scripter expectedText|
 	
 	expectedText := 'Object: a GtMultipleViewsForExamplesObject'.
-	aScripter := self toolElementInScripter.
+	scripter := self createToolElementInScripter.
 	
-	self assert: aScripter element titleLabel text asString equals: expectedText.
+	self assert: scripter element titleLabel text asString equals: expectedText.
 	
-	aScripter assertStep: [ :aStep |
+	scripter assertStep: [ :aStep |
 		aStep
 			label: 'Tool title label updated';
 			satisfies: [ :aLabel | aLabel text asString = expectedText ];
 			// #titleContainer;
 			// #titleLabel ].
 			
-	^ aScripter
+	^ scripter
 ]
 
-{ #category : #scripter }
+{ #category : #'examples - scripter' }
 GtMultipleViewsForExamplesPhlowToolExamples >> toolElementHasToolLabel [
 	<gtExample>
-	| expectedText aScripter |
+	| expectedText scripter |
 	
 	expectedText := 'Composite view tool'.
-	aScripter := aScripter := self toolElementInScripter.
+	scripter := scripter := self createToolElementInScripter.
 	
-	self assert: aScripter element toolLabel text asString equals: expectedText.
+	self assert: scripter element toolLabel text asString equals: expectedText.
 	
-	aScripter assertStep: [ :aStep |
+	scripter assertStep: [ :aStep |
 		aStep
 			label: 'Tool name label is correct';
 			value: [ :aLabel | aLabel text asString ] equals: [ expectedText ];
@@ -179,62 +188,43 @@ GtMultipleViewsForExamplesPhlowToolExamples >> toolElementHasToolLabel [
 			// #toolLabel ].
 ]
 
-{ #category : #scripter }
-GtMultipleViewsForExamplesPhlowToolExamples >> toolElementInScripter [
-	<gtExample>
-	| aTool anElement aScripter |
-	
-	aTool := GtMultipleViewsForExamplesPhlowTool new
-		object: self exampleObject.
-	anElement := aTool asElement.
-	
-	aScripter := BlScripter new.
-	aScripter
-		model: aTool;
-		element: anElement.
-	
-	self assert: anElement class equals: GtPhlowMultipleViewsContentElement.
-			
-	^ aScripter
-]
-
-{ #category : #examples }
+{ #category : #'examples - scripter' }
 GtMultipleViewsForExamplesPhlowToolExamples >> toolElementShowsActions [
 	<gtExample>
-	| aScripter |
+	| scripter |
 	
-	aScripter := self toolElementInScripter.
+	scripter := self createToolElementInScripter.
 	
-	aScripter assertStep: [ :aStep |
+	scripter assertStep: [ :aStep |
 		aStep
 			label: 'Tool toolbar has correct number of actions';
 			value: [ :aToolbar | aToolbar numberOfItems ] equals: [ 3 ];
 			// #headerToolbar ].
 	
-	aScripter assertStep: [ :aStep |
+	scripter assertStep: [ :aStep |
 		aStep
 			label: 'Tool shows Increment action';
 			value: [ :aToolbar | aToolbar items collect: [:each | each label asString ] as: Array ] 
 				equals: #('Increment' 'Refresh' 'Label' );
 			// #headerToolbar ].
 			
-	^ aScripter
+	^ scripter
 ]
 
-{ #category : #examples }
+{ #category : #'examples - scripter' }
 GtMultipleViewsForExamplesPhlowToolExamples >> toolElementShowsTabs [
 	<gtExample>
-	| aScripter |
+	| scripter |
 	
-	aScripter := self toolElementInScripter.
+	scripter := self createToolElementInScripter.
 	
-	aScripter assertStep: [ :aStep |
+	scripter assertStep: [ :aStep |
 		aStep
 			label: 'Tool element has correct number of tabs';
 			value: [ :aTabGroup | aTabGroup tabs size ] equals: [ 2 ];
 			// GtPhlowCompositeViewElementId ].
 	
-	aScripter assertStep: [ :aStep |
+	scripter assertStep: [ :aStep |
 		aStep
 			label: 'Tool element tab group has Summary and Log tabs';
 			value: [ :aTabGroup | (aTabGroup tabs collect: [ :each | 
@@ -242,5 +232,5 @@ GtMultipleViewsForExamplesPhlowToolExamples >> toolElementShowsTabs [
 			equals: [  #('Summary' 'Log' ) ];
 			// GtPhlowCompositeViewElementId ].
 	
-	^ aScripter
+	^ scripter
 ]
