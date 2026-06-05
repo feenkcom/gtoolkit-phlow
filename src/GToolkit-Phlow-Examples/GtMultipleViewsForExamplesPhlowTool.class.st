@@ -14,11 +14,8 @@ Class {
 GtMultipleViewsForExamplesPhlowTool >> asElementDo: aBlock [
 	| toolContentModel contentElement |
 	
-	toolContentModel := GtPhlowMultipleViewsToolContentElementModel new.
-	toolContentModel phlowTool: self.
-	toolContentModel targetObject: self object.
-	toolContentModel headerTitleComputation: [
-		'Object: ', self object printString  ].
+	toolContentModel := GtPhlowMultipleViewsToolContentElementModel forPhlowTool: self.
+	toolContentModel headerTitleComputation: [ 'Object: ', self object printString  ].
 	
 	contentElement := GtPhlowMultipleViewsContentElement new.
 	contentElement toolContentModel: toolContentModel.

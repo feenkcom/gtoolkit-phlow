@@ -11,6 +11,12 @@ Class {
 	#category : #'GToolkit-Phlow-Tool - Element'
 }
 
+{ #category : #'instance creation' }
+GtPhlowMultipleViewsToolContentElementModel class >> forPhlowTool: aPhlowTool [
+	^ self new
+		initializeWithPhlowTool: aPhlowTool
+]
+
 { #category : #views }
 GtPhlowMultipleViewsToolContentElementModel >> collectContentViews [
 	| views |
@@ -74,6 +80,12 @@ GtPhlowMultipleViewsToolContentElementModel >> initialize [
 	
 	contentViewPragmaNames := self defaultContentViewPragmaNames.
 	toolActionPragmaNames := self defaultToolActionPragmaNames
+]
+
+{ #category : #initialization }
+GtPhlowMultipleViewsToolContentElementModel >> initializeWithPhlowTool: aPhlowTool [
+	self phlowTool: aPhlowTool.
+	self targetObject: aPhlowTool object.
 ]
 
 { #category : #accessing }
