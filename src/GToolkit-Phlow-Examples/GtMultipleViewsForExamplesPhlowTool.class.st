@@ -41,7 +41,6 @@ GtMultipleViewsForExamplesPhlowTool >> object [
 { #category : #accessing }
 GtMultipleViewsForExamplesPhlowTool >> object: anObject [
 	object := anObject.
-	^ self
 ]
 
 { #category : #accessing }
