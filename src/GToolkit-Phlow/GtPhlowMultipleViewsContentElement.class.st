@@ -124,7 +124,7 @@ GtPhlowMultipleViewsContentElement >> initializeHeaderElement [
 	
 	titleContainer := self buildTitleContainer.
 	titleContainer addChild: self buildTitleLabel as: #titleLabel.
-	titleContainer addChild: self buildToolbar as: #headerToolbar.
+	titleContainer addChild: self buildToolbar as: #toolbar.
 	
 	headerElement addChild: self buildToolLabel as: #toolLabel.
 	headerElement addChild: titleContainer as: #titleContainer.
@@ -187,7 +187,7 @@ GtPhlowMultipleViewsContentElement >> toolName [
 
 { #category : #accessing }
 GtPhlowMultipleViewsContentElement >> toolbarElement [
-	^ self headerElement childNamed: #headerToolbar
+	^ self headerElement childNamed: #toolbar
 ]
 
 { #category : #initialization }
