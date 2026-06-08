@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowViewsBasedToolStep,
 	#superclass : #BlDevScripterToolActionStep,
-	#category : #'GToolkit-Phlow-Examples-Tool'
+	#category : #'GToolkit-Phlow-Scripter'
 }
 
 { #category : #testing }
