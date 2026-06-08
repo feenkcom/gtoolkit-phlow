@@ -107,7 +107,7 @@ GtMultipleViewsForExamplesPhlowToolExamples >> phlowTool [
 ]
 
 { #category : #'examples - scripter' }
-GtMultipleViewsForExamplesPhlowToolExamples >> toolElementExecuteIncrementAction [
+GtMultipleViewsForExamplesPhlowToolExamples >> standaloneToolElementExecuteIncrementAction [
 	<gtExample>
 	| scripter |
 	
@@ -135,7 +135,7 @@ GtMultipleViewsForExamplesPhlowToolExamples >> toolElementExecuteIncrementAction
 ]
 
 { #category : #'examples - scripter' }
-GtMultipleViewsForExamplesPhlowToolExamples >> toolElementHasPlayground [
+GtMultipleViewsForExamplesPhlowToolExamples >> standaloneToolElementHasPlayground [
 	<gtExample>
 	| scripter |
 	
@@ -151,7 +151,7 @@ GtMultipleViewsForExamplesPhlowToolExamples >> toolElementHasPlayground [
 ]
 
 { #category : #'examples - scripter' }
-GtMultipleViewsForExamplesPhlowToolExamples >> toolElementHasTitleLabel [
+GtMultipleViewsForExamplesPhlowToolExamples >> standaloneToolElementHasTitleLabel [
 	<gtExample>
 	| scripter expectedText|
 	
@@ -171,7 +171,7 @@ GtMultipleViewsForExamplesPhlowToolExamples >> toolElementHasTitleLabel [
 ]
 
 { #category : #'examples - scripter' }
-GtMultipleViewsForExamplesPhlowToolExamples >> toolElementHasToolLabel [
+GtMultipleViewsForExamplesPhlowToolExamples >> standaloneToolElementHasToolLabel [
 	<gtExample>
 	| expectedText scripter |
 	
@@ -189,7 +189,7 @@ GtMultipleViewsForExamplesPhlowToolExamples >> toolElementHasToolLabel [
 ]
 
 { #category : #'examples - scripter' }
-GtMultipleViewsForExamplesPhlowToolExamples >> toolElementShowsActions [
+GtMultipleViewsForExamplesPhlowToolExamples >> standaloneToolElementShowsActions [
 	<gtExample>
 	| scripter |
 	
@@ -212,7 +212,7 @@ GtMultipleViewsForExamplesPhlowToolExamples >> toolElementShowsActions [
 ]
 
 { #category : #'examples - scripter' }
-GtMultipleViewsForExamplesPhlowToolExamples >> toolElementShowsTabs [
+GtMultipleViewsForExamplesPhlowToolExamples >> standaloneToolElementShowsTabs [
 	<gtExample>
 	| scripter |
 	
