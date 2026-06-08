@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPhlowCompositeToolStep,
 	#superclass : #BlDevScripterToolActionStep,
-	#category : #'GToolkit-Phlow-Examples-Scripter'
+	#category : #'GToolkit-Phlow-Scripter'
 }
 
 { #category : #assertions }
@@ -106,29 +106,28 @@ GtPhlowCompositeToolStep >> assertPhlowToolValueSatisfies: anBlock [
 ]
 
 { #category : #assertions }
-GtPhlowCompositeToolStep >> assertPhlowToolsWithTabLabels: aCollectionOfLabels [
-	| anAssertStep |
-	anAssertStep := self check
-		label: ('Assert tools with labels {1}' 
-			format: {aCollectionOfLabels asCommaString});
-		value: [ :aToolElement | aToolElement tabs size ]
-			equals: aCollectionOfLabels size;
-		referenceSender;
-		onParentStepTarget: self.
-
-	^ anAssertStep
-]
-
-{ #category : #assertions }
-GtPhlowCompositeToolStep >> assertSelectedToolAtIndex: anIndex withName: aName [
-	^ self assert
-		label: ('Assert selected tool at index {1} has label {2}' format: {anIndex asString. aName});
-		satisfies: [ :aToolElement | 
-				aToolElement viewModel hasSelectedTab
-					and: [ aToolElement viewModel selectedTab tabLabel text asString = aName asString ] ]
-			description: [ 'There must be a selected tab with name {1}' format: {aName} ];
-		onParentStepTarget: self;
-		onPagerToolElement
+GtPhlowCompositeToolStep >> assertSelectedToolAtIndex: anIndex withPhlowName: aName [
+	| step |
+	step := self
+		substeps2: ('Assert selected tool at index {1} has phlow name {2}' 
+			format: {anIndex asString. aName})
+		do: [ :aSubStep | 
+			aSubStep assert
+				label: ('Check selected tool tab phlow name');
+				satisfies: [ :aToolElement | 
+						aToolElement viewModel selectedTab widget phlow entity name = aName asString  ]
+					description: [ 'There must be a selected tool with name {1}' format: {aName} ];
+				onParentStepTarget: self;
+				onPagerToolElement.
+				
+			aSubStep assert
+				label: ('Check selected tool tab index');
+				satisfies: [ :aToolElement | 
+						(aToolElement viewModel indexOf: aToolElement viewModel selectedTab) = anIndex  ] 
+					description: [ 'Index of selected tool tab must be {1}' format: {anIndex asString} ];
+				onParentStepTarget: self;
+				onPagerToolElement ].
+	^ step
 ]
 
 { #category : #actions }
