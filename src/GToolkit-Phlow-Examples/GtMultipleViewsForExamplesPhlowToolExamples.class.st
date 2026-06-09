@@ -214,11 +214,11 @@ GtMultipleViewsForExamplesPhlowToolExamples >> standaloneToolElementShowsActions
 	
 	scripter multipleViewsToolStep
 		label: 'Check tool actions';
-		assertToolActionsWithIds: {
+		assertHasExactToolActionsWithIds: {
 			BlElementNamedId named: #incrementActionWithCurrentToolUpdate.
 			BlElementNamedId named: #refreshContentAction.
 			BlElementNamedId named:  #extraObjectActions};
-		assertToolActionModelsWithLabels: #('Increment' 'Refresh' 'Label' );
+		assertHasExactToolActionModelsWithLabels: #('Increment' 'Refresh' 'Label' );
 		assertToolHasActionWithIconAndLabel: 'Increment';
 		assertToolHasActionWithIconAndLabel: 'Refresh';
 		play.
@@ -235,7 +235,7 @@ GtMultipleViewsForExamplesPhlowToolExamples >> standaloneToolElementShowsTabs [
 	
 	scripter multipleViewsToolStep
 		label: 'Check tool element tabs';
-		assertTabLabels: #('Summary' 'Log');
+		assertHasExactTabNames: #('Summary' 'Log');
 		assertSelectedTabWithName: 'Summary';
 		play.
 		
@@ -462,7 +462,7 @@ GtMultipleViewsForExamplesPhlowToolExamples >> worldTabWithPaneWithTool_selectIn
 	scripter click
 		label: 'Click editor in first pane';
 		onPagerPaneWithIndex: 1;
-		// GtSourceCoderElement;
+		// GtSourceCoderEditorInnerId;
 		play.
 
 	scripter worldStep
@@ -515,7 +515,7 @@ GtMultipleViewsForExamplesPhlowToolExamples >> worldTabWithPaneWithTool_selectSe
 	scripter click
 		label: 'Click editor in first pane';
 		onPagerPaneWithIndex: 1;
-		// GtSourceCoderElement;
+		// GtSourceCoderEditorInnerId;
 		play.
 
 	scripter worldStep

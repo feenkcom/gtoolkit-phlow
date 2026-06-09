@@ -26,30 +26,7 @@ GtPhlowViewsBasedToolStep >> assertHasActionWithIconAndLabel: anActionLabel [
 ]
 
 { #category : #'steps - checks' }
-GtPhlowViewsBasedToolStep >> assertPlaygroundElementIsPresent [
-	^ self assert
-			label: 'Tool playground exists';
-			exists;
-			onParentStepTarget: self;
-			referenceSender;
-			// #playgroundPage
-]
-
-{ #category : #'steps - checks' }
-GtPhlowViewsBasedToolStep >> assertSelectedTabWithName: aName [
-	self assert
-		label: ('Assert selected tab is {1}' format: {aName});
-		satisfies: [ :aTabGroup | 
-				aTabGroup viewModel hasSelectedTab
-					and: [ aTabGroup viewModel selectedTab tabLabel text asString = aName asString ] ]
-			description: [ 'There must be a selected tab with name {1}' format: {aName} ];
-		onParentStepTarget: self;
-		referenceSender;
-		// GtPhlowCompositeViewElementId
-]
-
-{ #category : #'steps - checks' }
-GtPhlowViewsBasedToolStep >> assertTabLabels: aCollectionOfLabels [
+GtPhlowViewsBasedToolStep >> assertHasExactTabNames: aCollectionOfLabels [
 	| step |
 	step := self
 		substeps2: ('Assert tabs with labels {1}'
@@ -74,7 +51,7 @@ GtPhlowViewsBasedToolStep >> assertTabLabels: aCollectionOfLabels [
 ]
 
 { #category : #'steps - checks' }
-GtPhlowViewsBasedToolStep >> assertToolActionModelsWithLabels: aCollectionOfLabels [
+GtPhlowViewsBasedToolStep >> assertHasExactToolActionModelsWithLabels: aCollectionOfLabels [
 	| step |
 	step := self
 		substeps2: ('Assert tool actions model labels are {1}'
@@ -103,7 +80,7 @@ GtPhlowViewsBasedToolStep >> assertToolActionModelsWithLabels: aCollectionOfLabe
 ]
 
 { #category : #'steps - checks' }
-GtPhlowViewsBasedToolStep >> assertToolActionsWithIds: aCollectionOfIds [
+GtPhlowViewsBasedToolStep >> assertHasExactToolActionsWithIds: aCollectionOfIds [
 	| step |
 	step := self
 		substeps2: ('Assert tool actions with ids {1}'
@@ -129,6 +106,87 @@ GtPhlowViewsBasedToolStep >> assertToolActionsWithIds: aCollectionOfIds [
 				// #titleContainer;
 				// #toolbar ].
 	^ step
+]
+
+{ #category : #asserting }
+GtPhlowViewsBasedToolStep >> assertHasNoTabWithName: aTabName [
+	^ self assert
+		label: ('Assert tool has no tab named {1}' format: { aTabName });
+		satisfies: [ :aTabGroup |
+			(aTabGroup tabs noneSatisfy: [ :aTab | aTab tabLabel text asString = aTabName asString ]) ];
+		onParentStepTarget: self;
+		referenceSender;
+		// GtPhlowCompositeViewElementId
+]
+
+{ #category : #asserting }
+GtPhlowViewsBasedToolStep >> assertHasTabWithName: aTabName [
+	^ self assert
+		label: ('Assert tool has tab named {1}' format: { aTabName });
+		satisfies: [ :aTabGroup |
+			(aTabGroup tabs anySatisfy: [ :aTab | aTab tabLabel text asString = aTabName asString ]) ];
+		onParentStepTarget: self;
+		referenceSender;
+		// GtPhlowCompositeViewElementId
+]
+
+{ #category : #asserting }
+GtPhlowViewsBasedToolStep >> assertHasTabsWithNames: aCollectionOfTabNames [
+	aCollectionOfTabNames do: [ :eachTabName |
+		self assertHasTabWithName: eachTabName ].
+	^ self
+]
+
+{ #category : #asserting }
+GtPhlowViewsBasedToolStep >> assertHasToolActionWithId: anActionId [
+		| step |
+	step := self
+		substeps2: ('Assert tool has action with id {1}' format: { anActionId })
+		do: [ :aSubStep | 
+			aSubStep assert
+				label: ('Assert button exists');
+				exists;
+				onParentStepTarget: self;
+				referenceSender;
+				// #header;
+				// #titleContainer;
+				// #toolbar;
+				// anActionId.
+				
+			aSubStep assert
+				label: ('Assert phlow entity has same id' );
+				satisfies: [ :anAction |
+					anAction phlow entity id = anActionId ];
+				onParentStepTarget: self;
+				referenceSender;
+				// #header;
+				// #titleContainer;
+				// #toolbar;
+				// anActionId	].
+	^ step
+]
+
+{ #category : #'steps - checks' }
+GtPhlowViewsBasedToolStep >> assertPlaygroundElementIsPresent [
+	^ self assert
+			label: 'Tool playground exists';
+			exists;
+			onParentStepTarget: self;
+			referenceSender;
+			// #playgroundPage
+]
+
+{ #category : #'steps - checks' }
+GtPhlowViewsBasedToolStep >> assertSelectedTabWithName: aName [
+	self assert
+		label: ('Assert selected tab is {1}' format: {aName});
+		satisfies: [ :aTabGroup | 
+				aTabGroup viewModel hasSelectedTab
+					and: [ aTabGroup viewModel selectedTab tabLabel text asString = aName asString ] ]
+			description: [ 'There must be a selected tab with name {1}' format: {aName} ];
+		onParentStepTarget: self;
+		referenceSender;
+		// GtPhlowCompositeViewElementId
 ]
 
 { #category : #'steps - checks' }
