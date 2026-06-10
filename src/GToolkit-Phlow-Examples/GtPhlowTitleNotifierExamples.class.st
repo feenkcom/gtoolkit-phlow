@@ -20,10 +20,8 @@ GtPhlowTitleNotifierExamples >> element [
 
 { #category : #'event handling' }
 GtPhlowTitleNotifierExamples >> handleChangeTitleWish: aWish [
-	aWish iconDo: [ :aStencil |
-			aWish currentTarget icon: (aWish 
-				buildElementWithToolIcon: aStencil) ].
-			
+	aWish iconDo: [ :aStencil | 
+			aWish currentTarget icon: aStencil ].
 	aWish labelDo: [ :aLabel | 
-			aWish currentTarget label: aLabel ]
+			aWish currentTarget label: aLabel ] 
 ]

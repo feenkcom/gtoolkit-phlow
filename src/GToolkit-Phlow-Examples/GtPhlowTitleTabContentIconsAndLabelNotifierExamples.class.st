@@ -15,6 +15,16 @@ GtPhlowTitleTabContentIconsAndLabelNotifierExamples >> basicNotifier [
 	^ aNotifier
 ]
 
+{ #category : #'event handling' }
+GtPhlowTitleTabContentIconsAndLabelNotifierExamples >> handleChangeTitleWish: aWish [
+	aWish iconDo: [ :aStencil |
+			aWish currentTarget icon: (aWish 
+				buildElementWithToolIcon: aStencil) ].
+			
+	aWish labelDo: [ :aLabel | 
+			aWish currentTarget label: aLabel ]
+]
+
 { #category : #'examples - notifier' }
 GtPhlowTitleTabContentIconsAndLabelNotifierExamples >> notifierWithLongLabel [
 	<gtExample>
