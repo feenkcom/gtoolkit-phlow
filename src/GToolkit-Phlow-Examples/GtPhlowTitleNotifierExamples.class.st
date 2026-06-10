@@ -15,8 +15,13 @@ GtPhlowTitleNotifierExamples >> element [
 	^ BrButton new
 		aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
 		when: GtPhlowChangeTitleWish do: [ :aWish | 
-			aWish iconDo: [ :aStencil | 
-				aWish currentTarget icon: aStencil ].
-			aWish labelDo: [ :aLabel | 
-				aWish currentTarget label: aLabel ] ]
+			self handleChangeTitleWish:aWish ]
+]
+
+{ #category : #'event handling' }
+GtPhlowTitleNotifierExamples >> handleChangeTitleWish: aWish [
+	aWish iconDo: [ :aStencil | 
+			aWish currentTarget icon: aStencil ].
+	aWish labelDo: [ :aLabel | 
+			aWish currentTarget label: aLabel ] 
 ]
