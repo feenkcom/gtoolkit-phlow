@@ -13,17 +13,20 @@ GtPhlowAbstractTool class >> isAbstract [
 
 { #category : #selection }
 GtPhlowAbstractTool >> applySelectionState: aSelectionState toElement: aToolElement [
-	self supportsSelectionHandling ifFalse: [ ^ self ].
+	<return: #GtPhlowToolSelectionStateResponse>
+	self supportsSelectionHandling ifFalse: [ 
+		^ GtPhlowToolSelectionStateResponse notApplied ].
 
-	(aSelectionState appliesToTool: self) ifFalse: [ ^ self ].
-	
+	(aSelectionState appliesToTool: self) ifFalse: [
+		^ GtPhlowToolSelectionStateResponse notApplied].
+
 	GtPhlowApplyToolSelectionSignal new
 		toolElement: aToolElement;
 		phlowView: self;
 		selectionState: aSelectionState;
 		emit.
-	
-	self basicApplySelectionState: aSelectionState toElement: aToolElement
+
+	^ self basicApplySelectionState: aSelectionState toElement: aToolElement
 ]
 
 { #category : #'api - converting' }
@@ -68,7 +71,9 @@ GtPhlowAbstractTool >> asToolElementDo: aOneArgBlock [
 { #category : #selection }
 GtPhlowAbstractTool >> basicApplySelectionState: aSelectionState toElement: aToolElement [
 	"Default way to apply the selection to a tool element."
-	aSelectionState applySelectionStateToElement: aToolElement
+
+	<return: #GtPhlowToolSelectionStateResponse>
+	^ aSelectionState applySelectionStateToElement: aToolElement
 ]
 
 { #category : #selection }

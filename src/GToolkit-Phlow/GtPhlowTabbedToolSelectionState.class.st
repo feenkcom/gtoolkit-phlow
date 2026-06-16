@@ -9,7 +9,8 @@ Class {
 
 { #category : #actions }
 GtPhlowTabbedToolSelectionState >> applySelectionStateToElement: aToolElement [
-	aToolElement selectTabWithIdentifier: self tabIdentifier
+	<return: #GtPhlowToolSelectionStateResponse>
+	^ aToolElement selectTabWithIdentifier: self tabIdentifier
 ]
 
 { #category : #printing }

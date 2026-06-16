@@ -8,38 +8,47 @@ Class {
 	#category : #'GToolkit-Phlow-Tool - Selection'
 }
 
-{ #category : #accessing }
+{ #category : #private }
 GtPhlowCompositeToolSelectionState >> applySelectionStateInToolContainedIn: aTabGroupElement [
+	<return: #GtPhlowToolSelectionStateResponse>
 	| containedToolElement |
 	containedToolElement := aTabGroupElement content children first.
-	containedToolElement phlow isTool ifFalse: [ ^ self ].
+	containedToolElement phlow isTool ifFalse: [ 
+		 ^ GtPhlowToolSelectionStateResponse notApplied  ].
 
 	GtPhlowApplyToolSelectionSignal new
 		toolElement: containedToolElement;
 		phlowView: containedToolElement phlow entity;
 		selectionState: selectedToolSelectionState;
 		emit.
-	
-	containedToolElement phlow entity
+
+	^ containedToolElement phlow entity
 		applySelectionState: selectedToolSelectionState
 		toElement: containedToolElement
 ]
 
 { #category : #accessing }
 GtPhlowCompositeToolSelectionState >> applySelectionStateToElement: aTabGroupElement [
-	self selectToolTabInElement: aTabGroupElement.
-	self applySelectionStateInToolContainedIn: aTabGroupElement
+	<return: #GtPhlowToolSelectionStateResponse>
+	| isToolSelected aSelectionResponse |
+	isToolSelected := self selectToolTabInElement: aTabGroupElement.
+	aSelectionResponse := self
+			applySelectionStateInToolContainedIn: aTabGroupElement.
+
+	^ isToolSelected
+		ifFalse: [ GtPhlowToolSelectionStateResponse notApplied ]
+		ifTrue: [ aSelectionResponse ]
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 GtPhlowCompositeToolSelectionState >> selectToolTabInElement: aTabGroupElement [
-	selectedToolTabIdentifier ifNil: [ ^ self  ].
+	selectedToolTabIdentifier ifNil: [ ^ false ].
 	
-	aTabGroupElement viewModel tabs
+	^ aTabGroupElement viewModel tabs
 		detect: [ :aTabModel | 
 			selectedToolTabIdentifier matchesTab: aTabModel ]
-		ifFound: [ :aTabModel | aTabModel select ]
-		ifNone: [  "do nothing" ]
+		ifFound: [ :aTabModel | aTabModel select. true ]
+		ifNone: [ false ]
 ]
 
 { #category : #accessing }

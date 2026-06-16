@@ -1,6 +1,8 @@
 Class {
 	#name : #GtPhlowToolSelectionStateHandler,
 	#superclass : #Object,
+	#traits : 'TGtPhlowToolSelectionStateHandler',
+	#classTraits : 'TGtPhlowToolSelectionStateHandler classTrait',
 	#instVars : [
 		'selectionState'
 	],
