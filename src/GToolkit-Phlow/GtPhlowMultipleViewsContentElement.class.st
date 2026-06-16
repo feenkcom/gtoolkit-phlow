@@ -94,6 +94,18 @@ GtPhlowMultipleViewsContentElement >> createTitleNotifier [
 		icon: [ self toolContentModel toolIcon ] asStencil
 ]
 
+{ #category : #'as yet unclassified' }
+GtPhlowMultipleViewsContentElement >> extractSelectedTabIdentifier [
+	^ (GtInspectorSelectedTabExtractor new 
+		inspectorElement: self) extractTabName
+]
+
+{ #category : #'as yet unclassified' }
+GtPhlowMultipleViewsContentElement >> extractToolSelectionState [
+	^ GtPhlowTabbedToolSelectionState new 
+		tabIdentifier: self extractSelectedTabIdentifier
+]
+
 { #category : #accessing }
 GtPhlowMultipleViewsContentElement >> headerElement [
 	^ headerElement
@@ -142,6 +154,11 @@ GtPhlowMultipleViewsContentElement >> initializeTitleNotifier [
 { #category : #accessing }
 GtPhlowMultipleViewsContentElement >> playgroundElement [
 	^ playgroundElement
+]
+
+{ #category : #selection }
+GtPhlowMultipleViewsContentElement >> selectTabWithIdentifier: aTabIdentifier [
+	aTabIdentifier applySelectionTo: self
 ]
 
 { #category : #initialization }
