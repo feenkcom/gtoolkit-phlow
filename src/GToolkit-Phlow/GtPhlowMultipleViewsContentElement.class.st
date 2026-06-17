@@ -96,7 +96,7 @@ GtPhlowMultipleViewsContentElement >> createTitleNotifier [
 
 { #category : #'as yet unclassified' }
 GtPhlowMultipleViewsContentElement >> extractSelectedTabIdentifier [
-	^ (GtInspectorSelectedTabExtractor new 
+	^ (GtPhlowSelectedTabExtractor new 
 		inspectorElement: self) extractTabName
 ]
 
