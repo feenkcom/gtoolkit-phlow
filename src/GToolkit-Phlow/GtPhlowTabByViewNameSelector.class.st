@@ -1,8 +1,8 @@
 Class {
 	#name : #GtPhlowTabByViewNameSelector,
 	#superclass : #GtPhlowTabSelector,
-	#traits : 'TGtInspectorTabNameAccessor',
-	#classTraits : 'TGtInspectorTabNameAccessor classTrait',
+	#traits : 'TGtPhlowTabNameAccessor',
+	#classTraits : 'TGtPhlowTabNameAccessor classTrait',
 	#category : #'GToolkit-Phlow-Tool - Selection'
 }
 
