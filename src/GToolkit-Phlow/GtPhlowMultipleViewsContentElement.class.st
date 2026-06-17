@@ -96,7 +96,7 @@ GtPhlowMultipleViewsContentElement >> createTitleNotifier [
 
 { #category : #'as yet unclassified' }
 GtPhlowMultipleViewsContentElement >> extractSelectedTabIdentifier [
-	^ (GtInspectorSelectedTabExtractor new 
+	^ (GtPhlowSelectedTabExtractor new 
 		inspectorElement: self) extractTabName
 ]
 
@@ -158,7 +158,10 @@ GtPhlowMultipleViewsContentElement >> playgroundElement [
 
 { #category : #selection }
 GtPhlowMultipleViewsContentElement >> selectTabWithIdentifier: aTabIdentifier [
-	aTabIdentifier applySelectionTo: self
+	"Return true if selection was applied, false otherwise."
+
+	<return: #Boolean>
+	^ aTabIdentifier applySelectionTo: self
 ]
 
 { #category : #initialization }

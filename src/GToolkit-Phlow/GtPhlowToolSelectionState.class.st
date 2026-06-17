@@ -15,6 +15,9 @@ GtPhlowToolSelectionState >> appliesToTool: aPhlowTool [
 { #category : #actions }
 GtPhlowToolSelectionState >> applySelectionStateToElement: aToolElement [
 	"Specific subclasses should override this method to apply the selection to the given element"
+
+	<return: #GtPhlowToolSelectionStateResponse>
+	^ GtPhlowToolSelectionStateResponse notApplied
 ]
 
 { #category : #accessing }
