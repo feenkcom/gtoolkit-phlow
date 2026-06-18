@@ -532,7 +532,8 @@ GtPhlowElementContext >> selectPreviousEvent: aPreviousSelectEvent [
 	| aNewEvent |
 	aNewEvent := GtPhlowObjectToSelect new
 			tool: aPreviousSelectEvent tool;
-			sourceElement: aPreviousSelectEvent sourceElement.
+			sourceElement: aPreviousSelectEvent sourceElement;
+			selectionState: aPreviousSelectEvent selectionState.
 	aPreviousSelectEvent properties keysAndValuesDo: [ :aKey :aValue | 
 		aNewEvent propertyAt: aKey put: aValue ].
 	
