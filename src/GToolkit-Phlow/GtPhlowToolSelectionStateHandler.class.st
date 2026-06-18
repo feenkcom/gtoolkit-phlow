@@ -11,11 +11,7 @@ Class {
 
 { #category : #actions }
 GtPhlowToolSelectionStateHandler >> applySelectionStateTo: aToolElement [
-	aToolElement phlow isTool ifFalse: [ ^ self ].
-	selectionState ifNil: [ ^ self ].
-	
-	aToolElement phlow entity 
-		applySelectionState: selectionState toElement: aToolElement
+	self applySelectionState: selectionState to: aToolElement
 ]
 
 { #category : #'initialization ' }

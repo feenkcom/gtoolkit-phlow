@@ -1,6 +1,8 @@
 Class {
 	#name : #GtPhlowObjectToSpawn,
 	#superclass : #GtPhlowObjectEvent,
+	#traits : 'TGtPhlowWithSelectionState',
+	#classTraits : 'TGtPhlowWithSelectionState classTrait',
 	#category : #'GToolkit-Phlow-Events'
 }
 
@@ -21,7 +23,8 @@ GtPhlowObjectToSpawn >> fromPreviousSpawnEvent: aSpawnEvent [
 		previousSpawnEvent: aSpawnEvent;
 		tool: aSpawnEvent tool;
 		sourceElement: aSpawnEvent currentTarget;
-		spawnDestination: aSpawnEvent spawnDestination.
+		spawnDestination: aSpawnEvent spawnDestination;
+		selectionState: aSpawnEvent selectionState.
 	aSpawnEvent properties keysAndValuesDo: [ :aKey :aValue | 
 		self propertyAt: aKey put: aValue ]
 ]

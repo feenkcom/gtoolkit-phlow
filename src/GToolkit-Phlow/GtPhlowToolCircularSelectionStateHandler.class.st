@@ -29,9 +29,7 @@ GtPhlowToolCircularSelectionStateHandler >> applySelectionStateTo: aToolElement 
 	selectionStates
 		do: [ :eachState | 
 			| aResult |
-			aResult := aToolElement phlow entity
-					applySelectionState: eachState
-					toElement: aToolElement.
+			aResult := self applySelectionState: eachState to: aToolElement.
 			aResult
 				ifApplied: [ 
 					self moveSelectionState: eachState.
