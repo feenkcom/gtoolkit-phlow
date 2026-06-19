@@ -27,13 +27,13 @@ TGtPhlowWithSelectionState >> selectionStateDo: aSelectionStateBlock ifAbsent: a
 ]
 
 { #category : #'api - selection state' }
-TGtPhlowWithSelectionState >> tabName: aString [
-	self toolTabIdentifier: GtPhlowTool default toolTabIdentifier tabName: aString
-]
-
-{ #category : #'api - selection state' }
-TGtPhlowWithSelectionState >> toolTabIdentifier: aToolTabIdentifier tabName: aString [
+TGtPhlowWithSelectionState >> toolTabIdentifier: aToolTabIdentifier viewName: aString [
 	selectionState := GtPhlowTabbedToolSelectionState new
 			targetToolIdentifier: aToolTabIdentifier;
 			tabIdentifier: (GtPhlowTabName new string: aString asString)
+]
+
+{ #category : #'api - selection state' }
+TGtPhlowWithSelectionState >> viewName: aString [
+	self toolTabIdentifier: GtPhlowTool default toolTabIdentifier viewName: aString
 ]
