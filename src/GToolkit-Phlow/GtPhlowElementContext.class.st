@@ -528,6 +528,24 @@ GtPhlowElementContext >> selectObject: anObject [
 ]
 
 { #category : #'api - events' }
+GtPhlowElementContext >> selectObject: anObject viewName: aViewName [
+	"Select an object and request to select its view called aViewName.
+	aViewName is kind of String object."
+
+	self selectTool: anObject gtDefaultInspectorTool viewName: aViewName
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> selectObject: anObject withSelectionState: aSelectionStateOrNil [
+	"Select a tool and request to display specific part of its tool using aSelectionStateOrNil.
+	aSelectionStateOrNil is kind of GtPhlowToolSelectionState object or nil."
+
+	self
+		selectTool: anObject gtDefaultInspectorTool
+		withSelectionState: aSelectionStateOrNil
+]
+
+{ #category : #'api - events' }
 GtPhlowElementContext >> selectPreviousEvent: aPreviousSelectEvent [
 	| aNewEvent |
 	aNewEvent := GtPhlowObjectToSelect new
@@ -548,6 +566,32 @@ GtPhlowElementContext >> selectTool: aTool [
 	self element fireEvent: (GtPhlowObjectToSelect new
 		tool: aTool;
 		sourceElement: self element) 
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> selectTool: aTool viewName: aViewName [
+	"Select a tool and request to select its view called aViewName.
+	aTool is kind of GtPhlowTool object.
+	aViewName is kind of String object."
+
+	self element
+		fireEvent: (GtPhlowObjectToSelect new
+				tool: aTool;
+				toolTabIdentifier: aTool toolTabIdentifier viewName: aViewName;
+				sourceElement: self element)
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> selectTool: aTool withSelectionState: aSelectionStateOrNil [
+	"Select a tool and request to display specific part of the tool using aSelectionStateOrNil.
+	aTool is kind of GtPhlowTool object.
+	aSelectionStateOrNil is kind of GtPhlowToolSelectionState object or nil."
+
+	self element
+		fireEvent: (GtPhlowObjectToSelect new
+				tool: aTool;
+				selectionState: aSelectionStateOrNil;
+				sourceElement: self element)
 ]
 
 { #category : #'api - space' }
@@ -590,10 +634,52 @@ GtPhlowElementContext >> spawnObject: anObject [
 ]
 
 { #category : #'api - events' }
+GtPhlowElementContext >> spawnObject: anObject viewName: aViewName [
+	"Spawn an object and request to select its view called aViewName.
+	aViewName is kind of String object."
+
+	^ self spawnTool: anObject gtDefaultInspectorTool viewName: aViewName
+]
+
+{ #category : #'api - events' }
 GtPhlowElementContext >> spawnObject: anObject withDestination: aPhlowDestination [
 	self 
 		spawnTool: anObject gtDefaultInspectorTool
 		withDestination: aPhlowDestination
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> spawnObject: anObject withDestination: aPhlowDestination viewName: aViewName [
+	"Spawn an object and request to select its view called aViewName.
+	aPhlowDestination is kind of GtPhlowSpawnDesiredDestination object.
+	aViewName is kind of String object."
+
+	self
+		spawnTool: anObject gtDefaultInspectorTool
+		withDestination: aPhlowDestination
+		viewName: aViewName
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> spawnObject: anObject withDestination: aPhlowDestination withSelectionState: aSelectionStateOrNil [
+	"Spawn a tool at a destination and request to display specific part of the tool using aSelectionStateOrNil.
+	aPhlowDestination is kind of GtPhlowSpawnDesiredDestination object.
+	aSelectionStateOrNil is kind of GtPhlowToolSelectionState object or nil."
+
+	self
+		spawnTool: anObject gtDefaultInspectorTool
+		withDestination: aPhlowDestination
+		withSelectionState: aSelectionStateOrNil
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> spawnObject: anObject withSelectionState: aSelectionStateOrNil [
+	"Spawn a tool at a destination and request to display specific part of the tool using aSelectionStateOrNil.
+	aSelectionStateOrNil is kind of GtPhlowToolSelectionState object or nil."
+
+	^ self
+		spawnTool: anObject gtDefaultInspectorTool
+		withSelectionState: aSelectionStateOrNil
 ]
 
 { #category : #'api - space' }
@@ -622,14 +708,68 @@ GtPhlowElementContext >> spawnTool: aTool [
 ]
 
 { #category : #'api - events' }
+GtPhlowElementContext >> spawnTool: aTool viewName: aViewName [
+	"Spawn a tool and request to select its view called aViewName.
+	aViewName is kind of String object."
+
+	^ self
+		spawnTool: aTool
+		withDestination: GtPhlowSpawnDesiredDestination defaultDestination
+		viewName: aViewName
+]
+
+{ #category : #'api - events' }
 GtPhlowElementContext >> spawnTool: aTool withDestination: aPhlowDestination [
+	^ self
+		spawnTool: aTool
+		withDestination: aPhlowDestination
+		withSelectionState: nil
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> spawnTool: aTool withDestination: aPhlowDestination viewName: aViewName [
+	"Spawn a tool and request to select its view called aViewName.
+	aTool is kind of GtPhlowTool object.
+	aPhlowDestination is kind of GtPhlowSpawnDesiredDestination object.
+	aViewName is kind of String object."
+
 	| anEvent |
 	anEvent := GtPhlowObjectToSpawn new
 			tool: aTool;
 			spawnDestination: aPhlowDestination;
+			toolTabIdentifier: aTool toolTabIdentifier viewName: aViewName;
 			sourceElement: self element.
 	self element fireEvent: anEvent.
 	^ anEvent
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> spawnTool: aTool withDestination: aPhlowDestination withSelectionState: aSelectionStateOrNil [
+	"Spawn a tool at a destination and request to display specific part of the tool using aSelectionStateOrNil.
+	aTool is kind of GtPhlowTool object.
+	aPhlowDestination is kind of GtPhlowSpawnDesiredDestination object.
+	aSelectionStateOrNil is kind of GtPhlowToolSelectionState object or nil."
+
+	| anEvent |
+	anEvent := GtPhlowObjectToSpawn new
+			tool: aTool;
+			spawnDestination: aPhlowDestination;
+			selectionState: aSelectionStateOrNil;
+			sourceElement: self element.
+	self element fireEvent: anEvent.
+	^ anEvent
+]
+
+{ #category : #'api - events' }
+GtPhlowElementContext >> spawnTool: aTool withSelectionState: aSelectionStateOrNil [
+	"Spawn a tool and request to display specific part of the tool using aSelectionStateOrNil.
+	aTool is kind of GtPhlowTool object.
+	aSelectionStateOrNil is kind of GtPhlowToolSelectionState object or nil."
+
+	^ self
+		spawnTool: aTool
+		withDestination: GtPhlowSpawnDesiredDestination defaultDestination
+		withSelectionState: aSelectionStateOrNil
 ]
 
 { #category : #'api - updating' }
