@@ -42,9 +42,12 @@ GtPhlowDetailsView >> configureRowName: rowNameLabel value: rowValueLabel [
 	clickHandler := BlEventHandler on: BlClickEvent
 				do: 
 					[:anEvent |
-					anEvent consumed: true.
-					self inform: 'Spawn!'.
-					rowValueLabel phlow spawnObject: rowValueLabel viewModel model].
+
+					rowValueLabel viewModel ifNotNil: [
+						anEvent consumed: true.
+						self inform: 'Spawn!'.
+						rowValueLabel phlow 
+							spawnObject: rowValueLabel viewModel model ]].
 	
 	eventSharer := BlSharedEventDistributor shareEvents: {
 		BlMouseEnterEvent.
@@ -83,8 +86,18 @@ GtPhlowDetailsView >> createRowName: eachRow [
 { #category : #'api - converting' }
 GtPhlowDetailsView >> createRowValue: eachRow [
 	| value text |
-	value := eachRow valueComputation value.
-	text := eachRow textComputation value: value.
+	[
+		value := eachRow valueComputation value.
+		text := eachRow textComputation value: value.
+	] 
+		on: Exception 
+		do: [ :anException |
+			| anElement | 
+			anElement := anException asDebuggableElement. 
+			anElement id: GtPhlowExceptionId.
+			anElement phlow beViewContent; entity: self.
+			^ anElement ].
+	 
 	^(BrLabel new)
 		in: [:aLabel | aLabel viewModel model: value];
 		aptitude: BrGlamorousLabelAptitude + BrGlamorousListItemAptitude;
@@ -115,6 +128,11 @@ GtPhlowDetailsView >> initialize [
 	super initialize.
 	
 	rows := OrderedCollection new
+]
+
+{ #category : #'as yet unclassified' }
+GtPhlowDetailsView >> phlowDetailRows [
+	^ rows
 ]
 
 { #category : #'api - scripting' }
