@@ -16,7 +16,6 @@ GtPhlowCompositeToolStep >> assertPhlowToolLabels: aCollectionOfLabels andTypes:
 				value: [ :aCompositePhlowTool | aCompositePhlowTool tools size ]
 					equals: aCollectionOfLabels size;
 				onParentStepTarget: self;
-				onPagerToolElement;
 				onPhlowToolEntity.
 			aSubStep check
 				label: 'Assert tool labels';
@@ -24,7 +23,6 @@ GtPhlowCompositeToolStep >> assertPhlowToolLabels: aCollectionOfLabels andTypes:
 						aCompositePhlowTool tools collect: [ :aTool | aTool name ] ]
 					equals: aCollectionOfLabels asArray;
 				onParentStepTarget: self;
-				onPagerToolElement;
 				onPhlowToolEntity.
 			aSubStep check
 				label: 'Assert tool types';
@@ -32,7 +30,6 @@ GtPhlowCompositeToolStep >> assertPhlowToolLabels: aCollectionOfLabels andTypes:
 						aCompositePhlowTool tools collect: [ :aTool | aTool class ] ]
 					equals: aCollectionOfTypes asArray;
 				onParentStepTarget: self;
-				onPagerToolElement;
 				onPhlowToolEntity ].
 	^ step
 ]
@@ -44,7 +41,6 @@ GtPhlowCompositeToolStep >> assertPhlowToolSatisfies: anOneArgBlock description:
 		satisfies: anOneArgBlock description: aDescriptionOneArgBlock;
 		referenceSender;
 		onParentStepTarget: self;
-		onPagerToolElement;
 		onPhlowToolEntity.
 ]
 
@@ -55,8 +51,8 @@ GtPhlowCompositeToolStep >> assertPhlowToolTabsCount: aTabsCount [
 					format: {aTabsCount asString});
 				value: [ :aToolElement | aToolElement tabs size ]
 					equals: aTabsCount;
-				onParentStepTarget: self;
-				onPagerToolElement
+				referenceSender;
+				onParentStepTarget: self
 ]
 
 { #category : #assertions }
@@ -67,8 +63,8 @@ GtPhlowCompositeToolStep >> assertPhlowToolTabsHaveBothIconsAndLabels [
 					self assert: aTab widget children size equals: 2.
 					self assert: aTab widget children first id equals: (BlElementId named: #icon).
 					self assert: aTab widget children second id equals: (BlElementId named: #label)  ] ];
-				onParentStepTarget: self;
-				onPagerToolElement
+				referenceSender;
+				onParentStepTarget: self
 ]
 
 { #category : #assertions }
@@ -79,8 +75,7 @@ GtPhlowCompositeToolStep >> assertPhlowToolTabsHaveOnlyIcons [
 					self assert: aTab widget children size equals: 1.
 					self assert: aTab widget children first id equals: (BlElementId named: #icon) ] ];
 				referenceSender;
-				onParentStepTarget: self;
-				onPagerToolElement
+				onParentStepTarget: self
 ]
 
 { #category : #assertions }
@@ -90,7 +85,6 @@ GtPhlowCompositeToolStep >> assertPhlowToolValue: anOneArgBlock equals: anEquals
 		value: anOneArgBlock equals: anEqualsBlock;
 		referenceSender;
 		onParentStepTarget: self;
-		onPagerToolElement;
 		onPhlowToolEntity.
 ]
 
@@ -101,7 +95,6 @@ GtPhlowCompositeToolStep >> assertPhlowToolValueSatisfies: anBlock [
 		satisfies: anBlock;
 		referenceSender;
 		onParentStepTarget: self;
-		onPagerToolElement;
 		onPhlowToolEntity.
 ]
 
@@ -117,16 +110,16 @@ GtPhlowCompositeToolStep >> assertSelectedToolAtIndex: anIndex withPhlowName: aN
 				satisfies: [ :aToolElement | 
 						aToolElement viewModel selectedTab widget phlow entity name = aName asString  ]
 					description: [ 'There must be a selected tool with name {1}' format: {aName} ];
-				onParentStepTarget: self;
-				onPagerToolElement.
+				referenceSender;
+				onParentStepTarget: self.
 				
 			aSubStep assert
 				label: ('Check selected tool tab index');
 				satisfies: [ :aToolElement | 
 						(aToolElement viewModel indexOf: aToolElement viewModel selectedTab) = anIndex  ] 
 					description: [ 'Index of selected tool tab must be {1}' format: {anIndex asString} ];
-				onParentStepTarget: self;
-				onPagerToolElement ].
+				referenceSender;
+				onParentStepTarget: self ].
 	^ step
 ]
 
@@ -143,24 +136,21 @@ GtPhlowCompositeToolStep >> assertSelectedToolAtIndex: anIndex withTabName: aNam
 						aToolElement viewModel hasSelectedTab
 							and: [ aToolElement viewModel selectedTab tabLabel text asString = aName asString ] ]
 					description: [ 'There must be a selected tab with label {1}' format: {aName} ];
-				onParentStepTarget: self;
-				onPagerToolElement.
+				onParentStepTarget: self.
 				
 			aSubStep assert
 				label: ('Check selected tool name');
 				satisfies: [ :aToolElement | 
 						aToolElement viewModel selectedTab widget phlow entity name = aName asString  ]
 					description: [ 'There must be a selected tool with name {1}' format: {aName} ];
-				onParentStepTarget: self;
-				onPagerToolElement.
+				onParentStepTarget: self.
 				
 			aSubStep assert
 				label: ('Check selected tool tab index');
 				satisfies: [ :aToolElement | 
 						(aToolElement viewModel indexOf: aToolElement viewModel selectedTab) = anIndex  ] 
 					description: [ 'Index of selected tool tab must be {1}' format: {anIndex asString} ];
-				onParentStepTarget: self;
-				onPagerToolElement ].
+				onParentStepTarget: self ].
 	^ step
 ]
 
@@ -169,7 +159,6 @@ GtPhlowCompositeToolStep >> clickOnToolAtIndex: anIndex [
 	^ self click
 		label: ('Select tool at index {1}' format: {anIndex asString});
 		onParentStepTarget: self;
-		onPagerToolElement;
 		id: #header;
 		id: #scrolltabbar;
 		id: #tabbar;

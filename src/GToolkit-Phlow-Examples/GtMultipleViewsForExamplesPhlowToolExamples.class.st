@@ -293,7 +293,7 @@ GtMultipleViewsForExamplesPhlowToolExamples >> worldTabWithPaneWithTool [
 	
 	scripter phlowCompositeToolStep
 		label: 'Second pane has the expected tool';
-		onPagerPaneWithIndex: 2;
+		onPagerToolInPaneWithIndex: 2;
 		assertPhlowToolTabsCount: 2;
 		assertPhlowToolLabels: {'Composite view tool' . 'inspector'}  
 			andTypes: {GtMultipleViewsForExamplesPhlowTool . GtInspectorTool};
@@ -423,7 +423,7 @@ GtMultipleViewsForExamplesPhlowToolExamples >> worldTabWithPaneWithTool_selectIn
 
 	scripter phlowCompositeToolStep
 		label: 'Select inspector tool';
-		onPagerPaneWithIndex: 2;
+		onPagerToolInPaneWithIndex: 2;
 		clickOnToolAtIndex: 2;
 		assertSelectedToolAtIndex: 2 withPhlowName: 'inspector';
 		play.
