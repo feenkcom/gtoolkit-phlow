@@ -71,6 +71,16 @@ GtPhlowView >> actionButtonIcon: anIcon action: aValuable [
 ]
 
 { #category : #'adding - actions' }
+GtPhlowView >> actionButtonIcon: anIcon id: aButtonId  tooltip: aTooltipText action: aValuable [
+	self actionButtonDo: [ :aButtonAction | 
+		aButtonAction
+			icon: anIcon;
+			tooltip: aTooltipText;
+			id: aButtonId;
+			action: aValuable ]
+]
+
+{ #category : #'adding - actions' }
 GtPhlowView >> actionButtonIcon: anIcon label: aStringOrRope action: aValuable [
 	self actionButtonDo: [ :aButtonAction | 
 		aButtonAction
@@ -275,6 +285,15 @@ GtPhlowView >> actionUpdateButton [
 ]
 
 { #category : #'adding - actions' }
+GtPhlowView >> actionUpdateButtonIcon: anIcon id: aButtonId tooltip: aTooltip [
+	self 
+		actionButtonIcon: anIcon
+		id: aButtonId
+		tooltip: aTooltip
+		action: [ :aButton :aTab | aTab phlow fireViewUpdateWish ]
+]
+
+{ #category : #'adding - actions' }
 GtPhlowView >> actionUpdateButtonIcon: anIcon tooltip: aTooltip [
 	self 
 		actionButtonIcon: anIcon
@@ -286,6 +305,7 @@ GtPhlowView >> actionUpdateButtonIcon: anIcon tooltip: aTooltip [
 GtPhlowView >> actionUpdateButtonTooltip: aTooltip [
 	self 
 		actionUpdateButtonIcon: BrGlamorousVectorIcons refresh 
+		id: GtPhlowViewRefreshContentButtonId
 		tooltip: aTooltip
 ]
 
