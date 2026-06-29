@@ -296,9 +296,9 @@ GtPhlowView >> actionUpdateButtonIcon: anIcon id: aButtonId tooltip: aTooltip [
 { #category : #'adding - actions' }
 GtPhlowView >> actionUpdateButtonIcon: anIcon tooltip: aTooltip [
 	self 
-		actionButtonIcon: anIcon
+		actionUpdateButtonIcon: anIcon
+		id: GtPhlowViewRefreshContentButtonId
 		tooltip: aTooltip
-		action: [ :aButton :aTab | aTab phlow fireViewUpdateWish ]
 ]
 
 { #category : #'adding - actions' }
