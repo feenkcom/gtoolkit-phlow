@@ -652,13 +652,7 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOf
 	] 
 		on: self class handledExceptions do: [ :anException |
 		
-			NonInteractiveTranscript stdout
-				nextPut: $[;
-				nextPutAll: self class name;
-				nextPut: $];
-				space;
-				print: anException;
-				cr.
+			anException gtPrintToTranscriptWithMessage: self class name.
 			
 			self 
 				phlowErrorViewWithException: anException 
