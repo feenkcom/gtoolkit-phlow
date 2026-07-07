@@ -45,6 +45,7 @@ GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 		addTabs: self toolTabs.
 	aTabGroup addEventHandler: GtPhlowToolObjectChangeHandler new.
 	aTabGroup addEventHandler: (GtPhlowToolUpdateEventHandler new onUpdateSend: #onCompositeUpdateWish: to: GtPhlowToolInParentUpdater new).
+	aTabGroup addEventHandler: GtPhlowExplicitlySelectedTabToolSetterEventHandler new.
 	aTabGroup phlow toolViewModel: (GtPhlowToolCompositeViewModel new tabGroup: aTabGroup).
 	
 	^ aOneArgBlock cull: aTabGroup

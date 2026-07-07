@@ -37,6 +37,16 @@ GtPhlowToolCircularSelectionStateHandler >> applySelectionStateTo: aToolElement 
 				ifNotApplied: [  ] ]
 ]
 
+{ #category : #'gt - extensions' }
+GtPhlowToolCircularSelectionStateHandler >> gtSelectionStatesFor: aView [
+	<gtView>
+	selectionStates ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Selection states';
+		items: [ selectionStates ifNil: [ #() ] ];
+		column: 'Value' text: [ :each | each gtDisplayString ]
+]
+
 { #category : #initialization }
 GtPhlowToolCircularSelectionStateHandler >> initialize [
 	super initialize.
@@ -51,6 +61,11 @@ GtPhlowToolCircularSelectionStateHandler >> moveSelectionState: aState [
 
 	selectionStates remove: aState.
 	selectionStates addFirst: aState
+]
+
+{ #category : #copying }
+GtPhlowToolCircularSelectionStateHandler >> postSimilarSelectionStateHandler [
+	selectionStates := selectionStates copy
 ]
 
 { #category : #initialization }

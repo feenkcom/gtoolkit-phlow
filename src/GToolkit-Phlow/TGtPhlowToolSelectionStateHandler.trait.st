@@ -24,6 +24,16 @@ TGtPhlowToolSelectionStateHandler >> applySelectionStateTo: aToolElement [
 	self explicitRequirement
 ]
 
+{ #category : #copying }
+TGtPhlowToolSelectionStateHandler >> postSimilarSelectionStateHandler [
+	^ self
+]
+
+{ #category : #copying }
+TGtPhlowToolSelectionStateHandler >> similarSelectionStateHandler [
+	^ self copy postSimilarSelectionStateHandler
+]
+
 { #category : #actions }
 TGtPhlowToolSelectionStateHandler >> storeSelectionStateFrom: aToolElement [
 	"Store tool element's selected state"

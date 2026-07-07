@@ -81,6 +81,9 @@ GtPhlowCompositeView >> asElementDo: aBlock [
 	group
 		aptitude: BrGlamorousTabGroupAptitude;
 		addTabs: tabs.
+		
+	group addEventHandler: GtPhlowSelectedTabEventHandler new.
+		
 	^ aBlock value: group
 ]
 
