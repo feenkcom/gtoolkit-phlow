@@ -71,6 +71,16 @@ GtPhlowView >> actionButtonIcon: anIcon action: aValuable [
 ]
 
 { #category : #'adding - actions' }
+GtPhlowView >> actionButtonIcon: anIcon id: aButtonId  tooltip: aTooltipText action: aValuable [
+	self actionButtonDo: [ :aButtonAction | 
+		aButtonAction
+			icon: anIcon;
+			tooltip: aTooltipText;
+			id: aButtonId;
+			action: aValuable ]
+]
+
+{ #category : #'adding - actions' }
 GtPhlowView >> actionButtonIcon: anIcon label: aStringOrRope action: aValuable [
 	self actionButtonDo: [ :aButtonAction | 
 		aButtonAction
@@ -275,17 +285,27 @@ GtPhlowView >> actionUpdateButton [
 ]
 
 { #category : #'adding - actions' }
-GtPhlowView >> actionUpdateButtonIcon: anIcon tooltip: aTooltip [
+GtPhlowView >> actionUpdateButtonIcon: anIcon id: aButtonId tooltip: aTooltip [
 	self 
 		actionButtonIcon: anIcon
+		id: aButtonId
 		tooltip: aTooltip
 		action: [ :aButton :aTab | aTab phlow fireViewUpdateWish ]
+]
+
+{ #category : #'adding - actions' }
+GtPhlowView >> actionUpdateButtonIcon: anIcon tooltip: aTooltip [
+	self 
+		actionUpdateButtonIcon: anIcon
+		id: GtPhlowViewRefreshContentButtonId
+		tooltip: aTooltip
 ]
 
 { #category : #'adding - actions' }
 GtPhlowView >> actionUpdateButtonTooltip: aTooltip [
 	self 
 		actionUpdateButtonIcon: BrGlamorousVectorIcons refresh 
+		id: GtPhlowViewRefreshContentButtonId
 		tooltip: aTooltip
 ]
 
@@ -632,13 +652,7 @@ GtPhlowView >> on: anObject perform: aMessageSymbol withArguments: aCollectionOf
 	] 
 		on: self class handledExceptions do: [ :anException |
 		
-			NonInteractiveTranscript stdout
-				nextPut: $[;
-				nextPutAll: self class name;
-				nextPut: $];
-				space;
-				print: anException;
-				cr.
+			anException gtPrintToTranscriptWithMessage: self class name.
 			
 			self 
 				phlowErrorViewWithException: anException 

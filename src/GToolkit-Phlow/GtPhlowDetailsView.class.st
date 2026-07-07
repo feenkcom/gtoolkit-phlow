@@ -2,99 +2,22 @@ Class {
 	#name : #GtPhlowDetailsView,
 	#superclass : #GtPhlowViewDecorator,
 	#instVars : [
-		'rows'
+		'rows',
+		'localSend'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
 
 { #category : #'api - converting' }
 GtPhlowDetailsView >> asElementDo: aBlockClosure [
-	| grid cells header |
-	grid := BrHorizontalGrid new.
-	grid columnCount: 2.
-	grid cellSpacing: 0.
-	grid hMatchParent.
-	grid vFitContent.
-	header :=
-			{self createHeaderCell: 'Name'.
-			self createHeaderCell: 'Value'}.
-	cells := rows flatCollect: 
-					[:eachRow |
-					
-					 | rowName rowValue |
-					 rowName := self createRowName: eachRow.
-					 rowValue := self createRowValue: eachRow.
-					 
-					 self configureRowName: rowName value: rowValue.
-					
-					{ rowName . rowValue}].
-	grid addChildren: header.
-	grid addChildren: cells.
-	grid := grid asScrollableElement.
-	self beViewElement: grid.
-	^aBlockClosure value: grid
-]
-
-{ #category : #'api - converting' }
-GtPhlowDetailsView >> configureRowName: rowNameLabel value: rowValueLabel [
-	| clickHandler eventSharer|
+	| detailsElement viewElement |
+	detailsElement := GtPhlowDetailsElement new
+		detailsView: self.
+	viewElement := detailsElement asScrollableElement.
 	
-	clickHandler := BlEventHandler on: BlClickEvent
-				do: 
-					[:anEvent |
-					anEvent consumed: true.
-					self inform: 'Spawn!'.
-					rowValueLabel phlow spawnObject: rowValueLabel viewModel model].
+	self beViewElement: viewElement.
 	
-	eventSharer := BlSharedEventDistributor shareEvents: {
-		BlMouseEnterEvent.
-		BlMouseLeaveEvent.
-		BlMouseDownEvent.
-		BlMouseUpEvent.
-		BlDragLeaveEvent.
-		BlDragEndEvent }.
-	
-	rowNameLabel addEventHandler: eventSharer.
-	rowValueLabel addEventHandler: eventSharer.
-	
-	rowNameLabel addEventHandler: clickHandler.
-	rowValueLabel addEventHandler: clickHandler
-]
-
-{ #category : #'api - converting' }
-GtPhlowDetailsView >> createHeaderCell: aString [
-	^ (BrLabel new)
-				aptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
-				hFitContent;
-				padding: (BlInsets top: 3 left: 6 bottom: 3 right: 6);
-				text: aString
-]
-
-{ #category : #'api - converting' }
-GtPhlowDetailsView >> createRowName: eachRow [
-	^(BrLabel new)
-		aptitude: (BrGlamorousLabelAptitude + BrGlamorousListItemAptitude);
-		hFitContent;
-		padding: (BlInsets top: 3 left: 6 bottom: 3 right: 6);
-		constraintsDo: [ :c | c grid horizontal specAlignment: BlGridAlignment fill ];
-		text: eachRow name
-]
-
-{ #category : #'api - converting' }
-GtPhlowDetailsView >> createRowValue: eachRow [
-	| value text |
-	value := eachRow valueComputation value.
-	text := eachRow textComputation value: value.
-	^(BrLabel new)
-		in: [:aLabel | aLabel viewModel model: value];
-		aptitude: BrGlamorousLabelAptitude + BrGlamorousListItemAptitude;
-		hMatchParent;
-		padding: (BlInsets
-					top: 3
-					left: 6
-					bottom: 3
-					right: 6);
-		text: text
+	^aBlockClosure value: viewElement
 ]
 
 { #category : #views }
@@ -117,7 +40,23 @@ GtPhlowDetailsView >> initialize [
 	rows := OrderedCollection new
 ]
 
-{ #category : #'api - scripting' }
+{ #category : #private }
+GtPhlowDetailsView >> localSend [
+	^ localSend
+]
+
+{ #category : #private }
+GtPhlowDetailsView >> localSend: aBlock [
+	"Do not use; only used by remote views as an hack"
+	localSend := aBlock
+]
+
+{ #category : #'as yet unclassified' }
+GtPhlowDetailsView >> phlowDetailRows [
+	^ rows
+]
+
+{ #category : #private }
 GtPhlowDetailsView >> row: aString value: aBlockClosure [
 	rows add: (GtPhlowDetailsRow new
 		name: aString;
