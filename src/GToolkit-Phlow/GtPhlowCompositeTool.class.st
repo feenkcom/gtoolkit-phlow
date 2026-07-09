@@ -52,6 +52,13 @@ GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 ]
 
 { #category : #selection }
+GtPhlowCompositeTool >> basicApplySelectionState: aSelectionState toElement: aToolElement [
+	<return: #GtPhlowToolSelectionStateResponse>
+	
+	^ aSelectionState applyCompositeSelectionStateToElement: aToolElement.
+]
+
+{ #category : #selection }
 GtPhlowCompositeTool >> basicExtractSelectionStateFromElement: aTabGroupElement [
 	| selectedToolTabIdentifier containedToolElement containedToolContext |
 	selectedToolTabIdentifier := (GtPhlowCompositeToolSelectedTabExtractor new
@@ -95,6 +102,11 @@ GtPhlowCompositeTool >> gtToolsFor: aView [
 GtPhlowCompositeTool >> initialize [
 	super initialize.
 	tools := self defaultTools.
+]
+
+{ #category : #testing }
+GtPhlowCompositeTool >> isCompositeTool [
+	^ true
 ]
 
 { #category : #'api - accessing' }
