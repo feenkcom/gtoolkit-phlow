@@ -159,6 +159,11 @@ GtPhlowAbstractTool >> icon [
 	^ BrGlamorousVectorIcons inspect
 ]
 
+{ #category : #testing }
+GtPhlowAbstractTool >> isCompositeTool [
+	^ false
+]
+
 { #category : #'api - accessing' }
 GtPhlowAbstractTool >> name [
 	"Return a tool name"

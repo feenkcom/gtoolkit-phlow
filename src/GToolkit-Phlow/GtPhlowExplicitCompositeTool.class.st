@@ -70,6 +70,13 @@ GtPhlowExplicitCompositeTool >> initialize [
 	toolIcon := nil
 ]
 
+{ #category : #testing }
+GtPhlowExplicitCompositeTool >> isCompositeTool [
+	self lastCompositeToolDo: [ :aTool | ^ aTool isCompositeTool ].
+
+	^ true
+]
+
 { #category : #accessing }
 GtPhlowExplicitCompositeTool >> lastCompositeTool [
 	<return: #GtPhlowCompositeTool or: nil>
