@@ -9,6 +9,17 @@ Class {
 	#category : #'GToolkit-Phlow-Manifest'
 }
 
+{ #category : #accessing }
+ManifestGToolkitPhlow class >> mustNotDependOn [
+	"Do not bring these dependencies back!"
+
+	^ { 
+		'GToolkit-TreePager'.
+		'GToolkit-Pager'.
+		'GToolkit-CommonPager'.
+	}
+]
+
 { #category : #'code-critics' }
 ManifestGToolkitPhlow class >> ruleRBBadMessageRuleV1FalsePositive [
 	^ #(#(#(#RGMethodDefinition #(#GtPhlowView #performSecurely:on: #false)) #'2018-08-10T16:44:21.086354-04:00') #(#(#RGClassDefinition #(#GtPhlowViewMixedExamples)) #'2018-08-10T17:05:22.387313-04:00') )
