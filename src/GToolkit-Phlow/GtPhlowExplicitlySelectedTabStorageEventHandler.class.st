@@ -14,8 +14,7 @@ Class {
 
 { #category : #'api - accessing' }
 GtPhlowExplicitlySelectedTabStorageEventHandler >> eventsToHandle [
-	^ {GtPhlowExplicitlySelectedTabEvent.
-		GtTreePagerModelChanged}
+	^ {GtPhlowExplicitlySelectedTabEvent}
 ]
 
 { #category : #'event handling' }
@@ -43,7 +42,11 @@ GtPhlowExplicitlySelectedTabStorageEventHandler >> selectionStateHandler: aHandl
 
 { #category : #'event handling' }
 GtPhlowExplicitlySelectedTabStorageEventHandler >> treePagerModelChanged: anEvent [
+	"To be removed in the following releases.
+	Left here to not break image that we update (pull code changes)."
+
+	self flag: #TODO.
 	anEvent consumed: true.
 
-	selectionStateHandler := anEvent pagerModel pagerSettings selectionStateHandler.
+	selectionStateHandler := anEvent pagerModel pagerSettings selectionStateHandler
 ]
