@@ -4,7 +4,8 @@ Class {
 	#traits : 'TGtPhlowToolSelectionStateHandler',
 	#classTraits : 'TGtPhlowToolSelectionStateHandler classTrait',
 	#instVars : [
-		'selectionStates'
+		'selectionStates',
+		'maxSelectionStates'
 	],
 	#category : #'GToolkit-Phlow-Tool - Selection'
 }
@@ -16,8 +17,8 @@ GtPhlowToolCircularSelectionStateHandler >> addSelectionState: aState [
 
 	selectionStates addFirst: aState.
 
-	selectionStates size < 21 ifTrue: [ ^ self ].
-	selectionStates removeLast.
+	selectionStates size <= self maxSelectionStates ifTrue: [ ^ self ].
+	selectionStates removeLast
 ]
 
 { #category : #actions }
@@ -52,6 +53,20 @@ GtPhlowToolCircularSelectionStateHandler >> initialize [
 	super initialize.
 	
 	self resetStoredSelectionState.
+]
+
+{ #category : #accessing }
+GtPhlowToolCircularSelectionStateHandler >> maxSelectionStates [
+	^ maxSelectionStates ifNil: [ maxSelectionStates := 20 ]
+]
+
+{ #category : #accessing }
+GtPhlowToolCircularSelectionStateHandler >> maxSelectionStates: anInteger [
+	self
+		assert: [ anInteger isInteger ]
+		description: [ 'Maximum selection states must be an integer' format: {anInteger} ].
+
+	maxSelectionStates := anInteger max: 1
 ]
 
 { #category : #private }
