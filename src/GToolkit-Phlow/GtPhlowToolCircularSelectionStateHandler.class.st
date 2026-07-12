@@ -15,6 +15,7 @@ GtPhlowToolCircularSelectionStateHandler >> addSelectionState: aState [
 	aState ifNil: [ ^ self ].
 	aState = GtPhlowToolNullSelectionState uniqueInstance ifTrue: [ ^ self ].
 
+	selectionStates removeAllSuchThat: [ :eachState | eachState = aState ].
 	selectionStates addFirst: aState.
 
 	selectionStates size <= self maxSelectionStates ifTrue: [ ^ self ].
@@ -33,9 +34,20 @@ GtPhlowToolCircularSelectionStateHandler >> applySelectionStateTo: aToolElement 
 			aResult := self applySelectionState: eachState to: aToolElement.
 			aResult
 				ifApplied: [ 
-					self moveSelectionState: eachState.
 					^ self ]
 				ifNotApplied: [  ] ]
+]
+
+{ #category : #printing }
+GtPhlowToolCircularSelectionStateHandler >> gtDisplayOn: aStream [
+	selectionStates ifNil: [ ^ super gtDisplayOn: aStream ].
+
+	aStream
+		nextPutAll: 'Circular selection state: ';
+		print: selectionStates size;
+		nextPutAll: (' item' asPluralBasedOn: selectionStates size);
+		nextPutAll: ', max: ';
+		print: self maxSelectionStates
 ]
 
 { #category : #'gt - extensions' }
@@ -81,6 +93,20 @@ GtPhlowToolCircularSelectionStateHandler >> moveSelectionState: aState [
 { #category : #copying }
 GtPhlowToolCircularSelectionStateHandler >> postSimilarSelectionStateHandler [
 	selectionStates := selectionStates copy
+]
+
+{ #category : #printing }
+GtPhlowToolCircularSelectionStateHandler >> printOn: aStream [
+	super printOn: aStream.
+	selectionStates ifNil: [ ^ self ].
+
+	aStream
+		nextPut: $(;
+		print: selectionStates size;
+		nextPutAll: (' item' asPluralBasedOn: selectionStates size);
+		nextPutAll: ', max: ';
+		print: self maxSelectionStates;
+		nextPut: $)
 ]
 
 { #category : #initialization }
