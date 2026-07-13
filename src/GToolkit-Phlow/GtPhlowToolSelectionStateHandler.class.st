@@ -1,3 +1,7 @@
+"
+I am a {{gtClass:TGtPhlowToolSelectionStateHandler}}. 
+I am a single selection state handler.
+"
 Class {
 	#name : #GtPhlowToolSelectionStateHandler,
 	#superclass : #Object,
