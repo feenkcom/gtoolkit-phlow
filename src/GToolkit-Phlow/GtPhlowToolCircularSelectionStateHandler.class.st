@@ -13,14 +13,23 @@ Class {
 
 { #category : #private }
 GtPhlowToolCircularSelectionStateHandler >> addSelectionState: aState [
+	| anOldCount aNewCount |
 	aState ifNil: [ ^ self ].
 	aState = GtPhlowToolNullSelectionState uniqueInstance ifTrue: [ ^ self ].
 
+	anOldCount := selectionStates size.
 	selectionStates removeAllSuchThat: [ :eachState | eachState = aState ].
 	selectionStates addFirst: aState.
 
-	selectionStates size <= self maxSelectionStates ifTrue: [ ^ self ].
-	selectionStates removeLast
+	self shrinkSelectionStatesToMaxSelectionStates.
+	aNewCount := selectionStates size.
+
+	anOldCount = aNewCount ifTrue: [ ^ self ].
+	announcer
+		announce: (GtPhlowToolCircularSelectionStateHandlerCountChanged new
+				selectionStateHandler: self;
+				newCount: aNewCount;
+				oldCount: anOldCount)
 ]
 
 { #category : #accessing }
@@ -80,10 +89,10 @@ GtPhlowToolCircularSelectionStateHandler >> increaseMaxSelectionStates [
 { #category : #initialization }
 GtPhlowToolCircularSelectionStateHandler >> initialize [
 	super initialize.
-	
+
 	maxSelectionStates := 1.
 	announcer := Announcer new.
-	self resetStoredSelectionState.
+	selectionStates := LinkedList new
 ]
 
 { #category : #accessing }
@@ -144,11 +153,6 @@ GtPhlowToolCircularSelectionStateHandler >> printOn: aStream [
 		nextPutAll: ', max: ';
 		print: self maxSelectionStates;
 		nextPut: $)
-]
-
-{ #category : #initialization }
-GtPhlowToolCircularSelectionStateHandler >> resetStoredSelectionState [
-	selectionStates := LinkedList new
 ]
 
 { #category : #accessing }
