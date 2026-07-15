@@ -173,6 +173,6 @@ GtPhlowToolCircularSelectionStateHandler >> storeSelectionStateFrom: aToolElemen
 	GtPhlowStoreToolSelectionSignal new
 		toolElement: aToolElement;
 		phlowView: aToolElement phlow entity;
-		selectionState: selectionStates first;
+		selectionState: (selectionStates ifNotEmpty: #first ifEmpty: [ nil ]);
 		emit
 ]
