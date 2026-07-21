@@ -345,6 +345,21 @@ GtPhlowElementContext >> firstChildWithCompositeViewDo: aBlock [
 ]
 
 { #category : #'api - search' }
+GtPhlowElementContext >> firstChildWithTool [
+	<return: #BlElement or: nil>
+	^ self element
+		allChildrenBreadthFirstDetect: [ :child | child phlow isTool ]
+		ifFound: [ :child | child ]
+]
+
+{ #category : #'api - search' }
+GtPhlowElementContext >> firstChildWithToolDo: aBlock [
+	^ self element
+		allChildrenBreadthFirstDetect: [ :child | child phlow isTool ]
+		ifFound: aBlock
+]
+
+{ #category : #'api - search' }
 GtPhlowElementContext >> firstChildWithView [
 	self
 		deprecated: 'Use #firstChildWithViewContent'
@@ -451,6 +466,11 @@ GtPhlowElementContext >> initialize [
 { #category : #'api - testing' }
 GtPhlowElementContext >> isAction [
 	^ isAction
+]
+
+{ #category : #'api - testing' }
+GtPhlowElementContext >> isCompositeTool [
+	^ self isTool and: [ self entity isCompositeTool ]
 ]
 
 { #category : #'api - testing' }

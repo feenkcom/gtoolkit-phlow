@@ -8,6 +8,17 @@ Class {
 	#category : #'GToolkit-Phlow-Tool - Selection'
 }
 
+{ #category : #accessing }
+GtPhlowCompositeToolSelectionState >> applyCompositeSelectionStateToElement: aTabGroupElement [
+	<return: #GtPhlowToolSelectionStateResponse>
+	| isToolSelected |
+	isToolSelected := self selectToolTabInElement: aTabGroupElement.
+
+	^ isToolSelected
+		ifFalse: [ GtPhlowToolSelectionStateResponse notApplied ]
+		ifTrue: [ self applySelectionStateInToolContainedIn: aTabGroupElement ]
+]
+
 { #category : #private }
 GtPhlowCompositeToolSelectionState >> applySelectionStateInToolContainedIn: aTabGroupElement [
 	<return: #GtPhlowToolSelectionStateResponse>
@@ -30,14 +41,12 @@ GtPhlowCompositeToolSelectionState >> applySelectionStateInToolContainedIn: aTab
 { #category : #accessing }
 GtPhlowCompositeToolSelectionState >> applySelectionStateToElement: aTabGroupElement [
 	<return: #GtPhlowToolSelectionStateResponse>
-	| isToolSelected aSelectionResponse |
+	| isToolSelected |
 	isToolSelected := self selectToolTabInElement: aTabGroupElement.
-	aSelectionResponse := self
-			applySelectionStateInToolContainedIn: aTabGroupElement.
 
 	^ isToolSelected
 		ifFalse: [ GtPhlowToolSelectionStateResponse notApplied ]
-		ifTrue: [ aSelectionResponse ]
+		ifTrue: [ self applySelectionStateInToolContainedIn: aTabGroupElement ]
 ]
 
 { #category : #private }

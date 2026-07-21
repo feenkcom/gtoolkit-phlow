@@ -45,9 +45,17 @@ GtPhlowCompositeTool >> asElementDo: aOneArgBlock [
 		addTabs: self toolTabs.
 	aTabGroup addEventHandler: GtPhlowToolObjectChangeHandler new.
 	aTabGroup addEventHandler: (GtPhlowToolUpdateEventHandler new onUpdateSend: #onCompositeUpdateWish: to: GtPhlowToolInParentUpdater new).
+	aTabGroup addEventHandler: GtPhlowExplicitlySelectedTabToolSetterEventHandler new.
 	aTabGroup phlow toolViewModel: (GtPhlowToolCompositeViewModel new tabGroup: aTabGroup).
 	
 	^ aOneArgBlock cull: aTabGroup
+]
+
+{ #category : #selection }
+GtPhlowCompositeTool >> basicApplySelectionState: aSelectionState toElement: aToolElement [
+	<return: #GtPhlowToolSelectionStateResponse>
+	
+	^ aSelectionState applyCompositeSelectionStateToElement: aToolElement.
 ]
 
 { #category : #selection }
@@ -94,6 +102,11 @@ GtPhlowCompositeTool >> gtToolsFor: aView [
 GtPhlowCompositeTool >> initialize [
 	super initialize.
 	tools := self defaultTools.
+]
+
+{ #category : #testing }
+GtPhlowCompositeTool >> isCompositeTool [
+	^ true
 ]
 
 { #category : #'api - accessing' }

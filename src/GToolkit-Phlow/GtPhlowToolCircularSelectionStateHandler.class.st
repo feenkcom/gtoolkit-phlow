@@ -4,20 +4,38 @@ Class {
 	#traits : 'TGtPhlowToolSelectionStateHandler',
 	#classTraits : 'TGtPhlowToolSelectionStateHandler classTrait',
 	#instVars : [
-		'selectionStates'
+		'selectionStates',
+		'maxSelectionStates',
+		'announcer'
 	],
 	#category : #'GToolkit-Phlow-Tool - Selection'
 }
 
 { #category : #private }
 GtPhlowToolCircularSelectionStateHandler >> addSelectionState: aState [
+	| anOldCount aNewCount |
 	aState ifNil: [ ^ self ].
 	aState = GtPhlowToolNullSelectionState uniqueInstance ifTrue: [ ^ self ].
 
+	anOldCount := selectionStates size.
+	selectionStates removeAllSuchThat: [ :eachState | eachState = aState ].
 	selectionStates addFirst: aState.
 
-	selectionStates size < 21 ifTrue: [ ^ self ].
-	selectionStates removeLast.
+	self shrinkSelectionStatesToMaxSelectionStates.
+	aNewCount := selectionStates size.
+
+	anOldCount = aNewCount ifTrue: [ ^ self ].
+	announcer
+		announce: (GtPhlowToolCircularSelectionStateHandlerCountChanged new
+				selectionStateHandler: self;
+				newCount: aNewCount;
+				oldCount: anOldCount)
+]
+
+{ #category : #accessing }
+GtPhlowToolCircularSelectionStateHandler >> announcer [
+	<return: #Announcer>
+	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
 { #category : #actions }
@@ -32,16 +50,75 @@ GtPhlowToolCircularSelectionStateHandler >> applySelectionStateTo: aToolElement 
 			aResult := self applySelectionState: eachState to: aToolElement.
 			aResult
 				ifApplied: [ 
-					self moveSelectionState: eachState.
 					^ self ]
 				ifNotApplied: [  ] ]
+]
+
+{ #category : #accessing }
+GtPhlowToolCircularSelectionStateHandler >> decreaseMaxSelectionStates [
+	self maxSelectionStates: self maxSelectionStates - 1
+]
+
+{ #category : #printing }
+GtPhlowToolCircularSelectionStateHandler >> gtDisplayOn: aStream [
+	selectionStates ifNil: [ ^ super gtDisplayOn: aStream ].
+
+	aStream
+		nextPutAll: 'Circular selection state: ';
+		print: selectionStates size;
+		nextPutAll: (' item' asPluralBasedOn: selectionStates size);
+		nextPutAll: ', max: ';
+		print: self maxSelectionStates
+]
+
+{ #category : #'gt - extensions' }
+GtPhlowToolCircularSelectionStateHandler >> gtSelectionStatesFor: aView [
+	<gtView>
+	selectionStates ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Selection states';
+		items: [ selectionStates ifNil: [ #() ] ];
+		column: 'Value' text: [ :each | each gtDisplayString ]
+]
+
+{ #category : #accessing }
+GtPhlowToolCircularSelectionStateHandler >> increaseMaxSelectionStates [
+	self maxSelectionStates: self maxSelectionStates + 1
 ]
 
 { #category : #initialization }
 GtPhlowToolCircularSelectionStateHandler >> initialize [
 	super initialize.
-	
-	self resetStoredSelectionState.
+
+	maxSelectionStates := 1.
+	announcer := Announcer new.
+	selectionStates := LinkedList new
+]
+
+{ #category : #accessing }
+GtPhlowToolCircularSelectionStateHandler >> maxSelectionStates [
+	^ maxSelectionStates ifNil: [ maxSelectionStates := 1 ]
+]
+
+{ #category : #accessing }
+GtPhlowToolCircularSelectionStateHandler >> maxSelectionStates: anInteger [
+	| anOldMaxSelectionStates aNewMaxSelectionStates |
+	self
+		assert: [ anInteger isInteger ]
+		description: [ 'Maximum selection states must be an integer' format: {anInteger} ].
+
+	aNewMaxSelectionStates := anInteger max: 1.
+	maxSelectionStates = aNewMaxSelectionStates ifTrue: [ ^ self ].
+
+	anOldMaxSelectionStates := maxSelectionStates.
+	maxSelectionStates := aNewMaxSelectionStates.
+	self shrinkSelectionStatesToMaxSelectionStates.
+
+	self announcer
+		announce: (GtPhlowToolCircularSelectionStateHandlerMaxSelectionStatesChanged new
+				selectionStateHandler: self;
+				oldMaxSelectionStates: anOldMaxSelectionStates;
+				maxSelectionStates: aNewMaxSelectionStates)
 ]
 
 { #category : #private }
@@ -53,10 +130,35 @@ GtPhlowToolCircularSelectionStateHandler >> moveSelectionState: aState [
 	selectionStates addFirst: aState
 ]
 
-{ #category : #initialization }
-GtPhlowToolCircularSelectionStateHandler >> resetStoredSelectionState [
-	selectionStates := LinkedList
-			with: GtPhlowToolNullSelectionState uniqueInstance
+{ #category : #accessing }
+GtPhlowToolCircularSelectionStateHandler >> numberOfSelectionStates [
+	^ selectionStates size
+]
+
+{ #category : #copying }
+GtPhlowToolCircularSelectionStateHandler >> postSimilarSelectionStateHandler [
+	selectionStates := selectionStates copy.
+	announcer := Announcer new
+]
+
+{ #category : #printing }
+GtPhlowToolCircularSelectionStateHandler >> printOn: aStream [
+	super printOn: aStream.
+	selectionStates ifNil: [ ^ self ].
+
+	aStream
+		nextPut: $(;
+		print: selectionStates size;
+		nextPutAll: (' item' asPluralBasedOn: selectionStates size);
+		nextPutAll: ', max: ';
+		print: self maxSelectionStates;
+		nextPut: $)
+]
+
+{ #category : #accessing }
+GtPhlowToolCircularSelectionStateHandler >> shrinkSelectionStatesToMaxSelectionStates [
+	[ selectionStates size > self maxSelectionStates ]
+		whileTrue: [ selectionStates removeLast ]
 ]
 
 { #category : #actions }
@@ -71,6 +173,6 @@ GtPhlowToolCircularSelectionStateHandler >> storeSelectionStateFrom: aToolElemen
 	GtPhlowStoreToolSelectionSignal new
 		toolElement: aToolElement;
 		phlowView: aToolElement phlow entity;
-		selectionState: selectionStates first;
+		selectionState: (selectionStates ifNotEmpty: #first ifEmpty: [ nil ]);
 		emit
 ]

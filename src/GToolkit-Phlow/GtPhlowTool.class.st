@@ -47,6 +47,7 @@ GtPhlowTool >> asToolElementDo: aOneArgBlock [
 		anElement phlow 
 			beTool;
 			entity: self.
+		anElement addEventHandler: GtPhlowExplicitlySelectedTabToolSetterEventHandler new.
 		aOneArgBlock cull: anElement ]
 ]
 
