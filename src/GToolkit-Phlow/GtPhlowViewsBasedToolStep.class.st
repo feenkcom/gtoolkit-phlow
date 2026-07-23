@@ -108,7 +108,7 @@ GtPhlowViewsBasedToolStep >> assertHasExactToolActionsWithIds: aCollectionOfIds 
 	^ step
 ]
 
-{ #category : #asserting }
+{ #category : #'steps - checks' }
 GtPhlowViewsBasedToolStep >> assertHasNoTabWithName: aTabName [
 	^ self assert
 		label: ('Assert tool has no tab named {1}' format: { aTabName });
@@ -119,7 +119,7 @@ GtPhlowViewsBasedToolStep >> assertHasNoTabWithName: aTabName [
 		// GtPhlowCompositeViewElementId
 ]
 
-{ #category : #asserting }
+{ #category : #'steps - checks' }
 GtPhlowViewsBasedToolStep >> assertHasTabWithName: aTabName [
 	^ self assert
 		label: ('Assert tool has tab named {1}' format: { aTabName });
@@ -130,14 +130,14 @@ GtPhlowViewsBasedToolStep >> assertHasTabWithName: aTabName [
 		// GtPhlowCompositeViewElementId
 ]
 
-{ #category : #asserting }
+{ #category : #'steps - checks' }
 GtPhlowViewsBasedToolStep >> assertHasTabsWithNames: aCollectionOfTabNames [
 	aCollectionOfTabNames do: [ :eachTabName |
 		self assertHasTabWithName: eachTabName ].
 	^ self
 ]
 
-{ #category : #asserting }
+{ #category : #'steps - checks' }
 GtPhlowViewsBasedToolStep >> assertHasToolActionWithId: anActionId [
 		| step |
 	step := self
