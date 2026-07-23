@@ -4,7 +4,7 @@ Class {
 	#category : #'GToolkit-Phlow-Scripter'
 }
 
-{ #category : #assertions }
+{ #category : #'steps - checks' }
 GtPhlowCompositeToolStep >> assertPhlowToolLabels: aCollectionOfLabels andTypes: aCollectionOfTypes [
 	| step |
 	step := self
@@ -34,7 +34,7 @@ GtPhlowCompositeToolStep >> assertPhlowToolLabels: aCollectionOfLabels andTypes:
 	^ step
 ]
 
-{ #category : #assertions }
+{ #category : #'steps - checks' }
 GtPhlowCompositeToolStep >> assertPhlowToolSatisfies: anOneArgBlock description: aDescriptionOneArgBlock [
 	^ self check
 		label: 'Assert phlow tool condition';
@@ -44,7 +44,7 @@ GtPhlowCompositeToolStep >> assertPhlowToolSatisfies: anOneArgBlock description:
 		onPhlowToolEntity.
 ]
 
-{ #category : #assertions }
+{ #category : #'steps - checks' }
 GtPhlowCompositeToolStep >> assertPhlowToolTabsCount: aTabsCount [
 	^ self check
 				label: ('Assert phlow tool tabs count is {1}'
@@ -55,7 +55,7 @@ GtPhlowCompositeToolStep >> assertPhlowToolTabsCount: aTabsCount [
 				onParentStepTarget: self
 ]
 
-{ #category : #assertions }
+{ #category : #'steps - checks' }
 GtPhlowCompositeToolStep >> assertPhlowToolTabsHaveBothIconsAndLabels [
 		^ self do
 				label: ('Assert phlow tool tabs have only icons');
@@ -67,7 +67,7 @@ GtPhlowCompositeToolStep >> assertPhlowToolTabsHaveBothIconsAndLabels [
 				onParentStepTarget: self
 ]
 
-{ #category : #assertions }
+{ #category : #'steps - checks' }
 GtPhlowCompositeToolStep >> assertPhlowToolTabsHaveOnlyIcons [
 		^ self do
 				label: ('Assert phlow tool tabs have only icons');
@@ -78,7 +78,7 @@ GtPhlowCompositeToolStep >> assertPhlowToolTabsHaveOnlyIcons [
 				onParentStepTarget: self
 ]
 
-{ #category : #assertions }
+{ #category : #'steps - checks' }
 GtPhlowCompositeToolStep >> assertPhlowToolValue: anOneArgBlock equals: anEqualsBlock [
 	^ self check
 		label: 'Assert phlow tool condition';
@@ -88,7 +88,7 @@ GtPhlowCompositeToolStep >> assertPhlowToolValue: anOneArgBlock equals: anEquals
 		onPhlowToolEntity.
 ]
 
-{ #category : #assertions }
+{ #category : #'steps - checks' }
 GtPhlowCompositeToolStep >> assertPhlowToolValueSatisfies: anBlock [
 	^ self check
 		label: 'Assert phlow tool condition';
@@ -98,7 +98,7 @@ GtPhlowCompositeToolStep >> assertPhlowToolValueSatisfies: anBlock [
 		onPhlowToolEntity.
 ]
 
-{ #category : #assertions }
+{ #category : #'steps - checks' }
 GtPhlowCompositeToolStep >> assertSelectedToolAtIndex: anIndex withPhlowName: aName [
 	| step |
 	step := self
@@ -123,7 +123,7 @@ GtPhlowCompositeToolStep >> assertSelectedToolAtIndex: anIndex withPhlowName: aN
 	^ step
 ]
 
-{ #category : #actions }
+{ #category : #'steps - checks' }
 GtPhlowCompositeToolStep >> assertSelectedToolAtIndex: anIndex withTabName: aName [
 	| step |
 	step := self
@@ -154,7 +154,7 @@ GtPhlowCompositeToolStep >> assertSelectedToolAtIndex: anIndex withTabName: aNam
 	^ step
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'steps - interactions' }
 GtPhlowCompositeToolStep >> clickOnToolAtIndex: anIndex [
 	^ self click
 		label: ('Select tool at index {1}' format: {anIndex asString});
