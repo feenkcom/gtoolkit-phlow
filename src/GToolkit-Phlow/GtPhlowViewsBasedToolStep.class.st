@@ -10,22 +10,6 @@ GtPhlowViewsBasedToolStep class >> isAbstract [
 ]
 
 { #category : #'steps - checks' }
-GtPhlowViewsBasedToolStep >> assertHasActionWithIconAndLabel: anActionLabel [
-	
-	^ self do
-				label: ('Assert tool has action with icon and label {1}'
-					format: {anActionLabel});
-				block: [ :aToolbar | aToolbar items do: [ :anActionElement |
-					self assert: anActionElement children size equals: 2.
-					self assert: anActionElement children first id equals: (BlElementId named: #icon).
-					self assert: anActionElement children second id equals: (BlElementId named: #label)  ] ];
-				onParentStepTarget: self;
-				referenceSender;
-				// #header;
-				// #toolbar
-]
-
-{ #category : #'steps - checks' }
 GtPhlowViewsBasedToolStep >> assertHasExactTabNames: aCollectionOfLabels [
 	| step |
 	step := self
@@ -137,14 +121,47 @@ GtPhlowViewsBasedToolStep >> assertHasTabsWithNames: aCollectionOfTabNames [
 	^ self
 ]
 
-{ #category : #'steps - checks' }
+{ #category : #assertions }
+GtPhlowViewsBasedToolStep >> assertHasToolActionWithIconAndLabel: anActionLabel [
+	| step |
+	step := self
+		substeps2: ('Assert tool has action with icon and label {1}'
+					format: {anActionLabel})
+		do: [ :aSubStep | 
+			aSubStep check
+				label: 'Assert action with given label is present';
+				exists;
+				referenceSender;
+				onParentStepTarget: self;
+				// #header;
+				// #titleContainer;
+				// #toolbar;
+				/ [ :anActionElement | anActionElement label asString = anActionLabel ].
+				
+			aSubStep assert
+				label: 'Assert action has label and icon';
+				satisfies: [ :aToolbar | 
+					aToolbar items anySatisfy: [ :anActionElement |
+						anActionElement label asString = anActionLabel and:  [
+							(anActionElement children size = 2) and: [
+								anActionElement children first id = (BlElementId named: #icon) and: [
+									anActionElement children second id = (BlElementId named: #label) ] ] ] ] ];
+				referenceSender;
+				onParentStepTarget: self;
+				// #header;
+				// #titleContainer;
+				// #toolbar ].
+	^ step
+]
+
+{ #category : #assertions }
 GtPhlowViewsBasedToolStep >> assertHasToolActionWithId: anActionId [
-		| step |
+	| step |
 	step := self
 		substeps2: ('Assert tool has action with id {1}' format: { anActionId })
 		do: [ :aSubStep | 
 			aSubStep assert
-				label: ('Assert button exists');
+				label: 'Assert button exists';
 				exists;
 				onParentStepTarget: self;
 				referenceSender;
@@ -154,7 +171,7 @@ GtPhlowViewsBasedToolStep >> assertHasToolActionWithId: anActionId [
 				// anActionId.
 				
 			aSubStep assert
-				label: ('Assert phlow entity has same id' );
+				label: 'Assert phlow entity has same id';
 				satisfies: [ :anAction |
 					anAction phlow entity id = anActionId ];
 				onParentStepTarget: self;
@@ -162,8 +179,47 @@ GtPhlowViewsBasedToolStep >> assertHasToolActionWithId: anActionId [
 				// #header;
 				// #titleContainer;
 				// #toolbar;
-				// anActionId	].
+				// anActionId ].
 	^ step
+]
+
+{ #category : #assertions }
+GtPhlowViewsBasedToolStep >> assertHasToolActionWithOnlyLabel: anActionLabel [
+	| step |
+	step := self
+		substeps2: ('Assert tool has action with icon and label {1}'
+					format: {anActionLabel})
+		do: [ :aSubStep | 
+			aSubStep check
+				label: 'Assert action with given label is present';
+				exists;
+				referenceSender;
+				onParentStepTarget: self;
+				// #header;
+				// #titleContainer;
+				// #toolbar;
+				/ [ :anActionElement | anActionElement label asString = anActionLabel ].
+				
+			aSubStep assert
+				label: 'Assert action has label and icon';
+				satisfies: [ :aToolbar | 
+					aToolbar items anySatisfy: [ :anActionElement |
+						anActionElement label asString = anActionLabel and:  [
+							(anActionElement children size = 1) and: [
+								anActionElement children first id = (BlElementId named: #label) ] ] ] ];
+				referenceSender;
+				onParentStepTarget: self;
+				// #header;
+				// #titleContainer;
+				// #toolbar ].
+	^ step
+]
+
+{ #category : #'steps - checks' }
+GtPhlowViewsBasedToolStep >> assertHasToolActionsWithIds: aCollectionOfIconIds [
+	aCollectionOfIconIds do: [ :anId |
+		self assertHasToolActionWithId: anId ].
+	^ self
 ]
 
 { #category : #'steps - checks' }
@@ -187,42 +243,6 @@ GtPhlowViewsBasedToolStep >> assertSelectedTabWithName: aName [
 		onParentStepTarget: self;
 		referenceSender;
 		// GtPhlowCompositeViewElementId
-]
-
-{ #category : #'steps - checks' }
-GtPhlowViewsBasedToolStep >> assertToolHasActionWithIconAndLabel: anActionLabel [
-	| step |
-	step := self
-		substeps2: ('Assert tool has action with icon and label {1}'
-					format: {anActionLabel})
-		do: [ :aSubStep | 
-			aSubStep check
-				label: 'Assert action with given label is present';
-				exists;
-				onParentStepTarget: self;
-				referenceSender;
-				// #header;
-				// #titleContainer;
-				// #toolbar;
-				/ [ :anActionElement | anActionElement label asString  = anActionLabel ].
-				
-			aSubStep do
-				label: 'Assert action has label and icon';
-				block: [ :aToolbar | 
-					aToolbar items 
-						detect: [ :anActionElement | anActionElement label asString  = anActionLabel ] 
-						ifFound: [ :anActionElement |
-							self assert: anActionElement children size equals: 2.
-							self assert: anActionElement children first id equals: (BlElementId named: #icon).
-							self assert: anActionElement children second id equals: (BlElementId named: #label) ] 
-						ifNone: [ Error signal: 'Could not find action' ] ];
-				onParentStepTarget: self;
-				referenceSender;
-				// #header;
-				// #titleContainer;
-				// #toolbar ].
-		
-	^ step
 ]
 
 { #category : #'steps - interactions' }

@@ -219,8 +219,8 @@ GtMultipleViewsForExamplesPhlowToolExamples >> standaloneToolElementShowsActions
 			BlElementNamedId named: #refreshContentAction.
 			BlElementNamedId named:  #extraObjectActions};
 		assertHasExactToolActionModelsWithLabels: #('Increment' 'Refresh' 'Label' );
-		assertToolHasActionWithIconAndLabel: 'Increment';
-		assertToolHasActionWithIconAndLabel: 'Refresh';
+		assertHasToolActionWithIconAndLabel: 'Increment';
+		assertHasToolActionWithIconAndLabel: 'Refresh';
 		play.
 			
 	^ scripter
