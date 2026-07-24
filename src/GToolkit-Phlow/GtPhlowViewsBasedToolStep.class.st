@@ -20,16 +20,14 @@ GtPhlowViewsBasedToolStep >> assertHasExactTabNames: aCollectionOfLabels [
 				label: 'Assert number of tabs';
 				value: [ :aTabGroup | aTabGroup tabs size ]
 					equals: aCollectionOfLabels size;
-				onParentStepTarget: self;
-				referenceSender;
+				onParentStepTarget: aSubStep;
 				// GtPhlowCompositeViewElementId.
 			aSubStep check
 				label: 'Assert tab labels';
 				value: [ :aTabGroup | 
 						(aTabGroup tabs collect: [ :aTab | aTab tabLabel text asString ]) asArray ]
 					equals: aCollectionOfLabels;
-				onParentStepTarget: self;
-				referenceSender;
+				onParentStepTarget: aSubStep;
 				// GtPhlowCompositeViewElementId ].
 	^ step
 ]
@@ -45,8 +43,7 @@ GtPhlowViewsBasedToolStep >> assertHasExactToolActionModelsWithLabels: aCollecti
 				label: 'Assert number of tool actions';
 				value: [ :aToolbar | aToolbar numberOfItems ]
 					equals: aCollectionOfLabels size;
-				onParentStepTarget: self;
-				referenceSender;
+				onParentStepTarget: aSubStep;
 				// #header;
 				// #titleContainer;
 				// #toolbar.
@@ -55,8 +52,7 @@ GtPhlowViewsBasedToolStep >> assertHasExactToolActionModelsWithLabels: aCollecti
 				value: [ :aToolbar | 
 						(aToolbar items collect: [ :anAction | anAction label asString ]) asArray ]
 					equals: aCollectionOfLabels;
-				onParentStepTarget: self;
-				referenceSender;
+				onParentStepTarget: aSubStep;
 				// #header;
 				// #titleContainer;
 				// #toolbar ].
@@ -74,8 +70,7 @@ GtPhlowViewsBasedToolStep >> assertHasExactToolActionsWithIds: aCollectionOfIds 
 				label: 'Assert number of tool actions';
 				value: [ :aToolbar | aToolbar numberOfItems ]
 					equals: aCollectionOfIds size;
-				onParentStepTarget: self;
-				referenceSender;
+				onParentStepTarget: aSubStep;
 				// #header;
 				// #titleContainer;
 				// #toolbar.
@@ -84,8 +79,7 @@ GtPhlowViewsBasedToolStep >> assertHasExactToolActionsWithIds: aCollectionOfIds 
 				value: [ :aToolbar | 
 						(aToolbar items collect: [ :anAction | anAction id ]) asArray ]
 					equals: aCollectionOfIds;
-				onParentStepTarget: self;
-				referenceSender;
+				onParentStepTarget: aSubStep;
 				// #header;
 				// #titleContainer;
 				// #toolbar ].
@@ -99,7 +93,6 @@ GtPhlowViewsBasedToolStep >> assertHasNoTabWithName: aTabName [
 		satisfies: [ :aTabGroup |
 			(aTabGroup tabs noneSatisfy: [ :aTab | aTab tabLabel text asString = aTabName asString ]) ];
 		onParentStepTarget: self;
-		referenceSender;
 		// GtPhlowCompositeViewElementId
 ]
 
@@ -110,7 +103,6 @@ GtPhlowViewsBasedToolStep >> assertHasTabWithName: aTabName [
 		satisfies: [ :aTabGroup |
 			(aTabGroup tabs anySatisfy: [ :aTab | aTab tabLabel text asString = aTabName asString ]) ];
 		onParentStepTarget: self;
-		referenceSender;
 		// GtPhlowCompositeViewElementId
 ]
 
@@ -131,26 +123,27 @@ GtPhlowViewsBasedToolStep >> assertHasToolActionWithIconAndLabel: anActionLabel 
 			aSubStep check
 				label: 'Assert action with given label is present';
 				exists;
-				referenceSender;
-				onParentStepTarget: self;
+				onParentStepTarget: aSubStep;
 				// #header;
 				// #titleContainer;
 				// #toolbar;
-				/ [ :anActionElement | anActionElement label asString = anActionLabel ].
+				/ [ :anActionElement | anActionElement label asString  = anActionLabel ].
 				
-			aSubStep assert
+			aSubStep do
 				label: 'Assert action has label and icon';
-				satisfies: [ :aToolbar | 
-					aToolbar items anySatisfy: [ :anActionElement |
-						anActionElement label asString = anActionLabel and:  [
-							(anActionElement children size = 2) and: [
-								anActionElement children first id = (BlElementId named: #icon) and: [
-									anActionElement children second id = (BlElementId named: #label) ] ] ] ] ];
-				referenceSender;
-				onParentStepTarget: self;
+				block: [ :aToolbar | 
+					aToolbar items 
+						detect: [ :anActionElement | anActionElement label asString  = anActionLabel ] 
+						ifFound: [ :anActionElement |
+							self assert: anActionElement children size equals: 2.
+							self assert: anActionElement children first id equals: (BlElementId named: #icon).
+							self assert: anActionElement children second id equals: (BlElementId named: #label) ] 
+						ifNone: [ Error signal: 'Could not find action' ] ];
+				onParentStepTarget: aSubStep;
 				// #header;
 				// #titleContainer;
 				// #toolbar ].
+		
 	^ step
 ]
 
@@ -163,8 +156,7 @@ GtPhlowViewsBasedToolStep >> assertHasToolActionWithId: anActionId [
 			aSubStep assert
 				label: 'Assert button exists';
 				exists;
-				onParentStepTarget: self;
-				referenceSender;
+				onParentStepTarget: aSubStep;
 				// #header;
 				// #titleContainer;
 				// #toolbar;
@@ -174,8 +166,7 @@ GtPhlowViewsBasedToolStep >> assertHasToolActionWithId: anActionId [
 				label: 'Assert phlow entity has same id';
 				satisfies: [ :anAction |
 					anAction phlow entity id = anActionId ];
-				onParentStepTarget: self;
-				referenceSender;
+				onParentStepTarget: aSubStep;
 				// #header;
 				// #titleContainer;
 				// #toolbar;
@@ -193,8 +184,7 @@ GtPhlowViewsBasedToolStep >> assertHasToolActionWithOnlyLabel: anActionLabel [
 			aSubStep check
 				label: 'Assert action with given label is present';
 				exists;
-				referenceSender;
-				onParentStepTarget: self;
+				onParentStepTarget: aSubStep;
 				// #header;
 				// #titleContainer;
 				// #toolbar;
@@ -207,8 +197,7 @@ GtPhlowViewsBasedToolStep >> assertHasToolActionWithOnlyLabel: anActionLabel [
 						anActionElement label asString = anActionLabel and:  [
 							(anActionElement children size = 1) and: [
 								anActionElement children first id = (BlElementId named: #label) ] ] ] ];
-				referenceSender;
-				onParentStepTarget: self;
+				onParentStepTarget: aSubStep;
 				// #header;
 				// #titleContainer;
 				// #toolbar ].
@@ -228,7 +217,6 @@ GtPhlowViewsBasedToolStep >> assertPlaygroundElementIsPresent [
 			label: 'Tool playground exists';
 			exists;
 			onParentStepTarget: self;
-			referenceSender;
 			// #playgroundPage
 ]
 
@@ -241,15 +229,12 @@ GtPhlowViewsBasedToolStep >> assertSelectedTabWithName: aName [
 					and: [ aTabGroup viewModel selectedTab tabLabel text asString = aName asString ] ]
 			description: [ 'There must be a selected tab with name {1}' format: {aName} ];
 		onParentStepTarget: self;
-		referenceSender;
 		// GtPhlowCompositeViewElementId
 ]
 
 { #category : #'steps - interactions' }
 GtPhlowViewsBasedToolStep >> clickOnActionWithId: anActionId [
 	^ self click
-		onParentStepTarget: self;
-		referenceSender;
 		label: ('Click on action with id {1}' format: { anActionId });
 		// #header;
 		// #toolbar;
@@ -259,8 +244,6 @@ GtPhlowViewsBasedToolStep >> clickOnActionWithId: anActionId [
 { #category : #'steps - interactions' }
 GtPhlowViewsBasedToolStep >> clickOnTabWithName: aTabName [
 	^ self click
-		onParentStepTarget: self;
-		referenceSender;
 		label: ('Click on inspector tab named {1}' format: { aTabName });
 		// GtPhlowCompositeViewElementId;
 		// BrTab;
