@@ -119,6 +119,7 @@ GtPhlowMultipleViewsContentElement >> initialize [
 	self padding: (BlInsets top: 5 left: 5 bottom: 0 right: 5).
 	
 	self initializeContent.
+	self initializeListeners.
 ]
 
 { #category : #initialization }
@@ -145,10 +146,28 @@ GtPhlowMultipleViewsContentElement >> initializeHeaderElement [
 ]
 
 { #category : #initialization }
+GtPhlowMultipleViewsContentElement >> initializeListeners [
+	self
+		addEventHandler: (GtPhlowToolUpdateEventHandler new onUpdateSend: #onUpdateToolWish: to: self).
+	self
+		when: GtPhlowViewUpdateWish
+		do: [ :anEvent | self onUpdateToolWish: anEvent ]
+]
+
+{ #category : #initialization }
 GtPhlowMultipleViewsContentElement >> initializeTitleNotifier [
 	self assert: [ titleNotifier isNil ].
 	titleNotifier := self createTitleNotifier.
 	self addEventHandler: titleNotifier
+]
+
+{ #category : #'private - event handling' }
+GtPhlowMultipleViewsContentElement >> onUpdateToolWish: anEvent [
+	"For now, we simply update the whole tool.
+	Later we could find the Phlow view and request just its update."
+
+	anEvent consumed: true.
+	self updateContent
 ]
 
 { #category : #accessing }
