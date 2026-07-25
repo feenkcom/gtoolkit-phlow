@@ -444,7 +444,7 @@ GtPhlowView >> basicOn: anObject perform: aMessageSymbol withArguments: aCollect
 			fromObject: anObject ].
 			
 	aPhlowView object: anObject arguments: aCollectionOfArguments.
-	^ aPhlowView
+	^ aPhlowView transformIfNeededForLocalRendering
 ]
 
 { #category : #'private - updating' }

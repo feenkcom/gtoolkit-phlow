@@ -367,6 +367,11 @@ GtPhlowProtoView >> title: aString [
 	^ self subclassResponsibility
 ]
 
+{ #category : #'api - converting' }
+GtPhlowProtoView >> transformIfNeededForLocalRendering [
+	^ self
+]
+
 { #category : #decorating }
 GtPhlowProtoView >> tree [
 	<return: #GtPhlowTreeView>
