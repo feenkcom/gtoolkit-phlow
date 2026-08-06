@@ -21,6 +21,17 @@ GtPhlowObjectEvent >> object: anObject [
 	self tool: (GtPhlowTool default object: anObject)
 ]
 
+{ #category : #printing }
+GtPhlowObjectEvent >> printOn: aStream [
+	super printOn: aStream.
+	aStream
+		nextPutAll: ' (object: ';
+		print: self object;
+		nextPutAll: ', tool: ';
+		print: self tool;
+		nextPutAll: ')'
+]
+
 { #category : #'accessing - properties' }
 GtPhlowObjectEvent >> properties [
 	^ properties ifNil: [ properties := OrderedDictionary new ]
