@@ -46,3 +46,16 @@ GtPhlowContext >> at: aKey ifPresent: aPresentBlock ifAbsentPut: anAbsentBlock [
 GtPhlowContext >> at: aKey put: aValue [
 	^ self optionAt: aKey put: aValue
 ]
+
+{ #category : #accessing }
+GtPhlowContext >> objectRegistry [
+	^ self 
+		optionAt: #objectRegistry 
+		ifAbsent: [ nil ]
+]
+
+{ #category : #accessing }
+GtPhlowContext >> objectRegistry: anObjectRegistry [
+	self 
+		optionAt: #objectRegistry put: anObjectRegistry
+]
