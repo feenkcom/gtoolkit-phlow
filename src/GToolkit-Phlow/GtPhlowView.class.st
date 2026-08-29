@@ -297,7 +297,7 @@ GtPhlowView >> actionUpdateButtonIcon: anIcon id: aButtonId tooltip: aTooltip [
 GtPhlowView >> actionUpdateButtonIcon: anIcon tooltip: aTooltip [
 	self 
 		actionUpdateButtonIcon: anIcon
-		id: GtPhlowViewRefreshContentButtonId
+		id: GtPhlowViewRefreshContentButtonId new
 		tooltip: aTooltip
 ]
 
@@ -305,7 +305,7 @@ GtPhlowView >> actionUpdateButtonIcon: anIcon tooltip: aTooltip [
 GtPhlowView >> actionUpdateButtonTooltip: aTooltip [
 	self 
 		actionUpdateButtonIcon: BrGlamorousVectorIcons refresh 
-		id: GtPhlowViewRefreshContentButtonId
+		id: GtPhlowViewRefreshContentButtonId new
 		tooltip: aTooltip
 ]
 
