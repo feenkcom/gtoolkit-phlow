@@ -794,6 +794,12 @@ GtPhlowElementContext >> spawnTool: aTool withSelectionState: aSelectionStateOrN
 
 { #category : #'api - updating' }
 GtPhlowElementContext >> syncUpdate [
+
+	"We clear there the cache in the view specification"
+	self entity phlowViewSpecification 
+		ifNotNil: [ :aPhlowViewSpecification |
+			aPhlowViewSpecification flushCachedData  ].
+			
 	self entity updateContent: self element.
 ]
 

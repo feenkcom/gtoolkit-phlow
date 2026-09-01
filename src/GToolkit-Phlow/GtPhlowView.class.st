@@ -21,7 +21,8 @@ Class {
 		'asyncEnabled',
 		'buildContext',
 		'definingMethodProvider',
-		'futureExecutionConfiguration'
+		'futureExecutionConfiguration',
+		'properties'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -297,7 +298,7 @@ GtPhlowView >> actionUpdateButtonIcon: anIcon id: aButtonId tooltip: aTooltip [
 GtPhlowView >> actionUpdateButtonIcon: anIcon tooltip: aTooltip [
 	self 
 		actionUpdateButtonIcon: anIcon
-		id: GtPhlowViewRefreshContentButtonId
+		id: GtPhlowViewRefreshContentButtonId new
 		tooltip: aTooltip
 ]
 
@@ -305,7 +306,7 @@ GtPhlowView >> actionUpdateButtonIcon: anIcon tooltip: aTooltip [
 GtPhlowView >> actionUpdateButtonTooltip: aTooltip [
 	self 
 		actionUpdateButtonIcon: BrGlamorousVectorIcons refresh 
-		id: GtPhlowViewRefreshContentButtonId
+		id: GtPhlowViewRefreshContentButtonId new
 		tooltip: aTooltip
 ]
 
@@ -580,6 +581,13 @@ GtPhlowView >> hasExplicitTitle [
 	^ self title isNotNil and: [ self title ~= self defaultTitle ]
 ]
 
+{ #category : #'api - properties' }
+GtPhlowView >> hasProperty: aPropertyName [
+	"Test if the property `aPropertyName` is defined within the receiver."
+
+	^  properties includesKey: aPropertyName
+]
+
 { #category : #converting }
 GtPhlowView >> ifItHasContent: aBlock [
 	^ aBlock value
@@ -602,6 +610,7 @@ GtPhlowView >> initialize [
 	autoUpdates := self defaultAutoUpdates.
 	asyncEnabled := true.
 	buildContext := self defaultBuildContext.
+	properties := Dictionary new.
 	self initializeTooltipBuilder.
 	self initializeDefaultUpdateDefinitions.
 ]
@@ -757,6 +766,20 @@ GtPhlowView >> phlowErrorViewWithException: anException isFrozen: aBoolean [
 		exception: aFrozenException
 ]
 
+{ #category : #'api - view specification' }
+GtPhlowView >> phlowViewSpecification [
+	^ self 
+			propertyAt: 'phlowViewSpecification' 
+			ifAbsent: [ nil ]
+]
+
+{ #category : #'api - view specification' }
+GtPhlowView >> phlowViewSpecification: aViewSpecification [
+	self 
+			propertyAt: 'phlowViewSpecification' 
+			put: aViewSpecification
+]
+
 { #category : #accessing }
 GtPhlowView >> printOn: aStream [
 
@@ -778,6 +801,48 @@ GtPhlowView >> priority [
 { #category : #'api - scripting' }
 GtPhlowView >> priority: anObject [
 	priority := anObject
+]
+
+{ #category : #'api - properties' }
+GtPhlowView >> properties [
+	^ properties
+]
+
+{ #category : #'api - properties' }
+GtPhlowView >> propertyAt: aPropertyName ifAbsent: anAbsentBlock [
+	^ properties
+			at: aPropertyName
+			ifAbsent: anAbsentBlock
+]
+
+{ #category : #'api - properties' }
+GtPhlowView >> propertyAt: aPropertyName ifPresent: aPresentBlock [
+	^ properties
+			at: aPropertyName 
+			ifPresent: aPresentBlock
+]
+
+{ #category : #'api - properties' }
+GtPhlowView >> propertyAt: aPropertyName ifPresent: aPresentBlock ifAbsent: anAbsentBlock [
+	^ properties
+		at: aPropertyName
+		ifPresent: aPresentBlock
+		ifAbsent: anAbsentBlock
+]
+
+{ #category : #'api - properties' }
+GtPhlowView >> propertyAt: aKey ifPresent: aPresentBlock ifAbsentPut: anAbsentBlock [
+	^ properties
+		at: aKey
+		ifPresent: aPresentBlock
+		ifAbsentPut: anAbsentBlock
+]
+
+{ #category : #'api - properties' }
+GtPhlowView >> propertyAt: propName put: propValue [
+	^ properties 
+		at: propName
+		put: propValue
 ]
 
 { #category : #'private - updating' }
