@@ -22,3 +22,13 @@ GtPhlowTreeNodeConditionalExpander >> condition: aBlock [
 GtPhlowTreeNodeConditionalExpander >> expandTree: aBrTree [
 	aBrTree expandSuchThat: [ :aTreeNode | self condition cull: aTreeNode cull: aTreeNode value ]
 ]
+
+{ #category : #views }
+GtPhlowTreeNodeConditionalExpander >> gtViewConditionSourceFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Condition';
+		priority: 10;
+		object: [ condition ];
+		view: #gtSourceCodeFor:
+]
