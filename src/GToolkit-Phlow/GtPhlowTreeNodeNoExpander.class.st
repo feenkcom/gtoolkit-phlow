@@ -10,3 +10,8 @@ Class {
 GtPhlowTreeNodeNoExpander >> expandTree: aBrTree [
 	"Do nothing. Nodes are collapsed by default."
 ]
+
+{ #category : #testing }
+GtPhlowTreeNodeNoExpander >> isNullExpander [
+	^ true
+]

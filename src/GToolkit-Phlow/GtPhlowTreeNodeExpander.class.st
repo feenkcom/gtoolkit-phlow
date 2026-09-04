@@ -23,3 +23,8 @@ GtPhlowTreeNodeExpander class >> upTo: aLevelIndex [
 GtPhlowTreeNodeExpander >> expandTree: aBrTree [
 	self subclassResponsibility
 ]
+
+{ #category : #testing }
+GtPhlowTreeNodeExpander >> isNullExpander [
+	^ false
+]
