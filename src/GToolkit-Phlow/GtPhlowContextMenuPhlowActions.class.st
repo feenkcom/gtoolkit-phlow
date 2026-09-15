@@ -1,11 +1,11 @@
 Class {
-	#name : #GtPhlowContextMenuActions,
+	#name : #GtPhlowContextMenuPhlowActions,
 	#superclass : #GtPhlowContextMenuAction,
 	#category : #'GToolkit-Phlow-Support - Context Menu'
 }
 
 { #category : #private }
-GtPhlowContextMenuActions >> convertToMenuItem: anObject hostElement: anElement [
+GtPhlowContextMenuPhlowActions >> convertToMenuItem: anObject hostElement: anElement [
 	"Utility method to keep the object backward compatible with previous API,
 	which was returning `label -> action` associations."
 
@@ -22,12 +22,16 @@ GtPhlowContextMenuActions >> convertToMenuItem: anObject hostElement: anElement 
 ]
 
 { #category : #converting }
-GtPhlowContextMenuActions >> toActionOn: anItem index: anItemIndex element: anElement [
-	^ self action cull: anElement cull: anItem cull: anItemIndex
+GtPhlowContextMenuPhlowActions >> toActionOn: anItem index: anItemIndex element: anElement [
+	^ self action 
+			cull: GtPhlowAction noAction
+			cull: anElement 
+			cull: anItem 
+			cull: anItemIndex
 ]
 
 { #category : #converting }
-GtPhlowContextMenuActions >> toMenuItemOn: anItem index: anItemIndex element: anElement [
+GtPhlowContextMenuPhlowActions >> toMenuItemOn: anItem index: anItemIndex element: anElement [
 	<return: #Collection of: #BrMenuItem>
 	<return: #BrMenuItems>
 	| aResult |
@@ -35,6 +39,6 @@ GtPhlowContextMenuActions >> toMenuItemOn: anItem index: anItemIndex element: an
 	(aResult isKindOf: BrMenuItems) ifTrue: [ ^ aResult ].
 
 	^ aResult asCollection
-		collect: [ :eachAssoc | 
-			self convertToMenuItem: eachAssoc hostElement: anElement ]
+		collect: [ :eachAction | 
+			self convertToMenuItem: eachAction hostElement: anElement ]
 ]

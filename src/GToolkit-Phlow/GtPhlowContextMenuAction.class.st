@@ -2,19 +2,23 @@ Class {
 	#name : #GtPhlowContextMenuAction,
 	#superclass : #Object,
 	#instVars : [
-		'name',
 		'action',
 		'filter',
-		'enabled'
+		'label'
 	],
 	#category : #'GToolkit-Phlow-Support - Context Menu'
 }
 
 { #category : #'instance creation' }
-GtPhlowContextMenuAction class >> named: aString action: aBlock [
+GtPhlowContextMenuAction class >> label: aString action: aBlock [
 	^ self new
-		name: aString;
+		label: aString;
 		action: aBlock
+]
+
+{ #category : #'instance creation' }
+GtPhlowContextMenuAction class >> named: aString action: aBlock [
+	^ self label: aString action: aBlock
 ]
 
 { #category : #'instance creation' }
@@ -37,7 +41,7 @@ GtPhlowContextMenuAction >> action: aBlock [
 
 { #category : #converting }
 GtPhlowContextMenuAction >> asAssociation [
-	^ name -> action
+	^ label -> action
 ]
 
 { #category : #accessing }
@@ -86,13 +90,23 @@ GtPhlowContextMenuAction >> gtViewSourceFor: aView [
 ]
 
 { #category : #accessing }
+GtPhlowContextMenuAction >> label [
+	^ label
+]
+
+{ #category : #accessing }
+GtPhlowContextMenuAction >> label: aString [ 
+	label := aString
+]
+
+{ #category : #accessing }
 GtPhlowContextMenuAction >> name [
-	^ name
+	^ self label
 ]
 
 { #category : #accessing }
 GtPhlowContextMenuAction >> name: aString [ 
-	name := aString
+	self label: aString
 ]
 
 { #category : #converting }
@@ -101,24 +115,18 @@ GtPhlowContextMenuAction >> respondsToItem: anItem [
 ]
 
 { #category : #converting }
-GtPhlowContextMenuAction >> toActionOn: anItem [
-	self deprecated: 'use #toActionOn:element: instead'.
-	
-	^ self name -> [ :anElement | self action cull: anElement cull: anItem ]
+GtPhlowContextMenuAction >> toActionOn: anItem index: anItemIndex element: anotherElement [
+	^ self name -> [ :anElement | 
+			self action cull: anElement cull: anItem cull: anItemIndex ]
 ]
 
 { #category : #converting }
-GtPhlowContextMenuAction >> toActionOn: anItem element: anotherElement [
-	^ self name -> [ :anElement | self action cull: anElement cull: anItem ]
-]
-
-{ #category : #converting }
-GtPhlowContextMenuAction >> toMenuItemOn: anItem element: anotherElement [
+GtPhlowContextMenuAction >> toMenuItemOn: anItem index: anItemIndex  element: anotherElement [
 	"Return a menu item which will be displayed in a context menu.
 	Context menu action can return also collection of menu items."
 
 	<return: #BrMenuItem>
 	^ BrMenuActionItem new
 		label: self name;
-		action: [ :anElement | self action cull: anElement cull: anItem ]
+		action: [ :anElement | self action cull: anElement cull: anItem cull: anItemIndex ]
 ]

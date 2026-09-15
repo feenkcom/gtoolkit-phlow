@@ -63,27 +63,37 @@ GtPhlowListItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeF
 					element: anElement;
 					listKindOfClass: self listOfKindClass;
 					foundBlock: [ :aListElement :aListItemElement | 
-						| anItemHolder anItemPosition anItemObject selectedItems aPickedObject anItemType |
+						| anItemHolder anItemPosition anItemObject selectedItems pickedObject pickedObjectIndex anItemType selectedIndices |
 						anItemHolder := aListItemElement constraints infinite holder.
+						
 						anItemPosition := anItemHolder dataSourcePosition.
 						anItemObject := aListElement viewModel itemAt: anItemPosition.
+						
 						selectedItems := aListElement selectedItems 
-							ifEmpty: [ { aListElement viewModel itemAt: anItemPosition } ].
+							ifEmpty: [ { anItemObject } ].
+						selectedIndices := aListElement selectedIndices
+							ifEmpty: [ { anItemPosition } ].
+							
 						(selectedItems includes: anItemObject) ifFalse: [
-							selectedItems := { anItemObject } ].
-						aPickedObject := self isMultipleSelectionEnabled
+							selectedItems := { anItemObject }.
+							selectedIndices := { anItemPosition } ].
+							
+						pickedObject := self isMultipleSelectionEnabled
 							ifTrue: [ selectedItems ]
 							ifFalse: [ selectedItems anyOne ].
+						pickedObjectIndex := self isMultipleSelectionEnabled
+							ifTrue: [ selectedIndices ]
+							ifFalse: [ selectedIndices anyOne ].
 
 						anItemType := aListElement viewModel itemTypeStencil
-								itemPosition: anItemPosition;
-								itemObject: aPickedObject;
+								itemPosition: pickedObjectIndex;
+								itemObject: pickedObject;
 								build.
 
 						contextMenuItemsStencil
 							itemType: anItemType;
-							itemObject: aPickedObject;
-							itemPosition: anItemPosition;
+							itemObject: pickedObject;
+							itemPosition: pickedObjectIndex;
 							itemElement: anElement;
 							build ];
 					noneBlock: [ nil ];

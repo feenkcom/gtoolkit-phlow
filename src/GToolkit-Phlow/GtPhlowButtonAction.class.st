@@ -4,21 +4,26 @@ Class {
 	#instVars : [
 		'icon',
 		'label',
-		'action',
 		'name',
-		'primaryModifierAction'
+		'primaryModifierAction',
+		'actionComputation'
 	],
 	#category : #'GToolkit-Phlow-! Actions'
 }
 
 { #category : #accessing }
 GtPhlowButtonAction >> action: aValuable [
-	action := aValuable
+	actionComputation := aValuable
 ]
 
 { #category : #accessing }
 GtPhlowButtonAction >> actionBlock [
-	^ action
+	^ self actionComputation
+]
+
+{ #category : #accessing }
+GtPhlowButtonAction >> actionComputation [
+	^ actionComputation
 ]
 
 { #category : #converting }
@@ -67,10 +72,10 @@ GtPhlowButtonAction >> asMenuItem: aBlock withHostElement: aTargetElement [
 		ifAbsent: [  ].
 
 	id ifNotNil: [ aMenuItem id: self id ].
-	action
+	actionComputation
 		ifNotNil: [ aMenuItem
 				action: [ :theButton :aButtonModel :anEvent | 
-					action
+					actionComputation
 						gtValueWithArgs: {theButton.
 								aTargetElement.
 								aButtonModel.
@@ -105,6 +110,18 @@ GtPhlowButtonAction >> asMenuItem: aBlock withHostElement: aTargetElement [
 ]
 
 { #category : #converting }
+GtPhlowButtonAction >> asMenuItemWithHostElement: aTargetElement [
+	| convertedMenuItem |
+	
+	convertedMenuItem := nil.
+	self 
+		asMenuItem: [ :anItem | convertedMenuItem := anItem ] 
+		withHostElement: aTargetElement.
+		
+	^ convertedMenuItem
+]
+
+{ #category : #converting }
 GtPhlowButtonAction >> attachPrimaryModifierActionFor: aButton hostElement: aTargetElement [ 
 	| anAptitude |
 	primaryModifierAction ifNil: [ ^ self ].
@@ -123,10 +140,10 @@ GtPhlowButtonAction >> configureButton: aButton withHostElement: aTargetElement 
 	label ifNotNil: [ aButton label: label asRopedText ].
 	icon ifNotNil: [ aButton icon: icon asElement ].
 	id ifNotNil: [ aButton id: self id ].
-	action
+	actionComputation
 		ifNotNil: [ aButton
 				action: [ :theButton :aButtonModel :anEvent | 
-					action
+					actionComputation
 						gtValueWithArgs: {theButton.
 								aTargetElement.
 								aButtonModel.
@@ -151,7 +168,7 @@ GtPhlowButtonAction >> iconStencil [
 GtPhlowButtonAction >> initialize [
 	super initialize.
 
-	action := [ :aButton :aTargetElement :aButtonModel :anEvent | "do nothing" ].
+	actionComputation := [ :aButton :aTargetElement :aButtonModel :anEvent | "do nothing" ].
 	primaryModifierAction := nil
 ]
 
@@ -163,17 +180,6 @@ GtPhlowButtonAction >> label [
 { #category : #accessing }
 GtPhlowButtonAction >> label: aString [
 	label := aString
-]
-
-{ #category : #accessing }
-GtPhlowButtonAction >> name: aSymbol [
-	self
-		deprecated: 'Please use id: instead.'
-		transformWith:
-			'`@receiver name: `@statements1'
-				-> '`@receiver id: `@statements1'.
-				
-	self id: aSymbol
 ]
 
 { #category : #'instance creation' }
@@ -197,7 +203,7 @@ GtPhlowButtonAction >> newButtonLook [
 
 { #category : #'api - action' }
 GtPhlowButtonAction >> performActionOn: anActionElement [
-	action cull: anActionElement
+	actionComputation cull: anActionElement
 ]
 
 { #category : #accessing }
