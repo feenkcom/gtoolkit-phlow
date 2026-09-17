@@ -7,6 +7,25 @@ Trait {
 }
 
 { #category : #accessing }
+TGtPhlowWithContextMenu >> collectIndividualContextMenuActionsForElement: anElement item: anObject index: anIndex [
+	| allInitialPhlowActions |
+	
+	allInitialPhlowActions := OrderedCollection new.
+	self contextMenuActions
+			"select: [ :anAction | anAction respondsToItem: item ]"
+			do: [ :anAction | 
+				anAction 
+					collectInvidualActionsOn: allInitialPhlowActions
+					forElement: anElement 
+					item: anObject
+					index: anIndex ].
+				
+	^ allInitialPhlowActions collect: [ :anAction |
+			anAction 
+				asItemBoundActionToItem: anObject index: anIndex ]
+]
+
+{ #category : #accessing }
 TGtPhlowWithContextMenu >> contextItemLabel: aString action: aBlock [
 	self contextMenuActions
 		add: (GtPhlowContextMenuAction named: aString action: aBlock)
@@ -36,7 +55,8 @@ TGtPhlowWithContextMenu >> contextMenuItemsStencilFromActions [
 			select: [ :anAction | anAction respondsToItem: item ]
 			thenCollect: [ :anAction | 
 				| aResult | 
-				aResult := anAction toMenuItemOn: item index: itemIndex element: element.
+				aResult := anAction 
+					toMenuItemOn: item index: itemIndex element: element.
 				(aResult isKindOf: BrMenuItems) 
 					ifTrue: [ aResult items ] 
 					ifFalse: [ aResult ] ])
@@ -58,15 +78,15 @@ TGtPhlowWithContextMenu >> contextMenuStencilFromActions [
 { #category : #accessing }
 TGtPhlowWithContextMenu >> dynamicContextItems: aBlock [
 	self contextMenuActions
-		add: (GtPhlowContextMenuActions named: 'Dynamic menu items' action: aBlock)
+		add: (GtPhlowContextMenuDynamicActions 
+			label: 'Dynamic menu items' actions: aBlock)
 ]
 
 { #category : #accessing }
 TGtPhlowWithContextMenu >> dynamicPhlowContextItems: aBlock [
 	self contextMenuActions
-		add: (GtPhlowContextMenuPhlowActions new
-			label: 'Dynamic phlow menu items';
-			action: aBlock )
+		add: (GtPhlowContextMenuDynamicPhlowActions 
+			label: 'Dynamic phlow menu items' actions: aBlock )
 ]
 
 { #category : #accessing }

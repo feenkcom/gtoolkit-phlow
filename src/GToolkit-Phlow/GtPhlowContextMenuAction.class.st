@@ -1,10 +1,14 @@
 Class {
 	#name : #GtPhlowContextMenuAction,
-	#superclass : #Object,
+	#superclass : #GtPhlowContextMenuBasicAction,
 	#instVars : [
-		'action',
-		'filter',
-		'label'
+		'label',
+		'actionComputation',
+		'iconStencil',
+		'tooltipText',
+		'enableCondition',
+		'id',
+		'showCondition'
 	],
 	#category : #'GToolkit-Phlow-Support - Context Menu'
 }
@@ -31,29 +35,36 @@ GtPhlowContextMenuAction class >> named: aString action: aBlock if: aFilterBlock
 
 { #category : #accessing }
 GtPhlowContextMenuAction >> action [
-	^ action
+	^ self actionComputation
+]
+
+{ #category : #'api - scripting' }
+GtPhlowContextMenuAction >> action: aBlock [ 
+	actionComputation := aBlock
 ]
 
 { #category : #accessing }
-GtPhlowContextMenuAction >> action: aBlock [ 
-	action := aBlock
+GtPhlowContextMenuAction >> actionComputation [
+	^ actionComputation
 ]
 
 { #category : #converting }
-GtPhlowContextMenuAction >> asAssociation [
-	^ label -> action
+GtPhlowContextMenuAction >> asItemBoundActionToItem: anItem index: anIndex [
+	^ GtPhlowContextMenuItemBoundAction new
+		targetAction: self;
+		item: anItem;
+		index: anIndex
 ]
 
 { #category : #accessing }
-GtPhlowContextMenuAction >> filter [
-
-	^ filter
+GtPhlowContextMenuAction >> collectInvidualActionsOn: aCollection forElement: anElement item: anObject index: anIndex [
+	"At this point we collect the actions; for single actions it does not need anything else"
+	aCollection add: self
 ]
 
-{ #category : #accessing }
-GtPhlowContextMenuAction >> filter: anObject [
-
-	filter := anObject
+{ #category : #'api - scripting' }
+GtPhlowContextMenuAction >> enableIf: aBlock [ 
+	enableCondition := aBlock
 ]
 
 { #category : #accessing }
@@ -77,16 +88,32 @@ GtPhlowContextMenuAction >> gtViewFilterFor: aView [
 { #category : #accessing }
 GtPhlowContextMenuAction >> gtViewSourceFor: aView [
 	<gtView>
-	(self action isKindOf: Symbol)
-		ifTrue: [ ^ aView textEditor
-				title: 'Action';
-				priority: 1;
-				text: [ self action ] ].
+
 	^ aView forward
 		title: 'Source Code';
 		priority: 1;
 		object: [ self action ];
 		view: #gtSourceCodeFor:
+]
+
+{ #category : #'api - scripting' }
+GtPhlowContextMenuAction >> icon: anIconOrStencil [
+	iconStencil := anIconOrStencil
+]
+
+{ #category : #accessing }
+GtPhlowContextMenuAction >> iconStencil [
+	^ iconStencil
+]
+
+{ #category : #'api - scripting' }
+GtPhlowContextMenuAction >> id [
+	^ id
+]
+
+{ #category : #accessing }
+GtPhlowContextMenuAction >> id: anId [
+	id := anId
 ]
 
 { #category : #accessing }
@@ -109,15 +136,16 @@ GtPhlowContextMenuAction >> name: aString [
 	self label: aString
 ]
 
-{ #category : #converting }
-GtPhlowContextMenuAction >> respondsToItem: anItem [
-	^ self filter ifNil: [ true ] ifNotNil: [ :aFilter | aFilter value: anItem ]
+{ #category : #printing }
+GtPhlowContextMenuAction >> printOn: aStream [
+	super printOn: aStream.
+	aStream parenthesize: [
+		aStream nextPutAll: (self label ifNil: [ '' ]) ]
 ]
 
-{ #category : #converting }
-GtPhlowContextMenuAction >> toActionOn: anItem index: anItemIndex element: anotherElement [
-	^ self name -> [ :anElement | 
-			self action cull: anElement cull: anItem cull: anItemIndex ]
+{ #category : #'api - scripting' }
+GtPhlowContextMenuAction >> showIf: aBlock [ 
+	showCondition := aBlock
 ]
 
 { #category : #converting }
@@ -126,7 +154,24 @@ GtPhlowContextMenuAction >> toMenuItemOn: anItem index: anItemIndex  element: an
 	Context menu action can return also collection of menu items."
 
 	<return: #BrMenuItem>
-	^ BrMenuActionItem new
+	^ (self asItemBoundActionToItem: anItem index: anItemIndex) asMenuItem
+		
+	"^ BrMenuActionItem new
 		label: self name;
-		action: [ :anElement | self action cull: anElement cull: anItem cull: anItemIndex ]
+		action: [ :anElement | self action cull: anElement cull: anItem cull: anItemIndex ]"
+]
+
+{ #category : #'api - scripting' }
+GtPhlowContextMenuAction >> tooltip: aTextOrString [
+	self tooltipText: aTextOrString
+]
+
+{ #category : #accessing }
+GtPhlowContextMenuAction >> tooltipText [
+	^ tooltipText
+]
+
+{ #category : #accessing }
+GtPhlowContextMenuAction >> tooltipText: aTextOrString [
+	tooltipText := aTextOrString
 ]

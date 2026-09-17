@@ -372,10 +372,10 @@ GtPhlowTreeViewExamples >> treeViewWithItemsChildrenAndContextMenu [
 	aView contextItemLabel: 'Action' action: [ :anElement :anObject | anObject inspect ].
 	self assert: aView contextMenuActions size equals: 1.
 	self
-		assert: aView contextMenuActions first asAssociation key
+		assert: aView contextMenuActions first label
 		equals: 'Action'.
 	self
-		assert: aView contextMenuActions first asAssociation value notNil.
+		assert: aView contextMenuActions first actionComputation notNil.
 	^ aView 
 ]
 

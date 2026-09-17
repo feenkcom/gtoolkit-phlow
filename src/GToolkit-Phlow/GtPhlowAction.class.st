@@ -144,6 +144,18 @@ GtPhlowAction >> button [
 		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
+{ #category : #decorating }
+GtPhlowAction >> contextMenuAction [
+	^ GtPhlowContextMenuAction new
+		"definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect"
+]
+
+{ #category : #decorating }
+GtPhlowAction >> contextMenuBoundAction [
+	^ GtPhlowContextMenuItemBoundAction new
+		"definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect"
+]
+
 { #category : #initialization }
 GtPhlowAction >> defaultPriority [
 	^ self class defaultPriority
