@@ -48,16 +48,16 @@ GtPhlowContextMenuDynamicActions >> label: aString [
 ]
 
 { #category : #converting }
-GtPhlowContextMenuDynamicActions >> toActionOn: anItem index: anItemIndex element: anElement [
-	^ self actionsComputation cull: anElement cull: anItem cull: anItemIndex
+GtPhlowContextMenuDynamicActions >> toActionOn: anItem index: anIndexSelection element: anElement [
+	^ self actionsComputation cull: anElement cull: anItem cull: anIndexSelection
 ]
 
 { #category : #converting }
-GtPhlowContextMenuDynamicActions >> toMenuItemOn: anItem index: anItemIndex element: anElement [
+GtPhlowContextMenuDynamicActions >> toMenuItemOn: anItem index: anIndexSelection element: anElement [
 	<return: #Collection of: #BrMenuItem>
 	<return: #BrMenuItems>
 	| aResult |
-	aResult := self toActionOn: anItem index: anItemIndex element: anElement.
+	aResult := self toActionOn: anItem index: anIndexSelection element: anElement.
 	(aResult isKindOf: BrMenuItems) ifTrue: [ ^ aResult ].
 
 	^ aResult collect: [ :eachAssoc | 

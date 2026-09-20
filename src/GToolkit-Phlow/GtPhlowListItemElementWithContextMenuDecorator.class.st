@@ -79,11 +79,13 @@ GtPhlowListItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeF
 							selectedIndices := { anItemPosition } ].
 							
 						pickedObject := self isMultipleSelectionEnabled
-							ifTrue: [ selectedItems ]
+							ifTrue: [ selectedItems size = 1 
+								ifTrue: [ selectedItems anyOne ] 
+								ifFalse: [ selectedItems ] ]
 							ifFalse: [ selectedItems anyOne ].
-						pickedObjectIndex := self isMultipleSelectionEnabled
+						pickedObjectIndex := selectedIndices "self isMultipleSelectionEnabled
 							ifTrue: [ selectedIndices ]
-							ifFalse: [ selectedIndices anyOne ].
+							ifFalse: [ selectedIndices anyOne ]".
 
 						anItemType := aListElement viewModel itemTypeStencil
 								itemPosition: pickedObjectIndex;
