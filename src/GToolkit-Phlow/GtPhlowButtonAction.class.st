@@ -110,18 +110,6 @@ GtPhlowButtonAction >> asMenuItem: aBlock withHostElement: aTargetElement [
 ]
 
 { #category : #converting }
-GtPhlowButtonAction >> asMenuItemWithHostElement: aTargetElement [
-	| convertedMenuItem |
-	
-	convertedMenuItem := nil.
-	self 
-		asMenuItem: [ :anItem | convertedMenuItem := anItem ] 
-		withHostElement: aTargetElement.
-		
-	^ convertedMenuItem
-]
-
-{ #category : #converting }
 GtPhlowButtonAction >> attachPrimaryModifierActionFor: aButton hostElement: aTargetElement [ 
 	| anAptitude |
 	primaryModifierAction ifNil: [ ^ self ].
@@ -216,4 +204,16 @@ GtPhlowButtonAction >> primaryModifierAction: aValuable mouseCursor: aBlCursorOr
 	primaryModifierAction := GtPhlowActionAct new
 			action: aValuable;
 			mouseCursor: aBlCursorOrNil
+]
+
+{ #category : #converting }
+GtPhlowButtonAction >> toMenuItemOn: anObject index: anObjectIndex  element: aTargetElement [
+	| convertedMenuItem |
+	
+	convertedMenuItem := nil.
+	self 
+		asMenuItem: [ :anItem | convertedMenuItem := anItem ] 
+		withHostElement: aTargetElement.
+		
+	^ convertedMenuItem
 ]

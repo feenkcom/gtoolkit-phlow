@@ -61,5 +61,9 @@ GtPhlowContextMenuDynamicActions >> toMenuItemOn: anItem index: anIndexSelection
 	(aResult isKindOf: BrMenuItems) ifTrue: [ ^ aResult ].
 
 	^ aResult collect: [ :eachAssoc | 
-			self convertToMenuItem: eachAssoc hostElement: anElement ]
+			self 
+				convertToMenuItem: eachAssoc 
+				hostElement: anElement
+				item: anItem 
+				index: anIndexSelection ]
 ]

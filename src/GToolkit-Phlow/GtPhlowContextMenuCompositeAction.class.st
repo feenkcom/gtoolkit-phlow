@@ -13,7 +13,7 @@ GtPhlowContextMenuCompositeAction class >> isAbstract [
 ]
 
 { #category : #private }
-GtPhlowContextMenuCompositeAction >> convertToMenuItem: anObject hostElement: anElement [
+GtPhlowContextMenuCompositeAction >> convertToMenuItem: anObject hostElement: anElement item: anItem index: anItemIndex [
 	"Utility method to keep the object backward compatible with previous API,
 	which was returning `label -> action` associations."
 
@@ -26,7 +26,7 @@ GtPhlowContextMenuCompositeAction >> convertToMenuItem: anObject hostElement: an
 	(anObject isKindOf: BrMenuItem) ifTrue: [
 		^ anObject ].
 	
-	^ anObject asMenuItemWithHostElement: anElement
+	^ anObject toMenuItemOn: anItem index: anItemIndex  element: anElement
 ]
 
 { #category : #'api - scripting' }

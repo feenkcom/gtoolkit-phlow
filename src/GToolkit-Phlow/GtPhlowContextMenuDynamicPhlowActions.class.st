@@ -63,5 +63,9 @@ GtPhlowContextMenuDynamicPhlowActions >> toMenuItemOn: anItem index: anItemIndex
 
 	^ aResult asCollection
 		collect: [ :eachAction | 
-			self convertToMenuItem: eachAction hostElement: anElement ]
+			self 
+				convertToMenuItem: eachAction 
+				hostElement: anElement
+				item: anItem 
+				index: anItemIndex ]
 ]
