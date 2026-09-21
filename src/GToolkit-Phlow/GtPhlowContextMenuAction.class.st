@@ -7,8 +7,7 @@ Class {
 		'iconStencil',
 		'tooltipText',
 		'enableCondition',
-		'id',
-		'showCondition'
+		'id'
 	],
 	#category : #'GToolkit-Phlow-Support - Context Menu'
 }
@@ -18,6 +17,31 @@ GtPhlowContextMenuAction class >> label: aString action: aBlock [
 	^ self new
 		label: aString;
 		action: aBlock
+]
+
+{ #category : #'instance creation' }
+GtPhlowContextMenuAction class >> label: aString action: aBlock enable: anEnablelock [
+	^ self new 
+		label: aString;
+		action: aBlock;
+		enableIf: anEnablelock
+]
+
+{ #category : #'instance creation' }
+GtPhlowContextMenuAction class >> label: aString action: aBlock show: aShowBlock [
+	^ self new 
+		label: aString;
+		action: aBlock;
+		showIf: aShowBlock
+]
+
+{ #category : #'instance creation' }
+GtPhlowContextMenuAction class >> label: aString action: aBlock show: aShowBlock enable: anEnablelock [
+	^ self new 
+		label: aString;
+		action: aBlock;
+		showIf: aShowBlock;
+		enableIf: anEnablelock
 ]
 
 { #category : #'instance creation' }
@@ -143,9 +167,10 @@ GtPhlowContextMenuAction >> printOn: aStream [
 		aStream nextPutAll: (self label ifNil: [ '' ]) ]
 ]
 
-{ #category : #'api - scripting' }
-GtPhlowContextMenuAction >> showIf: aBlock [ 
-	showCondition := aBlock
+{ #category : #accessing }
+GtPhlowContextMenuAction >> toActionOn: anItem element: anotherElement [
+	"For compatibility with older code; to be removed"
+	^ self name -> [ :anElement | self action cull: anElement cull: anItem ]
 ]
 
 { #category : #converting }

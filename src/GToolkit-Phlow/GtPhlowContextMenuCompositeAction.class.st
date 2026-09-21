@@ -1,9 +1,6 @@
 Class {
 	#name : #GtPhlowContextMenuCompositeAction,
 	#superclass : #GtPhlowContextMenuBasicAction,
-	#instVars : [
-		'showCondition'
-	],
 	#category : #'GToolkit-Phlow-Support - Context Menu'
 }
 
@@ -27,9 +24,4 @@ GtPhlowContextMenuCompositeAction >> convertToMenuItem: anObject hostElement: an
 		^ anObject ].
 	
 	^ anObject toMenuItemOn: anItem index: anItemIndex  element: anElement
-]
-
-{ #category : #'api - scripting' }
-GtPhlowContextMenuCompositeAction >> showIf: aBlock [ 
-	showCondition := aBlock
 ]

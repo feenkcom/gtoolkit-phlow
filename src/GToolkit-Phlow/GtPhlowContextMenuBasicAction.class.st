@@ -2,7 +2,8 @@ Class {
 	#name : #GtPhlowContextMenuBasicAction,
 	#superclass : #Object,
 	#instVars : [
-		'filter'
+		'filter',
+		'showCondition'
 	],
 	#category : #'GToolkit-Phlow-Support - Context Menu'
 }
@@ -31,7 +32,30 @@ GtPhlowContextMenuBasicAction >> filter: anObject [
 
 { #category : #converting }
 GtPhlowContextMenuBasicAction >> respondsToItem: anItem [
+	"Kept for backward compatibility. To be removed"
 	^ self filter ifNil: [ true ] ifNotNil: [ :aFilter | aFilter value: anItem ]
+]
+
+{ #category : #converting }
+GtPhlowContextMenuBasicAction >> shouldShowContextActionOn: anItem index: aSelectionIndex [ 
+	self filter ifNotNil: [ 
+		"For backwards compatibility"
+		^ self respondsToItem: anItem ].
+		
+	^ self showCondition 
+		ifNil: [ true ] 
+		ifNotNil: [ :aShowConditon |
+			aShowConditon cull: anItem cull: aSelectionIndex ]
+]
+
+{ #category : #accessing }
+GtPhlowContextMenuBasicAction >> showCondition [
+	^ showCondition
+]
+
+{ #category : #'api - scripting' }
+GtPhlowContextMenuBasicAction >> showIf: aBlock [ 
+	showCondition := aBlock
 ]
 
 { #category : #converting }

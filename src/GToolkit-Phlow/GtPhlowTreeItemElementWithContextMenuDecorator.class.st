@@ -47,6 +47,7 @@ GtPhlowTreeItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeF
 					listKindOfClass: self listOfKindClass;
 					foundBlock: [ :aListElement :aListItemElement | 
 						| anItemHolder anItemPosition anItemObject selectedItems selectedIndices pickedObject pickedObjectIndex anItemType |
+						
 						anItemHolder := aListItemElement constraints infinite holder.
 						anItemPosition := anItemHolder dataSourcePosition.
 						anItemObject := (aListElement viewModel itemAt: anItemPosition) value.

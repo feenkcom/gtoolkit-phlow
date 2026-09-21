@@ -27,14 +27,16 @@ GtPhlowContextMenuDynamicActions >> actionsComputation [
 
 { #category : #converting }
 GtPhlowContextMenuDynamicActions >> collectInvidualActionsOn: aCollection forElement: anElement item: anObject index: anIndex [
-	| result |
-	result := self toActionOn: anObject index: anIndex element: anElement.
-	(result isKindOf: BrMenuItems) ifTrue: [ ^ self ].
+	| collectedActions |
+	collectedActions := self toActionOn: anObject index: anIndex element: anElement.
+	(collectedActions isKindOf: BrMenuItems) ifTrue: [ ^ self ].
 	
-	result do: [ :anAction | 
+	collectedActions do: [ :anAction | 
 		((anObject isKindOf: Association) or: [
 			(anObject isKindOf: BrMenuItem) ])
-				ifFalse: [ aCollection add: anAction ] ] 
+				ifFalse: [ 
+					(anAction shouldShowContextActionOn: anObject index: anIndex) ifTrue: [
+						aCollection add: anAction ] ] ] 
 ]
 
 { #category : #accessing }

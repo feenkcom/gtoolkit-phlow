@@ -7,34 +7,44 @@ Trait {
 }
 
 { #category : #accessing }
-TGtPhlowWithContextMenu >> collectIndividualContextMenuActionsForElement: anElement item: anObject index: anIndex [
+TGtPhlowWithContextMenu >> collectIndividualContextMenuActionsForElement: anElement item: anObject index: aSelectionIndex [
 	| allInitialPhlowActions |
 	
 	allInitialPhlowActions := OrderedCollection new.
-	self contextMenuActions
-			"select: [ :anAction | anAction respondsToItem: item ]"
+	(self contextMenuActions
+			select: [ :anAction | 
+				anAction shouldShowContextActionOn: anObject index: aSelectionIndex ])
 			do: [ :anAction | 
 				anAction 
 					collectInvidualActionsOn: allInitialPhlowActions
 					forElement: anElement 
 					item: anObject
-					index: anIndex ].
+					index: aSelectionIndex ].
 				
 	^ allInitialPhlowActions collect: [ :anAction |
 			anAction 
-				asItemBoundActionToItem: anObject index: anIndex ]
+				asItemBoundActionToItem: anObject index: aSelectionIndex ]
 ]
 
 { #category : #accessing }
 TGtPhlowWithContextMenu >> contextItemLabel: aString action: aBlock [
 	self contextMenuActions
-		add: (GtPhlowContextMenuAction named: aString action: aBlock)
+		add: (GtPhlowContextMenuAction label: aString action: aBlock)
 ]
 
 { #category : #accessing }
 TGtPhlowWithContextMenu >> contextItemLabel: aString action: aBlock if: aFilterBlock [
 	self contextMenuActions
 		add: (GtPhlowContextMenuAction named: aString action: aBlock if: aFilterBlock)
+]
+
+{ #category : #accessing }
+TGtPhlowWithContextMenu >> contextItemLabel: aString action: aBlock showIf: aShowBlock [
+	self contextMenuActions
+		add: (GtPhlowContextMenuAction 
+			label: aString 
+			action: aBlock 
+			show: aShowBlock)
 ]
 
 { #category : #accessing }
@@ -52,7 +62,8 @@ TGtPhlowWithContextMenu >> contextMenuItemsStencilFromActions [
 	^ [ :element :item :itemIndex | 
 	| allItems |
 	allItems := (self contextMenuActions
-			select: [ :anAction | anAction respondsToItem: item ]
+			select: [ :anAction | 
+				anAction shouldShowContextActionOn: item index: itemIndex  ]
 			thenCollect: [ :anAction | 
 				| aResult | 
 				aResult := anAction 
@@ -69,7 +80,8 @@ TGtPhlowWithContextMenu >> contextMenuStencilFromActions [
 	^ [ :element :item :itemIndex | 
 	BrGlamorousSimpleContextMenuContent new
 		items: (self contextMenuActions
-				select: [ :anAction | anAction respondsToItem: item ]
+				select: [ :anAction | 
+					anAction shouldShowContextActionOn: item index: itemIndex ]
 				thenCollect: [ :anAction | 
 					anAction toActionOn: item index: itemIndex element: element ])
 				flattened ]

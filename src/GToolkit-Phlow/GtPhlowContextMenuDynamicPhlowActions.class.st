@@ -26,12 +26,11 @@ GtPhlowContextMenuDynamicPhlowActions >> actionsComputation [
 ]
 
 { #category : #converting }
-GtPhlowContextMenuDynamicPhlowActions >> collectInvidualActionsOn: aCollection forElement: anElement item: anObject index: anIndex [
-	aCollection addAll: (self actionsComputation 
-		cull: GtRemotePhlowAction noAction
-		cull: anElement 
-		cull: anObject 
-		cull: anIndex )
+GtPhlowContextMenuDynamicPhlowActions >> collectInvidualActionsOn: aCollection forElement: anElement item: anObject index: aSelectionIndex [
+	| collectedActions |
+	collectedActions := self toActionOn: anObject index: aSelectionIndex element: anElement.
+	aCollection addAll: (collectedActions select: [ :anAction | 
+			anAction shouldShowContextActionOn: anObject index: aSelectionIndex ])
 ]
 
 { #category : #accessing }
