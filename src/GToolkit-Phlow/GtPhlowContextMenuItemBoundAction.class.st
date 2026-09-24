@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'targetAction',
 		'item',
-		'index'
+		'viewSelection'
 	],
 	#category : #'GToolkit-Phlow-Support - Context Menu'
 }
@@ -27,17 +27,7 @@ GtPhlowContextMenuItemBoundAction >> asGtDeclarativeAction [
 { #category : #actions }
 GtPhlowContextMenuItemBoundAction >> executeActionFrom: anElement [
 	^ self actionComputation
-			cull: anElement cull: item cull: index
-]
-
-{ #category : #accessing }
-GtPhlowContextMenuItemBoundAction >> index [
-	^ index
-]
-
-{ #category : #accessing }
-GtPhlowContextMenuItemBoundAction >> index: anObject [
-	index := anObject
+			cull: anElement cull: item cull: viewSelection
 ]
 
 { #category : #accessing }
@@ -63,4 +53,14 @@ GtPhlowContextMenuItemBoundAction >> targetAction [
 { #category : #accessing }
 GtPhlowContextMenuItemBoundAction >> targetAction: anObject [
 	targetAction := anObject
+]
+
+{ #category : #accessing }
+GtPhlowContextMenuItemBoundAction >> viewSelection [
+	^ viewSelection
+]
+
+{ #category : #accessing }
+GtPhlowContextMenuItemBoundAction >> viewSelection: anObject [
+	viewSelection := anObject
 ]

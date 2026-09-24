@@ -38,7 +38,7 @@ GtPhlowTreeItemElementWithContextMenuDecorator >> buildContextMenuAptitudeFor: a
 	anElement addAptitude: aContextMenuAptitude
 ]
 
-{ #category : #private }
+{ #category : #building }
 GtPhlowTreeItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeFor: anElement [
 	| aMenuAptitude |
 	aMenuAptitude := BrGlamorousWithExplicitContextMenuAptitude menu: [ 
@@ -46,11 +46,12 @@ GtPhlowTreeItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeF
 					element: anElement;
 					listKindOfClass: self listOfKindClass;
 					foundBlock: [ :aListElement :aListItemElement | 
-						| anItemHolder anItemPosition anItemObject selectedItems selectedIndices pickedObject pickedObjectIndex anItemType |
+						| anItemHolder anItemPosition anItemObject selectedItems selectedIndices pickedObject phlowSelection anItemType anTreeNode selectionItems |
 						
 						anItemHolder := aListItemElement constraints infinite holder.
 						anItemPosition := anItemHolder dataSourcePosition.
-						anItemObject := (aListElement viewModel itemAt: anItemPosition) value.
+						anTreeNode := aListElement viewModel itemAt: anItemPosition.
+						anItemObject := anTreeNode value.
 						
 						selectedItems := aListElement selectedItems 
 							ifEmpty: [ { anItemObject } ].
@@ -62,13 +63,16 @@ GtPhlowTreeItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeF
 							selectedIndices := { anItemPosition } ].
 							
 						pickedObject := self isMultipleSelectionEnabled
-							ifTrue: [ selectedItems size = 1 
-								ifTrue: [ selectedItems anyOne ] 
-								ifFalse: [ selectedItems ] ]
+							ifTrue: [ selectedItems ]
 							ifFalse: [ selectedItems anyOne ].
-						pickedObjectIndex := selectedIndices "self isMultipleSelectionEnabled
-							ifTrue: [ selectedIndices ]
-							ifFalse: [ selectedIndices anyOne ]".
+						
+						selectionItems := selectedIndices collect: [ :idx |
+							(aListElement viewModel itemAt: idx) asPhlowSelectionItem ].
+						phlowSelection := self isMultipleSelectionEnabled
+							ifTrue: [ GtPhlowListingViewMultipleSelection new 
+								selectionItems: selectionItems ]
+							ifFalse: [ GtPhlowListingViewSingleSelection new 
+								selectionItem: selectionItems anyOne ].
 
 						anItemType := aListElement viewModel nodeTypeStencil
 							itemPosition: anItemPosition;
@@ -78,7 +82,7 @@ GtPhlowTreeItemElementWithContextMenuDecorator >> buildContextMenuItemsAptitudeF
 						contextMenuItemsStencil
 							itemType: anItemType;
 							itemObject: pickedObject;
-							itemPosition: pickedObjectIndex;
+							itemPosition: phlowSelection;
 							itemElement: anElement;
 							build ];
 					noneBlock: [ nil ];

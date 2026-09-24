@@ -7,13 +7,13 @@ Trait {
 }
 
 { #category : #accessing }
-TGtPhlowWithContextMenu >> collectIndividualContextMenuActionsForElement: anElement item: anObject index: aSelectionIndex [
+TGtPhlowWithContextMenu >> collectIndividualContextMenuActionsForElement: anElement item: anObject viewSelection: aSelectionIndex [
 	| allInitialPhlowActions |
 	
 	allInitialPhlowActions := OrderedCollection new.
 	(self contextMenuActions
 			select: [ :anAction | 
-				anAction shouldShowContextActionOn: anObject index: aSelectionIndex ])
+				anAction shouldShowContextActionOn: anObject viewSelection: aSelectionIndex ])
 			do: [ :anAction | 
 				anAction 
 					collectInvidualActionsOn: allInitialPhlowActions
@@ -23,7 +23,7 @@ TGtPhlowWithContextMenu >> collectIndividualContextMenuActionsForElement: anElem
 				
 	^ allInitialPhlowActions collect: [ :anAction |
 			anAction 
-				asItemBoundActionToItem: anObject index: aSelectionIndex ]
+				asItemBoundActionToItem: anObject viewSelection: aSelectionIndex ]
 ]
 
 { #category : #accessing }
@@ -63,7 +63,7 @@ TGtPhlowWithContextMenu >> contextMenuItemsStencilFromActions [
 	| allItems |
 	allItems := (self contextMenuActions
 			select: [ :anAction | 
-				anAction shouldShowContextActionOn: item index: itemIndex  ]
+				anAction shouldShowContextActionOn: item viewSelection: itemIndex  ]
 			thenCollect: [ :anAction | 
 				| aResult | 
 				aResult := anAction 
@@ -81,7 +81,7 @@ TGtPhlowWithContextMenu >> contextMenuStencilFromActions [
 	BrGlamorousSimpleContextMenuContent new
 		items: (self contextMenuActions
 				select: [ :anAction | 
-					anAction shouldShowContextActionOn: item index: itemIndex ]
+					anAction shouldShowContextActionOn: item viewSelection: itemIndex ]
 				thenCollect: [ :anAction | 
 					anAction toActionOn: item index: itemIndex element: element ])
 				flattened ]

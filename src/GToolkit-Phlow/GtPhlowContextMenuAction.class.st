@@ -73,11 +73,11 @@ GtPhlowContextMenuAction >> actionComputation [
 ]
 
 { #category : #converting }
-GtPhlowContextMenuAction >> asItemBoundActionToItem: anItem index: anIndex [
+GtPhlowContextMenuAction >> asItemBoundActionToItem: anItem viewSelection: aViewSelection [
 	^ GtPhlowContextMenuItemBoundAction new
 		targetAction: self;
 		item: anItem;
-		index: anIndex
+		viewSelection: aViewSelection
 ]
 
 { #category : #accessing }
@@ -179,7 +179,7 @@ GtPhlowContextMenuAction >> toMenuItemOn: anItem index: anItemIndex  element: an
 	Context menu action can return also collection of menu items."
 
 	<return: #BrMenuItem>
-	^ (self asItemBoundActionToItem: anItem index: anItemIndex) asMenuItem
+	^ (self asItemBoundActionToItem: anItem viewSelection: anItemIndex) asMenuItem
 		
 	"^ BrMenuActionItem new
 		label: self name;

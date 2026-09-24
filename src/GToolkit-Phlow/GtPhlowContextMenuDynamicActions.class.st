@@ -35,7 +35,7 @@ GtPhlowContextMenuDynamicActions >> collectInvidualActionsOn: aCollection forEle
 		((anObject isKindOf: Association) or: [
 			(anObject isKindOf: BrMenuItem) ])
 				ifFalse: [ 
-					(anAction shouldShowContextActionOn: anObject index: anIndex) ifTrue: [
+					(anAction shouldShowContextActionOn: anObject viewSelection: anIndex) ifTrue: [
 						aCollection add: anAction ] ] ] 
 ]
 

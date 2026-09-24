@@ -30,7 +30,7 @@ GtPhlowContextMenuDynamicPhlowActions >> collectInvidualActionsOn: aCollection f
 	| collectedActions |
 	collectedActions := self toActionOn: anObject index: aSelectionIndex element: anElement.
 	aCollection addAll: (collectedActions select: [ :anAction | 
-			anAction shouldShowContextActionOn: anObject index: aSelectionIndex ])
+			anAction shouldShowContextActionOn: anObject viewSelection: aSelectionIndex ])
 ]
 
 { #category : #accessing }

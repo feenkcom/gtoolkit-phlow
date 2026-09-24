@@ -36,8 +36,8 @@ GtPhlowContextMenuBasicAction >> respondsToItem: anItem [
 	^ self filter ifNil: [ true ] ifNotNil: [ :aFilter | aFilter value: anItem ]
 ]
 
-{ #category : #converting }
-GtPhlowContextMenuBasicAction >> shouldShowContextActionOn: anItem index: aSelectionIndex [ 
+{ #category : #testing }
+GtPhlowContextMenuBasicAction >> shouldShowContextActionOn: anItem viewSelection: aSelectionIndex [ 
 	self filter ifNotNil: [ 
 		"For backwards compatibility"
 		^ self respondsToItem: anItem ].
