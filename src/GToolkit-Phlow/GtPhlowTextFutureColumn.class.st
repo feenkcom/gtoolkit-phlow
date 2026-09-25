@@ -65,6 +65,7 @@ GtPhlowTextFutureColumn >> bindToCellElement: aCellElement cellObject: aCellObje
 			createContextCellElement: aCellElement
 			rowItem: aCellObject
 			rowIndex: aRowIndex.
+	aContext cacheValue: aCacheValue.
 
 	anAsyncFuture := [ | aResult |
 		aResult := futureComputation
@@ -75,7 +76,6 @@ GtPhlowTextFutureColumn >> bindToCellElement: aCellElement cellObject: aCellObje
 						withEnoughArguments: {aRowIndex.
 								aContext} ].
 		aContext result: aResult.
-		aCacheValue futureResult: aContext.
 		aContext ] asAsyncFuture.
 
 	aCellElement asyncFuture future: anAsyncFuture asAsyncFuture
