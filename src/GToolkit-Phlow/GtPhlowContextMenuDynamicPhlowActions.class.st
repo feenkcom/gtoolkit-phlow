@@ -25,14 +25,6 @@ GtPhlowContextMenuDynamicPhlowActions >> actionsComputation [
 	^ actionsComputation
 ]
 
-{ #category : #converting }
-GtPhlowContextMenuDynamicPhlowActions >> collectInvidualActionsOn: aCollection forElement: anElement item: anObject index: aSelectionIndex [
-	| collectedActions |
-	collectedActions := self toActionOn: anObject index: aSelectionIndex element: anElement.
-	aCollection addAll: (collectedActions select: [ :anAction | 
-			anAction shouldShowContextActionOn: anObject viewSelection: aSelectionIndex ])
-]
-
 { #category : #accessing }
 GtPhlowContextMenuDynamicPhlowActions >> label [
 	^ label
@@ -50,21 +42,4 @@ GtPhlowContextMenuDynamicPhlowActions >> toActionOn: anItem index: anItemIndex e
 			cull: anElement 
 			cull: anItem 
 			cull: anItemIndex
-]
-
-{ #category : #converting }
-GtPhlowContextMenuDynamicPhlowActions >> toMenuItemOn: anItem index: anItemIndex element: anElement [
-	<return: #Collection of: #BrMenuItem>
-	<return: #BrMenuItems>
-	| aResult |
-	aResult := self toActionOn: anItem index: anItemIndex element: anElement.
-	(aResult isKindOf: BrMenuItems) ifTrue: [ ^ aResult ].
-
-	^ aResult asCollection
-		collect: [ :eachAction | 
-			self 
-				convertToMenuItem: eachAction 
-				hostElement: anElement
-				item: anItem 
-				index: anItemIndex ]
 ]

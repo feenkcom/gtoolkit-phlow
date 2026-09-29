@@ -26,6 +26,27 @@ TGtPhlowWithContextMenu >> collectIndividualContextMenuActionsForElement: anElem
 				asItemBoundActionToItem: anObject viewSelection: aSelectionIndex ]
 ]
 
+{ #category : #'api - context menu' }
+TGtPhlowWithContextMenu >> contextActionsForTarget: aGtPhlowActionTarget [
+	self contextMenuActions
+		add: (GtPhlowContextMenuTargetedObjectActions
+			forTarget: aGtPhlowActionTarget)
+]
+
+{ #category : #'api - context menu' }
+TGtPhlowWithContextMenu >> contextActionsForTarget: aSingleTarget groupTarget: aGroupTarget groupWith: aGroupFactory [
+	self contextMenuActions
+		add: (GtPhlowContextMenuTargetedObjectActions
+			forTarget: aSingleTarget groupTarget: aGroupTarget groupWith: aGroupFactory)
+]
+
+{ #category : #'api - context menu' }
+TGtPhlowWithContextMenu >> contextActionsForTarget: aTarget groupWith: aGroupFactory [
+	self contextMenuActions
+		add: (GtPhlowContextMenuTargetedObjectActions
+			forTarget: aTarget groupWith: aGroupFactory)
+]
+
 { #category : #accessing }
 TGtPhlowWithContextMenu >> contextItemLabel: aString action: aBlock [
 	self contextMenuActions
