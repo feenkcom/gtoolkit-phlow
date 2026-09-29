@@ -42,9 +42,9 @@ GtPhlowViewBuilder >> actionsSelector: aSelector [
 { #category : #actions }
 GtPhlowViewBuilder >> addActionsInto: aView [
 	self actions
-		do: [ :action | 
-			action isDefaultTarget
-				ifTrue: [ aView addPhlowAction: action ] ]
+		do: [ :aPhlowAction | 
+			aPhlowAction isDefaultTarget
+				ifTrue: [ aView addPhlowAction: aPhlowAction ] ]
 ]
 
 { #category : #context }

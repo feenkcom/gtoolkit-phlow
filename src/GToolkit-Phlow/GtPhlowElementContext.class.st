@@ -202,6 +202,11 @@ GtPhlowElementContext >> contextMenuUpdateViewContent [
 		ifNotNil: [ :anElement | anElement phlow update ]
 ]
 
+{ #category : #actions }
+GtPhlowElementContext >> copyToClipboard: aString [
+	GtClipboard clipboardText: aString
+]
+
 { #category : #'api - convenience' }
 GtPhlowElementContext >> definingMethod [
 	<return: #RGMethodDefinition>

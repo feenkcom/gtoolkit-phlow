@@ -324,7 +324,8 @@ GtPhlowAction >> menuDisableIfPresent: aPresentBlock ifAbsent: anAbsentBlock [
 
 { #category : #'api - options' }
 GtPhlowAction >> menuItemGroup: aGroup [
-	self assert: [ aGroup isKindOf: BrMenuItemGroupConfiguration ].
+	self assert: [ (aGroup isKindOf: BrMenuItemGroupConfiguration) or: [
+		aGroup isKindOf: GtRemotePhlowMenuItemGroupConfiguration] ].
 
 	self optionAt: #menuItemGroup put: aGroup
 ]
@@ -532,7 +533,8 @@ GtPhlowAction >> target: aGtPhlowActionTarget [
 	self 
 		assert: [ aGtPhlowActionTarget notNil ]
 		description: [ 'Phlow action target must be non-nil' ].
-	target := aGtPhlowActionTarget asPhlowTarget
+	target := aGtPhlowActionTarget asPhlowTarget 
+		asLocalPhlowTarget "This call exists for making some parts easier in remote phlow. It allow to use the remote phlow classes for actions. Then when creating local actions using remote targets they appear normally in the inspector as if they would have been defined using local targets. "
 ]
 
 { #category : #decorating }
