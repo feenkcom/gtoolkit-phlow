@@ -180,10 +180,6 @@ GtPhlowContextMenuAction >> toMenuItemOn: anItem index: anItemIndex  element: an
 
 	<return: #BrMenuItem>
 	^ (self asItemBoundActionToItem: anItem viewSelection: anItemIndex) asMenuItem
-		
-	"^ BrMenuActionItem new
-		label: self name;
-		action: [ :anElement | self action cull: anElement cull: anItem cull: anItemIndex ]"
 ]
 
 { #category : #'api - scripting' }
