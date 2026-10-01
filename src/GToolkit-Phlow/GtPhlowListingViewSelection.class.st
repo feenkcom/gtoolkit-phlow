@@ -59,7 +59,7 @@ GtPhlowListingViewSelection >> gtViewSelectionItemsFor: aView [
 	^ aView columnedList
 		title: 'Selection items';
 		items: [ self selectionItems ];
-		column: 'Index' text: [ :each | each selectionIndex ] width: 80;
+		column: 'Index in tree' text: [ :each | each selectionIndex ] width: 100;
 		column: 'Node identifier' text: [ :each | each nodeIdentifier ]
 ]
 

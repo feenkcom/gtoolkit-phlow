@@ -166,6 +166,14 @@ GtPhlowUtility class >> findIndexFor: aNewPhlowView in: aGtPhlowViews [
 ]
 
 { #category : #testing }
+GtPhlowUtility class >> hasHigherOrEqualPriority: aViewOrActionOne than: aViewOrActionTwo [
+	| aPriorityOne aPriorityTwo |
+	aPriorityOne := self securePriority: aViewOrActionOne.
+	aPriorityTwo := self securePriority: aViewOrActionTwo.
+	^ aPriorityOne <= aPriorityTwo
+]
+
+{ #category : #testing }
 GtPhlowUtility class >> hasHigherPriority: aViewOrActionOne than: aViewOrActionTwo [
 	| aPriorityOne aPriorityTwo |
 	aPriorityOne := self securePriority: aViewOrActionOne.
@@ -243,4 +251,10 @@ GtPhlowUtility class >> securePriority: aViewOrActionOne [
 GtPhlowUtility class >> sortByPriority: aGtPhlowViews [
 	aGtPhlowViews sort: [ :a :b | 
 		self hasHigherPriority: a than: b ].
+]
+
+{ #category : #sorting }
+GtPhlowUtility class >> sortPreservingEqualOrderByPriority: aGtPhlowViews [
+	aGtPhlowViews sort: [ :a :b | 
+		self hasHigherOrEqualPriority: a than: b ].
 ]
