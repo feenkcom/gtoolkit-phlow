@@ -7,7 +7,8 @@ Class {
 		'definingMethod',
 		'priority',
 		'target',
-		'id'
+		'id',
+		'definingMethodProvider'
 	],
 	#category : #'GToolkit-Phlow-! Actions'
 }
@@ -168,12 +169,16 @@ GtPhlowAction >> defaultTarget [
 
 { #category : #accessing }
 GtPhlowAction >> definingMethod [
-	^ definingMethod
+	^ self definingMethodProvider 
+		ifNil: [ definingMethod ]
+		ifNotNil: [ :aMethodProvider | 
+			aMethodProvider definingMethod  ].
 ]
 
 { #category : #accessing }
 GtPhlowAction >> definingMethod: anObject [
-	definingMethod := anObject
+	definingMethodProvider := GtPhlowConcreteDefiningMethodProvider new
+		definingMethod: anObject
 ]
 
 { #category : #'error handling' }
@@ -188,6 +193,16 @@ GtPhlowAction >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 			isMetaSide: anObject class isMeta;
 			asActive ] 
 		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
+]
+
+{ #category : #accessing }
+GtPhlowAction >> definingMethodProvider [
+	^ definingMethodProvider
+]
+
+{ #category : #accessing }
+GtPhlowAction >> definingMethodProvider: aMethodProvider [
+	definingMethodProvider := aMethodProvider
 ]
 
 { #category : #accessing }
