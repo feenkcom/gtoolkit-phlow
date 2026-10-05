@@ -47,25 +47,61 @@ TGtPhlowWithContextMenu >> contextActionsForTarget: aTarget groupWith: aGroupFac
 			forTarget: aTarget groupWith: aGroupFactory)
 ]
 
-{ #category : #accessing }
+{ #category : #'api - actions' }
+TGtPhlowWithContextMenu >> contextItemDo: aBlock [
+	| newAction |
+	newAction := GtPhlowContextMenuAction new.
+	aBlock value: newAction.
+	self contextMenuActions add: newAction
+]
+
+{ #category : #'api - actions' }
+TGtPhlowWithContextMenu >> contextItemIcon: anIconOrStencil label: aString action: aBlock [
+	self contextMenuActions
+		add: (GtPhlowContextMenuAction new
+			label: aString;
+			icon: anIconOrStencil;
+			action: aBlock)
+]
+
+{ #category : #'api - actions' }
+TGtPhlowWithContextMenu >> contextItemIcon: anIconOrStencil label: aString id: anId action: aBlock [
+	self contextMenuActions
+		add: (GtPhlowContextMenuAction new
+			label: aString;
+			icon: anIconOrStencil;
+			id: anId;
+			action: aBlock)
+]
+
+{ #category : #'api - actions' }
 TGtPhlowWithContextMenu >> contextItemLabel: aString action: aBlock [
 	self contextMenuActions
 		add: (GtPhlowContextMenuAction label: aString action: aBlock)
 ]
 
-{ #category : #accessing }
+{ #category : #'api - actions' }
 TGtPhlowWithContextMenu >> contextItemLabel: aString action: aBlock if: aFilterBlock [
 	self contextMenuActions
 		add: (GtPhlowContextMenuAction named: aString action: aBlock if: aFilterBlock)
 ]
 
-{ #category : #accessing }
+{ #category : #'api - actions' }
 TGtPhlowWithContextMenu >> contextItemLabel: aString action: aBlock showIf: aShowBlock [
 	self contextMenuActions
-		add: (GtPhlowContextMenuAction 
-			label: aString 
-			action: aBlock 
-			show: aShowBlock)
+		add: (GtPhlowContextMenuAction new
+			label: aString;
+			action: aBlock;
+			showIf: aShowBlock)
+]
+
+{ #category : #'api - actions' }
+TGtPhlowWithContextMenu >> contextItemLabel: aString id: anId action: aBlock [
+	self contextMenuActions
+		add: (GtPhlowContextMenuAction new
+			label: aString;
+			id: anId;
+			action: aBlock)
 ]
 
 { #category : #accessing }

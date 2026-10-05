@@ -6,8 +6,8 @@ Class {
 		'actionComputation',
 		'iconStencil',
 		'tooltipText',
-		'enableCondition',
-		'id'
+		'id',
+		'disableCondition'
 	],
 	#category : #'GToolkit-Phlow-Support - Context Menu'
 }
@@ -20,11 +20,11 @@ GtPhlowContextMenuAction class >> label: aString action: aBlock [
 ]
 
 { #category : #'instance creation' }
-GtPhlowContextMenuAction class >> label: aString action: aBlock enable: anEnablelock [
+GtPhlowContextMenuAction class >> label: aString action: aBlock disable: anEnablelock [
 	^ self new 
 		label: aString;
 		action: aBlock;
-		enableIf: anEnablelock
+		disableIf: anEnablelock
 ]
 
 { #category : #'instance creation' }
@@ -36,12 +36,12 @@ GtPhlowContextMenuAction class >> label: aString action: aBlock show: aShowBlock
 ]
 
 { #category : #'instance creation' }
-GtPhlowContextMenuAction class >> label: aString action: aBlock show: aShowBlock enable: anEnablelock [
+GtPhlowContextMenuAction class >> label: aString action: aBlock show: aShowBlock disable: anEnablelock [
 	^ self new 
 		label: aString;
 		action: aBlock;
 		showIf: aShowBlock;
-		enableIf: anEnablelock
+		disableIf: anEnablelock
 ]
 
 { #category : #'instance creation' }
@@ -87,8 +87,8 @@ GtPhlowContextMenuAction >> collectInvidualActionsOn: aCollection forElement: an
 ]
 
 { #category : #'api - scripting' }
-GtPhlowContextMenuAction >> enableIf: aBlock [ 
-	enableCondition := aBlock
+GtPhlowContextMenuAction >> disableIf: aBlock [ 
+	disableCondition := aBlock
 ]
 
 { #category : #accessing }
@@ -167,6 +167,14 @@ GtPhlowContextMenuAction >> printOn: aStream [
 		aStream nextPutAll: (self label ifNil: [ '' ]) ]
 ]
 
+{ #category : #testing }
+GtPhlowContextMenuAction >> shouldDisableContextActionOn: anItem viewSelection: aViewSelection [ 
+	^ disableCondition 
+		ifNil: [ false ] 
+		ifNotNil: [ :aConditon |
+			aConditon cull: anItem cull: aViewSelection ]
+]
+
 { #category : #accessing }
 GtPhlowContextMenuAction >> toActionOn: anItem element: anotherElement [
 	"For compatibility with older code; to be removed"
@@ -179,7 +187,12 @@ GtPhlowContextMenuAction >> toMenuItemOn: anItem index: anItemIndex  element: an
 	Context menu action can return also collection of menu items."
 
 	<return: #BrMenuItem>
-	^ (self asItemBoundActionToItem: anItem viewSelection: anItemIndex) asMenuItem
+	^ (self 
+			asItemBoundActionToItem: anItem 
+			viewSelection: anItemIndex) 
+				toMenuItemOn: anItem 
+				index: anItemIndex  
+				element: anotherElement
 ]
 
 { #category : #'api - scripting' }
