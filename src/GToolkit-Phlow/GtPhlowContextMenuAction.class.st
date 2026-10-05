@@ -6,8 +6,7 @@ Class {
 		'actionComputation',
 		'iconStencil',
 		'tooltipText',
-		'id',
-		'disableCondition'
+		'id'
 	],
 	#category : #'GToolkit-Phlow-Support - Context Menu'
 }
@@ -86,11 +85,6 @@ GtPhlowContextMenuAction >> collectInvidualActionsOn: aCollection forElement: an
 	aCollection add: self
 ]
 
-{ #category : #'api - scripting' }
-GtPhlowContextMenuAction >> disableIf: aBlock [ 
-	disableCondition := aBlock
-]
-
 { #category : #accessing }
 GtPhlowContextMenuAction >> gtViewFilterFor: aView [
 	<gtView>
@@ -165,14 +159,6 @@ GtPhlowContextMenuAction >> printOn: aStream [
 	super printOn: aStream.
 	aStream parenthesize: [
 		aStream nextPutAll: (self label ifNil: [ '' ]) ]
-]
-
-{ #category : #testing }
-GtPhlowContextMenuAction >> shouldDisableContextActionOn: anItem viewSelection: aViewSelection [ 
-	^ disableCondition 
-		ifNil: [ false ] 
-		ifNotNil: [ :aConditon |
-			aConditon cull: anItem cull: aViewSelection ]
 ]
 
 { #category : #accessing }
