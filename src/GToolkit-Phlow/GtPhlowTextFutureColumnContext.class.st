@@ -7,10 +7,22 @@ Class {
 		'exceptionText',
 		'futureException',
 		'pendingException',
-		'successException'
+		'successException',
+		'cacheValue'
 	],
 	#category : #'GToolkit-Phlow-Support'
 }
+
+{ #category : #accessing }
+GtPhlowTextFutureColumnContext >> cacheValue [
+	<return: #GtPhlowColumnCacheValue>
+	^ cacheValue
+]
+
+{ #category : #accessing }
+GtPhlowTextFutureColumnContext >> cacheValue: anObject [
+	cacheValue := anObject
+]
 
 { #category : #accessing }
 GtPhlowTextFutureColumnContext >> exceptionText [
@@ -51,7 +63,8 @@ GtPhlowTextFutureColumnContext >> result [
 
 { #category : #accessing }
 GtPhlowTextFutureColumnContext >> result: anObject [
-	result := anObject
+	result := anObject.
+	cacheValue ifNotNil: [ :aValue | aValue futureResult: self ]
 ]
 
 { #category : #accessing }
