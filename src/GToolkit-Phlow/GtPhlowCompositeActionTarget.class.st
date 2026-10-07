@@ -47,6 +47,13 @@ GtPhlowCompositeActionTarget >> isForViewDefinedIn: aSymbol [
 		  eachTarget isForViewDefinedIn: aSymbol ]
 ]
 
+{ #category : #actions }
+GtPhlowCompositeActionTarget >> phlowActionsForObject: anObject [
+	^ Array streamContents: [ :aStream |
+		self actionsForObject: anObject do: [ :anAction |
+			aStream nextPut: anAction ] ]
+]
+
 { #category : #accessing }
 GtPhlowCompositeActionTarget >> targets [
 

@@ -1,20 +1,51 @@
 Class {
 	#name : #GtPhlowContextMenuAction,
-	#superclass : #Object,
+	#superclass : #GtPhlowContextMenuBasicAction,
 	#instVars : [
-		'name',
-		'action',
-		'filter',
-		'enabled'
+		'label',
+		'actionComputation',
+		'iconStencil',
+		'tooltipText',
+		'id'
 	],
 	#category : #'GToolkit-Phlow-Support - Context Menu'
 }
 
 { #category : #'instance creation' }
-GtPhlowContextMenuAction class >> named: aString action: aBlock [
+GtPhlowContextMenuAction class >> label: aString action: aBlock [
 	^ self new
-		name: aString;
+		label: aString;
 		action: aBlock
+]
+
+{ #category : #'instance creation' }
+GtPhlowContextMenuAction class >> label: aString action: aBlock disable: anEnablelock [
+	^ self new 
+		label: aString;
+		action: aBlock;
+		disableIf: anEnablelock
+]
+
+{ #category : #'instance creation' }
+GtPhlowContextMenuAction class >> label: aString action: aBlock show: aShowBlock [
+	^ self new 
+		label: aString;
+		action: aBlock;
+		showIf: aShowBlock
+]
+
+{ #category : #'instance creation' }
+GtPhlowContextMenuAction class >> label: aString action: aBlock show: aShowBlock disable: anEnablelock [
+	^ self new 
+		label: aString;
+		action: aBlock;
+		showIf: aShowBlock;
+		disableIf: anEnablelock
+]
+
+{ #category : #'instance creation' }
+GtPhlowContextMenuAction class >> named: aString action: aBlock [
+	^ self label: aString action: aBlock
 ]
 
 { #category : #'instance creation' }
@@ -27,29 +58,31 @@ GtPhlowContextMenuAction class >> named: aString action: aBlock if: aFilterBlock
 
 { #category : #accessing }
 GtPhlowContextMenuAction >> action [
-	^ action
+	^ self actionComputation
+]
+
+{ #category : #'api - scripting' }
+GtPhlowContextMenuAction >> action: aBlock [ 
+	actionComputation := aBlock
 ]
 
 { #category : #accessing }
-GtPhlowContextMenuAction >> action: aBlock [ 
-	action := aBlock
+GtPhlowContextMenuAction >> actionComputation [
+	^ actionComputation
 ]
 
 { #category : #converting }
-GtPhlowContextMenuAction >> asAssociation [
-	^ name -> action
+GtPhlowContextMenuAction >> asItemBoundActionToItem: anItem viewSelection: aViewSelection [
+	^ GtPhlowContextMenuItemBoundAction new
+		targetAction: self;
+		item: anItem;
+		viewSelection: aViewSelection
 ]
 
 { #category : #accessing }
-GtPhlowContextMenuAction >> filter [
-
-	^ filter
-]
-
-{ #category : #accessing }
-GtPhlowContextMenuAction >> filter: anObject [
-
-	filter := anObject
+GtPhlowContextMenuAction >> collectInvidualActionsOn: aCollection forElement: anElement item: anObject index: anIndex [
+	"At this point we collect the actions; for single actions it does not need anything else"
+	aCollection add: self
 ]
 
 { #category : #accessing }
@@ -73,11 +106,7 @@ GtPhlowContextMenuAction >> gtViewFilterFor: aView [
 { #category : #accessing }
 GtPhlowContextMenuAction >> gtViewSourceFor: aView [
 	<gtView>
-	(self action isKindOf: Symbol)
-		ifTrue: [ ^ aView textEditor
-				title: 'Action';
-				priority: 1;
-				text: [ self action ] ].
+
 	^ aView forward
 		title: 'Source Code';
 		priority: 1;
@@ -85,40 +114,84 @@ GtPhlowContextMenuAction >> gtViewSourceFor: aView [
 		view: #gtSourceCodeFor:
 ]
 
+{ #category : #'api - scripting' }
+GtPhlowContextMenuAction >> icon: anIconOrStencil [
+	iconStencil := anIconOrStencil
+]
+
+{ #category : #accessing }
+GtPhlowContextMenuAction >> iconStencil [
+	^ iconStencil
+]
+
+{ #category : #'api - scripting' }
+GtPhlowContextMenuAction >> id [
+	^ id
+]
+
+{ #category : #accessing }
+GtPhlowContextMenuAction >> id: anId [
+	id := anId
+]
+
+{ #category : #accessing }
+GtPhlowContextMenuAction >> label [
+	^ label
+]
+
+{ #category : #accessing }
+GtPhlowContextMenuAction >> label: aString [ 
+	label := aString
+]
+
 { #category : #accessing }
 GtPhlowContextMenuAction >> name [
-	^ name
+	^ self label
 ]
 
 { #category : #accessing }
 GtPhlowContextMenuAction >> name: aString [ 
-	name := aString
+	self label: aString
 ]
 
-{ #category : #converting }
-GtPhlowContextMenuAction >> respondsToItem: anItem [
-	^ self filter ifNil: [ true ] ifNotNil: [ :aFilter | aFilter value: anItem ]
+{ #category : #printing }
+GtPhlowContextMenuAction >> printOn: aStream [
+	super printOn: aStream.
+	aStream parenthesize: [
+		aStream nextPutAll: (self label ifNil: [ '' ]) ]
 ]
 
-{ #category : #converting }
-GtPhlowContextMenuAction >> toActionOn: anItem [
-	self deprecated: 'use #toActionOn:element: instead'.
-	
-	^ self name -> [ :anElement | self action cull: anElement cull: anItem ]
-]
-
-{ #category : #converting }
+{ #category : #accessing }
 GtPhlowContextMenuAction >> toActionOn: anItem element: anotherElement [
+	"For compatibility with older code; to be removed"
 	^ self name -> [ :anElement | self action cull: anElement cull: anItem ]
 ]
 
 { #category : #converting }
-GtPhlowContextMenuAction >> toMenuItemOn: anItem element: anotherElement [
+GtPhlowContextMenuAction >> toMenuItemOn: anItem index: anItemIndex  element: anotherElement [
 	"Return a menu item which will be displayed in a context menu.
 	Context menu action can return also collection of menu items."
 
 	<return: #BrMenuItem>
-	^ BrMenuActionItem new
-		label: self name;
-		action: [ :anElement | self action cull: anElement cull: anItem ]
+	^ (self 
+			asItemBoundActionToItem: anItem 
+			viewSelection: anItemIndex) 
+				toMenuItemOn: anItem 
+				index: anItemIndex  
+				element: anotherElement
+]
+
+{ #category : #'api - scripting' }
+GtPhlowContextMenuAction >> tooltip: aTextOrString [
+	self tooltipText: aTextOrString
+]
+
+{ #category : #accessing }
+GtPhlowContextMenuAction >> tooltipText [
+	^ tooltipText
+]
+
+{ #category : #accessing }
+GtPhlowContextMenuAction >> tooltipText: aTextOrString [
+	tooltipText := aTextOrString
 ]

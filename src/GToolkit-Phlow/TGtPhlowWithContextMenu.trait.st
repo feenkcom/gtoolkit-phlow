@@ -7,15 +7,101 @@ Trait {
 }
 
 { #category : #accessing }
-TGtPhlowWithContextMenu >> contextItemLabel: aString action: aBlock [
-	self contextMenuActions
-		add: (GtPhlowContextMenuAction named: aString action: aBlock)
+TGtPhlowWithContextMenu >> collectIndividualContextMenuActionsForElement: anElement item: anObject viewSelection: aSelectionIndex [
+	| allInitialPhlowActions |
+	
+	allInitialPhlowActions := OrderedCollection new.
+	(self contextMenuActions
+			select: [ :anAction | 
+				anAction shouldShowContextActionOn: anObject viewSelection: aSelectionIndex ])
+			do: [ :anAction | 
+				anAction 
+					collectInvidualActionsOn: allInitialPhlowActions
+					forElement: anElement 
+					item: anObject
+					index: aSelectionIndex ].
+				
+	^ allInitialPhlowActions collect: [ :anAction |
+			anAction 
+				asItemBoundActionToItem: anObject viewSelection: aSelectionIndex ]
 ]
 
-{ #category : #accessing }
+{ #category : #'api - context menu' }
+TGtPhlowWithContextMenu >> contextActionsForTarget: aGtPhlowActionTarget [
+	self contextMenuActions
+		add: (GtPhlowContextMenuTargetedObjectActions
+			forTarget: aGtPhlowActionTarget)
+]
+
+{ #category : #'api - context menu' }
+TGtPhlowWithContextMenu >> contextActionsForTarget: aSingleTarget groupTarget: aGroupTarget groupWith: aGroupFactory [
+	self contextMenuActions
+		add: (GtPhlowContextMenuTargetedObjectActions
+			forTarget: aSingleTarget groupTarget: aGroupTarget groupWith: aGroupFactory)
+]
+
+{ #category : #'api - context menu' }
+TGtPhlowWithContextMenu >> contextActionsForTarget: aTarget groupWith: aGroupFactory [
+	self contextMenuActions
+		add: (GtPhlowContextMenuTargetedObjectActions
+			forTarget: aTarget groupWith: aGroupFactory)
+]
+
+{ #category : #'api - actions' }
+TGtPhlowWithContextMenu >> contextItemDo: aBlock [
+	| newAction |
+	newAction := GtPhlowContextMenuAction new.
+	aBlock value: newAction.
+	self contextMenuActions add: newAction
+]
+
+{ #category : #'api - actions' }
+TGtPhlowWithContextMenu >> contextItemIcon: anIconOrStencil label: aString action: aBlock [
+	self contextMenuActions
+		add: (GtPhlowContextMenuAction new
+			label: aString;
+			icon: anIconOrStencil;
+			action: aBlock)
+]
+
+{ #category : #'api - actions' }
+TGtPhlowWithContextMenu >> contextItemIcon: anIconOrStencil label: aString id: anId action: aBlock [
+	self contextMenuActions
+		add: (GtPhlowContextMenuAction new
+			label: aString;
+			icon: anIconOrStencil;
+			id: anId;
+			action: aBlock)
+]
+
+{ #category : #'api - actions' }
+TGtPhlowWithContextMenu >> contextItemLabel: aString action: aBlock [
+	self contextMenuActions
+		add: (GtPhlowContextMenuAction label: aString action: aBlock)
+]
+
+{ #category : #'api - actions' }
 TGtPhlowWithContextMenu >> contextItemLabel: aString action: aBlock if: aFilterBlock [
 	self contextMenuActions
 		add: (GtPhlowContextMenuAction named: aString action: aBlock if: aFilterBlock)
+]
+
+{ #category : #'api - actions' }
+TGtPhlowWithContextMenu >> contextItemLabel: aString action: aBlock showIf: aShowBlock [
+	self contextMenuActions
+		add: (GtPhlowContextMenuAction new
+			label: aString;
+			action: aBlock;
+			showIf: aShowBlock)
+]
+
+{ #category : #'api - actions' }
+TGtPhlowWithContextMenu >> contextItemLabel: aString id: anId action: aBlock [
+	self contextMenuActions
+		add: (GtPhlowContextMenuAction new
+			label: aString;
+			id: anId;
+			action: aBlock)
 ]
 
 { #category : #accessing }
@@ -30,13 +116,15 @@ TGtPhlowWithContextMenu >> contextMenuItemsStencilFromActions [
 
 	<return: #GtPhlowListContextMenuItemsStencilBuilder>
 	<return: #BlockClosure of: #BrMenuItems>
-	^ [ :element :item | 
+	^ [ :element :item :itemIndex | 
 	| allItems |
 	allItems := (self contextMenuActions
-			select: [ :anAction | anAction respondsToItem: item ]
+			select: [ :anAction | 
+				anAction shouldShowContextActionOn: item viewSelection: itemIndex  ]
 			thenCollect: [ :anAction | 
 				| aResult | 
-				aResult := anAction toMenuItemOn: item element: element.
+				aResult := anAction 
+					toMenuItemOn: item index: itemIndex element: element.
 				(aResult isKindOf: BrMenuItems) 
 					ifTrue: [ aResult items ] 
 					ifFalse: [ aResult ] ])
@@ -46,18 +134,28 @@ TGtPhlowWithContextMenu >> contextMenuItemsStencilFromActions [
 
 { #category : #building }
 TGtPhlowWithContextMenu >> contextMenuStencilFromActions [
-	^ [ :element :item | 
+	^ [ :element :item :itemIndex | 
 	BrGlamorousSimpleContextMenuContent new
 		items: (self contextMenuActions
-				select: [ :anAction | anAction respondsToItem: item ]
-				thenCollect: [ :anAction | anAction toActionOn: item element: element ])
+				select: [ :anAction | 
+					anAction shouldShowContextActionOn: item viewSelection: itemIndex ]
+				thenCollect: [ :anAction | 
+					anAction toActionOn: item index: itemIndex element: element ])
 				flattened ]
 ]
 
 { #category : #accessing }
 TGtPhlowWithContextMenu >> dynamicContextItems: aBlock [
 	self contextMenuActions
-		add: (GtPhlowContextMenuActions named: 'Dynamic menu items' action: aBlock)
+		add: (GtPhlowContextMenuDynamicActions 
+			label: 'Dynamic menu items' actions: aBlock)
+]
+
+{ #category : #accessing }
+TGtPhlowWithContextMenu >> dynamicPhlowContextItems: aBlock [
+	self contextMenuActions
+		add: (GtPhlowContextMenuDynamicPhlowActions 
+			label: 'Dynamic phlow menu items' actions: aBlock )
 ]
 
 { #category : #accessing }

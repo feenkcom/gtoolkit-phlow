@@ -7,7 +7,8 @@ Class {
 		'definingMethod',
 		'priority',
 		'target',
-		'id'
+		'id',
+		'definingMethodProvider'
 	],
 	#category : #'GToolkit-Phlow-! Actions'
 }
@@ -15,6 +16,13 @@ Class {
 { #category : #defaults }
 GtPhlowAction class >> defaultPriority [
 	^ 50
+]
+
+{ #category : #accessing }
+GtPhlowAction class >> empty [
+	"Convenience --by analogy with views"
+
+	^ self noAction
 ]
 
 { #category : #accessing }
@@ -144,6 +152,18 @@ GtPhlowAction >> button [
 		definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect
 ]
 
+{ #category : #decorating }
+GtPhlowAction >> contextMenuAction [
+	^ GtPhlowContextMenuAction new
+		"definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect"
+]
+
+{ #category : #decorating }
+GtPhlowAction >> contextMenuBoundAction [
+	^ GtPhlowContextMenuItemBoundAction new
+		"definingMethod: (GtPhlowDefiningMethodsCollector forContext: thisContext) collect"
+]
+
 { #category : #initialization }
 GtPhlowAction >> defaultPriority [
 	^ self class defaultPriority
@@ -156,12 +176,16 @@ GtPhlowAction >> defaultTarget [
 
 { #category : #accessing }
 GtPhlowAction >> definingMethod [
-	^ definingMethod
+	^ self definingMethodProvider 
+		ifNil: [ definingMethod ]
+		ifNotNil: [ :aMethodProvider | 
+			aMethodProvider definingMethod  ].
 ]
 
 { #category : #accessing }
 GtPhlowAction >> definingMethod: anObject [
-	definingMethod := anObject
+	definingMethodProvider := GtPhlowConcreteDefiningMethodProvider new
+		definingMethod: anObject
 ]
 
 { #category : #'error handling' }
@@ -176,6 +200,16 @@ GtPhlowAction >> definingMethodForObject: anObject andSelector: aMessageSymbol [
 			isMetaSide: anObject class isMeta;
 			asActive ] 
 		ifNotNil: [ (aNilOrClassName >> aMessageSymbol) asRingDefinition ]
+]
+
+{ #category : #accessing }
+GtPhlowAction >> definingMethodProvider [
+	^ definingMethodProvider
+]
+
+{ #category : #accessing }
+GtPhlowAction >> definingMethodProvider: aMethodProvider [
+	definingMethodProvider := aMethodProvider
 ]
 
 { #category : #accessing }
@@ -312,7 +346,8 @@ GtPhlowAction >> menuDisableIfPresent: aPresentBlock ifAbsent: anAbsentBlock [
 
 { #category : #'api - options' }
 GtPhlowAction >> menuItemGroup: aGroup [
-	self assert: [ aGroup isKindOf: BrMenuItemGroupConfiguration ].
+	self assert: [ (aGroup isKindOf: BrMenuItemGroupConfiguration) or: [
+		aGroup isKindOf: GtRemotePhlowMenuItemGroupConfiguration] ].
 
 	self optionAt: #menuItemGroup put: aGroup
 ]
@@ -520,7 +555,8 @@ GtPhlowAction >> target: aGtPhlowActionTarget [
 	self 
 		assert: [ aGtPhlowActionTarget notNil ]
 		description: [ 'Phlow action target must be non-nil' ].
-	target := aGtPhlowActionTarget asPhlowTarget
+	target := aGtPhlowActionTarget asPhlowTarget 
+		asLocalPhlowTarget "This call exists for making some parts easier in remote phlow. It allow to use the remote phlow classes for actions. Then when creating local actions using remote targets they appear normally in the inspector as if they would have been defined using local targets. "
 ]
 
 { #category : #decorating }

@@ -91,8 +91,8 @@ GtPhlowListView >> gtViewContextMenuActionsFor: aView [
 	^ aView columnedList
 		title: 'Context menu actions';
 		items: [ self contextMenuActions ];
-		column: 'Name' text: #name;
-		column: 'Action' text: #action;
+		column: 'Name' text: [ :each | each name ];
+		column: 'Action' text: [ :each | each action ] ;
 		column: 'Filter' text: [ :anAction | anAction filter ifNil: [ '' ] ]
 ]
 

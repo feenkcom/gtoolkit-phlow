@@ -257,3 +257,21 @@ GtPhlowViewsBasedToolStep >> dragPlaygroundVerticallyBy: aNumber [
 		referenceSender;
 		// LeInspectorPlaygroundResizerId
 ]
+
+{ #category : #actions }
+GtPhlowViewsBasedToolStep >> scrollToTabWithName: aTabName [
+	^ self do
+		label: ('Scroll to tab named {1}' format: { aTabName });
+		block: [ :aScrollable |
+			| tab tabRight scrollAmount |
+			tab := aScrollable
+				allChildrenBreadthFirstDetect: [ :each |
+					(each isKindOf: BrTab) and: [ each label asString = aTabName ] ]
+				ifFound: [ :found | found ].
+			tabRight := (tab bounds inParent: aScrollable) right.
+			scrollAmount := (tabRight - aScrollable width) max: 0.
+			scrollAmount > 0 ifTrue: [
+				aScrollable scrollBy: (scrollAmount + 20) @ 0 ] ];
+		// GtPhlowCompositeViewElementId;
+		// #scrolltabbar
+]

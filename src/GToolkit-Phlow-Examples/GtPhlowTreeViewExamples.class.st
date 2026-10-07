@@ -198,7 +198,8 @@ GtPhlowTreeViewExamples >> columnedListViewContextMenuWithSingleSelection [
 		play.
 
 	scripter menuStep
-		clickMenuItemWithId: [ :anElement | (anElement isKindOf: BrLabel) and: [ anElement text asString = 'Itself' ] ];
+		clickMenuItemWithId: [ :anElement | 
+			(anElement isKindOf: BrLabel) and: [ anElement text asString = 'Itself' ] ];
 		onMenuContainer;
 		play.
 
@@ -228,7 +229,8 @@ GtPhlowTreeViewExamples >> columnedListViewContextMenuWithSingleSelectionAndClic
 		play.
 
 	scripter menuStep
-		clickMenuItemWithId: [ :anElement | (anElement isKindOf: BrLabel) and: [ anElement text asString = 'Itself' ] ];
+		clickMenuItemWithId: [ :anElement | 
+			(anElement isKindOf: BrLabel) and: [ anElement text asString = 'Itself' ] ];
 		onMenuContainer;
 		play.
 
@@ -257,7 +259,8 @@ GtPhlowTreeViewExamples >> columnedListViewContextMenuWithSingleSelectionAndNoEx
 		play.
 
 	scripter menuStep
-		clickMenuItemWithId: [ :anElement | (anElement isKindOf: BrLabel) and: [ anElement text asString = 'Itself' ] ];
+		clickMenuItemWithId: [ :anElement | 
+			(anElement isKindOf: BrLabel) and: [ anElement text asString = 'Itself' ] ];
 		onMenuContainer;
 		play.
 
@@ -366,12 +369,14 @@ GtPhlowTreeViewExamples >> treeViewWithItemsChildrenAndContextMenu [
 	<gtExample>
 	| aView |
 	aView := self treeViewWithItemsAndChildren.
-	aView contextItemLabel: 'Action' action: #inspect.
+	aView contextItemLabel: 'Action' action: [ :anElement :anObject | anObject inspect ].
 	self assert: aView contextMenuActions size equals: 1.
 	self
-		assert: aView contextMenuActions first asAssociation
-		equals: 'Action' -> #inspect.
-	^ aView
+		assert: aView contextMenuActions first label
+		equals: 'Action'.
+	self
+		assert: aView contextMenuActions first actionComputation notNil.
+	^ aView 
 ]
 
 { #category : #'examples - tree view' }

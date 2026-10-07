@@ -69,6 +69,11 @@ GtPhlowActionTarget >> actionsForObject: anObject inContext: aPhlowContext do: a
 ]
 
 { #category : #converting }
+GtPhlowActionTarget >> asLocalPhlowTarget [
+	^ self
+]
+
+{ #category : #converting }
 GtPhlowActionTarget >> asPhlowTarget [
 	^ self
 ]
@@ -130,6 +135,13 @@ GtPhlowActionTarget >> menuItemsForObject: anObject inContext: aPhlowContext hos
 			eachAction
 				asMenuItem: [ :aMenuItem | aBlock value: aMenuItem ]
 				withHostElement: aHostElement ].
+]
+
+{ #category : #actions }
+GtPhlowActionTarget >> phlowActionsForObject: anObject [
+	^ Array streamContents: [ :aStream |
+		self actionsForObject: anObject do: [ :anAction |
+			aStream nextPut: anAction ] ]
 ]
 
 { #category : #enumerating }
