@@ -16,73 +16,39 @@ Class {
 	#category : #'GToolkit-Phlow-! Views'
 }
 
-{ #category : #'api - converting' }
+{ #category : #building }
 GtPhlowColumnedListView >> asElementDo: aBlock [
-	"it evaluates aBlock if the view should have content"
-
-	| aContainer aHeader itemsProvider aList |
-	itemsProvider := self
-			itemsProviderOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
-
-	aContainer := self elementClass new.
-	aContainer
+	| container provider list phlowColumns |
+	provider := self itemsProviderOnExceptionErrorElement: [ :element | ^ aBlock value: element ].
+	container := self elementClass new
 		id: GtPhlowColumnedListContainerId;
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical matchParent ].
-
-	aContainer layout: BlLinearLayout vertical.
-
-	aList := self columnedListClass new.
-
-	self hasMultipleSelection
-		ifTrue: [ aList aptitude: BrColumnedMultiListAptitude ].
-
-	aList
-		id: GtPhlowColumnedListId;
-		itemsProvider: itemsProvider;
+		layout: BlLinearLayout vertical;
+		constraintsDo: [ :c | c horizontal matchParent. c vertical matchParent ].
+	list := self columnedListClass new.
+	self hasMultipleSelection ifTrue: [ list aptitude: BrColumnedMultiListAptitude ].
+	list id: GtPhlowColumnedListId;
+		itemsProvider: provider;
 		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation);
+		cellSpacing: self cellSpacing;
 		rowStencil: self newDecoratedItemStencil.
-
-	rowDataBinder ifNotNil: [ aList rowDataBinder: rowDataBinder ].
-
-	self buildColumnsInList: aList.
-	aHeader := self buildHeaderForItems: aList columns.
-	
-	aContainer
-		addChildren: { aHeader. aList }.
-
-	horizontalScrollingEnabled
-		ifTrue: [
-			| aScrollableElement |
-			
-			aContainer constraintsDo: [ :c | c horizontal fitContent ].
-			aList hFitContent.
-			aHeader constraintsDo: [ :c | c horizontal fitContent ].
-			
-			aScrollableElement := BrScrollPane new
-				aptitude: BrScrollPaneAptitude + BrGlamorousWithHorizontalScrollbarAptitude;
-				matchParent;
-				content: aContainer;
-				margin: (BlInsets bottom: 2).
-			
-			aContainer := aScrollableElement ].
-			
-	aContainer addAptitude: (
-		BrLayoutResizerAptitude new
-			hMatchParentToMatchParent: aHeader;
-			hExactToMatchParent: aHeader;
-			hFitContentToFitContent: aHeader;
-			hFitContentLimitedToFitContentLimited: aHeader;
-			vAnyToFitContent: aHeader;
-			matchParentToMatchParent: aList;
-			exactToMatchParent: aList;
-			fitContentToFitContent: aList;
-			fitContentLimitedToFitContentLimited: aList).
-	
-	self beViewElement: aContainer.
-
-	^ aBlock value: aContainer
+	rowDataBinder ifNotNil: [ list rowDataBinder: rowDataBinder ].
+	self buildColumnsInList: list.
+	phlowColumns := self columns ifEmpty: [ { self fallbackColumnWhenEmpty } ].
+	list withHeadersDo: [ :header |
+		header headerId: GtPhlowColumnedListHeaderId;
+			labelStencil: [ :column | (phlowColumns at: (list columns identityIndexOf: column)) buildHeaderElement ];
+			resizerIdStencil: [ :column | (column title asString, '-resizer') asSymbol ] ].
+	container addChild: list.
+	horizontalScrollingEnabled ifTrue: [
+		container constraintsDo: [ :c | c horizontal fitContent ].
+		list hFitContent.
+		(list query // GtPhlowColumnedListHeaderId) anyOne hFitContent.
+		container := BrScrollPane new
+			aptitude: BrScrollPaneAptitude + BrGlamorousWithHorizontalScrollbarAptitude;
+			matchParent; content: container; margin: (BlInsets bottom: 2) ].
+	container addAptitude: (BrLayoutResizerAptitude new inherit: list).
+	self beViewElement: container.
+	^ aBlock value: container
 ]
 
 { #category : #'private - building' }
@@ -96,36 +62,9 @@ GtPhlowColumnedListView >> buildColumnsInList: aList [
 			configureColumn: aList column ].
 ]
 
-{ #category : #building }
-GtPhlowColumnedListView >> buildHeaderItems: theBrickColumns inHeader: aHeader [
-	| phlowColumns |
-	phlowColumns := self columns ifEmpty: [ { self fallbackColumnWhenEmpty } ].
-	aHeader addChildren: (phlowColumns with: theBrickColumns collect: [ :eachColumn :eachBrickColumn |
-		| titleElement columnHeader resizer |
-		titleElement := eachColumn buildHeaderElement.
-		titleElement hMatchParent.
-		columnHeader := BrHorizontalPane new
-			alignCenterLeft;
-			vFitContent;
-			addChild: titleElement;
-			addChild: (BrColumnUnsortedState new iconElement id: #columnSortIcon).
-		eachBrickColumn isSortable ifTrue: [
-			columnHeader addEventHandlerOn: BlClickEvent do: [ :event |
-				| list |
-				list := (aHeader parent query // BrColumnedList) anyOne.
-				list canSortColumns ifTrue: [
-					list sortByColumn: eachBrickColumn.
-					aHeader children asArray with: theBrickColumns do: [ :header :column |
-						(header query // #columnSortIcon) anyOne removeFromParent.
-						header addChild: ((list sortState iconElementForColumn: column) id: #columnSortIcon) ] ] ] ].
-		resizer := eachBrickColumn addResizerTo: columnHeader.
-		resizer id: (eachColumn title asString, '-resizer') asSymbol.
-		columnHeader ])
-]
-
 { #category : #accessing }
 GtPhlowColumnedListView >> cellSpacing [
-	^ 10
+	^ BrColumn defaultCellSpacing
 ]
 
 { #category : #'api - scripting column' }
@@ -196,12 +135,10 @@ GtPhlowColumnedListView >> initialize [
 	horizontalScrollingEnabled := false
 ]
 
-{ #category : #'private - testing' }
-GtPhlowColumnedListView >> isExpectedElement: aCurrentElement [
-	aCurrentElement class = self elementClass ifFalse: [ ^ false ].
-	aCurrentElement childrenCount = 2 ifFalse: [ ^ false ].
-	(aCurrentElement childAt: 2) class = self columnedListClass ifFalse: [ ^ false ].
-	^ true
+{ #category : #testing }
+GtPhlowColumnedListView >> isExpectedElement: anElement [
+	^ (anElement class = self elementClass or: [ anElement isKindOf: BrScrollPane ])
+		and: [ (anElement query // GtPhlowColumnedListId) isNotEmpty ]
 ]
 
 { #category : #'api - scripting' }
@@ -254,24 +191,17 @@ GtPhlowColumnedListView >> rowDataBinder: aBlock [
 	rowDataBinder := aBlock
 ]
 
-{ #category : #'api - updating' }
+{ #category : #updating }
 GtPhlowColumnedListView >> updateContent: aCurrentElement [
-	"anElement is previously computed content from asElementDo:"
-	
-	| aParent |
-	(self isExpectedElement: aCurrentElement) ifFalse: [ 
-		^ super updateContent: aCurrentElement ].
-	aParent := aCurrentElement parent.
-	aParent ifNotNil: [ 
-		| theItems aList |
-		theItems := self itemsProviderOnExceptionErrorElement: [ :anErrorElement | 
-			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
-		aList := aCurrentElement children second.
-		self 
-			enqueueAction: [ 
-				self columns do: #prepareForUpdateContent.
-				aList itemsProvider: theItems ] 
-			in: aList ].
+	| parent |
+	(self isExpectedElement: aCurrentElement) ifFalse: [ ^ super updateContent: aCurrentElement ].
+	parent := aCurrentElement parent.
+	parent ifNotNil: [
+		| provider list |
+		provider := self itemsProviderOnExceptionErrorElement: [ :error |
+			^ self replaceOldElement: aCurrentElement by: error in: parent ].
+		list := (aCurrentElement query // BrColumnedList) anyOne.
+		self enqueueAction: [ self columns do: #prepareForUpdateContent. list itemsProvider: provider ] in: list ]
 ]
 
 { #category : #'api - converting' }

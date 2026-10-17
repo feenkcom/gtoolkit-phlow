@@ -6,6 +6,28 @@ Class {
 	#category : #'GToolkit-Phlow-Examples-Views'
 }
 
+{ #category : #examples }
+GtPhlowColumnedTreeViewExamples >> columnHeadersAlignWithCellsAfterResizing [
+	<gtExample>
+	| s |
+	s := self columnedTreeViewColumnResizing.
+	s assertStep: [ :step |
+		step label: 'Headers and body cells have matching column boundaries after resizing';
+			satisfies: [ :container |
+				| header cells headers |
+				header := (container query // GtPhlowColumnedListHeaderId) anyOne.
+				headers := header children asArray.
+				cells := (container query // GtPhlowCellElement) all asArray.
+				headers size = 2 and: [ cells notEmpty and: [
+					(1 to: cells size) allSatisfy: [ :index |
+						| cell columnHeader |
+						cell := cells at: index.
+						columnHeader := headers at: ((index - 1) \\ 2 + 1).
+						(cell bounds inSpace asRectangle left - columnHeader bounds inSpace asRectangle left) abs < 1
+							and: [ (cell width - columnHeader width) abs < 1 ] ] ] ] ] ].
+	^ s
+]
+
 { #category : #accessing }
 GtPhlowColumnedTreeViewExamples >> columnedTreeViewColumnResizing [
 	<gtExample>
@@ -192,38 +214,30 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewContextMenuWithSingleSelectio
 	^ scripter
 ]
 
-{ #category : #'examples - columned tree view' }
+{ #category : #examples }
 GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItems [
 	<gtExample>
 	| aView anElement |
 	aView := self emptyColumnedTreeView.
 	aView items: [ 1 to: 10 ].
-	aView column: 'x' text: [ :aNumber | aNumber ].
-	aView column: 'x * x' text: [ :aNumber | aNumber * aNumber ].
-	aView asElementDo: [ :theElement | anElement := theElement ].
+	aView column: 'x' text: [ :number | number ].
+	aView column: 'x * x' text: [ :number | number * number ].
+	aView asElementDo: [ :element | anElement := element ].
 	self assert: (anElement isKindOf: BlElement).
-	self
-		assert: anElement children second viewModel root childrenValues size
-		equals: 10.
+	self assert: (self listElementFor: anElement) viewModel root childrenValues size equals: 10.
 	^ aView
 ]
 
-{ #category : #'examples - columned tree view' }
+{ #category : #examples }
 GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItemsAndChildren [
 	<gtExample>
 	| aView anElement |
 	aView := self columnedTreeViewWithItems.
 	aView items: [ 1 to: 10 ].
-	aView
-		children: [ :aNumber | 
-			aNumber < 3
-				ifTrue: [ #() ]
-				ifFalse: [ 1 to: aNumber - 1 ] ].
-	aView asElementDo: [ :theElement | anElement := theElement ].
+	aView children: [ :number | number < 3 ifTrue: [ #() ] ifFalse: [ 1 to: number - 1 ] ].
+	aView asElementDo: [ :element | anElement := element ].
 	self assert: (anElement isKindOf: BlElement).
-	self
-		assert: anElement children second viewModel root childrenValues size
-		equals: 10.
+	self assert: (self listElementFor: anElement) viewModel root childrenValues size equals: 10.
 	^ aView
 ]
 
@@ -251,17 +265,15 @@ GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithItems_WithItemsError [
 	^ aView
 ]
 
-{ #category : #'examples - columned tree view' }
+{ #category : #examples }
 GtPhlowColumnedTreeViewExamples >> columnedTreeViewWithNoColumns [
 	<gtExample>
 	| aView anElement |
 	aView := self emptyColumnedTreeView.
 	aView items: [ 1 to: 10 ].
-	aView asElementDo: [ :theElement | anElement := theElement ].
+	aView asElementDo: [ :element | anElement := element ].
 	self assert: (anElement isKindOf: BlElement).
-	self
-		assert: anElement children second viewModel root childrenValues size
-		equals: 10.
+	self assert: (self listElementFor: anElement) viewModel root childrenValues size equals: 10.
 	^ aView
 ]
 
@@ -337,12 +349,9 @@ GtPhlowColumnedTreeViewExamples >> gtNumbersWithContextMenuFor: aView [
 		contextItemLabel: 'Context Menu Action' action: [ :anElement | anElement inspect ]
 ]
 
-{ #category : #'examples - support' }
+{ #category : #helpers }
 GtPhlowColumnedTreeViewExamples >> listElementFor: anElement [
-	| aListElement |
-	aListElement := anElement childAt: 2.
-	self assert: aListElement class equals: BrColumnedTree.
-	^ aListElement
+	^ (anElement query // BrColumnedTree) anyOne
 ]
 
 { #category : #'gt-extension' }
@@ -365,6 +374,54 @@ GtPhlowColumnedTreeViewExamples >> selectItemAt: anIndex for: anElement [
 	aListElement := self listElementFor: anElement.
 	aListElement selectOne: anIndex.
 	self assert: (aListElement isSelectedAt: anIndex).
+]
+
+{ #category : #examples }
+GtPhlowColumnedTreeViewExamples >> sortableColumnHeader [
+	<gtExample>
+	| view s |
+	view := GtPhlowView empty columnedTree.
+	view
+		items: [ #(20 10) ];
+		children: [ :item | item = 20 ifTrue: [ #(4 3) ] ifFalse: [ #() ] ];
+		expandAll.
+	view
+		column: 'Number'
+		do: [ :column | 
+			column
+				text: #yourself;
+				sortBy: [ :a :b | a <= b ] ].
+	s := BlScripter new element: view asElement.
+	s
+		clickStep: [ :step | 
+			step
+				label: 'Sort tree siblings ascending';
+				// BrLabel;
+				@ [ :label | label text asString = 'Number' ] ].
+	s
+		assertStep: [ :step | 
+			step
+				label: 'Hierarchy retained in ascending order';
+				// BrColumnedTree;
+				value: [ :tree | 
+						((1 to: tree viewModel itemCount) collect: [ :i | (tree nodeAt: i) value ])
+							asArray ]
+					equals: [ #(10 20 3 4) ] ].
+	s
+		clickStep: [ :step | 
+			step
+				label: 'Reverse via sort icon';
+				id: #columnSortIcon ].
+	s
+		assertStep: [ :step | 
+			step
+				label: 'Hierarchy retained in descending order';
+				// BrColumnedTree;
+				value: [ :tree | 
+						((1 to: tree viewModel itemCount) collect: [ :i | (tree nodeAt: i) value ])
+							asArray ]
+					equals: [ #(20 4 3 10) ] ].
+	^ s
 ]
 
 { #category : #'examples - view' }
