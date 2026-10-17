@@ -96,6 +96,33 @@ GtPhlowColumnedListView >> buildColumnsInList: aList [
 			configureColumn: aList column ].
 ]
 
+{ #category : #building }
+GtPhlowColumnedListView >> buildHeaderItems: theBrickColumns inHeader: aHeader [
+	| phlowColumns |
+	phlowColumns := self columns ifEmpty: [ { self fallbackColumnWhenEmpty } ].
+	aHeader addChildren: (phlowColumns with: theBrickColumns collect: [ :eachColumn :eachBrickColumn |
+		| titleElement columnHeader resizer |
+		titleElement := eachColumn buildHeaderElement.
+		titleElement hMatchParent.
+		columnHeader := BrHorizontalPane new
+			alignCenterLeft;
+			vFitContent;
+			addChild: titleElement;
+			addChild: (BrColumnUnsortedState new iconElement id: #columnSortIcon).
+		eachBrickColumn isSortable ifTrue: [
+			columnHeader addEventHandlerOn: BlClickEvent do: [ :event |
+				| list |
+				list := (aHeader parent query // BrColumnedList) anyOne.
+				list canSortColumns ifTrue: [
+					list sortByColumn: eachBrickColumn.
+					aHeader children asArray with: theBrickColumns do: [ :header :column |
+						(header query // #columnSortIcon) anyOne removeFromParent.
+						header addChild: ((list sortState iconElementForColumn: column) id: #columnSortIcon) ] ] ] ].
+		resizer := eachBrickColumn addResizerTo: columnHeader.
+		resizer id: (eachColumn title asString, '-resizer') asSymbol.
+		columnHeader ])
+]
+
 { #category : #accessing }
 GtPhlowColumnedListView >> cellSpacing [
 	^ 10

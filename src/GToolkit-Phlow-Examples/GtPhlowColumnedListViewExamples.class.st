@@ -1942,6 +1942,24 @@ GtPhlowColumnedListViewExamples >> selectItemAt: anIndex for: anElement [
 	self assert: (aListElement isSelectedAt: anIndex).
 ]
 
+{ #category : #examples }
+GtPhlowColumnedListViewExamples >> sortableColumnHeader [
+	<gtExample>
+	| view s |
+	view := GtPhlowView empty columnedList.
+	view items: [ #(10 2 30) ].
+	view column: 'Number' do: [ :column |
+		column
+			text: [ :each | each ];
+			sortBy: [ :a :b | a <= b ] ].
+	s := BlScripter new element: view asElement.
+	s clickStep: [ :step | step label: 'Sort Phlow column'; // BrLabel; @ [ :label | label text asString = 'Number' ] ].
+	s assertStep: [ :step | step label: 'Phlow uses Brick sorting'; // BrColumnedList; value: [ :list | list items asArray ] equals: [ #(2 10 30) ] ].
+	s clickStep: [ :step | step label: 'Reverse sorting through separate icon'; id: #columnSortIcon ].
+	s assertStep: [ :step | step label: 'Descending Phlow order'; // BrColumnedList; value: [ :list | list items asArray ] equals: [ #(30 10 2) ] ].
+	^ s
+]
+
 { #category : #'api-shortcuts' }
 GtPhlowColumnedListViewExamples >> viewWithItems [
 	<gtExample>
