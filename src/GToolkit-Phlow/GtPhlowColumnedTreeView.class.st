@@ -13,64 +13,32 @@ Class {
 	#category : #'GToolkit-Phlow-! Views'
 }
 
-{ #category : #'api - converting' }
+{ #category : #building }
 GtPhlowColumnedTreeView >> asElementDo: aBlock [
-	"it evaluates aBlock if the view should have content"
-
-	| aContainer aHeader aTree theItems |
-	theItems := self
-		itemsOnExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
+	| aContainer aTree theItems phlowColumns |
+	theItems := self itemsOnExceptionErrorElement: [ :element | ^ aBlock value: element ].
 	aContainer := self elementClass new.
-	aContainer
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical matchParent ].
-	aContainer layout: BlLinearLayout vertical.
-
-	aTree := self columnedTreeClass new.
-	aTree matchParent.
-	self
-		performBlock: [ aTree items: theItems lazy: self errorCatchingChildrenBuilder ]
-		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
-	
-	aTree
-		addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation asTreeNodeTransformation).
-	aTree
-		rowStencil: self newDecoratedItemStencil.				
-		
-	self hasMultipleSelection ifTrue: [
-		aTree aptitude: BrColumnedMultiTreeAptitude
-	].
-
+	aContainer layout: BlLinearLayout vertical;
+		constraintsDo: [ :c | c horizontal matchParent. c vertical matchParent ].
+	aTree := self columnedTreeClass new matchParent.
+	self performBlock: [ aTree items: theItems lazy: self errorCatchingChildrenBuilder ]
+		onExceptionErrorElement: [ :element | ^ aBlock value: element ].
+	aTree addEventHandler: (GtPhlowListToSelectHandler new transformation: self transformation asTreeNodeTransformation).
+	self hasMultipleSelection ifTrue: [ aTree aptitude: BrColumnedMultiTreeAptitude ].
+	aTree cellSpacing: self cellSpacing.
+	aTree rowStencil: self newDecoratedItemStencil.
 	self buildColumnsInTree: aTree.
-	aHeader := self buildHeaderForItems: aTree columns.
-	aHeader children
-		ifNotEmpty: [ aHeader children first padding: (BlInsets left: 20) ].
-	
-	self
-		performBlock: [ self expandTree: aTree ]
-		onExceptionErrorElement: [ :anElement | ^ aBlock value: anElement ].
-
-	aContainer addEventHandler: (GtPhlowTreeExpanderEventHandler new 
-		treeElement: aTree).
-		
-	aContainer
-		addChildren:
-			{aHeader.
-			aTree}.
-	
-	aContainer addAptitude: (
-		BrLayoutResizerAptitude new
-			hMatchParentToMatchParent: aHeader;
-			hExactToMatchParent: aHeader;
-			hFitContentToFitContent: aHeader;
-			hFitContentLimitedToFitContentLimited: aHeader;
-			vAnyToFitContent: aHeader;
-			matchParentToMatchParent: aTree;
-			exactToMatchParent: aTree;
-			fitContentToFitContent: aTree;
-			fitContentLimitedToFitContentLimited: aTree).
-			
+	phlowColumns := self columns ifEmpty: [ { self fallbackColumnWhenEmpty } ].
+	aTree withHeadersDo: [ :header |
+		header
+			headerId: GtPhlowColumnedListHeaderId;
+			labelStencil: [ :column | (phlowColumns at: (aTree columns identityIndexOf: column)) buildHeaderElement ];
+			resizerIdStencil: [ :column | (column title asString, '-resizer') asSymbol ] ].
+	self performBlock: [ self expandTree: aTree ]
+		onExceptionErrorElement: [ :element | ^ aBlock value: element ].
+	aContainer addEventHandler: (GtPhlowTreeExpanderEventHandler new treeElement: aTree).
+	aContainer addChild: aTree.
+	aContainer addAptitude: (BrLayoutResizerAptitude new inherit: aTree).
 	self beViewElement: aContainer.
 	^ aBlock value: aContainer
 ]
@@ -84,30 +52,9 @@ GtPhlowColumnedTreeView >> buildColumnsInTree: aTree [
 	columns ifEmpty:  [ self fallbackColumnWhenEmpty configureColumn: aTree column ].
 ]
 
-{ #category : #'private - building' }
-GtPhlowColumnedTreeView >> buildHeaderForItems: theItems [
-	| aHeader exp |
-	aHeader := BlElement new.
-	aHeader
-		layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: self cellSpacing).
-	aHeader padding: (BlInsets top: 5 bottom: 5).
-	aHeader id: GtPhlowColumnedListHeaderId.
-	aHeader
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical fitContent ].	
-
-	"Add an invisible expander to the header to make spacing for columns correct"
-	exp := BrColumnedTreeRowElementStencilBuilder new createExpandCollapseElement.
-	exp visibility: BlVisibilityHidden new.
-	aHeader addChild: exp.
-	self buildHeaderItems: theItems inHeader: aHeader.
-	^ aHeader
-]
-
 { #category : #accessing }
 GtPhlowColumnedTreeView >> cellSpacing [
-	^ 10
+	^ BrColumn defaultCellSpacing
 ]
 
 { #category : #'api - scripting' }
@@ -204,11 +151,9 @@ GtPhlowColumnedTreeView >> initialize [
 ]
 
 { #category : #testing }
-GtPhlowColumnedTreeView >> isExpectedElement: aCurrentElement [
-	aCurrentElement class = self elementClass ifFalse: [ ^ false ].
-	aCurrentElement childrenCount = 2 ifFalse: [ ^ false ].
-	(aCurrentElement childAt: 2) class = self columnedTreeClass ifFalse: [ ^ false ].
-	^ true
+GtPhlowColumnedTreeView >> isExpectedElement: anElement [
+	^ anElement class = self elementClass
+		and: [ (anElement query // BrColumnedTree) isNotEmpty ]
 ]
 
 { #category : #'api - scripting' }
@@ -252,16 +197,6 @@ GtPhlowColumnedTreeView >> newDecoratedItemStencil [
 ]
 
 { #category : #'instance creation' }
-GtPhlowColumnedTreeView >> newHeader [
-	^ BlElement new
-		layout: (BlLinearLayout horizontal alignCenterLeft cellSpacing: 10);
-		padding: (BlInsets top: 5 bottom: 5);
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical fitContent ].
-]
-
-{ #category : #'instance creation' }
 GtPhlowColumnedTreeView >> newWrapper [
 	| aWrapper |
 	aWrapper := BlElement new.
@@ -275,22 +210,17 @@ GtPhlowColumnedTreeView >> newWrapper [
 
 { #category : #updating }
 GtPhlowColumnedTreeView >> updateContent: aCurrentElement [
-	"anElement is previously computed content from asElementDo:"
-	
 	| aParent |
-	(self isExpectedElement: aCurrentElement) ifFalse: [ 
-		^ super updateContent: aCurrentElement ].
+	(self isExpectedElement: aCurrentElement) ifFalse: [ ^ super updateContent: aCurrentElement ].
 	aParent := aCurrentElement parent.
-	aParent ifNotNil: [ 
+	aParent ifNotNil: [
 		| theItems aTree |
-		theItems := self itemsOnExceptionErrorElement: [ :anErrorElement | 
-			^ self replaceOldElement: aCurrentElement by: anErrorElement in: aParent ].
-		aTree := aCurrentElement children second.
-		self 
-			enqueueAction: [ 
-				aTree items: theItems lazy: self errorCatchingChildrenBuilder.
-				self expandTree: aTree ] 
-			in: aTree ].
+		theItems := self itemsOnExceptionErrorElement: [ :errorElement |
+			^ self replaceOldElement: aCurrentElement by: errorElement in: aParent ].
+		aTree := (aCurrentElement query // BrColumnedTree) anyOne.
+		self enqueueAction: [
+			aTree items: theItems lazy: self errorCatchingChildrenBuilder.
+			self expandTree: aTree ] in: aTree ]
 ]
 
 { #category : #accessing }

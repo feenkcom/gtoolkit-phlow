@@ -7,7 +7,8 @@ Class {
 		'titleStencil',
 		'width',
 		'itemComputation',
-		'backgroundComputation'
+		'backgroundComputation',
+		'sortBlock'
 	],
 	#category : #'GToolkit-Phlow-Support'
 }
@@ -80,11 +81,9 @@ GtPhlowColumn >> computeDecoratedDataBinder: aSourceDataBinder [
 	^ aDataBinder
 ]
 
-{ #category : #'api - building' }
+{ #category : #configuring }
 GtPhlowColumn >> configureColumn: aBrColumn [
-	aBrColumn
-		title: self title;
-		cellWidth: self cellWidth
+	aBrColumn title: self title; cellWidth: self cellWidth; sortBy: sortBlock
 ]
 
 { #category : #defaults }
@@ -183,6 +182,11 @@ GtPhlowColumn >> prepareForUpdateContent [
 	It is called only from the UI process."
 
 	
+]
+
+{ #category : #sorting }
+GtPhlowColumn >> sortBy: aBlock [
+	sortBlock := aBlock
 ]
 
 { #category : #'private - accessing' }
