@@ -53,11 +53,6 @@ GtPhlowColumn >> buildHeaderElementFor: aText [
 	^ aLabel
 ]
 
-{ #category : #testing }
-GtPhlowColumn >> canBeForGtDeclarativeView [
-	^ self decorations isEmpty and: [ self asGtDeclarativeColumnDataType isUnknown not ]
-]
-
 { #category : #'private - accessing' }
 GtPhlowColumn >> cellWidth [
 	^ width
