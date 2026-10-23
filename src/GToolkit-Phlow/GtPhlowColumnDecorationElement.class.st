@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'content',
 		'bar',
-		'fraction'
+		'fraction',
+		'baselineFraction'
 	],
 	#category : #'GToolkit-Phlow-Support - Decorations'
 }
@@ -20,6 +21,18 @@ GtPhlowColumnDecorationElement >> bar [
 { #category : #accessing }
 GtPhlowColumnDecorationElement >> barColor: aColor [
 	bar background: aColor
+]
+
+{ #category : #accessing }
+GtPhlowColumnDecorationElement >> baselineFraction [
+	^ baselineFraction ifNil: [ 0 ]
+]
+
+{ #category : #accessing }
+GtPhlowColumnDecorationElement >> baselineFraction: aBaseline endpointFraction: anEndpoint [
+	baselineFraction := aBaseline.
+	fraction := anEndpoint.
+	self updateBarExtent
 ]
 
 { #category : #accessing }
@@ -41,8 +54,7 @@ GtPhlowColumnDecorationElement >> fraction [
 
 { #category : #accessing }
 GtPhlowColumnDecorationElement >> fraction: aNumber [
-	fraction := aNumber.
-	self updateBarExtent
+	self baselineFraction: 0 endpointFraction: aNumber
 ]
 
 { #category : #initialization }
@@ -56,13 +68,17 @@ GtPhlowColumnDecorationElement >> initialize [
 
 { #category : #private }
 GtPhlowColumnDecorationElement >> updateBarExtent [
-	"Keep positive fills visible, without exceeding the available width.
-	Zero fractions remain empty."
+	"Extend from zero in either direction; retain a 2px minimum when space allows."
 	bar ifNotNil: [
-		| visualWidth |
-		visualWidth := fraction > 0
-			ifTrue: [ ((self width * fraction) max: 2) min: self width ]
-			ifFalse: [ 0 ].
+		| baseline delta available visualWidth left |
+		baseline := self width * self baselineFraction.
+		delta := (fraction - self baselineFraction) * self width.
+		available := delta < 0 ifTrue: [ baseline ] ifFalse: [ self width - baseline ].
+		visualWidth := delta isZero
+			ifTrue: [ 0 ]
+			ifFalse: [ (delta abs max: 2) min: available ].
+		left := delta < 0 ifTrue: [ baseline - visualWidth ] ifFalse: [ baseline ].
+		bar relocate: left @ 0.
 		bar size: visualWidth @ self height ]
 ]
 

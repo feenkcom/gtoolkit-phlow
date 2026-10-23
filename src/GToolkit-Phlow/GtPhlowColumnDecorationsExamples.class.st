@@ -61,6 +61,42 @@ GtPhlowColumnDecorationsExamples >> compositionAndReuse [
 ]
 
 { #category : #examples }
+GtPhlowColumnDecorationsExamples >> divergingBars [
+	<gtExample>
+	| decoration cell |
+	decoration := GtPhlowColumnNormalizedBarDecoration new minimum: [ -100 ]; maximum: [ 300 ].
+	cell := decoration wrap: (GtPhlowNumberColumn new createCellElement).
+	cell size: 400 @ 30; forceLayout.
+	self assert: decoration baselineFraction equals: 1/4.
+	decoration bind: cell value: -50 rowIndex: 1 columnIndex: 1.
+	cell forceLayout.
+	self assert: cell bar position x equals: 50.
+	self assert: cell bar width equals: 50.
+	decoration bind: cell value: 150 rowIndex: 1 columnIndex: 1.
+	cell forceLayout.
+	self assert: cell bar position x equals: 100.
+	self assert: cell bar width equals: 150.
+	decoration bind: cell value: -1/10 rowIndex: 1 columnIndex: 1.
+	cell forceLayout.
+	self assert: cell bar position x equals: 98.
+	self assert: cell bar width equals: 2.
+	decoration bind: cell value: 1/10 rowIndex: 1 columnIndex: 1.
+	cell forceLayout.
+	self assert: cell bar position x equals: 100.
+	self assert: cell bar width equals: 2.
+	decoration bind: cell value: 0 rowIndex: 1 columnIndex: 1.
+	cell forceLayout.
+	self assert: cell bar width equals: 0.
+	decoration bind: cell value: -500 rowIndex: 1 columnIndex: 1.
+	cell forceLayout.
+	self assert: cell bar position x equals: 0.
+	self assert: cell bar width equals: 100.
+	cell width: 800; forceLayout.
+	self assert: cell bar width equals: 200.
+	^ cell
+]
+
+{ #category : #examples }
 GtPhlowColumnDecorationsExamples >> errorRecovery [
 	<gtExample>
 	| column cell binder |
@@ -75,6 +111,33 @@ GtPhlowColumnDecorationsExamples >> errorRecovery [
 	self assert: cell content fraction equals: 1/2.
 	self assert: cell content content text asString equals: '50'.
 	^ cell
+]
+
+{ #category : #examples }
+GtPhlowColumnDecorationsExamples >> lazyBounds [
+	<gtExample>
+	| decoration minimumCalls maximumCalls |
+	minimumCalls := 0.
+	maximumCalls := 0.
+	decoration := GtPhlowColumnNormalizedBarDecoration new
+		minimum: [ minimumCalls := minimumCalls + 1. -100 ];
+		maximum: [ maximumCalls := maximumCalls + 1. 300 ].
+	self assert: minimumCalls + maximumCalls equals: 0.
+	self assert: (decoration fractionFor: 0) equals: 1/4.
+	decoration fractionFor: 50.
+	self assert: minimumCalls equals: 1.
+	self assert: maximumCalls equals: 1.
+	decoration minimum: [ minimumCalls := minimumCalls + 1. -300 ].
+	self assert: minimumCalls equals: 1.
+	self assert: decoration baselineFraction equals: 1/2.
+	self assert: maximumCalls equals: 2.
+	decoration maximum: [ maximumCalls := maximumCalls + 1. 100 ].
+	self assert: decoration baselineFraction equals: 3/4.
+	decoration prepareForUpdateContent.
+	self assert: (decoration fractionFor: 0) equals: 3/4.
+	self assert: minimumCalls equals: 4.
+	self assert: maximumCalls equals: 4.
+	^ decoration
 ]
 
 { #category : #examples }
@@ -163,6 +226,34 @@ GtPhlowColumnDecorationsExamples >> ordinaryNumberColumn [
 	column decorate: [ :d | d border ].
 	self assert: column canBeForGtDeclarativeView not.
 	^ cell
+]
+
+{ #category : #examples }
+GtPhlowColumnDecorationsExamples >> projectBalance [
+	<gtExample>
+	| rows view element cells |
+	rows := { 'Atlas' -> -100. 'Beacon' -> -1. 'Cedar' -> 0. 'Delta' -> 1. 'Ember' -> 300 }.
+	view := GtPhlowView empty columnedList
+		title: 'Project balance';
+		items: [ rows ];
+		column: 'Project' text: #key;
+		column: 'Balance' numberDo: [ :column |
+			column item: #value;
+				format: [ :value | value asString, ' h' ];
+				decorate: [ :d |
+					d normalizedBar
+						minimum: [ rows inject: 0 into: [ :bound :row | bound min: row value ] ];
+						maximum: [ rows inject: 0 into: [ :bound :row | bound max: row value ] ];
+						color: (Color blue alpha: 0.18) ] ].
+	element := view asElement.
+	element size: 600 @ 260; forceLayout.
+	cells := (element query // GtPhlowColumnDecorationElement) all.
+	self assert: cells size equals: rows size.
+	cells do: [ :cell | self assert: cell baselineFraction equals: 1/4 ].
+	self assert: cells second bar width equals: 2.
+	self assert: cells third bar width equals: 0.
+	self assert: cells fourth bar width equals: 2.
+	^ element
 ]
 
 { #category : #examples }
@@ -266,6 +357,26 @@ GtPhlowColumnDecorationsExamples >> reverseComposition [
 	self assert: cell fraction equals: 1/2.
 	self assert: cell content content text asString equals: '50'.
 	^ cell
+]
+
+{ #category : #examples }
+GtPhlowColumnDecorationsExamples >> singleSidedBounds [
+	<gtExample>
+	| decoration |
+	decoration := GtPhlowColumnNormalizedBarDecoration new minimum: [ -100 ]; maximum: [ -20 ].
+	self assert: decoration baselineFraction equals: 1.
+	self assert: (decoration fractionFor: -50) equals: 1/2.
+	decoration minimum: [ 20 ]; maximum: [ 100 ].
+	self assert: decoration baselineFraction equals: 0.
+	self assert: (decoration fractionFor: 50) equals: 1/2.
+	decoration minimum: [ 0 ]; maximum: [ 0 ].
+	self assert: decoration baselineFraction equals: 0.
+	self assert: (decoration fractionFor: 0) equals: 0.
+	decoration minimum: [ 10 ]; maximum: [ -10 ].
+	self assert: ([ decoration fractionFor: 0. false ] on: Error do: [ :error | true ]).
+	decoration minimum: [ Float nan ]; maximum: [ 100 ].
+	self assert: ([ decoration fractionFor: 0. false ] on: Error do: [ :error | true ]).
+	^ decoration
 ]
 
 { #category : #examples }
