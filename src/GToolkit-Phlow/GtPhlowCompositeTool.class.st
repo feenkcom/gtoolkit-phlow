@@ -98,6 +98,13 @@ GtPhlowCompositeTool >> gtToolsFor: aView [
 		items: [ self tools ]
 ]
 
+{ #category : #'api - accessing' }
+GtPhlowCompositeTool >> icon [
+	^ tools
+		ifEmpty: [ super icon ]
+		ifNotEmpty: [ :currentTools | currentTools first icon ]
+]
+
 { #category : #initialization }
 GtPhlowCompositeTool >> initialize [
 	super initialize.
@@ -141,6 +148,13 @@ GtPhlowCompositeTool >> prepareForReusedNavigation [
 GtPhlowCompositeTool >> supportsSelectionHandling [
 	"Composite tools know how to extract and restore the selected tool"
 	^ true
+]
+
+{ #category : #'api - accessing' }
+GtPhlowCompositeTool >> title [
+	^ tools
+		ifEmpty: [ super title ]
+		ifNotEmpty: [ :currentTools | currentTools first title ]
 ]
 
 { #category : #'private - instance creation' }
