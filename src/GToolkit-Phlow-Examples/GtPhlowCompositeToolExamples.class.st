@@ -94,6 +94,37 @@ GtPhlowCompositeToolExamples >> compositeToolElement_TabTwo_DefaultLabel [
 	^ aTabGroup
 ]
 
+{ #category : #'examples - title' }
+GtPhlowCompositeToolExamples >> compositeToolTitleAndIconFromFirstTool [
+	<gtExample>
+	<return: #GtPhlowCompositeTool>
+	| aTool anIcon |
+
+	anIcon := BrGlamorousVectorIcons search.
+	aTool := self basicCompositeTool.
+	aTool addTool: (self toolOne icon: anIcon; yourself).
+	aTool addTool: self toolTwo.
+
+	self assert: aTool title equals: aTool tools first title.
+	self assert: aTool icon == anIcon.
+
+	^ aTool
+]
+
+{ #category : #'examples - title' }
+GtPhlowCompositeToolExamples >> compositeToolWithoutToolsHasObjectTitle [
+	<gtExample>
+	<return: #GtPhlowCompositeTool>
+	| aTool |
+
+	aTool := self basicCompositeTool.
+
+	self assert: aTool title equals: aTool object gtDisplayString.
+	self assert: aTool icon notNil.
+
+	^ aTool
+]
+
 { #category : #'examples - elements' }
 GtPhlowCompositeToolExamples >> plusElement: aTextChanger [
 	<gtExample>
