@@ -219,6 +219,7 @@ GtPhlowColumnedTreeView >> updateContent: aCurrentElement [
 			^ self replaceOldElement: aCurrentElement by: errorElement in: aParent ].
 		aTree := (aCurrentElement query // BrColumnedTree) anyOne.
 		self enqueueAction: [
+			self columns do: #prepareForUpdateContent.
 			aTree items: theItems lazy: self errorCatchingChildrenBuilder.
 			self expandTree: aTree ] in: aTree ]
 ]

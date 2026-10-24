@@ -8,7 +8,8 @@ Class {
 		'width',
 		'itemComputation',
 		'backgroundComputation',
-		'sortBlock'
+		'sortBlock',
+		'decorations'
 	],
 	#category : #'GToolkit-Phlow-Support'
 }
@@ -57,33 +58,47 @@ GtPhlowColumn >> cellWidth [
 	^ width
 ]
 
-{ #category : #'private - building' }
+{ #category : #private }
 GtPhlowColumn >> computeDecoratedCellStencil: aCellStencil [
+	| stencil |
+	stencil := aCellStencil.
+	self decorations isEmpty ifFalse: [
+		stencil := GtPhlowColumnDecorationsCellStencilBuilder new
+			cellStencil: stencil; decorations: self decorations ].
 	^ GtPhlowColumnErrorHandlingCellStencilBuilder new
-		cellStencil: aCellStencil;
+		cellStencil: stencil;
 		cellSpacing: self newCellPaddingInsets
 ]
 
-{ #category : #'private - building' }
+{ #category : #private }
 GtPhlowColumn >> computeDecoratedDataBinder: aSourceDataBinder [
 	| aDataBinder |
-
 	aDataBinder := aSourceDataBinder.
-
+	self decorations isEmpty ifFalse: [
+		aDataBinder := GtPhlowColumnDecorationsDataBinder new
+			dataBinder: aDataBinder; decorations: self decorations ].
 	aDataBinder := GtPhlowColumnCellItemComputationDataBinder new
 		dataBinder: aDataBinder;
 		itemComputation: itemComputation;
 		backgroundComputation: self backgroundComputation.
-
-	aDataBinder := GtPhlowColumnErrorHandlingDataBinder new
-		dataBinder: aDataBinder.
-
-	^ aDataBinder
+	^ GtPhlowColumnErrorHandlingDataBinder new dataBinder: aDataBinder
 ]
 
 { #category : #configuring }
 GtPhlowColumn >> configureColumn: aBrColumn [
+	self prepareForUpdateContent.
 	aBrColumn title: self title; cellWidth: self cellWidth; sortBy: sortBlock
+]
+
+{ #category : #scripting }
+GtPhlowColumn >> decorate: aBlock [
+	"Configure ordered decorations before materializing the view."
+	aBlock value: self decorations
+]
+
+{ #category : #accessing }
+GtPhlowColumn >> decorations [
+	^ decorations ifNil: [ decorations := GtPhlowColumnDecorations new ]
 ]
 
 { #category : #defaults }
@@ -176,12 +191,10 @@ GtPhlowColumn >> noWidth [
 	width := BrColumnUndefinedWidth new.
 ]
 
-{ #category : #'api - building' }
+{ #category : #updating }
 GtPhlowColumn >> prepareForUpdateContent [
-	"Items are going to be updated. Columns can clear caches, etc.
-	It is called only from the UI process."
-
-	
+	"Called on the UI process before content is replaced."
+	decorations ifNotNil: [ decorations prepareForUpdateContent ]
 ]
 
 { #category : #sorting }
