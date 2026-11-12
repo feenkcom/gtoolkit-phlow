@@ -134,6 +134,7 @@ GtPhlowViewExamples >> phlowViews [
 { #category : #'examples - updating' }
 GtPhlowViewExamples >> updateAgainstAllViews [
 	<gtExample>
+	<timeLimit: 120000>
 	| aPhlowView thePhlowViews |
 	self class isAbstract ifTrue: [ ^ self ].
 	aPhlowView := self phlowView.
