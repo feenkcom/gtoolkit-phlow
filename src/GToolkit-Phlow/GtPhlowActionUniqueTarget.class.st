@@ -54,3 +54,13 @@ GtPhlowActionUniqueTarget class >> menuItemsForObject: anObject inContext: aPhlo
 	<return: #BrMenuItems>
 	^ self default menuItemsForObject: anObject inContext: aPhlowContext hostElement: aHostElement do: aBlock
 ]
+
+{ #category : #converting }
+GtPhlowActionUniqueTarget class >> phlowActionsForObject: anObject inContext: aPhlowContext [
+	^ self default phlowActionsForObject: anObject inContext: aPhlowContext
+]
+
+{ #category : #converting }
+GtPhlowActionUniqueTarget class >> phlowActionsForObjects: aCollectionOfObjects inContext: aPhlowContext [
+	^ self default phlowActionsForObjects: aCollectionOfObjects inContext: aPhlowContext
+]

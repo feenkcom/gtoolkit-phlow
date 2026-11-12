@@ -236,6 +236,55 @@ GtPhlowDropdownAction >> newDropdownLookFor: aDropdown targetElement: aTargetEle
 	^ anAptitude
 ]
 
+{ #category : #'api - menu' }
+GtPhlowDropdownAction >> phlowActions: aComputationBlock [
+	self menu: [ :anActionElement :aTargetElement | 
+		| computedMenuItems computedPhlowActions |
+		computedMenuItems := BrMenuItems new.
+		computedPhlowActions := aComputationBlock cull: anActionElement cull: aTargetElement.
+		computedPhlowActions do: [ :aPhlowAction |
+			aPhlowAction
+				asMenuItem: [ :aMenuItem | computedMenuItems addItem: aMenuItem ]
+				withHostElement: aTargetElement ]. 
+		computedMenuItems ]
+]
+
+{ #category : #'api - menu' }
+GtPhlowDropdownAction >> phlowActionsForObject: anObject fromTarget: anActionTarget [
+	"Build the menu from the phlow actions of anObject that are defined for anActionTarget.
+	anActionTarget is kind of GtPhlowActionTarget (or a class answering one with #asPhlowTarget).
+	The actions are collected each time the menu is opened."
+
+	self
+		phlowActions: [ anActionTarget asPhlowTarget phlowActionsForObject: anObject ]
+]
+
+{ #category : #'api - menu' }
+GtPhlowDropdownAction >> phlowActionsForObject: anObject inContext: aPhlowContext fromTarget: anActionTarget [
+	"Build the menu from the phlow actions of anObject that are defined for anActionTarget.
+	aPhlowContext is passed to the collected actions (methods with the #gtFooFor:inContext: signature).
+	anActionTarget is kind of GtPhlowActionTarget (or a class answering one with #asPhlowTarget).
+	The actions are collected each time the menu is opened."
+
+	self
+		phlowActions: [ anActionTarget asPhlowTarget
+				phlowActionsForObject: anObject
+				inContext: aPhlowContext ]
+]
+
+{ #category : #'api - menu' }
+GtPhlowDropdownAction >> phlowActionsForObjects: aCollectionOfObjects inContext: aPhlowContext fromTarget: anActionTarget [
+	"Build the menu from the phlow actions of the given objects that are defined for anActionTarget.
+	aPhlowContext is passed to the collected actions (methods with the #gtFooFor:inContext: signature).
+	anActionTarget is kind of GtPhlowActionTarget (or a class answering one with #asPhlowTarget).
+	The actions are collected each time the menu is opened."
+
+	self
+		phlowActions: [ anActionTarget asPhlowTarget
+				phlowActionsForObjects: aCollectionOfObjects
+				inContext: aPhlowContext ]
+]
+
 { #category : #accessing }
 GtPhlowDropdownAction >> preferredExtent [
 	<return: #Point or: nil>
