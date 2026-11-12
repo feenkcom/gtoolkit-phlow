@@ -9,6 +9,13 @@ GtPhlowNoAction >> asElement: aBlock withHostElement: aTargetElement [
 	"do nothing"
 ]
 
+{ #category : #converting }
+GtPhlowNoAction >> asMenuItem: aBlock withHostElement: aTargetElement [
+	"do nothing"
+
+	
+]
+
 { #category : #acessing }
 GtPhlowNoAction >> description [
 	"Return an action description.
