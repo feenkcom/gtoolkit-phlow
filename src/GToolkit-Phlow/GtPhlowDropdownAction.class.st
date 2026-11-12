@@ -285,6 +285,21 @@ GtPhlowDropdownAction >> phlowActionsForObjects: aCollectionOfObjects inContext:
 				inContext: aPhlowContext ]
 ]
 
+{ #category : #'api - menu' }
+GtPhlowDropdownAction >> phlowActionsForObjects: aCollectionOfObjects inContext: aPhlowContext fromTargets: aCollectionOfTargets [
+	"Build the menu from the phlow actions of the given objects that are shown in any of the given targets.
+	An action shown in several of the targets appears once.
+	aPhlowContext is passed to the collected actions (methods with the #gtFooFor:inContext: signature).
+	The actions are collected each time the menu is opened."
+
+	self
+		phlowActionsForObjects: aCollectionOfObjects
+		inContext: aPhlowContext
+		fromTarget: (GtPhlowCompositeActionTarget new
+				targets: (aCollectionOfTargets collect: [ :eachTarget | eachTarget asPhlowTarget ])
+						asArray)
+]
+
 { #category : #accessing }
 GtPhlowDropdownAction >> preferredExtent [
 	<return: #Point or: nil>
