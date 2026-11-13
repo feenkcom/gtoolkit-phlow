@@ -19,6 +19,35 @@ GtPhlowDiffViewExamples >> phlowView [
 	^ nil' ]
 ]
 
+{ #category : #examples }
+GtPhlowDiffViewExamples >> sharedAndIndependentStylers [
+	<gtExample>
+	| common left right builders |
+	common := BlTextNullStyler new.
+	left := BlTextNullStyler new.
+	right := BlTextNullStyler new.
+	builders := {GtMultiSplitterDiffElement new.
+			GtDiffElementWithLabelStencil new}.
+	builders
+		do: [ :builder | 
+			builder styler: common.
+			self assert: builder leftStyler == common.
+			self assert: builder rightStyler == common.
+			builder leftStyler: left.
+			self assert: builder leftStyler == left.
+			self assert: builder rightStyler == common.
+			builder rightStyler: right.
+			self assert: builder leftStyler == left.
+			self assert: builder rightStyler == right.
+			builder styler: common.
+			self assert: builder leftStyler == common.
+			self assert: builder rightStyler == common.
+			builder styler: nil.
+			self assert: builder leftStyler isNil.
+			self assert: builder rightStyler isNil ].
+	^ builders
+]
+
 { #category : #'as yet unclassified' }
 GtPhlowDiffViewExamples >> viewWithLabels [
 	<gtExample>
