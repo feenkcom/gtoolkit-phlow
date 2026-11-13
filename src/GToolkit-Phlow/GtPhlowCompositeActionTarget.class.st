@@ -16,6 +16,26 @@ Class {
 	#category : #'GToolkit-Phlow-Action Targets'
 }
 
+{ #category : #enumerating }
+GtPhlowCompositeActionTarget >> actionsForObject: anObject do: aBlock [
+	"When I am used to request actions, evaluate aBlock with each action
+	that is shown in any of my targets (each action once)"
+
+	anObject gtActions
+		select: [ :eachAction | self includesTargetOf: eachAction ]
+		thenDo: aBlock
+]
+
+{ #category : #enumerating }
+GtPhlowCompositeActionTarget >> actionsForObject: anObject inContext: aPhlowContext do: aBlock [
+	"When I am used to request actions, evaluate aBlock with each action
+	that is shown in any of my targets (each action once)"
+
+	(anObject gtActionsInContext: aPhlowContext)
+		select: [ :eachAction | self includesTargetOf: eachAction ]
+		thenDo: aBlock
+]
+
 { #category : #'gt - extensions' }
 GtPhlowCompositeActionTarget >> gtTargetsFor: aView [
 
@@ -23,6 +43,15 @@ GtPhlowCompositeActionTarget >> gtTargetsFor: aView [
 	^ aView list
 		  title: 'Targets';
 		  items: [ self targets ifNil: [ #(  ) ] ]
+]
+
+{ #category : #testing }
+GtPhlowCompositeActionTarget >> includesTargetOf: aPhlowAction [
+	"Return true if aPhlowAction is shown in any of my leaf targets"
+
+	self
+		targetsDo: [ :eachTarget | (aPhlowAction target isForTarget: eachTarget) ifTrue: [ ^ true ] ].
+	^ false
 ]
 
 { #category : #initialization }
