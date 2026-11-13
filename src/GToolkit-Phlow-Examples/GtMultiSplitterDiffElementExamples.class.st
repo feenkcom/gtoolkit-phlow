@@ -8,6 +8,33 @@ Class {
 }
 
 { #category : #private }
+GtMultiSplitterDiffElementExamples >> assertLabelsAlignWithEditorTextIn: aScripter [
+	| leftTextX rightTextX |
+	aScripter
+		checkStep: [ :s | 
+			s
+				label: 'Locate the previous text inset';
+				// GtDiffOldTextId;
+				do: [ :editor | leftTextX := editor bounds inSpace left + editor padding left ] ].
+	aScripter
+		checkStep: [ :s | 
+			s
+				label: 'Locate the proposed text inset';
+				// GtDiffNewTextId;
+				do: [ :editor | rightTextX := editor bounds inSpace left + editor padding left ] ].
+	aScripter
+		checkStep: [ :s | 
+			s
+				label: 'Both headers align with the text inside their editor';
+				// #'diff-container';
+				onChildFromBlock: [ :holder | holder children first children first ];
+				do: [ :header | 
+					self assert: (header children first bounds inSpace left - leftTextX) abs < 0.5.
+					self
+						assert: (header children last bounds inSpace left - rightTextX) abs < 0.5 ] ]
+]
+
+{ #category : #private }
 GtMultiSplitterDiffElementExamples >> assertLine: lineIndex in: editorId color: aColor scripter: aScripter [
 	aScripter
 		checkStep: [ :s | 
@@ -137,6 +164,37 @@ GtMultiSplitterDiffElementExamples >> insertionOnly [
 		color: BrGlamorousColors diffAddedLineBackgroundColor
 		scripter: scripter.
 	self assertProgress: '1/1' in: scripter.
+	^ scripter
+]
+
+{ #category : #examples }
+GtMultiSplitterDiffElementExamples >> labelsAlignWithEditorText [
+	<gtExample>
+	<return: #BlScripter>
+	| scripter |
+	scripter := self multipleSplitters.
+	self assertLabelsAlignWithEditorTextIn: scripter.
+	^ scripter
+]
+
+{ #category : #examples }
+GtMultiSplitterDiffElementExamples >> labelsStayAlignedAfterResize [
+	<gtExample>
+	<return: #BlScripter>
+	| scripter |
+	scripter := self labelsAlignWithEditorText.
+	scripter
+		doStep: [ :s | 
+			s
+				label: 'Narrow the comparison';
+				block: [ :element | scripter extent: 600 @ 400 ] ].
+	self assertLabelsAlignWithEditorTextIn: scripter.
+	scripter
+		doStep: [ :s | 
+			s
+				label: 'Widen the comparison';
+				block: [ :element | scripter extent: 1000 @ 400 ] ].
+	self assertLabelsAlignWithEditorTextIn: scripter.
 	^ scripter
 ]
 
