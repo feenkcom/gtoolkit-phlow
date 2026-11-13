@@ -5,12 +5,13 @@ Class {
 		'from',
 		'to',
 		'splitters',
-		'styler',
 		'fromLabel',
 		'toLabel',
 		'filterModel',
 		'diffHolder',
-		'filterElement'
+		'filterElement',
+		'leftStyler',
+		'rightStyler'
 	],
 	#category : #'GToolkit-Phlow-UI'
 }
@@ -44,6 +45,16 @@ GtMultiSplitterDiffElement >> initialize [
 	self addChild: self makeFilter as: #filter
 ]
 
+{ #category : #accessing }
+GtMultiSplitterDiffElement >> leftStyler [
+	^ leftStyler
+]
+
+{ #category : #accessing }
+GtMultiSplitterDiffElement >> leftStyler: aStyler [
+	leftStyler := aStyler
+]
+
 { #category : #'as yet unclassified' }
 GtMultiSplitterDiffElement >> makeDiffHolder [
 	^ diffHolder := BrVerticalPane new matchParent
@@ -64,18 +75,17 @@ GtMultiSplitterDiffElement >> makeFilter [
 	^ filterElement
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #private }
 GtMultiSplitterDiffElement >> onSelectedItemChanged [
 	| changes stencil |
 	changes := GtDiffBuilder
 			computeDifferencesFrom: from
 			to: to
 			using: filterModel selectedItem object.
-
 	stencil := GtDiffElementWithLabelStencil new
 			change: changes;
-			styler: styler.
-
+			leftStyler: leftStyler;
+			rightStyler: rightStyler.
 	stencil fromLabelText: fromLabel.
 	stencil toLabelText: toLabel.
 	diffHolder removeChildren addChild: stencil asElement
@@ -94,6 +104,16 @@ GtMultiSplitterDiffElement >> onSplittersChanged [
 ]
 
 { #category : #accessing }
+GtMultiSplitterDiffElement >> rightStyler [
+	^ rightStyler
+]
+
+{ #category : #accessing }
+GtMultiSplitterDiffElement >> rightStyler: aStyler [
+	rightStyler := aStyler
+]
+
+{ #category : #accessing }
 GtMultiSplitterDiffElement >> splitters [
 	^ splitters
 ]
@@ -108,12 +128,14 @@ GtMultiSplitterDiffElement >> splitters: anObject [
 
 { #category : #accessing }
 GtMultiSplitterDiffElement >> styler [
-	^ styler
+	^ leftStyler
 ]
 
 { #category : #accessing }
-GtMultiSplitterDiffElement >> styler: anObject [
-	styler := anObject
+GtMultiSplitterDiffElement >> styler: aStyler [
+	self
+		leftStyler: aStyler;
+		rightStyler: aStyler
 ]
 
 { #category : #accessing }
