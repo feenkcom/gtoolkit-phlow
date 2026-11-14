@@ -114,6 +114,7 @@ GtPhlowActionTarget >> menuItemsForObject: anObject hostElement: aHostElement do
 { #category : #converting }
 GtPhlowActionTarget >> menuItemsForObject: anObject inContext: aPhlowContext hostElement: aHostElement [
 	| aMenuItems |
+	
 	aMenuItems := BrMenuItems new.
 	self
 		actionsForObject: anObject
@@ -142,6 +143,25 @@ GtPhlowActionTarget >> phlowActionsForObject: anObject [
 	^ Array streamContents: [ :aStream |
 		self actionsForObject: anObject do: [ :anAction |
 			aStream nextPut: anAction ] ]
+]
+
+{ #category : #actions }
+GtPhlowActionTarget >> phlowActionsForObject: anObject inContext: aPhlowContext [
+	^ Array streamContents: [ :aStream |
+		self actionsForObject: anObject inContext: aPhlowContext do: [ :anAction |
+			aStream nextPut: anAction ] ]
+]
+
+{ #category : #actions }
+GtPhlowActionTarget >> phlowActionsForObjects: aCollectionOfObjects inContext: aPhlowContext [
+	^ aCollectionOfObjects 
+		inject: OrderedCollection new 
+		into: [ :computedActions :anObject |
+			computedActions 
+				addAll: (self
+					phlowActionsForObject: anObject 
+					inContext: aPhlowContext);
+				yourself ]
 ]
 
 { #category : #enumerating }
