@@ -8,30 +8,19 @@ Class {
 }
 
 { #category : #private }
-GtMultiSplitterDiffElementExamples >> assertLabelsAlignWithEditorTextIn: aScripter [
-	| leftTextX rightTextX |
+GtMultiSplitterDiffElementExamples >> assertLabels: fromText and: toText in: aScripter [
 	aScripter
 		checkStep: [ :s | 
 			s
-				label: 'Locate the previous editor text';
-				// GtDiffOldTextId;
-				do: [ :editor | leftTextX := editor children first bounds inSpace left ] ].
+				label: 'The previous label is displayed';
+				// GtDiffOldLabelId;
+				do: [ :label | self assert: label text asString = fromText ] ].
 	aScripter
 		checkStep: [ :s | 
 			s
-				label: 'Locate the proposed editor text';
-				// GtDiffNewTextId;
-				do: [ :editor | rightTextX := editor children first bounds inSpace left ] ].
-	aScripter
-		checkStep: [ :s | 
-			s
-				label: 'Labels start within one pixel of their editor text';
-				// #'diff-container';
-				onChildFromBlock: [ :holder | holder children first children first ];
-				do: [  "The labels have a small optical offset. Check layout here; inspect glyph alignment in the preview.":header | 
-					self assert: (header children first bounds inSpace left - leftTextX) abs <= 1.
-					self
-						assert: (header children last bounds inSpace left - rightTextX) abs <= 1 ] ]
+				label: 'The proposed label is displayed';
+				// GtDiffNewLabelId;
+				do: [ :label | self assert: label text asString = toText ] ]
 ]
 
 { #category : #private }
@@ -81,6 +70,29 @@ GtMultiSplitterDiffElementExamples >> assertWhiteEditor: editorId in: aScripter 
 ]
 
 { #category : #examples }
+GtMultiSplitterDiffElementExamples >> contentKeepsLabels [
+	<gtExample>
+	<return: #BlScripter>
+	| scripter |
+	scripter := self labelsBeforeContent.
+	scripter
+		doStep: [ :s | 
+			s
+				label: 'Supply content after the labels';
+				block: [ :element | 
+					element
+						from: self previousText;
+						to: self proposedText;
+						splitters: self splitters ] ].
+	self
+		assertLabels: 'Before'
+		and: 'After'
+		in: scripter.
+	self assertProgress: '1/2' in: scripter.
+	^ scripter
+]
+
+{ #category : #examples }
 GtMultiSplitterDiffElementExamples >> deletionOnly [
 	<gtExample>
 	<return: #BlScripter>
@@ -108,6 +120,38 @@ GtMultiSplitterDiffElementExamples >> deletionOnly [
 ]
 
 { #category : #examples }
+GtMultiSplitterDiffElementExamples >> emptyLabelsHideHeader [
+	<gtExample>
+	<return: #BlScripter>
+	| scripter |
+	scripter := self multipleSplitters.
+	scripter
+		doStep: [ :s | 
+			s
+				label: 'Remove the comparison labels';
+				block: [ :element | 
+					element
+						fromLabel: '';
+						toLabel: '' ] ].
+	{GtDiffOldLabelId.
+		GtDiffNewLabelId}
+		do: [ :labelId | 
+			scripter
+				checkStep: [ :s | 
+					s
+						label: 'Empty labels do not reserve a header row';
+						// labelId;
+						do: [ :label | self assert: label visibility = BlVisibility gone ] ] ].
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'The editors occupy the first grid row';
+				// GtDiffOldTextId;
+				do: [ :editor | self assert: editor bounds inParent top = 0 ] ].
+	^ scripter
+]
+
+{ #category : #examples }
 GtMultiSplitterDiffElementExamples >> emptyTexts [
 	<gtExample>
 	<return: #BlScripter>
@@ -117,6 +161,41 @@ GtMultiSplitterDiffElementExamples >> emptyTexts [
 			to: ''
 			splitters: {GtLineDiffSplitter new}.
 	self assertProgress: '0/0' in: scripter.
+	^ scripter
+]
+
+{ #category : #examples }
+GtMultiSplitterDiffElementExamples >> hiddenDiffKeepsLabels [
+	<gtExample>
+	<return: #BlScripter>
+	| scripter change |
+	change := GtDiffBuilder
+			computeDifferencesFrom: self previousText
+			to: self previousText
+			using: self splitters first.
+	scripter := BlScripter new.
+	scripter extent: 800 @ 400.
+	scripter
+		element: (GtDiffElementWithLabelStencil new
+				change: change;
+				fromLabelText: 'Previous';
+				toLabelText: 'Proposed';
+				shouldHideDiff: true;
+				asElement).
+	self
+		assertLabels: 'Previous'
+		and: 'Proposed'
+		in: scripter.
+	{GtDiffOldTextId.
+		GtDiffNewTextId.
+		GtDiffButtonsId}
+		do: [ :anId | 
+			scripter
+				checkStep: [ :s | 
+					s
+						label: 'Hide the comparison and navigation';
+						// anId;
+						do: [ :element | self assert: element visibility = BlVisibility gone ] ] ].
 	^ scripter
 ]
 
@@ -183,30 +262,74 @@ GtMultiSplitterDiffElementExamples >> insertionOnly [
 GtMultiSplitterDiffElementExamples >> labelsAlignWithEditorText [
 	<gtExample>
 	<return: #BlScripter>
-	| scripter |
+	| scripter leftTextX rightTextX |
 	scripter := self multipleSplitters.
-	self assertLabelsAlignWithEditorTextIn: scripter.
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'Locate the previous editor text';
+				// GtDiffOldTextId;
+				do: [ :editor | leftTextX := editor bounds inSpace left + editor padding left ] ].
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'Locate the proposed editor text';
+				// GtDiffNewTextId;
+				do: [ :editor | rightTextX := editor bounds inSpace left + editor padding left ] ].
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'The previous label shares its editor text inset';
+				// GtDiffOldLabelId;
+				do: [ :label | self assert: label bounds inSpace left + label padding left = leftTextX ] ].
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'The proposed label shares its editor text inset';
+				// GtDiffNewLabelId;
+				do: [ :label | self assert: label bounds inSpace left + label padding left = rightTextX ] ].
 	^ scripter
 ]
 
 { #category : #examples }
-GtMultiSplitterDiffElementExamples >> labelsStayAlignedAfterResize [
+GtMultiSplitterDiffElementExamples >> labelsBeforeContent [
 	<gtExample>
 	<return: #BlScripter>
 	| scripter |
-	scripter := self labelsAlignWithEditorText.
+	scripter := BlScripter new.
+	scripter extent: 800 @ 400.
+	scripter
+		element: (GtMultiSplitterDiffElement new
+				matchParent;
+				fromLabel: 'Before';
+				toLabel: 'After';
+				yourself).
+	self
+		assertLabels: 'Before'
+		and: 'After'
+		in: scripter.
+	self assertProgress: '0/0' in: scripter.
+	^ scripter
+]
+
+{ #category : #examples }
+GtMultiSplitterDiffElementExamples >> labelsUpdateAfterRendering [
+	<gtExample>
+	<return: #BlScripter>
+	| scripter |
+	scripter := self multipleSplitters.
 	scripter
 		doStep: [ :s | 
 			s
-				label: 'Narrow the comparison';
-				block: [ :element | scripter extent: 600 @ 400 ] ].
-	self assertLabelsAlignWithEditorTextIn: scripter.
-	scripter
-		doStep: [ :s | 
-			s
-				label: 'Widen the comparison';
-				block: [ :element | scripter extent: 1000 @ 400 ] ].
-	self assertLabelsAlignWithEditorTextIn: scripter.
+				label: 'Update both labels on the multi-splitter diff';
+				block: [ :element | 
+					element
+						fromLabel: 'Before';
+						toLabel: 'After' ] ].
+	self
+		assertLabels: 'Before'
+		and: 'After'
+		in: scripter.
 	^ scripter
 ]
 
@@ -225,15 +348,10 @@ GtMultiSplitterDiffElementExamples >> multipleSplitters [
 				label: 'Multiple splitters show the selector';
 				// #filter;
 				do: [ :filter | self assert: filter visibility = BlVisibility visible ] ].
-	scripter
-		checkStep: [ :s | 
-			s
-				label: 'Pane headers identify the comparison';
-				// #'diff-container';
-				onChildFromBlock: [ :holder | holder children first children first ];
-				do: [ :header | 
-					self assert: header children first text asString = 'Previous'.
-					self assert: header children last text asString = 'Proposed' ] ].
+	self
+		assertLabels: 'Previous'
+		and: 'Proposed'
+		in: scripter.
 	self assertProgress: '1/2' in: scripter.
 	^ scripter
 ]
@@ -326,6 +444,24 @@ GtMultiSplitterDiffElementExamples >> selectSplitterLabeled: aLabel in: aScripte
 ]
 
 { #category : #examples }
+GtMultiSplitterDiffElementExamples >> singleLabel [
+	<gtExample>
+	<return: #BlScripter>
+	| scripter |
+	scripter := self multipleSplitters.
+	scripter
+		doStep: [ :s | 
+			s
+				label: 'Keep only the proposed label';
+				block: [ :element | element fromLabel: '' ] ].
+	self
+		assertLabels: ''
+		and: 'Proposed'
+		in: scripter.
+	^ scripter
+]
+
+{ #category : #examples }
 GtMultiSplitterDiffElementExamples >> singleSplitter [
 	<gtExample>
 	<return: #BlScripter>
@@ -373,6 +509,35 @@ GtMultiSplitterDiffElementExamples >> switchBackToWordSplitter [
 ]
 
 { #category : #examples }
+GtMultiSplitterDiffElementExamples >> switchSplitterKeepsLabelsAndElement [
+	<gtExample>
+	<return: #BlScripter>
+	| scripter originalDiff |
+	scripter := self labelsUpdateAfterRendering.
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'Keep the current diff element';
+				// GtDiffElement;
+				do: [ :diff | originalDiff := diff ] ].
+	self
+		selectSplitterLabeled: GtLineDiffSplitter new descriptionString
+		in: scripter.
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'Switching splitters reuses the diff element';
+				// GtDiffElement;
+				do: [ :diff | self assert: diff == originalDiff ] ].
+	self
+		assertLabels: 'Before'
+		and: 'After'
+		in: scripter.
+	self assertProgress: '1/2' in: scripter.
+	^ scripter
+]
+
+{ #category : #examples }
 GtMultiSplitterDiffElementExamples >> switchToLineSplitter [
 	<gtExample>
 	<return: #BlScripter>
@@ -402,5 +567,9 @@ GtMultiSplitterDiffElementExamples >> switchToLineSplitter [
 		color: scripter element theme diffElement addedLineBackgroundColor
 		scripter: scripter.
 	self assertProgress: '1/2' in: scripter.
+	self
+		assertLabels: 'Previous'
+		and: 'Proposed'
+		in: scripter.
 	^ scripter
 ]

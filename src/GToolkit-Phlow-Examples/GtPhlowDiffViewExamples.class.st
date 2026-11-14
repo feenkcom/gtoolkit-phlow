@@ -41,10 +41,7 @@ GtPhlowDiffViewExamples >> sharedAndIndependentStylers [
 			self assert: builder rightStyler == right.
 			builder styler: common.
 			self assert: builder leftStyler == common.
-			self assert: builder rightStyler == common.
-			builder styler: nil.
-			self assert: builder leftStyler isNil.
-			self assert: builder rightStyler isNil ].
+			self assert: builder rightStyler == common ].
 	^ builders
 ]
 

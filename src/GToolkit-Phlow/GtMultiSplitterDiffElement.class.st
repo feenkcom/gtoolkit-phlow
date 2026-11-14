@@ -5,13 +5,10 @@ Class {
 		'from',
 		'to',
 		'splitters',
-		'fromLabel',
-		'toLabel',
 		'filterModel',
 		'diffHolder',
 		'filterElement',
-		'leftStyler',
-		'rightStyler'
+		'diffElement'
 	],
 	#category : #'GToolkit-Phlow-UI'
 }
@@ -28,31 +25,38 @@ GtMultiSplitterDiffElement >> from: anObject [
 
 { #category : #accessing }
 GtMultiSplitterDiffElement >> fromLabel [
-	^ fromLabel
+	^ diffElement fromLabel
 ]
 
 { #category : #accessing }
-GtMultiSplitterDiffElement >> fromLabel: anObject [
-	fromLabel := anObject
+GtMultiSplitterDiffElement >> fromLabel: aText [
+	diffElement fromLabel: aText
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 GtMultiSplitterDiffElement >> initialize [
 	super initialize.
-
+	diffElement := GtDiffElement new
+			aptitude: GtDiffFlatAptitude;
+			vFitContentLimited;
+			beSmallSize;
+			moveButtonsToBottom.
+	self styler: BlTextNullStyler new.
 	self addChild: self makeDiffHolder as: #'diff-container'.
-
-	self addChild: self makeFilter as: #filter
+	diffHolder addChild: diffElement asScrollableElement.
+	self addChild: self makeFilter as: #filter.
+	filterElement visibility: BlVisibility gone
 ]
 
 { #category : #accessing }
 GtMultiSplitterDiffElement >> leftStyler [
-	^ leftStyler
+	^ diffElement leftStyler
 ]
 
 { #category : #accessing }
 GtMultiSplitterDiffElement >> leftStyler: aStyler [
-	leftStyler := aStyler
+	self assert: aStyler notNil description: 'A styler must not be nil'.
+	diffElement leftStyler: aStyler
 ]
 
 { #category : #'as yet unclassified' }
@@ -77,18 +81,14 @@ GtMultiSplitterDiffElement >> makeFilter [
 
 { #category : #private }
 GtMultiSplitterDiffElement >> onSelectedItemChanged [
-	| changes stencil |
+	| changes |
 	changes := GtDiffBuilder
 			computeDifferencesFrom: from
 			to: to
 			using: filterModel selectedItem object.
-	stencil := GtDiffElementWithLabelStencil new
-			change: changes;
-			leftStyler: leftStyler;
-			rightStyler: rightStyler.
-	stencil fromLabelText: fromLabel.
-	stencil toLabelText: toLabel.
-	diffHolder removeChildren addChild: stencil asElement
+	diffElement
+		change: changes;
+		scrollNext
 ]
 
 { #category : #'as yet unclassified' }
@@ -105,12 +105,13 @@ GtMultiSplitterDiffElement >> onSplittersChanged [
 
 { #category : #accessing }
 GtMultiSplitterDiffElement >> rightStyler [
-	^ rightStyler
+	^ diffElement rightStyler
 ]
 
 { #category : #accessing }
 GtMultiSplitterDiffElement >> rightStyler: aStyler [
-	rightStyler := aStyler
+	self assert: aStyler notNil description: 'A styler must not be nil'.
+	diffElement rightStyler: aStyler
 ]
 
 { #category : #accessing }
@@ -128,7 +129,7 @@ GtMultiSplitterDiffElement >> splitters: anObject [
 
 { #category : #accessing }
 GtMultiSplitterDiffElement >> styler [
-	^ leftStyler
+	^ self leftStyler
 ]
 
 { #category : #accessing }
@@ -150,10 +151,10 @@ GtMultiSplitterDiffElement >> to: anObject [
 
 { #category : #accessing }
 GtMultiSplitterDiffElement >> toLabel [
-	^ toLabel
+	^ diffElement toLabel
 ]
 
 { #category : #accessing }
-GtMultiSplitterDiffElement >> toLabel: anObject [
-	toLabel := anObject
+GtMultiSplitterDiffElement >> toLabel: aText [
+	diffElement toLabel: aText
 ]
