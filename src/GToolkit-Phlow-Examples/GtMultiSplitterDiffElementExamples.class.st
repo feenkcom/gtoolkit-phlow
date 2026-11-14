@@ -25,16 +25,11 @@ GtMultiSplitterDiffElementExamples >> assertLabels: fromText and: toText in: aSc
 
 { #category : #private }
 GtMultiSplitterDiffElementExamples >> assertLine: lineIndex in: editorId color: aColor scripter: aScripter [
-	aScripter
-		checkStep: [ :s | 
-			s
-				label: 'Check the rendered line background';
-				// editorId;
-				do: [ :editor | 
-					self
-						assert: ((editor children at: lineIndex) background paint color
-								blocResolveColorForTheme: editor theme)
-								= (aColor blocResolveColorForTheme: editor theme) ] ]
+	GtDiffElementExamples new
+		assertLine: lineIndex
+		in: editorId
+		color: aColor
+		scripter: aScripter
 ]
 
 { #category : #private }
@@ -50,23 +45,7 @@ GtMultiSplitterDiffElementExamples >> assertProgress: aString in: aScripter [
 
 { #category : #private }
 GtMultiSplitterDiffElementExamples >> assertWhiteEditor: editorId in: aScripter [
-	aScripter
-		checkStep: [ :s | 
-			s
-				label: 'The editor and unchanged lines remain white';
-				// editorId;
-				do: [ :editor | 
-					| color |
-					color := editor theme diffElement editorBackgroundColor
-							blocResolveColorForTheme: editor theme.
-					self
-						assert: (editor background paint color blocResolveColorForTheme: editor theme) = color.
-					self
-						assert: (editor children first background paint color
-								blocResolveColorForTheme: editor theme) = color.
-					self
-						assert: (editor children last background paint color
-								blocResolveColorForTheme: editor theme) = color ] ]
+	GtDiffElementExamples new assertWhiteEditor: editorId in: aScripter
 ]
 
 { #category : #examples }
