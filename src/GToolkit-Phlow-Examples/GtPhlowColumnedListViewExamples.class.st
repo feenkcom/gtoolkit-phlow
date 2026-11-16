@@ -1816,6 +1816,68 @@ GtPhlowColumnedListViewExamples >> sortableColumnHeader [
 ]
 
 { #category : #'examples - sorting' }
+GtPhlowColumnedListViewExamples >> sortableColumnWithStream [
+	<gtExample>
+	| aView aScripter sortCalls |
+	sortCalls := 0.
+	aView := GtPhlowView empty columnedList
+			title: 'Unsorted stream';
+			items: [ #(10 2 30) asAsyncStream ];
+			column: 'Number'
+				textDo: [ :aColumn | 
+					aColumn
+						format: #yourself;
+						sortBy: [ :a :b | 
+							sortCalls := sortCalls + 1.
+							a <= b ] ].
+	aScripter := BlScripter new
+			model: aView;
+			element: aView asElement.
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Wait for the stream to finish loading';
+				// BrColumnedList;
+				satisfies: [ :aList | aList itemsProvider isDone ] ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'The stream provider disables sorting despite the sortable column';
+				// BrColumnedList;
+				satisfies: [ :aList | 
+					(aList itemsProvider isKindOf: BrStreamItemsProvider)
+						and: [ aList columns first isSortable and: [ aList canSortColumns not ] ] ] ].
+	aScripter
+		clickStep: [ :aStep | 
+			aStep
+				label: 'Click the sortable column header';
+				// BrLabel;
+				@ [ :aLabel | aLabel text asString = 'Number' ] ].
+	aScripter
+		doStep: [ :aStep | 
+			aStep
+				label: 'Also request sorting programmatically';
+				// BrColumnedList;
+				block: [ :aList | aList sortByColumn: aList columns first ] ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Keep the streamed items in their original order';
+				// BrColumnedList;
+				value: [ :aList | aList items asArray ] equals: [ #(10 2 30) ] ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Retain the stream provider and unsorted state';
+				// BrColumnedList;
+				satisfies: [ :aList | 
+					(aList itemsProvider isKindOf: BrStreamItemsProvider)
+						and: [ aList sortedColumn isNil ] ] ].
+	self assert: sortCalls equals: 0.
+	^ aScripter
+]
+
+{ #category : #'examples - sorting' }
 GtPhlowColumnedListViewExamples >> sortableRopedTextColumns [
 	<gtExample>
 	| aFormat configurations |
