@@ -2118,6 +2118,39 @@ GtPhlowColumnedListViewExamples >> sortingUsesComputedItems [
 	^ state
 ]
 
+{ #category : #'examples - sorting' }
+GtPhlowColumnedListViewExamples >> sortingUsesComputedItemsWithIndices [
+	<gtExample>
+	| rows phlowColumn column state ordered |
+	rows := {'first' -> 10.
+			'second' -> 1.
+			'third' -> 0}.
+	phlowColumn := GtPhlowTextColumn new
+			index: 2;
+			item: [ :aRow :aRowIndex :aColumnIndex | 
+				self assert: (rows at: aRowIndex) == aRow.
+				self assert: aColumnIndex equals: 2.
+				aRow value + aRowIndex + aColumnIndex ];
+			format: [ :aValue | self error: 'Sorting must not evaluate the formatter' ];
+			sortBy: [ :a :b | 
+				self assert: a isNumber.
+				self assert: b isNumber.
+				a <= b ].
+	column := BrColumn new.
+	phlowColumn configureColumn: column.
+	state := BrColumnUnsortedState new nextForColumn: column.
+	ordered := state orderedItems: rows.
+	self assert: ordered first == rows second.
+	self assert: ordered second == rows third.
+	self assert: ordered third == rows first.
+	state := state nextForColumn: column.
+	ordered := state orderedItems: rows.
+	self assert: ordered first == rows first.
+	self assert: ordered second == rows second.
+	self assert: ordered third == rows third.
+	^ state
+]
+
 { #category : #examples }
 GtPhlowColumnedListViewExamples >> viewWithItems [
 	<gtExample>

@@ -92,10 +92,16 @@ GtPhlowColumn >> configureColumn: aBrColumn [
 		cellWidth: self cellWidth;
 		sortBy: (sortBlock
 				ifNotNil: [ :aComparator | 
-					[ :a :b | 
+					[ :a :b :aRowIndex :anotherRowIndex | 
 					aComparator
-						value: (itemComputation phlowValue: a withEnoughArguments: #())
-						value: (itemComputation phlowValue: b withEnoughArguments: #()) ] ])
+						value: (itemComputation
+								phlowValue: a
+								withEnoughArguments: {aRowIndex.
+										index})
+						value: (itemComputation
+								phlowValue: b
+								withEnoughArguments: {anotherRowIndex.
+										index}) ] ])
 ]
 
 { #category : #scripting }
