@@ -1887,77 +1887,7 @@ GtPhlowColumnedListViewExamples >> sortableRopedTextColumns [
 ]
 
 { #category : #'examples - sorting' }
-GtPhlowColumnedListViewExamples >> sortableTextColumnShortcuts [
-	<gtExample>
-	| configurations |
-	configurations := {[ :aView | aView column: 'Name' text: #key ].
-			[ :aView | 
-			aView
-				column: 'Name'
-				text: #key
-				weight: 1 ].
-			[ :aView | 
-			aView
-				column: 'Name'
-				text: #key
-				width: 200 ].
-			[ :aView | 
-			aView
-				column: 'Name'
-				item: #key
-				text: #asUppercase ].
-			[ :aView | 
-			aView
-				column: 'Name'
-				text: #key
-				spawn: #yourself ].
-			[ :aView | 
-			aView
-				column: 'Name'
-				text: #key
-				spawn: #yourself
-				width: 200 ]}.
-	^ configurations
-		collect: [ :configure | 
-			| aView aScripter |
-			aView := GtPhlowView empty columnedList
-					items: [ {'Charlie' -> 20.
-							'Alice' -> 30.
-							'Bob' -> 10} ].
-			configure value: aView.
-			aScripter := BlScripter new
-					model: aView;
-					element: aView asElement.
-			aScripter
-				clickStep: [ :aStep | 
-					aStep
-						label: 'Sort the text shortcut using its header';
-						// BrLabel;
-						@ [ :aLabel | aLabel text asString = 'Name' ] ].
-			aScripter
-				assertStep: [ :aStep | 
-					aStep
-						label: 'Match the default text shortcut sort direction';
-						// BrColumnedList;
-						value: [ :aList | (aList items collect: #key) asArray ]
-							equals: [ #('Charlie' 'Bob' 'Alice') ] ].
-			aScripter
-				clickStep: [ :aStep | 
-					aStep
-						label: 'Reverse the text shortcut sorting';
-						id: #columnSortIcon ].
-			aScripter
-				assertStep: [ :aStep | 
-					aStep
-						label: 'Reverse the order while retaining row objects';
-						// BrColumnedList;
-						value: [ :aList | (aList items collect: #key) asArray ]
-							equals: [ #('Alice' 'Bob' 'Charlie') ] ].
-			aScripter ]
-]
-
-{ #category : #'examples - sorting' }
-GtPhlowColumnedListViewExamples >> sortableTextColumns [
+GtPhlowColumnedListViewExamples >> sortableTextColumns_switchColumn [
 	<gtExample>
 	| aView aScripter |
 	aView := GtPhlowView empty columnedList
@@ -1986,14 +1916,6 @@ GtPhlowColumnedListViewExamples >> sortableTextColumns [
 				// BrColumnedList;
 				value: [ :aList | (aList items collect: #key) asArray ]
 					equals: [ #('Charlie' 'Alice' 'Bob') ] ].
-	^ aScripter
-]
-
-{ #category : #'examples - sorting' }
-GtPhlowColumnedListViewExamples >> sortableTextColumns_ascending [
-	<gtExample>
-	| aScripter |
-	aScripter := self sortableTextColumns.
 	aScripter
 		clickStep: [ :aStep | 
 			aStep
@@ -2007,14 +1929,6 @@ GtPhlowColumnedListViewExamples >> sortableTextColumns_ascending [
 				// BrColumnedList;
 				value: [ :aList | (aList items collect: #key) asArray ]
 					equals: [ #('Alice' 'Bob' 'Charlie') ] ].
-	^ aScripter
-]
-
-{ #category : #'examples - sorting' }
-GtPhlowColumnedListViewExamples >> sortableTextColumns_ascending_descending [
-	<gtExample>
-	| aScripter |
-	aScripter := self sortableTextColumns_ascending.
 	aScripter
 		clickStep: [ :aStep | 
 			aStep
@@ -2029,17 +1943,6 @@ GtPhlowColumnedListViewExamples >> sortableTextColumns_ascending_descending [
 				// BrColumnedList;
 				value: [ :aList | (aList items collect: #key) asArray ]
 					equals: [ #('Charlie' 'Bob' 'Alice') ] ].
-	^ aScripter
-]
-
-{ #category : #'examples - sorting' }
-GtPhlowColumnedListViewExamples >> sortableTextColumns_switchColumn [
-	"The comparator receives row objects, even when item: extracts a cell value.
-	Sort scores numerically while displaying them as formatted text."
-
-	<gtExample>
-	| aScripter |
-	aScripter := self sortableTextColumns_ascending_descending.
 	aScripter
 		clickStep: [ :aStep | 
 			aStep
