@@ -439,7 +439,10 @@ GtPhlowColumnedTreeViewExamples >> sortableTextColumn [
 						'Delta' -> 4} ]
 				ifFalse: [ #() ] ];
 		expandAll.
-	aView column: 'Name' text: #key.
+	aView
+		column: 'Name'
+		item: #key
+		text: #yourself.
 	aScripter := BlScripter new
 			model: aView;
 			element: aView asElement.

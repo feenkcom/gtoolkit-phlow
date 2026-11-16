@@ -2032,13 +2032,13 @@ GtPhlowColumnedListViewExamples >> sortableTextColumns_switchColumn [
 				textDo: [ :aColumn | 
 					aColumn
 						item: #key;
-						sortBy: [ :a :b | a key <= b key ] ];
+						sortBy: [ :a :b | a <= b ] ];
 			column: 'Score'
 				textDo: [ :aColumn | 
 					aColumn
 						item: #value;
 						format: [ :aScore | aScore asString , ' points' ];
-						sortBy: [ :a :b | a value <= b value ] ].
+						sortBy: [ :a :b | a <= b ] ].
 	aScripter := BlScripter new
 			model: aView;
 			element: aView asElement.
@@ -2090,6 +2090,32 @@ GtPhlowColumnedListViewExamples >> sortableTextColumns_switchColumn [
 				value: [ :aList | (aList items collect: #key) asArray ]
 					equals: [ #('Bob' 'Charlie' 'Alice') ] ].
 	^ aScripter
+]
+
+{ #category : #'examples - sorting' }
+GtPhlowColumnedListViewExamples >> sortingUsesComputedItems [
+	<gtExample>
+	| rows phlowColumn column state ordered |
+	rows := {'first' -> 10.
+			'second' -> 2.
+			'third' -> 2}.
+	phlowColumn := GtPhlowTextColumn new
+			item: #value;
+			format: [ :aValue | self error: 'Sorting must not evaluate the formatter' ];
+			sortBy: [ :a :b | 
+				self assert: a isNumber.
+				self assert: b isNumber.
+				a <= b ].
+	column := BrColumn new.
+	phlowColumn configureColumn: column.
+	state := BrColumnUnsortedState new nextForColumn: column.
+	ordered := state orderedItems: rows.
+	self assert: ordered first == rows second.
+	self assert: ordered second == rows third.
+	self assert: ordered third == rows first.
+	rows first value: -10.
+	self assert: (state orderedItems: rows) equals: rows.
+	^ state
 ]
 
 { #category : #examples }

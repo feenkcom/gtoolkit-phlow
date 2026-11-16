@@ -79,9 +79,7 @@ TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aBlo
 			aColumn
 				item: anItemComputation;
 				format: aBlock;
-				sortBy: [ :a :b | 
-					(aBlock value: (anItemComputation value: a)) asString
-						> (aBlock value: (anItemComputation value: b)) asString ] ]
+				sortBy: [ :a :b | (aBlock value: a) asString > (aBlock value: b) asString ] ]
 ]
 
 { #category : #'api - scripting column' }
@@ -89,7 +87,7 @@ TGtPhlowColumnScripts >> column: aTitle number: aBlock [
 	self numberColumn
 		title: aTitle;
 		item: aBlock;
-		sortBy: [ :a :b | (aBlock value: a) > (aBlock value: b) ]
+		sortBy: [ :a :b | a > b ]
 ]
 
 { #category : #'api - scripting column' }
@@ -98,7 +96,7 @@ TGtPhlowColumnScripts >> column: aTitle number: aBlock format: aFormatBlock [
 		title: aTitle;
 		item: aBlock;
 		format: aFormatBlock;
-		sortBy: [ :a :b | (aBlock value: a) > (aBlock value: b) ]
+		sortBy: [ :a :b | a > b ]
 ]
 
 { #category : #'api - scripting column' }
@@ -138,8 +136,7 @@ TGtPhlowColumnScripts >> column: aTitleString text: aBlock spawn: aSpawnBlock [
 	aColumn := self column.
 	aColumn title: aTitleString.
 	aColumn text: aBlock spawn: aSpawnBlock.
-	aColumn
-		sortBy: [ :a :b | (aBlock value: a) asString > (aBlock value: b) asString ]
+	aColumn sortBy: [ :a :b | a asString > b asString ]
 ]
 
 { #category : #'api - scripting column' }
@@ -149,8 +146,7 @@ TGtPhlowColumnScripts >> column: aTitleString text: aBlock spawn: aSpawnBlock wi
 	aColumn title: aTitleString.
 	aColumn text: aBlock spawn: aSpawnBlock.
 	aColumn width: aNumber.
-	aColumn
-		sortBy: [ :a :b | (aBlock value: a) asString > (aBlock value: b) asString ]
+	aColumn sortBy: [ :a :b | a asString > b asString ]
 ]
 
 { #category : #'api - scripting column' }

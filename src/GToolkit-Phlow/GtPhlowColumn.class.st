@@ -87,7 +87,15 @@ GtPhlowColumn >> computeDecoratedDataBinder: aSourceDataBinder [
 { #category : #configuring }
 GtPhlowColumn >> configureColumn: aBrColumn [
 	self prepareForUpdateContent.
-	aBrColumn title: self title; cellWidth: self cellWidth; sortBy: sortBlock
+	aBrColumn
+		title: self title;
+		cellWidth: self cellWidth;
+		sortBy: (sortBlock
+				ifNotNil: [ :aComparator | 
+					[ :a :b | 
+					aComparator
+						value: (itemComputation phlowValue: a withEnoughArguments: #())
+						value: (itemComputation phlowValue: b withEnoughArguments: #()) ] ])
 ]
 
 { #category : #scripting }
