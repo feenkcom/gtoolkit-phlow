@@ -72,11 +72,16 @@ TGtPhlowColumnScripts >> column: aTitle iconNameDo: aBlock [
 ]
 
 { #category : #'api - scripting column' }
-TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aBlock [	
-	self column: aTitleString textDo: [ :aColumn |
-		aColumn
-			item: anItemComputation;
-			format: aBlock ]
+TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aBlock [
+	self
+		column: aTitleString
+		textDo: [ :aColumn | 
+			aColumn
+				item: anItemComputation;
+				format: aBlock;
+				sortBy: [ :a :b | 
+					(aBlock value: (anItemComputation value: a)) asString
+						> (aBlock value: (anItemComputation value: b)) asString ] ]
 ]
 
 { #category : #'api - scripting column' }
@@ -115,11 +120,14 @@ TGtPhlowColumnScripts >> column: aTitleString stencil: aFormatBlocOrSymbol width
 ]
 
 { #category : #'api - scripting column' }
-TGtPhlowColumnScripts >> column: aTitleString text: aBlock [	
-	self column: aTitleString textDo: [ :aColumn |
-		aColumn
-			item: GtPhlowIdentityFunction uniqueInstance;
-			format: aBlock ]
+TGtPhlowColumnScripts >> column: aTitleString text: aBlock [
+	self
+		column: aTitleString
+		textDo: [ :aColumn | 
+			aColumn
+				item: GtPhlowIdentityFunction uniqueInstance;
+				format: aBlock;
+				sortBy: [ :a :b | (aBlock value: a) asString > (aBlock value: b) asString ] ]
 ]
 
 { #category : #'api - scripting column' }
@@ -127,7 +135,9 @@ TGtPhlowColumnScripts >> column: aTitleString text: aBlock spawn: aSpawnBlock [
 	| aColumn |
 	aColumn := self column.
 	aColumn title: aTitleString.
-	aColumn text: aBlock spawn: aSpawnBlock
+	aColumn text: aBlock spawn: aSpawnBlock.
+	aColumn
+		sortBy: [ :a :b | (aBlock value: a) asString > (aBlock value: b) asString ]
 ]
 
 { #category : #'api - scripting column' }
@@ -137,24 +147,32 @@ TGtPhlowColumnScripts >> column: aTitleString text: aBlock spawn: aSpawnBlock wi
 	aColumn title: aTitleString.
 	aColumn text: aBlock spawn: aSpawnBlock.
 	aColumn width: aNumber.
+	aColumn
+		sortBy: [ :a :b | (aBlock value: a) asString > (aBlock value: b) asString ]
 ]
 
 { #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString text: aBlock weight: aNumber [
-	self column: aTitleString textDo: [ :aColumn |
-		aColumn
-			item: GtPhlowIdentityFunction uniqueInstance;
-			format: aBlock;
-			weight: aNumber ]
+	self
+		column: aTitleString
+		textDo: [ :aColumn | 
+			aColumn
+				item: GtPhlowIdentityFunction uniqueInstance;
+				format: aBlock;
+				weight: aNumber;
+				sortBy: [ :a :b | (aBlock value: a) asString > (aBlock value: b) asString ] ]
 ]
 
 { #category : #'api - scripting column' }
 TGtPhlowColumnScripts >> column: aTitleString text: aBlock width: aNumber [
-	self column: aTitleString textDo: [ :aColumn |
-		aColumn
-			item: GtPhlowIdentityFunction uniqueInstance;
-			format: aBlock;
-			width: aNumber ]
+	self
+		column: aTitleString
+		textDo: [ :aColumn | 
+			aColumn
+				item: GtPhlowIdentityFunction uniqueInstance;
+				format: aBlock;
+				width: aNumber;
+				sortBy: [ :a :b | (aBlock value: a) asString > (aBlock value: b) asString ] ]
 ]
 
 { #category : #'api - scripting column' }
