@@ -1878,6 +1878,77 @@ GtPhlowColumnedListViewExamples >> sortableColumnWithStream [
 ]
 
 { #category : #'examples - sorting' }
+GtPhlowColumnedListViewExamples >> sortableNumberColumnShortcuts [
+	<gtExample>
+	| aView aScripter |
+	aView := GtPhlowView empty columnedList
+			title: 'Sortable numbers';
+			items: [ {'ten' -> 10.
+					'two' -> 2.
+					'thirty' -> 30} ];
+			column: 'Number' number: #value;
+			column: 'Hex'
+				number: #value
+				format: [ :aNumber | aNumber printStringHex asRopedText bold ].
+	aScripter := BlScripter new
+			model: aView;
+			element: aView asElement.
+	aScripter
+		clickStep: [ :aStep | 
+			aStep
+				label: 'Sort the number column';
+				// BrLabel;
+				@ [ :aLabel | aLabel text asString = 'Number' ] ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Numbers are descending';
+				// BrColumnedList;
+				value: [ :aList | (aList items collect: #value) asArray ]
+					equals: [ #(30 10 2) ] ].
+	aScripter
+		clickStep: [ :aStep | 
+			aStep
+				label: 'Reverse the number column';
+				// BrLabel;
+				@ [ :aLabel | aLabel text asString = 'Number' ] ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Numbers are ascending';
+				// BrColumnedList;
+				value: [ :aList | (aList items collect: #value) asArray ]
+					equals: [ #(2 10 30) ] ].
+	aScripter
+		clickStep: [ :aStep | 
+			aStep
+				label: 'Switch sorting to the formatted number column';
+				// BrLabel;
+				@ [ :aLabel | aLabel text asString = 'Hex' ] ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Sort hexadecimal displays by their numeric values';
+				// BrColumnedList;
+				value: [ :aList | (aList items collect: #value) asArray ]
+					equals: [ #(30 10 2) ] ].
+	aScripter
+		clickStep: [ :aStep | 
+			aStep
+				label: 'Reverse the formatted number column';
+				// BrLabel;
+				@ [ :aLabel | aLabel text asString = 'Hex' ] ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Formatted numbers also reverse numerically';
+				// BrColumnedList;
+				value: [ :aList | (aList items collect: #value) asArray ]
+					equals: [ #(2 10 30) ] ].
+	^ aScripter
+]
+
+{ #category : #'examples - sorting' }
 GtPhlowColumnedListViewExamples >> sortableRopedTextColumns [
 	<gtExample>
 	| aFormat configurations |

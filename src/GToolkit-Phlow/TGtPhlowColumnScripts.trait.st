@@ -88,7 +88,8 @@ TGtPhlowColumnScripts >> column: aTitleString item: anItemComputation text: aBlo
 TGtPhlowColumnScripts >> column: aTitle number: aBlock [
 	self numberColumn
 		title: aTitle;
-		item: aBlock
+		item: aBlock;
+		sortBy: [ :a :b | (aBlock value: a) > (aBlock value: b) ]
 ]
 
 { #category : #'api - scripting column' }
@@ -96,7 +97,8 @@ TGtPhlowColumnScripts >> column: aTitle number: aBlock format: aFormatBlock [
 	self numberColumn
 		title: aTitle;
 		item: aBlock;
-		format: aFormatBlock
+		format: aFormatBlock;
+		sortBy: [ :a :b | (aBlock value: a) > (aBlock value: b) ]
 ]
 
 { #category : #'api - scripting column' }
