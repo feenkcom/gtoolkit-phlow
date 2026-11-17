@@ -1815,6 +1815,212 @@ GtPhlowColumnedListViewExamples >> sortableColumnHeader [
 	^ s
 ]
 
+{ #category : #'examples - sorting' }
+GtPhlowColumnedListViewExamples >> sortableColumnWithStream [
+	<gtExample>
+	| aView aScripter sortCalls |
+	sortCalls := 0.
+	aView := GtPhlowView empty columnedList
+			title: 'Unsorted stream';
+			items: [ #(10 2 30) asAsyncStream ];
+			column: 'Number'
+				textDo: [ :aColumn | 
+					aColumn
+						format: #yourself;
+						sortBy: [ :a :b | 
+							sortCalls := sortCalls + 1.
+							a <= b ] ].
+	aScripter := BlScripter new
+			model: aView;
+			element: aView asElement.
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Wait for the stream to finish loading';
+				// BrColumnedList;
+				satisfies: [ :aList | aList itemsProvider isDone ] ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'The stream provider disables sorting despite the sortable column';
+				// BrColumnedList;
+				satisfies: [ :aList | 
+					(aList itemsProvider isKindOf: BrStreamItemsProvider)
+						and: [ aList columns first isSortable and: [ aList canSortColumns not ] ] ] ].
+	aScripter
+		clickStep: [ :aStep | 
+			aStep
+				label: 'Click the sortable column header';
+				// BrLabel;
+				@ [ :aLabel | aLabel text asString = 'Number' ] ].
+	aScripter
+		doStep: [ :aStep | 
+			aStep
+				label: 'Also request sorting programmatically';
+				// BrColumnedList;
+				block: [ :aList | aList sortByColumn: aList columns first ] ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Keep the streamed items in their original order';
+				// BrColumnedList;
+				value: [ :aList | aList items asArray ] equals: [ #(10 2 30) ] ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Retain the stream provider and unsorted state';
+				// BrColumnedList;
+				satisfies: [ :aList | 
+					(aList itemsProvider isKindOf: BrStreamItemsProvider)
+						and: [ aList sortedColumn isNil ] ] ].
+	self assert: sortCalls equals: 0.
+	^ aScripter
+]
+
+{ #category : #'examples - sorting' }
+GtPhlowColumnedListViewExamples >> sortableRopedTextColumns [
+	<gtExample>
+	| aFormat configurations |
+	aFormat := [ :aName | aName reversed asRopedText bold ].
+	configurations := {[ :aView | aView column: 'Name' text: [ :aRow | aFormat value: aRow key ] ].
+			[ :aView | 
+			aView
+				column: 'Name'
+				text: [ :aRow | aFormat value: aRow key ]
+				weight: 1 ].
+			[ :aView | 
+			aView
+				column: 'Name'
+				text: [ :aRow | aFormat value: aRow key ]
+				width: 200 ].
+			[ :aView | 
+			aView
+				column: 'Name'
+				item: #key
+				text: aFormat ].
+			[ :aView | 
+			aView
+				column: 'Name'
+				text: [ :aRow | aFormat value: aRow key ]
+				spawn: #yourself ].
+			[ :aView | 
+			aView
+				column: 'Name'
+				text: [ :aRow | aFormat value: aRow key ]
+				spawn: #yourself
+				width: 200 ]}.
+	^ configurations
+		collect: [ :configure | 
+			| aView aScripter |
+			aView := GtPhlowView empty columnedList
+					items: [ {'ab' -> 1.
+							'ca' -> 2.
+							'bc' -> 3} ].
+			configure value: aView.
+			aScripter := BlScripter new
+					model: aView;
+					element: aView asElement.
+			aScripter
+				clickStep: [ :aStep | 
+					aStep
+						label: 'Sort formatted RopedText using the header';
+						// BrLabel;
+						@ [ :aLabel | aLabel text asString = 'Name' ] ].
+			aScripter
+				assertStep: [ :aStep | 
+					aStep
+						label: 'Compare formatted strings rather than row values';
+						// BrColumnedList;
+						value: [ :aList | (aList items collect: #key) asArray ]
+							equals: [ #('bc' 'ab' 'ca') ] ].
+			aScripter
+				clickStep: [ :aStep | 
+					aStep
+						label: 'Reverse sorting of formatted RopedText';
+						id: #columnSortIcon ].
+			aScripter
+				assertStep: [ :aStep | 
+					aStep
+						label: 'Reverse the formatted string order';
+						// BrColumnedList;
+						value: [ :aList | (aList items collect: #key) asArray ]
+							equals: [ #('ca' 'ab' 'bc') ] ].
+			aScripter ]
+]
+
+{ #category : #'examples - sorting' }
+GtPhlowColumnedListViewExamples >> sortableTextColumns_switchColumn [
+	<gtExample>
+	| aView aScripter |
+	aView := GtPhlowView empty columnedList
+			title: 'Sortable text columns';
+			items: [ {'Charlie' -> 20.
+					'Alice' -> 30.
+					'Bob' -> 10} ];
+			column: 'Name'
+				textDo: [ :aColumn | 
+					aColumn
+						item: #key;
+						sortBy: [ :a :b | a key <= b key ] ];
+			column: 'Score'
+				textDo: [ :aColumn | 
+					aColumn
+						item: #value;
+						format: [ :aScore | aScore asString , ' points' ];
+						sortBy: [ :a :b | a value <= b value ] ].
+	aScripter := BlScripter new
+			model: aView;
+			element: aView asElement.
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Keep input order before sorting';
+				// BrColumnedList;
+				value: [ :aList | (aList items collect: #key) asArray ]
+					equals: [ #('Charlie' 'Alice' 'Bob') ] ].
+	aScripter
+		clickStep: [ :aStep | 
+			aStep
+				label: 'Sort by name using the header label';
+				// BrLabel;
+				@ [ :aLabel | aLabel text asString = 'Name' ] ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Names are ascending';
+				// BrColumnedList;
+				value: [ :aList | (aList items collect: #key) asArray ]
+					equals: [ #('Alice' 'Bob' 'Charlie') ] ].
+	aScripter
+		clickStep: [ :aStep | 
+			aStep
+				label: 'Reverse name order using the sort icon';
+				// GtPhlowColumnedListHeaderId;
+				// #columnSortIcon;
+				@ 1 ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Names are descending';
+				// BrColumnedList;
+				value: [ :aList | (aList items collect: #key) asArray ]
+					equals: [ #('Charlie' 'Bob' 'Alice') ] ].
+	aScripter
+		clickStep: [ :aStep | 
+			aStep
+				label: 'Switch from name to score sorting';
+				// BrLabel;
+				@ [ :aLabel | aLabel text asString = 'Score' ] ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Scores start ascending when switching columns';
+				// BrColumnedList;
+				value: [ :aList | (aList items collect: #key) asArray ]
+					equals: [ #('Bob' 'Charlie' 'Alice') ] ].
+	^ aScripter
+]
+
 { #category : #examples }
 GtPhlowColumnedListViewExamples >> viewWithItems [
 	<gtExample>

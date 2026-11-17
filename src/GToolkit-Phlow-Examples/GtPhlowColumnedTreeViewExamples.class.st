@@ -424,6 +424,57 @@ GtPhlowColumnedTreeViewExamples >> sortableColumnHeader [
 	^ s
 ]
 
+{ #category : #'examples - sorting' }
+GtPhlowColumnedTreeViewExamples >> sortableTextColumn [
+	<gtExample>
+	| aView aScripter |
+	aView := GtPhlowView empty columnedTree
+			items: [ {'Charlie' -> 20.
+					'Alice' -> 30.
+					'Bob' -> 10} ].
+	aView
+		children: [ :anItem | 
+			anItem key = 'Charlie'
+				ifTrue: [ {'Bravo' -> 5.
+						'Delta' -> 4} ]
+				ifFalse: [ #() ] ];
+		expandAll.
+	aView column: 'Name' text: #key.
+	aScripter := BlScripter new
+			model: aView;
+			element: aView asElement.
+	aScripter
+		clickStep: [ :aStep | 
+			aStep
+				label: 'Sort the text shortcut using its header';
+				// BrLabel;
+				@ [ :aLabel | aLabel text asString = 'Name' ] ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Match the default text shortcut sort direction';
+				// BrColumnedTree;
+				value: [ :aList | 
+						((1 to: aList viewModel itemCount)
+							collect: [ :anIndex | (aList nodeAt: anIndex) value key ]) asArray ]
+					equals: [ #('Charlie' 'Delta' 'Bravo' 'Bob' 'Alice') ] ].
+	aScripter
+		clickStep: [ :aStep | 
+			aStep
+				label: 'Reverse the text shortcut sorting';
+				id: #columnSortIcon ].
+	aScripter
+		assertStep: [ :aStep | 
+			aStep
+				label: 'Reverse the order while retaining row objects and parents';
+				// BrColumnedTree;
+				value: [ :aList | 
+						((1 to: aList viewModel itemCount)
+							collect: [ :anIndex | (aList nodeAt: anIndex) value key ]) asArray ]
+					equals: [ #('Alice' 'Bob' 'Charlie' 'Bravo' 'Delta') ] ].
+	^ aScripter
+]
+
 { #category : #'examples - view' }
 GtPhlowColumnedTreeViewExamples >> viewWithTenItems [
 	"Return an initialized view with 10 (root) items"
