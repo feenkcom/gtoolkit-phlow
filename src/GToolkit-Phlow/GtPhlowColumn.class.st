@@ -9,7 +9,8 @@ Class {
 		'itemComputation',
 		'backgroundComputation',
 		'sortBlock',
-		'decorations'
+		'decorations',
+		'sortRowIndices'
 	],
 	#category : #'GToolkit-Phlow-Support'
 }
@@ -91,9 +92,9 @@ GtPhlowColumn >> configureColumn: aBrColumn [
 		title: self title;
 		cellWidth: self cellWidth;
 		sortBy: (sortBlock
-				ifNotNil: [ :aComparator | 
+				ifNotNil: [ :theSortBlock | 
 					[ :a :b :aRowIndex :anotherRowIndex | 
-					aComparator
+					theSortBlock
 						value: (itemComputation
 								phlowValue: a
 								withEnoughArguments: {aRowIndex.
