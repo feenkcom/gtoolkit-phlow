@@ -9,7 +9,8 @@ Class {
 		'itemComputation',
 		'backgroundComputation',
 		'sortBlock',
-		'decorations'
+		'decorations',
+		'sortRowIndices'
 	],
 	#category : #'GToolkit-Phlow-Support'
 }
@@ -87,7 +88,21 @@ GtPhlowColumn >> computeDecoratedDataBinder: aSourceDataBinder [
 { #category : #configuring }
 GtPhlowColumn >> configureColumn: aBrColumn [
 	self prepareForUpdateContent.
-	aBrColumn title: self title; cellWidth: self cellWidth; sortBy: sortBlock
+	aBrColumn
+		title: self title;
+		cellWidth: self cellWidth;
+		sortBy: (sortBlock
+				ifNotNil: [ :theSortBlock | 
+					[ :a :b :aRowIndex :anotherRowIndex | 
+					theSortBlock
+						value: (itemComputation
+								phlowValue: a
+								withEnoughArguments: {aRowIndex.
+										index})
+						value: (itemComputation
+								phlowValue: b
+								withEnoughArguments: {anotherRowIndex.
+										index}) ] ])
 ]
 
 { #category : #scripting }

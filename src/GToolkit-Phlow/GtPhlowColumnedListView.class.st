@@ -156,12 +156,11 @@ GtPhlowColumnedListView >> itemsProviderComputation [
 	^ itemsProviderComputation
 ]
 
-{ #category : #'private - accessing' }
+{ #category : #private }
 GtPhlowColumnedListView >> itemsProviderOnExceptionErrorElement: aBlock [
-	^ self 
+	^ self
 		performBlock: [ itemsProviderComputation value asBrItemsProvider ]
-		onExceptionErrorElement: [ :anElement |
-			aBlock value: anElement ].
+		onExceptionErrorElement: [ :anElement | aBlock value: anElement ]
 ]
 
 { #category : #accessing }

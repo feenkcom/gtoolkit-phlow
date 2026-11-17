@@ -107,17 +107,17 @@ GtPhlowColumnedTreeView >> elementClass [
 	^ BlElement
 ]
 
-{ #category : #'private - accessing' }
+{ #category : #private }
 GtPhlowColumnedTreeView >> errorCatchingChildrenBuilder [
 	^ [ :aParent | 
-			(aParent isKindOf: GtPhlowChildrenBuilderError)
-				ifTrue: [ Array empty ]
-				ifFalse: [ 
-					self
-						performBlock: [ self childrenBuilder value: aParent ] 
-						onException: [ :anException | 
-							anException freeze.
-							Array with: (GtPhlowChildrenBuilderError new 
+	(aParent isKindOf: GtPhlowChildrenBuilderError)
+		ifTrue: [ Array empty ]
+		ifFalse: [ self
+				performBlock: [ self childrenBuilder value: aParent ]
+				onException: [ :anException | 
+					anException freeze.
+					Array
+						with: (GtPhlowChildrenBuilderError new
 								exception: anException;
 								parent: aParent;
 								childrenBuilder: self childrenBuilder) ] ] ]
@@ -166,12 +166,11 @@ GtPhlowColumnedTreeView >> itemsBuilder [
 	^ itemsBuilder
 ]
 
-{ #category : #'private - accessing' }
+{ #category : #private }
 GtPhlowColumnedTreeView >> itemsOnExceptionErrorElement: aBlock [
-	^ self 
+	^ self
 		performBlock: [ self itemsBuilder value ]
-		onExceptionErrorElement: [ :anElement |
-			aBlock value: anElement ].
+		onExceptionErrorElement: [ :anElement | aBlock value: anElement ]
 ]
 
 { #category : #'private - accessing' }
