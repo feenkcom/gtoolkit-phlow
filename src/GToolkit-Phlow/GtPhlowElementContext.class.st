@@ -210,7 +210,7 @@ GtPhlowElementContext >> copyToClipboard: aString [
 { #category : #'api - convenience' }
 GtPhlowElementContext >> definingMethod [
 	<return: #RGMethodDefinition>
-	^ self entity ifNotNil: #definingMethod
+	^ self entity ifNotNil: [ :v | v definingMethod ]
 ]
 
 { #category : #'api - events' }
