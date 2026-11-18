@@ -36,7 +36,7 @@ GtPhlowTabName >> isEqualToString: aString [
 { #category : #testing }
 GtPhlowTabName >> matchesTab: aTabModel [
 	| currentTabTitle |
-	currentTabTitle := aTabModel widget phlow entity ifNotNil: #title.
+	currentTabTitle := aTabModel widget phlow entity ifNotNil: [ :v | v title ].
 	^ self isEqualToString: currentTabTitle asString
 ]
 

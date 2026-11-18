@@ -20,7 +20,7 @@ GtPhlowToolCompositeViewModel >> element [
 { #category : #'api - accessing' }
 GtPhlowToolCompositeViewModel >> object [
 	^ self element
-		ifNotNil: [ :anElement | anElement phlow toolViewModel ifNotNil: #object ]
+		ifNotNil: [ :anElement | anElement phlow toolViewModel ifNotNil: [ :v | v object ] ]
 ]
 
 { #category : #accessing }
@@ -37,11 +37,11 @@ GtPhlowToolCompositeViewModel >> tabGroup: aBrTabGroup [
 { #category : #'api - accessing' }
 GtPhlowToolCompositeViewModel >> type [
 	^ self element
-		ifNotNil: [ :anElement | anElement phlow toolViewModel ifNotNil: #type ]
+		ifNotNil: [ :anElement | anElement phlow toolViewModel ifNotNil: [ :v | v type ] ]
 ]
 
 { #category : #'api - accessing' }
 GtPhlowToolCompositeViewModel >> viewModel [
 	^ self element
-		ifNotNil: [ :anElement | anElement phlow toolViewModel ifNotNil: #viewModel ]
+		ifNotNil: [ :anElement | anElement phlow toolViewModel ifNotNil: [ :v | v viewModel ] ]
 ]

@@ -33,8 +33,7 @@ GtPhlowUpdateSingleViewElementOnDefiningMethodChange >> isUpdateOnMethodChanged 
 { #category : #subscriptions }
 GtPhlowUpdateSingleViewElementOnDefiningMethodChange >> uninstall [
 	super uninstall.
-	listeners ifNotNil: [ :aCollection | 
-		aCollection do: [ :each | 
-			each ifNotNil: #unsubscribeFromSystem ] ].
+	listeners
+		ifNotNil: [ :aCollection | aCollection do: [ :each | each ifNotNil: [ :v | v unsubscribeFromSystem ] ] ].
 	listeners := nil
 ]

@@ -21,5 +21,5 @@ GtPhlowToolDetailPositionChanged >> position: anObject [
 GtPhlowToolDetailPositionChanged >> printOn: aStream [
 	aStream
 		nextPutAll: 'Tool detail position changed: ';
-		print: (self position ifNotNil: #position)
+		print: (self position ifNotNil: [ :v | v position ])
 ]
