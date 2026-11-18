@@ -42,7 +42,7 @@ GtPhlowChangeSingleElementActionExecutor >> initialize [
 	elementFuture := BrAsyncElementFuture new
 			cancelSoft;
 			executionConfiguration: self defaultConfiguration;
-			whenSuccess: [ :anElement :anAction | anAction ifNotNil: #execute ]
+			whenSuccess: [ :anElement :anAction | anAction ifNotNil: [ :v | v execute ] ]
 ]
 
 { #category : #'api - execution' }
