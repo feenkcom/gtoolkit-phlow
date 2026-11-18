@@ -22,7 +22,9 @@ Class {
 		'buildContext',
 		'definingMethodProvider',
 		'futureExecutionConfiguration',
-		'properties'
+		'properties',
+		'tooltipBuilder',
+		'questions'
 	],
 	#category : #'GToolkit-Phlow-! Views'
 }
@@ -843,6 +845,22 @@ GtPhlowView >> propertyAt: propName put: propValue [
 	^ properties 
 		at: propName
 		put: propValue
+]
+
+{ #category : #accessing }
+GtPhlowView >> question: aQuestionOrString [
+	| aQuestion |
+	aQuestion := aQuestionOrString isString
+			ifTrue: [ GtPhlowViewStringQuestion string: aQuestionOrString ]
+			ifFalse: [ aQuestionOrString ].
+	self assert: (aQuestion isKindOf: GtPhlowViewQuestion).
+	(questions ifNil: [ questions := OrderedCollection new ]) add: aQuestion
+]
+
+{ #category : #accessing }
+GtPhlowView >> questions [
+	<return: #Array of: #GtPhlowViewQuestion>
+	^ questions ifNil: [ #() ] ifNotNil: [ :aCollection | aCollection asArray ]
 ]
 
 { #category : #'private - updating' }
