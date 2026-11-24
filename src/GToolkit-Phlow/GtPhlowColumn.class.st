@@ -46,11 +46,12 @@ GtPhlowColumn >> buildHeaderElement [
 { #category : #'private - building' }
 GtPhlowColumn >> buildHeaderElementFor: aText [
 	| aLabel |
-	aLabel := BrLabel new
+	aLabel := BrLabel new.
+	aLabel
 		aptitude: BrGlamorousLabelAptitude;
 		alignCenterLeft;
 		padding: self newCellPaddingInsets;
-		text: (aText asRopedText foreground: BrGlamorousColors defaultButtonTextColor).
+		text: (aText asRopedText foreground: aLabel theme label metadataTextForeground).
 	^ aLabel
 ]
 
