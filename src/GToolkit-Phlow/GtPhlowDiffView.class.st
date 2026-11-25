@@ -5,7 +5,8 @@ Class {
 		'from',
 		'to',
 		'splitters',
-		'styler',
+		'leftStyler',
+		'rightStyler',
 		'fromLabel',
 		'toLabel'
 	],
@@ -18,21 +19,21 @@ GtPhlowDiffView >> asElementDo: aBlock [
 	self
 		assert: [ from notNil ]
 		description: [ 'from string needs to be initialized' ].
-
 	self assert: [ to notNil ] description: [ 'to string needs to be initialized' ].
-
 	anElement := self
-			performBlock: [ GtMultiSplitterDiffElement new matchParent
-					from: from value;
-					to: to value;
-					styler: styler value;
+			performBlock: [ | aFromSource aToSource |
+				aFromSource := from value.
+				aToSource := to value.
+				GtMultiSplitterDiffElement new matchParent
+					from: aFromSource;
+					to: aToSource;
+					leftStyler: (self leftStyler gtValueWithArgs: {aFromSource});
+					rightStyler: (self rightStyler gtValueWithArgs: {aToSource});
 					fromLabel: fromLabel value;
 					toLabel: toLabel value;
 					splitters: splitters value ]
 			onExceptionErrorElement: [ :anErrorElement | ^ aBlock value: anErrorElement ].
-
 	self beViewElement: anElement.
-
 	^ aBlock value: anElement
 ]
 
@@ -70,10 +71,34 @@ GtPhlowDiffView >> fromLabel: anObject [
 GtPhlowDiffView >> initialize [
 	super initialize.
 
-	styler := self defaultStyler.
+	self styler: self defaultStyler.
 	splitters := [ {self defaultSplitter} ].
 	fromLabel := ''.
 	toLabel := ''
+]
+
+{ #category : #accessing }
+GtPhlowDiffView >> leftStyler [
+	^ leftStyler
+]
+
+{ #category : #accessing }
+GtPhlowDiffView >> leftStyler: aStyler [
+	"Accept a styler, a zero-argument factory, or a block receiving this pane's source."
+
+	leftStyler := aStyler
+]
+
+{ #category : #accessing }
+GtPhlowDiffView >> rightStyler [
+	^ rightStyler
+]
+
+{ #category : #accessing }
+GtPhlowDiffView >> rightStyler: aStyler [
+	"Accept a styler, a zero-argument factory, or a block receiving this pane's source."
+
+	rightStyler := aStyler
 ]
 
 { #category : #accessing }
@@ -89,12 +114,14 @@ GtPhlowDiffView >> splitters: anObject [
 
 { #category : #accessing }
 GtPhlowDiffView >> styler [
-	^ styler
+	^ self leftStyler
 ]
 
 { #category : #accessing }
-GtPhlowDiffView >> styler: anObject [
-	styler := anObject
+GtPhlowDiffView >> styler: aStyler [
+	self
+		leftStyler: aStyler;
+		rightStyler: aStyler
 ]
 
 { #category : #accessing }
