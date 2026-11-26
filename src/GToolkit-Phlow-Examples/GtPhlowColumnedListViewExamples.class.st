@@ -2152,6 +2152,46 @@ GtPhlowColumnedListViewExamples >> sortingUsesComputedItemsWithIndices [
 ]
 
 { #category : #examples }
+GtPhlowColumnedListViewExamples >> textColumnKeepsExplicitForeground [
+	<gtExample>
+	<return: #BrLabel>
+	| aColumn aCell aTheme aText aGlyph aColor aForeground |
+	aTheme := BrGlamorousDarkTheme new.
+	aColumn := GtPhlowTextColumn new.
+	aCell := aColumn createCellElement theme: aTheme.
+	aColor := BrAntColors cyan3.
+	aText := 'plain ' asRopedText , ('colored' asRopedText foreground: aColor).
+	aColumn
+		bindToCellElement: aCell
+		cellObject: aText
+		atPosition: 1.
+	aGlyph := aCell childNamed: #label.
+	self assert: aGlyph text == aText.
+	self
+		assert: ((aText attributesAt: 1)
+				noneSatisfy: [ :anAttribute | anAttribute isKindOf: BlTextForegroundAttribute ]).
+	self
+		assert: (aGlyph defaultTextForeground blocResolveColorForTheme: aTheme)
+		equals: (aTheme label defaultTextForeground blocResolveColorForTheme: aTheme).
+	aForeground := (aText attributesAt: 7)
+			detect: [ :anAttribute | anAttribute isKindOf: BlTextForegroundAttribute ].
+	self assert: aForeground paint equals: aColor.
+	aCell background: aTheme default contentBackground.
+	BlScripter new
+		element: aCell;
+		checkStep: [ :aStep | 
+			aStep
+				label: 'Check the measured label foreground';
+				/ #label;
+				value: [ :aLabel | 
+						{aLabel paragraph class.
+							aLabel paragraph defaultTextForeground} ]
+					equals: {BlSingleLineTextParagraph.
+							aGlyph defaultTextForeground} ].
+	^ aCell
+]
+
+{ #category : #examples }
 GtPhlowColumnedListViewExamples >> viewWithItems [
 	<gtExample>
 	| view element |
