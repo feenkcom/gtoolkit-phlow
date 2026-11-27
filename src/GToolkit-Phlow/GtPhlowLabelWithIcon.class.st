@@ -37,10 +37,15 @@ GtPhlowLabelWithIcon >> initialize [
 
 { #category : #initialization }
 GtPhlowLabelWithIcon >> initializeWithIcon: anIcon label: aString [
+	| anIconElement |
 	nameLabel text: aString.
 	iconContainer removeChildren.
-	anIcon isNil ifFalse: [
-		iconContainer addChild: anIcon asElement]
+	anIcon ifNil: [ ^ self ].
+	anIconElement := anIcon asElement.
+	BrIconAptitude
+		replaceBlackPaintIn: anIconElement
+		with: self theme label defaultTextForeground.
+	iconContainer addChild: anIconElement
 ]
 
 { #category : #accessing }
